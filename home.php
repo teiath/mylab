@@ -1,6 +1,5 @@
 <?php
     header("Content-Type: text/html; charset=utf-8");
-    //include "/api/system/config.php";
     require_once('server/system/config.php');
 ?>
 
