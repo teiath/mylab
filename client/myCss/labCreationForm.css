@@ -1,0 +1,169 @@
+/* 
+    Document   : labCreationForm
+    Created on : 9 Νοε 2013, 5:08:54 μμ
+    Author     : user
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.k-edit-form-container {
+     width: auto;  /*the width of the editor window will be determined by the content's size.*/
+     /*padding: 30px;*/
+}
+
+
+.custom-label{
+    font-weight: bold;
+}
+
+
+
+.k-edit-form-container .widget .k-combobox, .k-autocomplete{
+    width: auto;
+    display: block;
+}
+
+.k-edit-form-container>.form-group>textarea{
+    /*padding:10px;*/
+}
+
+/*διαμορφωση τίτλου του window σε background color*/
+.k-window-titlebar{
+    background-image:none;
+    background-color: #FFFFFF;
+}
+
+/*αφορά τον firefox και το default css που δίνει σε υποχρεωτικα πεδία*/
+input:required {
+    box-shadow:none;
+}
+input:invalid {
+    box-shadow:none;
+}
+
+/*τα labels των πεδίων θα ειναι aligned στα δεξιά*/
+.k-edit-form-container label{
+    text-align: right;
+}
+
+/*.k-window > div.k-popup-edit-form {
+    padding: 2em 0;
+}*/
+
+.k-tooltip-closable{
+    background-color: #428BCA !important;
+    border-color: #428BCA !important; 
+    
+}
+
+.k-callout-e {
+    border-left-color: #428BCA !important;
+}
+
+
+#lab_responsible_info_name_label{
+    text-align: right;
+}
+
+#lab_responsible_info_email_label{
+    text-align: right;
+}
+
+#lab_responsible_info_specialization_label{
+    text-align: right;
+}
+
+.disabledInputColor{
+    background-color: #E7E7E7;
+}
+
+button[disabled], html input[disabled] {
+    cursor: not-allowed !important;
+}
+           
+.template_fullname, .template_school_name{
+/*    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;*/
+    display: block;
+    font-weight: bold;
+    text-align: center;
+/*    display: inline-block;
+    border-style: solid;
+    border-width: 0;
+    padding: .3em .6em;*/
+
+}
+
+.template_details {
+    margin-left: 7.6em;
+}
+
+.template_details2 {
+    text-align: center;
+}
+
+.template_details span.template_data{
+    font-size: 14px;
+}
+
+.labWorkersTemplate{
+    padding:0.3em
+}
+
+
+.t1, .t2{
+    display: inline-block;
+}
+
+/*.k-window-titlebar span{
+    font-size: x-large;
+    height: 2em;
+}*/
+
+
+/*.k-widget.k-window {
+    top: 80px !important;
+}*/
+
+
+/*.k-dropdown, .k-autocomplete, .k-multiselect, .k-combobox{
+  width: 16.4em;   
+}*/
+
+
+/*.k-edit-form-container #lab_responsible_name{
+    text-align: left;
+    color: #69AF74;
+}*/
+
+/*.k-window .k-combobox *, *:before, *:after{
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+}*/
+
+/*.k-edit-form-container label{
+    display: block; label και input το ένα κάτω απ'το άλλο
+}*/
+
+/* > : add css only to the direct children*/
+/*.k-edit-form-container>.form-group>span{
+    width:100%;
+}
+
+.k-edit-form-container>.form-group>input{
+    width:100%;
+}
+
+.k-edit-form-container>.form-group>textarea{
+    width:100%;
+    padding:10px;
+}*/
+
+/*.k-edit-form-container>.form-group>.k-tooltip{
+    display:inline;
+}*/
+
+/*.k-edit-form-container>.k-widget{
+    margin-bottom: 10px;
+}*/

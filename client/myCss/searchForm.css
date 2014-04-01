@@ -1,0 +1,57 @@
+/* 
+    Document   : searchForm
+    Created on : 9 Νοε 2013, 4:20:14 μμ
+    Author     : Chrysanthi Alexiou
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+#search-pane{
+    /*background-color: #ABADAB;*/
+    /*padding: 40px;*/
+    left: 0;
+    position: relative;
+    top: 59px; /*51px;*/
+    width: 100%;
+    z-index: 5;
+}
+
+#search-form{
+    padding: 20px;
+    position: relative;
+}
+
+#search-form-filters, #search-form-button{
+    padding:10px;    
+}
+
+.search-form-titles {
+    border-right: thick solid #D9534F;
+}
+
+.search-form-titles h5{
+    text-align: right;
+}
+
+input[type="checkbox"] {
+    margin: 4px 6px 0;
+    vertical-align: top;
+}
+
+.checkbox_label{
+    /*margin-top: 20px;*/
+    display:block;
+}
+
+#search-btn{
+
+}
+
+#clear-btn{
+    float: right;
+}
+
+.school_unit_operational_state, .lab_operational_state{
+    margin-top:5px;
+}

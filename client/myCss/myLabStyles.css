@@ -1,0 +1,99 @@
+/* 
+    Document   : myLabStyles
+    Created on : 9 Νοε 2013, 4:20:14 μμ
+    Author     : Chrysanthi Alexiou
+    Description:
+        Purpose of the stylesheet follows.
+*/
+            
+body {
+  position: relative; 
+  font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+  font-size: 13px;
+  /*padding-top: 70px;*/
+  /*margin-top:70px;*/
+  padding-bottom: 40px;
+  /*background-color: #000000;*/
+}
+
+#general-container{
+    /*padding-top: 120px;*/
+    position: relative;
+    z-index: 0;
+}
+
+#views-bar{
+    padding-top: 100px;
+    position: relative;    
+}
+
+#views-bar-buttons{
+    float:right;
+}
+
+a:hover, a:visited, a:link, a:active{
+    text-decoration: none;
+}
+
+.scrollup{
+    width:40px;
+    height:40px;
+    opacity:0.3;
+    position:fixed;
+    bottom:50px;
+    right: 57px;
+    display:none;
+    text-indent:-9999px;
+    background: url('../img/icon_top.png') no-repeat;
+}
+
+#school-units-grid th{
+    font-weight:bold;
+}
+
+#view0 th{
+    font-weight:bold;
+}
+
+.lab-details-row{
+    height: 100%;
+}
+
+
+/* about the kendo grid widget*/
+
+.k-grid td{
+    padding: 0.1em 0.1em 0.1em 0.7em;
+}
+
+.k-grid-header th{
+    padding: 0.1em 0.1em 0.1em 0.7em;
+}
+
+.k-detail-cell{
+    background-color: #E7E7E7; /*gri-ble*/
+}
+
+tr .k-detail-cell {
+    padding: 0.1em 0.1em 0.1em 0.1em;
+}
+
+
+
+
+.k-dropdown{
+ width: 16.4em;   
+}
+
+footer {
+margin: 100px auto 0px auto;
+width: 600px;
+}
+
+.navigationBtnGroup{
+    margin:9px 0px 0px 10px;
+}
+
+label{
+    margin: 5px 0px 0px 0px;
+}

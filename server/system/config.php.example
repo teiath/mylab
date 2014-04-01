@@ -1,0 +1,51 @@
+<?php
+
+
+//php configuration
+set_time_limit(0);
+error_reporting(E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_WARNING); //^ E_DEPRECATED ^ E_NOTICE ^ E_WARNING
+ini_set('default_socket_timeout', 6000);
+ini_set('display_errors','On');
+ini_set('memory_limit','1024M');
+ini_set('output_buffering','on');
+ini_set('zlib.output_compression', 0);
+
+//pdo connection settings
+$conOptions = array(
+    "Host"=>"",
+    "Port"=>4040,
+    "Database"=>"", 
+    "Username"=>"", 
+    "Password"=>""
+);
+
+//credecial and general web options
+$Options = array(
+    "PageSize" => 50,
+    "MaxPageSize"=>500,
+    "AllPageSize"=>0,
+    "SortMode"=>0, //set 0 for ASC or set 1 for DESC
+    "SortField"=>'LabsExt::FIELD_LAB_ID', 
+    "ServerURL" => "http://172.16.16.123/mylab_ver4/api/",
+    "ServerUserName" => "",
+    "ServerPassWord" => "",
+    "SyncFolder"=>"http://172.16.16.123/mylab_ver4/sync_logs/"
+);
+
+
+
+try {
+    $db = new PDO( sprintf("mysql:host=%s:%s;dbname=%s", $conOptions["Host"], $conOptions["Port"], $conOptions["Database"]),
+                            $conOptions["Username"], $conOptions["Password"]
+           );
+
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $db->query("SET NAMES UTF8");
+
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+    exit;
+}
+
+?>

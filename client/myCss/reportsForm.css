@@ -1,0 +1,58 @@
+/* 
+    Document   : searchForm
+    Created on : 9 Νοε 2013, 4:20:14 μμ
+    Author     : Chrysanthi Alexiou
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+#rootwizard{
+    padding: 40px 300px;
+}
+
+#reports-pane{
+    left: 0;
+    position: relative;
+    top: 51px;
+    width: 100%;
+    z-index: 5;    
+}
+
+.reports_wizard_headers{
+    /*text-align: center;*/
+    color:#428BCA;
+    padding-bottom: 5px;
+    border-bottom: medium dotted #B3B3B3;
+}
+
+#tab1_content, #tab2_content, #tab3_content{
+    padding:30px;
+}
+
+.reports_wizard_labels{
+    display:block;
+}
+
+.reports_wizard_instructions{
+    font-family: verdana;
+    color:darkgray;
+    padding:20px;
+}
+
+.reports_wizard_selections{
+   padding:20px; 
+}
+
+.reports_wizard_instructions_text{
+    margin-left: 3px;
+}
+
+.reports_wizard_selection{
+   display:inline-block;
+   margin:0px 5px;
+}
+
+#origin, #drop{
+    float:left;
+}

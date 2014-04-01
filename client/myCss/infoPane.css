@@ -1,0 +1,122 @@
+/* 
+    Document   : infoPane
+    Created on : 9 Νοε 2013, 4:27:36 μμ
+    Author     : user
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* search error pane */
+#search-error-pane{
+    background-color: #E25941;
+    left: 0;
+    /*color: #FFFFFF;*/
+    position: relative;
+    top: 51px;
+    width: 100%;
+    z-index: 5;
+    height: 40px;
+    text-align: center;
+    font-weight: bold;
+    padding:10px;
+}
+
+
+/* search path pane */
+
+#search-path-pane{
+    left: 0;
+    /*color: #FFFFFF;*/
+    position: relative;
+    top: 48px;
+    width: 100%;
+    z-index: 5;
+    padding: 6px;
+    margin: 5px;
+    /*background-color: #E7E7E7;*/
+    
+ 
+}
+
+/*#search-path{
+    padding: 5px;
+    margin: 10px  
+}*/
+
+/*#search-path-pane div{
+    display:table-cell;
+    padding: 3px;
+    margin-right:5px;
+
+}*/
+
+.glyphicon-tags{
+    margin-left: 6px; 
+}
+
+.search-path-pane-tag{
+    margin:0px 6px;
+    font-weight: bold;
+    color: #333333;
+}
+
+#info-pane{
+    /*background-color: #3276B1;*/
+    left: 0;
+    /*color: #FFFFFF;*/
+    position: relative;
+    top: 48px;
+    width: 100%;
+    z-index: 5;
+    
+}
+
+#info-pane h5{
+    /*text-align: right;*/
+    font-weight: bold;
+}
+
+.info-pane-row{
+    padding: 2px;
+    margin: 3px;
+}
+
+.info-pane-ul{
+    list-style-type:none;
+    padding:0px;
+    margin:10px 0px;
+    text-align: left;   
+}
+
+.info-pane-ul li{
+    /*display: inline;*/ 
+    font-weight: bold;
+    /*margin: 0.6em 0.2em;*/
+    padding: 0.2em 1em;
+    display: inline;
+}
+
+.badge{
+    text-shadow: none;
+    margin-right: 8px;
+}
+
+#sepehy-count .badge{
+    background-color: #D9534F; 
+}
+
+#troxilato-count .badge{
+    background-color: #F0AD4E;
+}
+
+#tomea-count .badge{
+    background-color: #5BC0DE;
+}
+
+#gwnia-count .badge{
+    background-color: #5CB85C;    
+}
+
+#diadrastiko-count .badge{
+    background-color: #428BCA;
+}
