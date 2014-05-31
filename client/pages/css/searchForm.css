@@ -1,0 +1,40 @@
+/* 
+    Document   : searchForm
+    Created on : 9 Νοε 2013, 4:20:14 μμ
+    Author     : Chrysanthi Alexiou
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#search-form .k-textbox{
+  width: 15.4em;
+}
+
+#search-container{
+    margin:20px 0;
+}
+
+/*#search-pane{
+    padding: 40px;
+    left: 0;
+    position: relative;
+    width: 100%;
+    z-index: 5;
+    margin: 20px 0px;
+}*/
+
+#search-form{
+    padding: 20px;
+}
+
+#search-form-filters, #search-form-button{
+    padding:10px;    
+}
+
+.search-form-titles {
+    border-right: thick solid #8EBC00;
+}
+
+.search-form-titles h5{
+    text-align: right;
+}

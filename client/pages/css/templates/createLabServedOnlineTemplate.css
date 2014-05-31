@@ -1,0 +1,14 @@
+.template_school_name{
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.template_details2 {
+    text-align: center;
+}
+
+span.template_data{
+    font-size: 14px;
+}

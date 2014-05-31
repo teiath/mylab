@@ -1,0 +1,47 @@
+<script type="text/x-kendo-template" id="school_unit_contact_details">
+    <div id="details-container">
+        <h4 style="text-align: center"> #= name # </h4>
+        
+        #if(special_name !== null){#
+            <h6 style="text-align: center"> #= special_name # </h6>
+        #}#
+        
+        <dl style="margin: 20px">
+            
+            #if(phone_number !== null){#
+                <dt style="margin: 5px 0;"> <i class="fa fa-phone"></i> Τηλέφωνο: #: phone_number #  </dt>
+            #}else{#
+                <dt style="margin: 5px 0;"> <i class="fa fa-phone"></i> Τηλέφωνο: </dt>
+            #}#
+
+            #if(fax_number !== null){#
+                <dt style="margin: 5px 0;"> <i class="fa fa-fax"></i> Fax: #: fax_number #  </dt>
+            #}else{#
+                <dt style="margin: 5px 0;"> <i class="fa fa-fax"></i> Fax: </dt>
+            #}#
+
+            #if(email !== null){#
+                <dt style="margin: 5px 0;"> <i class="fa fa-envelope"></i> E-mail: #: email #  </dt>
+            #}else{#
+                <dt style="margin: 5px 0;"> <i class="fa fa-envelope"></i> E-mail: </dt>
+            #}#
+
+            
+            #if(street_address !== null && postal_code !== null){#
+                <dt style="margin: 5px 0;"> <i class="fa fa-home"></i> Ταχυδρομική Διεύθυνση: #= street_address + ", TK: " + postal_code #  </dt>
+            #}else if (street_address !== null && postal_code === null) {#
+                <dt style="margin: 5px 0;"> <i class="fa fa-home"></i> Ταχυδρομική Διεύθυνση: #= street_address # </dt>
+            #}else{#
+                <dt style="margin: 5px 0;"> <i class="fa fa-home"></i> Ταχυδρομική Διεύθυνση: </dt>
+            #}#
+
+            
+            #if(school_unit_worker !== null){#
+                <dt style="margin: 5px 0;"> <i class="fa fa-user"></i> Διευθυντής:  #= school_unit_worker[0].firstname + " " + school_unit_worker[0].lastname #  </dt>
+            #}else{#
+                <dt style="margin: 5px 0;"> <i class="fa fa-user"></i> Διευθυντής: </dt>
+            #}#             
+            
+        </dl>
+    </div>
+</script>

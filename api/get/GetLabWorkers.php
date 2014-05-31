@@ -248,7 +248,8 @@ function GetLabWorkers($lab, $worker_id, $worker_position, $worker_status, $page
                     //$oWorker = $oWorkers->findById($db,$row->getWorkerId()); -->>if used this , you have many many queries!!!!!!
                     
                     //$data["worker_details"][] = array( "worker_id" => $oWorker->getWorkerId(),
-                    $data_workers = array( "workers.worker_id" => $oWorker->getWorkerId(),
+                    $data_workers = array( 
+                        "workers_worker_id" => $oWorker->getWorkerId(),
                                                 "registry_no" => $oWorker->getRegistryNo(),
                                                 "tax_number" => $oWorker->getTaxNumber(),
                                                 "firstname" => $oWorker->getFirstname(),

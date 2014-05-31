@@ -1,0 +1,83 @@
+<!-- lab details external template -->
+
+<script id="lab_details_template" type="text/x-kendo-template">
+
+<div id='lab_details_tabstrip'>
+    <ul id='lab_details_tabstrip_headers'>
+        <li id='equipment_tabstrip_header' class='k-state-active'><i class="fa fa-desktop"></i> Εξοπλισμός</li>
+        <li id='aquisition_sources_tabstrip_header'><i class="fa fa-eur"></i> Πηγές Χρηματοδότησης</li>
+        <li id='lab_workers_tabstrip_header'><i class="fa fa-user"></i> Υπεύθυνοι</li>
+        <li id='lab_relations_tabstrip_header'><i class="fa fa-link"></i> Συσχετίσεις</li>
+        <li id='lab_transitions_tabstrip_header'><i class="fa fa-random"></i> Μεταβάσεις</li>
+        <li id='lab_general_info_tabstrip_header'><i class="fa fa-info"></i> Γενικές Πληροφορίες</li>
+        <li id='lab_rating_tabstrip_header'><i class="fa fa-star"></i> Βαθμολογία</li>        
+    </ul>
+    <div>
+        <div id='equipment_details'></div>
+    </div>
+    <div>
+        <div id='aquisition_sources_details'></div>       
+    </div>
+    <div>
+        <div id='lab_workers_details' style="margin-bottom:30px"></div>
+        <div id='lab_workers_logs'></div>
+    </div>
+    <div>
+        <div id='lab_relations_details'></div>
+    </div>
+    <div>
+        <div id='lab_transitions_details'></div>
+    </div>
+    <div>
+        <div id='lab_general_info_details'>
+        
+            <div class='employee-details'>
+                        
+                <ul style="list-style: none;">
+                    <li>
+                        <i class="fa fa-tag"></i>
+                        <label>Ειδική Ονομασία </label>
+                        <span data-bind="text: special_name" />
+                        <input class="k-textbox" type="text" data-bind="value: special_name" />
+                        <button id="special_name_edit" data-role="button" class="k-button k-button-icontext k-edit" data-bind="events: { click: LabsViewVM.editSpecialName }">
+                            Επεξεργασία
+                        </button>
+                    </li>
+                    <li>
+                        <i class="fa fa-map-marker"></i>
+                        <label>Τοποθεσία </label>
+                        <span data-bind="text: positioning" />
+                        <textarea class="k-textbox" data-bind="value: positioning"></textarea>
+                        <button data-role="button" class="k-button k-button-icontext k-edit" data-bind="events: { click: editPositioning }">
+                            Επεξεργασία
+                        </button>                        
+                    </li>
+                    <li>
+                        <i class="fa fa-calendar"></i>
+                        <label>Ημερομηνία Δημιουργίας </label>
+                        <span data-bind="text: creation_date" />
+                    </li>
+                </ul>
+            </div>
+        
+        </div>
+    </div>
+    <div>
+        <div id='lab_rating_details'>
+        
+            <li><i class="fa fa-star"></i><label> Λειτουργική Βαθμολογία:</label>#= operational_rating #</li>
+            <li><i class="fa fa-lightbulb-o"></i><label> Τεχνολογική Βαθμολογία:</label>#= technological_rating #</li>
+        
+        </div>
+    </div>
+</div>
+
+</script>
+
+<!--
+                <div>
+                    <span>Ειδική Ονομασία #=special_name#:</span>
+                    <span data-bind="text: special_name" />
+                    <input data-bind="value: special_name" />
+                </div>
+-->

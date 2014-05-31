@@ -1,0 +1,14 @@
+.results_info{
+    float:right;
+}
+
+.lab_types_count{
+    float:right;
+}
+
+.labs_count_label{
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-right: 15px;
+    border-right: thick solid #8EBC00;
+}

@@ -1,0 +1,40 @@
+/* 
+    Document   : all
+    Created on : 16 Απρ 2014, 3:40:22 μμ
+    Author     : user
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+table, td, k-toolbar, k-pager-wrap
+{
+    font-family: Calibri,Candara,Segoe,"Segoe UI",Optima,Arial,sans-serif;
+    font-size: 13px;
+}
+
+#lab_relations_details .k-grid-edit{
+    display: none;
+}
+
+#lab_workers_details .k-grid-edit{
+    display: none;
+}
+
+:root * > .k-icon, *:root * > .k-sprite, *:root * > .k-button-group .k-tool-icon {
+    margin-top: 5px;
+}
+
+.k-button .k-icon, .k-hierarchy-cell .k-icon {
+    margin-top: 0;
+}
+
+.k-grid tbody > tr:not(.k-detail-row) > td{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.k-grid table {
+    table-layout: fixed;
+}
