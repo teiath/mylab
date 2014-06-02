@@ -1,0 +1,13 @@
+server/system/config.php
+.buildpath
+.settings
+.project
+
+#netbeans default :
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
