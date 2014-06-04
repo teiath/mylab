@@ -115,7 +115,7 @@ function newLabsDS(school_unit_id){
             }//,
             //errors: "message" !!!Πρέπει να υπάρχει στον server παράμετρος ΑΠΟΚΛΕΙΣΤΙΚΑ για errors που να μην επιστρέφεται σε άλλη περίπτωση
         },
-        pageSize: 20, //κάθε φορά που ο χρήστης επιλέγει άλλο pagesize από το Grid, γίνεται request στον server με παράμετρο την 1η σελίδα (page=1) και το επιλεχθέν pagesize
+        pageSize: 5, //κάθε φορά που ο χρήστης επιλέγει άλλο pagesize από το Grid, γίνεται request στον server με παράμετρο την 1η σελίδα (page=1) και το επιλεχθέν pagesize
         serverPaging: true, //κάθε φορά που ο χρήστης επιλέγει άλλη σελίδα, γίνεται request στον server με παράμετρο τη συγκεκριμένη σελίδα (page) και το pagesize
         serverFiltering: true,
         serverSorting: true,
@@ -161,7 +161,7 @@ function newLabsDS(school_unit_id){
              *  e.items Array                     The array of data items that were affected (or read).
              */
     
-            //console.log("labs datasource change e:", e);
+            console.log("labs datasource change e:", e);
             //console.log("einai to 1o lab new?:", e.items[0].isNew());
             //console.log("einai to 1o lab dirty?:", e.items[0].dirty);
         },
