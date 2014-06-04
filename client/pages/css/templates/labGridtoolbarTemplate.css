@@ -1,5 +1,10 @@
 .results_info{
     float:right;
+    margin-right: 65px;
+}
+
+.toolbar_filter{
+    float:right;
 }
 
 .lab_types_count{

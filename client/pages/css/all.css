@@ -13,6 +13,8 @@ table, td, k-toolbar, k-pager-wrap
     font-size: 13px;
 }
 
+
+/*απόκρυψη edit buttons στα details ενος lab όπου χρειάζεται */
 #lab_relations_details .k-grid-edit{
     display: none;
 }
@@ -21,6 +23,8 @@ table, td, k-toolbar, k-pager-wrap
     display: none;
 }
 
+
+/*διαμόρφωση των δεδομένων μέσα στις στήλες του grid - τελίτσες αντι για text overflow*/
 :root * > .k-icon, *:root * > .k-sprite, *:root * > .k-button-group .k-tool-icon {
     margin-top: 5px;
 }
@@ -34,7 +38,21 @@ table, td, k-toolbar, k-pager-wrap
     text-overflow: ellipsis;
 }
 
-
 .k-grid table {
     table-layout: fixed;
+}
+
+
+/*διαμόρφωση του panelbar της αναζήτησης*/
+#search-form #panelbar{ /*k-widget*/
+    border-style: none;
+}
+
+#search-form #panelbar > .k-item > .k-link{  /*k-panelbar*/
+    border-bottom-style: none;
+}
+
+/*min width για button, αφορά το info button στο school units grid*/
+.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button {
+    min-width: 21px;
 }

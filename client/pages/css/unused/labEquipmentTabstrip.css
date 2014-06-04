@@ -11,25 +11,25 @@
     /*background-color: #3CA86D; green*/
 }
 
-#tabstrip, #aquisition_sources_grid, #lab_worker_grid, #lab_relations_grid, #lab_transitions_grid /*,  #lab_responsible_details,*/{
-    /*background-color: #3CA86D; green*/
-/*    height: 94%;
-    width: 94%;    */
+/*#tabstrip, #aquisition_sources_grid, #lab_worker_grid, #lab_relations_grid, #lab_transitions_grid ,  #lab_responsible_details,{
+    background-color: #3CA86D; green
+    height: 94%;
+    width: 94%;    
     margin: 20px 20px 20px 43px;
-}
+}*/
             
-#tabstrip-1, #tabstrip-2, #tabstrip-3{
-    /*background-color: #52A0F9; galazio*/
+/*#tabstrip-1, #tabstrip-2, #tabstrip-3{
+    background-color: #52A0F9; galazio
     margin:0px;
     border:none;
-/*    height: 80%;
-    width: 80%;*/
-}
+    height: 80%;
+    width: 80%;
+}*/
 
-#tab1, #tab2, #tab3{ /*contain the grid*/
-/*    height: 98%;*/
+/*#tab1, #tab2, #tab3{ contain the grid
+    height: 98%;
     width: 100%;
-}
+}*/
 
 #tab2.k-grid-content{
 /*    height: 145px !important;*/
@@ -40,11 +40,11 @@
     /*width: 80%;*/
 }
 
-.k-tabstrip-items li{
+/*.k-tabstrip-items li{
     border-style:none;
     border:none;
 
-}
+}*/
 
 /*#lab_responsible_details ul { list-style-type: none; }
 #lab_responsible_details ul li { display: inline; }
