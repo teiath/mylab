@@ -80,6 +80,11 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
 
          $fpositioning = $positioning ? $positioning : NULL;
          $fcomments = $comments? $comments : NULL;
+         
+        //ubichys
+
+         $fTechnologicalRating = null;
+         $fOperationalRating = null;
 
         //$creation infos================================================================
         $creation_date = date('Y-m-d H:i:s');
@@ -103,28 +108,28 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
        }
        
        //$operational_rating=============================================================           
-        if (Validator::isMissing('operational_rating'))
-            throw new Exception(ExceptionMessages::MissingOperationalRatingParam." : ".$operational_rating, ExceptionCodes::MissingOperationalRatingParam);
-        else if (Validator::IsNull($operational_rating) )
-            throw new Exception(ExceptionMessages::MissingOperationalRatingValue." : ".$operational_rating, ExceptionCodes::MissingOperationalRatingValue);
-        else if (!Validator::IsNumeric($operational_rating) || Validator::IsNegative($operational_rating))
-	    throw new Exception(ExceptionMessages::InvalidOperationalRatingValue." : ".$operational_rating, ExceptionCodes::InvalidOperationalRatingValue);    
-        else if (Validator::IsFiveStarSystem($operational_rating)) 
-             $fOperationalRating = Validator::ToFiveStarSystem($operational_rating);                
-        else
-            throw new Exception(ExceptionMessages::UnknownOperationalRatingValue." : ".$operational_rating, ExceptionCodes::UnknownOperationalRatingValue);   
+//        if (Validator::isMissing('operational_rating'))
+//            throw new Exception(ExceptionMessages::MissingOperationalRatingParam." : ".$operational_rating, ExceptionCodes::MissingOperationalRatingParam);
+//        else if (Validator::IsNull($operational_rating) )
+//            throw new Exception(ExceptionMessages::MissingOperationalRatingValue." : ".$operational_rating, ExceptionCodes::MissingOperationalRatingValue);
+//        else if (!Validator::IsNumeric($operational_rating) || Validator::IsNegative($operational_rating))
+//	    throw new Exception(ExceptionMessages::InvalidOperationalRatingValue." : ".$operational_rating, ExceptionCodes::InvalidOperationalRatingValue);    
+//        else if (Validator::IsFiveStarSystem($operational_rating)) 
+//             $fOperationalRating = Validator::ToFiveStarSystem($operational_rating);                
+//        else
+//            throw new Exception(ExceptionMessages::UnknownOperationalRatingValue." : ".$operational_rating, ExceptionCodes::UnknownOperationalRatingValue);   
       
        //$technological_rating=============================================================
-        if (Validator::isMissing('technological_rating'))
-            throw new Exception(ExceptionMessages::MissingTechnologicalRatingParam." : ".$technological_rating, ExceptionCodes::MissingTechnologicalRatingParam);
-        else if (Validator::IsNull($technological_rating) )
-            throw new Exception(ExceptionMessages::MissingTechnologicalRatingValue." : ".$technological_rating, ExceptionCodes::MissingTechnologicalRatingValue);
-        else if (!Validator::IsNumeric($technological_rating) || Validator::IsNegative($technological_rating))
-	    throw new Exception(ExceptionMessages::InvalidTechnologicalRatingValue." : ".$technological_rating, ExceptionCodes::InvalidTechnologicalRatingValue);    
-        else if (Validator::IsFiveStarSystem($technological_rating)) 
-             $fTechnologicalRating = Validator::ToFiveStarSystem($technological_rating);                
-        else
-            throw new Exception(ExceptionMessages::UnknownTechnologicalRatingValue." : ".$technological_rating, ExceptionCodes::UnknownTechnologicalRatingValue);   
+//        if (Validator::isMissing('technological_rating'))
+//            throw new Exception(ExceptionMessages::MissingTechnologicalRatingParam." : ".$technological_rating, ExceptionCodes::MissingTechnologicalRatingParam);
+//        else if (Validator::IsNull($technological_rating) )
+//            throw new Exception(ExceptionMessages::MissingTechnologicalRatingValue." : ".$technological_rating, ExceptionCodes::MissingTechnologicalRatingValue);
+//        else if (!Validator::IsNumeric($technological_rating) || Validator::IsNegative($technological_rating))
+//	    throw new Exception(ExceptionMessages::InvalidTechnologicalRatingValue." : ".$technological_rating, ExceptionCodes::InvalidTechnologicalRatingValue);    
+//        else if (Validator::IsFiveStarSystem($technological_rating)) 
+//             $fTechnologicalRating = Validator::ToFiveStarSystem($technological_rating);                
+//        else
+//            throw new Exception(ExceptionMessages::UnknownTechnologicalRatingValue." : ".$technological_rating, ExceptionCodes::UnknownTechnologicalRatingValue);   
      
         //$lab_type============================================================          
         if (! $lab_type)

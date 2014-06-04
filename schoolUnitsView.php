@@ -8,9 +8,31 @@
         <script>
             $(document).ready(function() {
             
+                baseURL = "http://172.16.16.80/mylab/api/";
+            
                 kendo.bind($("#school_units_container"), SchoolUnitsViewVM);
                 kendo.bind($("#search-container"), SchoolUnitsSearchVM);
                 
+                notification = $("#notification").kendoNotification({
+                    position: {
+                        pinned: true,
+                        top: 30,
+                        right: 30
+                    },
+                    allowHideAfter: 2000,
+                    autoHideAfter: 5000,
+                    hideOnClick: true,
+                    stacking: "down",
+                    //button: true, //??? γιατι δεν παίζει?
+                    templates: [{
+                        type: "error",
+                        template: $("#errorTemplate").html()
+                    }, {
+                        type: "upload-success",
+                        template: $("#successTemplate").html()
+                    }]
+
+                }).data("kendoNotification");                
                 
             });
         </script>
@@ -23,14 +45,15 @@
         <div id="school_units_container">
             
             <?php
-                require_once('client/pages/js/Templates/schoolUnitContactDetails.html');
-                require_once('client/pages/js/Templates/schoolUnitDetailsTemplate.html');
-                
+            
                 require_once('client/pages/js/Templates/labCreateTemplate.html');
                 require_once('client/pages/js/Templates/labToolbarTemplate.html');
                 require_once('client/pages/js/Templates/labDetailsTemplate.html');
                 require_once('client/pages/js/Templates/labTransitTemplate.html');
-                
+            
+                require_once('client/pages/js/Templates/schoolUnitContactDetails.html');
+                require_once('client/pages/js/Templates/schoolUnitDetailsTemplate.html');
+
                 require_once('client/pages/js/Templates/errorNotificationTemplate.html');
                 require_once('client/pages/js/Templates/successNotificationTemplate.html'); 
             ?> 
@@ -40,6 +63,9 @@
             
             <!--transition dialog-->
             <div id="transition_dialog"></div>
+            
+            <!--transition notification-->
+            <span id="notification" style="display:none;"></span>
             
             <!-- grid element -->
             <div class="container">        

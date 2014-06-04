@@ -8,6 +8,8 @@
         <script>
             $(document).ready(function() {
             
+                baseURL = "http://172.16.16.80/mylab/api/";
+
                 //kendo.bind($("body"), LabsViewVM);
                 kendo.bind($("#grid"), LabsViewVM);
                 kendo.bind($("#grid").find(".k-grid-toolbar"), LabsViewVM);
@@ -33,6 +35,8 @@
                     }]
 
                 }).data("kendoNotification");
+              
+                
             });
         </script>
         
@@ -66,13 +70,13 @@
                     <div class="col-md-12">        
                         <div    id="labs_view"
                                 data-role="grid"
-                                data-bind="source: labs, events: {edit: createLab}"
+                                data-bind="source: labs, events: {edit: createLab, dataBound: dataBoundLab}"
                                 data-detail-init="LabsViewVM.detailInit"
                                 data-detail-template= 'lab_details_template'
                                 data-selectable="row"
                                 data-scrollable= "false"
                                 data-sortable= "{'allowUnsort': false}"
-                                data-pageable="{ 'pageSizes': [15, 20, 25, 30, 50], 
+                                data-pageable="{ 'pageSizes': [5, 10, 15, 20, 25, 30, 50], 
                                                  'messages':  { 'display': '{0}-{1} από {2} διατάξεις Η/Υ', 
                                                                 'empty': 'Δεν βρέθηκαν διατάξεις Η/Υ',
                                                                 'itemsPerPage': 'διατάξεις Η/Υ ανά σελίδα', 

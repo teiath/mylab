@@ -38,19 +38,19 @@ var LabsSearchVM = kendo.observable({
     transfer_area: "",          //πολλαπλό
     municipality: "",           //πολλαπλό
     
-    submitForm: function(e) {
-        e.preventDefault();       
-        var formData = $("#search-form").serializeArray();
-        var dsSrcParams = [];
-        $.each(formData, function(index, objectEntry) {
-            if(objectEntry.value !== ""){
-                dsSrcParams.push({'field': objectEntry.name, 'value': objectEntry.value}); 
-            }
-        });
-        console.log("dsSrcParams", dsSrcParams);
-        LabsViewVM.labs.filter(dsSrcParams); // Πως παίζει αυτό;;
-        
-    },
+//    submitForm: function(e) {
+//        e.preventDefault();       
+//        var formData = $("#search-form").serializeArray();
+//        var dsSrcParams = [];
+//        $.each(formData, function(index, objectEntry) {
+//            if(objectEntry.value !== ""){
+//                dsSrcParams.push({'field': objectEntry.name, 'value': objectEntry.value}); 
+//            }
+//        });
+//        console.log("dsSrcParams", dsSrcParams);
+//        LabsViewVM.labs.filter(dsSrcParams); // Πως παίζει αυτό;;
+//        
+//    },
     resetForm: function(e) {
 
         e.preventDefault();
@@ -81,7 +81,8 @@ var LabsSearchVM = kendo.observable({
 
         var formData = $("#search-form").serializeArray();
         LabsViewVM.labs.filter(normalizeParams(formData));
-        //repopulate multi select boxes with default values
+        
+//        repopulate multi select boxes with default values
 //        $("#regionEduAdmins").data("kendoMultiSelect").setDataSource(regionEduAdminsDS);
 //        $("#eduAdmins").data("kendoMultiSelect").setDataSource(eduAdminsDS);
 //        $("#transferAreas").data("kendoMultiSelect").setDataSource(transferAreasDS);

@@ -1,6 +1,6 @@
 <div id="search-container" class="container">
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <form id="search-form">
                 <ul id="panelbar" data-role="panelbar">
                     <li>
@@ -9,97 +9,138 @@
                             <div class="col-md-2">
                                 <button class="k-button" data-bind="click: resetForm">καθαρισμός</button>
                             </div>
-                            <div class="col-md-3">
-                                <label for="lab_id">κωδικός Διάταξης Η/Υ</label>
-                                <input id="sl_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterChanged }" />
-
-                                <label for="lab_name">όνομα Διάταξης Η/Υ</label>
-                                <input id="sl_lab_name" name="lab_name" class="k-textbox" data-bind="value: lab_name, events: {input : filterChanged }"/> 
-
-                                <label for="lab_special_name">ειδικό όνομα Διάταξης Η/Υ</label>
-                                <input id="sl_lab_special_name" name="lab_special_name" class="k-textbox" data-bind="value: lab_special_name, events: {input : filterChanged }"/> 
-
-                                <label for="lab_type">τύπος Διάταξης Η/Υ</label>
-                                <select id="sl_lab_types"  
-                                        name="lab_type"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="name"
-                                        data-bind="source: lab_types_ds, value: lab_type, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>
-
-                                <label for="lab_creation_date">ημερομηνία δημιουργίας Διάταξης Η/Υ</label>
-                                <input id="sl_lab_creation_date" 
-                                       name="lab_creation_date"
-                                       data-role="datepicker"
-                                       data-format="yyyy-MM-dd"
-                                       data-bind="value: lab_creation_date, events: {change : filterChanged }"/>
+                            <div class="col-md-4">
+                                
+                                <div class="col-md-11">
+                                    <label for="lab_id">κωδικός Διάταξης Η/Υ</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="sl_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterChanged }" />
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="lab_name">όνομα Διάταξης Η/Υ</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="sl_lab_name" name="lab_name" class="k-textbox" data-bind="value: lab_name, events: {input : filterChanged }"/> 
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="lab_special_name">ειδικό όνομα Διάταξης Η/Υ</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="sl_lab_special_name" name="lab_special_name" class="k-textbox" data-bind="value: lab_special_name, events: {input : filterChanged }"/> 
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="lab_type">τύπος Διάταξης Η/Υ</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <select id="sl_lab_types"  
+                                            name="lab_type"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="name"
+                                            data-bind="source: lab_types_ds, value: lab_type, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="lab_creation_date">ημερομηνία δημιουργίας Διάταξης Η/Υ</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="sl_lab_creation_date" 
+                                           name="lab_creation_date"
+                                           data-role="datepicker"
+                                           data-format="yyyy-MM-dd"
+                                           data-bind="value: lab_creation_date, events: {change : filterChanged }"/>
+                                </div>
+                                
                             </div>
                             <div class="col-md-4">
 
-                                <label for="aquisition_source">πηγή χρηματοδότησης Διάταξης Η/Υ</label>
-                                <select id="sl_aquisition_sources" 
-                                        name="aquisition_source" 
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="aquisition_source_id"
-                                        data-bind="source: aquisition_sources_ds, value: aquisition_source, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>
+                                <div class="col-md-11">
+                                    <label for="aquisition_source">πηγή χρηματοδότησης Διάταξης Η/Υ</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <select id="sl_aquisition_sources" 
+                                            name="aquisition_source" 
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="aquisition_source_id"
+                                            data-bind="source: aquisition_sources_ds, value: aquisition_source, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select>
+                                </div>
 
-                                <label for="lab_worker">υπεύθυνος Διάταξης Η/Υ</label>
-                                <select id="sl_lab_worker" 
-                                        name="lab_worker" 
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="fullname"
-                                        data-value-field="registry_no"
-                                        data-min-length="3"
-                                        data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>              
+                                <div class="col-md-11">
+                                    <label for="lab_worker">υπεύθυνος Διάταξης Η/Υ</label>
+                                </div>
+                                <div class="col-md-11">   
+                                    <select id="sl_lab_worker" 
+                                            name="lab_worker" 
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="fullname"
+                                            data-value-field="registry_no"
+                                            data-min-length="3"
+                                            data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select>              
+                                </div>
 
+                                <div class="col-md-11">
+                                    <label for="operational_rating">λειτουργική βαθμολόγηση</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <select id="sl_operational_rating" 
+                                            name="operational_rating"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="rating_id"
+                                            data-bind="source: lab_rating_ds, value: operational_rating, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select>
+                                </div>
 
-                                <label for="operational_rating">λειτουργική βαθμολόγηση</label>
-                                <select id="sl_operational_rating" 
-                                        name="operational_rating"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="rating_id"
-                                        data-bind="source: lab_rating_ds, value: operational_rating, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>
-
-                                <label for="technological_rating">τεχνολογική βαθμολόγηση</label>
-                                <select id="sl_technological_rating" 
-                                        name="technological_rating"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="rating_id"
-                                        data-bind="source: lab_rating_ds, value: technological_rating, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>
-
-                                <label for="lab_state">λειτουργική κατάσταση Διάταξης Η/Υ</label>
-                                <input id="sl_lab_state" 
-                                       name="lab_state"
-                                       data-role="dropdownlist"
-                                       data-auto-bind="true"
-                                       data-text-field="name"
-                                       data-value-field="state_id"
-                                       data-filter="contains"
-                                       data-bind="source: lab_states_ds, value: lab_state, events: {change : filterChanged }"/>
-
+                                <div class="col-md-11">
+                                    <label for="technological_rating">τεχνολογική βαθμολόγηση</label>
+                                 </div>
+                                <div class="col-md-11">
+                                    <select id="sl_technological_rating" 
+                                            name="technological_rating"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="rating_id"
+                                            data-bind="source: lab_rating_ds, value: technological_rating, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select>
+                                 </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="lab_state">λειτουργική κατάσταση Διάταξης Η/Υ</label>
+                                 </div>
+                                <div class="col-md-11">
+                                    <input id="sl_lab_state" 
+                                           name="lab_state"
+                                           data-role="dropdownlist"
+                                           data-auto-bind="true"
+                                           data-text-field="name"
+                                           data-value-field="state_id"
+                                           data-filter="contains"
+                                           data-bind="source: lab_states_ds, value: lab_state, events: {change : filterChanged }"/>
+                                 </div>
+                                
                             </div>
                         </div>
                     </li>
@@ -110,97 +151,138 @@
                                 <button class="k-button" data-bind="click: resetForm">καθαρισμός</button>
                             </div>
                             <div class="col-md-4">
-
-                                <label for="school_unit_id">κωδικός Σχολικής Μονάδας</label>
-                                <input id="sl_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterChanged }"/>
-
-                                <label for="name">όνομα Σχολικής Μονάδας</label>
-                                <input id="sl_school_unit_name" name="name" class="k-textbox" data-bind="value: name, events: {input : filterChanged }"/>                                
                                 
-                                <label for="education_level">Βαθμίδα Εκπαίδευσης</label>
-                                <select id="sl_education_level" 
-                                        name="education_level"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="education_level_id"
-                                        data-bind="source: education_levels_ds, value: education_level, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>                
-
-                                <label for="school_unit_type">τύπος Σχολικής Μονάδας</label>
-                                <select id="sl_school_unit_type" 
-                                        name="school_unit_type"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="school_unit_type_id"
-                                        data-bind="source: school_unit_types_ds, value: school_unit_type, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">  
-                                </select>
-
-                                <label for="school_unit_state">λειτουργική κατάσταση Σχολικής Μονάδας</label>
-                                <input id="sl_school_unit_state" 
-                                       name="school_unit_state"
-                                       data-role="dropdownlist"
-                                       data-auto-bind="true"
-                                       data-text-field="name"
-                                       data-value-field="state_id"
-                                       data-filter="contains"
-                                       data-bind="source: school_unit_states_ds, value: school_unit_state, events: {change : filterChanged }"/>
-
+                                <div class="col-md-11">
+                                    <label for="school_unit_id">κωδικός Σχολικής Μονάδας</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="sl_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterChanged }"/>
+                                 </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="name">όνομα Σχολικής Μονάδας</label>
+                                </div>                                
+                                <div class="col-md-11">
+                                    <input id="sl_school_unit_name" name="name" class="k-textbox" data-bind="value: name, events: {input : filterChanged }"/>
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="education_level">Βαθμίδα Εκπαίδευσης</label>
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <select id="sl_education_level" 
+                                            name="education_level"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="education_level_id"
+                                            data-bind="source: education_levels_ds, value: education_level, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select> 
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="school_unit_type">τύπος Σχολικής Μονάδας</label>                                    
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <select id="sl_school_unit_type" 
+                                            name="school_unit_type"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="school_unit_type_id"
+                                            data-bind="source: school_unit_types_ds, value: school_unit_type, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">  
+                                    </select>                           
+                                </div>                                
+                                
+                                <div class="col-md-11">
+                                    <label for="school_unit_state">λειτουργική κατάσταση Σχολικής Μονάδας</label>
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <input id="sl_school_unit_state" 
+                                           name="school_unit_state"
+                                           data-role="dropdownlist"
+                                           data-auto-bind="true"
+                                           data-text-field="name"
+                                           data-value-field="state_id"
+                                           data-filter="contains"
+                                           data-bind="source: school_unit_states_ds, value: school_unit_state, events: {change : filterChanged }"/>                                    
+                                </div>
+                                
                             </div>
                             <div class="col-md-4">
-                                <label for="region_edu_admin">Περιφερειακή Διεύθυνση Εκπαίδευσης</label>
-                                <select id="sl_region_edu_admin" 
-                                        name="region_edu_admin"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-value-primitive="true"
-                                        data-text-field="name"
-                                        data-value-field="region_edu_admin_id"
-                                        data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">                    
-                                </select>
-
-                                <label for="edu_admin">Διεύθυνση Εκπαίδευσης</label>
-                                <select id="sl_edu_admin" 
-                                        name="edu_admin"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="edu_admin_id"
-                                        data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>
-
-                                <label for="transfer_area">Περιοχή Μετάθεσης</label>                    
-                                <select id="sl_transfer_area" 
-                                        name="transfer_area"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="transfer_area_id"
-                                        data-bind="source: transfer_areas_ds, value: transfer_area, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>
-
-                                <label for="municipality">Δήμος</label>
-                                <select id="sl_municipality" 
-                                        name="municipality"
-                                        data-role="multiselect"
-                                        data-auto-bind="false"
-                                        data-text-field="name"
-                                        data-value-field="municipality_id"
-                                        data-bind="source: municipalities_ds, value: municipality, events: {change : filterChanged }"
-                                        data-filter="contains"
-                                        multiple="multiple">
-                                </select>
+                                
+                                <div class="col-md-11">
+                                    <label for="region_edu_admin">Περιφερειακή Διεύθυνση Εκπαίδευσης</label>
+                                </div>                                
+                                <div class="col-md-11">
+                                    <select id="sl_region_edu_admin" 
+                                            name="region_edu_admin"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-value-primitive="true"
+                                            data-text-field="name"
+                                            data-value-field="region_edu_admin_id"
+                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">                    
+                                    </select>  
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="edu_admin">Διεύθυνση Εκπαίδευσης</label>
+                                </div>                                
+                                <div class="col-md-11">
+                                    <select id="sl_edu_admin" 
+                                            name="edu_admin"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="edu_admin_id"
+                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="transfer_area">Περιοχή Μετάθεσης</label>
+                                </div>                                
+                                <div class="col-md-11">
+                                    <select id="sl_transfer_area" 
+                                            name="transfer_area"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="transfer_area_id"
+                                            data-bind="source: transfer_areas_ds, value: transfer_area, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select>                       
+                                </div>
+                                
+                                <div class="col-md-11">
+                                    <label for="municipality">Δήμος</label>
+                                </div>                                
+                                <div class="col-md-11">
+                                    <select id="sl_municipality" 
+                                            name="municipality"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="municipality_id"
+                                            data-bind="source: municipalities_ds, value: municipality, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            multiple="multiple">
+                                    </select>
+                                </div>
+                                    
                             </div> 
                         </div>
                     </li>

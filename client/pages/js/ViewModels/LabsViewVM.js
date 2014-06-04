@@ -174,12 +174,16 @@ var LabsViewVM = kendo.observable({
     gwnies_count:"",
     diadrastika_sistimata_count:"",
     
+    lab_type:"", //lab_type grid toolbar filter
     
     ds_lab_types: newLabTypesDS(),
     ds_school_units: newSchoolUnitsDS(),
-
+    
+    
     createLab:  function(e){
 
+        console.log("labsview create lab");
+        
         if (e.model.isNew()) {
             e.container.prev().find(".k-window-title").text("Προσθήκη νέας Διάταξης Η/Υ");
             e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-update").text("Προσθήκη");
@@ -191,6 +195,10 @@ var LabsViewVM = kendo.observable({
     },
     transitLab: function(e){
         console.log("transitLab e:", e);
+
+        //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        //var toState = dataItem.state_id;
+        //var command = e.data.commandName;
 
         var transition_dialog = $("#transition_dialog").kendoWindow({
                     modal: true,
@@ -246,37 +254,8 @@ var LabsViewVM = kendo.observable({
                                       state: toState
                                     };
 
-                            //το ajax request να μπει σε function και να τυποποιηθεί το url
-                            $.ajax({
-                                    type: 'POST',
-                                    url: 'http://172.16.16.80/mylab/api/lab_transitions',
-                                    dataType: "json",
-                                    data: JSON.stringify(parameters),
-                                    success: function(data){
-                                        console.log("data:", data);
-                                    
-                                        if(data.status == 200){
-                                            
-                                            transition_dialog.close();
-                                            notification.show({
-                                                title: "Η υποβολή πραγματοποιήθηκε",
-                                                message: data.message
-                                            }, "upload-success");                                            
-
-                                            LabsViewVM.labs.read();
-
-                                        }else if(data.status == 500){
-                                                                                         
-                                            notification.show({
-                                                title: "Η υποβολή απέτυχε",
-                                                message: data.message
-                                            }, "error");
-                                            
-                                        }
-                                        
-                                    },
-                                    error: function (data){ console.log("error data: ", data);}
-                            });
+                            transitAjaxRequest('POST', 'lab_transitions', parameters, transition_dialog);
+                            
                         });
                     }
         }).data("kendoWindow");
@@ -697,6 +676,74 @@ var LabsViewVM = kendo.observable({
 //        e.detailRow.find("#special_name_edit").click(function(e) {
 //            console.log("special_name_edit e:", e);
 //        });
+    },
+    dataBoundLab: function(e){
+        console.log("dataBoundLab e: ", e );
+        var data_items = e.sender.dataSource.data();        
+        $.each(data_items, function(index, value){
+            
+            var currentRow = $(e.sender.tbody).find("tr").eq(index);
+            var activateButton = $(currentRow).children('td:last').find(".k-grid-activate");
+            var suspendButton = $(currentRow).children('td:last').find(".k-grid-suspend");
+            var abolishButton = $(currentRow).children('td:last').find(".k-grid-abolish");
+
+            var state = data_items[index].state_id;
+
+            if(state == "1"){
+                
+                activateButton.addClass('k-state-disabled');
+                activateButton.click(function() { return false; });
+                
+                suspendButton.removeClass('k-state-disabled');
+                //suspendButton.on('transitLab');
+                
+                abolishButton.removeClass('k-state-disabled');
+                //abolishButton.on('transitLab');
+                
+            }else if(state == "2"){
+
+                activateButton.removeClass('k-state-disabled');
+                //activateButton.removeAttr('disabled');
+                
+                suspendButton.addClass('k-state-disabled');
+                suspendButton.click(function() { return false; });
+                
+                abolishButton.removeClass('k-state-disabled');
+                //abolishButton.removeAttr('disabled');         
+                
+            }else if(state == "3"){
+
+                activateButton.addClass('k-state-disabled');
+                activateButton.click(function() { return false; });
+                
+                suspendButton.addClass('k-state-disabled');
+                suspendButton.click(function() { return false; });
+                
+                abolishButton.addClass('k-state-disabled');
+                abolishButton.click(function() { return false; });
+
+            }
+            
+        });
+//        console.log("e.sender.element: ", e.sender.element);
+//        kendo.bind(e.sender.element.find(".k-toolbar"), LabsSearchVM);
     }
-    
+//    toolbarFilter: function(e){
+//        console.log("toolbarFilter: ", e);
+//        
+//        var school_units_grid = $("#school_units_view").data("kendoGrid");
+//        var school_unit_row = e.sender.wrapper.closest("tr.k-detail-row").prev();
+//        var dataItem = school_units_grid.dataItem(school_unit_row);
+//        
+//        var filter = [{name: "lab_type", value: e.data.lab_type}, 
+//                      {name: "school_unit_id", value: dataItem.school_unit_id}];        
+//        
+//        //console.log("school_units_view",school_unit_row);
+//        //console.log("dataItem",dataItem);
+//        //console.log("filter: ", filter);
+//        
+//        var labs_grid = e.sender.wrapper.closest(".k-grid").data("kendoGrid");
+//        labs_grid.dataSource.filter(normalizeParams(filter));
+//        //LabsViewVM.labs.filter(normalizeParams(filter)); //δεν χρειάζεται για το Labs view
+//    }
 });

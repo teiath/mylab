@@ -76,12 +76,6 @@ var SchoolUnitsViewVM = kendo.observable({
         }
     }),
     
-//    sepehy_count:"",
-//    etp_count:"",
-//    troxilata_count:"",
-//    gwnies_count:"",
-//    diadrastika_sistimata_count:"",
-    
     showContactDetails: function(e){
         //console.log("showContactDetails e: ", e);
 
@@ -104,7 +98,8 @@ var SchoolUnitsViewVM = kendo.observable({
         
         //kendo.bind($("#school_unit_labs"), LabsViewVM);
 
-        var labsGrid = e.detailRow.find("#school_unit_labs").kendoGrid({
+        //var, να γίνει τοπικη
+        labsGrid = e.detailRow.find("#school_unit_labs").kendoGrid({
             
             dataSource: newLabsDS(e.data.school_unit_id),
             detailInit: LabsViewVM.detailInit,
@@ -112,7 +107,7 @@ var SchoolUnitsViewVM = kendo.observable({
             selectable:"row",
             scrollable: "false",
             sortable: "{'allowUnsort': false}",
-            pageable: { pageSizes : [15, 20, 25, 30, 50], 
+            pageable: { pageSizes : [5, 10, 15, 20, 25, 30, 50], 
                         messages:  {
                                      display: '{0}-{1} από {2} διατάξεις Η/Υ', 
                                      empty: 'Δεν βρέθηκαν διατάξεις Η/Υ',
@@ -134,7 +129,7 @@ var SchoolUnitsViewVM = kendo.observable({
                                          {text:'Αναστολή', 'click':LabsViewVM.transitLab, name:'suspend'},
                                          {text:'Κατάργηση', 'click':LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'25%'}],
             edit: function(event) {
-                console.log("event: ", event);
+                console.log("labs grid edit event: ", event);
                 kendo.bind(event.container, LabsViewVM);
 //                kendo.bind(e.detailRow.find("#lab_create_template"), LabsViewVM);
                 LabsViewVM.createLab(event);

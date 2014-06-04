@@ -9,6 +9,7 @@ require_once('system/pagination.php');
 require_once('system/JsonFunctions.php');
 require_once('system/Timing.php');
 require_once('system/methodtypes.php');
+require_once ('libs/phpCAS/CAS.php');
 
 //libs
 require_once('libs/db2php/Db2PhpEntity.class.php');
