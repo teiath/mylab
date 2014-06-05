@@ -12,7 +12,7 @@
 
                 //kendo.bind($("body"), LabsViewVM);
                 kendo.bind($("#grid"), LabsViewVM);
-                kendo.bind($("#grid").find(".k-grid-toolbar"), LabsViewVM);
+//                kendo.bind($("#grid").find(".k-grid-toolbar"), LabsViewVM);
                 kendo.bind($("#search-container"), LabsSearchVM);
                 
                 notification = $("#notification").kendoNotification({

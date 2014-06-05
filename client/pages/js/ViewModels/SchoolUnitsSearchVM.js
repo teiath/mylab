@@ -38,19 +38,7 @@ var SchoolUnitsSearchVM = kendo.observable({
     transfer_area: "",          //πολλαπλό
     municipality: "",           //πολλαπλό
     
-    submitForm: function(e) {
-        e.preventDefault();       
-        var formData = $("#search-form").serializeArray();
-        var dsSrcParams = [];
-        $.each(formData, function(index, objectEntry) {
-            if(objectEntry.value !== ""){
-                dsSrcParams.push({'field': objectEntry.name, 'value': objectEntry.value}); 
-            }
-        });
-        console.log("dsSrcParams", dsSrcParams);
-        LabsViewVM.labs.filter(dsSrcParams); // Πως παίζει αυτό;;
-        
-    },
+    
     resetForm: function(e) {
 
         e.preventDefault();
@@ -97,6 +85,11 @@ var SchoolUnitsSearchVM = kendo.observable({
         SchoolUnitsViewVM.school_units.filter(normalizeParams(formData));
     }
     
+});
+
+
+
+    
     
 //    regionEduAdminChanged: function(e){
 //        console.log("regionEduAdminChanged e :", e);
@@ -109,5 +102,3 @@ var SchoolUnitsSearchVM = kendo.observable({
 //        //this.set("edu_admins_ds",  newEduAdminsDS());
 //        LabsViewVM.labs.filter(selected_region_edu_admins);
 //    },
-    
-});

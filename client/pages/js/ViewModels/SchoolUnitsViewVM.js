@@ -50,7 +50,13 @@ var SchoolUnitsViewVM = kendo.observable({
                     email:{},
                     street_address:{},
                     postal_code:{},
-                    labs:{}
+                    labs:{},
+                    total_labs_by_type:{}                    
+//                    sepehy_count:{},
+//                    etp_count:{},
+//                    troxilata_count:{},
+//                    gwnies_count:{},
+//                    diadrastika_sistimata_count:{}                    
                 }
             }//,
             //errors: "message" !!!Πρέπει να υπάρχει στον server παράμετρος ΑΠΟΚΛΕΙΣΤΙΚΑ για errors που να μην επιστρέφεται σε άλλη περίπτωση
@@ -62,6 +68,16 @@ var SchoolUnitsViewVM = kendo.observable({
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("school units datasource requestEnd e:", e);
+            if (e.type=="read"){
+                
+//                LabsViewVM.set("labs_count",  e.response.total);
+//                LabsViewVM.set("sepehy_count", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
+//                LabsViewVM.set("etp_count",  e.response.all_labs_by_type["ΕΤΠ"]);
+//                LabsViewVM.set("troxilata_count",  e.response.all_labs_by_type["ΤΡΟΧΗΛΑΤΟ"]);
+//                LabsViewVM.set("gwnies_count", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
+//                LabsViewVM.set("diadrastika_sistimata_count", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
+                
+            }
         },
         change: function(e) {
     
@@ -97,10 +113,14 @@ var SchoolUnitsViewVM = kendo.observable({
     detailInit: function(e){
         
         //kendo.bind($("#school_unit_labs"), LabsViewVM);
+        
+        console.log("e: ", e);
+        //kendo.bind(e.detailRow.find(".k-grid-toolbar"), e.data.total_labs_by_type);
+        //console.log("e.data.total_labs_by_type: ", e.data.total_labs_by_type);
 
-        //var, να γίνει τοπικη
-        labsGrid = e.detailRow.find("#school_unit_labs").kendoGrid({
-            
+        //labsGrid = 
+        e.detailRow.find("#school_unit_labs").kendoGrid({
+                       
             dataSource: newLabsDS(e.data.school_unit_id),
             detailInit: LabsViewVM.detailInit,
             detailTemplate: $("#lab_details_template").html(),
@@ -137,9 +157,34 @@ var SchoolUnitsViewVM = kendo.observable({
             
         }).data("kendoGrid");
         
-        kendo.bind(e.detailRow, LabsViewVM);
+        //console.log("swsto path?? :", e.detailRow.find(".k-grid-toolbar>.toolbar_filter>span[class=k-dropdown]"));
         
-    }
+        kendo.bind(e.detailRow.find('#school_unit_labs'), LabsViewVM);
+        kendo.bind(e.detailRow.find(".k-grid-toolbar"), e.data.total_labs_by_type);
+        kendo.bind(e.detailRow.find(".k-grid-toolbar>.toolbar_filter>span"), LabsSearchVM);
+        
+    }//,
+    
+//    toolbarFilter: function(e){
+//        console.log("toolbarFilter: ", e);
+//        
+//        var school_units_grid = $("#school_units_view").data("kendoGrid");
+//        var school_unit_row = e.sender.wrapper.closest("tr.k-detail-row").prev();
+//        var dataItem = school_units_grid.dataItem(school_unit_row);
+//        
+//        var filter = [{name: "lab_type", value: e.data.lab_type}, 
+//                      {name: "school_unit_id", value: dataItem.school_unit_id}];        
+//        
+//        //console.log("school_units_view",school_unit_row);
+//        //console.log("dataItem",dataItem);
+//        //console.log("filter: ", filter);
+//        
+//        var labs_grid = e.sender.wrapper.closest(".k-grid").data("kendoGrid");
+//        labs_grid.dataSource.filter(normalizeParams(filter));
+//        //LabsViewVM.labs.filter(normalizeParams(filter)); //δεν χρειάζεται για το Labs view
+//    }    
+    
+    
     
 });
 
