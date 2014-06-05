@@ -125,12 +125,12 @@ function newLabsDS(school_unit_id){
             
             if (e.type=="read"){
                 
-                LabsViewVM.set("labs_count",  e.response.total);
-                LabsViewVM.set("sepehy_count", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
-                LabsViewVM.set("etp_count",  e.response.all_labs_by_type["ΕΤΠ"]);
-                LabsViewVM.set("troxilata_count",  e.response.all_labs_by_type["ΤΡΟΧΗΛΑΤΟ"]);
-                LabsViewVM.set("gwnies_count", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
-                LabsViewVM.set("diadrastika_sistimata_count", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
+//                LabsViewVM.set("labs_count",  e.response.total);
+//                LabsViewVM.set("sepehy_count", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
+//                LabsViewVM.set("etp_count",  e.response.all_labs_by_type["ΕΤΠ"]);
+//                LabsViewVM.set("troxilata_count",  e.response.all_labs_by_type["ΤΡΟΧΗΛΑΤΟ"]);
+//                LabsViewVM.set("gwnies_count", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
+//                LabsViewVM.set("diadrastika_sistimata_count", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
                 
             }else if (e.type=="create" || e.type=="destroy"){
                 if (e.response.status == "200"){

@@ -12,6 +12,7 @@
             
                 kendo.bind($("#school_units_container"), SchoolUnitsViewVM);
                 kendo.bind($("#search-container"), SchoolUnitsSearchVM);
+//                kendo.bind($("#school_units_view").find(".k-grid-toolbar"), SchoolUnitsViewVM);
                 
                 notification = $("#notification").kendoNotification({
                     position: {

@@ -5,13 +5,24 @@
         Προσθήκη Νέας Διάταξης Η/Υ
     </a>
 
+    <div class="toolbar_filter">
+        <label>προβολή ανά τύπο εργαστηρίου:</label>
+        <input data-role="dropdownlist"
+                data-auto-bind="true"
+                data-text-field="name"
+                data-value-field="lab_type_id"
+                data-option-label="Όλα τα εργαστήρια",
+                data-bind="source: lab_types_ds, value: lab_type, events: {change: toolbarFilter}"
+                data-filter="contains"/>
+    </div>
+
     <div class="results_info">
         <ul class="list-inline lab_types_count">
-            <li><label for="category">ΣεπεΗΥ: <span data-bind="text: sepehy_count" /></label></li>
-            <li><label for="category">ΕΤΠ: <span data-bind="text: etp_count" /></label></li>
-            <li><label for="category">Γωνιές: <span data-bind="text: gwnies_count" /></label></li>
-            <li><label for="category">Τροχήλατα: <span data-bind="text: troxilata_count" /></label></li>
-            <li><label for="category">Διαδραστικά Συστήματα: <span data-bind="text: diadrastika_sistimata_count" /></label></li>
+            <li><label>ΣεπεΗΥ: <span data-bind="text: total_labs_by_type['ΣΕΠΕΗΥ']" /></label></li>
+            <li><label>ΕΤΠ: <span data-bind="text: total_labs_by_type['ΕΤΠ']" /></label></li>
+            <li><label>Διαδραστικά Συστήματα: <span data-bind="text: total_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ']" /></label></li>
+            <li><label>Γωνιές: <span data-bind="text: total_labs_by_type['ΓΩΝΙΑ']" /></label></li>
+            <li><label>Τροχήλατα: <span data-bind="text: total_labs_by_type['ΤΡΟΧΗΛΑΤΟ']" /></label></li>
         </ul>
     </div>    
     
@@ -21,6 +32,11 @@
 
 <!--
     
+    <a class="k-button k-button-icontext k-grid-add" href="\#">
+        <span class="k-icon k-add"></span>
+        Προσθήκη Νέας Διάταξης Η/Υ
+    </a>
+
     <div class="toolbar_filter">
         <label>προβολή ανά τύπο εργαστηρίου:</label>
         <input data-role="dropdownlist"
@@ -31,5 +47,16 @@
                 data-bind="source: ds_lab_types, value: lab_type, events: {change: toolbarFilter}"
                 data-filter="contains"/>
     </div>
+
+    <div class="results_info">
+        <ul class="list-inline lab_types_count">
+            <li><label>ΣεπεΗΥ: <span data-bind="text: sepehy_count" /></label></li>
+            <li><label>ΕΤΠ: <span data-bind="text: etp_count" /></label></li>
+            <li><label>Γωνιές: <span data-bind="text: gwnies_count" /></label></li>
+            <li><label>Τροχήλατα: <span data-bind="text: troxilata_count" /></label></li>
+            <li><label>Διαδραστικά Συστήματα: <span data-bind="text: diadrastika_sistimata_count" /></label></li>
+        </ul>
+    </div>  
+
 
 -->

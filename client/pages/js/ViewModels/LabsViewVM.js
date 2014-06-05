@@ -114,12 +114,12 @@ var LabsViewVM = kendo.observable({
             
             if (e.type=="read"){
                 
-                LabsViewVM.set("labs_count",  e.response.total);
-                LabsViewVM.set("sepehy_count", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
-                LabsViewVM.set("etp_count",  e.response.all_labs_by_type["ΕΤΠ"]);
-                LabsViewVM.set("troxilata_count",  e.response.all_labs_by_type["ΤΡΟΧΗΛΑΤΟ"]);
-                LabsViewVM.set("gwnies_count", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
-                LabsViewVM.set("diadrastika_sistimata_count", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
+//                LabsViewVM.set("labs_count",  e.response.total);
+//                LabsViewVM.set("sepehy_count", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
+//                LabsViewVM.set("etp_count",  e.response.all_labs_by_type["ΕΤΠ"]);
+//                LabsViewVM.set("troxilata_count",  e.response.all_labs_by_type["ΤΡΟΧΗΛΑΤΟ"]);
+//                LabsViewVM.set("gwnies_count", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
+//                LabsViewVM.set("diadrastika_sistimata_count", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
                 
             }else if (e.type=="create" || e.type=="destroy"){
                 if (e.response.status == "200"){
@@ -168,13 +168,13 @@ var LabsViewVM = kendo.observable({
     }), // Να καλείται η newLabsDS
 
     //labs_count:"",
-    sepehy_count:"",
-    etp_count:"",
-    troxilata_count:"",
-    gwnies_count:"",
-    diadrastika_sistimata_count:"",
-    
-    lab_type:"", //lab_type grid toolbar filter
+//    sepehy_count:"",
+//    etp_count:"",
+//    troxilata_count:"",
+//    gwnies_count:"",
+//    diadrastika_sistimata_count:"",
+//    
+//    lab_type:"", //lab_type grid toolbar filter
     
     ds_lab_types: newLabTypesDS(),
     ds_school_units: newSchoolUnitsDS(),
@@ -271,8 +271,8 @@ var LabsViewVM = kendo.observable({
         //kendo.bind($("#lab_details_tabstrip"), LabsViewVM); //δεν καταλαβαίνω γιατι αλλά without this line, detail template EVENT bindings  will not work!!
         kendo.bind(e.detailRow, e.data); //SOS: without this line, detail template bindings will not work!!
         
-        console.log("e.detailRow: ", e.detailRow);
-        console.log("e.data: ", e.data);
+        //console.log("e.detailRow: ", e.detailRow);
+        //console.log("e.data: ", e.data);
         
         e.detailRow.find("#lab_details_tabstrip").kendoTabStrip({
             animation: { open: { effects: "fadeIn" } }

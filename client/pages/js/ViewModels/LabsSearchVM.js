@@ -38,19 +38,7 @@ var LabsSearchVM = kendo.observable({
     transfer_area: "",          //πολλαπλό
     municipality: "",           //πολλαπλό
     
-//    submitForm: function(e) {
-//        e.preventDefault();       
-//        var formData = $("#search-form").serializeArray();
-//        var dsSrcParams = [];
-//        $.each(formData, function(index, objectEntry) {
-//            if(objectEntry.value !== ""){
-//                dsSrcParams.push({'field': objectEntry.name, 'value': objectEntry.value}); 
-//            }
-//        });
-//        console.log("dsSrcParams", dsSrcParams);
-//        LabsViewVM.labs.filter(dsSrcParams); // Πως παίζει αυτό;;
-//        
-//    },
+
     resetForm: function(e) {
 
         e.preventDefault();
@@ -82,7 +70,7 @@ var LabsSearchVM = kendo.observable({
         var formData = $("#search-form").serializeArray();
         LabsViewVM.labs.filter(normalizeParams(formData));
         
-//        repopulate multi select boxes with default values
+//        CASCADING fields repopulate multi select boxes with default values
 //        $("#regionEduAdmins").data("kendoMultiSelect").setDataSource(regionEduAdminsDS);
 //        $("#eduAdmins").data("kendoMultiSelect").setDataSource(eduAdminsDS);
 //        $("#transferAreas").data("kendoMultiSelect").setDataSource(transferAreasDS);
@@ -95,9 +83,21 @@ var LabsSearchVM = kendo.observable({
         console.log("filterChanged e :", e);
         var formData = $("#search-form").serializeArray();
         LabsViewVM.labs.filter(normalizeParams(formData));
+    },     
+    toolbarFilter: function(e){
+
+        //console.log("toolbarFilter e:", e);
+        //console.log("this: ", this);
+
+        var grid = e.sender.wrapper.closest(".k-grid").data("kendoGrid");
+        var filter = [{name: "lab_type", value: this.lab_type}];        
+        grid.dataSource.filter(normalizeParams(filter));
     }
     
     
+});
+
+//      CASCADING fields
 //    regionEduAdminChanged: function(e){
 //        console.log("regionEduAdminChanged e :", e);
 //        var selected_region_edu_admins = this.region_edu_admin;
@@ -109,5 +109,3 @@ var LabsSearchVM = kendo.observable({
 //        //this.set("edu_admins_ds",  newEduAdminsDS());
 //        LabsViewVM.labs.filter(selected_region_edu_admins);
 //    },
-    
-});
