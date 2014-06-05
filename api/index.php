@@ -70,6 +70,14 @@ $app->map('/lab_transitions', Authentication, LabTransitionsController)
 $app->map('/lab_workers', Authentication, LabWorkersController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
 
+$app->map('/search_school_units', SearchSchoolUnitsController)->via(MethodTypes::GET);
+$app->map('/search_labs', SearchLabsController)->via(MethodTypes::GET);
+$app->map('/search_lab_workers', SearchLabWorkersController)->via(MethodTypes::GET);
+
+$app->map('/statistic_school_units', StatisticSchoolUnitsController)->via(MethodTypes::GET);
+$app->map('/statistic_labs', StatisticLabsController)->via(MethodTypes::GET);
+$app->map('/statistic_lab_workers', StatisticLabWorkersController)->via(MethodTypes::GET);
+
 $app->get('/docs/*', function () use ($app) {
     $app->redirect("http://mmsch.teiath.gr/mylab/docs/");
 });
@@ -1322,4 +1330,259 @@ function LabWorkersController()
     $app->response()->setBody( toGreek( json_encode( $result ) ) );
 
 }
+
+
+function SearchSchoolUnitsController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = SearchSchoolUnits(
+                $params->school_unit_id,
+                $params->name,
+                $params->region_edu_admin,
+                $params->edu_admin,
+                $params->transfer_area,
+                $params->municipality,
+                $params->prefecture, 
+                $params->education_level, 
+                $params->school_unit_type,
+                $params->school_unit_state,
+                $params->lab_id,
+                $params->operational_rating,
+                $params->technological_rating,
+                $params->lab_type,
+                $params->lab_state,
+                $params->aquisition_source,
+                $params->equipment_type,
+                $params->lab_worker,
+                $params->pagesize, 
+                $params->page,
+                $params->orderby,
+                $params->ordertype,
+                $params->searchtype,
+                $params->exportdatatype,
+                $params->debug
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function SearchLabsController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = SearchLabs(
+                $params->lab_id,
+                $params->name,
+                $params->special_name,
+                $params->creation_date,
+                $params->operational_rating,
+                $params->technological_rating,
+                $params->lab_type,
+                $params->school_unit,
+                $params->lab_state,
+                $params->lab_source,
+                $params->aquisition_source,
+                $params->equipment_type,                    
+                $params->lab_worker,
+                $params->region_edu_admin,
+                $params->edu_admin,
+                $params->transfer_area,
+                $params->municipality,
+                $params->prefecture,
+                $params->education_level, 
+                $params->school_unit_type,
+                $params->school_unit_state,
+                $params->pagesize, 
+                $params->page,
+                $params->orderby,
+                $params->ordertype,
+                $params->searchtype,
+                $params->exportdatatype,
+                $params->debug
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function SearchLabWorkersController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = SearchLabWorkers(
+                $params->lab_worker_id,
+                $params->worker_status,
+                $params->worker_start_service,
+                $params->lab_id,
+                $params->lab_name,
+                $params->worker_position,
+                $params->worker,
+                $params->worker_registry_no,
+                $params->lab_type,
+                $params->school_unit_id,
+                $params->school_unit_name,
+                $params->lab_state,
+                $params->region_edu_admin,
+                $params->edu_admin,
+                $params->transfer_area,
+                $params->municipality,
+                $params->prefecture,
+                $params->education_level, 
+                $params->school_unit_type,
+                $params->school_unit_state,
+                $params->pagesize, 
+                $params->page,
+                $params->orderby,
+                $params->ordertype,
+                $params->searchtype,
+                $params->exportdatatype,
+                $params->debug
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function StatisticSchoolUnitsController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = StatisticSchoolUnits(
+                $params->school_unit_id,
+                $params->name,
+                $params->region_edu_admin,
+                $params->edu_admin,
+                $params->transfer_area,
+                $params->municipality,
+                $params->prefecture, 
+                $params->education_level, 
+                $params->school_unit_type,
+                $params->school_unit_state,
+                $params->lab_id,
+                $params->operational_rating,
+                $params->technological_rating,
+                $params->lab_type,
+                $params->lab_state,
+                $params->aquisition_source,
+                $params->equipment_type,
+                $params->lab_worker,
+                $params->searchtype,
+                $params->debug
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function StatisticLabsController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = StatisticLabs(
+                $params->lab_id,
+                $params->name,
+                $params->special_name,
+                $params->creation_date,
+                $params->operational_rating,
+                $params->technological_rating,
+                $params->lab_type,
+                $params->school_unit,
+                $params->lab_state,
+                $params->lab_source,
+                $params->aquisition_source,
+                $params->equipment_type,                    
+                $params->lab_worker,
+                $params->region_edu_admin,
+                $params->edu_admin,
+                $params->transfer_area,
+                $params->municipality,
+                $params->prefecture,
+                $params->education_level, 
+                $params->school_unit_type,
+                $params->school_unit_state,
+                $params->searchtype,
+                $params->debug
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function StatisticLabWorkersController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = StatisticLabWorkers(
+                $params->lab_worker_id,
+                $params->worker_status,
+                $params->worker_start_service,
+                $params->lab_id,
+                $params->lab_name,
+                $params->worker_position,
+                $params->worker,
+                $params->worker_registry_no,
+                $params->lab_type,
+                $params->school_unit_id,
+                $params->school_unit_name,
+                $params->lab_state,
+                $params->region_edu_admin,
+                $params->edu_admin,
+                $params->transfer_area,
+                $params->municipality,
+                $params->prefecture,
+                $params->education_level, 
+                $params->school_unit_type,
+                $params->school_unit_state,
+                $params->searchtype,
+                $params->debug
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
 ?>

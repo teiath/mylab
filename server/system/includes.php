@@ -58,6 +58,28 @@ require_once('classes/extends/LabSourcesExt.class.php');
 require_once('classes/extends/LabTransitions.class.php');
 require_once('classes/extends/LabWorkersExt.class.php');
 
+require_once('classes/OrderEnumTypes.php');
+require_once('classes/SearchEnumTypes.php');
+require_once('classes/OrderTypes.php');
+require_once('classes/SearchTypes.php');
+require_once('classes/ExportDataTypes.php');
+require_once('classes/ExportDataEnumTypes.php');
+require_once('classes/FormatCreator.php');
+require_once('classes/Filters.php');
+require_once('classes/FormatCreator.php');
+require_once('classes/SearchLabWorkersExt.php');
+require_once('classes/SearchLabsExt.php');
+require_once('classes/SearchSchoolUnitsExt.php');
+require_once('classes/Reports.php');
+
+//-----search functions
+require_once('../api/get/SearchSchoolUnits.php');
+require_once('../api/get/SearchLabs.php');
+require_once('../api/get/SearchLabWorkers.php');
+require_once('../api/get/StatisticSchoolUnits.php');
+require_once('../api/get/StatisticLabs.php');
+require_once('../api/get/StatisticLabWorkers.php');
+
 ////----get from mm
 require_once('../api/get/GetRegionEduAdmins.php');
 require_once('../api/get/GetEduAdmins.php');
