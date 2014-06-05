@@ -49,8 +49,7 @@ class ExceptionMessages
         const Unauthorized = 'Unauthorized';
     // dictionary messages (not found)=============================================================================================================
    
-        //const InvalidLabValue = 'Το εργαστήριο δεν βρέθηκε';
-        const InvalidLabIdValue = 'Το εργαστήριο δεν βρέθηκε';
+
         const UnknownLabIdValue = 'Αγνωστη τιμή $lab_id';
         const UnknownLabTypeValue = 'Αγνωστη τιμή $lab_type';
         const UnknownLabSourceValue = 'Αγνωστη τιμή $lab_source';
@@ -66,38 +65,20 @@ class ExceptionMessages
         const UnknownOperationalRatingValue = 'Αγνωστη τιμή $operational_rating';
         const UnknownTechnologicalRatingValue = 'Αγνωστη τιμή $technological_rating';
         
-        const InvalidLabTypeValue = 'Η τιμή της παραμέτρου $lab_type δεν υπάρχει στο λεξικό';
-        const InvalidWorkerValue = 'Η τιμή της παραμέτρου $worker δεν υπάρχει στο λεξικό';
+        const InvalidLabIdValue = 'Το εργαστήριο δεν βρέθηκε';
+        const InvalidMmIdValue ='Η σχολική μονάδα δεν βρέθηκε';
+        const InvalidNameValue='Η τιμή της παραμέτρου $name δεν υπάρχει στο λεξικό';
+        const InvalidCreationDateValue = 'Η τιμή της παραμέτρου $creation_date δεν υπάρχει στο λεξικό';
+        const InvalidCircuitPhoneNumberValue = 'Η τιμή της παραμέτρου $phone_number δεν υπάρχει στο λεξικό';
         const InvalidSpecializationCodeValue = 'Η τιμή της παραμέτρου $specialization_code δεν υπάρχει στο λεξικό';
         const InvalidEmploymentRelationshipValue = 'Η τιμή της παραμέτρου $employment_relationship δεν υπάρχει στο λεξικό';
-        const InvalidAquisitionSourceValue = 'Η τιμή της παραμέτρου $aquisition_source δεν υπάρχει στο λεξικό';
         const InvalidNewAquisitionSourceValue = 'Η τιμή της παραμέτρου $new_aquisition_source δεν υπάρχει στο λεξικό';
-        const InvalidEquipmentTypeValue = 'Η τιμή της παραμέτρου $equipment_type δεν υπάρχει στο λεξικό';
         const InvalidNewEquipmentTypeValue = 'Η τιμή της παραμέτρου $new_equipment_type δεν υπάρχει στο λεξικό';
-        const InvalidEquipmentCategoryValue = 'Η τιμή της παραμέτρου $equipment_category δεν υπάρχει στο λεξικό';
-        const InvalidStateValue = 'Η τιμή της παραμέτρου $state δεν υπάρχει στο λεξικό';
-        const InvalidLabSourceValue = 'Η τιμή της παραμέτρου $lab_source δεν υπάρχει στο λεξικό';
-        const InvalidWorkerPositionValue = 'Η τιμή της παραμέτρου $worker_position δεν υπάρχει στο λεξικό';
+        
         const NotFoundLabWorkerIDValue = 'Η τιμή της παραμέτρου $lab_worker_id δεν υπάρχει στο λεξικό';
         const NotFoundLabRelationIDValue = 'Η τιμή της παραμέτρου $lab_relation_id δεν υπάρχει στο λεξικό';
         const NotFoundLabAquisitionSourceIdValue = 'Η τιμή της παραμέτρου $lab_aquisition_source_id δεν υπάρχει στο λεξικό';
         const NotFoundLabTransitionIDValue = 'Η τιμή της παραμέτρου $lab_transition_id δεν υπάρχει στο λεξικό';
-        
-        const InvalidSchoolUnitValue = 'Η τιμή της παραμέτρου $school_unit δεν υπάρχει στο λεξικό';
-        const InvalidSchoolUnitTypeValue = 'Η τιμή της παραμέτρου $school_unit_type δεν υπάρχει στο λεξικό';
-        const InvalidEducationLevelValue = 'Η τιμή της παραμέτρου $education_level δεν υπάρχει στο λεξικό';
-        const InvalidRegionEduAdminValue = 'Η τιμή της παραμέτρου $region_edu_admin δεν υπάρχει στο λεξικό';
-        const InvalidEduAdminValue = 'Η τιμή της παραμέτρου $edu_admin δεν υπάρχει στο λεξικό';
-        const InvalidTransferAreaValue = 'Η τιμή της παραμέτρου $transfer_area δεν υπάρχει στο λεξικό';
-        const InvalidPrefectureValue = 'Η τιμή της παραμέτρου $prefecture δεν υπάρχει στο λεξικό';
-        const InvalidMunicipalityValue = 'Η τιμή της παραμέτρου $municipality δεν υπάρχει στο λεξικό';
-        const InvalidCircuitPhoneNumberValue = 'Η τιμή της παραμέτρου $phone_number δεν υπάρχει στο λεξικό';
-        const InvalidRelationTypeValue = 'Η τιμή της παραμέτρου $relation_type δεν υπάρχει στο λεξικό';
-        const InvalidCircuitValue = 'Η τιμή της παραμέτρου $circuit_id με σχολική μονάδα $school_unit_id δεν υπάρχει στο λεξικό';
-        
-        const InvalidMmIdValue ='Η σχολική μονάδα δεν βρέθηκε';
-        const InvalidNameValue='Η τιμή της παραμέτρου $name δεν υπάρχει στο λεξικό';
-        const InvalidCreationDateValue = 'Η τιμή της παραμέτρου $creation_date δεν υπάρχει στο λεξικό';
 
     //missing values (POST/PUT)===================================================================================================================
         
@@ -106,8 +87,6 @@ class ExceptionMessages
         const InvalidSpecialNameValue = 'Η παράμετρος $special_name έχει μη αποδεκτή τιμή';
         const MissingCodeValue = 'Η παράμετρος $code πρέπει να έχει τιμή';
         const InvalidNumberType  = 'Η παράμετρος $number πρέπει να είναι αριθμητική';
-        const MissingLabValue  = 'Η παράμετρος $lab_id πρέπει να έχει τιμή';
-        const InvalidLabValue  = 'Η παράμετρος $lab_id πρέπει να είναι αριθμητική και >0';
         const MissingRegistryNumberValue  = 'Η παράμετρος $registry_number πρέπει να έχει τιμή';
         const InvalidRegistryNumberValue  = 'Η παράμετρος $registry_number πρέπει να είναι αριθμητική';
         const InvalidPhoneNumberValue  = 'Η παράμετρος $phone_number πρέπει να είναι αριθμητική';
@@ -140,7 +119,6 @@ class ExceptionMessages
         const InvalidAquisitionSourceInputValue = 'Η παράμετρος $aquisition_source έχει μη αποδεκτή τιμή'; 
         const InvalidEquipmentTypeInputValue = 'Η παράμετρος $equipment_type έχει μη αποδεκτή τιμή';
         const InvalidWorkerInputValue = 'Η παράμετρος $worker πρέπει να είναι αριθμητική';
-        const MissingWorkerPositionValue  = 'Η παράμετρος $worker_position πρέπει να έχει τιμή';       
         const MissingLabWorkerIdValue  = 'Η παράμετρος $lab_worker_id πρέπει να έχει τιμή';  
         const InvalidLabWorkerIdValue  = 'Η παράμετρος $lab_worker_id πρέπει να είναι αριθμητική και >0';
         const InvalidWorkerStatusValue  = 'Η παράμετρος $transition_source πρέπει να έχει τιμή "1"(ΕΝΕΡΓΟΣ) ή "3"(ΑΝΕΝΕΡΓΟΣ)'; 
@@ -150,8 +128,6 @@ class ExceptionMessages
         const InvalidLabRelationIdValue  = 'Η παράμετρος $lab_relation_id πρέπει να είναι αριθμητική και >0';
         const MissingLabAquisitionSourceIdValue  = 'Η παράμετρος $lab_aquisition_source_id πρέπει να έχει τιμή';
         const InvalidLabAquisitionSourceIdValue  = 'Η παράμετρος $lab_aquisition_source_id πρέπει να είναι αριθμητική και >0';
-        const MissingLabTypeValue  = 'Η παράμετρος $lab_type πρέπει να έχει τιμή';
-        const MissingLabSourceValue  = 'Η παράμετρος $lab_source πρέπει να έχει τιμή';
         const MissingLabStateValue  = 'Η παράμετρος $lab_state πρέπει να έχει τιμή';
         const MissingLabTransitionIdValue  = 'Η παράμετρος $lab_transition_id πρέπει να έχει τιμή';
         const InvalidLabTransitionIdValue  = 'Η παράμετρος $lab_transition_id πρέπει να είναι αριθμητική και >0';
@@ -160,79 +136,44 @@ class ExceptionMessages
         const MissingTechnologicalRatingValue  = 'Η παράμετρος $technological_rating πρέπει να έχει τιμή';
         const InvalidTechnologicalRatingValue  = 'Η παράμετρος $technological_rating πρέπει να είναι αριθμητική και >0';
         
-        const MissingLabParam  = 'Η παράμετρος $lab_id είναι υποχρεωτικό πεδίο';
-        const MissingWorkerIdParam  = 'Η παράμετρος $worker_id είναι υποχρεωτικό πεδίο';
         const MissingWorkerStartServiceParam  = 'Η παράμετρος $worker_start_service είναι υποχρεωτικό πεδίο';
-        const MissingWorkerPositionParam  = 'Η παράμετρος $worker_position είναι υποχρεωτικό πεδίο';
         const MissingWorkerStatusParam  = 'Η παράμετρος $worker_status είναι υποχρεωτικό πεδίο';
         const MissingEquipmentTypesParam  = 'Η παράμετρος $equipment_types είναι υποχρεωτικό πεδίο';
         const MissingItemsParam  = 'Η παράμετρος $items είναι υποχρεωτικό πεδίο';
-        const MissingEquipmentTypeParam  = 'Η παράμετρος $equipment_type είναι υποχρεωτικό πεδίο';
-        const MissingLabEquipmentTypeParam  = 'Οι παράμετροι equipment_type,items είναι υποχρεωτικά πεδία';
-        const MissingLabAquisitionSourceParam  = 'Η παράμετρος aquisition_source είναι υποχρεωτικά πεδία';
         const MissingAquisitionYearParam  = 'Η παράμετρος aquisition_year είναι υποχρεωτικά πεδία';
-        const MissingSchoolUnitParam  = 'Η παράμετρος $school_unit είναι υποχρεωτικό πεδίο';
-        const MissingRelationTypeParam  = 'Η παράμετρος $relation_type είναι υποχρεωτικό πεδίο';
-        const MissingCircuitIdParam  = 'Η παράμετρος $circuit_id είναι υποχρεωτικό πεδίο';
-        const MissingLabRelationIdParam  = 'Η παράμετρος $lab_relation_id είναι υποχρεωτικό πεδίο';       
-        const MissingLabAquisitionSourceIdParam  = 'Η παράμετρος $lab_aquisition_source_id είναι υποχρεωτικό πεδίο';    
-        const MissingLabTypeParam = 'Η παράμετρος $lab_type είναι υποχρεωτικό πεδίο';  
-        const MissingLabSourceParam = 'Η παράμετρος $lab_source είναι υποχρεωτικό πεδίο';  
         const MissingLabStateParam = 'Η παράμετρος $lab_state είναι υποχρεωτικό πεδίο';  
-        const MissingLabTransitionIdParam  = 'Η παράμετρος $lab_transition_id είναι υποχρεωτικό πεδίο';
         const MissingTransitionDateParam  = 'Η παράμετρος $transition_date είναι υποχρεωτικό πεδίο';
         const MissingTransitionSourceParam  = 'Η παράμετρος $transition_source είναι υποχρεωτικό πεδίο';
         const MissingTransitionJustificationParam  = 'Η παράμετρος $transition_justification είναι υποχρεωτικό πεδίο';
-        const MissingCircuitPhoneNumberParam  = 'Η παράμετρος $phone_number είναι υποχρεωτικό πεδίο';
         const MissingOperationalRatingParam  = 'Η παράμετρος $operational_rating είναι υποχρεωτικό πεδίο';
         const MissingTechnologicalRatingParam  = 'Η παράμετρος $technological_rating είναι υποχρεωτικό πεδίο';
         
-        
-        const MissingLabTypeIdValue  = 'Η παράμετρος $lab_type_id πρέπει να έχει τιμή';
         const InvalidLabTypeIdValue  = 'Η παράμετρος $lab_type_id πρέπει να είναι αριθμητική και >0 ';
         const MissingSpecializationCodeIdValue = 'Η παράμετρος $specialization_code_id πρέπει να έχει τιμή';
         const InvalidSpecializationCodeIdValue  = 'Η παράμετρος $specialization_code_id πρέπει να είναι αριθμητική και >0 ';
         const MissingEmploymentRelationshipIdValue = 'Η παράμετρος $employment_relationship_id πρέπει να έχει τιμή';
         const InvalidEmploymentRelationshipIdValue  = 'Η παράμετρος $employment_relationship_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingAquisitionSourceIdValue = 'Η παράμετρος $aquisition_source_id πρέπει να έχει τιμή';
         const InvalidAquisitionSourceIdValue  = 'Η παράμετρος $aquisition_source_id πρέπει να είναι αριθμητική και >0 ';
         const MissingNewAquisitionSourceIdValue = 'Η παράμετρος $new_aquisition_source πρέπει να έχει τιμή';
-        const MissingEquipmentTypeIdValue = 'Η παράμετρος $equipment_type_id πρέπει να έχει τιμή'; 
         const InvalidEquipmentTypeIdValue  = 'Η παράμετρος $equipment_type_id πρέπει να είναι αριθμητική και >0 ';
         const MissingNewEquipmentTypeIdValue = 'Η παράμετρος $new_equipment_type πρέπει να έχει τιμή';
-        const MissingEquipmentCategoryIdValue = 'Η παράμετρος $equipment_category_id πρέπει να έχει τιμή'; 
         const InvalidEquipmentCategoryIdValue  = 'Η παράμετρος $equipment_category_id πρέπει να είναι αριθμητική και >0 ';
         const MissingLabResponsibleIdValue = 'Η παράμετρος $lab_responsible_id πρέπει να έχει τιμή'; 
         const InvalidLabResponsibleIdValue  = 'Η παράμετρος $lab_responsible_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingLabWorkerValue = 'Η παράμετρος $lab_worker πρέπει να έχει τιμή'; 
         const MissingWorkerStartServiceValue = 'Η παράμετρος $worker_start_service πρέπει να έχει τιμή'; 
-        const MissingWorkerValue = 'Η παράμετρος $worker πρέπει να έχει τιμή';        
-        const MissingEquipmentTypeValue = 'Η παράμετρος $equipment_type πρέπει να έχει τιμή'; 
-        const MissingAquisitionSourceValue = 'Η παράμετρος $aquisition_source πρέπει να έχει τιμή'; 
-        
-        const MissingSchoolUnitIdValue = 'Η παράμετρος $school_unit_id πρέπει να έχει τιμή'; 
+
         const InvalidSchoolUnitIdValue  = 'Η παράμετρος $school_unit_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingEducationLevelIdValue = 'Η παράμετρος $education_level_id πρέπει να έχει τιμή'; 
         const InvalidEducationLevelIdValue  = 'Η παράμετρος $education_level_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingSchoolUnitTypeIdValue = 'Η παράμετρος $school_unit_type_id πρέπει να έχει τιμή'; 
         const InvalidSchoolUnitTypeIdValue  = 'Η παράμετρος $school_unit_type_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingRegionEduAdminIdValue = 'Η παράμετρος $region_edu_admin_id πρέπει να έχει τιμή'; 
         const InvalidRegionEduAdminIdValue  = 'Η παράμετρος $region_edu_admin_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingEduAdminIdValue = 'Η παράμετρος $edu_admin_id πρέπει να έχει τιμή'; 
         const InvalidEduAdminIdValue  = 'Η παράμετρος $edu_admin_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingTranferAreaIdValue = 'Η παράμετρος $transfer_area_id πρέπει να έχει τιμή'; 
-        const InvalidTranferAreaIdValue  = 'Η παράμετρος $transfer_area_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingMunicipalityIdValue = 'Η παράμετρος $municipality_id πρέπει να έχει τιμή'; 
+        const InvalidTransferAreaIdValue  = 'Η παράμετρος $transfer_area_id πρέπει να είναι αριθμητική και >0 ';
         const InvalidMunicipalityIdValue  = 'Η παράμετρος $municipality_id πρέπει να είναι αριθμητική και >0 ';
-        const MissingPrefectureIdValue = 'Η παράμετρος $prefecture_id πρέπει να έχει τιμή'; 
         const InvalidPrefectureIdValue  = 'Η παράμετρος $prefecture_id πρέπει να είναι αριθμητική και >0 ';
         const InvalidFromDiscontinuedToStateIdValue  = 'Η παράμετρος $to_state δεν μπορεί να πάρει τιμή, διότι η παράμετρος $from_state εχεί τιμή 3=ΚΑΤΑΡΓΗΜΕΝΗ και δεν αλλάζει η κατάσταση.';
         const InvalidSameFromToStateValue  = 'Η παράμετρος $to_state και η παράμετρος $from_state έχουν την ίδια τιμή και δεν αλλάζει η κατάσταση.';
-        const MissingRelationTypeValue = 'Η παράμετρος $relation_type πρέπει να έχει τιμή'; 
         const InvalidRelationTypeIdValue ='Η παράμετρος $relation_type πρέπει να είναι αριθμητική και >0 ';
-        const MissingCircuitIdValue ='Η παράμετρος $circuit πρέπει να έχει τιμή ';
         const InvalidCircuitIdValue ='Η παράμετρος $circuit πρέπει πρέπει να είναι αριθμητική και >0 ';
-        const MissingCircuitPhoneNumberValue ='Η παράμετρος $phone_number πρέπει να έχει τιμή ';
         const InvalidCircuitIdPhoneNumberValue ='Η παράμετρος $phone_number πρέπει πρέπει να είναι αριθμητική και >0 ';
         
     //not found values for create/update rows(PUT)================================================================================================================= 
@@ -487,5 +428,562 @@ class ExceptionMessages
         //post labs
         const NotAllowedLabNameValue = 'Δεν επιτρέπεται η δημιουργία εργαστηρίου σε σχολικές μονάδες που είναι σε αναστολή ή καταργημένες';
         
+    //########################################
+    //Search Functions
+    //######################################## 
+        
+    //======================================================================================================================
+    // =Search Array School Units
+    //======================================================================================================================
+        
+//SchoolUnits
+        
+    const MissingSchoolUnitIDParam = 'Ο Κωδικός της Μονάδας είναι υποχρεωτικό πεδίο';
+    const MissingSchoolUnitIDValue = 'Ο Κωδικός της Μονάδας πρέπει να έχει τιμή';
+    const InvalidSchoolUnitIDType = 'Ο Κωδικός της Μονάδας πρέπει να είναι αριθμητικός';
+    const InvalidSchoolUnitIDArray = 'Ο Κωδικός της Μονάδας δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingSchoolUnitParam = 'Η Μονάδα είναι υποχρεωτικό πεδίο';   
+    const MissingSchoolUnitValue = 'Η Μονάδα πρέπει να έχει τιμή';
+    const InvalidSchoolUnitValue = 'Η Μονάδα δεν βρέθηκε';
+    const InvalidSchoolUnitType = 'Η Μονάδα πρέπει να είναι αριθμητική ή αλφαριθμητική';
+    const InvalidSchoolUnitArray = 'Η Μονάδα δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedSchoolUnitValue = 'H Μονάδα υπάρχει ήδη';
+    const DuplicatedSchoolUnitNameValue = 'Το Όνομα της Μονάδας υπάρχει ήδη';
+     
+    const MissingSchoolUnitNameParam = 'Το Όνομα της Μονάδας είναι υποχρεωτικό πεδίο';
+    const MissingSchoolUnitNameValue = 'Το Όνομα της Μονάδας πρέπει να έχει τιμή';
+    const InvalidSchoolUnitNameType = 'Το Όνομα της Μονάδας πρέπει να είναι αλφαριθμητικό';
+    const InvalidSchoolUnitNameArray = 'Το Όνομα της Μονάδας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const InvalidSchoolUnitSpecialNameType = 'Το Ειδικό Όνομα της Μονάδας πρέπει να είναι αλφαριθμητικό';
+    const InvalidSchoolUnitLastUpdateType = 'Η Ημερομηνία Τελευταίας Ενημερωσης της Μονάδας πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
+    const InvalidSchoolUnitFaxNumberType = 'Το Φαξ της Μονάδας πρέπει να είναι αριθμητικό';
+    const InvalidSchoolUnitPhoneNumberType = 'Ο Τηλεφωνικός Αριθμός της Μονάδας πρέπει να είναι αριθμητικός';
+    const InvalidSchoolUnitEmailType = 'Το Email της Μονάδας πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
+    const InvalidSchoolUnitStreetAddressType = 'Η Διεύθυνση της Μονάδας πρέπει να είναι αλφαριθμητική';
+    const InvalidSchoolUnitPostalCodeType = 'Ο Ταχυδρομικός Κώδικας της Μονάδας πρέπει να είναι αριθμητικός';
+ 
+//= Circuits
+    
+    const MissingCircuitIDParam = 'Ο Κωδικός του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
+    const MissingCircuitIDValue = 'Ο Κωδικός του Τηλεπικοινωνιακού Κυκλώματος πρέπει να έχει τιμή';
+    const InvalidCircuitIDType = 'Ο Κωδικός του Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι αριθμητικός';
+    const InvalidCircuitIDArray = 'Ο Κωδικός του Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingCircuitParam = 'Το Τηλεπικοινωνιακό Κύκλωμα είναι υποχρεωτικό πεδίο';
+    const MissingCircuitValue = 'Το Τηλεπικοινωνιακό Κύκλωμα πρέπει να έχει τιμή';
+    const InvalidCircuitValue = 'Το Τηλεπικοινωνιακό Κύκλωμα δεν βρέθηκε';
+    const InvalidCircuitType = 'Το Τηλεπικοινωνιακό Κύκλωμα πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidCircuitArray = 'Το Τηλεπικοινωνιακό Κύκλωμα δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedCircuitValue = 'Το Τηλεπικοινωνιακό Κύκλωμα υπάρχει ήδη';
+    const DuplicatedCircuitPhoneNumberValue = 'Ο Τηλεφωνικός Αριθμός του Τηλεπικοινωνιακού Κυκλώματος υπάρχει ήδη';
+    const UsedCircuitBySchoolUnits = 'Ο Κωδικός του Τηλεπικοινωνιακού Κυκλώματος χρησιμοποιείται από Σχολικές Μονάδες';
+    
+    const MissingCircuitPhoneNumberParam = 'Ο Αριθμός του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
+    const MissingCircuitPhoneNumberValue = 'Ο Αριθμός του Τηλεπικοινωνιακού Κυκλώματος πρέπει να έχει τιμή';
+    const InvalidCircuitPhoneNumberType = 'Ο Αριθμός του Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι αριθμητικός';
+    const InvalidCircuitPhoneNumberArray = 'Ο Αριθμός του Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
+
+    const MissingCircuitStatusParam = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
+    const MissingCircuitStatusValue = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος πρέπει να έχει τιμή';
+    const InvalidCircuitStatusType = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι Ενεργή ή Ανενεργή';
+    const InvalidCircuitStatusArray = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
+     
+    const MissingCircuitUpdatedDateParam = 'Η Ημερομηνία Ενημέρωσης του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
+    const MissingCircuitUpdatedDateValue = 'Η Ημερομηνία Ενημέρωσης του Τηλεπικοινωνιακού Κυκλώματος πρέπει να έχει τιμή';
+    const InvalidCircuitUpdatedDateType = 'Η Ημερομηνία Ενημέρωσης του Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
+    const InvalidCircuitUpdatedDateArray = 'Η Ημερομηνία Ενημέρωσης του Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
+
+//= SchoolUnitWorkers
+    
+    const MissingSchoolUnitWorkerIDParam = 'Ο Κωδικός του Εργαζόμενου Σχολικής Μονάδας είναι υποχρεωτικό πεδίο';
+    const MissingSchoolUnitWorkerIDValue = 'Ο Κωδικός του Εργαζόμενου Σχολικής Μονάδας πρέπει να έχει τιμή';
+    const InvalidSchoolUnitWorkerIDType = 'Ο Κωδικός του Εργαζόμενου Σχολικής Μονάδας πρέπει να είναι αριθμητικός';
+    const InvalidSchoolUnitWorkerIDArray = 'Ο Κωδικός του Εργαζόμενου Σχολικής Μονάδας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingSchoolUnitWorkerParam = 'Ο Εργαζόμενος Σχολικής Μονάδας είναι υποχρεωτικό πεδίο';
+    const MissingSchoolUnitWorkerValue = 'Ο Εργαζόμενος Σχολικής Μονάδας πρέπει να έχει τιμή';
+    const InvalidSchoolUnitWorkerValue = 'Ο Εργαζόμενος Σχολικής Μονάδας δεν βρέθηκε';
+    const InvalidSchoolUnitWorkerType = 'Ο Εργαζόμενος Σχολικής Μονάδας πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidSchoolUnitWorkerArray = 'Ο Εργαζόμενος Σχολικής Μονάδας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedSchoolUnitWorkerValue = 'Ο Εργαζόμενος Σχολικής Μονάδας υπάρχει ήδη';
+    const UsedSchoolUnitWorkerBySchoolUnits = 'Ο Κωδικός του Εργαζόμενου Σχολικής Μονάδας χρησιμοποιείται από Σχολικές Μονάδες';
+    
+//= Workers
+
+    const MissingWorkerIDParam = 'Ο Κωδικός του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerIDValue = 'Ο Κωδικός του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidWorkerIDType = 'Ο Κωδικός του Εργαζομένου πρέπει να είναι αριθμητικός';
+    const InvalidWorkerIDArray = 'Ο Κωδικός του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+   
+    const MissingWorkerParam = 'Ο Εργαζόμενος είναι υποχρεωτικό πεδίο';
+    const MissingWorkerValue = 'Ο Εργαζόμενος πρέπει να έχει τιμή';
+    const InvalidWorkerValue = 'Ο Εργαζόμενος δεν βρέθηκε';
+    const InvalidWorkerType = 'Ο Εργαζόμενος πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidWorkerArray = 'Ο Εργαζόμενος δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedWorkerValue = 'Ο Εργαζόμενος υπάρχει ήδη';
+    const DuplicatedWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου υπάρχει ήδη';
+    const DuplicatedWorkerTaxNumberValue = 'Το ΑΦΜ του Εργαζομένου υπάρχει ήδη';
+    const UsedWorkerBySchoolUnitWorkers = 'Ο Κωδικός του Εργαζόμενου χρησιμοποιείται από Σχολικές Μονάδες';
+    const UsedWorkerBySchoolUnitLabs = 'Ο Κωδικός του Εργαζόμενου χρησιμοποιείται από Σχολικά Εργαστήρια';
+   
+    const MissingWorkerRegistryNoParam = 'Ο Αριθμός Μητρώου του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidWorkerRegistryNoType = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να είναι αριθμητικός';
+    const InvalidWorkerRegistryNoArray = 'Ο Αριθμός Μητρώου του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingWorkerLastnameParam = 'Το Επώνυμο του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerLastnameValue = 'Το Επώνυμο του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidWorkerLastnameType = 'Το Επώνυμο του Εργαζομένου πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidWorkerLastnameArray = 'Το Επώνυμο του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+
+    const MissingWorkerFirstnameParam = 'Το Όνομα του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerFirstnameValue = 'Το Όνομα του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidWorkerFirstnameType = 'Το Όνομα του Εργαζομένου πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidWorkerFirstnameArray = 'Το Όνομα του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const InvalidWorkerTaxNumberType = 'Το ΑΦΜ του Εργαζομένου πρέπει να είναι αριθμητικό';
+    const InvalidWorkerFatherNameType = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να είναι αλφαριθμητικός';
+    const InvalidWorkerSexType = 'Το Φύλο του Εργαζομένου πρέπει να είναι αλφαριθμητική : Α (Άντρας) ή Γ (Γυναικα)';
+    
+   //= LabWorkers
+    
+    const MissingLabWorkerIDParam = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabWorkerIDValue = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabWorkerIDType = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου πρέπει να είναι αριθμητικός';
+    const InvalidLabWorkerIDArray = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingLabWorkerParam = 'Ο Εργαζόμενος Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabWorkerValue = 'Ο Εργαζόμενος Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabWorkerValue = 'Ο Εργαζόμενος Εργαστηρίου δεν βρέθηκε';
+    const InvalidLabWorkerType = 'Ο Εργαζόμενος Εργαστηρίου πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidLabWorkerArray = 'Ο Εργαζόμενος Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedLabWorkerValue = 'Ο Εργαζόμενος Εργαστηρίου υπάρχει ήδη';
+    const UsedLabWorkerByLabs = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
+    
+    const MissingLabWorkerStatusParam = 'H Κατάσταση του Εργαζομένου Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabWorkerStatusValue = 'H Κατάσταση του Εργαζομένου Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabWorkerStatusType = 'H Κατάσταση του Εργαζομένου Εργαστηρίου πρέπει να είναι αριθμητική : 1 (Ενεργή) ή 3 (Ανενεργή)';
+    const InvalidLabWorkerStatusArray = 'H Κατάσταση του Εργαζομένου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+
+    const MissingLabWorkerStartServiceParam = 'Η Ημερομηνία Έναρξης του Εργαζομένου Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabWorkerStartServiceValue = 'Η Ημερομηνία Έναρξης του Εργαζομένου Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabWorkerStartServiceType = 'Η Ημερομηνία Έναρξης  του Εργαζομένου Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
+    const InvalidLabWorkerStartServiceArray = 'Η Ημερομηνία Έναρξης  του Εργαζομένου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const InvalidLabWorkerEmailType = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
+        
+//Labs
+        
+    const MissingLabIDParam = 'Ο Κωδικός του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabIDValue = 'Ο Κωδικός του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabIDType = 'Ο Κωδικός του Εργαστηρίου πρέπει να είναι αριθμητικός';
+    const InvalidLabIDArray = 'Ο Κωδικός του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingLabParam = 'Το Εργαστήριο είναι υποχρεωτικό πεδίο';   
+    const MissingLabValue = 'Το Εργαστήριο πρέπει να έχει τιμή';
+    const InvalidLabValue = 'Το Εργαστήριο δεν βρέθηκε';
+    const InvalidLabType = 'Το Εργαστήριο πρέπει να είναι αλφαριθμητική';
+    const InvalidLabArray = 'Το Εργαστήριο δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedLabValue = 'Το Εργαστήριο υπάρχει ήδη';
+    const DuplicatedLabNameValue = 'Το Όνομα του Εργαστηρίου υπάρχει ήδη';
+     
+    const MissingLabNameParam = 'Το Όνομα του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabNameValue = 'Το Όνομα του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabNameType = 'Το Όνομα του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabNameArray = 'Το Όνομα του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const InvalidLabSpecialNameType = 'Το Ειδικό Όνομα του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabCreationDateType = 'Η Ημερομηνία Δημιουργίας του Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
+    const InvalidLabCreatedByType = 'Το Ονοματεπώνυμο του Δημιουργού της Εγγραφής του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabLastUpdatedType = 'Η Ημερομηνία Τελευταίας Ενημερωσης του Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
+    const InvalidLabUpdatedByType = 'Το Ονοματεπώνυμο του Τελευταίου που Ενημέρωσε την Εγγραφής του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabPositioningType = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
+    const InvalidLabCommentsType = 'Τα Σχόλια για το Εργαστήριο πρέπει να αλφαριθμητικά ή αλφαριθμητικά';
+    const InvalidLabOperationalRatingType = 'Η Λειτουργική Βαθμολόγηση του Εργαστηρίου πρέπει να είναι αριθμητική';
+    const InvalidLabTechnologicalRatingType = 'Η Τεχνολογική Βαθμολόγηση του Εργαστηρίου πρέπει να είναι αριθμητική';
+
+//LabEquipmentTypes
+        
+    const MissingLabEquipmentTypeIDParam = 'Ο Κωδικός του Εξοπλισμού του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabEquipmentTypeIDValue = 'Ο Κωδικός του Εξοπλισμού του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabEquipmentTypeIDType = 'Ο Κωδικός του Εξοπλισμού του Εργαστηρίου πρέπει να είναι αριθμητικός';
+    const InvalidLabEquipmentTypeIDArray = 'Ο Κωδικός του Εξοπλισμού του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingLabEquipmentTypeParam = 'Ο Εξοπλισμός του Εργαστηρίου είναι υποχρεωτικό πεδίο';   
+    const MissingLabEquipmentTypeValue = 'Ο Εξοπλισμός του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabEquipmentTypeValue = 'Ο Εξοπλισμός του Εργαστηρίου δεν βρέθηκε';
+    const InvalidLabEquipmentTypeType = 'Ο Εξοπλισμός του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabEquipmentTypeArray = 'Ο Εξοπλισμός του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedLabEquipmentTypeValue = 'Ο Εξοπλισμός του Εργαστηρίου υπάρχει ήδη';
+    const UsedLabEquipmentTypeByLabs = 'Ο Κωδικός του Εξοπλισμού του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
+     
+    const MissingLabEquipmentTypeItemsParam = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabEquipmentTypeItemsValue = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabEquipmentTypeItemsType = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabEquipmentTypeItemsArray = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+
+//LabAquisitionSources
+        
+    const MissingLabAquisitionSourceIDParam = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabAquisitionSourceIDValue = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabAquisitionSourceIDType = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι αριθμητικός';
+    const InvalidLabAquisitionSourceIDArray = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+
+    const MissingLabAquisitionSourceParam = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου είναι υποχρεωτικό πεδίο';   
+    const MissingLabAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου δεν βρέθηκε';
+    const InvalidLabAquisitionSourceType = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabAquisitionSourceArray = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedLabAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου υπάρχει ήδη';
+    const UsedLabAquisitionSourceByLabs = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
+     
+    const InvalidLabAquisitionSourceYearType = 'Η Ημερομηνία Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
+    const InvalidLabAquisitionSourceCommentsType = 'Τα Σχόλια για την Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι αλφαριθμητικά';
+    
+//LabTransitions
+        
+    const MissingLabTransitionIDParam = 'Ο Κωδικός των Καταστάσεων Μετάβασης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTransitionIDValue = 'Ο Κωδικός των Καταστάσεων Μετάβασης του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTransitionIDType = 'Ο Κωδικός των Καταστάσεων Μετάβασης του Εργαστηρίου πρέπει να είναι αριθμητικός';
+    const InvalidLabTransitionIDArray = 'Ο Κωδικός των Καταστάσεων Μετάβασης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+
+    const MissingLabTransitionParam = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου είναι υποχρεωτικό πεδίο';   
+    const MissingLabTransitionValue = 'Οι Καταστάσεις Μετάβασης  του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTransitionValue = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου δεν βρέθηκε';
+    const InvalidLabTransitionType = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabTransitionArray = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedLabTransitionValue = 'Η Αλλαγή της Κατάστασης Μετάβασης του Εργαστηρίου του Εργαστηρίου υπάρχει ήδη';
+    const UsedLabTransitionByLabs = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου χρησιμοποιούνται από Σχολικά Εργαστήρια';
+    
+    const MissingLabTransitionJustificationParam = 'Η Αιτιολογία Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTransitionJustificationValue = 'Η Αιτιολογία Αλλαγής της Κατάστασης Μετάβασηςτου Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTransitionJustificationType = 'Η Αιτιολογία Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
+    const InvalidLabTransitionJustificationArray = 'Η Αιτιολογία Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingLabTransitionDateParam = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTransitionDateValue = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTransitionDateType = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
+    const InvalidLabTransitionDateArray = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingLabTransitionSourceParam = 'Η Πηγή Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTransitionSourceValue = 'Η Πηγή Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTransitionSourceType = 'Η Πηγή Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου πρέπει να είναι mmsch ή mylab';
+    const InvalidLabTransitionSourceArray = 'Η Πηγή Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+//LabRelations
+        
+    const MissingLabRelationIDParam = 'Ο Κωδικός Συσχέτισης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabRelationIDValue = 'Ο Κωδικός Συσχέτισης του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabRelationIDType = 'Ο Κωδικός Συσχέτισης του Εργαστηρίου πρέπει να είναι αριθμητικός';
+    const InvalidLabRelationIDArray = 'Ο Κωδικός Συσχέτισης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+
+    const MissingLabRelationParam = 'Η Συσχέτιση του Εργαστηρίου είναι υποχρεωτικό πεδίο';   
+    const MissingLabRelationValue = 'Η Συσχέτιση του Εργαστηρίου του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabRelationValue = 'Η Συσχέτιση του Εργαστηρίου του Εργαστηρίου δεν βρέθηκε';
+    const InvalidLabRelationType = 'Η Συσχέτιση του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
+    const InvalidLabRelationArray = 'Η Συσχέτιση του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedLabRelationValue = 'Η Συσχέτιση του Εργαστηρίου  του Εργαστηρίου υπάρχει ήδη';
+    const UsedLabRelationByLabs = 'Η Συσχέτιση του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
+    
+    //########################################
+    //Vocabularies Functions
+    //######################################## 
+    
+    //= RegionEduAdmins
+    const MissingRegionEduAdminIDParam = 'Ο Κωδικός της Περιφέρειας είναι υποχρεωτικό πεδίο';
+    const MissingRegionEduAdminIDValue = 'Ο Κωδικός της Περιφέρειας πρέπει να έχει τιμή';
+    const InvalidRegionEduAdminIDType = 'Ο Κωδικός της Περιφέρειας πρέπει να είναι αριθμητικός';
+    const InvalidRegionEduAdminIDArray = 'Ο Κωδικός της Περιφέρειας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingRegionEduAdminParam = 'Η Περιφέρεια είναι υποχρεωτικό πεδίο';
+    const MissingRegionEduAdminValue = 'Η Περιφέρεια πρέπει να έχει τιμή';
+    const InvalidRegionEduAdminValue = 'Η Περιφέρεια δεν υπάρχει στο λεξικό';
+    const InvalidRegionEduAdminType = 'Η Περιφέρεια πρέπει να είναι αριθμητική ή αλφαριθμητική';
+    const InvalidRegionEduAdminArray = 'Η Περιφέρεια δεν μπορεί να έχει πολλαπλές τιμές';
+     
+    const DuplicatedRegionEduAdminValue = 'Η Περιφέρεια υπάρχει ήδη';
+    const UsedRegionEduAdminBySchoolUnits = 'Ο Κωδικός Περιφέρειας χρησιμοποιείται από Σχολικές Μονάδες';
+    const UsedRegionEduAdminByEduAdmins = 'Ο Κωδικός Περιφέρειας χρησιμοποιείται από Διευθύνσεις Εκπαίδευσης';
+    
+    //= EduAdmins
+    const MissingEduAdminIDParam = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης είναι υποχρεωτικό πεδίο';
+    const MissingEduAdminIDValue = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης πρέπει να έχει τιμή';
+    const InvalidEduAdminIDType = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης πρέπει να είναι αριθμητικός';
+    const InvalidEduAdminIDArray = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingEduAdminParam = 'Η Διεύθυνση Εκπαίδευσης είναι υποχρεωτικό πεδίο';
+    const MissingEduAdminValue = 'Η Διεύθυνση Εκπαίδευσης πρέπει να έχει τιμή';
+    const InvalidEduAdminValue = 'Η Διεύθυνση Εκπαίδευσης δεν υπάρχει στο λεξικό';
+    const InvalidEduAdminType = 'Η Διεύθυνση Εκπαίδευσης πρέπει να είναι αριθμητική ή αλφαριθμητική';
+    const InvalidEduAdminArray = 'Η Διεύθυνση Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';
+      
+    const DuplicatedEduAdminValue = 'Η Διεύθυνση Εκπαίδευσης υπάρχει ήδη';
+    const UsedEduAdminBySchoolUnits = 'Ο Κωδικός Διεύθυνσης Εκπαίδευσης χρησιμοποιείται από Σχολικές Μονάδες';
+    const UsedEduAdminByTransferAreas = 'Ο Κωδικός Διεύθυνσης Εκπαίδευσης χρησιμοποιείται από Περιοχές Μετάθεσης ';
+  
+    //= TransferAreas
+    const MissingTransferAreaIDParam = 'Ο Κωδικός της Περιοχής Μετάθεσης είναι υποχρεωτικό πεδίο';
+    const MissingTransferAreaIDValue = 'Ο Κωδικός της Περιοχής Μετάθεσης πρέπει να έχει τιμή';
+    const InvalidTransferAreaIDType = 'Ο Κωδικός της Περιοχής Μετάθεσης πρέπει να είναι αριθμητικός';
+    const InvalidTransferAreaIDArray = 'Ο Κωδικός της Περιοχής Μετάθεσης δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingTransferAreaParam = 'Η Περιοχή Μετάθεσης είναι υποχρεωτικό πεδίο';
+    const MissingTransferAreaValue = 'Η Περιοχή Μετάθεσης πρέπει να έχει τιμή';
+    const InvalidTransferAreaValue = 'Η Περιοχή Μετάθεσης δεν υπάρχει στο λεξικό';
+    const InvalidTransferAreaType = 'Η Περιοχή Μετάθεσης πρέπει να είναι αριθμητική ή αλφαριθμητική';
+    const InvalidTransferAreaArray = 'Η Περιοχή Μετάθεσης δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedTransferAreaValue = 'Η Περιοχή Μετάθεσης υπάρχει ήδη';
+    const UsedTransferAreaBySchoolUnits = 'Ο Κωδικός Περιοχής Μετάθεσης χρησιμοποιείται από Σχολικές Μονάδες';
+    const UsedTransferAreaByMunicipalities = 'Ο Κωδικός Περιοχής Μετάθεσης χρησιμοποιείται από Δήμους ';
+
+    //= Municipalities
+    const MissingMunicipalityIDParam = 'Ο Κωδικός του Δήμου είναι υποχρεωτικό πεδίο';
+    const MissingMunicipalityIDValue = 'Ο Κωδικός του Δήμου πρέπει να έχει τιμή';
+    const InvalidMunicipalityIDType = 'Ο Κωδικός του Δήμου πρέπει να είναι αριθμητικός';
+    const InvalidMunicipalityIDArray = 'Ο Κωδικός του Δήμου δεν μπορεί να έχει πολλαπλές τιμές';
+
+    const MissingMunicipalityParam = 'Ο Δήμος είναι υποχρεωτικό πεδίο';
+    const MissingMunicipalityValue = 'Ο Δήμος πρέπει να έχει τιμή';
+    const InvalidMunicipalityValue = 'Ο Δήμος δεν υπάρχει στο λεξικό';
+    const InvalidMunicipalityType = 'Ο Δήμος πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidMunicipalityArray = 'Ο Δήμος δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedMunicipalityValue = 'Ο Δήμος υπάρχει ήδη';
+    const UsedMunicipalityBySchoolUnits = 'Ο Κωδικός Δήμου χρησιμοποιείται από Σχολικές Μονάδες';
+    const UsedMunicipalityByPrefectures = 'Ο Κωδικός Δήμου χρησιμοποιείται από Νομούς '; 
+    
+    //= Prefectures
+    const MissingPrefectureIDParam = 'Ο Κωδικός του Νομού είναι υποχρεωτικό πεδίο';
+    const MissingPrefectureIDValue = 'Ο Κωδικός του Νομού πρέπει να έχει τιμή';
+    const InvalidPrefectureIDType = 'Ο Κωδικός του Νομού πρέπει να είναι αριθμητικός';
+    const InvalidPrefectureIDArray = 'Ο Κωδικός του Νομού δεν μπορεί να έχει πολλαπλές τιμές';
+
+    const MissingPrefectureParam = 'Ο Νομός είναι υποχρεωτικό πεδίο';
+    const MissingPrefectureValue = 'Ο Νομός πρέπει να έχει τιμή';
+    const InvalidPrefectureValue = 'Ο Νομός δεν υπάρχει στο λεξικό';
+    const InvalidPrefectureType = 'Ο Νομός πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidPrefectureArray = 'Ο Νομός δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedPrefectureValue = 'Ο Νομός υπάρχει ήδη';
+    const UsedPrefectureBySchoolUnits = 'Ο Κωδικός Νομού χρησιμοποιείται από Σχολικές Μονάδες';
+
+    //= EducationLevels
+    const MissingEducationLevelIDParam = 'Ο Κωδικός του Επιπέδου Εκπαίδευσης είναι υποχρεωτικό πεδίο';
+    const MissingEducationLevelIDValue = 'Ο Κωδικός του Επιπέδου Εκπαίδευσης πρέπει να έχει τιμή';
+    const InvalidEducationLevelIDType = 'Ο Κωδικός του Επιπέδου Εκπαίδευσης πρέπει να είναι αριθμητικός';
+    const InvalidEducationLevelIDArray = 'Ο Κωδικός του Επιπέδου Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingEducationLevelParam = 'Το Επίπεδο Εκπαίδευσης είναι υποχρεωτικό πεδίο';
+    const MissingEducationLevelValue = 'Το Επίπεδο Εκπαίδευσης πρέπει να έχει τιμή';
+    const InvalidEducationLevelValue = 'Το Επίπεδο Εκπαίδευσης δεν υπάρχει στο λεξικό';
+    const InvalidEducationLevelType = 'Το Επίπεδο Εκπαίδευσης πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidEducationLevelArray = 'Το Επίπεδο Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedEducationLevelValue = 'Το Επίπεδο Εκπαίδευσης υπάρχει ήδη';
+    const UsedEducationLevelBySchoolUnits = 'Ο Κωδικός Επίπεδου Εκπαίδευσης χρησιμοποιείται από Σχολικές Μονάδες';
+    const UsedEducationLevelBySchoolUnitTYpes = 'Ο Κωδικός Επίπεδου Εκπαίδευσης χρησιμοποιείται από Τύπους Σχολικών Μονάδων';
+    
+    //= SchoolUnitTypes
+    const MissingSchoolUnitTypeIDParam = 'Ο Κωδικός του Τύπου Σχολικής Μονάδας είναι υποχρεωτικό πεδίο';
+    const MissingSchoolUnitTypeIDValue = 'Ο Κωδικός του Τύπου Σχολικής Μονάδας πρέπει να έχει τιμή';
+    const InvalidSchoolUnitTypeIDType = 'Ο Κωδικός του Τύπου Σχολικής Μονάδας πρέπει να είναι αριθμητικός';
+    const InvalidSchoolUnitTypeIDArray = 'Ο Κωδικός του Τύπου Σχολικής Μονάδας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingSchoolUnitTypeParam = 'Ο Τύπος Σχολικής Μονάδας είναι υποχρεωτικό πεδίο';
+    const MissingSchoolUnitTypeValue = 'Ο Τύπος Σχολικής Μονάδας πρέπει να έχει τιμή';
+    const InvalidSchoolUnitTypeValue = 'Ο Τύπος Σχολικής Μονάδας δεν υπάρχει στο λεξικό';
+    const InvalidSchoolUnitTypeType = 'Ο Τύπος Σχολικής Μονάδας πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidSchoolUnitTypeArray = 'Ο Τύπος Σχολικής Μονάδας δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingSchoolUnitTypeNameParam = 'Το Όνομα του Τύπου Σχολικής Μονάδας είναι υποχρεωτικό πεδίο';
+    const MissingSchoolUnitTypeNameValue = 'Το Όνομα του Τύπου Σχολικής Μονάδας πρέπει να έχει τιμή';
+    const InvalidSchoolUnitTypeNameType = 'Το Όνομα του Τύπου Σχολικής Μονάδας πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidSchoolUnitTypeNameArray = 'Το Όνομα του Τύπου Σχολικής Μονάδας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingSchoolUnitTypeInitialParam = 'Η Συντομογραφία Ονόματος του Τύπου Σχολικής Μονάδας είναι υποχρεωτικό πεδίο';
+    const MissingSchoolUnitTypeInitialValue = 'Η Συντομογραφία Ονόματος του Τύπου Σχολικής Μονάδας πρέπει να έχει τιμή';
+    const InvalidSchoolUnitTypeInitialType = 'Η Συντομογραφία Ονόματος του Τύπου Σχολικής Μονάδας πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidSchoolUnitTypeInitialArray = 'Η Συντομογραφία Ονόματος του Τύπου Σχολικής Μονάδας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedSchoolUnitTypeValue = 'Ο Τύπος Σχολικής Μονάδας υπάρχει ήδη';
+    const DuplicatedSchoolUnitTypeNameValue = 'Το Όνομα του Τύπου Σχολικής Μονάδας υπάρχει ήδη';
+    const DuplicatedSchoolUnitTypeInitialValue = 'Η Συντομογραφία Ονόματος του Τύπου Σχολικής Μονάδας υπάρχει ήδη';
+    const UsedSchoolUnitTypeBySchoolUnits = 'Ο Κωδικός του Τύπου Σχολικής Μονάδας χρησιμοποιείται από Σχολικές Μονάδες';
+
+    //= States
+    const MissingStateIDParam = 'Ο Κωδικός της Κατάστασης είναι υποχρεωτικό πεδίο';
+    const MissingStateIDValue = 'Ο Κωδικός της Κατάστασης πρέπει να έχει τιμή';
+    const InvalidStateIDType = 'Ο Κωδικός της Κατάστασης πρέπει να είναι αριθμητικός';
+    const InvalidStateIDArray = 'Ο Κωδικός της Κατάστασης δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingStateParam = 'Η Κατάσταση είναι υποχρεωτικό πεδίο';
+    const MissingStateValue = 'Η Κατάσταση πρέπει να έχει τιμή';
+    const InvalidStateValue = 'Η Κατάσταση δεν υπάρχει στο λεξικό';
+    const InvalidStateType = 'Η Κατάσταση πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidStateArray = 'Η Κατάσταση δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedStateValue = 'Η Κατάσταση υπάρχει ήδη';
+    const UsedStateBySchoolUnits = 'Ο Κωδικός της Κατάστασης χρησιμοποιείται από Σχολικές Μονάδες';
+    const UsedStateBySchoolUnitTYpes = 'Ο Κωδικός της Κατάστασης χρησιμοποιείται από Τύπους Σχολικών Μονάδων';
+    
+    //= CircuitTypes
+    const MissingCircuitTypeIDParam = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
+    const MissingCircuitTypeIDValue = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος πρέπει να έχει τιμή';
+    const InvalidCircuitTypeIDType = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι αριθμητικός';
+    const InvalidCircuitTypeIDArray = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingCircuitTypeParam = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
+    const MissingCircuitTypeValue = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος πρέπει να έχει τιμή';
+    const InvalidCircuitTypeValue = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος δεν υπάρχει στο λεξικό';
+    const InvalidCircuitTypeType = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidCircuitTypeArray = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedCircuitTypeValue = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος υπάρχει ήδη';
+    const UsedCircuitTypeByCircuits = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος χρησιμοποιείται από Τηλεπικοινωνιακά Κυκλώματα';
+
+    //= RelationTypes
+    const MissingRelationTypeIDParam = 'Ο Κωδικός του Τυπου Συσχέτισης είναι υποχρεωτικό πεδίο';
+    const MissingRelationTypeIDValue = 'Ο Κωδικός του Τυπου Συσχέτισης πρέπει να έχει τιμή';
+    const InvalidRelationTypeIDType = 'Ο Κωδικός του Τυπου Συσχέτισης πρέπει να είναι αριθμητικός';
+    const InvalidRelationTypeIDArray = 'Ο Κωδικός του Τυπου Συσχέτισης δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingRelationTypeParam = 'Ο Τύπος Συσχέτισης είναι υποχρεωτικό πεδίο';
+    const MissingRelationTypeValue = 'Ο Τύπος Συσχέτισης πρέπει να έχει τιμή';
+    const InvalidRelationTypeValue = 'Ο Τύπος Συσχέτισης δεν υπάρχει στο λεξικό';
+    const InvalidRelationTypeType = 'Ο Τύπος Συσχέτισης πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidRelationTypeArray = 'Ο Τύπος Συσχέτισης δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedRelationTypeValue = 'Ο Τύπος Συσχέτισης υπάρχει ήδη';
+    const UsedRelationTypeByLabRelations = 'Ο Κωδικός του Τυπου Συσχέτισης χρησιμοποιείται από Συσχέτισεις Εργαστηρίων';
+  
+    //= WorkerPositions
+    const MissingWorkerPositionIDParam = 'Ο Κωδικός της Θέσης Εργασίας είναι υποχρεωτικό πεδίο';
+    const MissingWorkerPositionIDValue = 'Ο Κωδικός της Θέσης Εργασίας πρέπει να έχει τιμή';
+    const InvalidWorkerPositionIDType = 'Ο Κωδικός της Θέσης Εργασίας πρέπει να είναι αριθμητικός';
+    const InvalidWorkerPositionIDArray = 'Ο Κωδικός της Θέσης Εργασίας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingWorkerPositionParam = 'Η Θέση Εργασίας είναι υποχρεωτικό πεδίο';
+    const MissingWorkerPositionValue = 'Η Θέση Εργασίας πρέπει να έχει τιμή';
+    const InvalidWorkerPositionValue = 'Η Θέση Εργασίας δεν υπάρχει στο λεξικό';
+    const InvalidWorkerPositionType = 'Η Θέση Εργασίας πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidWorkerPositionArray = 'Η Θέση Εργασίας δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedWorkerPositionValue = 'Η Θέση Εργασίας υπάρχει ήδη';
+    const UsedWorkerPositionBySchoolUnitWorkers = 'Ο Κωδικός της Θέσης Εργασίας χρησιμοποιείται από Εργαζόμενους Σχολικών Μοναδων';
+    const UsedWorkerPositionByLabWorkers = 'Ο Κωδικός της Θέσης Εργασίας χρησιμοποιείται από Εργαζόμενους Εργαστηρίων';
+    
+    //= WorkerSpecializations
+    const MissingWorkerSpecializationIDParam = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerSpecializationIDValue = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου πρέπει να έχει τιμή';
+    const InvalidWorkerSpecializationIDType = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου πρέπει να είναι αριθμητικός';
+    const InvalidWorkerSpecializationIDArray = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingWorkerSpecializationParam = 'Η Ειδικότητα Εργαζόμενου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerSpecializationValue = 'Η Ειδικότητα Εργαζόμενου πρέπει να έχει τιμή';
+    const InvalidWorkerSpecializationValue = 'Η Ειδικότητα Εργαζόμενου δεν υπάρχει στο λεξικό';
+    const InvalidWorkerSpecializationType = 'Η Ειδικότητα Εργαζόμενου πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidWorkerSpecializationArray = 'Η Ειδικότητα Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedWorkerSpecializationValue = 'Η Ειδικότητα Εργαζόμενου υπάρχει ήδη';
+    const UsedWorkerSpecializationBySchoolUnitWorkers = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Σχολικών Μοναδων';
+    const UsedWorkerSpecializationByLabWorkers = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Εργαστηρίων';
+    
+    //= LabTypes
+    const MissingLabTypeIDParam = 'Ο Κωδικός του Τύπου Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTypeIDValue = 'Ο Κωδικός του Τύπου Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTypeIDType = 'Ο Κωδικός του Τύπου Εργαστηρίου πρέπει να είναι αριθμητικός';
+    const InvalidLabTypeIDArray = 'Ο Κωδικός του Τύπου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingLabTypeParam = 'Ο Τύπος Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTypeValue = 'Ο Τύπος Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTypeValue = 'Ο Τύπος Εργαστηρίου δεν υπάρχει στο λεξικό';
+    const InvalidLabTypeType = 'Ο Τύπος Εργαστηρίου πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidLabTypeArray = 'Ο Τύπος Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingLabTypeNameParam = 'Το Όνομα του Τύπου Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTypeNameValue = 'Το Όνομα του Τύπου Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTypeNameType = 'Το Όνομα του Τύπου Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabTypeNameArray = 'Το Όνομα του Τύπου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingLabTypeFullNameParam = 'Το Πλήρης Όνομα του Τύπου Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTypeFullNameValue = 'Το Πλήρης Όνομα του Τύπου Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTypeFullNameType = 'Το Πλήρης Όνομα του Τύπου Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabTypeFullNameArray = 'Το Πλήρης Όνομα του Τύπου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedLabTypeValue = 'Ο Τύπος Εργαστηρίου υπάρχει ήδη';
+    const UsedLabTypeByLabs = 'Ο Κωδικός του Τύπου Εργαστηρίου χρησιμοποιείται από Εργαστήρια';
+
+    //= LabSources
+    const MissingLabSourceIDParam = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabSourceIDValue = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabSourceIDType = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου πρέπει να είναι αριθμητικός';
+    const InvalidLabSourceIDArray = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingLabSourceParam = 'Η Πρωτογενής Πηγή Δεδομένων Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων Εργαστηρίου δεν υπάρχει στο λεξικό';
+    const InvalidLabSourceType = 'Η Πρωτογενής Πηγή Δεδομένων Εργαστηρίου πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidLabSourceArray = 'Η Πρωτογενής Πηγή Δεδομένων Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedLabSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων Εργαστηρίου υπάρχει ήδη';
+    const UsedLabSourceByLabs = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου χρησιμοποιείται από Εργαστήρια';
+    
+    //= EquipmentCategories
+    const MissingEquipmentCategoryIDParam = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού είναι υποχρεωτικό πεδίο';
+    const MissingEquipmentCategoryIDValue = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού πρέπει να έχει τιμή';
+    const InvalidEquipmentCategoryIDType = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού πρέπει να είναι αριθμητικός';
+    const InvalidEquipmentCategoryIDArray = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingEquipmentCategoryParam = 'Η Κατηγορία Εξοπλισμού είναι υποχρεωτικό πεδίο';
+    const MissingEquipmentCategoryValue = 'Η Κατηγορία Εξοπλισμού πρέπει να έχει τιμή';
+    const InvalidEquipmentCategoryValue = 'Η Κατηγορία Εξοπλισμού δεν υπάρχει στο λεξικό';
+    const InvalidEquipmentCategoryType = 'Η Κατηγορία Εξοπλισμού πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidEquipmentCategoryArray = 'Η Κατηγορία Εξοπλισμού δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedEquipmentCategoryValue = 'Η Κατηγορία Εξοπλισμού υπάρχει ήδη';
+    const UsedEquipmentCategoryByEquipmentTypes = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού χρησιμοποιείται από Τύπους Εξοπλισμού Εργαστηρίων';
+    
+    //= EquipmentTypes
+    const MissingEquipmentTypeIDParam = 'Ο Κωδικός του Τύπου Εξοπλισμού είναι υποχρεωτικό πεδίο';
+    const MissingEquipmentTypeIDValue = 'Ο Κωδικός του Τύπου Εξοπλισμού πρέπει να έχει τιμή';
+    const InvalidEquipmentTypeIDType = 'Ο Κωδικός του Τύπου Εξοπλισμού πρέπει να είναι αριθμητικός';
+    const InvalidEquipmentTypeIDArray = 'Ο Κωδικός του Τύπου Εξοπλισμού δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingEquipmentTypeParam = 'Ο Τύπος Εξοπλισμού είναι υποχρεωτικό πεδίο';
+    const MissingEquipmentTypeValue = 'Ο Τύπος Εξοπλισμού πρέπει να έχει τιμή';
+    const InvalidEquipmentTypeValue = 'Ο Τύπος Εξοπλισμού δεν υπάρχει στο λεξικό';
+    const InvalidEquipmentTypeType = 'Ο Τύπος Εξοπλισμού πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidEquipmentTypeArray = 'Ο Τύπος Εξοπλισμού δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedEquipmentTypeValue = 'Ο Τύπος Εξοπλισμού υπάρχει ήδη';
+    const UsedEquipmentTypeByLabEquipmentTypes = 'Ο Κωδικός του Τύπου Εξοπλισμού χρησιμοποιείται στον Εξοπλισμό Εργαστηρίων';
+    
+    //= AquisitionSources
+    const MissingAquisitionSourceIDParam = 'Ο Κωδικός της Πηγής Χρηματοδότησης είναι υποχρεωτικό πεδίο';
+    const MissingAquisitionSourceIDValue = 'Ο Κωδικός της Πηγής Χρηματοδότησης πρέπει να έχει τιμή';
+    const InvalidAquisitionSourceIDType = 'Ο Κωδικός της Πηγής Χρηματοδότησης πρέπει να είναι αριθμητικός';
+    const InvalidAquisitionSourceIDArray = 'Ο Κωδικός της Πηγής Χρηματοδότησης δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingAquisitionSourceParam = 'Η Πηγή Χρηματοδότησης είναι υποχρεωτικό πεδίο';
+    const MissingAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης πρέπει να έχει τιμή';
+    const InvalidAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης δεν υπάρχει στο λεξικό';
+    const InvalidAquisitionSourceType = 'Η Πηγή Χρηματοδότησης πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidAquisitionSourceArray = 'Η Πηγή Χρηματοδότησης δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης υπάρχει ήδη';
+    const UsedAquisitionSourceSourceByLabAquisitionSources = 'Ο Κωδικός της Πηγής Χρηματοδότησης χρησιμοποιείται στην Πηγή Χρηματοδότησης Εργαστήριων';
 }
    ?>
