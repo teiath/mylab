@@ -8,7 +8,8 @@
         <script>
             $(document).ready(function() {
             
-                baseURL = "http://172.16.16.80/mylab/api/";
+                //baseURL = "http://172.16.16.80/mylab/api/";
+                baseURL = "http://mmsch.teiath.gr/mylab/api/";
 
                 //kendo.bind($("body"), LabsViewVM);
                 kendo.bind($("#grid"), LabsViewVM);
@@ -89,7 +90,7 @@
                                 data-columns="[{ 'field': 'lab_id', 'title':'κωδικός', 'width':'5%', 'hidden' : true},
                                                { 'field': 'name', 'title':'ονομασία', 'width':'40%'},
                                                { 'field': 'lab_type', 'title':'τύπος', 'width':'15%'},
-                                               { 'field': 'state', 'title':'κατάσταση', 'width':'10%'},
+                                               { 'field': 'lab_state', 'title':'κατάσταση', 'width':'10%'},
                                                { 'field': 'operational_rating', 'title':'λειτουργική βαθμολογία', 'width':'10%'},
                                                { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
                                                              {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},

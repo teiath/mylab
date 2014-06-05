@@ -3,7 +3,7 @@ var LabsViewVM = kendo.observable({
     labs:  new kendo.data.DataSource({
         transport: {
             read: {
-                url: "api/labs",
+                url: "api/search_labs",
                 type: "GET",
                 dataType: "json"
             },

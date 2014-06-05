@@ -465,7 +465,7 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
 
        $sqlSelect = "SELECT 
                      DISTINCT   labs.lab_id,
-                                labs.name as lab,
+                                labs.name as name,
                                 labs.special_name,
                                 labs.creation_date,
                                 labs.created_by,
@@ -834,7 +834,7 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
         {
             $data = array(
                 "lab_id"                    => $lab["lab_id"] ? (int)$lab["lab_id"] : null,
-                "lab"                       => $lab["lab"],
+                "name"                      => $lab["name"],
                 "special_name"              => $lab["special_name"],
                 "creation_date"             => $lab["creation_date"],
                 "created_by"                => $lab["created_by"],

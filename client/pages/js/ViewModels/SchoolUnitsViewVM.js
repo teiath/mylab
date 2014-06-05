@@ -3,7 +3,7 @@ var SchoolUnitsViewVM = kendo.observable({
     school_units:  new kendo.data.DataSource({
         transport: {
             read: {
-                url: "api/school_units",
+                url: "api/search_school_units",
                 type: "GET",
                 dataType: "json"
             },
