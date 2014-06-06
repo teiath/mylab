@@ -28,6 +28,7 @@ class ExceptionMessages
         const InvalidPageSizeType = 'Η παράμετρος $pagesize πρέπει να είναι αριθμητική';
         const InvalidSortModeType = 'Η παράμετρος $sort_table πρέπει να έχει τιμή "ASC"/"0" ή "DESC"/"1"';
         const InvalidSortFieldType = 'Η παράμετρος $sort_table δεν ειναι υπάρχει στο λεξικό προς ταξινόμηση των στοιχείων';
+        const InvalidExportDataType = 'Η παράμετρος $exportdatatype δεν υπάρχει στο λεξικό';
         const MethodNotFound = 'H μέθοδος δεν βρέθηκε';
         const DeleteError = 'Ενημερώστε τον διαχειριστή! Δεν βρέθηκε η εγγραφή στην βάση δεδομένων προς διαγραφή. ';
         const DeleteNotFoundAquisitionSources = 'Δεν βρέθηκε η εγγραφή στoν πίνακα LabAquisitionSources προς διαγραφή με τιμές παραμέτρων .';
