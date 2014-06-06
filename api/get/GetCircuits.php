@@ -258,7 +258,7 @@ function GetCircuits($school_unit, $circuit_type, $phone_number, $circuit, $page
                             "updated_date" => $row->getUpdatedDate(),
                             "status" => $row->getStatus(),
                             "circuit_type" => $row->getCircuitTypeId(),
-                            "relation_type_name" => $oCircuitTypes->searchArrayForID( $row->getCircuitTypeId())->getName(),
+                            "circuit_type_name" => $oCircuitTypes->searchArrayForID( $row->getCircuitTypeId())->getName(),
                             "school_unit_id" => $row->getSchoolUnitId(),
                             "school_unit_name" => $oSchoolUnits->searchArrayForID( $row->getSchoolUnitId())->getName()
                   );
