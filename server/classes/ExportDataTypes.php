@@ -32,3 +32,4 @@ class ExportDataTypes {
         return strtoupper($value);
     }
 } 
+?>

@@ -73,3 +73,4 @@ class SearchEnumTypes extends SearchTypes
     const EndWith = "ENDWITH";
 
 }
+?>
