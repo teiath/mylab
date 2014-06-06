@@ -9,7 +9,9 @@ require_once('system/pagination.php');
 require_once('system/JsonFunctions.php');
 require_once('system/Timing.php');
 require_once('system/methodtypes.php');
+
 require_once ('libs/phpCAS/CAS.php');
+require_once ('libs/PHPExcel/Classes/PHPExcel.php');
 
 //libs
 require_once('libs/db2php/Db2PhpEntity.class.php');
@@ -131,9 +133,9 @@ require_once('../api/put/PutLabEquipmentTypes.php');
 require_once('../api/put/PutLabTransitions.php');
 require_once('../api/put/PutLabRelations.php');
 
-////---del from mm
-//
-////---del from mylab
+//---del from mm
+
+//---del from mylab
  require_once('../api/del/DelLabs.php');
  require_once('../api/del/DelLabEquipmentTypes.php');
  require_once('../api/del/DelLabAquisitionSources.php');
