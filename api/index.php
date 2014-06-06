@@ -1364,7 +1364,7 @@ function SearchSchoolUnitsController()
                 $params->orderby,
                 $params->ordertype,
                 $params->searchtype,
-                $params->exportdatatype,
+                $params->export,
                 $params->debug
             );      
             break;
@@ -1410,7 +1410,7 @@ function SearchLabsController()
                 $params->orderby,
                 $params->ordertype,
                 $params->searchtype,
-                $params->exportdatatype,
+                $params->export,
                 $params->debug
             );      
             break;
@@ -1455,7 +1455,7 @@ function SearchLabWorkersController()
                 $params->orderby,
                 $params->ordertype,
                 $params->searchtype,
-                $params->exportdatatype,
+                $params->export,
                 $params->debug
             );      
             break;

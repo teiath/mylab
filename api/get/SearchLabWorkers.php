@@ -15,7 +15,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                             $lab_type, $school_unit_id, $school_unit_name, $lab_state,                      
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
-                            $pagesize, $page, $orderby, $ordertype, $searchtype, $exportdatatype  ) {
+                            $pagesize, $page, $orderby, $ordertype, $searchtype, $export ) {
 
     global $db;
     global $app;
@@ -398,16 +398,16 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         }
                
 //======================================================================================================================
-//= $exportdatatype
+//= $export
 //======================================================================================================================
         
-        if ( Validator::isMissing('exportdatatype') )
-            $exportdatatype = ExportDataEnumTypes::JSON;
-        else if ( ExportDataEnumTypes::isValidValue( $exportdatatype ) || ExportDataEnumTypes::isValidName( $exportdatatype ) ) {
-            $exportdatatype = ExportDataEnumTypes::getValue($exportdatatype);
-            $pagesize = Parameters::AllPageSize;
+        if ( Validator::isMissing('export') )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+            //$pagesize = Parameters::AllPageSize;
         } else
-            throw new Exception(ExceptionMessages::InvalidExportDataType." : ".$searchtype, ExceptionCodes::InvalidExportDataType);
+            throw new Exception(ExceptionMessages::InvalidExport." : ".$export, ExceptionCodes::InvalidExport);
    
 //======================================================================================================================
 //= $ordertype
@@ -657,16 +657,15 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         $result["sql"] =  trim(preg_replace('/\s\s+/', ' ', $sql));
     }
   
-    if ($exportdatatype == 'JSON'){
+    if ($export == 'JSON'){
         return $result;
-    } else if ($exportdatatype == 'XLSX') {
-        SearchLabWorkersExt::ExcelCreate($result);
+    } else if ($export == 'XLSX') {
+        SearchSchoolUnitsExt::ExcelCreate($result);
         exit;
-    } else if ($exportdatatype == 'PDF'){
-        SearchLabWorkersExt::PdfCreate($result);
-        exit;
-    } else {
-       return 'false';
+    } else if ($export == 'PDF'){
+       return $result;
+    } else {     
+       return $result;
     }
 
 }

@@ -18,7 +18,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
                             $education_level, $school_unit_type, $school_unit_state, 
                             $lab_id, $operational_rating, $technological_rating, $lab_type, $lab_state, 
                             $aquisition_source, $equipment_type, $lab_worker, 
-                            $pagesize, $page, $orderby, $ordertype, $searchtype , $exportdatatype ) {
+                            $pagesize, $page, $orderby, $ordertype, $searchtype , $export ) {
 
     global $db;
     global $app;
@@ -365,16 +365,16 @@ function SearchSchoolUnits ($school_unit_id, $name,
         }    
                
 //======================================================================================================================
-//= $exportdatatype
+//= $export
 //======================================================================================================================
         
-        if ( Validator::isMissing('exportdatatype') )
-            $exportdatatype = ExportDataEnumTypes::JSON;
-        else if ( ExportDataEnumTypes::isValidValue( $exportdatatype ) || ExportDataEnumTypes::isValidName( $exportdatatype ) ) {
-            $exportdatatype = ExportDataEnumTypes::getValue($exportdatatype);
-            $pagesize = Parameters::AllPageSize;
+        if ( Validator::isMissing('export') )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+            //$pagesize = Parameters::AllPageSize;
         } else
-            throw new Exception(ExceptionMessages::InvalidExportDataType." : ".$searchtype, ExceptionCodes::InvalidExportDataType);
+            throw new Exception(ExceptionMessages::InvalidExport." : ".$export, ExceptionCodes::InvalidExport);
         
 //======================================================================================================================
 //= $ordertype
@@ -964,15 +964,15 @@ function SearchSchoolUnits ($school_unit_id, $name,
         $result["sql"] =  trim(preg_replace('/\s\s+/', ' ', $sql));
     }
 
-    if ($exportdatatype == 'JSON'){
+    if ($export == 'JSON'){
         return $result;
-    } else if ($exportdatatype == 'XLSX') {
+    } else if ($export == 'XLSX') {
         SearchSchoolUnitsExt::ExcelCreate($result);
         exit;
-    } else if ($exportdatatype == 'PDF'){
-       return 'false';
-    } else {
-       return 'false';
+    } else if ($export == 'PDF'){
+       return $result;
+    } else {     
+       return $result;
     }
 
 }

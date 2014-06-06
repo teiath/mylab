@@ -28,7 +28,7 @@ class ExceptionCodes
         const InvalidPageSizeType = 500;
         const InvalidSortModeType = 500;
         const InvalidSortFieldType = 500;
-        const InvalidExportDataType =500;
+        const InvalidExport =500;
         const MethodNotFound = 500;
         const DeleteError = 500;
         const DeleteNotFoundAquisitionSources = 500;
