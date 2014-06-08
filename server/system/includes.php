@@ -73,6 +73,7 @@ require_once('classes/SearchLabWorkersExt.php');
 require_once('classes/SearchLabsExt.php');
 require_once('classes/SearchSchoolUnitsExt.php');
 require_once('classes/Reports.php');
+require_once('classes/UserRoles.php');
 
 //-----search functions
 require_once('../api/get/SearchSchoolUnits.php');
