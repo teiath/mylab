@@ -113,10 +113,15 @@ function Authentication()
 {
     global $app;
     global $casOptions;
-
+    
     if(isset($casOptions["NoAuth"]) && $casOptions["NoAuth"] == true) { return true; }
     try
     {
+           
+            if ( (php_sapi_name() == 'cli' ) || (strpos($_SERVER["HTTP_USER_AGENT"], 'curl')!==false) ) {
+                throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied);  
+            } 
+        
         if ( in_array( strtoupper($app->request()->getMethod()), array( MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE )) )
         {
             // initialize phpCAS using SAML
@@ -143,6 +148,9 @@ function Authentication()
         $app->response()->setBody( toGreek( json_encode( $result ) ) );  
         $app->stop();
     }
+    
+  
+  
 }
 
 #===== user roles controller ====================================================================
@@ -150,10 +158,13 @@ function Authentication()
 function UserRolesPermission(){
 
     global $app;  
+    global $casOptions; 
     
-    $user = phpCAS::getAttribute(uid); 
-    $user_role = phpCAS::getAttribute(title);  
-
+    if(isset($casOptions["NoAuth"]) && $casOptions["NoAuth"] == true) { return true; }
+        //todo check authentication
+        $user = phpCAS::getAttribute(uid); 
+        $user_role = phpCAS::getAttribute(title);  
+    
     $controller = substr($app->request()->getPathInfo(),1);
     $method = $app->request()->getMethod();
  
