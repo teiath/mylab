@@ -13,10 +13,10 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
-function SearchSchoolUnits ($school_unit_id, $name, 
+function SearchSchoolUnits ($school_unit_id, $name,
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
-                            $lab_id, $operational_rating, $technological_rating, $lab_type, $lab_state, 
+                            $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $lab_type, $lab_state, $lab_source, 
                             $aquisition_source, $equipment_type, $lab_worker, 
                             $pagesize, $page, $orderby, $ordertype, $searchtype , $export ) {
 
@@ -239,6 +239,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
                                               ExceptionMessages::InvalidStateType, ExceptionCodes::InvalidStateType);
 
         }
+        
 //======================================================================================================================
 //= $lab_id
 //======================================================================================================================
@@ -254,6 +255,50 @@ function SearchSchoolUnits ($school_unit_id, $name,
                                                                 ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
 
         }
+        
+//======================================================================================================================
+//= $lab_name
+//======================================================================================================================
+
+        if ( Validator::isExists('lab_name') )
+        {
+            $table_name = "labs";
+            $table_column_name = "name";
+
+            $filter[] = $filter_labs[] = Filters::ExtBasicFilter($lab_name, $table_name, $table_column_name, $searchtype, 
+                                                 ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType ); 
+            
+        }
+        
+ //======================================================================================================================
+//= $lab_special_name
+//======================================================================================================================
+
+        if ( Validator::isExists('lab_special_name') )
+        {
+            $table_name = "labs";
+            $table_column_name = "special_name";
+
+            $filter[] = $filter_labs[] = Filters::ExtBasicFilter($lab_special_name, $table_name, $table_column_name, $searchtype, 
+                                                 ExceptionMessages::InvalidLabSpecialNameType, ExceptionCodes::InvalidLabSpecialNameType ); 
+            
+        }   
+ 
+//======================================================================================================================
+//= $creation_date
+//======================================================================================================================
+
+        if ( Validator::isExists('creation_date') )
+        {
+            $table_name = "labs";
+            $table_column_name = "creation_date";
+            $filter_validators = 'null,date';
+
+            $filter[] = $filter_labs[] = Filters::DateBasicFilter($creation_date, $table_name, $table_column_name, $filter_validators, 
+                                                 ExceptionMessages::InvalidLabCreationDateType, ExceptionCodes::InvalidLabCreationDateType ); 
+            
+        }
+        
 //======================================================================================================================
 //= $operational_rating
 //======================================================================================================================
@@ -315,7 +360,23 @@ function SearchSchoolUnits ($school_unit_id, $name,
                                                                ExceptionMessages::InvalidStateType, ExceptionCodes::InvalidStateType);
 
         }
+        
+//======================================================================================================================
+//= $lab_source
+//======================================================================================================================
 
+        if ( Validator::isExists('lab_source') )
+        {
+
+            $table_name = "lab_sources";
+            $table_column_id = "lab_source_id";
+            $table_column_name = "name";
+            $filter_validators = 'null,id,value';
+            
+            $filter[] = $filter_labs[] = Filters::BasicFilter( $lab_source, $table_name, $table_column_id, $table_column_name, $filter_validators,  
+                                              ExceptionMessages::InvalidLabSourceType, ExceptionCodes::InvalidLabSourceType);
+            
+        }
 //======================================================================================================================
 //= $aquisition_source
 //======================================================================================================================
@@ -461,6 +522,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
                                 LEFT JOIN labs using (school_unit_id)
                                 LEFT JOIN lab_types ON labs.lab_type_id = lab_types.lab_type_id
                                 LEFT JOIN states lab_states ON labs.state_id = lab_states.state_id
+                                LEFT JOIN lab_sources ON labs.lab_source_id = lab_sources.lab_source_id
                                 LEFT JOIN lab_aquisition_sources ON labs.lab_id=lab_aquisition_sources.lab_id
                                 LEFT JOIN aquisition_sources ON lab_aquisition_sources.aquisition_source_id=aquisition_sources.aquisition_source_id
                                 LEFT JOIN lab_equipment_types ON labs.lab_id=lab_equipment_types.lab_id
@@ -630,7 +692,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
         
         $sqlOrder = " ORDER BY labs.school_unit_id ASC";
 
-        $sql = $sqlSelect . $sqlFrom . $sqlWhere .$sqlWhereFilterLabs . $sqlWhereFilterLabWorkers . $sqlWhereFilterLabAquisitions . $sqlWhereFilterLabEquipments . $sqlOrder;
+        $sql = $sqlSelect . $sqlFrom . $sqlWhere .$sqlWhereFilterLabs . $sqlWhereFilterLabsName . $sqlWhereFilterLabWorkers . $sqlWhereFilterLabAquisitions . $sqlWhereFilterLabEquipments . $sqlOrder;
         //echo "<br><br>".$sql."<br><br>";
 
         $stmt = $db->query( $sql );
