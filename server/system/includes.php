@@ -52,10 +52,10 @@ require_once('classes/extends/CircuitTypes.class.php');
 ////--classes ext from mylab
 require_once('classes/extends/LabTypesExt.class.php');
 require_once('classes/extends/EquipmentCategoriesExt.class.php');
-require_once('classes/extends/WorkerSpecializationsExt.class.php');
+//require_once('classes/extends/WorkerSpecializationsExt.class.php');
 require_once('classes/extends/WorkerPositionsExt.class.php');
 require_once('classes/extends/AquisitionSourcesExt.class.php');
-require_once('classes/extends/WorkersExt.class.php');
+//require_once('classes/extends/WorkersExt.class.php');
 require_once('classes/extends/LabAquisitionSourcesExt.class.php');
 require_once('classes/extends/LabsExt.class.php');
 require_once('classes/extends/EquipmentTypesExt.class.php');
