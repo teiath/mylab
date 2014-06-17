@@ -464,7 +464,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
                 "municipality_id", "municipality",
                 "education_level_id", "education_level",
                 "school_unit_type_id", "school_unit_type",
-                "school_state_id", "school_state",
+                "school_unit_state_id", "school_unit_state",
             );
 
             if (!in_array($orderby, $columns))
