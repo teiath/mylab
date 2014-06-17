@@ -456,7 +456,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
         {
             $columns = array(
                 "school_unit_id",
-                "name",
+                "name","special_name",
                 "region_edu_admin_id", "region_edu_admin",
                 "edu_admin_id", "edu_admin",
                 "transfer_area_id", "transfer_area",
@@ -505,9 +505,9 @@ function SearchSchoolUnits ($school_unit_id, $name,
                                 school_unit_types.school_unit_type_id, 
                                 school_unit_types.name as school_unit_type,
                                 school_unit_states.state_id as school_unit_state_id, 
-                                school_unit_states.name as school_unit_state_name,
+                                school_unit_states.name as school_unit_state,
                                 lab_states.state_id as lab_state_id, 
-                                lab_states.name as lab_state_name
+                                lab_states.name as lab_state
                        ";
 
         $sqlFrom = "FROM school_units
@@ -865,7 +865,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
                 "school_unit_type_id"      => $school_unit["school_unit_type_id"] ? (int)$school_unit["school_unit_type_id"] : null,
                 "school_unit_type"         => $school_unit["school_unit_type"],
                 "school_unit_state_id"     => $school_unit["school_unit_state_id"]? (int)$school_unit["school_unit_state_id"] : null,
-                "school_unit_state"        => $school_unit["school_unit_state_name"]
+                "school_unit_state"        => $school_unit["school_unit_state"]
 
             );
             
@@ -938,7 +938,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
                                 "lab_type_id"               => $lab["lab_type_id"],
                                 "lab_type"                  => $lab["lab_type"] ,
                                 "lab_state_id"              => $lab["lab_state_id"]? (int)$lab["lab_state_id"] : null,
-                                "lab_state"                 => $lab["lab_state_name"],
+                                "lab_state"                 => $lab["lab_state"],
                                 "lab_source_id"             => $lab["lab_source_id"] ,
                                 "lab_source"                => $lab["lab_source"] 
                             );
