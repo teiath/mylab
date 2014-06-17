@@ -6,6 +6,6 @@ function normalizeParams(formData) {
         }
     });
 
-    console.log("dsSrcParams: ", dsSrcParams);
+    //console.log("dsSrcParams: ", dsSrcParams);
     return dsSrcParams;
 }

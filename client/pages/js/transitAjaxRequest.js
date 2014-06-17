@@ -1,4 +1,4 @@
-function transitAjaxRequest(type, api_function, parameters, transition_dialog){
+function transitAjaxRequest(type, api_function, parameters, transition_dialog, lab_grid){
     
     $.ajax({
             type: type,
@@ -9,27 +9,27 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog){
                 console.log("data:", data);
 
                 if(data.status == 200){
+                        
+                        transition_dialog.close();
+                        
+                        notification.show({
+                            title: "Η υποβολή πραγματοποιήθηκε",
+                            message: data.message
+                        }, "upload-success");                                            
 
-                    transition_dialog.close();
-                    notification.show({
-                        title: "Η υποβολή πραγματοποιήθηκε",
-                        message: data.message
-                    }, "upload-success");                                            
 
-                    LabsViewVM.labs.read(); //labs view
-                    labsGrid.dataSource.read(); //school units view
+                    lab_grid.dataSource.read(); //school units view or labs view depending on the current view
 
                 }else if(data.status == 500){
-
-                    notification.show({
-                        title: "Η υποβολή απέτυχε",
-                        message: data.message
-                    }, "error");
                     
+                        notification.show({
+                            title: "Η υποβολή απέτυχε",
+                            message: data.message
+                        }, "error");
                 }
 
-            },
-            error: function (data){ console.log("error data: ", data);}
+            }//,
+            //error: function (data){ console.log("ΛΑΘΟΣ AJAX REQUEST: ", data);}
     });
         
 }

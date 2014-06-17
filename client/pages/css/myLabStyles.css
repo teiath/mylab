@@ -13,7 +13,7 @@ body {
   /*padding-top: 70px;*/
   /*margin-top:70px;*/
   padding-bottom: 40px;
-  background-color: #6B6765;
+  background-color: #353332;
 }
 
 a:hover, a:visited, a:link, a:active{
@@ -32,6 +32,11 @@ input.k-textbox{
 /*αφορά όλα τα labels*/
 label{
     margin: 5px 0px 0px 0px;
+}
+
+/*αφορά τα placeholders των multiselect*/
+.k-multiselect-wrap>.k-input {
+   color: #8E8E8E;
 }
 
 /*#general-container{

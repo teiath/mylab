@@ -15,7 +15,7 @@
                                     <label for="lab_id">κωδικός Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterChanged }" />
+                                    <input id="sl_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterChanged }" placeholder="για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα"/>
                                 </div>
                                 
                                 <div class="col-md-11">
@@ -44,6 +44,7 @@
                                             data-value-field="name"
                                             data-bind="source: lab_types_ds, value: lab_type, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
                                 </div>
@@ -74,6 +75,7 @@
                                             data-value-field="aquisition_source_id"
                                             data-bind="source: aquisition_sources_ds, value: aquisition_source, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
                                 </div>
@@ -91,6 +93,7 @@
                                             data-min-length="3"
                                             data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="πληκτρολογίστε για επιλογή από τη λίστα (min 3 χαρακτήρες)"
                                             multiple="multiple">
                                     </select>              
                                 </div>
@@ -107,6 +110,7 @@
                                             data-value-field="rating_id"
                                             data-bind="source: lab_rating_ds, value: operational_rating, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
                                 </div>
@@ -123,6 +127,7 @@
                                             data-value-field="rating_id"
                                             data-bind="source: lab_rating_ds, value: technological_rating, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
                                  </div>
@@ -131,14 +136,17 @@
                                     <label for="lab_state">λειτουργική κατάσταση Διάταξης Η/Υ</label>
                                  </div>
                                 <div class="col-md-11">
-                                    <input id="sl_lab_state" 
+                                    <select id="sl_lab_state" 
                                            name="lab_state"
-                                           data-role="dropdownlist"
-                                           data-auto-bind="true"
+                                           data-role="multiselect"
+                                           data-auto-bind="false"
                                            data-text-field="name"
                                            data-value-field="state_id"
                                            data-filter="contains"
-                                           data-bind="source: lab_states_ds, value: lab_state, events: {change : filterChanged }"/>
+                                           data-bind="source: lab_states_ds, value: lab_state, events: {change : filterChanged }"
+                                           data-placeholder="επιλέξτε από τη λίστα"
+                                           multiple="multiple">
+                                    </select>
                                  </div>
                                 
                             </div>
@@ -156,7 +164,7 @@
                                     <label for="school_unit_id">κωδικός Σχολικής Μονάδας</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterChanged }"/>
+                                    <input id="sl_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterChanged }" placeholder="για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα"/>
                                  </div>
                                 
                                 <div class="col-md-11">
@@ -179,6 +187,7 @@
                                             data-value-field="education_level_id"
                                             data-bind="source: education_levels_ds, value: education_level, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select> 
                                 </div>
@@ -196,6 +205,7 @@
                                             data-value-field="school_unit_type_id"
                                             data-bind="source: school_unit_types_ds, value: school_unit_type, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">  
                                     </select>                           
                                 </div>                                
@@ -205,14 +215,17 @@
                                 </div>
                                 
                                 <div class="col-md-11">
-                                    <input id="sl_school_unit_state" 
-                                           name="school_unit_state"
-                                           data-role="dropdownlist"
-                                           data-auto-bind="true"
-                                           data-text-field="name"
-                                           data-value-field="state_id"
-                                           data-filter="contains"
-                                           data-bind="source: school_unit_states_ds, value: school_unit_state, events: {change : filterChanged }"/>                                    
+                                    <select id="sl_school_unit_state" 
+                                            name="school_unit_state"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="state_id"
+                                            data-filter="contains"
+                                            data-bind="source: school_unit_states_ds, value: school_unit_state, events: {change : filterChanged }"
+                                            data-placeholder="επιλέξτε από τη λίστα"
+                                            multiple="multiple">
+                                    </select>
                                 </div>
                                 
                             </div>
@@ -231,6 +244,7 @@
                                             data-value-field="region_edu_admin_id"
                                             data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">                    
                                     </select>  
                                 </div>
@@ -247,6 +261,7 @@
                                             data-value-field="edu_admin_id"
                                             data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
                                 </div>
@@ -263,6 +278,7 @@
                                             data-value-field="transfer_area_id"
                                             data-bind="source: transfer_areas_ds, value: transfer_area, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>                       
                                 </div>
@@ -279,6 +295,7 @@
                                             data-value-field="municipality_id"
                                             data-bind="source: municipalities_ds, value: municipality, events: {change : filterChanged }"
                                             data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
                                 </div>

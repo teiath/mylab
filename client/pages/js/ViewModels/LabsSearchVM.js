@@ -83,7 +83,7 @@ var LabsSearchVM = kendo.observable({
         console.log("filterChanged e :", e);
         var formData = $("#search-form").serializeArray();
         LabsViewVM.labs.filter(normalizeParams(formData));
-    },     
+    },
     toolbarFilter: function(e){
 
         //console.log("toolbarFilter e:", e);

@@ -46,7 +46,7 @@
     <body>
        
         <!-- search pane -->
-        <?php require_once('labsSearch.html'); ?>
+        <?php require_once('labs_search.html'); ?>
         
         <div id="grid">
 
@@ -66,7 +66,7 @@
             <span id="notification" style="display:none;"></span>
 
             <!-- grid element -->
-            <div id="general-container" class="container">        
+            <div id="general-container" class="container">      
                 <div class="row">          
                     <div class="col-md-12">        
                         <div    id="labs_view"

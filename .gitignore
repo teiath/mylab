@@ -20,3 +20,5 @@ nb-configuration.xml
 /client/pages/js/Templates/createLabTemplate_old.html
 /server/system/config.php
 
+/client/config.php
+/client/config.js

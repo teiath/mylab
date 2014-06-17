@@ -3,13 +3,16 @@
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+
         <?php  require_once('includes.html');?>
-        
+
         <script>
             $(document).ready(function() {
             
-                baseURL = "http://172.16.16.80/mylab/api/";
-            
+                //   baseURL =  config.serverUrl;
+                baseURL =  "http://mmsch.teiath.gr/mylab/api/";
+                //console.log("baseURL: ", baseURL);
+
                 kendo.bind($("#school_units_container"), SchoolUnitsViewVM);
                 kendo.bind($("#search-container"), SchoolUnitsSearchVM);
 //                kendo.bind($("#school_units_view").find(".k-grid-toolbar"), SchoolUnitsViewVM);
@@ -41,7 +44,7 @@
     </head>
     
     <body>
-        <?php require_once('schoolUnitsSearch.html'); ?>
+        <?php require_once('school_units_search.html'); ?>
         
         <div id="school_units_container">
             
@@ -93,7 +96,7 @@
                                                { 'field': 'special_name', 'title':'ειδικό όνομα', 'width':'20%'},
                                                { 'field': 'school_unit_type', 'title':'τύπος', 'width':'10%'},
                                                { 'field': 'education_level', 'title':'βαθμίδα', 'width':'10%'},
-                                               { 'field': 'state', 'title':'λειτουργική κατάσταση', 'width':'10%'},
+                                               { 'field': 'school_unit_state', 'title':'λειτουργική κατάσταση', 'width':'10%'},
                                                { 'field': 'region_edu_admin', 'title':'περ. διεύθυνση εκπαίδευσης', 'hidden':true},
                                                { 'field': 'edu_admin', 'title':'διεύθυνση εκπαίδευσης', 'width':'20%'},
                                                { 'field': 'transfer_area', 'title':'περιοχή μετάθεσης', 'hidden':true},
