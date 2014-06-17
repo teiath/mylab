@@ -13,6 +13,12 @@ require_once('system/methodtypes.php');
 require_once ('libs/phpCAS/CAS.php');
 require_once ('libs/PHPExcel/Classes/PHPExcel.php');
 
+// Doctrine & Entities autoloading
+require_once ('libs/doctrine/bootstrap.php');
+spl_autoload_register(function($class) {
+    include 'entities/' . $class . '.php';
+});
+
 //libs
 require_once('libs/db2php/Db2PhpEntity.class.php');
 require_once('libs/db2php/Db2PhpEntityBase.class.php');
