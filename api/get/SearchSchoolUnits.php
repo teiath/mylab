@@ -13,7 +13,7 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
-function SearchSchoolUnits ($school_unit_id, $name,
+function SearchSchoolUnits ($school_unit_id, $school_unit_name,
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
                             $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $lab_type, $lab_state, $lab_source, 
@@ -96,15 +96,15 @@ function SearchSchoolUnits ($school_unit_id, $name,
         }
         
 //======================================================================================================================
-//= $name
+//= $school_unit_name
 //======================================================================================================================
 
-        if ( Validator::isExists('name') )
+        if ( Validator::isExists('school_unit_name') )
         {
             $table_name = "school_units";
             $table_column_name = "name";
 
-            $filter[] =  Filters::ExtBasicFilter($name, $table_name, $table_column_name, $searchtype, 
+            $filter[] =  Filters::ExtBasicFilter($school_unit_name, $table_name, $table_column_name, $searchtype, 
                                                  ExceptionMessages::InvalidSchoolUnitNameType, ExceptionCodes::InvalidSchoolUnitNameType ); 
             
         }
@@ -456,7 +456,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
         {
             $columns = array(
                 "school_unit_id",
-                "name","special_name",
+                "school_unit_name","special_name",
                 "region_edu_admin_id", "region_edu_admin",
                 "edu_admin_id", "edu_admin",
                 "transfer_area_id", "transfer_area",
@@ -482,7 +482,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
 
         $sqlSelect = "SELECT 
                       DISTINCT  school_units.school_unit_id,
-                                school_units.name,
+                                school_units.name as school_unit_name,
                                 school_units.special_name,
                                 school_units.last_update,
                                 school_units.fax_number,
@@ -842,7 +842,7 @@ function SearchSchoolUnits ($school_unit_id, $name,
         {
             $data = array(
                 "school_unit_id"           => $school_unit["school_unit_id"] ? (int)$school_unit["school_unit_id"] : null,
-                "name"                     => $school_unit["name"],
+                "school_unit_name"         => $school_unit["school_unit_name"],
                 "special_name"             => $school_unit["special_name"],
                 "last_update"              => $school_unit["last_update"],
                 "fax_number"               => $school_unit["fax_number"] ? (int)$school_unit["fax_number"] : null,

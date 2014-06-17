@@ -10,8 +10,8 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
-function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operational_rating, $technological_rating,
-                      $lab_type, $school_unit, $lab_state, $lab_source,
+function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operational_rating, $technological_rating,
+                      $lab_type, $school_unit_id, $school_unit_name, $lab_state, $lab_source,
                       $aquisition_source, $equipment_type, $lab_worker,
                       $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                       $education_level, $school_unit_type, $school_unit_state, 
@@ -96,15 +96,15 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
         }
         
 //======================================================================================================================
-//= $name
+//= $lab_name
 //======================================================================================================================
 
-        if ( Validator::isExists('name') )
+        if ( Validator::isExists('lab_name') )
         {
             $table_name = "labs";
             $table_column_name = "name";
 
-            $filter[] =  Filters::ExtBasicFilter($name, $table_name, $table_column_name, $searchtype, 
+            $filter[] =  Filters::ExtBasicFilter($lab_name, $table_name, $table_column_name, $searchtype, 
                                                  ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType ); 
             
         }
@@ -187,19 +187,36 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
         }
         
 //======================================================================================================================
-//= $school_unit
+//= $school_unit_id
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit') )
+        if ( Validator::isExists('school_unit_id') )
         {
 
             $table_name = "school_units";
             $table_column_id = "school_unit_id";
             $table_column_name = "name";
-            $filter_validators = 'null,id,value';
+            $filter_validators = 'null,id';
             
-            $filter[] = Filters::BasicFilter( $school_unit, $table_name, $table_column_id, $table_column_name, $filter_validators,  
-                                              ExceptionMessages::InvalidSchoolUnitType, ExceptionCodes::InvalidSchoolUnitType);
+            $filter[] = Filters::BasicFilter( $school_unit_id, $table_name, $table_column_id, $table_column_name, $filter_validators,  
+                                              ExceptionMessages::InvalidSchoolUnitIDType, ExceptionCodes::InvalidSchoolUnitIDType);
+            
+    }
+    
+//======================================================================================================================
+//= $school_unit_name
+//======================================================================================================================
+
+        if ( Validator::isExists('school_unit_name') )
+        {
+
+            $table_name = "school_units";
+            $table_column_id = "school_unit_id";
+            $table_column_name = "name";
+            $filter_validators = 'null,name';
+            
+            $filter[] = Filters::BasicFilter( $school_unit_name, $table_name, $table_column_id, $table_column_name, $filter_validators,  
+                                              ExceptionMessages::InvalidSchoolUnitNameType, ExceptionCodes::InvalidSchoolUnitNameType);
             
     }
     
@@ -446,9 +463,9 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
         {
             $columns = array(
                 "lab_id",
-                "name", "special_name", "creation_date", "operational_rating", "technological_rating",
+                "lab_name", "special_name", "creation_date", "operational_rating", "technological_rating",
                 "lab_type_id", "lab_type",
-                "school_unit_id", "school_unit",
+                "school_unit_id", "school_unit_name",
                 "lab_state_id", "lab_state",
                 "lab_source_id", "lab_source"
             );
@@ -465,7 +482,7 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
 
        $sqlSelect = "SELECT 
                      DISTINCT   labs.lab_id,
-                                labs.name as name,
+                                labs.name as lab_name,
                                 labs.special_name,
                                 labs.creation_date,
                                 labs.created_by,
@@ -478,7 +495,7 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
                                 lab_types.lab_type_id, 
                                 lab_types.name as lab_type, 
                                 school_units.school_unit_id, 
-                                school_units.name as school_unit, 
+                                school_units.name as school_unit_name, 
                                 lab_sources.lab_source_id, 
                                 lab_sources.name as lab_source,
                                 lab_states.state_id as lab_state_id, 
@@ -834,7 +851,7 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
         {
             $data = array(
                 "lab_id"                    => $lab["lab_id"] ? (int)$lab["lab_id"] : null,
-                "name"                      => $lab["name"],
+                "lab_name"                  => $lab["lab_name"],
                 "special_name"              => $lab["special_name"],
                 "creation_date"             => $lab["creation_date"],
                 "created_by"                => $lab["created_by"],
@@ -847,7 +864,7 @@ function SearchLabs ( $lab_id, $name, $special_name, $creation_date, $operationa
                 "lab_type_id"               => $lab["lab_type_id"],
                 "lab_type"                  => $lab["lab_type"] ,
                 "school_unit_id"            => $lab["school_unit_id"]? (int)$lab["school_unit_id"] : null,
-                "school_unit"               => $lab["school_unit"] ,
+                "school_unit_name"          => $lab["school_unit_name"] ,
                 "lab_source_id"             => $lab["lab_source_id"]? (int)$lab["lab_source_id"] : null,
                 "lab_source"                => $lab["lab_source"],
                 "lab_state_id"              => $lab["lab_state_id"]? (int)$lab["lab_state_id"] : null,

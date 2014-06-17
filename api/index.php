@@ -900,14 +900,15 @@ function LabsController()
         case MethodTypes::GET : 
             $result = GetLabs(
                 $params->lab_id,
-                $params->name,
+                $params->lab_name,
                 $params->special_name,
                 $params->creation_date,
                 $params->operational_rating,
                 $params->technological_rating,
                 $params->lab_worker,
                 $params->lab_type,
-                $params->school_unit,
+                $params->school_unit_id,
+                $params->school_unit_name,
                 $params->state,
                 $params->source,
                 $params->aquisition_source,
@@ -1389,7 +1390,7 @@ function SearchSchoolUnitsController()
         case MethodTypes::GET : 
             $result = SearchSchoolUnits(
                 $params->school_unit_id,
-                $params->name,
+                $params->school_unit_name,
                 $params->region_edu_admin,
                 $params->edu_admin,
                 $params->transfer_area,
