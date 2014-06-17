@@ -32,3 +32,4 @@ class SearchTypes {
         return strtoupper($value);
     }
 } 
+?>

@@ -40,3 +40,4 @@ class MethodTypes
     const DELETE = "DELETE";
 
 }
+?>

@@ -21,6 +21,8 @@ class ExceptionCodes
     //general messages 
     
         const NoErrors = 200;
+        const UserAccesDenied = 500;
+        const UserNoPermissions = 500;
         const InvalidPageNumber = 500;
         const InvalidMaxPageNumber = 500;
         const InvalidPageType = 500;
@@ -28,6 +30,7 @@ class ExceptionCodes
         const InvalidPageSizeType = 500;
         const InvalidSortModeType = 500;
         const InvalidSortFieldType = 500;
+        const InvalidExport =500;
         const MethodNotFound = 500;
         const DeleteError = 500;
         const DeleteNotFoundAquisitionSources = 500;

@@ -4,8 +4,6 @@ class SearchLabWorkersExt {
     
  public static function ExcelCreate($data){
 
-    require_once('../server/libs/PHPExcel/Classes/PHPExcel.php');
-
     define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
     if (PHP_SAPI == 'cli')

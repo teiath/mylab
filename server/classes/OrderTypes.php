@@ -38,3 +38,4 @@ class OrderTypes {
         return strtoupper($value);
     }
 } 
+?>

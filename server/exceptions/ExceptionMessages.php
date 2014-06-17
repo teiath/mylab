@@ -21,6 +21,8 @@ class ExceptionMessages
     //general messages=========================================================================================================================== 
     
         const NoErrors = 'success';
+        const UserAccesDenied = 'Ο χρήστης δεν έχει πρόσβαση';
+        const UserNoPermissions = 'Ο χρήστης δεν έχει συγκεριμενα δικαιώματα πρόσβασης';
         const InvalidPageNumber = 'Η παράμετρος $page πρέπει να είναι μεγαλύτερη από 0';
         const InvalidMaxPageNumber = 'Η παράμετρος $page έιναι μεγαλύτερη από την μέγιστη τιμή της σελιδοποίησης. $maxPage = ';
         const InvalidPageType = 'Η παράμετρος $page πρέπει να είναι αριθμητική';
@@ -28,6 +30,7 @@ class ExceptionMessages
         const InvalidPageSizeType = 'Η παράμετρος $pagesize πρέπει να είναι αριθμητική';
         const InvalidSortModeType = 'Η παράμετρος $sort_table πρέπει να έχει τιμή "ASC"/"0" ή "DESC"/"1"';
         const InvalidSortFieldType = 'Η παράμετρος $sort_table δεν ειναι υπάρχει στο λεξικό προς ταξινόμηση των στοιχείων';
+        const InvalidExport = 'Η παράμετρος $export δεν υπάρχει στο λεξικό';
         const MethodNotFound = 'H μέθοδος δεν βρέθηκε';
         const DeleteError = 'Ενημερώστε τον διαχειριστή! Δεν βρέθηκε η εγγραφή στην βάση δεδομένων προς διαγραφή. ';
         const DeleteNotFoundAquisitionSources = 'Δεν βρέθηκε η εγγραφή στoν πίνακα LabAquisitionSources προς διαγραφή με τιμές παραμέτρων .';

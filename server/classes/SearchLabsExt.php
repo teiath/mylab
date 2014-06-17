@@ -4,8 +4,6 @@ class SearchLabsExt {
     
  public static function ExcelCreate($data){
 
-    require_once('../server/libs/PHPExcel/Classes/PHPExcel.php');
-
     define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
     if (PHP_SAPI == 'cli')
@@ -28,7 +26,7 @@ class SearchLabsExt {
     // Create a first sheet
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A1', "lab_id");
-$objPHPExcel->getActiveSheet()->setCellValue('B1', "lab");
+$objPHPExcel->getActiveSheet()->setCellValue('B1', "name");
 $objPHPExcel->getActiveSheet()->setCellValue('C1', "special_name");
 $objPHPExcel->getActiveSheet()->setCellValue('D1', "positioning");
 $objPHPExcel->getActiveSheet()->setCellValue('E1', "operational_rating");
@@ -52,7 +50,7 @@ foreach($data["data"] as $lab_data)
 {    
 
     $lab_id = $lab_data["lab_id"];
-    $lab = $lab_data["lab"];
+    $lab = $lab_data["name"];
     $special_name = $lab_data["special_name"];
     $positioning = $lab_data["positioning"];
     $operational_rating = $lab_data["operational_rating"];
@@ -113,8 +111,7 @@ foreach($data["data"] as $lab_data)
 
     // Save Excel 2007 file
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    $objWriter->save('php://output');
-    
+    $objWriter->save('php://output');   
 }
 
 }
