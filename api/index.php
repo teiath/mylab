@@ -237,7 +237,7 @@ function loadParameters()
     }
     
     // array to object
-    $params = json_decode (json_encode ($params), FALSE);
+    //$params = json_decode (json_encode ($params), FALSE);
 
     return $params;
 }
@@ -1065,13 +1065,20 @@ function WorkersController()
     {
         case MethodTypes::GET : 
             $result = GetWorkers(
-                $params->registry_no,
-                $params->worker_specialization,
-                $params->lastname,
-                $params->worker,
-                $params->pagesize, 
-                $params->page
-            );      
+                $params["worker"],
+                $params["registry_no"],
+                $params["tax_number"],          
+                $params["firstname"],
+                $params["lastname"],
+                $params["fathername"],   
+                $params["sex"],
+                $params["worker_specialization"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["orderby"],
+                $params["ordertype"],
+                $params["searchtype"]
+            );   
             break;
         case MethodTypes::POST :
             $result = PostWorkers(
