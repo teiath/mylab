@@ -41,7 +41,11 @@ var LabsViewVM = kendo.observable({
                         sortingNormalizedFilter["ordertype"] = data.sort[0].dir.toUpperCase();
                         $.extend(data, sortingNormalizedFilter);
                         delete data.sort;
-                    }
+                    }else{
+                        //if no sorting is defined, sort by lab's creation date
+                        data["orderby"]= "creation_date";
+                        data["ordertype"]= "DESC";
+                    }  
                     
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
@@ -49,34 +53,38 @@ var LabsViewVM = kendo.observable({
                     
                 }else if(type === 'create'){
 
-                    //normalize aquisition_sources parameter
-                    var aquisition_sources= data.aquisition_sources;
-                    var aquisition_sources_normalized= "";
-                    $.each(aquisition_sources, function(index, value){
-                        var name = aquisition_sources[index].name;
-                        var year = aquisition_sources[index].aquisition_year;
-                        var comments = aquisition_sources[index].comments;
-                        var normalized_item = name + "=" + year + "=" + comments + ",";
-                        aquisition_sources_normalized += normalized_item;
-                    });
-                    data["aquisition_sources"] = aquisition_sources_normalized.slice(0, -1);
-
-                    //normalize equipment_types parameter
-                    var equipment_types= data.equipment_types;
-                    var equipment_types_normalized= "";                     
-                    $.each(equipment_types, function(index, value){
-                        var name = equipment_types[index].name;
-                        var items = equipment_types[index].items;
-                        var normalized_item = name + "=" + items + ",";
-                        equipment_types_normalized += normalized_item;
-                    });
-                    data["equipment_types"] = equipment_types_normalized.slice(0, -1);
+//                    //normalize aquisition_sources parameter
+//                    var aquisition_sources= data.aquisition_sources;
+//                    var aquisition_sources_normalized= "";
+//                    $.each(aquisition_sources, function(index, value){
+//                        var name = aquisition_sources[index].name;
+//                        var year = aquisition_sources[index].aquisition_year;
+//                        var comments = aquisition_sources[index].comments;
+//                        var normalized_item = name + "=" + year + "=" + comments + ",";
+//                        aquisition_sources_normalized += normalized_item;
+//                    });
+//                    data["aquisition_sources"] = aquisition_sources_normalized.slice(0, -1);
+//
+//                    //normalize equipment_types parameter
+//                    var equipment_types= data.equipment_types;
+//                    var equipment_types_normalized= "";                     
+//                    $.each(equipment_types, function(index, value){
+//                        var name = equipment_types[index].name;
+//                        var items = equipment_types[index].items;
+//                        var normalized_item = name + "=" + items + ",";
+//                        equipment_types_normalized += normalized_item;
+//                    });
+//                    data["equipment_types"] = equipment_types_normalized.slice(0, -1);
 
                     //normalize relation_served_service, worker_start_service, transition_date parameter
-                    data["relation_served_service"] = data["relation_served_service"].toString();
-                    data["worker_start_service"] = kendo.toString(data["worker_start_service"], "yyyy/MM/dd");
+//                    data["relation_served_service"] = data["relation_served_service"].toString();
+//                    data["worker_start_service"] = kendo.toString(data["worker_start_service"], "yyyy/MM/dd");
                     data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
 
+                    data["state"] = "1";
+                    data["lab_source"] = "1";
+                    data["transition_source"] = "mylab";
+                    data["transition_justification"] = "δημιουργία Διάταξης Η/Υ";
                     //return JSON.stringify(data);                                        
                     return data;
 
@@ -102,10 +110,10 @@ var LabsViewVM = kendo.observable({
                     transition_date:{},
                     aquisition_sources:{},
                     equipment_types:{},
-                    state:{defaultValue: 1},
-                    lab_source:{defaultValue: 1},
-                    transition_source:{defaultValue: "mylab"},                    
-                    transition_justification:{defaultValue: "δημιουργία Διάταξης Η/Υ"},
+                    state:{},
+                    lab_source:{},
+                    transition_source:{},                    
+                    transition_justification:{},
                     school_unit:{},
                     //---------------//
                     lab_relations:{},
@@ -124,7 +132,15 @@ var LabsViewVM = kendo.observable({
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("labs datasource requestEnd e:", e);
-            if (e.type=="create" || e.type=="destroy"){
+            if (e.type=="read"){
+                               
+                LabsViewVM.set("sepehy",  e.response.all_labs_by_type['ΣΕΠΕΗΥ']);
+                LabsViewVM.set("etp",  e.response.all_labs_by_type['ΕΤΠ']);
+                LabsViewVM.set("gwnia",  e.response.all_labs_by_type['ΓΩΝΙΑ']);
+                LabsViewVM.set("diadrastiko",  e.response.all_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ']);
+                LabsViewVM.set("troxilato",  e.response.all_labs_by_type['ΤΡΟΧΗΛΑΤΟ']);
+                                
+            }else if (e.type=="create" || e.type=="destroy"){
                 if (e.response.status == "200"){
                     
                     notification.show({
@@ -158,6 +174,12 @@ var LabsViewVM = kendo.observable({
             //console.log("einai to 1o lab dirty?:", e.items[0].dirty);
         }
     }), // Να καλείται η newLabsDS
+
+    sepehy: null,
+    etp:null,
+    gwnia: null,
+    diadrastiko: null,
+    troxilato: null,    
     
     ds_lab_types: newLabTypesDS(),
     ds_school_units: newSchoolUnitsDS(),
