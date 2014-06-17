@@ -13,7 +13,7 @@
 
                 //kendo.bind($("body"), LabsViewVM);
                 kendo.bind($("#grid"), LabsViewVM);
-//                kendo.bind($("#grid").find(".k-grid-toolbar"), LabsViewVM);
+                kendo.bind($("#grid").find(".k-grid-toolbar"), LabsViewVM);
                 kendo.bind($("#search-container"), LabsSearchVM);
                 
                 notification = $("#notification").kendoNotification({
@@ -53,7 +53,8 @@
             <?php
                 //require_once('client/pages/js/Templates/createLabServedOnlineTemplate.html');
                 require_once('client/pages/js/Templates/labCreateTemplate.html');
-                require_once('client/pages/js/Templates/labToolbarTemplate.html');
+                //require_once('client/pages/js/Templates/labToolbarTemplate.html');
+                require_once('client/pages/js/Templates/labToolbarTemplate_labs_view.html');
                 require_once('client/pages/js/Templates/labDetailsTemplate.html');
                 require_once('client/pages/js/Templates/labTransitTemplate.html');
                 require_once('client/pages/js/Templates/errorNotificationTemplate.html');
@@ -86,7 +87,7 @@
                                                                 'next': 'μετάβαση στην επόμενη σελίδα',
                                                                 'last': 'μετάβαση στην τελευταία σελίδα' }}"
                                 data-editable="{ 'mode' : 'popup', 'template': $('#lab_create_template').html()}"
-                                data-toolbar="[{ 'template' : $('#lab_toolbar_template').html()  }]"
+                                data-toolbar="[{ 'template' : $('#lab_toolbar_template_labs_view').html()  }]"
                                 data-columns="[{ 'field': 'lab_id', 'title':'κωδικός', 'width':'5%', 'hidden' : true},
                                                { 'field': 'name', 'title':'ονομασία', 'width':'40%'},
                                                { 'field': 'lab_type', 'title':'τύπος', 'width':'15%'},
