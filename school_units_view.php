@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         
@@ -92,7 +93,7 @@
                                                                 'next': 'μετάβαση στην επόμενη σελίδα',
                                                                 'last': 'μετάβαση στην τελευταία σελίδα' }}"
                                 data-columns="[{ 'field': 'school_unit_id', 'title':'κωδικός Μητρώου', 'width':'10%'},
-                                               { 'field': 'name', 'title':'ονομασία', 'width':'20%'},
+                                               { 'field': 'school_unit_name', 'title':'ονομασία', 'width':'20%'},
                                                { 'field': 'special_name', 'title':'ειδικό όνομα', 'width':'20%'},
                                                { 'field': 'school_unit_type', 'title':'τύπος', 'width':'10%'},
                                                { 'field': 'education_level', 'title':'βαθμίδα', 'width':'10%'},

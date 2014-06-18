@@ -45,42 +45,19 @@ var LabsViewVM = kendo.observable({
                         //if no sorting is defined, sort by lab's creation date
                         data["orderby"]= "creation_date";
                         data["ordertype"]= "DESC";
-                    }  
+                    }
                     
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
+                    
                     return data;
                     
                 }else if(type === 'create'){
-
-//                    //normalize aquisition_sources parameter
-//                    var aquisition_sources= data.aquisition_sources;
-//                    var aquisition_sources_normalized= "";
-//                    $.each(aquisition_sources, function(index, value){
-//                        var name = aquisition_sources[index].name;
-//                        var year = aquisition_sources[index].aquisition_year;
-//                        var comments = aquisition_sources[index].comments;
-//                        var normalized_item = name + "=" + year + "=" + comments + ",";
-//                        aquisition_sources_normalized += normalized_item;
-//                    });
-//                    data["aquisition_sources"] = aquisition_sources_normalized.slice(0, -1);
-//
-//                    //normalize equipment_types parameter
-//                    var equipment_types= data.equipment_types;
-//                    var equipment_types_normalized= "";                     
-//                    $.each(equipment_types, function(index, value){
-//                        var name = equipment_types[index].name;
-//                        var items = equipment_types[index].items;
-//                        var normalized_item = name + "=" + items + ",";
-//                        equipment_types_normalized += normalized_item;
-//                    });
-//                    data["equipment_types"] = equipment_types_normalized.slice(0, -1);
-
-                    //normalize relation_served_service, worker_start_service, transition_date parameter
-//                    data["relation_served_service"] = data["relation_served_service"].toString();
-//                    data["worker_start_service"] = kendo.toString(data["worker_start_service"], "yyyy/MM/dd");
+                    
+                    //normalize transition_date parameter
                     data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
 
+                    //standar parameters in lab creation
                     data["state"] = "1";
                     data["lab_source"] = "1";
                     data["transition_source"] = "mylab";
@@ -98,6 +75,7 @@ var LabsViewVM = kendo.observable({
                 id: "lab_id",
                 fields:{
                     lab_id:{editable:false},
+                    lab_name:{},
                     lab_type:{},
                     lab_worker:{},
                     worker_start_service:{},
@@ -114,7 +92,8 @@ var LabsViewVM = kendo.observable({
                     lab_source:{},
                     transition_source:{},                    
                     transition_justification:{},
-                    school_unit:{},
+                    school_unit_id:{},
+                    school_unit_name:{},
                     //---------------//
                     lab_relations:{},
                     lab_transitions:{},
@@ -203,7 +182,7 @@ var LabsViewVM = kendo.observable({
             var grid = tr.closest("div#school_units_view").data("kendoGrid");
             var item = grid.dataItem(tr);
             console.log("item: ", item);
-            var school_unit = item.name //item.school_unit_id;
+            var school_unit = item.school_unit_name //item.school_unit_id;
             
             $("#cl_school_unit").data("kendoComboBox").readonly(true);
             $("#cl_school_unit").prev().find("input").prop('disabled', true);
@@ -654,17 +633,17 @@ var LabsViewVM = kendo.observable({
                   title: "αριθμός κυκλώματος",
                   editor: function (container, options){
               
-                        //console.log("options.field", options.field);
+                        console.log("options.field", options.field); // =circuit_phone_number
                         $('<input id="child" name="' + options.field + '" data-bind="value:' + options.field + '" data-value-field="circuit_id" required data-required-msg="Ξέχασες τον αρ. κυκλώματος!" />')
                         .appendTo(container)
                         .kendoDropDownList({
                             autoBind: false,
                             dataTextField : "phone_number",
-                            template: "#= phone_number + ' (' + relation_type_name + ')'#",
+                            template: "#= phone_number + ' (' + circuit_type_name + ')'#",
                             optionLabel: {
                                 phone_number: "Επιλέξτε κύκλωμα",
                                 circuit_id: "",
-                                relation_type_name:"αρ. κυκλώματος"
+                                circuit_type_name:"αρ. κυκλώματος"
                             },
                             enable: false,
 //                            cascadeFrom: "school_unit_parent",

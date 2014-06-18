@@ -30,7 +30,7 @@ function newCircuitsDS(){
                                       updated_date: {},
                                       status: {},
                                       circuit_type: {},
-                                      relation_type_name: {},
+                                      circuit_type_name: {},
                                       school_unit_id: {},
                                       school_unit_name: {}
                                 }

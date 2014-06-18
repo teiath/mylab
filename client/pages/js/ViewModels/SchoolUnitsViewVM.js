@@ -50,7 +50,8 @@ var SchoolUnitsViewVM = kendo.observable({
                 id: "school_unit_id",
                 fields:{
                     school_unit_id:{editable:false},
-                    name:{},
+                    school_unit_name:{},
+                    //name:{},
                     special_name:{},
                     school_unit_type:{},
                     education_level:{},
@@ -79,16 +80,16 @@ var SchoolUnitsViewVM = kendo.observable({
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("school units datasource requestEnd e:", e);
-            if (e.type=="read"){
-                
+//            if (e.type=="read"){
+//                
 //                LabsViewVM.set("labs_count",  e.response.total);
 //                LabsViewVM.set("sepehy_count", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
 //                LabsViewVM.set("etp_count",  e.response.all_labs_by_type["ΕΤΠ"]);
 //                LabsViewVM.set("troxilata_count",  e.response.all_labs_by_type["ΤΡΟΧΗΛΑΤΟ"]);
 //                LabsViewVM.set("gwnies_count", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
 //                LabsViewVM.set("diadrastika_sistimata_count", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
-                
-            }
+//                
+//            }
         },
         change: function(e) {
     
@@ -149,7 +150,7 @@ var SchoolUnitsViewVM = kendo.observable({
             editable: { mode : 'popup', template: $('#lab_create_template').html()},
             toolbar: [{ template : $('#lab_toolbar_template').html()  }],
             columns: [{ field: 'lab_id', title:'κωδικός', width:'5%', hidden : true},
-                      { field: 'name', title:'ονομασία', width:'40%'},
+                      { field: 'lab_name', title:'ονομασία', width:'40%'},
                       { field: 'lab_type', title:'τύπος', width:'10%'},
                       { field: 'lab_state', title:'κατάσταση', width:'10%'},
                       { field: 'operational_rating', title:'βαθμολογία', width:'10%'},
