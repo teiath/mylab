@@ -12,6 +12,7 @@ require_once('system/methodtypes.php');
 
 require_once ('libs/phpCAS/CAS.php');
 require_once ('libs/PHPExcel/Classes/PHPExcel.php');
+require_once ('libs/tcpdf/tcpdf.php');
 
 // Doctrine & Entities autoloading
 require_once ('libs/doctrine/bootstrap.php');
@@ -88,6 +89,7 @@ require_once('../api/get/SearchLabWorkers.php');
 require_once('../api/get/StatisticSchoolUnits.php');
 require_once('../api/get/StatisticLabs.php');
 require_once('../api/get/StatisticLabWorkers.php');
+require_once('../api/get/ReportKeplhnet.php');
 
 ////----get from mm
 require_once('../api/get/GetRegionEduAdmins.php');
