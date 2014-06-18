@@ -87,6 +87,15 @@ class Filters {
         return $lab_types_per_school_unit;
     }
     
+    public static function LabsCounterNull () {
+           
+    $sql_array = self::AllLabTypes();
+                   
+    foreach ($sql_array as $lab_type_name) {
+        $null_labs[$lab_type_name] = '0';    
+    }
+    return $null_labs;
+    }
 
    
      public static function ExtBasicFilter($filter_param, $table_name, $table_column_name, $searchtype, $ex_message, $ex_code ) {
