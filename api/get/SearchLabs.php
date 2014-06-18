@@ -546,7 +546,7 @@ function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operat
         $sqlOrder = " ORDER BY ". $orderby ." ". $ordertype;
         $sqlLimit = ($page && $pagesize) ? " LIMIT ".(($page - 1) * $pagesize).", ".$pagesize : "";
 
-        $result["filters"] = $filter;
+        $result["filters"] = $filter ? $filter : null;
         //#############find total total labs without filter of limits(page and pagesize)
         $sql = "SELECT count(DISTINCT labs.lab_id) as total_labs " . $sqlFrom . $sqlWhere;
         //echo "<br><br>".$sql."<br><br>";
@@ -889,7 +889,7 @@ function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operat
             );
                             
                 //$array_lab_aquisition_sources
-                $data["aquisition_sources"] = array();
+                $data["aquisition_sources"] = null;
                  foreach ($lab_aquisition_sources[ $lab["lab_id"] ] as $lab_aquisition_source)
                 {
                     $data["aquisition_sources"][] = array(
@@ -903,7 +903,7 @@ function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operat
                 }
 
                 //$array_lab_equipment_types
-                $data["equipment_types"] = array();
+                $data["equipment_types"] = null;
                  foreach ($lab_equipment_types[ $lab["lab_id"] ] as $lab_equipment_type)
                 {
                     $data["equipment_types"][] = array(
@@ -917,7 +917,7 @@ function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operat
                 }
 
                 // $array_lab_workers
-                $data["lab_workers"] = array();
+                $data["lab_workers"] = null;
                  foreach ($lab_workers[ $lab["lab_id"] ] as $lab_worker)
                 {
                     $data["lab_workers"][] = array(
@@ -941,7 +941,7 @@ function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operat
                 }
             
                 //$array_lab_relations
-                $data["lab_relations"] = array();
+                $data["lab_relations"] = null;
                  foreach ($lab_relations[ $lab["lab_id"] ] as $lab_relation)
                 {
                     $data["lab_relations"][] = array(
@@ -956,7 +956,7 @@ function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operat
                 }
                 
                 //$array_lab_transitions
-                $data["lab_transitions"] = array();
+                $data["lab_transitions"] = null;
                  foreach ($lab_transitions[ $lab["lab_id"] ] as $lab_transition)
                 {
                     $data["lab_transitions"][] = array(
@@ -975,7 +975,7 @@ function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operat
                 }            
             
             //$array_school_unit_workers
-            $data["school_unit_worker"] = array();
+            $data["school_unit_worker"] = null;
             foreach ($school_unit_workers[ $lab["school_unit_id"] ] as $school_unit_worker)
             {
                 $data["school_unit_worker"][] = array(
@@ -995,7 +995,7 @@ function SearchLabs ( $lab_id, $lab_name, $special_name, $creation_date, $operat
                 );
             } 
                 
-            $data["school_circuits"] = array();
+            $data["school_circuits"] = null;
             foreach ($circuits[ $lab["school_unit_id"] ] as $circuit)
             {
                 $data["school_circuits"][] = array(

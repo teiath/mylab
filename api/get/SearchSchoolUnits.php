@@ -535,7 +535,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
         $sqlOrder = " ORDER BY ". $orderby ." ". $ordertype;
         $sqlLimit = ($page && $pagesize) ? " LIMIT ".(($page - 1) * $pagesize).", ".$pagesize : "";
 
-        $result["filters"] = $filter;
+        $result["filters"] = $filter ? $filter : null;
         
         //#############find total school_units and total labs without filter of limits(page and pagesize)
         $sql = "SELECT count(DISTINCT school_units.school_unit_id) as total_school_units, count(DISTINCT labs.lab_id) as all_labs " . $sqlFrom . $sqlWhere;
@@ -870,19 +870,31 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
             );
             
             //find lab types per school unit without filters       
+               
                 $all_labs_counts=array();                           
                 $i=1;
-                array_pop($array_count_labs[$school_unit["school_unit_id"]]);
-
-                foreach ($array_count_labs[$school_unit["school_unit_id"]] as $lab_type_count) {
-                    $all_labs_counts[$sql_array[$i]] = $lab_type_count;
-                    $i++;     
-                }
                 
-             $data["total_labs_by_type"] = $all_labs_counts;
-             
+//                    $array_count_labs                
+//                    "count_lab_type_1": "1",
+//                    "count_lab_type_2": "0",
+//                    "count_lab_type_3": "57",
+//                    "count_lab_type_4": "0",
+//                    "count_lab_type_5": "1",
+//                    "school_unit_id": "1000019"
+                if (!Validator::IsNull($array_count_labs[$school_unit["school_unit_id"]])){
+                    
+                    array_pop($array_count_labs[$school_unit["school_unit_id"]]);   
+                    foreach ($array_count_labs[$school_unit["school_unit_id"]] as $lab_type_count) {
+                        $all_labs_counts[$sql_array[$i]] = $lab_type_count;
+                        $i++;     
+                    }
+                    $data["total_labs_by_type"] = $all_labs_counts;
+                } else {
+                    $data["total_labs_by_type"] = Filters::LabsCounterNull();
+                }   
+                           
             //$array_circuits
-            $data["school_circuits"] = array();
+            $data["school_circuits"] = null;
             foreach ($circuits[ $school_unit["school_unit_id"] ] as $circuit)
             {
                 $data["school_circuits"][] = array(
@@ -897,7 +909,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
             }
 
             //$array_school_unit_workers
-            $data["school_unit_worker"] = array();
+            $data["school_unit_worker"] = null;
             foreach ($school_unit_workers[ $school_unit["school_unit_id"] ] as $school_unit_worker)
             {
                 $data["school_unit_worker"][] = array(
@@ -918,7 +930,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
             } 
 
             //$array_labs
-            $data["labs"] = array();
+            $data["labs"] = null;
             foreach ($labs[ $school_unit["school_unit_id"] ] as $lab)
             {
                                 
@@ -944,7 +956,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
                             );
                              
                 //$array_lab_workers
-                    $summary_labs["lab_workers"] = array();
+                    $summary_labs["lab_workers"] = null;
                      foreach ($lab_workers[ $lab["lab_id"] ] as $lab_worker)
                     {
                         $summary_labs["lab_workers"][] = array(
@@ -968,7 +980,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
                     }
                      
                     //$array_lab_aquisition_sources
-                    $summary_labs["aquisition_sources"] = array();
+                    $summary_labs["aquisition_sources"] = null;
                      foreach ($lab_aquisition_sources[ $lab["lab_id"] ] as $lab_aquisition_source)
                     {
                         $summary_labs["aquisition_sources"][] = array(
@@ -982,7 +994,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
                     }
                     
                     //$array_lab_equipment_types
-                    $summary_labs["equipment_types"] = array();
+                    $summary_labs["equipment_types"] = null;
                      foreach ($lab_equipment_types[ $lab["lab_id"] ] as $lab_equipment_type)
                     {
                         $summary_labs["equipment_types"][] = array(
