@@ -1,9 +1,9 @@
-<script type="text/x-kendo-template" id="school_unit_contact_details">
+<script type="text/x-kendo-template" id="school_unit_contact_details_template">
     <div id="details-container">
         <h4 style="text-align: center"> #= school_unit_name # </h4>
         
-        #if(special_name !== null){#
-            <h6 style="text-align: center"> #= special_name # </h6>
+        #if(school_unit_special_name !== null){#
+            <h6 style="text-align: center"> #= school_unit_special_name # </h6>
         #}#
         
         <dl style="margin: 20px">

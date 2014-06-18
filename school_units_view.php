@@ -15,8 +15,9 @@
                 //console.log("baseURL: ", baseURL);
 
                 kendo.bind($("#school_units_container"), SchoolUnitsViewVM);
-                kendo.bind($("#search-container"), SchoolUnitsSearchVM);
+                //kendo.bind($("#search-container"), SchoolUnitsSearchVM);
 //                kendo.bind($("#school_units_view").find(".k-grid-toolbar"), SchoolUnitsViewVM);
+                kendo.bind($("#search-container"), SearchVM);
                 
                 notification = $("#notification").kendoNotification({
                     position: {
@@ -45,7 +46,13 @@
     </head>
     
     <body>
-        <?php require_once('school_units_search.html'); ?>
+        
+        <?php 
+                //require_once('school_units_search.html');
+                require_once('navigation_bar.php'); //navigation bar
+                require_once('search.html'); //search pane
+                require_once('switch_views.html'); //switch views button
+        ?>
         
         <div id="school_units_container">
             
@@ -56,7 +63,7 @@
                 require_once('client/pages/js/Templates/labDetailsTemplate.html');
                 require_once('client/pages/js/Templates/labTransitTemplate.html');
             
-                require_once('client/pages/js/Templates/schoolUnitContactDetails.html');
+                require_once('client/pages/js/Templates/schoolUnitContactDetailsTemplate.html');
                 require_once('client/pages/js/Templates/schoolUnitDetailsTemplate.html');
 
                 require_once('client/pages/js/Templates/errorNotificationTemplate.html');
@@ -94,7 +101,7 @@
                                                                 'last': 'μετάβαση στην τελευταία σελίδα' }}"
                                 data-columns="[{ 'field': 'school_unit_id', 'title':'κωδικός Μητρώου', 'width':'10%'},
                                                { 'field': 'school_unit_name', 'title':'ονομασία', 'width':'20%'},
-                                               { 'field': 'special_name', 'title':'ειδικό όνομα', 'width':'20%'},
+                                               { 'field': 'school_unit_special_name', 'title':'ειδικό όνομα', 'width':'20%'},
                                                { 'field': 'school_unit_type', 'title':'τύπος', 'width':'10%'},
                                                { 'field': 'education_level', 'title':'βαθμίδα', 'width':'10%'},
                                                { 'field': 'school_unit_state', 'title':'λειτουργική κατάσταση', 'width':'10%'},

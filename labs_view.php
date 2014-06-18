@@ -13,9 +13,10 @@
                 baseURL = "http://mmsch.teiath.gr/mylab/api/";
 
                 //kendo.bind($("body"), LabsViewVM);
-                kendo.bind($("#grid"), LabsViewVM);
-                kendo.bind($("#grid").find(".k-grid-toolbar"), LabsViewVM);
-                kendo.bind($("#search-container"), LabsSearchVM);
+                kendo.bind($("#labs_container"), LabsViewVM);
+                kendo.bind($("#labs_container").find(".k-grid-toolbar"), LabsViewVM);
+                //kendo.bind($("#search-container"), LabsSearchVM);
+                kendo.bind($("#search-container"), SearchVM);
                 
                 notification = $("#notification").kendoNotification({
                     position: {
@@ -45,16 +46,15 @@
     </head>
     
     <body>
-        <?php include "navigation-bar.php" ?>
-        <!-- search pane -->
-        <?php require_once('labs_search.html'); ?>
         
-        <div class="btn-group">
-            <button type="button" class="btn btn-default"><i class="fa fa-home"></i></button>
-            <button type="button" class="btn btn-default"><i class="fa fa-keyboard-o"></i></button>
-        </div>
+        <?php 
+                //require_once('labs_search.html');
+                require_once('navigation_bar.php'); //navigation bar
+                require_once('search.html'); //search pane
+                require_once('switch_views.html'); //switch views button
+        ?>
         
-        <div id="grid">
+        <div id="labs_container"> <!--grid-->
 
             <?php
                 //require_once('client/pages/js/Templates/createLabServedOnlineTemplate.html');
