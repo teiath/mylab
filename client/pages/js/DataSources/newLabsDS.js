@@ -59,7 +59,7 @@ function newLabsDS(school_unit_id, detailInitEvent){
                 }else if(type === 'create'){
 
                     if(school_unit_id !== undefined){
-                        data["school_unit_id"] = school_unit_id;
+                        data["school_unit"] = school_unit_id;
                     }
 
                     //normalize transition_date parameter
@@ -103,6 +103,7 @@ function newLabsDS(school_unit_id, detailInitEvent){
                     //school_unit:{},
                     school_unit_id:{},
                     school_unit_name:{},
+                    school_unit:{},
                     //---------------//
                     lab_relations:{},
                     lab_transitions:{},

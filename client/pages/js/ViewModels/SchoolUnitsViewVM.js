@@ -1,5 +1,7 @@
 var SchoolUnitsViewVM = kendo.observable({
 
+    isVisible: false,
+
     school_units:  new kendo.data.DataSource({
         transport: {
             read: {
@@ -117,7 +119,7 @@ var SchoolUnitsViewVM = kendo.observable({
                     width: 500
         }).data("kendoWindow");
         
-        var schoolUnitContactDetailsTemplate = kendo.template($("#school_unit_contact_details").html());
+        var schoolUnitContactDetailsTemplate = kendo.template($("#school_unit_contact_details_template").html());
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         contact_details_dialog.content(schoolUnitContactDetailsTemplate(dataItem));
         contact_details_dialog.center().open();

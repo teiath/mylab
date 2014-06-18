@@ -1,5 +1,7 @@
 var LabsViewVM = kendo.observable({
 
+    isVisible: true,
+
     labs:  new kendo.data.DataSource({
         transport: {
             read: {
@@ -94,6 +96,7 @@ var LabsViewVM = kendo.observable({
                     transition_justification:{},
                     school_unit_id:{},
                     school_unit_name:{},
+                    school_unit:{},
                     //---------------//
                     lab_relations:{},
                     lab_transitions:{},
@@ -112,13 +115,19 @@ var LabsViewVM = kendo.observable({
         requestEnd: function(e) {
             console.log("labs datasource requestEnd e:", e);
             if (e.type=="read"){
-                               
-                LabsViewVM.set("sepehy",  e.response.all_labs_by_type['ΣΕΠΕΗΥ']);
-                LabsViewVM.set("etp",  e.response.all_labs_by_type['ΕΤΠ']);
-                LabsViewVM.set("gwnia",  e.response.all_labs_by_type['ΓΩΝΙΑ']);
-                LabsViewVM.set("diadrastiko",  e.response.all_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ']);
-                LabsViewVM.set("troxilato",  e.response.all_labs_by_type['ΤΡΟΧΗΛΑΤΟ']);
-                                
+                if(typeof e.response.all_labs_by_type !== 'undefined'){
+                    LabsViewVM.set("sepehy",  e.response.all_labs_by_type['ΣΕΠΕΗΥ']);
+                    LabsViewVM.set("etp",  e.response.all_labs_by_type['ΕΤΠ']);
+                    LabsViewVM.set("gwnia",  e.response.all_labs_by_type['ΓΩΝΙΑ']);
+                    LabsViewVM.set("diadrastiko",  e.response.all_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ']);
+                    LabsViewVM.set("troxilato",  e.response.all_labs_by_type['ΤΡΟΧΗΛΑΤΟ']);
+                }else{ //εαν ο χρήστης βάλει βλακείες σε κάποιο πεδίο πχ lab_id = sefwgei, τότε ΔΕΝ επιστρεφεται το all_labs_by_type 
+                    LabsViewVM.set("sepehy",  0);
+                    LabsViewVM.set("etp", 0);
+                    LabsViewVM.set("gwnia",  0);
+                    LabsViewVM.set("diadrastiko", 0);
+                    LabsViewVM.set("troxilato", 0);                    
+                }
             }else if (e.type=="create" || e.type=="destroy"){
                 if (e.response.status == "200"){
                     
@@ -738,6 +747,18 @@ var LabsViewVM = kendo.observable({
             }
             
         });
+    },
+
+    
+    hideLabsGrid: function(e) {
+        console.log("im inside hideLabsGrid", e);
+        this.set("isVisible", false);
+        SchoolUnitsViewVM.set("isVisible", true);
+    },
+    showLabsGrid: function(e) {
+        console.log("im inside showLabsGrid", e);
+        this.set("isVisible", true);
+        SchoolUnitsViewVM.set("isVisible", false);
     }
 
 });
