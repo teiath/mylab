@@ -518,7 +518,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         $sqlOrder = " ORDER BY ". $orderby ." ". $ordertype;
         $sqlLimit = ($page && $pagesize) ? " LIMIT ".(($page - 1) * $pagesize).", ".$pagesize : "";
 
-        $result["filters"] = $filter;
+        $result["filters"] = $filter ? $filter : null;
         //#############find total total lab_workers without filter of limits(page and pagesize)
         $sql = "SELECT count(lab_workers.lab_worker_id) as total_lab_workers " . $sqlFrom . $sqlWhere;
         //echo "<br><br>".$sql."<br><br>";

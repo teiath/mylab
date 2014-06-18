@@ -392,7 +392,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 
         $sqlWhere = (count($filter) > 0 ? " WHERE " . implode(" AND ", $filter) : "" );
 
-        $result["filters"] = $filter;
+        $result["filters"] = $filter ? $filter : null;
         //#############find total total lab_workers without filter of limits(page and pagesize)
         $sql = $sqlSelect . $sqlFrom . $sqlWhere;
         //echo "<br><br>".$sql."<br><br>";

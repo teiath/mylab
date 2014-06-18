@@ -26,13 +26,13 @@ class SearchLabsExt {
     // Create a first sheet
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A1', "lab_id");
-$objPHPExcel->getActiveSheet()->setCellValue('B1', "name");
-$objPHPExcel->getActiveSheet()->setCellValue('C1', "special_name");
+$objPHPExcel->getActiveSheet()->setCellValue('B1', "lab_name");
+$objPHPExcel->getActiveSheet()->setCellValue('C1', "lab_special_name");
 $objPHPExcel->getActiveSheet()->setCellValue('D1', "positioning");
 $objPHPExcel->getActiveSheet()->setCellValue('E1', "operational_rating");
 $objPHPExcel->getActiveSheet()->setCellValue('F1', "technological_rating");
 $objPHPExcel->getActiveSheet()->setCellValue('G1', "lab_type");
-$objPHPExcel->getActiveSheet()->setCellValue('H1', "school_unit");
+$objPHPExcel->getActiveSheet()->setCellValue('H1', "school_unit_name");
 $objPHPExcel->getActiveSheet()->setCellValue('I1', "lab_source");
 $objPHPExcel->getActiveSheet()->setCellValue('J1', "lab_state");
 $objPHPExcel->getActiveSheet()->setCellValue('K1', "school_unit_state");
@@ -50,13 +50,13 @@ foreach($data["data"] as $lab_data)
 {    
 
     $lab_id = $lab_data["lab_id"];
-    $lab = $lab_data["name"];
-    $special_name = $lab_data["special_name"];
+    $lab_name = $lab_data["lab_name"];
+    $lab_special_name = $lab_data["lab_special_name"];
     $positioning = $lab_data["positioning"];
     $operational_rating = $lab_data["operational_rating"];
     $technological_rating = $lab_data["technological_rating"] ;
     $lab_type = $lab_data["lab_type"];
-    $school_unit = $lab_data["school_unit"];
+    $school_unit_name = $lab_data["school_unit_name"];
     $lab_source = $lab_data["lab_source"];
     $lab_state = $lab_data["lab_state"];
     $school_unit_state = $lab_data["school_unit_state"];
@@ -70,13 +70,13 @@ foreach($data["data"] as $lab_data)
  
     // Set values from get api function to excell cells
     $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, "$lab_id")
-                                    ->setCellValue('B' . $i, "$lab")
-                                    ->setCellValue('C' . $i, "$special_name")
+                                    ->setCellValue('B' . $i, "$lab_name")
+                                    ->setCellValue('C' . $i, "$lab_special_name")
                                     ->setCellValue('D' . $i, "$positioning")
                                     ->setCellValue('E' . $i, "$operational_rating")
                                     ->setCellValue('F' . $i, "$technological_rating")
                                     ->setCellValue('G' . $i, "$lab_type")
-                                    ->setCellValue('H' . $i, "$school_unit")
+                                    ->setCellValue('H' . $i, "$school_unit_name")
                                     ->setCellValue('I' . $i, "$lab_source")
                                     ->setCellValue('J' . $i, "$lab_state")
                                     ->setCellValue('K' . $i, "$school_unit_state")

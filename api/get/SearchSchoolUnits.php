@@ -13,7 +13,7 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
-function SearchSchoolUnits ($school_unit_id, $school_unit_name,
+function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_special_name,
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
                             $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $lab_type, $lab_state, $lab_source, 
@@ -109,6 +109,20 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
             
         }
 
+//======================================================================================================================
+//= $school_unit_special_name
+//======================================================================================================================
+
+        if ( Validator::isExists('school_unit_special_name') )
+        {
+            $table_name = "school_units";
+            $table_column_name = "special_name";
+
+            $filter[] =  Filters::ExtBasicFilter($school_unit_special_name, $table_name, $table_column_name, $searchtype, 
+                                                 ExceptionMessages::InvalidSchoolUnitSpecialNameType, ExceptionCodes::InvalidSchoolUnitSpecialNameType ); 
+            
+        }
+        
 //======================================================================================================================
 //= $region_edu_admin
 //======================================================================================================================
@@ -456,7 +470,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
         {
             $columns = array(
                 "school_unit_id",
-                "school_unit_name","special_name",
+                "school_unit_name","school_unit_special_name",
                 "region_edu_admin_id", "region_edu_admin",
                 "edu_admin_id", "edu_admin",
                 "transfer_area_id", "transfer_area",
@@ -483,7 +497,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
         $sqlSelect = "SELECT 
                       DISTINCT  school_units.school_unit_id,
                                 school_units.name as school_unit_name,
-                                school_units.special_name,
+                                school_units.special_name as school_unit_special_name,
                                 school_units.last_update,
                                 school_units.fax_number,
                                 school_units.phone_number,
@@ -535,7 +549,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
         $sqlOrder = " ORDER BY ". $orderby ." ". $ordertype;
         $sqlLimit = ($page && $pagesize) ? " LIMIT ".(($page - 1) * $pagesize).", ".$pagesize : "";
 
-        $result["filters"] = $filter;
+        $result["filters"] = $filter ? $filter : null;
         
         //#############find total school_units and total labs without filter of limits(page and pagesize)
         $sql = "SELECT count(DISTINCT school_units.school_unit_id) as total_school_units, count(DISTINCT labs.lab_id) as all_labs " . $sqlFrom . $sqlWhere;
@@ -652,8 +666,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
 
         $sqlSelect = "SELECT
                         labs.lab_id,
-                        labs.name as lab,
-                        labs.special_name,
+                        labs.name as lab_name,
+                        labs.special_name as lab_special_name,
                         labs.creation_date,
                         labs.created_by,
                         labs.last_updated,
@@ -675,12 +689,12 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
                       LEFT JOIN lab_types using (lab_type_id)
                       LEFT JOIN states lab_states ON labs.state_id = lab_states.state_id
                       LEFT JOIN lab_sources using (lab_source_id)
-                        LEFT JOIN lab_aquisition_sources using (lab_id)
-                        LEFT JOIN lab_equipment_types using (lab_id)
-                        LEFT JOIN lab_workers using (lab_id)
-                        LEFT JOIN aquisition_sources ON lab_aquisition_sources.aquisition_source_id=aquisition_sources.aquisition_source_id
-                        LEFT JOIN equipment_types ON lab_equipment_types.equipment_type_id=equipment_types.equipment_type_id
-                        LEFT JOIN workers ON lab_workers.worker_id=workers.worker_id
+                      LEFT JOIN lab_aquisition_sources using (lab_id)
+                      LEFT JOIN lab_equipment_types using (lab_id)
+                      LEFT JOIN lab_workers using (lab_id)
+                      LEFT JOIN aquisition_sources ON lab_aquisition_sources.aquisition_source_id=aquisition_sources.aquisition_source_id
+                      LEFT JOIN equipment_types ON lab_equipment_types.equipment_type_id=equipment_types.equipment_type_id
+                      LEFT JOIN workers ON lab_workers.worker_id=workers.worker_id
                       ";
 
         $sqlWhere = " WHERE labs.school_unit_id in (".$school_unit_ids.")";
@@ -692,7 +706,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
         
         $sqlOrder = " ORDER BY labs.school_unit_id ASC";
 
-        $sql = $sqlSelect . $sqlFrom . $sqlWhere .$sqlWhereFilterLabs . $sqlWhereFilterLabsName . $sqlWhereFilterLabWorkers . $sqlWhereFilterLabAquisitions . $sqlWhereFilterLabEquipments . $sqlOrder;
+        $sql = $sqlSelect . $sqlFrom . $sqlWhere .$sqlWhereFilterLabs . $sqlWhereFilterLabWorkers . $sqlWhereFilterLabAquisitions . $sqlWhereFilterLabEquipments . $sqlOrder;
         //echo "<br><br>".$sql."<br><br>";
 
         $stmt = $db->query( $sql );
@@ -843,7 +857,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
             $data = array(
                 "school_unit_id"           => $school_unit["school_unit_id"] ? (int)$school_unit["school_unit_id"] : null,
                 "school_unit_name"         => $school_unit["school_unit_name"],
-                "special_name"             => $school_unit["special_name"],
+                "school_unit_special_name" => $school_unit["school_unit_special_name"],
                 "last_update"              => $school_unit["last_update"],
                 "fax_number"               => $school_unit["fax_number"] ? (int)$school_unit["fax_number"] : null,
                 "phone_number"             => $school_unit["phone_number"] ? (int)$school_unit["phone_number"] : null,
@@ -870,19 +884,31 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
             );
             
             //find lab types per school unit without filters       
+               
                 $all_labs_counts=array();                           
                 $i=1;
-                array_pop($array_count_labs[$school_unit["school_unit_id"]]);
-
-                foreach ($array_count_labs[$school_unit["school_unit_id"]] as $lab_type_count) {
-                    $all_labs_counts[$sql_array[$i]] = $lab_type_count;
-                    $i++;     
-                }
                 
-             $data["total_labs_by_type"] = $all_labs_counts;
-             
+//                    $array_count_labs                
+//                    "count_lab_type_1": "1",
+//                    "count_lab_type_2": "0",
+//                    "count_lab_type_3": "57",
+//                    "count_lab_type_4": "0",
+//                    "count_lab_type_5": "1",
+//                    "school_unit_id": "1000019"
+                if (!Validator::IsNull($array_count_labs[$school_unit["school_unit_id"]])){
+                    
+                    array_pop($array_count_labs[$school_unit["school_unit_id"]]);   
+                    foreach ($array_count_labs[$school_unit["school_unit_id"]] as $lab_type_count) {
+                        $all_labs_counts[$sql_array[$i]] = $lab_type_count;
+                        $i++;     
+                    }
+                    $data["total_labs_by_type"] = $all_labs_counts;
+                } else {
+                    $data["total_labs_by_type"] = Filters::LabsCounterNull();
+                }   
+                           
             //$array_circuits
-            $data["school_circuits"] = array();
+            $data["school_circuits"] = null;
             foreach ($circuits[ $school_unit["school_unit_id"] ] as $circuit)
             {
                 $data["school_circuits"][] = array(
@@ -897,7 +923,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
             }
 
             //$array_school_unit_workers
-            $data["school_unit_worker"] = array();
+            $data["school_unit_worker"] = null;
             foreach ($school_unit_workers[ $school_unit["school_unit_id"] ] as $school_unit_worker)
             {
                 $data["school_unit_worker"][] = array(
@@ -918,14 +944,14 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
             } 
 
             //$array_labs
-            $data["labs"] = array();
+            $data["labs"] = null;
             foreach ($labs[ $school_unit["school_unit_id"] ] as $lab)
             {
                                 
                 $summary_labs = array(
                                 "lab_id"                    => $lab["lab_id"] ? (int)$lab["lab_id"] : null,
-                                "lab"                       => $lab["lab"],
-                                "special_name"              => $lab["special_name"],
+                                "lab_name"                  => $lab["lab_name"],
+                                "lab_special_name"          => $lab["lab_special_name"],
                                 "creation_date"             => $lab["creation_date"],
                                 "created_by"                => $lab["created_by"],
                                 "last_updated"              => $lab["last_updated"] ,
@@ -944,7 +970,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
                             );
                              
                 //$array_lab_workers
-                    $summary_labs["lab_workers"] = array();
+                    $summary_labs["lab_workers"] = null;
                      foreach ($lab_workers[ $lab["lab_id"] ] as $lab_worker)
                     {
                         $summary_labs["lab_workers"][] = array(
@@ -968,7 +994,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
                     }
                      
                     //$array_lab_aquisition_sources
-                    $summary_labs["aquisition_sources"] = array();
+                    $summary_labs["aquisition_sources"] = null;
                      foreach ($lab_aquisition_sources[ $lab["lab_id"] ] as $lab_aquisition_source)
                     {
                         $summary_labs["aquisition_sources"][] = array(
@@ -982,7 +1008,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
                     }
                     
                     //$array_lab_equipment_types
-                    $summary_labs["equipment_types"] = array();
+                    $summary_labs["equipment_types"] = null;
                      foreach ($lab_equipment_types[ $lab["lab_id"] ] as $lab_equipment_type)
                     {
                         $summary_labs["equipment_types"][] = array(
@@ -1017,7 +1043,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name,
     catch (Exception $e) 
     {
         $result["status"] = $e->getCode();
-         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
 
     }
 
