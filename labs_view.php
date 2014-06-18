@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         
@@ -44,9 +45,14 @@
     </head>
     
     <body>
-       
+        <?php include "navigation-bar.php" ?>
         <!-- search pane -->
         <?php require_once('labs_search.html'); ?>
+        
+        <div class="btn-group">
+            <button type="button" class="btn btn-default"><i class="fa fa-home"></i></button>
+            <button type="button" class="btn btn-default"><i class="fa fa-keyboard-o"></i></button>
+        </div>
         
         <div id="grid">
 
@@ -59,13 +65,13 @@
                 require_once('client/pages/js/Templates/labTransitTemplate.html');
                 require_once('client/pages/js/Templates/errorNotificationTemplate.html');
                 require_once('client/pages/js/Templates/successNotificationTemplate.html');
-            ?>        
+            ?>
 
             <!--transition dialog-->
             <div id="transition_dialog"></div>
             <!--transition notification-->
             <span id="notification" style="display:none;"></span>
-
+            
             <!-- grid element -->
             <div id="general-container" class="container">      
                 <div class="row">          
@@ -89,7 +95,7 @@
                                 data-editable="{ 'mode' : 'popup', 'template': $('#lab_create_template').html()}"
                                 data-toolbar="[{ 'template' : $('#lab_toolbar_template_labs_view').html()  }]"
                                 data-columns="[{ 'field': 'lab_id', 'title':'κωδικός', 'width':'5%', 'hidden' : true},
-                                               { 'field': 'name', 'title':'ονομασία', 'width':'40%'},
+                                               { 'field': 'lab_name', 'title':'ονομασία', 'width':'40%'},
                                                { 'field': 'lab_type', 'title':'τύπος', 'width':'15%'},
                                                { 'field': 'lab_state', 'title':'κατάσταση', 'width':'10%'},
                                                { 'field': 'operational_rating', 'title':'λειτουργική βαθμολογία', 'width':'10%'},
