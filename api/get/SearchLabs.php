@@ -1053,7 +1053,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
     if ($export == 'JSON'){
         return $result;
     } else if ($export == 'XLSX') {
-        SearchSchoolUnitsExt::ExcelCreate($result);
+        SearchLabsExt::ExcelCreate($result);
         exit;
     } else if ($export == 'PDF'){
        return $result;

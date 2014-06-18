@@ -13,10 +13,10 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
-function StatisticSchoolUnits ( $school_unit_id, $name, 
+function StatisticSchoolUnits ( $school_unit_id, $school_unit_name, $school_unit_special_name, 
                                 $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                                 $education_level, $school_unit_type, $school_unit_state, 
-                                $lab_id, $operational_rating, $technological_rating, $lab_type, $lab_state, 
+                                $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $lab_type, $lab_state, $lab_source, 
                                 $aquisition_source, $equipment_type, $lab_worker, 
                                 $searchtype) {
 
@@ -63,19 +63,33 @@ function StatisticSchoolUnits ( $school_unit_id, $name,
         }
         
 //======================================================================================================================
-//= $name
+//= $school_unit_name
 //======================================================================================================================
 
-        if ( Validator::isExists('name') )
+        if ( Validator::isExists('school_unit_name') )
         {
             $table_name = "school_units";
             $table_column_name = "name";
 
-            $filter[] =  Filters::ExtBasicFilter($name, $table_name, $table_column_name, $searchtype, 
+            $filter[] =  Filters::ExtBasicFilter($school_unit_name, $table_name, $table_column_name, $searchtype, 
                                                  ExceptionMessages::InvalidSchoolUnitNameType, ExceptionCodes::InvalidSchoolUnitNameType ); 
             
         }
 
+//======================================================================================================================
+//= $school_unit_special_name
+//======================================================================================================================
+
+        if ( Validator::isExists('school_unit_special_name') )
+        {
+            $table_name = "school_units";
+            $table_column_name = "special_name";
+
+            $filter[] =  Filters::ExtBasicFilter($school_unit_special_name, $table_name, $table_column_name, $searchtype, 
+                                                 ExceptionMessages::InvalidSchoolUnitSpecialNameType, ExceptionCodes::InvalidSchoolUnitSpecialNameType ); 
+            
+        }
+      
 //======================================================================================================================
 //= $region_edu_admin
 //======================================================================================================================
@@ -221,6 +235,50 @@ function StatisticSchoolUnits ( $school_unit_id, $name,
                                                                 ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
 
         }
+        
+//======================================================================================================================
+//= $lab_name
+//======================================================================================================================
+
+        if ( Validator::isExists('lab_name') )
+        {
+            $table_name = "labs";
+            $table_column_name = "name";
+
+            $filter[] = $filter_labs[] = Filters::ExtBasicFilter($lab_name, $table_name, $table_column_name, $searchtype, 
+                                                 ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType ); 
+            
+        }
+        
+ //======================================================================================================================
+//= $lab_special_name
+//======================================================================================================================
+
+        if ( Validator::isExists('lab_special_name') )
+        {
+            $table_name = "labs";
+            $table_column_name = "special_name";
+
+            $filter[] = $filter_labs[] = Filters::ExtBasicFilter($lab_special_name, $table_name, $table_column_name, $searchtype, 
+                                                 ExceptionMessages::InvalidLabSpecialNameType, ExceptionCodes::InvalidLabSpecialNameType ); 
+            
+        }   
+ 
+//======================================================================================================================
+//= $creation_date
+//======================================================================================================================
+
+        if ( Validator::isExists('creation_date') )
+        {
+            $table_name = "labs";
+            $table_column_name = "creation_date";
+            $filter_validators = 'null,date';
+
+            $filter[] = $filter_labs[] = Filters::DateBasicFilter($creation_date, $table_name, $table_column_name, $filter_validators, 
+                                                 ExceptionMessages::InvalidLabCreationDateType, ExceptionCodes::InvalidLabCreationDateType ); 
+            
+        }
+        
 //======================================================================================================================
 //= $operational_rating
 //======================================================================================================================
@@ -283,6 +341,22 @@ function StatisticSchoolUnits ( $school_unit_id, $name,
 
         }
 
+//======================================================================================================================
+//= $lab_source
+//======================================================================================================================
+
+        if ( Validator::isExists('lab_source') )
+        {
+
+            $table_name = "lab_sources";
+            $table_column_id = "lab_source_id";
+            $table_column_name = "name";
+            $filter_validators = 'null,id,value';
+            
+            $filter[] = $filter_labs[] = Filters::BasicFilter( $lab_source, $table_name, $table_column_id, $table_column_name, $filter_validators,  
+                                              ExceptionMessages::InvalidLabSourceType, ExceptionCodes::InvalidLabSourceType);
+            
+        }
 //======================================================================================================================
 //= $aquisition_source
 //======================================================================================================================

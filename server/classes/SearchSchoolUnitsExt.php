@@ -26,8 +26,8 @@ class SearchSchoolUnitsExt {
     // Create a first sheet
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setCellValue('A1', "school_unit_id");
-$objPHPExcel->getActiveSheet()->setCellValue('B1', "name");
-$objPHPExcel->getActiveSheet()->setCellValue('C1', "special_name");
+$objPHPExcel->getActiveSheet()->setCellValue('B1', "school_unit_name");
+$objPHPExcel->getActiveSheet()->setCellValue('C1', "school_unit_special_name");
 $objPHPExcel->getActiveSheet()->setCellValue('D1', "region_edu_admin");
 $objPHPExcel->getActiveSheet()->setCellValue('E1', "edu_admin");
 $objPHPExcel->getActiveSheet()->setCellValue('F1', "transfer_area");
@@ -43,8 +43,8 @@ foreach($data["data"] as $school_unit_data)
 {    
 
     $school_unit_id = $school_unit_data["school_unit_id"];
-    $name = $school_unit_data["name"];
-    $special_name = $school_unit_data["special_name"];
+    $school_unit_name = $school_unit_data["school_unit_name"];
+    $school_unit_special_name = $school_unit_data["school_unit_special_name"];
     $region_edu_admin = $school_unit_data["region_edu_admin"];
     $edu_admin = $school_unit_data["edu_admin"];
     $transfer_area = $school_unit_data["transfer_area"];
@@ -56,8 +56,8 @@ foreach($data["data"] as $school_unit_data)
  
     // Set values from get api function to excell cells
     $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, "$school_unit_id")
-                                    ->setCellValue('B' . $i, "$name")
-                                    ->setCellValue('C' . $i, "$special_name")
+                                    ->setCellValue('B' . $i, "$school_unit_name")
+                                    ->setCellValue('C' . $i, "$school_unit_special_name")
                                     ->setCellValue('D' . $i, "$region_edu_admin")
                                     ->setCellValue('E' . $i, "$edu_admin")
                                     ->setCellValue('F' . $i, "$transfer_area")

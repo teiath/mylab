@@ -10,8 +10,8 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
-function StatisticLabs ($lab_id, $name, $special_name, $creation_date, $operational_rating, $technological_rating,
-                        $lab_type, $school_unit, $lab_state, $lab_source,
+function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating,
+                        $lab_type, $school_unit_id, $school_unit_name, $school_unit_special_name, $lab_state, $lab_source,
                         $aquisition_source, $equipment_type, $lab_worker,
                         $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                         $education_level, $school_unit_type, $school_unit_state, 
@@ -60,29 +60,29 @@ function StatisticLabs ($lab_id, $name, $special_name, $creation_date, $operatio
         }
         
 //======================================================================================================================
-//= $name
+//= $lab_name
 //======================================================================================================================
 
-        if ( Validator::isExists('name') )
+        if ( Validator::isExists('lab_name') )
         {
             $table_name = "labs";
             $table_column_name = "name";
 
-            $filter[] =  Filters::ExtBasicFilter($name, $table_name, $table_column_name, $searchtype, 
+            $filter[] =  Filters::ExtBasicFilter($lab_name, $table_name, $table_column_name, $searchtype, 
                                                  ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType ); 
             
         }
         
 //======================================================================================================================
-//= $special_name
+//= $lab_special_name
 //======================================================================================================================
 
-        if ( Validator::isExists('special_name') )
+        if ( Validator::isExists('lab_special_name') )
         {
             $table_name = "labs";
             $table_column_name = "special_name";
 
-            $filter[] =  Filters::ExtBasicFilter($special_name, $table_name, $table_column_name, $searchtype, 
+            $filter[] =  Filters::ExtBasicFilter($lab_special_name, $table_name, $table_column_name, $searchtype, 
                                                  ExceptionMessages::InvalidLabSpecialNameType, ExceptionCodes::InvalidLabSpecialNameType ); 
             
         }
@@ -151,22 +151,50 @@ function StatisticLabs ($lab_id, $name, $special_name, $creation_date, $operatio
         }
         
 //======================================================================================================================
-//= $school_unit
+//= $school_unit_id
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit') )
+        if ( Validator::isExists('school_unit_id') )
         {
 
             $table_name = "school_units";
             $table_column_id = "school_unit_id";
             $table_column_name = "name";
-            $filter_validators = 'null,id,value';
+            $filter_validators = 'null,id';
             
-            $filter[] = Filters::BasicFilter( $school_unit, $table_name, $table_column_id, $table_column_name, $filter_validators,  
-                                              ExceptionMessages::InvalidSchoolUnitType, ExceptionCodes::InvalidSchoolUnitType);
+            $filter[] = Filters::BasicFilter( $school_unit_id, $table_name, $table_column_id, $table_column_name, $filter_validators,  
+                                              ExceptionMessages::InvalidSchoolUnitIDType, ExceptionCodes::InvalidSchoolUnitIDType);
             
     }
     
+//======================================================================================================================
+//= $school_unit_name
+//======================================================================================================================
+
+        if ( Validator::isExists('school_unit_name') )
+        {
+            $table_name = "school_units";
+            $table_column_name = "name";
+
+            $filter[] =  Filters::ExtBasicFilter($school_unit_name, $table_name, $table_column_name, $searchtype, 
+                                                 ExceptionMessages::InvalidSchoolUnitNameType, ExceptionCodes::InvalidSchoolUnitNameType ); 
+            
+        }
+ 
+//======================================================================================================================
+//= $school_unit_special_name
+//======================================================================================================================
+
+        if ( Validator::isExists('school_unit_special_name') )
+        {
+            $table_name = "school_units";
+            $table_column_name = "special_name";
+
+            $filter[] =  Filters::ExtBasicFilter($school_unit_special_name, $table_name, $table_column_name, $searchtype, 
+                                                 ExceptionMessages::InvalidLabSpecialNameType, ExceptionCodes::InvalidLabSpecialNameType ); 
+            
+        }
+        
 //======================================================================================================================
 //= $lab_state
 //======================================================================================================================

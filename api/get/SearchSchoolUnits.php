@@ -1043,7 +1043,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
     catch (Exception $e) 
     {
         $result["status"] = $e->getCode();
-         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
 
     }
 
