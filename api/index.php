@@ -1390,6 +1390,7 @@ function SearchSchoolUnitsController()
             $result = SearchSchoolUnits(
                 $params->school_unit_id,
                 $params->school_unit_name,
+                $params->school_unit_special_name,
                 $params->region_edu_admin,
                 $params->edu_admin,
                 $params->transfer_area,
@@ -1437,13 +1438,14 @@ function SearchLabsController()
             $result = SearchLabs(
                 $params->lab_id,
                 $params->lab_name,
-                $params->special_name,
+                $params->lab_special_name,
                 $params->creation_date,
                 $params->operational_rating,
                 $params->technological_rating,
                 $params->lab_type,
                 $params->school_unit_id,
                 $params->school_unit_name,
+                $params->school_unit_special_name,
                 $params->lab_state,
                 $params->lab_source,
                 $params->aquisition_source,
