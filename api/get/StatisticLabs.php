@@ -411,8 +411,7 @@ function StatisticLabs ($lab_id, $name, $special_name, $creation_date, $operatio
 
         $sqlWhere = (count($filter) > 0 ? " WHERE " . implode(" AND ", $filter) : "" );
 
-        $result["filters"] = $filter;
-        
+        $result["filters"] = $filter ? $filter : null;       
         //#############find total total labs without filter of limits(page and pagesize)
         $sql = $sqlSelect . $sqlFrom . $sqlWhere;
         //echo "<br><br>".$sql."<br><br>";

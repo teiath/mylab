@@ -360,7 +360,7 @@ function StatisticSchoolUnits ( $school_unit_id, $name,
 
         $sqlWhere = (count($filter) > 0 ? " WHERE " . implode(" AND ", $filter) : "" );
         
-        $result["filters"] = $filter;
+        $result["filters"] = $filter ? $filter : null;
         //#############find total school_units and total labs without filter of limits(page and pagesize)
         $sql =  $sqlSelect . $sqlFrom . $sqlWhere;
         //echo "<br><br>".$sql."<br><br>";
