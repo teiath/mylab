@@ -46,6 +46,23 @@ function newLabAquisitionSourcesDS(labID, detailRow){
             console.log("newLabAquisitionSourcesDS REQUESTEND event", e);
             
             if (e.type==="create" || e.type==="update" || e.type==="destroy"){
+                
+                if (e.response.status == "200"){
+                    
+                    notification.show({
+                        title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
+                        message: e.response.message
+                    }, "success");               
+                    
+                }else{
+                    
+                    notification.show({
+                        title: "Η ενημέρωση τεη Διάταξης Η/Υ απέτυχε",
+                        message: e.response.message
+                    }, "error");
+                    
+                }                
+                
                 detailRow.find("#aquisition_sources_details").data("kendoGrid").dataSource.read();            
             }
         }

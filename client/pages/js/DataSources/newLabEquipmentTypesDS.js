@@ -45,8 +45,25 @@ function newLabEquipmentTypesDS(labID, detailRow){
         requestEnd: function(e){
             /*εδώ θα μπουν και τα μηνύματα επιτυχίας/αποτυχίας */
             console.log("newLabEquipmentTypesDS REQUESTEND event", e);
-            
+                        
             if (e.type==="create" || e.type==="update" || e.type==="destroy"){
+                
+                if (e.response.status == "200"){
+                    
+                    notification.show({
+                        title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
+                        message: e.response.message
+                    }, "success");               
+                    
+                }else{
+                    
+                    notification.show({
+                        title: "Η ενημέρωση τεη Διάταξης Η/Υ απέτυχε",
+                        message: e.response.message
+                    }, "error");
+                    
+                }
+                
                 detailRow.find("#equipment_details").data("kendoGrid").dataSource.read();            
             }
         }
