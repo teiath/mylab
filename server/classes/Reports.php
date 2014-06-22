@@ -5,11 +5,10 @@ class Reports {
     
     public static function Statistics($method, $keplinet , $filters  ) { 
     
-  //  require_once('../../api/system/config.php');
     global $Options; 
     
     $params = array_merge($keplinet,$filters);
-    
+      
     //make the http request to mmsch with cURL 
     $curl = curl_init($Options['Server_MyLab'].$method);
     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
