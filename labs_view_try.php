@@ -1,6 +1,13 @@
+<!DOCTYPE html>
 <div id="labs_container"> <!--grid-->
 
     <?php
+        
+        require_once('client/pages/js/Templates/labsViewRatingColumnTemplate.html');
+        require_once('client/pages/js/Templates/generalInfoTemplate.html');
+        require_once('client/pages/js/Templates/editGeneralInfoTemplate.html');
+        require_once('client/pages/js/Templates/ratingTemplate.html');
+        require_once('client/pages/js/Templates/editRatingTemplate.html');
         //require_once('client/pages/js/Templates/createLabServedOnlineTemplate.html');
         require_once('client/pages/js/Templates/labCreateTemplate.html');
         //require_once('client/pages/js/Templates/labToolbarTemplate.html');
@@ -42,7 +49,7 @@
                                        { 'field': 'lab_name', 'title':'ονομασία', 'width':'40%'},
                                        { 'field': 'lab_type', 'title':'τύπος', 'width':'15%'},
                                        { 'field': 'lab_state', 'title':'κατάσταση', 'width':'10%'},
-                                       { 'field': 'operational_rating', 'title':'λειτουργική βαθμολογία', 'width':'10%'},
+                                       { 'field': 'rating', 'title':'βαθμολογία', 'template' : $('#labs_view_rating_column_template').html(), 'width':'10%'},
                                        { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
                                                      {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},
                                                      {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'ενέργειες', 'width':'25%'}

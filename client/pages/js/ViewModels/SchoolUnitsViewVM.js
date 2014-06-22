@@ -131,7 +131,7 @@ var SchoolUnitsViewVM = kendo.observable({
         //nested labsGrid 
         var labsGrid = e.detailRow.find("#school_unit_labs").kendoGrid({
                        
-            dataSource: newLabsDS(e.data.school_unit_id, e, SchoolUnitsViewVM.get("school_unit_parameters")),
+            dataSource: newLabsDS(e.data.school_unit_id, e),
             detailInit: LabsViewVM.detailInit,
             detailTemplate: $("#lab_details_template").html(),
             selectable:"row",
@@ -155,20 +155,54 @@ var SchoolUnitsViewVM = kendo.observable({
                       { field: 'lab_name', title:'ονομασία', width:'40%'},
                       { field: 'lab_type', title:'τύπος', width:'10%'},
                       { field: 'lab_state', title:'κατάσταση', width:'10%'},
-                      { field: 'operational_rating', title:'βαθμολογία', width:'10%'},
+                      //{ field: 'operational_rating', title:'βαθμολογία', width:'10%'},
+                      {     
+                            field:'rating',
+                            title:'βαθμολογία',
+                            template: function(dataItem) { //το dataItem ειναι περιέχει όλα τα στοιχεια της Διάταξης Η/Υ έτσι όπως τα επεστρεψε η getLabs μεσα στο λεκτικό data +καποια επιπλεον!                            
+
+                                var oRating, tRating;
+                                var oRating = (dataItem.operational_rating !== null && typeof dataItem.operational_rating !== 'undefined') ? dataItem.operational_rating : "-";
+                                var tRating = (dataItem.technological_rating !== null && typeof dataItem.operational_rating !== 'undefined') ? dataItem.technological_rating : "-";
+
+                                var itemReturned = '<span> <i class="fa fa-star"></i>' + oRating + ', <i class="fa fa-thumbs-up"></i> ' + tRating + '</span>';
+                                return itemReturned;
+                            },
+                            width:'10%'
+                        },   
                       { command: [{text:'Ενεργοποίηση', click:LabsViewVM.transitLab, name:'activate'}, 
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend'},
                                   {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'30%'}],
             edit: function(event){
-                console.log("labs grid edit event: ", event);
+                console.log("nested labs grid edit event: ", event);
                 kendo.bind(event.container, LabsViewVM);
                 kendo.bind(event.container, event.model);
                 LabsViewVM.createLab(event);
             },
+            dataBinding: function(event){
+                console.log("SchoolUnitsViewVM: nested labs grid databinding event: ", event);
+//                if(index !== null){
+//                    console.log("do i get in data-binding != null ?? ", index);
+//                    var school_unis_grid = $("#school_units_view").data("kendoGrid");
+//                    school_unis_grid.expandRow(school_unis_grid.tbody.find("tr:eq(" + index+ ")"));
+//                    index=null;
+//                    console.log("INDEX: ", index);
+//                }
+            },
             dataBound: function(event){
-                console.log("labs grid databound event: ", event);
+                console.log("nested labs grid databound event: ", event);
+                
+                console.log("STEP 2");
                 //kendo.bind(event.sender.element, LabsViewVM);
                 LabsViewVM.dataBoundLab(event);
+                if(index !== null){
+                    console.log("do i get in data-binding != null ?? ", index);
+                    var school_units_grid = $("#school_units_view").data("kendoGrid");
+                    console.log(school_units_grid.tbody.find("tr:eq(" + index+ ")"));
+                    school_units_grid.expandRow(school_units_grid.tbody.find("tr:eq(" + index+ ")"));
+                    index=null;
+                    console.log("INDEX: ", index);
+                }
             }
             
         }).data("kendoGrid");
