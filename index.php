@@ -1,3 +1,32 @@
+<?php 
+
+//psd user authentication to front-end
+
+require_once ('/server/system/config.php');
+require_once ('/server/libs/phpCAS/CAS.php');
+
+if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
+    // initialize phpCAS using SAML
+    phpCAS::client(SAML_VERSION_1_1,$casOptions["Url"],$casOptions["Port"],'');
+    // no SSL validation for the CAS server, only for testing environments
+    phpCAS::setNoCasServerValidation();
+    // handle backend logout requests from CAS server
+    phpCAS::handleLogoutRequests(array($casOptions["Url"]));
+    // force CAS authentication
+    if (!phpCAS::checkAuthentication())
+      phpCAS::forceAuthentication();
+    // at this step, the user has been authenticated by the CAS server and the user's login name can be read with //phpCAS::getUser(). for this test, simply print who is the authenticated user and his attributes.
+    $user = phpCAS::getAttributes();
+
+    //echo $user['uid'];die();
+} 
+
+
+$user['backendUsername'] = $frontendOptions['backendUsername'];
+$user['backendPassword'] = $frontendOptions['backendPassword'];
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,11 +53,11 @@
                 notification = $("#notification").kendoNotification({
                     position: {
                         pinned: true,
-                        top: 30,
+                        top: 70,
                         right: 30
                     },
                     allowHideAfter: 2000,
-                    autoHideAfter: 5000,
+                    autoHideAfter: 7000, //0
                     hideOnClick: true,
                     stacking: "down",
                     //button: true, //??? γιατι δεν παίζει?
@@ -36,12 +65,36 @@
                         type: "error",
                         template: $("#errorTemplate").html()
                     }, {
-                        type: "upload-success",
+                        //type: "upload-success",
+                        type: "success",
                         template: $("#successTemplate").html()
                     }]
 
                 }).data("kendoNotification");
-                              
+                
+                //depending on the .scrollTop() value fade in or out the scroll-to-top img
+                $(window).scroll(function(){
+                    if ($(this).scrollTop() > 100) {
+                        $('.scrollup').fadeIn();
+                    } else {
+                        $('.scrollup').fadeOut();
+                    }
+                });
+
+                // scroll to top
+                $('.scrollup').click(function(){
+                    $("html, body").animate({ scrollTop: 0 }, 600);
+                    return false;
+                });
+                
+                //reset to labs view
+                $('#switch_to_labs_view_btn').attr('checked',true);
+                $('#switch_to_school_units_view_btn').attr('checked',false);
+                
+                //index holds thr grid's row index in school units view, in order to expand it after lab creation
+                index= null;
+                searchParameters = [];
+                
             });
             
         </script>
@@ -60,6 +113,6 @@
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view
         ?>
-        
+        <a href="#" class="scrollup">Scroll</a>
     </body>
 </html>
