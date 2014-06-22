@@ -132,8 +132,9 @@ var LabsViewVM = kendo.observable({
                 if (e.response.status == "200"){
                     
                     notification.show({
-                        message: "Το εργαστήριο δημιουργήθηκε επιτυχώς"
-                    }, "upload-success");
+                        title: "Το εργαστήριο δημιουργήθηκε επιτυχώς",
+                        message: e.response.message
+                    }, "success");
                     
                     LabsViewVM.labs.read();               
                     
@@ -283,10 +284,20 @@ var LabsViewVM = kendo.observable({
         //console.log("e.detailRow: ", e.detailRow);
         //console.log("e.data: ", e.data);
         
+        //auto einai to tabstrip
         e.detailRow.find("#lab_details_tabstrip").kendoTabStrip({
-            animation: { open: { effects: "fadeIn" } }
+            animation: { open: { effects: "fadeIn" } },
+            select: function(e){
+                //console.log(" tabstrip select: ", e);
+                //e.preventDefault();
+            }
         });
-                
+        //prosethesa auto
+        e.detailRow.find("#lab_details_tabstrip").children(".k-tabstrip-items").find(".k-link").click(function (e){
+            e.preventDefault();
+            //alert("TO PATHSA REEE");
+        });
+                   
         var equipment_details = e.detailRow.find("#equipment_details").kendoGrid({
             //dataSource: e.data.equipment_types,
             dataSource: newLabEquipmentTypesDS(e.data.lab_id, e.detailRow),
@@ -494,7 +505,7 @@ var LabsViewVM = kendo.observable({
                                                     notification.show({
                                                         title: "Η απενεργοποίηση πραγματοποιήθηκε",
                                                         message: data.message
-                                                    }, "upload-success");                                            
+                                                    }, "success");                                            
 
                                                     //detailRow.find("#lab_workers_details").data("kendoGrid").dataSource.read();
                                                     lab_workers_details.dataSource.read();
@@ -687,9 +698,128 @@ var LabsViewVM = kendo.observable({
             ]           
         }).data("kendoGrid");
         
-//        e.detailRow.find("#special_name_edit").click(function(e) {
-//            console.log("special_name_edit e:", e);
-//        });
+        var data = this.dataSource.data(); //ta data items tou labs grid
+        var codeDetailData = e.data;    //ta data tou expanded row
+        
+        var lab_general_info_details = e.detailRow.find("#lab_general_info_details").kendoListView({
+            //dataSource: [e.data], //newLabGeneralInfoDS(e.data.lab_id, e.detailRow),
+            //dataSource: newLabGeneralInfoDS(e.data.lab_id, e.detailRow),
+            dataSource : new kendo.data.DataSource({
+                data: [codeDetailData.toJSON()],
+                schema : {
+                    //data: "data",
+                    model: {
+                        id: "lab_id",
+                        fields:{
+                            lab_id:{editable:false},
+                            positioning:{},
+                            lab_special_name:{},
+                            creation_date:{}
+                        }
+                    }
+                }
+            }),
+            save: function(e) {
+                if (this.editable.end()) {
+                    data.splice(data.indexOf(codeDetailData), 1, e.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
+                                        
+                    var parameters = {
+                              lab_id: e.model.lab_id,
+                              special_name: e.model.lab_special_name,
+                              positioning: e.model.positioning
+                            };
+                    
+                    $.ajax({
+                            type: 'PUT',
+                            url: baseURL + 'labs',
+                            dataType: "json",
+                            data: JSON.stringify(parameters),
+                            success: function(data){
+
+                                if(data.status == 200){
+                                    notification.show({
+                                        title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
+                                        message: data.message
+                                    }, "success");                                            
+
+                                    //lab_workers_details.dataSource.read();
+                                    //lab_workers_logs.dataSource.read();
+
+                                }else if(data.status == 500){
+
+                                    notification.show({
+                                        title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
+                                        message: data.message
+                                    }, "error");
+
+                                }
+
+                            },
+                            error: function (data){ console.log("PUT labs (lab_general_info_details) error data: ", data);}
+                    });
+                }
+            },
+            template: kendo.template($("#general_info_template").html()),
+            editTemplate: kendo.template($("#edit_general_info_template").html())
+        }).data("kendoListView");
+
+        var lab_rating_details = e.detailRow.find("#lab_rating_details").kendoListView({
+            dataSource : new kendo.data.DataSource({
+                data: [codeDetailData.toJSON()],
+                schema : {
+                    model: {
+                        id: "lab_id",
+                        fields:{
+                            lab_id:{editable:false},
+                            technological_rating:{},
+                            operational_rating:{}
+                        }
+                    }
+                }
+            }),
+            save: function(e) {
+                if (this.editable.end()) {
+                    data.splice(data.indexOf(codeDetailData), 1, e.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
+                                        
+                    var parameters = {
+                              lab_id: e.model.lab_id,
+                              technological_rating: parseInt(e.model.technological_rating),
+                              operational_rating: parseInt(e.model.operational_rating)
+                            };
+                    
+                    $.ajax({
+                            type: 'PUT',
+                            url: baseURL + 'labs',
+                            dataType: "json",
+                            data: JSON.stringify(parameters),
+                            success: function(data){
+
+                                if(data.status == 200){
+                                    notification.show({
+                                        title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
+                                        message: data.message
+                                    }, "success");                                            
+
+                                    //lab_workers_details.dataSource.read();
+                                    //lab_workers_logs.dataSource.read();
+
+                                }else if(data.status == 500){
+
+                                    notification.show({
+                                        title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
+                                        message: data.message
+                                    }, "error");
+
+                                }
+
+                            },
+                            error: function (data){ console.log("PUT labs (lab_rating_details) error data: ", data);}
+                    });
+                }
+            },
+            template: kendo.template($("#rating_template").html()),
+            editTemplate: kendo.template($("#edit_rating_template").html())
+        }).data("kendoListView");
     },
     dataBoundLab: function(e){
         console.log("dataBoundLab e: ", e );
@@ -751,12 +881,12 @@ var LabsViewVM = kendo.observable({
 
     
     hideLabsGrid: function(e) {
-        console.log("im inside hideLabsGrid", e);
+        //console.log("im inside hideLabsGrid", e);
         this.set("isVisible", false);
         SchoolUnitsViewVM.set("isVisible", true);
     },
     showLabsGrid: function(e) {
-        console.log("im inside showLabsGrid", e);
+        //console.log("im inside showLabsGrid", e);
         this.set("isVisible", true);
         SchoolUnitsViewVM.set("isVisible", false);
     }
