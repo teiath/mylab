@@ -9,10 +9,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <img style="float:left; padding-left:10px; padding-top:7px" alt="ΠΣΔ" src="client/pages/icons/sch-icon38px.png">
+        <img class="psd_icon" alt="ΠΣΔ" src="client/pages/icons/sch-icon38px.png">
         <!--<img src="client/img/logo-teia.jpg" alt="ΤΕΙ Αθήνας" style="float:left; padding-left:15px;">-->
-        <a class="navbar-brand" href="index.php" style="font-size:30px;">Υπηρεσία MyLab </a> 
-        <!--<span class="label label-danger" style="position:absolute; left:7px;top:46px;">BETA Version</span>-->
+        <a class="navbar-brand" href="index.php" style="font-size:30px;">Υπηρεσία MyLab - Πανελλήνιο Σχολικό Δίκτυο </a> 
+        <span class="label label-danger" style="position:absolute; margin-top:5px;">BETA</span>
     </div>
         
     <div class="collapse navbar-collapse">

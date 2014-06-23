@@ -68,3 +68,10 @@ table, td, k-toolbar, k-pager-wrap
     text-indent:-9999px;
     background: url('../icons/icon_top.png') no-repeat;
 }
+
+
+.psd_icon{
+    float:left; 
+    padding-left:10px; 
+    padding-top:7px;
+}
