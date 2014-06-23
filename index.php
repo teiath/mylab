@@ -2,8 +2,8 @@
 
 //psd user authentication to front-end
 
-require_once ('/server/system/config.php');
-require_once ('/server/libs/phpCAS/CAS.php');
+require_once ('server/system/config.php');
+require_once ('server/libs/phpCAS/CAS.php');
 
 if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
     // initialize phpCAS using SAML

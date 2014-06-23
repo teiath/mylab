@@ -20,7 +20,7 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Αναφορές <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="http://mmsch.teiath.gr/mylab/api/report_keplhnet?edu_admin=4" target="_blank">Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
+                    <li><a href="http://mmsch.teiath.gr/mylab/api/report_keplhnet" target="_blank">Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
                 </ul>
             </li>
           <li><div style="margin:10px 30px"><a href="#" id="lnkLogout" class="btn btn-sm btn-warning"></a></div></li>
