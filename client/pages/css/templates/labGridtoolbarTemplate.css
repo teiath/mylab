@@ -9,6 +9,7 @@
 
 .lab_types_count{
     float:right;
+    margin-bottom: 0px;
 }
 
 .labs_count_label{
