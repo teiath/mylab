@@ -52,6 +52,8 @@ var LabsViewVM = kendo.observable({
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
                     
+                    data['user'] = user;
+                    
                     return data;
                     
                 }else if(type === 'create'){

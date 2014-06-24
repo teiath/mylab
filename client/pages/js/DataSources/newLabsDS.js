@@ -53,6 +53,8 @@ function newLabsDS(school_unit_id, detailInitEvent){
                     
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
+                    
+                    data['user'] = user;
                                         
                     return data;
                     

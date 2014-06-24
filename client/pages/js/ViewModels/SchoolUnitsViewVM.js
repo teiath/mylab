@@ -38,6 +38,8 @@ var SchoolUnitsViewVM = kendo.observable({
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
                     
+                    data['user'] = user;
+                    
                     SchoolUnitsViewVM.set("school_unit_parameters",  data);
                     
                     return data;

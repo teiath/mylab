@@ -39,21 +39,20 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
                       
             $(document).ready(function() {
             
-
                 baseURL = "http://mmsch.teiath.gr/mylab/api/";
 
+                //BINDINGS
                 kendo.bind($("#labs_container"), LabsViewVM);
                 kendo.bind($("#labs_container").find(".k-grid-toolbar"), LabsViewVM);                
                 kendo.bind($("#school_units_container"), SchoolUnitsViewVM);
                 kendo.bind($("#search-container"), SearchVM);
-                
                 //kendo.bind($("#switch_view"), SchoolUnitsViewVM);
                 kendo.bind($("#switch_view"), LabsViewVM);
-                
                 //bind labs view and school units view toolbar export to xlsx button to SearchVM
                 kendo.bind($("#labs_view").find(".k-grid-toolbar>.export_to_xlsx"), SearchVM);
                 kendo.bind($("#school_units_view").find(".k-grid-toolbar>.export_to_xlsx"), SearchVM);
                 
+                //NOTIFICATIONS
                 notification = $("#notification").kendoNotification({
                     position: {
                         pinned: true,
@@ -76,6 +75,7 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
 
                 }).data("kendoNotification");
                 
+                //SCROLL-TOP
                 //depending on the .scrollTop() value fade in or out the scroll-to-top img
                 $(window).scroll(function(){
                     if ($(this).scrollTop() > 100) {
@@ -84,7 +84,6 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
                         $('.scrollup').fadeOut();
                     }
                 });
-
                 // scroll to top
                 $('.scrollup').click(function(){
                     $("html, body").animate({ scrollTop: 0 }, 600);
