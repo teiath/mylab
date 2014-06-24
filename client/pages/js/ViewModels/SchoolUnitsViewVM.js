@@ -38,6 +38,9 @@ var SchoolUnitsViewVM = kendo.observable({
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
                     
+                    // for  multiple partial string search in school_unit_name, school_unit_special_name, lab_name, lab_special_name inputs
+                    data['searchtype'] = "containall";
+                    //user authorization
                     data['user'] = user;
                     
                     SchoolUnitsViewVM.set("school_unit_parameters",  data);

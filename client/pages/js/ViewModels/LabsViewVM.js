@@ -23,7 +23,7 @@ var LabsViewVM = kendo.observable({
                 if (type === 'read') {
                     
                     //normalize data filters
-                    if (typeof data.filter !== 'undefined' && typeof data.filter.filters !== 'undefined') {                           
+                    if (typeof data.filter !== 'undefined' && typeof data.filter.filters !== 'undefined') {                    
                         var normalizedFilter = {};
                         $.each(data.filter.filters, function(index, value){
                             var filter = data.filter.filters[index];
@@ -52,6 +52,9 @@ var LabsViewVM = kendo.observable({
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
                     
+                    // for  multiple partial string search in school_unit_name, school_unit_special_name, lab_name, lab_special_name inputs
+                    data['searchtype'] = "containall";
+                    //user authorization
                     data['user'] = user;
                     
                     return data;
