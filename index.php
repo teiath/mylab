@@ -50,6 +50,10 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
                 //kendo.bind($("#switch_view"), SchoolUnitsViewVM);
                 kendo.bind($("#switch_view"), LabsViewVM);
                 
+                //bind labs view and school units view toolbar export to xlsx button to SearchVM
+                kendo.bind($("#labs_view").find(".k-grid-toolbar>.export_to_xlsx"), SearchVM);
+                kendo.bind($("#school_units_view").find(".k-grid-toolbar>.export_to_xlsx"), SearchVM);
+                
                 notification = $("#notification").kendoNotification({
                     position: {
                         pinned: true,
@@ -87,7 +91,7 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
                     return false;
                 });
                 
-                //reset to labs view
+                //reset radio btn to labs view
                 $('#switch_to_labs_view_btn').attr('checked',true);
                 $('#switch_to_school_units_view_btn').attr('checked',false);
                 

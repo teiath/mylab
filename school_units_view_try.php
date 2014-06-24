@@ -8,6 +8,8 @@
         require_once('client/pages/js/Templates/ratingTemplate.html');
         require_once('client/pages/js/Templates/editRatingTemplate.html');
 
+        require_once('client/pages/js/Templates/labToolbarTemplate_school_units_view.html');
+        
         require_once('client/pages/js/Templates/labCreateTemplate.html');
         require_once('client/pages/js/Templates/labToolbarTemplate.html');
         require_once('client/pages/js/Templates/labDetailsTemplate.html');
@@ -49,6 +51,7 @@
                                                         'previous': 'μετάβαση στην προηγούμενη σελίδα',
                                                         'next': 'μετάβαση στην επόμενη σελίδα',
                                                         'last': 'μετάβαση στην τελευταία σελίδα' }}"
+                        data-toolbar="[{ 'template' : $('#lab_toolbar_template_school_units_view').html()  }]"
                         data-columns="[{ 'field': 'school_unit_id', 'title':'κωδικός Μητρώου', 'width':'10%'},
                                        { 'field': 'school_unit_name', 'title':'ονομασία', 'width':'20%'},
                                        { 'field': 'school_unit_special_name', 'title':'ειδικό όνομα', 'width':'20%'},

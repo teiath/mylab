@@ -878,7 +878,7 @@ var LabsViewVM = kendo.observable({
             
         });
     },
-
+  
     
     hideLabsGrid: function(e) {
         //console.log("im inside hideLabsGrid", e);
