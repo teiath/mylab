@@ -30,9 +30,62 @@
 
 
 <script>
-    var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user)); ?>")); 
+    var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
+    console.log("user: ", user);
+    var value_ranks=[], authorized_user;
+
+    $.each(user.title, function(index, value){
+        switch(value) {
+            case 'ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ':
+                value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                break;
+            case 'ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ':
+                value_ranks.push({ldap_title: 'ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                break;
+            case  'ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ' :
+                value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                break;
+            case  'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ' :
+                value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ', ranking : 20, role: 'ΣΕΠΕΗΥ'});
+                break;
+            case  'ΠΡΟΣΩΠΙΚΟ ΠΣΔ' :
+                value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΠΣΔ', ranking : 25, role: 'ΠΣΔ'});
+                break;
+            case  'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ' :
+                value_ranks.push({ldap_title: 'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ', ranking : 15, role: 'ΔΙΕΥΘΥΝΤΗΣ'});
+                break;
+            case  'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
+                value_ranks.push({ldap_title: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ', ranking : 35, role: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ'});
+                break;
+            case  'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ' :
+                value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ', ranking : 30, role: 'ΥΠΕΠΘ'});
+                break;
+            default:
+                value_ranks.push({ldap_title: '', ranking : 50, role: 'noAccess'});
+        }
+    });
+    
+    console.log("value_ranks: ", value_ranks);
+    
+    var maxRanking = 50;
+    var maxRole = "noAccess";
+    
+    $.each(value_ranks, function(index, value){
+        if (value.ranking < maxRanking) {
+            maxRanking = value.ranking;
+            maxRole = value.role;
+        }        
+    });
+    
+    authorized_user = maxRole;
+    console.log("authorized_user: ", authorized_user);
+    
+    
     var g_casUrl = "<?php echo $casOptions['Url'] ?>";
+    //console.log("user.title: ", user.title);
     // Build logout link
     $("#lnkLogout").attr("href", "http://" + g_casUrl + "/logout");
     $("#lnkLogout").html("<strong>" + user.uid + " [Logout]" + "</strong>");
+    
+    
 </script>

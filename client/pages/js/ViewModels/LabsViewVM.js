@@ -180,7 +180,7 @@ var LabsViewVM = kendo.observable({
     
     createLab:  function(e){
 
-        console.log("labsview create lab: ", e);
+        console.log("labsview create lab: ", e);       
         e.preventDefault(); //?
         
         if (e.model.isNew()) {
@@ -197,13 +197,18 @@ var LabsViewVM = kendo.observable({
             var grid = tr.closest("div#school_units_view").data("kendoGrid");
             var item = grid.dataItem(tr);
             console.log("item: ", item);
-            var school_unit = item.school_unit_name //item.school_unit_id;
+            var school_unit = item.school_unit_name; //item.school_unit_id;
             
             $("#cl_school_unit").data("kendoComboBox").readonly(true);
             $("#cl_school_unit").prev().find("input").prop('disabled', true);
             $("#cl_school_unit").data("kendoComboBox").value(school_unit);
         }
-              
+         
+        
+        //e.container.closest(".k-window").attr('pinned', true);
+        //editWindow.center().pin();
+        //console.log("editWindow: ", editWindow);
+         
     },
     transitLab: function(e){
         console.log("transitLab e:", e);
@@ -218,6 +223,7 @@ var LabsViewVM = kendo.observable({
                     visible: false,
                     resizable: false,
                     width: 500,
+                    pinned:true,
                     open: function(){
                 
                         var toState = "";
@@ -291,15 +297,19 @@ var LabsViewVM = kendo.observable({
         
         //auto einai to tabstrip
         e.detailRow.find("#lab_details_tabstrip").kendoTabStrip({
-            animation: { open: { effects: "fadeIn" } },
-            select: function(e){
+            animation: { open: { effects: "fadeIn" } }//,
+            //select: function(e){
                 //console.log(" tabstrip select: ", e);
                 //e.preventDefault();
-            }
+            //}
         });
         //prosethesa auto
-        e.detailRow.find("#lab_details_tabstrip").children(".k-tabstrip-items").find(".k-link").click(function (e){
-            e.preventDefault();
+        //console.log("mmm:", e.detailRow.find("#lab_details_tabstrip").children(".k-tabstrip-items").find(".k-link"));
+        
+        e.detailRow.find("#lab_details_tabstrip").children(".k-tabstrip-items").find(".k-link").click(function(e){
+            
+            //e.preventDefault();
+            //e.stopPropagation();
             //alert("TO PATHSA REEE");
         });
                    
@@ -309,7 +319,11 @@ var LabsViewVM = kendo.observable({
             scrollable: false,
             selectable: false,
             editable: "inline",
-            toolbar: [{ name: "create", text: "Προσθήκη Εξοπλισμού" }],
+            toolbar: function(){
+                        if(jQuery.inArray( user.title , edit_lab_details ) !== -1){
+                            return [{ name: "create", text: "Προσθήκη Εξοπλισμού" }];
+                        }
+                    },
             columns: [
                 { field: "equipment_type", 
                   title: "εξοπλισμός",
@@ -343,7 +357,11 @@ var LabsViewVM = kendo.observable({
                 },
                 { command: [{ name: 'edit'}, {name: 'destroy'}], 
                   title: 'ενέργειες', 
-                  width: '30%' 
+                  width: '30%', 
+                  hidden: function(){
+                      var hide = (jQuery.inArray( user.title , edit_lab_details ) !== -1) ? true : false;
+                      return hide;
+                  }
                 }
             ],
             edit: function(e){
@@ -360,7 +378,11 @@ var LabsViewVM = kendo.observable({
             scrollable: false,
             selectable: false,
             editable: "inline",
-            toolbar: [{ name: "create", text: "Προσθήκη Πηγής Χρηματοδότησης" }],
+            toolbar: function(){
+                        if(jQuery.inArray( user.title , edit_lab_details ) !== -1){
+                            return [{ name: "create", text: "Προσθήκη Πηγής Χρηματοδότησης" }];
+                        }
+                    },
             columns: [
                 { field: "aquisition_source", 
                   title: "πηγή χρηματοδότησης",
@@ -402,7 +424,11 @@ var LabsViewVM = kendo.observable({
                 },
                 { command: [{ name: 'edit'}, {name: 'destroy'}], 
                   title: 'ενέργειες', 
-                  width: '30%' 
+                  width: '30%', 
+                  hidden: function(){
+                      var hide = (jQuery.inArray( user.title , edit_lab_details ) !== -1) ? true : false;
+                      return hide;
+                  }
                 }
             ],
             edit: function(e){
@@ -419,7 +445,11 @@ var LabsViewVM = kendo.observable({
             scrollable: false,
             selectable: false,
             editable: "inline",
-            toolbar: [{ name: "create", text: "Προσθήκη Υπεύθυνου Εργαστηρίου" }],
+            toolbar: function(){
+                        if(jQuery.inArray( user.title , edit_lab_worker ) !== -1){
+                            return [{ name: "create", text: "Προσθήκη Υπεύθυνου Εργαστηρίου" }];
+                        }
+                    },
             columns: [
                 { field: "fullname", 
                   title: "ονοματεπώνυμο",
@@ -532,7 +562,11 @@ var LabsViewVM = kendo.observable({
                              }
                            ],
                   title: 'ενέργειες', 
-                  width: '30%'
+                  width: '30%',
+                  hidden: function(){
+                      var hide = (jQuery.inArray( user.title , edit_lab_worker ) !== -1) ? true : false;
+                      return hide;
+                  }
                 }
             ],
             edit: function(e){
@@ -584,7 +618,11 @@ var LabsViewVM = kendo.observable({
             scrollable: false,
             selectable: false,
             editable: "inline",
-            toolbar: [{ name: "create", text: "Προσθήκη νέας συσχέτισης" }],
+            toolbar: function(){
+                        if(jQuery.inArray( user.title , edit_lab_details ) !== -1){
+                            return [{ name: "create", text: "Προσθήκη νέας συσχέτισης" }];
+                        }
+                    },
             columns: [
                 { field: "relation_type_name",
                   title: "συσχέτιση",
@@ -685,7 +723,11 @@ var LabsViewVM = kendo.observable({
                 },
                 { command: [{ name: 'edit'}, {name: 'destroy'}], 
                   title: 'ενέργειες', 
-                  width: '20%' 
+                  width: '20%', 
+                  hidden: function(){
+                      var hide = (jQuery.inArray( user.title , edit_lab_details ) !== -1) ? true : false;
+                      return hide;
+                  }
                 }
             ]           
         }).data("kendoGrid");
@@ -825,6 +867,20 @@ var LabsViewVM = kendo.observable({
             template: kendo.template($("#rating_template").html()),
             editTemplate: kendo.template($("#edit_rating_template").html())
         }).data("kendoListView");
+        
+        
+        
+        // edit_lab_details & edit_lab_workers authorization
+        if(jQuery.inArray( user.title , edit_lab_details ) === -1){
+            e.detailRow.find("#equipment_details>.k-grid-toolbar").hide();
+            e.detailRow.find("#aquisition_sources_details>.k-grid-toolbar").hide();
+            e.detailRow.find("#lab_relations_details>.k-grid-toolbar").hide();
+        }
+        
+        if(jQuery.inArray( user.title , edit_lab_worker ) === -1){
+            e.detailRow.find("#lab_workers_details>.k-grid-toolbar").hide();
+        }
+        
     },
     dataBoundLab: function(e){
         console.log("dataBoundLab e: ", e );
@@ -894,6 +950,160 @@ var LabsViewVM = kendo.observable({
         //console.log("im inside showLabsGrid", e);
         this.set("isVisible", true);
         SchoolUnitsViewVM.set("isVisible", false);
+    },
+    openColumnSelection: function(e){
+        var column_selection_dialog = $("#labs_column_selection_dialog").kendoWindow({
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    width: 250,
+                    pinned: true,
+                    title: "Επιλογή Στηλών",
+                    open: function(e){
+
+                        e.sender.element.append('<div class="k-edit-buttons k-state-default" style="margin-top:10px; text-align:center">\
+                                                    <button class="k-button k-button-icontext k-grid-transit" onclick="LabsViewVM.restoreDefaultColumns()">\
+                                                        Επαναφορά Προεπιλεγμένων\
+                                                    </button>\
+                                                </div>');
+                    }
+        }).data("kendoWindow");
+
+        var template = kendo.template($("#labs_column_selection_template").html());
+        var toolbar = "";
+        
+        var grid;
+        if($('#switch_to_labs_view_btn').is(':checked')){
+            grid = $("#labs_view").data("kendoGrid");
+        }else{
+            grid = $("#school_unit_labs").data("kendoGrid");
+        }
+
+        $.each(grid.columns, function (idx, item) {
+            toolbar += template({ idx: idx, item: item });
+        });
+
+        column_selection_dialog.content(toolbar);
+        column_selection_dialog.center().open();
+    },
+    hideColumn: function(col) {
+
+        var grid;
+        if($('#switch_to_labs_view_btn').is(':checked')){
+            grid = $("#labs_view").data("kendoGrid");
+        }else{
+            grid = $("#school_unit_labs").data("kendoGrid");
+        }
+
+        if (grid.columns[col].hidden) {
+            grid.showColumn(+col);
+        } else {
+            grid.hideColumn(+col);
+        }
+        
+        console.log("grid: ", grid);
+    },
+    restoreDefaultColumns: function() {
+        
+        var grid;
+        if($('#switch_to_labs_view_btn').is(':checked')){
+            grid = $("#labs_view").data("kendoGrid");
+        }else{
+            grid = $("#school_unit_labs").data("kendoGrid");
+        }
+        
+        var columnSelectWnd = $("#labs_column_selection_dialog").data("kendoWindow");
+        var show= [1,3,4,8]; //default columns
+        
+        if( jQuery.inArray( user.title , transit_lab ) !== -1 && jQuery.inArray(11 , show) === -1 ){
+            show.push(11);
+        }
+        
+        $.each(grid.columns, function(index, value){
+            if(jQuery.inArray( index, show ) !== -1 ){
+                grid.showColumn(+index);
+                columnSelectWnd.element.find("div.column_selection>label>input#field-"+value.field).prop("checked", true);
+            }else{
+                grid.hideColumn(+index);
+                columnSelectWnd.element.find("div.column_selection>label>input#field-"+value.field).prop("checked", false);
+            }
+        });
+    },
+    refresh: function(){
+        var grid;
+        if($('#switch_to_labs_view_btn').is(':checked')){
+            grid = $("#labs_view").data("kendoGrid");
+        }else{
+            grid = $("#school_unit_labs").data("kendoGrid");
+        }
+        grid.refresh();
+    },
+    refreshTooltip: function(e){
+
+        console.log("im inside refresh tooltip");
+
+        if($('#switch_to_labs_view_btn').is(':checked')){
+            var tooltip = $(".lab_refresh_btn").kendoTooltip({
+                autoHide: true,
+                content:"ανανέωση",
+                width:55,
+                height:20,
+                position: "top",
+                animation: {
+                    close: {effects: "fade:out",  duration: 500},
+                    open: {effects: "fade:in",  duration: 500}
+                }
+            });
+            tooltip.show($(".lab_refresh_btn"));
+        }else{
+            var tooltip = $(".school_unit_labs_refresh_btn").kendoTooltip({
+                autoHide: true,
+                content:"ανανέωση",
+                width:55,
+                height:20,
+                position: "top",
+                animation: {
+                    close: {effects: "fade:out",  duration: 500},
+                    open: {effects: "fade:in",  duration: 500}
+                }
+            });
+            tooltip.show($(".school_unit_labs_refresh_btn"));
+        }
+    },
+    columnsTooltip: function(e){
+        if($('#switch_to_labs_view_btn').is(':checked')){
+            var tooltip = $(".lab_grid_columns_btn").kendoTooltip({
+                autoHide: true,
+                content:"επιλογή στηλών",
+                width:100,
+                height:20,
+                position: "top",
+                animation: {
+                    close: {effects: "fade:out",  duration: 500},
+                    open: {effects: "fade:in",  duration: 500}
+                }
+            });
+            tooltip.show($(".lab_grid_columns_btn"));
+        }else{
+            var tooltip = $(".school_unit_labs_grid_columns_btn").kendoTooltip({
+                autoHide: true,
+                content:"επιλογή στηλών",
+                width:100,
+                height:20,
+                position: "top",
+                animation: {
+                    close: {effects: "fade:out",  duration: 500},
+                    open: {effects: "fade:in",  duration: 500}
+                }
+            });
+            tooltip.show($(".school_unit_labs_grid_columns_btn"));
+            
+        }
+    },
+    
+    hideLabTransitColumn: function(e){
+        var hide = (jQuery.inArray(user.title, transit_lab) !== - 1) ? true : false;
+        return hide;
     }
 
 });

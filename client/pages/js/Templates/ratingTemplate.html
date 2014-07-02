@@ -1,8 +1,10 @@
 <script type="text/x-kendo-tmpl" id="rating_template">
     <div>
-        <div style="margin:10px">
-            <a class="k-button k-edit-button" href="\\#"><span class="k-icon k-edit"></span>Edit</a>
-        </div>
+        #if(jQuery.inArray( user.title , edit_lab_details ) !== -1){ #
+            <div style="margin:10px">
+                <a class="k-button k-edit-button" href="\\#"><span class="k-icon k-edit"></span>Edit</a>
+            </div>
+        #}#
         <dl style="margin:10px">
             <dt>Τεχνολογική Βαθμολογία</dt>
             #if(technological_rating !== null){#

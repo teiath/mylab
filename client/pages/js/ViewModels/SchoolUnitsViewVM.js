@@ -121,7 +121,8 @@ var SchoolUnitsViewVM = kendo.observable({
                     modal: true,
                     visible: false,
                     resizable: false,
-                    width: 500
+                    width: 500,
+                    pinned: true
         }).data("kendoWindow");
         
         var schoolUnitContactDetailsTemplate = kendo.template($("#school_unit_contact_details_template").html());
@@ -140,7 +141,8 @@ var SchoolUnitsViewVM = kendo.observable({
             detailInit: LabsViewVM.detailInit,
             detailTemplate: $("#lab_details_template").html(),
             selectable:"row",
-            scrollable: false,
+            scrollable: true,
+            resizable: true,
             sortable: "{'allowUnsort': false}",
 //            pageable: { pageSizes : [5, 10, 15, 20, 25, 30, 50], 
 //                        messages:  {
@@ -155,12 +157,11 @@ var SchoolUnitsViewVM = kendo.observable({
 //            },
             pageable: false,
             editable: { mode : 'popup', template: $('#lab_create_template').html()},
-            toolbar: [{ template : $('#lab_toolbar_template').html()  }],
-            columns: [{ field: 'lab_id', title:'κωδικός', width:'5%', hidden : true},
-                      { field: 'lab_name', title:'ονομασία', width:'40%'},
-                      { field: 'lab_type', title:'τύπος', width:'10%'},
-                      { field: 'lab_state', title:'κατάσταση', width:'10%'},
-                      //{ field: 'operational_rating', title:'βαθμολογία', width:'10%'},
+            toolbar: [{ template : $('#lab_toolbar_template_school_unit_labs').html()  }],
+            columns: [{ field: 'lab_id', title:'κωδικός', width:'65px', hidden : true},
+                      { field: 'lab_name', title:'ονομασία', width:'440px'},
+                      { field: 'lab_type', title:'τύπος', width:'150px', hidden : true},
+                      { field: 'lab_state', title:'κατάσταση', width:'100px'},
                       {     
                             field:'rating',
                             title:'βαθμολογία',
@@ -170,14 +171,20 @@ var SchoolUnitsViewVM = kendo.observable({
                                 var oRating = (dataItem.operational_rating !== null && typeof dataItem.operational_rating !== 'undefined') ? dataItem.operational_rating : "-";
                                 var tRating = (dataItem.technological_rating !== null && typeof dataItem.operational_rating !== 'undefined') ? dataItem.technological_rating : "-";
 
-                                var itemReturned = '<span> <i class="fa fa-star"></i>' + oRating + ', <i class="fa fa-thumbs-up"></i> ' + tRating + '</span>';
+                                var itemReturned = '<span>' + oRating +  ' <i class="fa fa-star"></i> ' + tRating + ' <i class="fa fa-thumbs-up"></i> ' + '</span>';
                                 return itemReturned;
                             },
-                            width:'10%'
-                        },   
+                            width:'85px'
+                      },
+                      { field: 'positioning', title:'Τοποθεσία', width:'180px', hidden : true},
+                      { field: 'lab_special_name', title:'Ειδική Ονομασία', width:'180px', hidden : true},
+                      { field: 'creation_date', title:'Ημερομηνία Δημιουργίας', width:'150px', hidden : true},
+                      { field: 'last_updated', title:'Τελευταία Ενημέρωση', width:'150px'},
+                      { field: 'created_by', title:'Δημιουργία από', width:'130px', hidden : true},
+                      { field: 'lab_source', title:'Πηγή', width:'130px', hidden : true},   
                       { command: [{text:'Ενεργοποίηση', click:LabsViewVM.transitLab, name:'activate'}, 
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend'},
-                                  {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'30%'}],
+                                  {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn}],
             edit: function(event){
                 console.log("nested labs grid edit event: ", event);
                 kendo.bind(event.container, LabsViewVM);
@@ -196,6 +203,10 @@ var SchoolUnitsViewVM = kendo.observable({
             },
             dataBound: function(event){
                 console.log("nested labs grid databound event: ", event);
+                
+                kendo.bind($("#school_unit_labs").find(".k-grid-toolbar>.school_unit_labs_refresh_btn"), LabsViewVM);
+                kendo.bind($("#school_unit_labs").find(".k-grid-toolbar>.school_unit_labs_grid_columns_btn"), LabsViewVM);
+                
                 
                 console.log("STEP 2");
                 //kendo.bind(event.sender.element, LabsViewVM);
@@ -217,6 +228,96 @@ var SchoolUnitsViewVM = kendo.observable({
         kendo.bind(e.detailRow.find(".k-grid-toolbar"), e.data.total_labs_by_type);
         //kendo.bind(e.detailRow.find(".k-grid-toolbar>.toolbar_filter>span"), LabsSearchVM); //φίλτρο τύπων εργαστηρίου
         
-    }
+    },
+    openColumnSelection: function(e){
+               
+        var column_selection_dialog = $("#school_units_column_selection_dialog").kendoWindow({
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    width: 250,
+                    pinned: true,
+                    title: "Επιλογή Στηλών",
+                    open: function(e){
 
+                        e.sender.element.append('<div class="k-edit-buttons k-state-default" style="margin-top:10px; text-align:center">\
+                                                    <button class="k-button k-button-icontext k-grid-transit" onclick="SchoolUnitsViewVM.restoreDefaultColumns()">\
+                                                        Επαναφορά Προεπιλεγμένων\
+                                                    </button>\
+                                                </div>');
+                    }
+        }).data("kendoWindow");
+
+        var template = kendo.template($("#school_units_column_selection_template").html());
+        var toolbar = "";
+        var grid = $("#school_units_view").data("kendoGrid");
+        console.log("grid: ", grid);
+        $.each(grid.columns, function (idx, item) {
+            toolbar += template({ idx: idx, item: item });
+        });
+
+        column_selection_dialog.content(toolbar);
+        column_selection_dialog.center().open();
+    },
+    hideColumn: function(col) {
+        var grid = $("#school_units_view").data("kendoGrid");
+        if (grid.columns[col].hidden) {
+            grid.showColumn(+col);
+        } else {
+            grid.hideColumn(+col);
+        }
+        
+        console.log("grid: ", grid);
+    },
+    restoreDefaultColumns: function() {
+        
+        var grid = $("#school_units_view").data("kendoGrid");
+        var columnSelectWnd = $("#school_units_column_selection_dialog").data("kendoWindow");
+        var show= [0,1,5,7,16,17]; //default columns
+        
+        $.each(grid.columns, function(index, value){
+            if(jQuery.inArray( index, show ) !== -1 ){
+                grid.showColumn(+index);
+                columnSelectWnd.element.find($("div.column_selection>label>input#field-"+value.field)).prop('checked', true);
+            }else{
+                grid.hideColumn(+index);
+                columnSelectWnd.element.find($("div.column_selection>label>input#field-"+value.field)).prop('checked', false);
+            }
+        });
+    },
+    refresh: function(){
+        var grid = $("#school_units_view").data("kendoGrid");
+        grid.refresh();
+    },
+    refreshTooltip: function(e){
+
+        var tooltip = $(".school_unit_refresh_btn").kendoTooltip({
+            autoHide: true,
+            content:"ανανέωση",
+            width:55,
+            height:20,
+            position: "top",
+            animation: {
+                close: {effects: "fade:out",  duration: 500},
+                open: {effects: "fade:in",  duration: 500}
+            }
+        });
+        tooltip.show($(".school_unit_refresh_btn"));
+    },
+    columnsTooltip: function(e){
+
+        var tooltip = $(".school_unit_grid_columns_btn").kendoTooltip({
+            autoHide: true,
+            content:"επιλογή στηλών",
+            width:100,
+            height:20,
+            position: "top",
+            animation: {
+                close: {effects: "fade:out",  duration: 500},
+                open: {effects: "fade:in",  duration: 500}
+            }
+        });
+        tooltip.show($(".school_unit_grid_columns_btn"));
+    }
+    //xlsTooltip inside SearchVM
 });

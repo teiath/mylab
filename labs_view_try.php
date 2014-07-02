@@ -11,6 +11,7 @@
         //require_once('client/pages/js/Templates/createLabServedOnlineTemplate.html');
         require_once('client/pages/js/Templates/labCreateTemplate.html');
         //require_once('client/pages/js/Templates/labToolbarTemplate.html');
+        require_once('client/pages/js/Templates/labsColumnSelectionTemplate.html');
         require_once('client/pages/js/Templates/labToolbarTemplate_labs_view.html');
         require_once('client/pages/js/Templates/labDetailsTemplate.html');
         require_once('client/pages/js/Templates/labTransitTemplate.html');
@@ -20,6 +21,10 @@
 
     <!--transition dialog-->
     <div id="transition_dialog"></div>
+    
+    <!--column selection dialog-->
+    <div id="labs_column_selection_dialog"></div>
+    
     <!--transition notification-->
     <span id="notification" style="display:none;"></span>
 
@@ -33,7 +38,8 @@
                         data-detail-init="LabsViewVM.detailInit"
                         data-detail-template= 'lab_details_template'
                         data-selectable="row"
-                        data-scrollable= "false"
+                        data-scrollable= "true"
+                        data-resizable= "true"
                         data-sortable= "{'allowUnsort': false}"
                         data-pageable="{ 'pageSizes': [5, 10, 15, 20, 25, 30, 50], 
                                          'messages':  { 'display': '{0}-{1} από {2} διατάξεις Η/Υ', 
@@ -45,14 +51,20 @@
                                                         'last': 'μετάβαση στην τελευταία σελίδα' }}"
                         data-editable="{ 'mode' : 'popup', 'template': $('#lab_create_template').html()}"
                         data-toolbar="[{ 'template' : $('#lab_toolbar_template_labs_view').html()  }]"
-                        data-columns="[{ 'field': 'lab_id', 'title':'κωδικός', 'width':'5%', 'hidden' : true},
-                                       { 'field': 'lab_name', 'title':'ονομασία', 'width':'40%'},
-                                       { 'field': 'lab_type', 'title':'τύπος', 'width':'15%'},
-                                       { 'field': 'lab_state', 'title':'κατάσταση', 'width':'10%'},
-                                       { 'field': 'rating', 'title':'βαθμολογία', 'template' : $('#labs_view_rating_column_template').html(), 'width':'10%'},
+                        data-columns="[{ 'field': 'lab_id', 'title':'Κωδικός', 'width':'65px', 'hidden' : true},
+                                       { 'field': 'lab_name', 'title':'Ονομασία', 'width':'440px'},
+                                       { 'field': 'lab_type', 'title':'Τύπος', 'width':'150px', 'hidden' : true},
+                                       { 'field': 'lab_state', 'title':'Κατάσταση', 'width':'100px'},
+                                       { 'field': 'rating', 'title':'Βαθμολογία', 'template' : $('#labs_view_rating_column_template').html(), 'width':'85px'},
+                                       { 'field': 'positioning', 'title':'Τοποθεσία', 'width':'180px', 'hidden' : true},
+                                       { 'field': 'lab_special_name', 'title':'Ειδική Ονομασία', 'width':'180px', 'hidden' : true},
+                                       { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'150px', 'hidden' : true},
+                                       { 'field': 'last_updated', 'title':'Τελευταία Ενημέρωση', 'width':'150px'},
+                                       { 'field': 'created_by', 'title':'Δημιουργία από', 'width':'130px', 'hidden' : true},
+                                       { 'field': 'lab_source', 'title':'Πηγή', 'width':'130px', 'hidden' : true},
                                        { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
                                                      {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},
-                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'ενέργειες', 'width':'25%'}
+                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn }
                                       ]">
                 </div>
             </div>

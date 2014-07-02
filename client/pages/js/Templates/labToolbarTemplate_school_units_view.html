@@ -1,5 +1,12 @@
 <script type="text/x-kendo-template" id="lab_toolbar_template_school_units_view">
     
-    <button class="export_to_xlsx k-button" data-bind="click: exportToXLSX" style="float:right; margin-left:30px;">Export to XLSX</button>
-
+    
+    <button class="school_unit_refresh_btn k-button" data-bind="click: refresh, events: { mouseover: refreshTooltip }" style="float:right;"><span class="k-icon k-i-refresh"></span></button>
+    
+    #if(jQuery.inArray( user.title , search_xls ) !== -1){ #
+        <button class="export_to_xlsx k-button" data-bind="click: exportToXLSX, events: { mouseover: xlsTooltip }" style="float:right; "><i class="fa fa-file-excel-o"></i></button>
+    #}#
+    
+    <button class="school_unit_grid_columns_btn k-button" data-bind="click: openColumnSelection, events: { mouseover: columnsTooltip }" style="float:right;"> <span class="k-icon k-sprite k-i-columns"></span></button>
+   
 </script>

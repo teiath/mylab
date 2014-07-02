@@ -1,6 +1,7 @@
 <?php
 require_once ('server/system/config.php');
 require_once ('server/libs/phpCAS/CAS.php');
+require_once ('server/system/validator.php');
 global $casOptions;
 
 
@@ -26,27 +27,37 @@ if (isset($_REQUEST['logout'])) {
     <p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
     <p>the attributes are:
     <?php
-    var_dump(phpCAS::getAttributes());
-//    echo '<ul>';
-//    $attr = phpCAS::getAttributes();
-//    foreach ($attr as $key => $value)
-//    {
-//        if(!is_array($value))
-//        {
-//                echo '<li>' . $key . ' => ' . $value . '</li>';
-//        }
-//        else
-//        {
-//                echo '<li>' . $key . '</li>';
-//                echo '<ul>';
-//                foreach($value as $v)
-//                {
-//                        echo '<li>' . $v . '</li>';
-//                }
-//                echo '</ul>';
-//        }
-//    }
-//    echo '</ul>';
+ //   var_dump(phpCAS::getAttributes());
+    echo '<ul>';
+    $attr = phpCAS::getAttributes();
+    
+    if  (!Validator::IsArray($attr['title'])){
+        $title = Validator::ToArray($attr['title']);
+    } else {
+        $title = $attr['title'];    
+    }
+
+    
+    
+    
+    foreach ($attr as $key => $value)
+    {
+        if(!is_array($value))
+        {
+                echo '<li>' . $key . ' => ' . $value . '</li>';
+        }
+        else
+        {
+                echo '<li>' . $key . '</li>';
+                echo '<ul>';
+                foreach($value as $v)
+                {
+                        echo '<li>' . $v . '</li>';
+                }
+                echo '</ul>';
+        }
+    }
+    echo '</ul>';
     ?>
 
     </p>
