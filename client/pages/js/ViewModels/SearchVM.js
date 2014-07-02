@@ -166,7 +166,21 @@ var SearchVM = kendo.observable({
             }
         });
         tooltip.show($("#sl_lab_id"));
+    },
+    xlsTooltip: function(e){
+
+        var tooltip = $(".export_to_xlsx").kendoTooltip({
+            autoHide: true,
+            content:"εξαγωγή σε .xlsx",
+            width:95,
+            height:20,
+            position: "top",
+            animation: {
+                close: {effects: "fade:out",  duration: 500},
+                open: {effects: "fade:in",  duration: 500}
+            }
+        });
+        tooltip.show($(".export_to_xlsx"));
     }
-            
     
 });
