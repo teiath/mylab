@@ -53,7 +53,7 @@ table, td, k-toolbar, k-pager-wrap
 }
 
 /*min width για button, αφορά το info button στο school units grid*/
-.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button {
+.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button, .k-grid tbody button.k-button {
     min-width: 21px;
 }
 
