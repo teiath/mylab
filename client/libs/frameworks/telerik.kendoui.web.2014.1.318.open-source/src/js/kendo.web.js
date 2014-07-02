@@ -35839,6 +35839,7 @@ function pad(number, digits, end) {
                     draggable: true,
                     title: "Edit",
                     visible: false,
+                    pinned: true,
                     close: function(e) {
                         if (e.userTriggered) {
                             //The bellow line is required due to: draggable window in IE, change event will be triggered while the window is closing
