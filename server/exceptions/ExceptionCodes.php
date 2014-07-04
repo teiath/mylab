@@ -1391,6 +1391,30 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedAquisitionSourceSourceByLabAquisitionSources} */  
     const UsedAquisitionSourceSourceByLabAquisitionSources = 500;
     
+     //authentication roles 
+    /** {@see ExceptionMessages::NoPermissionsError} */  
+    const NoPermissionsError = 500;
+    
+    /** {@see ExceptionMessages::NotFoundUserPermissions} */      
+    const NotFoundUserPermissions = 500;
+    /** {@see ExceptionMessages::NotFoundFullSchoolUnitDnsName} */  
+    const NotFoundFullSchoolUnitDnsName = 500;
+    /** {@see ExceptionMessages::DuplicateFullSchoolUnitDnsName} */  
+    const DuplicateFullSchoolUnitDnsName = 500;
+    /** {@see ExceptionMessages::MissingLdapLattribute} */  
+    const MissingLdapLAttribute = 500;
+    /** {@see ExceptionMessages::MissingLdapEmployeeNumberAttribute} */   
+    const MissingLdapEmployeeNumberAttribute = 500;
+    
+    /** {@see ExceptionMessages::NoPermissionToPost} */   
+    const NoPermissionToPostLab = 500;
+    /** {@see ExceptionMessages::NoPermissionToPut} */   
+    const NoPermissionToPutLab = 500;
+    /** {@see ExceptionMessages::NoPermissionToDelete} */   
+    const NoPermissionToDeleteLab = 500;
+    /** {@see ExceptionMessages::NoPermissionToGet} */   
+    const NoPermissionToGetLab = 500;
+    
 }
 
 ?>
