@@ -1,6 +1,6 @@
 <script type="text/x-kendo-template" id="lab_toolbar_template_school_unit_labs">
 
-    #if(jQuery.inArray( user.title , create_lab ) !== -1){ #
+    #if(jQuery.inArray( authorized_user , create_lab ) !== -1){ #
         <a class="k-button k-button-icontext k-grid-add" href="\#">
             <span class="k-icon k-add"></span>
             Προσθήκη Νέας Διάταξης Η/Υ
@@ -10,7 +10,7 @@
     <button class="k-button school_unit_labs_refresh_btn" data-bind="click: refresh, events: { mouseover: refreshTooltip }" style="float:right;"><span class="k-icon k-i-refresh"></span></button>
     <button class="school_unit_labs_grid_columns_btn k-button" data-bind="click: openColumnSelection, events: { mouseover: columnsTooltip }" style="float:right;"> <span class="k-icon k-sprite k-i-columns"></span></button>
 
-    #if(jQuery.inArray( user.title , search_xls ) !== -1){ #
+    #if(jQuery.inArray( authorized_user , search_xls ) !== -1){ #
         <div class="results_info">
             <ul class="list-inline lab_types_count">
                 <li><label>ΣεπεΗΥ: <span data-bind="text: total_labs_by_type['ΣΕΠΕΗΥ']" /></label></li>

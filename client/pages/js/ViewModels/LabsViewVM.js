@@ -320,7 +320,7 @@ var LabsViewVM = kendo.observable({
             selectable: false,
             editable: "inline",
             toolbar: function(){
-                        if(jQuery.inArray( user.title , edit_lab_details ) !== -1){
+                        if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1){
                             return [{ name: "create", text: "Προσθήκη Εξοπλισμού" }];
                         }
                     },
@@ -359,7 +359,7 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '30%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( user.title , edit_lab_details ) !== -1) ? true : false;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? true : false;
                       return hide;
                   }
                 }
@@ -379,7 +379,7 @@ var LabsViewVM = kendo.observable({
             selectable: false,
             editable: "inline",
             toolbar: function(){
-                        if(jQuery.inArray( user.title , edit_lab_details ) !== -1){
+                        if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1){
                             return [{ name: "create", text: "Προσθήκη Πηγής Χρηματοδότησης" }];
                         }
                     },
@@ -426,7 +426,7 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '30%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( user.title , edit_lab_details ) !== -1) ? true : false;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? true : false;
                       return hide;
                   }
                 }
@@ -446,7 +446,7 @@ var LabsViewVM = kendo.observable({
             selectable: false,
             editable: "inline",
             toolbar: function(){
-                        if(jQuery.inArray( user.title , edit_lab_worker ) !== -1){
+                        if(jQuery.inArray( authorized_user , edit_lab_worker ) !== -1){
                             return [{ name: "create", text: "Προσθήκη Υπεύθυνου Εργαστηρίου" }];
                         }
                     },
@@ -564,7 +564,7 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '30%',
                   hidden: function(){
-                      var hide = (jQuery.inArray( user.title , edit_lab_worker ) !== -1) ? true : false;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1) ? true : false;
                       return hide;
                   }
                 }
@@ -619,7 +619,7 @@ var LabsViewVM = kendo.observable({
             selectable: false,
             editable: "inline",
             toolbar: function(){
-                        if(jQuery.inArray( user.title , edit_lab_details ) !== -1){
+                        if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1){
                             return [{ name: "create", text: "Προσθήκη νέας συσχέτισης" }];
                         }
                     },
@@ -725,7 +725,7 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '20%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( user.title , edit_lab_details ) !== -1) ? true : false;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? true : false;
                       return hide;
                   }
                 }
@@ -871,13 +871,13 @@ var LabsViewVM = kendo.observable({
         
         
         // edit_lab_details & edit_lab_workers authorization
-        if(jQuery.inArray( user.title , edit_lab_details ) === -1){
+        if(jQuery.inArray( authorized_user , edit_lab_details ) === -1){
             e.detailRow.find("#equipment_details>.k-grid-toolbar").hide();
             e.detailRow.find("#aquisition_sources_details>.k-grid-toolbar").hide();
             e.detailRow.find("#lab_relations_details>.k-grid-toolbar").hide();
         }
         
-        if(jQuery.inArray( user.title , edit_lab_worker ) === -1){
+        if(jQuery.inArray( authorized_user , edit_lab_worker ) === -1){
             e.detailRow.find("#lab_workers_details>.k-grid-toolbar").hide();
         }
         
@@ -1015,7 +1015,7 @@ var LabsViewVM = kendo.observable({
         var columnSelectWnd = $("#labs_column_selection_dialog").data("kendoWindow");
         var show= [1,3,4,8]; //default columns
         
-        if( jQuery.inArray( user.title , transit_lab ) !== -1 && jQuery.inArray(11 , show) === -1 ){
+        if( jQuery.inArray( authorized_user , transit_lab ) !== -1 && jQuery.inArray(11 , show) === -1 ){
             show.push(11);
         }
         
@@ -1102,7 +1102,7 @@ var LabsViewVM = kendo.observable({
     },
     
     hideLabTransitColumn: function(e){
-        var hide = (jQuery.inArray(user.title, transit_lab) !== - 1) ? true : false;
+        var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? true : false;
         return hide;
     }
 

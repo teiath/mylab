@@ -1,6 +1,6 @@
 <script type="text/x-kendo-tmpl" id="general_info_template">
     <div>
-        #if(jQuery.inArray( user.title , edit_lab_details ) !== -1){ #
+        #if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1){ #
             <div style="margin:10px">
                 <a class="k-button k-edit-button" href="\\#"><span class="k-icon k-edit"></span>Edit</a>
             </div>
