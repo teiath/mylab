@@ -105,8 +105,12 @@ $worker_name=$infos['data'][0]['school_unit_worker']['lastname'];
 
 
 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-
 $column_width = '90';
+
+
+//infos about keplinet
+$infos = Reports::getKeplhnetInfo();
+$name=$infos['data'][0]['name'];
 
 $pdf->MultiCell(180, 6, "Στοιχεία του ΚΕ.ΠΛΗ.ΝΕ.Τ." , 0, 'C', 0, 1, '', '', true, 0);
 $pdf->Ln(1);
@@ -149,7 +153,8 @@ $pdf->Ln(4);
 // set color for background
 $pdf->SetFillColor(220, 255, 220);
 
-$keplinet = array("edu_admin" => $keplhnet);
+$keplinet = array("edu_admin"=>"5,34");
+//$keplinet = array("edu_admin" => $keplhnet);
         
 $sum_kindergarten = Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" , "school_unit_type"=>"1") );
 $sum_primary_school =  Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" ,"school_unit_type"=>"2") );
@@ -160,7 +165,6 @@ $sum_primary_education_troxilata = Reports::Statistics('statistic_labs', $keplin
 $sum_secondary_education_troxilata = Reports::Statistics('statistic_labs', $keplinet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "lab_type" => "2") );
 $sum_primary_education_null_labs = Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" , "education_level"=>"1" , "lab_id" => "null" ) );
 $sum_secondary_education_null_labs = Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" , "education_level"=>"2" , "lab_id" => "null") );
-
 
 $pdf->MultiCell(180, 6, "Εργαστήρια Πληροφορικής" , 0, 'C', 0, 1, '', '', true, 0);
 $pdf->MultiCell(180, 6, "Συνοπτικός πίνακας για τα εργαστήρια Πληροφορικής στα σχολεία αρμοδιότητας σας" , 0, 'L', 0, 1, '', '', true, 0);

@@ -169,6 +169,12 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
             $result["db_aquisition_comments"]= $fAquisitionComments =$arrayLabAquisitionSources[0]->getAquisitionComments();
          }
       
+        //user permisions
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab ,ExceptionCodes::NoPermissionToPutLab); 
+         };
+         
         try{
             
         $db->beginTransaction();    

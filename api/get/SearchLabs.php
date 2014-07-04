@@ -490,7 +490,28 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //======================================================================================================================
 //= E X E C U T E
 //======================================================================================================================
-
+       
+       //set user permissions
+       $permissions = UserRoles::getUserPermissions($app->request->user, true);
+       
+       if (Validator::IsNull($permissions['permit_labs'])){
+           $permit_labs = null;
+       } else if ($permissions['permit_labs'] === 'ALLRESULTS') { 
+           $permit_labs = null;
+       } else {
+           $permit_labs = " AND labs.lab_id IN (" . $permissions['permit_labs'] . ")";
+       }
+       
+       if (Validator::IsNull($permissions['permit_school_units'])){
+           throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError); 
+       } else if ($permissions['permit_school_units'] === 'ALLRESULTS') { 
+           $permit_school_units = null;
+           $sqlPermissions = null;
+       } else {
+           $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
+           $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
+       }
+            
        $sqlSelect = "SELECT 
                      DISTINCT   labs.lab_id,
                                 labs.name as lab_name,
@@ -553,15 +574,16 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
                                 LEFT JOIN school_unit_types using (school_unit_type_id)
                                 LEFT JOIN states school_unit_states ON school_units.state_id = school_unit_states.state_id
                                 ";
-
+        
         $sqlWhere = (count($filter) > 0 ? " WHERE " . implode(" AND ", $filter) : "" );
+                    
         $sqlOrder = " ORDER BY ". $orderby ." ". $ordertype;
         $sqlLimit = ($page && $pagesize) ? " LIMIT ".(($page - 1) * $pagesize).", ".$pagesize : "";
 
         $result["filters"] = $filter ? $filter : null;
         //#############find total total labs without filter of limits(page and pagesize)
-        $sql = "SELECT count(DISTINCT labs.lab_id) as total_labs " . $sqlFrom . $sqlWhere;
-        //echo "<br><br>".$sql."<br><br>";
+        $sql = "SELECT count(DISTINCT labs.lab_id) as total_labs " . $sqlFrom . $sqlWhere . $sqlPermissions ;
+        //echo "<br><br>".$sql."<br><br>";die();
 
         $stmt = $db->query( $sql );
         $rows = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -571,7 +593,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
         $maxPage = Pagination::checkMaxPage($rows["total_labs"], $page, $pagesize);
         
         //#############find count labs with filter of limits(page and pagesize)
-        $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlOrder . $sqlLimit ;
+        $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlPermissions . $sqlOrder . $sqlLimit ;
         //echo "<br><br>".$sql."<br><br>";
 
         $stmt = $db->query( $sql );
@@ -595,7 +617,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
         }
                 
         //find lab types per school unit       
-        $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere);
+        $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions);
         
         $school_unit_ids = Validator::ToUniqueString($school_unit_ids);
         

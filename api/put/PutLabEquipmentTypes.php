@@ -95,6 +95,12 @@ function PutLabEquipmentTypes($lab_id,$equipment_type,$items) {
             $fitems=Validator::ToNumeric($items);
         }
         
+        //user permisions
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab ,ExceptionCodes::NoPermissionToPutLab); 
+         };
+        
         try{
             
         $db->beginTransaction();    

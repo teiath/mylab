@@ -126,7 +126,7 @@ class ExceptionMessages
         const InvalidLabWorkerIdValue  = 'Η παράμετρος $lab_worker_id πρέπει να είναι αριθμητική και >0';
         const InvalidWorkerStatusValue  = 'Η παράμετρος $transition_source πρέπει να έχει τιμή "1"(ΕΝΕΡΓΟΣ) ή "3"(ΑΝΕΝΕΡΓΟΣ)'; 
         const MissingAquisitionYearValue  = 'Η παράμετρος $aquisition_year πρέπει να έχει τιμή';
-        const InvalidUpdateWorkerStatusValue  = 'Η παράμετρος $transition_source πρέπει να έχει τιμή "3"(ΑΝΕΝΕΡΓΟΣ)';
+        const InvalidUpdateWorkerStatusValue  = 'Η παράμετρος $worker_status πρέπει να έχει τιμή "3"(ΑΝΕΝΕΡΓΟΣ)';
         const MissingLabRelationIdValue  = 'Η παράμετρος $lab_relation_id πρέπει να έχει τιμή';
         const InvalidLabRelationIdValue  = 'Η παράμετρος $lab_relation_id πρέπει να είναι αριθμητική και >0';
         const MissingLabAquisitionSourceIdValue  = 'Η παράμετρος $lab_aquisition_source_id πρέπει να έχει τιμή';
@@ -988,5 +988,21 @@ class ExceptionMessages
     
     const DuplicatedAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης υπάρχει ήδη';
     const UsedAquisitionSourceSourceByLabAquisitionSources = 'Ο Κωδικός της Πηγής Χρηματοδότησης χρησιμοποιείται στην Πηγή Χρηματοδότησης Εργαστήριων';
+    
+    //authentication roles
+    const NoPermissionsError = 'Δεν βρέθηκαν σχολική μονάδα που να αντιστοιχεί στον ρόλο του χρήστη';
+    
+    const NotFoundUserPermissions = 'Δεν βρηθηκαν δικαιωματα για τον ρόλο του χρήστη.';
+    const NotFoundFullSchoolUnitDnsName = 'Δεν βρέθηκε σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
+    const DuplicateFullSchoolUnitDnsName = 'Βρέθηκαν παραπάνω από μία σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
+    const MissingLdapLattribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
+    const MissingLdapEmployeeNumberAttribute = 'Δεν βρέθηκε to "employeeNumber" attribute στον ldap λογαριασμό του χρήστη.';
+    
+    const NoPermissionToPostLab = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής στο συγκεκριμενο εργαστηριο';
+    const NoPermissionToPutLab = 'Ο χρήστης δεν έχει δικαίωμα ενημερωσης στο συγκεκριμενο εργαστηριο';
+    const NoPermissionToDeleteLab = 'Ο χρήστης δεν έχει δικαίωμα διαγραφης στο συγκεκριμενο εργαστηριο';    
+    const NoPermissionToGetLab = 'Ο χρήστης δεν έχει δικαίωμα αναζητησης στο συγκεκριμενο εργαστηριο';
+   
+    
 }
    ?>

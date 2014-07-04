@@ -142,8 +142,11 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
        else 
             $fWorkerStartService = $worker_start_service;
         
-        
-  
+    //user permisions 
+     $permissions = UserRoles::getUserPermissions($app->request->user);
+     if (!in_array($fLabId,$permissions['permit_labs'])) {
+         throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+     };
 
         try{
             

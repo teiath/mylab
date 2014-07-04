@@ -57,6 +57,13 @@ function DelLabRelations($lab_relation_id) {
         else
             throw new Exception(ExceptionMessages::UnknownLabRelationIdValue." : ".$lab_relation_id, ExceptionCodes::UnknownLabRelationIdValue);               
         
+        //user permisions
+         $fLabId = $arrayLabRelations[0]->getLabId();
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToDeleteLab ,ExceptionCodes::NoPermissionToDeleteLab); 
+         };
+        
         try{      
         
             $db->beginTransaction();  

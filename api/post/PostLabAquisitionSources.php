@@ -193,6 +193,11 @@ function PostLabAquisitionSources($lab_id, $aquisition_source, $aquisition_year,
         }  
         //=====================================================================================================================================================================    
   
+        //user permisions 
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+         };
 
         try{
             

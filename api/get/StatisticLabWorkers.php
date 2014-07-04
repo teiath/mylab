@@ -370,6 +370,27 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= E X E C U T E
 //======================================================================================================================
 
+            //set user permissions
+           $permissions = UserRoles::getUserPermissions($app->request->user, true);
+
+           if (Validator::IsNull($permissions['permit_labs'])){
+               $permit_labs = null;
+           } else if ($permissions['permit_labs'] === 'ALLRESULTS') { 
+               $permit_labs = null;
+           } else {
+               $permit_labs = " AND labs.lab_id IN (" . $permissions['permit_labs'] . ")";
+           }
+
+           if (Validator::IsNull($permissions['permit_school_units'])){
+               throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError); 
+           } else if ($permissions['permit_school_units'] === 'ALLRESULTS') { 
+               $permit_school_units = null;
+               $sqlPermissions = null;
+           } else {
+               $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
+                $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
+           }
+        
         $sqlSelect = "SELECT count(lab_workers.lab_worker_id) as total_lab_workers ";
 
         $sqlFrom = "FROM lab_workers
@@ -394,7 +415,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 
         $result["filters"] = $filter ? $filter : null;
         //#############find total total lab_workers without filter of limits(page and pagesize)
-        $sql = $sqlSelect . $sqlFrom . $sqlWhere;
+        $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlPermissions;
         //echo "<br><br>".$sql."<br><br>";
 
         $stmt = $db->query( $sql );
@@ -402,7 +423,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
         $result["total"] = $rows["total_lab_workers"];
              
         //find lab types per school unit       
-        $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere);
+        $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions);
            
         $result["status"] = ExceptionCodes::NoErrors;;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;

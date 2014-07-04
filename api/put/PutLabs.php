@@ -352,12 +352,15 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
     } else if ((Validator::IsExists('transition_date') || Validator::IsExists('transition_justification') || Validator::IsExists('transition_source')) && !Validator::IsExists('state')) {
         throw new Exception(ExceptionMessages::ErrorInputLabTransitionsValues, ExceptionCodes::ErrorInputLabTransitionsValues);  
     }
-        
-        
-        
-        
+              
         //=====================================================================================================================================================================    
 
+         //user permisions
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab ,ExceptionCodes::NoPermissionToPutLab); 
+         };
+    
         try{
             
         $db->beginTransaction();
