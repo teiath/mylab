@@ -5,9 +5,11 @@
 require_once ('server/system/config.php');
 require_once ('server/libs/phpCAS/CAS.php');
 
+
 if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
+    //echo("eimai mesa stou index to if");
     // initialize phpCAS using SAML
-    phpCAS::client(SAML_VERSION_1_1,$casOptions["Url"],$casOptions["Port"],'');
+    phpCAS::client(SAML_VERSION_1_1,$casOptions["Url"],$casOptions["Port"],'', false);
     // no SSL validation for the CAS server, only for testing environments
     phpCAS::setNoCasServerValidation();
     // handle backend logout requests from CAS server
@@ -19,7 +21,7 @@ if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
     $user = phpCAS::getAttributes();
 
     //var_dump($user['title']);//die();
-} 
+}
 
 
 $user['backendUsername'] = $frontendOptions['backendUsername'];
@@ -106,9 +108,9 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
             });
             
         </script>
-        
+     
     </head>
-    
+   
     <body>
         
         <?php 
@@ -116,12 +118,6 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
         ?>
         <div style='height:90px'> </div>    
         <?php
-                $search_xls = array("ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", "ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", "ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ");
-                $edit_lab_details = array("ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ");
-                $edit_lab_worker = array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ");
-                $transit_lab = array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ");
-                $create_lab = array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ");
-                
                 //if(in_array($user['title'], $search_xls)){ require_once('search.html'); } //search pane
                 require_once('search.html'); //search pane
                 require_once('switch_views.html'); //switch views button
@@ -129,22 +125,18 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
                 require_once('school_units_view_try.php'); //school units view
         ?>
         <a href="#" class="scrollup">Scroll</a>
+        
+        
+        <script>
+    
+            var g_casUrl = "<?php echo $casOptions['Url'] ?>";
+            //console.log("g_casUrl: ", g_casUrl);
+            // Build logout link
+            $("#lnkLogout").attr("href", "http://mmsch.teiath.gr/mylab/?logout=true");
+            //$("#lnkLogout").attr("href", "http://" + g_casUrl + "/logout ");
+            $("#lnkLogout").html("<strong>" + user.uid + " [Logout]" + "</strong>");
+
+        </script>        
+        
     </body>
 </html>
-
-
-<script>
-
-    var search_xls = JSON.parse(atob("<?php echo base64_encode(json_encode($search_xls)); ?>"));
-    var edit_lab_details = JSON.parse(atob("<?php echo base64_encode(json_encode($edit_lab_details)); ?>"));
-    var edit_lab_worker = JSON.parse(atob("<?php echo base64_encode(json_encode($edit_lab_worker)); ?>"));
-    var transit_lab = JSON.parse(atob("<?php echo base64_encode(json_encode($transit_lab)); ?>"));
-    var create_lab = JSON.parse(atob("<?php echo base64_encode(json_encode($create_lab)); ?>"));
-
-//    console.log("search_xls: ", search_xls);
-//    console.log("edit_lab_details: ", edit_lab_details);
-//    console.log("edit_lab_worker: ", edit_lab_worker);
-//    console.log("transit_lab: ", transit_lab);
-//    console.log("create_lab: ", create_lab);
-
-</script>
