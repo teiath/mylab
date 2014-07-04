@@ -14,12 +14,17 @@ if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
     phpCAS::setNoCasServerValidation();
     // handle backend logout requests from CAS server
     phpCAS::handleLogoutRequests(array($casOptions["Url"]));
-    // force CAS authentication
-    if (!phpCAS::checkAuthentication())
-      phpCAS::forceAuthentication();
+    if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
+        phpCAS::logout();
+        exit();
+    } else {
+        // force CAS authentication
+        if (!phpCAS::checkAuthentication())
+          phpCAS::forceAuthentication();
+    }
     // at this step, the user has been authenticated by the CAS server and the user's login name can be read with //phpCAS::getUser(). for this test, simply print who is the authenticated user and his attributes.
     $user = phpCAS::getAttributes();
-
+    
     //var_dump($user['title']);//die();
 }
 
