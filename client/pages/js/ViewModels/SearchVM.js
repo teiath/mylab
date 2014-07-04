@@ -85,6 +85,102 @@ var SearchVM = kendo.observable({
         var formData = $("#search-form").serializeArray();
         SchoolUnitsViewVM.school_units.filter(normalizeParams(formData));
         LabsViewVM.labs.filter(normalizeParams(formData));
+        
+        searchParameters = formData;
+    },     
+    exportToXLSX: function(e){
+        e.preventDefault();
+        //console.log("exportToXLSX e :", e);
+        
+        if($('#switch_to_labs_view_btn').is(':checked')){
+            var url = baseURL + 'search_labs?export=xlsx&';
+        }else{
+            var url = baseURL + 'search_school_units?export=xlsx&';
+        }   
+        
+        var parameters = normalizeParams(searchParameters);
+        //console.log("parameters:", parameters);
+
+        var normalizedFilter = {};
+        $.each(parameters, function(index, value){
+            var filter = parameters[index];
+            var value = normalizedFilter[filter.field];
+            value = (value ? value+"," : "")+ filter.value;
+            normalizedFilter[filter.field] = value;                                   
+        });
+        //console.log("normalizedFilter: ", normalizedFilter);
+
+        $.each(normalizedFilter, function(index){
+            var key = index;
+            var value = normalizedFilter[index];
+            var par= key+"="+value+"&";
+            url = url.concat(par);
+        });
+        //url.slice(0, - 1);
+        url = url.substring(0, url.length-1);
+        
+        console.log("url:", url);
+        window.location.href = url;
+    },
+    labIDInfoTooltip: function(e){
+        console.log("focused!");
+        var tooltip = $("#sl_lab_id").kendoTooltip({
+            autoHide: true,
+            content:"για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα",
+            width:185,
+            height:35,
+            position: "left",
+            animation: {
+                close: {effects: "fade:out",  duration: 1000},
+                open: {effects: "fade:in",  duration: 1000}
+            }
+        });
+        tooltip.show($("#sl_lab_id"));
+    },
+    schoolUnitIDInfoTooltip: function(e){
+        console.log("focused!");
+        var tooltip = $("#sl_school_unit_id").kendoTooltip({
+            autoHide: true,
+            content:"για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα",
+            width:185,
+            height:35,
+            position: "left",
+            animation: {
+                close: {effects: "fade:out",  duration: 1000},
+                open: {effects: "fade:in",  duration: 1000}
+            }
+        });
+        tooltip.show($("#sl_school_unit_id"));
+    },
+    labWorkerInfoTooltip: function(e){
+        console.log("focused!");
+        var tooltip = $("#sl_lab_id").kendoTooltip({
+            autoHide: true,
+            content:"για να φιλτράρετε από τη λίστα εισάγετε minimum 3 χαρακτήρες",
+            width:185,
+            height:35,
+            position: "right",
+            animation: {
+                close: {effects: "fade:out",  duration: 1000},
+                open: {effects: "fade:in",  duration: 1000}
+            }
+        });
+        tooltip.show($("#sl_lab_id"));
+    },
+    xlsTooltip: function(e){
+
+        var tooltip = $(".export_to_xlsx").kendoTooltip({
+            autoHide: true,
+            content:"εξαγωγή σε .xlsx",
+            width:95,
+            height:20,
+            position: "top",
+            animation: {
+                close: {effects: "fade:out",  duration: 500},
+                open: {effects: "fade:in",  duration: 500}
+            }
+        });
+        tooltip.show($(".export_to_xlsx"));
     }
     
 });

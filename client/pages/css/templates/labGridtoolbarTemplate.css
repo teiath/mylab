@@ -1,6 +1,6 @@
 .results_info{
     float:right;
-    /*margin-right: 65px;*/
+    margin-right: 300px;
 }
 
 .toolbar_filter{
@@ -9,6 +9,7 @@
 
 .lab_types_count{
     float:right;
+    margin-bottom: 0px;
 }
 
 .labs_count_label{

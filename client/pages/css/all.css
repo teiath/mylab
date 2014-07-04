@@ -53,6 +53,25 @@ table, td, k-toolbar, k-pager-wrap
 }
 
 /*min width για button, αφορά το info button στο school units grid*/
-.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button {
+.k-grid tbody .k-button, .k-ie8 .k-grid tbody button.k-button, .k-grid tbody button.k-button {
     min-width: 21px;
+}
+
+.scrollup{
+    width:40px;
+    height:40px;
+    opacity:0.3;
+    position:fixed;
+    bottom:50px;
+    right: 57px;
+    display:none;
+    text-indent:-9999px;
+    background: url('../icons/icon_top.png') no-repeat;
+}
+
+
+.psd_icon{
+    float:left; 
+    padding-left:10px; 
+    padding-top:7px;
 }

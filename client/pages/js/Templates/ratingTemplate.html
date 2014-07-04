@@ -1,0 +1,54 @@
+<script type="text/x-kendo-tmpl" id="rating_template">
+    <div>
+        #if(jQuery.inArray( user.title , edit_lab_details ) !== -1){ #
+            <div style="margin:10px">
+                <a class="k-button k-edit-button" href="\\#"><span class="k-icon k-edit"></span>Edit</a>
+            </div>
+        #}#
+        <dl style="margin:10px">
+            <dt>Τεχνολογική Βαθμολογία</dt>
+            #if(technological_rating !== null){#
+                #if(technological_rating == 1){#
+                    <dd><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-o-up"></i><i class="fa fa-thumbs-o-up"></i><i class="fa fa-thumbs-o-up"></i><i class="fa fa-thumbs-o-up"></i></dd>
+                #}#
+                #if(technological_rating == 2){#
+                    <dd><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-o-up"></i><i class="fa fa-thumbs-o-up"></i><i class="fa fa-thumbs-o-up"></i></dd>
+                #}#
+                #if(technological_rating == 3){#
+                    <dd><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-o-up"></i><i class="fa fa-thumbs-o-up"></i></dd>
+                #}#
+                #if(technological_rating == 4){#
+                    <dd><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-o-up"></i></dd>
+                #}#
+                #if(technological_rating == 5){#
+                    <dd><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i><i class="fa fa-thumbs-up"></i></dd>
+                #}#
+            #}else{#
+                <dd><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></dd>
+            #}#
+            <dt>Λειτουργική Βαθμολογία</dt>
+            #if(operational_rating !== null){# 
+                #if(operational_rating == 1){#
+                    <dd><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></dd>
+                #}#
+                #if(operational_rating == 2){#
+                    <dd><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></dd>
+                #}#
+                #if(operational_rating == 3){#
+                    <dd><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></dd>
+                #}#
+                #if(operational_rating == 4){#
+                    <dd><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i></dd>
+                #}#
+                #if(operational_rating == 5){#
+                    <dd><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></dd>
+                #}#
+            #}else{#
+                <dd><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></dd>
+            #}#
+        </dl>
+    </div>
+ </script>
+ 
+ 
+ <!--<dd>#:technological_rating#</dd>-->

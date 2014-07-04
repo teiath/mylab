@@ -44,18 +44,6 @@ label{
     z-index: 0;
 }*/
 
-/*.scrollup{
-    width:40px;
-    height:40px;
-    opacity:0.3;
-    position:fixed;
-    bottom:50px;
-    right: 57px;
-    display:none;
-    text-indent:-9999px;
-    background: url('../img/icon_top.png') no-repeat;
-}*/
-
 /* αφορά (μειώνει) το padding των rows του grid*/
 /*.k-grid td{
     padding: 0.1em 0.1em 0.1em 0.7em;
@@ -68,3 +56,20 @@ label{
 tr .k-detail-cell {
     padding: 0.1em 0.1em 0.1em 0.1em;
 }*/
+
+
+/*HIDE GRID'S VERTICAL SCROLLER */
+.k-grid-header
+{
+   padding: 0 !important;
+}
+
+.k-grid-content
+{
+   overflow-y: hidden;
+}
+
+/*scrolling fix for firefox*/
+.k-ff {
+    overflow: inherit !important;
+}

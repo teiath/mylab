@@ -1,20 +1,30 @@
 <script type="text/x-kendo-template" id="lab_toolbar_template_labs_view">
 
-    <a class="k-button k-button-icontext k-grid-add" href="\#">
-        <span class="k-icon k-add"></span>
-        Προσθήκη Νέας Διάταξης Η/Υ
-    </a>
+    #if(jQuery.inArray( user.title , create_lab ) !== -1){ #
+        <a class="k-button k-button-icontext k-grid-add" href="\#">
+            <span class="k-icon k-add"></span>
+            Προσθήκη Νέας Διάταξης Η/Υ
+        </a>
+    #}#
 
+    <button class="k-button lab_refresh_btn" data-bind="click: refresh, events: { mouseover: refreshTooltip }" style="float:right;"><span class="k-icon k-i-refresh"></span></button>
 
-    <div class="results_info">
-        <ul class="list-inline lab_types_count">
-            <li><label>ΣεπεΗΥ: <span data-bind="text: sepehy" /></label></li>
-            <li><label>ΕΤΠ: <span data-bind="text: etp" /></label></li>
-            <li><label>Διαδραστικά Συστήματα: <span data-bind="text: diadrastiko" /></label></li>
-            <li><label>Γωνιές: <span data-bind="text: gwnia" /></label></li>
-            <li><label>Τροχήλατα: <span data-bind="text: troxilato" /></label></li>
-        </ul>
-    </div>
-   
+    #if(jQuery.inArray( user.title , search_xls ) !== -1){ #
+        <button class="export_to_xlsx k-button" data-bind="click: exportToXLSX, events: { mouseover: xlsTooltip }" style="float:right;"><i class="fa fa-file-excel-o"></i></button>
+    #}#
     
+    <button class="lab_grid_columns_btn k-button" data-bind="click: openColumnSelection, events: { mouseover: columnsTooltip }" style="float:right;"> <span class="k-icon k-sprite k-i-columns"></span></button>
+    
+    #if(jQuery.inArray( user.title , search_xls ) !== -1){ #
+        <div class="results_info">
+            <ul class="list-inline lab_types_count">
+                <li><label>ΣεπεΗΥ: <span data-bind="text: sepehy" /></label></li>
+                <li><label>ΕΤΠ: <span data-bind="text: etp" /></label></li>
+                <li><label>Διαδραστικά Συστήματα: <span data-bind="text: diadrastiko" /></label></li>
+                <li><label>Γωνιές: <span data-bind="text: gwnia" /></label></li>
+                <li><label>Τροχήλατα: <span data-bind="text: troxilato" /></label></li>
+            </ul>
+        </div>
+    #}#
+
 </script>

@@ -1,0 +1,27 @@
+<script type="text/x-kendo-tmpl" id="general_info_template">
+    <div>
+        #if(jQuery.inArray( user.title , edit_lab_details ) !== -1){ #
+            <div style="margin:10px">
+                <a class="k-button k-edit-button" href="\\#"><span class="k-icon k-edit"></span>Edit</a>
+            </div>
+        #}#
+        <dl style="margin:10px">
+            <dt><i class="fa fa-tag" style="padding-right:5px"></i>Ειδική Ονομασία</dt>
+            #if(lab_special_name !== null){# 
+                <dd>#:lab_special_name#</dd>
+            #}else{#
+                <dd> --δεν έχει οριστεί-- </dd>
+            #}#
+            <dt><i class="fa fa-map-marker" style="padding-right:5px"></i>Τοποθεσία</dt>
+            #if(positioning !== null){# 
+                <dd>#:positioning#</dd>
+            #}else{#
+                <dd> --δεν έχει οριστεί-- </dd>
+            #}#
+        
+            <dt><i class="fa fa-calendar" style="padding-right:5px"></i>Ημερομηνία Δημιουργίας</dt> <dd>#:creation_date#</dd>
+            
+        </dl>
+    </div>
+ </script>
+            

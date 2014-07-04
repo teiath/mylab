@@ -57,6 +57,12 @@
         <div id="labs_container"> <!--grid-->
 
             <?php
+        
+                require_once('client/pages/js/Templates/generalInfoTemplate.html');
+                require_once('client/pages/js/Templates/editGeneralInfoTemplate.html');
+                require_once('client/pages/js/Templates/ratingTemplate.html');
+                require_once('client/pages/js/Templates/editRatingTemplate.html');
+
                 //require_once('client/pages/js/Templates/createLabServedOnlineTemplate.html');
                 require_once('client/pages/js/Templates/labCreateTemplate.html');
                 //require_once('client/pages/js/Templates/labToolbarTemplate.html');

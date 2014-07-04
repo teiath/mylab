@@ -20,6 +20,7 @@
     </div>
     <div>
         <div id='lab_workers_details' style="margin-bottom:30px"></div>
+        <h5><b> Ιστορικό Υπευθύνων</b></h5>
         <div id='lab_workers_logs'></div>
     </div>
     <div>
@@ -29,55 +30,11 @@
         <div id='lab_transitions_details'></div>
     </div>
     <div>
-        <div id='lab_general_info_details'>
-        
-            <div class='employee-details'>
-                        
-                <ul style="list-style: none;">
-                    <li>
-                        <i class="fa fa-tag"></i>
-                        <label>Ειδική Ονομασία </label>
-                        <span data-bind="text: lab_special_name" />
-                        <input class="k-textbox" type="text" data-bind="value: lab_special_name" />
-                        <button id="special_name_edit" data-role="button" class="k-button k-button-icontext k-edit" data-bind="events: { click: LabsViewVM.editSpecialName }">
-                            Επεξεργασία
-                        </button>
-                    </li>
-                    <li>
-                        <i class="fa fa-map-marker"></i>
-                        <label>Τοποθεσία </label>
-                        <span data-bind="text: positioning" />
-                        <textarea class="k-textbox" data-bind="value: positioning"></textarea>
-                        <button data-role="button" class="k-button k-button-icontext k-edit" data-bind="events: { click: editPositioning }">
-                            Επεξεργασία
-                        </button>                        
-                    </li>
-                    <li>
-                        <i class="fa fa-calendar"></i>
-                        <label>Ημερομηνία Δημιουργίας </label>
-                        <span data-bind="text: creation_date" />
-                    </li>
-                </ul>
-            </div>
-        
-        </div>
+        <div id='lab_general_info_details'></div>
     </div>
     <div>
-        <div id='lab_rating_details'>
-        
-            <li><i class="fa fa-star"></i><label> Λειτουργική Βαθμολογία:</label>#= operational_rating #</li>
-            <li><i class="fa fa-lightbulb-o"></i><label> Τεχνολογική Βαθμολογία:</label>#= technological_rating #</li>
-        
-        </div>
+        <div id='lab_rating_details'></div>
     </div>
 </div>
 
 </script>
-
-<!--
-                <div>
-                    <span>Ειδική Ονομασία #=special_name#:</span>
-                    <span data-bind="text: special_name" />
-                    <input data-bind="value: special_name" />
-                </div>
--->

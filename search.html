@@ -16,7 +16,7 @@
                                     <label for="lab_id">κωδικός Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterChanged }" placeholder="για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα"/>
+                                    <input id="sl_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterChanged, focus: labIDInfoTooltip }" />
                                 </div>
                                 
                                 <div class="col-md-11">
@@ -92,9 +92,9 @@
                                             data-text-field="fullname"
                                             data-value-field="registry_no"
                                             data-min-length="3"
-                                            data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterChanged }"
+                                            data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterChanged, input: labWorkerInfoTooltip}"
                                             data-filter="contains"
-                                            data-placeholder="πληκτρολογίστε για επιλογή από τη λίστα (min 3 χαρακτήρες)"
+                                            data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>              
                                 </div>
@@ -165,7 +165,7 @@
                                     <label for="school_unit_id">κωδικός Σχολικής Μονάδας</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterChanged }" placeholder="για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα"/>
+                                    <input id="sl_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterChanged, focus: schoolUnitIDInfoTooltip }"/>
                                  </div>
                                 
                                 <div class="col-md-11">

@@ -95,6 +95,15 @@ $pdf->AddPage();
 // set color for background
 $pdf->SetFillColor(255, 255, 255);
 
+$params = array("school_unit_id" => "1000017");
+$infos = Reports::getKeplhnetInfo($params);
+$name=$infos['data'][0]['name'];
+$fax=$infos['data'][0]['fax_number'];
+$phone_number=$infos['data'][0]['phone_number'];
+$worker_name=$infos['data'][0]['school_unit_worker']['lastname'];
+
+
+
 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
 $column_width = '90';
 
@@ -109,7 +118,7 @@ $pdf->MultiCell($column_width, 6, "ΚΕΠΛΗΝΕΤ" , 1, 'L', 0, 0, '', '', tru
 $pdf->MultiCell($column_width, 6, $name , 1, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Στελέχωση" , 0, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Υπεύθυνος [Ονοματεπώνυμο]", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
+$pdf->MultiCell($column_width, 6, $worker_name , 1, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Υπέυθυνος [Ειδικότητα]", 1, 'L', 0, 0, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Τεχνικός Υπεύθυνος [Ονοματεπώνυμο]", 1, 'L', 0, 0, '', '', true, 0);
@@ -131,9 +140,9 @@ $pdf->Ln(1);
 $pdf->MultiCell($column_width, 6, "Δ/νση Λειτουργίας" , 1, 'L', 0, 0, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Τηλέφωνο", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
+$pdf->MultiCell($column_width, 6, $phone_number, 1, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Fax", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
+$pdf->MultiCell($column_width, 6, $fax , 1, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Ηλεκτρονική Δ/νση (email)", 1, 'L', 0, 0, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Ιστοσελίδα", 1, 'L', 0, 0, '', '', true, 0);

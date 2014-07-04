@@ -53,6 +53,8 @@ function newLabsDS(school_unit_id, detailInitEvent){
                     
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
+                    
+                    data['user'] = user;
                                         
                     return data;
                     
@@ -121,6 +123,17 @@ function newLabsDS(school_unit_id, detailInitEvent){
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("labs datasource requestEnd e:", e);
+            if(e.type=="read"){
+                //δεν υπάρχει πρόβλημα με όλα τα read, καθώς όταν γίνεται ενα lab CREATE στη συνέχεια γίνεται στα καπάκια ένα search labs (read) για τα labs της
+                //συγκεκριμένης σχολικής μονάδας. Επομένως μάλλον δεν ειναι αναγκαίο να μπει κάποια συνθήκη
+//                var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
+//                var row = $("#school_units_view").data("kendoGrid").tbody.find("tr[data-uid='" + dataItem.uid + "']"); //an then get its row
+//                index = row.index();
+//                console.log("INDEX: ", index);
+                    console.log("STEP 3");
+                    var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
+                    dataItem.set("total_labs_by_type", e.response.all_labs_by_type);
+            }
             if (e.type=="create" || e.type=="destroy"){
                 
                 var grid = detailInitEvent.detailRow.find("#school_unit_labs").data("kendoGrid");
@@ -128,8 +141,15 @@ function newLabsDS(school_unit_id, detailInitEvent){
                 if (e.response.status == "200"){
                     
                     notification.show({
-                        message: "Το εργαστήριο δημιουργήθηκε επιτυχώς"
-                    }, "upload-success");
+                        title: "Το εργαστήριο δημιουργήθηκε επιτυχώς",
+                        message: e.response.message
+                    }, "success");
+                    
+                    console.log("STEP 1");
+                    var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
+                    var row = $("#school_units_view").data("kendoGrid").tbody.find("tr[data-uid='" + dataItem.uid + "']"); //an then get its row
+                    index = row.index();
+                    console.log("INDEX: ", index);
                     
                     grid.dataSource.read(); // refresh school units view
                     LabsViewVM.labs.read(); //refresh labs view
@@ -164,3 +184,55 @@ function newLabsDS(school_unit_id, detailInitEvent){
     return labs_ds;
     
 }
+
+
+
+                    
+                    
+//get the table row for records with model.id = 2
+//var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the grid row's dataItem based on the school_unit_id
+//console.log("dataItem", dataItem);
+//var row = $("#school_units_view").data("kendoGrid").tbody.find("tr[data-uid='" + dataItem.uid + "']"); //an then get its row
+//console.log("row: ", row);
+//index = row.index();
+//console.log("INDEX: ", index);
+//
+//if(e.response.lab_type == 1){
+//    detailInitEvent.data.total_labs_by_type["ΣΕΠΕΗΥ"] = (+ detailInitEvent.data.total_labs_by_type["ΣΕΠΕΗΥ"] + 1).toString;
+//    console.log(e.response.lab_type);
+//    console.log(detailInitEvent.data.total_labs_by_type);
+//}else if(e.response.lab_type == 2){
+//    detailInitEvent.data.total_labs_by_type["ΤΡΟΧΗΛΑΤΟ"] = (+ detailInitEvent.data.total_labs_by_type["ΤΡΟΧΗΛΑΤΟ"] + 1).toString;
+//    console.log(e.response.lab_type);
+//    console.log(detailInitEvent.data.total_labs_by_type);
+//}else if(e.response.lab_type == 3){
+//    detailInitEvent.data.total_labs_by_type["ΕΤΠ"] = (+ detailInitEvent.data.total_labs_by_type["ΕΤΠ"] + 1).toString;
+//    console.log(e.response.lab_type);
+//    console.log(detailInitEvent.data.total_labs_by_type);
+//}else if(e.response.lab_type == 4){
+//    detailInitEvent.data.total_labs_by_type["ΓΩΝΙΑ"] = (+ detailInitEvent.data.total_labs_by_type["ΓΩΝΙΑ"] + 1).toString;
+//    console.log(e.response.lab_type);
+//    console.log(detailInitEvent.data.total_labs_by_type);
+//}else if(e.response.lab_type == 5){
+//    detailInitEvent.data.total_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"] = (+ detailInitEvent.data.total_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"] + 1).toString;
+//    console.log(e.response.lab_type);
+//    console.log(detailInitEvent.data.total_labs_by_type);
+//}
+                    //console.log("e.response.all_labs_by_type: ", e.response.all_labs_by_type);
+                    //dataItem.total_labs_by_type = e.response.all_labs_by_type;
+//dataItem.set("total_labs_by_type", detailInitEvent.data.total_labs_by_type);
+                    //$("#school_units_view").data("kendoGrid").expandRow(row);
+
+                    //console.log("row-after: ", row);
+                    
+                    //                    var grid = $("#school_units_view").data("kendoGrid");                   // Get a reference to the school units grid                    
+                    //                    var select = grid.select(); //"tr:detailInitEvent.masterRow"            // Access the row that is selected                    
+                    //                    var data = grid.dataItem(select);                                       // and now the data                    
+                    //                    data.set("total_labs_by_type", e.response.all_labs_by_type);            // update the toolbar's info
+                    //                    grid.expandRow(select); //"detailInitEvent.masterRow"                   // expand selected row
+                    //                  
+                    
+                    
+                    
+                   
+ 

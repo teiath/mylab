@@ -13,9 +13,9 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
                         transition_dialog.close();
                         
                         notification.show({
-                            title: "Η υποβολή πραγματοποιήθηκε",
+                            title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
                             message: data.message
-                        }, "upload-success");                                            
+                        }, "success");                                            
 
 
                     lab_grid.dataSource.read(); //school units view or labs view depending on the current view
@@ -23,7 +23,7 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
                 }else if(data.status == 500){
                     
                         notification.show({
-                            title: "Η υποβολή απέτυχε",
+                            title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
                             message: data.message
                         }, "error");
                 }

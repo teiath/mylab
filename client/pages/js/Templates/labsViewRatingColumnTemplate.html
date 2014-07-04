@@ -1,0 +1,11 @@
+<script type="text/x-kendo-template" id="labs_view_rating_column_template">
+
+#if(operational_rating !== null && typeof operational_rating !== 'undefined' ){  var oRating = operational_rating; } else { oRating = '-'; } # 
+#if(technological_rating !== null && typeof technological_rating !== 'undefined' ){  var tRating = technological_rating; } else { tRating = '-'; } # 
+
+    <span>
+        #:oRating # <i class="fa fa-star"></i>  
+        #:tRating # <i class="fa fa-thumbs-up"></i>
+    </span>
+            
+</script>

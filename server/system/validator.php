@@ -14,7 +14,7 @@ class Validator
     protected static $inactiveLabSourceValues = array('3', 'ΑΝΕΝΕΡΓΟΣ');
     protected static $trueValue = array('true');
     protected static $falseValue = array('false');
-    protected static $fivestars = array('1','2','3','4','5');
+    protected static $fivestars = array(1,2,3,4,5);
     
     /**
      * 

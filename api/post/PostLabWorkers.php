@@ -274,8 +274,8 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
     
         
     } catch (Exception $ex){ 
-        $result["status_external"] = $ex->getCode();
-        $result["message_external"] = "[".$result["method"]."][".$result["function"]."]:".$ex->getMessage();
+        $result["status"] = $ex->getCode();
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$ex->getMessage();
     } 
     return $result;
 }
