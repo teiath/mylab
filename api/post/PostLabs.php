@@ -657,7 +657,13 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
         
         }
         //=====================================================================================================================================================================    
-        
+         
+        //user permisions 
+         $permissions = UserRoles::getUserPermissions($app->request->user, true);
+         if (!in_array($fSchoolUnit,$permissions['permit_school_units'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+         };
+         
         try{
             
         $db->beginTransaction();    

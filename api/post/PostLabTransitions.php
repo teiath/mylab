@@ -161,6 +161,12 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
         
         
     $result["old_instance_State"] = $fFromState; 
+    
+    //user permisions 
+     $permissions = UserRoles::getUserPermissions($app->request->user);
+     if (!in_array($fLabId,$permissions['permit_labs'])) {
+         throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+     };
         
     try{
     $db->beginTransaction();

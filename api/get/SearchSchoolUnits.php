@@ -493,6 +493,26 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 //= E X E C U T E
 //======================================================================================================================
 
+       //set user permissions
+       $permissions = UserRoles::getUserPermissions($app->request->user, true);
+       
+       if (Validator::IsNull($permissions['permit_labs'])){
+           $permit_labs = null;
+       } else if ($permissions['permit_labs'] === 'ALLRESULTS') { 
+           $permit_labs = null;
+       } else {
+           $permit_labs = " AND labs.lab_id IN (" . $permissions['permit_labs'] . ")";
+       }
+       
+       if (Validator::IsNull($permissions['permit_school_units'])){
+           throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError); 
+       } else if ($permissions['permit_school_units'] === 'ALLRESULTS') { 
+           $permit_school_units = null;
+           $sqlPermissions = null;
+       } else {
+           $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
+            $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
+       }
 
         $sqlSelect = "SELECT 
                       DISTINCT  school_units.school_unit_id,
@@ -552,7 +572,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         $result["filters"] = $filter ? $filter : null;
         
         //#############find total school_units and total labs without filter of limits(page and pagesize)
-        $sql = "SELECT count(DISTINCT school_units.school_unit_id) as total_school_units, count(DISTINCT labs.lab_id) as all_labs " . $sqlFrom . $sqlWhere;
+        $sql = "SELECT count(DISTINCT school_units.school_unit_id) as total_school_units, count(DISTINCT labs.lab_id) as all_labs " . $sqlFrom . $sqlWhere . $sqlPermissions ;
         //echo "<br><br>".$sql."<br><br>";
 
         $stmt = $db->query( $sql );
@@ -564,7 +584,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         $maxPage = Pagination::checkMaxPage($rows["total_school_units"], $page, $pagesize);
         
         //#############find count school_units with filter of limits(page and pagesize)
-        $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlOrder . $sqlLimit ;
+        $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlPermissions . $sqlOrder . $sqlLimit ;
         //echo "<br><br>".$sql."<br><br>";
 
         $stmt = $db->query( $sql );
@@ -585,7 +605,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         }
                 
         //find lab types per school unit       
-        $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere);
+        $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions);
     
 
 //======================================================/**================================================================

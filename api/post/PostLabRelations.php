@@ -161,7 +161,14 @@ function PostLabRelations($lab_id, $school_unit, $relation_type, $circuit_id) {
                  $fCircuitId = Validator::ToNull($circuit_id);
        }
        
-       //==================================================================================          
+       //==================================================================================        
+       
+        //user permisions 
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+         };
+       
        try{
             
         $db->beginTransaction();    

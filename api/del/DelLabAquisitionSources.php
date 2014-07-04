@@ -26,7 +26,6 @@ function DelLabAquisitionSources($lab_aquisition_source_id) {
     $result["method"] = $app->request()->getMethod();
     $input=array("lab_aquisition_source_id"=>$lab_aquisition_source_id);
     $result["input"] = $input;
-
     
     try {
              
@@ -54,6 +53,13 @@ function DelLabAquisitionSources($lab_aquisition_source_id) {
         }
         else
             throw new Exception(ExceptionMessages::UnknownLabAquisitionSourceIdValue." : ".$lab_aquisition_source_id, ExceptionCodes::UnknownLabAquisitionSourceIdValue);                
+        
+        //user permisions
+         $fLabId = $arrayLabAquisitionSources[0]->getLabId();
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToDeleteLab ,ExceptionCodes::NoPermissionToDeleteLab); 
+         };
         
         try{      
         

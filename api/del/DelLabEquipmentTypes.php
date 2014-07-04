@@ -80,6 +80,12 @@ function DelLabEquipmentTypes($lab_id,$equipment_type) {
              throw new Exception(ExceptionMessages::InvalidEquipmentTypeValue." : ".$equipment_type, ExceptionCodes::InvalidEquipmentTypeValue);                            
          }     
         
+        //user permisions
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToDeleteLab ,ExceptionCodes::NoPermissionToDeleteLab); 
+         };
+         
         try{      
         
             $db->beginTransaction();  

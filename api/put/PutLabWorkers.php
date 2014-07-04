@@ -67,11 +67,18 @@ function PutLabWorkers($lab_worker_id,$worker_status) {
         } else {
              throw new Exception(ExceptionMessages::InvalidUpdateWorkerStatusValue." : ".$worker_status, ExceptionCodes::InvalidUpdateWorkerStatusValue);
         }
-              
+        
+        //user permisions
+         $fLabId = $arrayLabWorkers[0]->getLabId();
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabId,$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab ,ExceptionCodes::NoPermissionToPutLab); 
+         };
+        
         try{
             
         $db->beginTransaction();    
-        
+
         //insert to lab_workers table =========================================================
         if ($fLabWorkerId){
 
