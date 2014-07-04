@@ -74,7 +74,7 @@ $app->map('/search_school_units', Authentication, UserRolesPermission, SearchSch
 $app->map('/search_labs', Authentication, UserRolesPermission, SearchLabsController)->via(MethodTypes::GET);
 $app->map('/search_lab_workers', Authentication, UserRolesPermission, SearchLabWorkersController)->via(MethodTypes::GET);
 
-$app->map('/statistic_school_units', Authentication, UserRolesPermission, StatisticSchoolUnitsController)->via(MethodTypes::GET);
+$app->map('/statistic_school_units', StatisticSchoolUnitsController)->via(MethodTypes::GET);
 $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsController)->via(MethodTypes::GET);
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 
@@ -114,45 +114,47 @@ $app->run();
 function Authentication()
 {
     global $app;
-    global $casOptions;
-    
-    if(isset($casOptions["NoAuth"]) && $casOptions["NoAuth"] == true) { return true; }
+    global $ldapOptions;
+
     try
     {
-           
-            if ( (php_sapi_name() == 'cli' ) || (strpos($_SERVER["HTTP_USER_AGENT"], 'curl')!==false) ) {
-                throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied);  
-            } 
-        
-        if ( in_array( strtoupper($app->request()->getMethod()), array( MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE )) )
-        {
-            // initialize phpCAS using SAML
-            phpCAS::client(SAML_VERSION_1_1,$casOptions["Url"],$casOptions["Port"],'');
-            // no SSL validation for the CAS server, only for testing environments
-            phpCAS::setNoCasServerValidation();
-            // handle backend logout requests from CAS server
-            phpCAS::handleLogoutRequests(array($casOptions["Url"]));
-            // force CAS authentication
-            if (!phpCAS::checkAuthentication())
-                phpCAS::forceAuthentication();
-        }
-        else 
-        {
-                throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied);
+        if(isset($app->request->headers['Php-Auth-User']) && isset($app->request->headers['Php-Auth-Pw'])) {
+            $apcKey = 'mm_auth_'.md5($app->request->headers['Php-Auth-User'].$app->request->headers['Php-Auth-Pw']);
+            if(!($userObj = apc_fetch($apcKey))) {
+                $ldap = new \Zend\Ldap\Ldap($ldapOptions); 
+                $ldap->bind('uid='.$app->request->headers['Php-Auth-User'].',ou=people,dc=sch,dc=gr', $app->request->headers['Php-Auth-Pw']);
+                $result = $ldap->search('(&(objectClass=*)(uid='.$app->request->headers['Php-Auth-User'].'))', null, \Zend\Ldap\Ldap::SEARCH_SCOPE_ONE);
+            
+                if($result->count() == 1) {
+                    $userObj = $result->getFirst();
+                    apc_store($apcKey, $userObj, 3600); // Cache for 1 hour to prevent requests on every call
+                } else {
+                    throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied); // Multiple users with this username?? Fail
+                }
+            }
+            // userObj has all the user attributes now - We can check roles
+            if($app->request->get('user') != null) {
+                $app->request->user = json_decode($app->request->get('user'));
+            } else { 
+                $app->request->user = $userObj;
+            }
+        } else {
+            throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied); // Empty username/pass - Maybe guest access?
         }
     }
     catch (Exception $e)
     {
+        if($e instanceof \Zend\Ldap\Exception\LdapException) {
+            $result["message"] = "[".$app->request()->getMethod()."][".__FUNCTION__."]:Invalid credentials";
+        } else {
+            $result["message"] = "[".$app->request()->getMethod()."][".__FUNCTION__."]:".$e->getMessage();
+        }
         $result["status"] = $e->getCode();
-        $result["message"] = "[".$app->request()->getMethod()."][".__FUNCTION__."]:".$e->getMessage();
 
         PrepareResponse();
-        $app->response()->setBody( toGreek( json_encode( $result ) ) );  
+        $app->response()->setBody( toGreek( json_encode( $result ) ) );
         $app->stop();
     }
-    
-  
-  
 }
 
 #===== user roles controller ====================================================================
@@ -160,29 +162,23 @@ function Authentication()
 function UserRolesPermission(){
 
     global $app;  
-    global $casOptions; 
-    
-    if(isset($casOptions["NoAuth"]) && $casOptions["NoAuth"] == true) { return true; }
-        //todo check authentication
-        $user = phpCAS::getAttribute(uid); 
-        $user_role = phpCAS::getAttribute(title);  
-    
+
     $controller = substr($app->request()->getPathInfo(),1);
     $method = $app->request()->getMethod();
- 
+    
     try {
            
-        $check = UserRoles::checkUserRolePermissions($controller,$method,$user_role);
-
-        if ($check!==true){
+        $check = UserRoles::checkUserRolePermissions($controller,$method,$app->request->user);
+  
+        if ($check!=true){
                     throw new Exception(ExceptionMessages::Unauthorized, ExceptionCodes::Unauthorized);
         }
         
     }
     catch (Exception $e)
     {
-        $result["user"] = $user;
-        $result["user_role"] = $user_role;
+        $result["user"] =  $app->request->user['uid'];
+        //$result["user_role"] = $app->request->user;
         $result["status"] = $e->getCode();
         $result["message"] = "[".$method."][".$controller."]:".$e->getMessage();
 
@@ -220,7 +216,7 @@ function UrlParamstoArray($params)
 function loadParameters()
 {
     global $app;
-     
+
     if ($app->request->getBody())
     {
         if ( is_array( $app->request->getBody() ) )
@@ -450,8 +446,9 @@ function RegionEduAdminsController()
 function SchoolUnitsController()
 {
     global $app;
+  
     $params = loadParameters();
-    
+
     switch ( strtoupper( $app->request()->getMethod() ) )
     {
         case MethodTypes::GET : 

@@ -1,7 +1,187 @@
 <?php
 
 class Filters {
+   
+    /**
+     * Get infos about school_unit of conjunction between the unit_dns and the edu_admin_code params 
+     * also include default param state active school_unit
+     *
+     * Will return 
+     * Array
+     *       (
+     *         [0] => Array
+     *                     (
+     *                      [school_unit_id] => "value"
+     *                      [unit_dns] => "value"
+     *                      [edu_admin_code] => "value"
+     *                    )
+     *       )
+     *
+     * @param string $unit_dns the unit_dns of a school_unit
+     * @param string $edu_admin_code the edu_admin_code of a school_unit
+     * @param int $state_id the state of a school unit default is active school_unit
+     * @return array
+     */    
+    public static function getFullSchoolUnitDns($unit_dns, $edu_admin_code, $state_id){
+        global $db;
+        
+        $state_id = 1 ; //active school unit
+        $sql = "SELECT school_units.school_unit_id,school_units.unit_dns,edu_admins.edu_admin_code 
+                FROM school_units 
+                LEFT JOIN edu_admins ON school_units.edu_admin_id = edu_admins.edu_admin_id
+                WHERE school_units.unit_dns = '".$unit_dns."'
+                AND edu_admins.edu_admin_code = '".$edu_admin_code."'
+                AND school_units.state_id='".$state_id."'";
+
+        $stmt = $db->query( $sql );
+        $full_unit_dns = $stmt->fetchAll(PDO::FETCH_ASSOC);
+   
+        return $full_unit_dns;
+    }
     
+    /**
+     * Get all labs with the school_unit_id parameter
+     * 
+     * Will return
+     * Array
+     *      (
+     *       [0] => "value"
+     *       [1] => "value"
+     *      )
+     * 
+     * @param int $school_unit_id the school_unit
+     * @return array
+     */  
+    public static function getLabsfromSchoolUnit($school_unit_id){
+      global $db;
+      
+      $sql = "SELECT lab_id 
+              FROM labs 
+              WHERE school_unit_id='".$school_unit_id."'";
+      $stmt = $db->query( $sql );
+      $lab_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+     
+      return $lab_id;
+    }
+       
+    /**
+     * Get all labs with the worker registry_no parameter 
+     * and default parameters : worker_status is active and worker_position is lab responsible.
+     * 
+     * Will return
+     * Array
+     *      (
+     *       [0] => "value"
+     *       [1] => "value"
+     *      )
+     * 
+     * @param int $registry_no the worker registry_no
+     * @return array
+     */  
+     public static function getLabsfromRegistryNo($registry_no){
+        global $db;
+      
+        $sql = "SELECT lab_workers.lab_id
+                FROM lab_workers
+                LEFT JOIN workers ON workers.worker_id = lab_workers.worker_id 
+                WHERE  lab_workers.worker_position_id = 2
+                AND lab_workers.worker_status = 1
+                AND workers.registry_no='".$registry_no."'";
+        $stmt = $db->query( $sql );
+        $lab_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+        return $lab_id; 
+     }
+     
+    /**
+     * Get all school_units with the worker registry_no parameter 
+     * and default parameters : worker_status is active and worker_position is lab responsible.
+     * 
+     * Will return
+     * Array
+     *      (
+     *       [0] => "value"
+     *       [1] => "value"
+     *      )
+     * 
+     * @param int $registry_no the worker registry_no
+     * @return array
+     */  
+     public static function getSchoolUnitsfromRegistryNo($registry_no){
+        global $db;
+      
+        $sql = "SELECT DISTINCT school_units.school_unit_id 
+                FROM school_units
+                LEFT JOIN labs ON school_units.school_unit_id = labs.school_unit_id
+                LEFT JOIN lab_workers ON labs.lab_id = lab_workers.lab_id 
+                LEFT JOIN workers ON lab_workers.worker_id = workers.worker_id 
+                WHERE  lab_workers.worker_position_id = 2
+                AND lab_workers.worker_status = 1
+                AND workers.registry_no='".$registry_no."'";
+        $stmt = $db->query( $sql );
+        $lab_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+        return $lab_id; 
+     }
+     
+     
+     
+    /**
+     * Get all labs with the worker edu_admin_code parameter 
+     * 
+     * Will return
+     * Array
+     *      (
+     *       [0] => "value"
+     *       [1] => "value"
+     *      )
+     * 
+     * @param int $edu_admin_code the worker edu_admin_code
+     * @return array
+     */  
+     public static function getLabsfromEduAdminCode($edu_admin_code){
+        global $db;
+      
+        $sql = "SELECT labs.lab_id
+                FROM labs
+                LEFT JOIN school_units ON school_units.school_unit_id = labs.school_unit_id
+                LEFT JOIN edu_admins ON edu_admins.edu_admin_id = school_units.edu_admin_id
+                WHERE edu_admins.edu_admin_code='".$edu_admin_code."'";
+        $stmt = $db->query( $sql );
+        $lab_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+        return $lab_id; 
+     }
+     
+    /**
+     * Get all school_units with the worker edu_admin_code parameter 
+     * 
+     * Will return
+     * Array
+     *      (
+     *       [0] => "value"
+     *       [1] => "value"
+     *      )
+     * 
+     * @param int $edu_admin_code the worker edu_admin_code
+     * @return array
+     */  
+     public static function getSchoolUnitsfromEduAdminCode($edu_admin_code){
+        global $db;
+      
+        $sql = "SELECT school_units.school_unit_id
+                FROM school_units
+                LEFT JOIN edu_admins ON edu_admins.edu_admin_id = school_units.edu_admin_id
+                WHERE edu_admins.edu_admin_code='".$edu_admin_code."'";
+        $stmt = $db->query( $sql );
+        $school_unit_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+        return $school_unit_id; 
+     }
+     
+ //==============================================================================
+     
+     
     public static function AllLabTypes(){
          global $db;
         
@@ -19,7 +199,7 @@ class Filters {
     }
     
     
-     public static function AllLabsCounter($sqlFrom,$sqlWhere){
+     public static function AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions){
         global $db;
         
         $sql = "SELECT lab_type_id,name FROM lab_types";
@@ -40,6 +220,7 @@ class Filters {
        .' FROM ( SELECT DISTINCT labs.lab_id, labs.lab_type_id, labs.school_unit_id  '
        . $sqlFrom 
        . $sqlWhere
+       . $sqlPermissions
        .' ) AS tb1';
 
         $stmt = $db->query( $sql );
