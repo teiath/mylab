@@ -28,9 +28,8 @@ if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
     //var_dump($user['title']);//die();
 }
 
+$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
 
-$user['backendUsername'] = $frontendOptions['backendUsername'];
-$user['backendPassword'] = $frontendOptions['backendPassword'];
 
 ?>
 
@@ -45,7 +44,12 @@ $user['backendPassword'] = $frontendOptions['backendPassword'];
         <script>
                        
             $(document).ready(function() {
-            
+                $.ajaxSetup({
+                    beforeSend: function(req) {
+                        req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
+                    }
+                });
+
                 baseURL = "http://mmsch.teiath.gr/mylab/api/";
 
                 //BINDINGS
