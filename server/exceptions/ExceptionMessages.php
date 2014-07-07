@@ -21,7 +21,8 @@ class ExceptionMessages
     //general messages=========================================================================================================================== 
     
         const NoErrors = 'success';
-        const UserAccesDenied = 'Ο χρήστης δεν έχει πρόσβαση';
+        const UserAccesDenied = 'Πολλαπλα ονόματα χρήστη. Ο χρήστης δεν έχει πρόσβαση';
+        const UserAccesEmptyDenied = 'Ονομα χρήστη κενό. Ο χρήστης δεν έχει πρόσβαση';
         const UserNoPermissions = 'Ο χρήστης δεν έχει συγκεριμενα δικαιώματα πρόσβασης';
         const InvalidPageNumber = 'Η παράμετρος $page πρέπει να είναι μεγαλύτερη από 0';
         const InvalidMaxPageNumber = 'Η παράμετρος $page έιναι μεγαλύτερη από την μέγιστη τιμή της σελιδοποίησης. $maxPage = ';

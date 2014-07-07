@@ -22,6 +22,7 @@ class ExceptionCodes
     
         const NoErrors = 200;
         const UserAccesDenied = 500;
+        const UserAccesEmptyDenied = 500;
         const UserNoPermissions = 500;
         const InvalidPageNumber = 500;
         const InvalidMaxPageNumber = 500;

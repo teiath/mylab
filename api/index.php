@@ -2,7 +2,10 @@
 header("Content-Type: text/html; charset=utf-8");
 header('Content-Type: application/json');
 
+enableCORS();
+
 chdir("../server");
+
 require_once('system/includes.php');
 require_once('libs/Slim/Slim.php');
 
@@ -10,7 +13,6 @@ require_once('libs/Slim/Slim.php');
 
 $app = new \Slim\Slim();
 $app->config('debug', true);
-
 
 //school units
 $app->map('/edu_admins', Authentication, UserRolesPermission, EduAdminsController)
@@ -109,6 +111,24 @@ $app->notFound(function () use ($app)
 
 $app->run();
 
+function enableCORS() {
+    if (isset($_SERVER['HTTP_ORIGIN'])) {
+        header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Max-Age: 86400'); // cache for 1 day
+    }
+    // Access-Control headers are received during OPTIONS requests
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+            header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+
+        if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+            header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+
+    }
+}
+
 #===== authentication controller ====================================================================
 
 function Authentication()
@@ -116,6 +136,9 @@ function Authentication()
     global $app;
     global $ldapOptions;
 
+//var_dump($app->request->get('user'));die();    
+//var_dump($app->request->user = $userObj);die();
+//var_dump($app->request->headers['Php-Auth-User']);die();
     try
     {
         if(isset($app->request->headers['Php-Auth-User']) && isset($app->request->headers['Php-Auth-Pw'])) {
@@ -132,14 +155,16 @@ function Authentication()
                     throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied); // Multiple users with this username?? Fail
                 }
             }
+            
             // userObj has all the user attributes now - We can check roles
-            if($app->request->get('user') != null) {
-                $app->request->user = json_decode($app->request->get('user'));
+            if($app->request->get('user') != null) {           
+                $app->request->user = array_map("convertCasTOLdap", $app->request->get('user'));
             } else { 
                 $app->request->user = $userObj;
             }
+            
         } else {
-            throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied); // Empty username/pass - Maybe guest access?
+            throw new Exception(ExceptionMessages::UserAccesEmptyDenied, ExceptionCodes::UserAccesEmptyDenied); // Empty username/pass - Maybe guest access?
         }
     }
     catch (Exception $e)
@@ -165,7 +190,7 @@ function UserRolesPermission(){
 
     $controller = substr($app->request()->getPathInfo(),1);
     $method = $app->request()->getMethod();
-    
+ 
     try {
            
         $check = UserRoles::checkUserRolePermissions($controller,$method,$app->request->user);
@@ -249,6 +274,13 @@ function toGreek($value)
     return preg_replace_callback('/\\\\u([0-9a-f]{4})/i', 'replace_unicode_escape_sequence', $value ? $value : array());
 }
 
+//used to convert cas results to ldap results format
+function convertCasTOLdap($casResults) {
+
+   $ldapResults = is_array($casResults) ? $casResults : array($casResults);
+
+    return $ldapResults;
+}
 
 #======= school units controllers ==========================================================
 #===========================================================================================
