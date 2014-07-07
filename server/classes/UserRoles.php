@@ -297,7 +297,7 @@ public static function getRole($user) {
 
  public static function getUserPermissions($user, $getSchoolUnits) {
  
-   echo $user_role = UserRoles::getRole($user);
+   $user_role = UserRoles::getRole($user);
    
      switch ($user_role){
         case 'ΔΙΕΥΘΥΝΤΗΣ' :
