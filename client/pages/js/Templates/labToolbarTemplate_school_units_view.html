@@ -3,7 +3,7 @@
     
     <button class="school_unit_refresh_btn k-button" data-bind="click: refresh, events: { mouseover: refreshTooltip }" style="float:right;"><span class="k-icon k-i-refresh"></span></button>
     
-    #if(jQuery.inArray( user.title , search_xls ) !== -1){ #
+    #if(jQuery.inArray( authorized_user , search_xls ) !== -1){ #
         <button class="export_to_xlsx k-button" data-bind="click: exportToXLSX, events: { mouseover: xlsTooltip }" style="float:right; "><i class="fa fa-file-excel-o"></i></button>
     #}#
     

@@ -30,6 +30,13 @@
 
 
 <script>
+    
+    var search_xls = ["ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", "ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", "ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ"];
+    var edit_lab_details = ["ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ"];
+    var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ"];
+    var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ"];
+    var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ"];
+    
     var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
     console.log("user: ", user);
     var value_ranks=[], authorized_user;
@@ -74,18 +81,10 @@
         if (value.ranking < maxRanking) {
             maxRanking = value.ranking;
             maxRole = value.role;
-        }        
+        }      
     });
     
     authorized_user = maxRole;
     console.log("authorized_user: ", authorized_user);
-    
-    
-    var g_casUrl = "<?php echo $casOptions['Url'] ?>";
-    //console.log("user.title: ", user.title);
-    // Build logout link
-    $("#lnkLogout").attr("href", "http://" + g_casUrl + "/logout");
-    $("#lnkLogout").html("<strong>" + user.uid + " [Logout]" + "</strong>");
-    
-    
+
 </script>

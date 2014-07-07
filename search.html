@@ -233,7 +233,7 @@
                             <div class="col-md-4">
                                 
                                 <div class="col-md-11">
-                                    <label for="region_edu_admin">Περιφερειακή Διεύθυνση Εκπαίδευσης</label>
+                                    <label for="region_edu_admin" data-bind="visible: regionEduAdminVisible">Περιφερειακή Διεύθυνση Εκπαίδευσης</label>
                                 </div>                                
                                 <div class="col-md-11">
                                     <select id="sl_region_edu_admin" 
@@ -243,7 +243,7 @@
                                             data-value-primitive="true"
                                             data-text-field="name"
                                             data-value-field="region_edu_admin_id"
-                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterChanged }"
+                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterChanged }, visible: regionEduAdminVisible"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">                    
@@ -251,7 +251,7 @@
                                 </div>
                                 
                                 <div class="col-md-11">
-                                    <label for="edu_admin">Διεύθυνση Εκπαίδευσης</label>
+                                    <label for="edu_admin"  data-bind="visible: eduAdminVisible">Διεύθυνση Εκπαίδευσης</label>
                                 </div>                                
                                 <div class="col-md-11">
                                     <select id="sl_edu_admin" 
@@ -260,7 +260,7 @@
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="edu_admin_id"
-                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterChanged }"
+                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterChanged }, visible: eduAdminVisible"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">

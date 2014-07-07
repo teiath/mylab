@@ -38,6 +38,8 @@ var SearchVM = kendo.observable({
     transfer_area: "",          //πολλαπλό
     municipality: "",           //πολλαπλό
     
+    eduAdminVisible: false,
+    regionEduAdminVisible : false,
     
     resetForm: function(e) {
 
@@ -182,5 +184,20 @@ var SearchVM = kendo.observable({
         });
         tooltip.show($(".export_to_xlsx"));
     }
+    /*filterChangedRegionEduAdmin: function(e){
+
+        //clear the option-values of all dependant multiselect widgets
+        this.edu_admin = "";//$("#eduAdmins").data("kendoMultiSelect").value("");
+        this.transfer_area = "";//$("#transferAreas").data("kendoMultiSelect").value("");
+        this.municipality = "";//$("#municipalities").data("kendoMultiSelect").value("");
+
+        console.log(this.region_edu_admin);
+        if(this.region_edu_admin.length > 0){
+            var selected_region_edu_admins = this.region_edu_admin.toString(); 
+            this.edu_admins_ds = newEduAdminsDS(selected_region_edu_admins);
+            
+        }
+
+    }*/
     
 });
