@@ -190,7 +190,7 @@ function UserRolesPermission(){
 
     $controller = substr($app->request()->getPathInfo(),1);
     $method = $app->request()->getMethod();
- 
+
     try {
            
         $check = UserRoles::checkUserRolePermissions($controller,$method,$app->request->user);
