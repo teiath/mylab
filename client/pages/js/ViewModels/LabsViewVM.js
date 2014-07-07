@@ -1053,7 +1053,7 @@ var LabsViewVM = kendo.observable({
                     close: {effects: "fade:out",  duration: 500},
                     open: {effects: "fade:in",  duration: 500}
                 }
-            });
+            }).data("kendoTooltip");
             tooltip.show($(".lab_refresh_btn"));
         }else{
             var tooltip = $(".school_unit_labs_refresh_btn").kendoTooltip({
@@ -1066,7 +1066,7 @@ var LabsViewVM = kendo.observable({
                     close: {effects: "fade:out",  duration: 500},
                     open: {effects: "fade:in",  duration: 500}
                 }
-            });
+            }).data("kendoTooltip");
             tooltip.show($(".school_unit_labs_refresh_btn"));
         }
     },
@@ -1082,7 +1082,7 @@ var LabsViewVM = kendo.observable({
                     close: {effects: "fade:out",  duration: 500},
                     open: {effects: "fade:in",  duration: 500}
                 }
-            });
+            }).data("kendoTooltip");
             tooltip.show($(".lab_grid_columns_btn"));
         }else{
             var tooltip = $(".school_unit_labs_grid_columns_btn").kendoTooltip({
@@ -1095,7 +1095,7 @@ var LabsViewVM = kendo.observable({
                     close: {effects: "fade:out",  duration: 500},
                     open: {effects: "fade:in",  duration: 500}
                 }
-            });
+            }).data("kendoTooltip");
             tooltip.show($(".school_unit_labs_grid_columns_btn"));
             
         }

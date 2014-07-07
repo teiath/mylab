@@ -136,7 +136,8 @@ var SearchVM = kendo.observable({
                 close: {effects: "fade:out",  duration: 1000},
                 open: {effects: "fade:in",  duration: 1000}
             }
-        });
+        }).data("kendoTooltip");
+
         tooltip.show($("#sl_lab_id"));
     },
     schoolUnitIDInfoTooltip: function(e){
@@ -151,12 +152,12 @@ var SearchVM = kendo.observable({
                 close: {effects: "fade:out",  duration: 1000},
                 open: {effects: "fade:in",  duration: 1000}
             }
-        });
+        }).data("kendoTooltip");
         tooltip.show($("#sl_school_unit_id"));
     },
     labWorkerInfoTooltip: function(e){
         console.log("focused!");
-        var tooltip = $("#sl_lab_id").kendoTooltip({
+        var tooltip = $("#sl_lab_worker").kendoTooltip({
             autoHide: true,
             content:"για να φιλτράρετε από τη λίστα εισάγετε minimum 3 χαρακτήρες",
             width:185,
@@ -166,8 +167,8 @@ var SearchVM = kendo.observable({
                 close: {effects: "fade:out",  duration: 1000},
                 open: {effects: "fade:in",  duration: 1000}
             }
-        });
-        tooltip.show($("#sl_lab_id"));
+        }).data("kendoTooltip");
+        tooltip.show($("#sl_lab_worker"));
     },
     xlsTooltip: function(e){
 
@@ -181,7 +182,7 @@ var SearchVM = kendo.observable({
                 close: {effects: "fade:out",  duration: 500},
                 open: {effects: "fade:in",  duration: 500}
             }
-        });
+        }).data("kendoTooltip");
         tooltip.show($(".export_to_xlsx"));
     }
     /*filterChangedRegionEduAdmin: function(e){

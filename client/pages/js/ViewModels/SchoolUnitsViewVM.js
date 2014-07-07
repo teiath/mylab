@@ -301,7 +301,7 @@ var SchoolUnitsViewVM = kendo.observable({
                 close: {effects: "fade:out",  duration: 500},
                 open: {effects: "fade:in",  duration: 500}
             }
-        });
+        }).data("kendoTooltip");
         tooltip.show($(".school_unit_refresh_btn"));
     },
     columnsTooltip: function(e){
@@ -316,7 +316,7 @@ var SchoolUnitsViewVM = kendo.observable({
                 close: {effects: "fade:out",  duration: 500},
                 open: {effects: "fade:in",  duration: 500}
             }
-        });
+        }).data("kendoTooltip");
         tooltip.show($(".school_unit_grid_columns_btn"));
     }
     //xlsTooltip inside SearchVM
