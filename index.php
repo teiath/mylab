@@ -50,7 +50,7 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsern
                     }
                 });
 
-                baseURL = "http://mmsch.teiath.gr/mylab/api/";
+                baseURL = config.serverUrl;//"http://mmsch.teiath.gr/mylab/api/";
 
                 //BINDINGS
                 kendo.bind($("#labs_container"), LabsViewVM);
