@@ -55,7 +55,7 @@ var LabsViewVM = kendo.observable({
                     // for  multiple partial string search in school_unit_name, school_unit_special_name, lab_name, lab_special_name inputs
                     data['searchtype'] = "containall";
                     //user authorization
-                    data['user'] = user;
+                    //data['user'] = user;
                     
                     return data;
                     
@@ -323,7 +323,7 @@ var LabsViewVM = kendo.observable({
                         if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1){
                             return [{ name: "create", text: "Προσθήκη Εξοπλισμού" }];
                         }
-                    },
+                    }(),
             columns: [
                 { field: "equipment_type", 
                   title: "εξοπλισμός",
@@ -359,9 +359,9 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '30%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? true : false;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? false : true;
                       return hide;
-                  }
+                  }()
                 }
             ],
             edit: function(e){
@@ -382,7 +382,7 @@ var LabsViewVM = kendo.observable({
                         if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1){
                             return [{ name: "create", text: "Προσθήκη Πηγής Χρηματοδότησης" }];
                         }
-                    },
+                    }(),
             columns: [
                 { field: "aquisition_source", 
                   title: "πηγή χρηματοδότησης",
@@ -426,9 +426,9 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '30%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? true : false;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? false : true;
                       return hide;
-                  }
+                  }()
                 }
             ],
             edit: function(e){
@@ -449,7 +449,7 @@ var LabsViewVM = kendo.observable({
                         if(jQuery.inArray( authorized_user , edit_lab_worker ) !== -1){
                             return [{ name: "create", text: "Προσθήκη Υπεύθυνου Εργαστηρίου" }];
                         }
-                    },
+                    }(),
             columns: [
                 { field: "fullname", 
                   title: "ονοματεπώνυμο",
@@ -564,9 +564,9 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '30%',
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1) ? true : false;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1) ? false : true;
                       return hide;
-                  }
+                  }()
                 }
             ],
             edit: function(e){
@@ -622,7 +622,7 @@ var LabsViewVM = kendo.observable({
                         if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1){
                             return [{ name: "create", text: "Προσθήκη νέας συσχέτισης" }];
                         }
-                    },
+                    }(),
             columns: [
                 { field: "relation_type_name",
                   title: "συσχέτιση",
@@ -725,9 +725,9 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '20%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? true : false;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? false : true;
                       return hide;
-                  }
+                  }()
                 }
             ]           
         }).data("kendoGrid");
@@ -1102,7 +1102,7 @@ var LabsViewVM = kendo.observable({
     },
     
     hideLabTransitColumn: function(e){
-        var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? true : false;
+        var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
         return hide;
     }
 

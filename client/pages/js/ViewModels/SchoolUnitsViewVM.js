@@ -41,7 +41,7 @@ var SchoolUnitsViewVM = kendo.observable({
                     // for  multiple partial string search in school_unit_name, school_unit_special_name, lab_name, lab_special_name inputs
                     data['searchtype'] = "containall";
                     //user authorization
-                    data['user'] = user;
+                    //data['user'] = user;
                     
                     SchoolUnitsViewVM.set("school_unit_parameters",  data);
                     
@@ -184,7 +184,7 @@ var SchoolUnitsViewVM = kendo.observable({
                       { field: 'lab_source', title:'Πηγή', width:'130px', hidden : true},   
                       { command: [{text:'Ενεργοποίηση', click:LabsViewVM.transitLab, name:'activate'}, 
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend'},
-                                  {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn}],
+                                  {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn()}],
             edit: function(event){
                 console.log("nested labs grid edit event: ", event);
                 kendo.bind(event.container, LabsViewVM);

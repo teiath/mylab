@@ -45,7 +45,9 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsern
                        
             $(document).ready(function() {
                 $.ajaxSetup({
+                    data: { user: user },
                     beforeSend: function(req) {
+//                    console.log("beforeSend: req = ", req);
                         req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
                     }
                 });
@@ -142,9 +144,7 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsern
             //console.log("g_casUrl: ", g_casUrl);
             // Build logout link
             
-            console.log("config.url: ", config.url + "?logout=true");
-            
-            $("#lnkLogout").attr("href", "http://" + config.url + "?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
+            $("#lnkLogout").attr("href", config.url + "?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
             //$("#lnkLogout").attr("href", "http://" + g_casUrl + "/logout ");
             $("#lnkLogout").html("<strong>" + user.uid + " [Logout]" + "</strong>");
 
