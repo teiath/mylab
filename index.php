@@ -28,8 +28,8 @@ if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
     //var_dump($user['title']);//die();
 }
 
-$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
-
+//$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
+$user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
 
 ?>
 
