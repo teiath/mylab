@@ -135,10 +135,8 @@ function Authentication()
 {
     global $app;
     global $ldapOptions;
+    global $frontendOptions;
 
-//var_dump($app->request->get('user'));die();    
-//var_dump($app->request->user = $userObj);die();
-//var_dump($app->request->headers['Php-Auth-User']);die();
     try
     {
         if(isset($app->request->headers['Php-Auth-User']) && isset($app->request->headers['Php-Auth-Pw'])) {
@@ -155,11 +153,13 @@ function Authentication()
                     throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied); // Multiple users with this username?? Fail
                 }
             }
-            
+
             // userObj has all the user attributes now - We can check roles
             if($app->request->get('user') != null) {           
                 $app->request->user = array_map("convertCasTOLdap", $app->request->get('user'));
-            } else { 
+            } else if (($app->request->get('user') == null) && ($userObj['uid'][0] == $frontendOptions['frontendUsername'])){
+                throw new Exception(ExceptionMessages::UserAccesFrontDenied, ExceptionCodes::UserAccesFrontDenied); 
+            }else { 
                 $app->request->user = $userObj;
             }
             
