@@ -1,6 +1,7 @@
 var LabsViewVM = kendo.observable({
 
     isVisible: true,
+    labWorkersLogsVisible: false,
 
     labs:  new kendo.data.DataSource({
         transport: {
@@ -445,11 +446,12 @@ var LabsViewVM = kendo.observable({
             scrollable: false,
             selectable: false,
             editable: "inline",
-            toolbar: function(){
-                        if(jQuery.inArray( authorized_user , edit_lab_worker ) !== -1){
-                            return [{ name: "create", text: "Προσθήκη Υπεύθυνου Εργαστηρίου" }];
-                        }
-                    }(),
+//            toolbar: function(){
+//                        if(jQuery.inArray( authorized_user , edit_lab_worker ) !== -1){
+//                            return [{ name: "create", text: "Προσθήκη Υπεύθυνου Εργαστηρίου" }];
+//                        }
+//                    }(),
+            toolbar: [{ template: kendo.template($("#lab_details_lab_workers_toolbar_template").html()) }],
             columns: [
                 { field: "fullname", 
                   title: "ονοματεπώνυμο",
@@ -583,6 +585,7 @@ var LabsViewVM = kendo.observable({
             dataSource: newLabWorkersDS(e.data.lab_id, e.detailRow, 3),
             scrollable: false,
             selectable: false,
+            visible: false,
             columns: [
                 { template: "#= lastname + ' ' + firstname #",
                   title: "ονοματεπώνυμο", 
@@ -868,7 +871,9 @@ var LabsViewVM = kendo.observable({
             editTemplate: kendo.template($("#edit_rating_template").html())
         }).data("kendoListView");
         
-        
+        e.detailRow.find("#show_lab_worker_logs_btn").kendoButton({
+            click: LabsViewVM.toggleLabWorkersLogs
+        }).data("kendoButton");
         
         // edit_lab_details & edit_lab_workers authorization
         if(jQuery.inArray( authorized_user , edit_lab_details ) === -1){
@@ -880,7 +885,7 @@ var LabsViewVM = kendo.observable({
         if(jQuery.inArray( authorized_user , edit_lab_worker ) === -1){
             e.detailRow.find("#lab_workers_details>.k-grid-toolbar").hide();
         }
-        
+         
     },
     dataBoundLab: function(e){
         console.log("dataBoundLab e: ", e );
@@ -1104,6 +1109,10 @@ var LabsViewVM = kendo.observable({
     hideLabTransitColumn: function(e){
         var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
         return hide;
-    }
+    },
 
+    toggleLabWorkersLogs: function(e){
+        LabsViewVM.set("labWorkersLogsVisible", !LabsViewVM.get("labWorkersLogsVisible"));
+        (LabsViewVM.get("labWorkersLogsVisible")) ? $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-s"></span>') : $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-e"></span>');
+    }
 });

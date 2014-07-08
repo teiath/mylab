@@ -17,6 +17,8 @@
         require_once('client/pages/js/Templates/labTransitTemplate.html');
         require_once('client/pages/js/Templates/errorNotificationTemplate.html');
         require_once('client/pages/js/Templates/successNotificationTemplate.html');
+        require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
+        
     ?>
 
     <!--transition dialog-->
