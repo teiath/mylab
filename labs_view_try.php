@@ -18,11 +18,15 @@
         require_once('client/pages/js/Templates/errorNotificationTemplate.html');
         require_once('client/pages/js/Templates/successNotificationTemplate.html');
         require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
+        require_once('client/pages/js/Templates/disableLabWorkerTemplate.html');
         
     ?>
 
     <!--transition dialog-->
     <div id="transition_dialog"></div>
+    
+    <!--disable lab worker dialog-->
+    <div id="disable_lab_worker_dialog"></div>
     
     <!--column selection dialog-->
     <div id="labs_column_selection_dialog"></div>

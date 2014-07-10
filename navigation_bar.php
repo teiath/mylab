@@ -32,15 +32,15 @@
 <script>
     
     var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ"];
-    console.log("search_xls: ", search_xls);
+    //console.log("search_xls: ", search_xls);
     var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ"];
-    console.log("edit_lab_details: ", edit_lab_details);
+    //console.log("edit_lab_details: ", edit_lab_details);
     var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ"];
-    console.log("edit_lab_worker: ", edit_lab_worker);
+    //console.log("edit_lab_worker: ", edit_lab_worker);
     var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
-    console.log("transit_lab: ", transit_lab);
+    //console.log("transit_lab: ", transit_lab);
     var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
-    console.log("create_lab: ", create_lab);
+    //console.log("create_lab: ", create_lab);
     
     var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
     //console.log("user: ", user);

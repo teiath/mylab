@@ -460,7 +460,6 @@ var LabsViewVM = kendo.observable({
                   title: "ονοματεπώνυμο",
                   template: "#= lastname + ' ' + firstname #",
                   editor: function (container, options){
-                        console.log("options.field", options.field);
                         //options.field = fullname
                         $('<input name="' + options.field + '" data-bind="value:' + options.field + '" data-text-field="fullname" data-value-field="worker_id" required data-required-msg="Ξέχασες τον υπεύθυνο!" />')
                         .appendTo(container)
@@ -473,6 +472,10 @@ var LabsViewVM = kendo.observable({
                             minLength: 3,
                             change: function(e){
                                 console.log("worker_id column editor on change e:", e);
+                                //var dataItem =  lab_workers_details.dataSource.at(0);
+                                //dataItem.specialization_code = "pe70";
+                                //dataItem.registry_no = "123146";
+                                        
                             }
                         });
                         
@@ -521,48 +524,71 @@ var LabsViewVM = kendo.observable({
                                 click: function(e) {
                                     
                                     e.preventDefault();
-                                    
+
                                     var tr = $(e.target).closest("tr");
                                     var data = this.dataItem(tr);
-                                    console.log("data: ", data);
                                     
                                     var parameters = {
                                       lab_worker_id: data.lab_worker_id,
                                       worker_status: 3
                                     };
                                     
-                                    
-                                    //transitAjaxRequest('PUT', 'lab_workers', parameters);
-                                    
-                                    $.ajax({
-                                            type: 'PUT',
-                                            url: baseURL + 'lab_workers',
-                                            dataType: "json",
-                                            data: JSON.stringify(parameters),
-                                            success: function(data){
+                                    var disable_lab_worker_dialog = $("#disable_lab_worker_dialog").kendoWindow({
+                                                modal: true,
+                                                visible: false,
+                                                resizable: false,
+                                                width: 400,
+                                                pinned:true,
+                                                title:"Απενεργοποίηση Υπεύθυνου Εργαστηρίου",
+                                                open: function(){
 
-                                                if(data.status == 200){
-                                                    notification.show({
-                                                        title: "Η απενεργοποίηση πραγματοποιήθηκε",
-                                                        message: data.message
-                                                    }, "success");                                            
+                                                    $(".k-grid-cancel-disabling").on("click", function(e){
+                                                        e.preventDefault(); //?
+                                                        disable_lab_worker_dialog.close();
+                                                    });
 
-                                                    //detailRow.find("#lab_workers_details").data("kendoGrid").dataSource.read();
-                                                    lab_workers_details.dataSource.read();
-                                                    lab_workers_logs.dataSource.read();
+                                                    $(".k-grid-disable").on("click", function(e){
+                                                        e.preventDefault(); //?
 
-                                                }else if(data.status == 500){
+                                                        $.ajax({
+                                                                type: 'PUT',
+                                                                url: baseURL + 'lab_workers',
+                                                                dataType: "json",
+                                                                data: JSON.stringify(parameters),
+                                                                success: function(data){
 
-                                                    notification.show({
-                                                        title: "Η απενεργοποίηση απέτυχε",
-                                                        message: data.message
-                                                    }, "error");
+                                                                    if(data.status == 200){
+                                                                        notification.show({
+                                                                            title: "Η απενεργοποίηση πραγματοποιήθηκε",
+                                                                            message: data.message
+                                                                        }, "success");                                            
 
+                                                                        //detailRow.find("#lab_workers_details").data("kendoGrid").dataSource.read();
+                                                                        lab_workers_details.dataSource.read();
+                                                                        lab_workers_logs.dataSource.read();
+
+                                                                    }else if(data.status == 500){
+
+                                                                        notification.show({
+                                                                            title: "Η απενεργοποίηση απέτυχε",
+                                                                            message: data.message
+                                                                        }, "error");
+
+                                                                    }
+
+                                                                },
+                                                                error: function (data){ console.log("PUT lab_workers error data: ", data);}
+                                                        });
+                                                        disable_lab_worker_dialog.close();
+
+                                                    });
                                                 }
+                                    }).data("kendoWindow");
 
-                                            },
-                                            error: function (data){ console.log("PUT lab_workers error data: ", data);}
-                                    });
+                                    var disableTemplate = kendo.template($("#disable_lab_worker_template").html());
+                                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                                    disable_lab_worker_dialog.content(disableTemplate(dataItem));
+                                    disable_lab_worker_dialog.center().open();                                    
                                 }
                              }
                            ],
@@ -576,7 +602,7 @@ var LabsViewVM = kendo.observable({
             ],
             edit: function(e){
                 //if (!e.model.isNew()) {
-                    //on update, make aquisition_source not editable
+                    //on update, make lab_worker not editable
                     e.container.find("td:eq(1)").text(e.model.registry_no);
                     e.container.find("td:eq(2)").text(e.model.specialization_code);
                     e.container.find("td:eq(4)").text("ΕΝΕΡΓΟΣ");
