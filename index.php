@@ -115,7 +115,7 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUser
                 //index holds thr grid's row index in school units view, in order to expand it after lab creation
                 index= null;
                 searchParameters = [];
-                
+                                               
             });
             
         </script>

@@ -87,8 +87,14 @@ var SchoolUnitsViewVM = kendo.observable({
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("school units datasource requestEnd e:", e);
-//            if (e.type=="read"){
-//                
+            if (e.type=="read" && e.response.status == 0){
+                
+
+                notification.show({
+                    title: "Η λήψη δεδομένων δεν ειναι εφικτή",
+                    message: e.response.message
+                }, "error");
+                
 //                console.log("ΣΕΠΕΗΥ:", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
 //                console.log("ΕΤΠ:", e.response.all_labs_by_type["ΕΤΠ"]);
 //                console.log("ΤΡΟΧΗΛΑΤΟ:", e.response.all_labs_by_type["ΤΡΟΧΗΛΑΤΟ"]);
@@ -101,7 +107,7 @@ var SchoolUnitsViewVM = kendo.observable({
 //                LabsViewVM.set("gwnies_count", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
 //                LabsViewVM.set("diadrastika_sistimata_count", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
 //                
-//            }
+            }
         },
         change: function(e) {
     

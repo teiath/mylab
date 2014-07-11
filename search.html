@@ -1,3 +1,25 @@
+<script>
+    $(document).ready(function() {
+        $('body').find("#sl_lab_worker").prev().focusin(function() {
+
+            var tooltip = $('body').find("#sl_lab_worker").prev().kendoTooltip({
+                autoHide: true,
+                content:"για να φιλτράρετε από τη λίστα εισάγετε minimum 3 χαρακτήρες",
+                width:185,
+                height:35,
+                position: "left",
+                animation: {
+                    close: {effects: "fade:out",  duration: 1000},
+                    open: {effects: "fade:in",  duration: 1000}
+                }
+            }).data("kendoTooltip");
+
+            tooltip.show($('body').find("#sl_lab_worker").prev());
+
+        });
+    });
+</script>
+
 <!DOCTYPE html>
 <div id="search-container" class="container">
     <div class="row">
@@ -92,7 +114,7 @@
                                             data-text-field="fullname"
                                             data-value-field="registry_no"
                                             data-min-length="3"
-                                            data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterChanged, focus: labWorkerInfoTooltip}"
+                                            data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterChanged}"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
