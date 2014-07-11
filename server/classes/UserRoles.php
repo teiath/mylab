@@ -184,9 +184,9 @@ private static $Permissions = array(
     'statistic_lab_workers' => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
-     'report_keplhnet'      => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
-                                        )
+    'report_keplhnet'      => array(
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+                                       )
     
     );
 
@@ -195,10 +195,13 @@ private static $Permissions = array(
 
     if (array_key_exists($controller, UserRoles::$Permissions)) {
         
-         if (in_array( UserRoles::getRole($user) , UserRoles::$Permissions[$controller][$method] ) ) {
+        $role = UserRoles::getRole($user) ;
+        if ( $role == 'noAccess' ){
+             throw new Exception(ExceptionMessages::UserNoRoleAccess, ExceptionCodes::UserNoRoleAccess);
+        }else if (in_array( $role , UserRoles::$Permissions[$controller][$method] ) ) {
              return true;
          } else {
-             throw new Exception(ExceptionMessages::UserNoPermissions, ExceptionCodes::UserNoPermissions);
+             throw new Exception(ExceptionMessages::UserNoRolePermissions, ExceptionCodes::UserNoRolePermissions);
          }
          
     }
