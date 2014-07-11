@@ -76,11 +76,11 @@ $app->map('/search_school_units', Authentication, UserRolesPermission, SearchSch
 $app->map('/search_labs', Authentication, UserRolesPermission, SearchLabsController)->via(MethodTypes::GET);
 $app->map('/search_lab_workers', Authentication, UserRolesPermission, SearchLabWorkersController)->via(MethodTypes::GET);
 
-$app->map('/statistic_school_units', StatisticSchoolUnitsController)->via(MethodTypes::GET);
+$app->map('/statistic_school_units', Authentication, UserRolesPermission, StatisticSchoolUnitsController)->via(MethodTypes::GET);
 $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsController)->via(MethodTypes::GET);
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 
-$app->map('/report_keplhnet', ReportKeplhnetController)->via(MethodTypes::GET);
+$app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
 
 $app->get('/docs/*', function () use ($app) {
     $app->redirect("http://mmsch.teiath.gr/mylab/docs/");
@@ -1686,7 +1686,7 @@ function ReportKeplhnetController()
     {
         case MethodTypes::GET : 
             $result = ReportKeplhnet(
-                $params->keplhnet
+                $params->edu_admin
             );      
             break;
     }
