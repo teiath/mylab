@@ -67,7 +67,11 @@ function newLabWorkersDS(labID, detailRow, status){
         },
         sort: { field: "worker_start_service", dir: "desc" },
         change: function(e){
-            console.log("newLabEquipmentTypesDS CHANGE event", e);
+            console.log("newLabWorkersDS CHANGE event", e);
+//            if(e.field = "fullname" && e.action == "itemchange"){
+//                e.items[0].registry_no = 123456;
+//                e.items[0].specialization_code = 'ΠΕ40';
+//            }
         },
         requestEnd: function(e){
             /*εδώ θα μπουν και τα μηνύματα επιτυχίας/αποτυχίας */
@@ -85,7 +89,7 @@ function newLabWorkersDS(labID, detailRow, status){
                 }else{
                     
                     notification.show({
-                        title: "Η ενημέρωση τεη Διάταξης Η/Υ απέτυχε",
+                        title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
                         message: e.response.message
                     }, "error");
                     

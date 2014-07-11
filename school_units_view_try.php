@@ -48,7 +48,7 @@
                         data-scrollable= "true"
                         data-resizable= "true"
                         data-sortable= "{'allowUnsort': false}"
-                        data-pageable="{ 'pageSizes': [15, 20, 25, 30, 50], 
+                        data-pageable="{ 'pageSizes': [5, 10, 15, 20, 25, 30, 50], 
                                          'messages':  { 'display': '{0}-{1} από {2} Σχολικές Μονάδες', 
                                                         'empty': 'Δεν βρέθηκαν Σχολικές Μονάδες',
                                                         'itemsPerPage': 'Σχολικές Μονάδες ανά σελίδα', 

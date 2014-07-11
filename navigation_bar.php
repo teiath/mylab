@@ -31,14 +31,19 @@
 
 <script>
     
-    var search_xls = ["ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", "ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", "ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ"];
-    var edit_lab_details = ["ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ"];
-    var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ"];
-    var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ"];
-    var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ"];
+    var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ"];
+    //console.log("search_xls: ", search_xls);
+    var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ"];
+    //console.log("edit_lab_details: ", edit_lab_details);
+    var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ"];
+    //console.log("edit_lab_worker: ", edit_lab_worker);
+    var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
+    //console.log("transit_lab: ", transit_lab);
+    var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
+    //console.log("create_lab: ", create_lab);
     
     var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
-    console.log("user: ", user);
+    //console.log("user: ", user);
     var value_ranks=[], authorized_user;
 
     $.each(user.title, function(index, value){
@@ -72,7 +77,7 @@
         }
     });
     
-    console.log("value_ranks: ", value_ranks);
+    //console.log("value_ranks: ", value_ranks);
     
     var maxRanking = 50;
     var maxRole = "noAccess";

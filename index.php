@@ -28,8 +28,8 @@ if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
     //var_dump($user['title']);//die();
 }
 
+//$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
 $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
-
 
 ?>
 
@@ -45,7 +45,9 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUser
                        
             $(document).ready(function() {
                 $.ajaxSetup({
+                    data: { user: user },
                     beforeSend: function(req) {
+//                    console.log("beforeSend: req = ", req);
                         req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
                     }
                 });
@@ -113,7 +115,7 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUser
                 //index holds thr grid's row index in school units view, in order to expand it after lab creation
                 index= null;
                 searchParameters = [];
-                
+                                               
             });
             
         </script>
@@ -142,9 +144,7 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUser
             //console.log("g_casUrl: ", g_casUrl);
             // Build logout link
             
-            console.log("config.url: ", config.url + "?logout=true");
-            
-            $("#lnkLogout").attr("href", "http://" + config.url + "?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
+            $("#lnkLogout").attr("href", config.url + "?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
             //$("#lnkLogout").attr("href", "http://" + g_casUrl + "/logout ");
             $("#lnkLogout").html("<strong>" + user.uid + " [Logout]" + "</strong>");
 

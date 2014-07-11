@@ -41,7 +41,7 @@ var SchoolUnitsViewVM = kendo.observable({
                     // for  multiple partial string search in school_unit_name, school_unit_special_name, lab_name, lab_special_name inputs
                     data['searchtype'] = "containall";
                     //user authorization
-                    data['user'] = user;
+                    //data['user'] = user;
                     
                     SchoolUnitsViewVM.set("school_unit_parameters",  data);
                     
@@ -87,8 +87,19 @@ var SchoolUnitsViewVM = kendo.observable({
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("school units datasource requestEnd e:", e);
-//            if (e.type=="read"){
-//                
+            if (e.type=="read" && e.response.status == 0){
+                
+
+                notification.show({
+                    title: "Η λήψη δεδομένων δεν ειναι εφικτή",
+                    message: e.response.message
+                }, "error");
+                
+//                console.log("ΣΕΠΕΗΥ:", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
+//                console.log("ΕΤΠ:", e.response.all_labs_by_type["ΕΤΠ"]);
+//                console.log("ΤΡΟΧΗΛΑΤΟ:", e.response.all_labs_by_type["ΤΡΟΧΗΛΑΤΟ"]);
+//                console.log("ΓΩΝΙΑ:", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
+//                console.log("ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ:", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
 //                LabsViewVM.set("labs_count",  e.response.total);
 //                LabsViewVM.set("sepehy_count", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
 //                LabsViewVM.set("etp_count",  e.response.all_labs_by_type["ΕΤΠ"]);
@@ -96,7 +107,7 @@ var SchoolUnitsViewVM = kendo.observable({
 //                LabsViewVM.set("gwnies_count", e.response.all_labs_by_type["ΓΩΝΙΑ"]);
 //                LabsViewVM.set("diadrastika_sistimata_count", e.response.all_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"]);
 //                
-//            }
+            }
         },
         change: function(e) {
     
@@ -184,7 +195,7 @@ var SchoolUnitsViewVM = kendo.observable({
                       { field: 'lab_source', title:'Πηγή', width:'130px', hidden : true},   
                       { command: [{text:'Ενεργοποίηση', click:LabsViewVM.transitLab, name:'activate'}, 
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend'},
-                                  {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn}],
+                                  {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn()}],
             edit: function(event){
                 console.log("nested labs grid edit event: ", event);
                 kendo.bind(event.container, LabsViewVM);
@@ -222,8 +233,9 @@ var SchoolUnitsViewVM = kendo.observable({
             }
             
         }).data("kendoGrid");
-        
-        
+                
+        e.data.total_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟΣΥΣΤΗΜΑ'] = e.data.total_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ']; //workaround on total_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ'] which won't make the binding
+
         kendo.bind(e.detailRow.find('#school_unit_labs'), LabsViewVM);
         kendo.bind(e.detailRow.find(".k-grid-toolbar"), e.data.total_labs_by_type);
         //kendo.bind(e.detailRow.find(".k-grid-toolbar>.toolbar_filter>span"), LabsSearchVM); //φίλτρο τύπων εργαστηρίου

@@ -17,10 +17,16 @@
         require_once('client/pages/js/Templates/labTransitTemplate.html');
         require_once('client/pages/js/Templates/errorNotificationTemplate.html');
         require_once('client/pages/js/Templates/successNotificationTemplate.html');
+        require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
+        require_once('client/pages/js/Templates/disableLabWorkerTemplate.html');
+        
     ?>
 
     <!--transition dialog-->
     <div id="transition_dialog"></div>
+    
+    <!--disable lab worker dialog-->
+    <div id="disable_lab_worker_dialog"></div>
     
     <!--column selection dialog-->
     <div id="labs_column_selection_dialog"></div>
@@ -64,7 +70,7 @@
                                        { 'field': 'lab_source', 'title':'Πηγή', 'width':'130px', 'hidden' : true},
                                        { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
                                                      {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},
-                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn }
+                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn() }
                                       ]">
                 </div>
             </div>

@@ -89,7 +89,7 @@ var SearchVM = kendo.observable({
         LabsViewVM.labs.filter(normalizeParams(formData));
         
         searchParameters = formData;
-    },     
+    },
     exportToXLSX: function(e){
         e.preventDefault();
         //console.log("exportToXLSX e :", e);
@@ -154,21 +154,6 @@ var SearchVM = kendo.observable({
             }
         }).data("kendoTooltip");
         tooltip.show($("#sl_school_unit_id"));
-    },
-    labWorkerInfoTooltip: function(e){
-        console.log("focused!");
-        var tooltip = $("#sl_lab_worker").kendoTooltip({
-            autoHide: true,
-            content:"για να φιλτράρετε από τη λίστα εισάγετε minimum 3 χαρακτήρες",
-            width:185,
-            height:35,
-            position: "right",
-            animation: {
-                close: {effects: "fade:out",  duration: 1000},
-                open: {effects: "fade:in",  duration: 1000}
-            }
-        }).data("kendoTooltip");
-        tooltip.show($("#sl_lab_worker"));
     },
     xlsTooltip: function(e){
 
