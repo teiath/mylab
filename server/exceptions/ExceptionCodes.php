@@ -21,10 +21,11 @@ class ExceptionCodes
     //general messages 
     
         const NoErrors = 200;
+        const UserNoRoleAccess = 500;
         const UserAccesDenied = 500;
         const UserAccesFrontDenied = 500;
         const UserAccesEmptyDenied = 500;
-        const UserNoPermissions = 500;
+        const UserNoRolePermissions = 500;
         const InvalidPageNumber = 500;
         const InvalidMaxPageNumber = 500;
         const InvalidPageType = 500;

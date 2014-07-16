@@ -2,7 +2,7 @@
 
 header("Content-Type: text/html; charset=utf-8");
 
-function ReportKeplhnet ($keplhnet ) {
+function ReportKeplhnet ($edu_admin ) {
 
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 
@@ -95,40 +95,52 @@ $pdf->AddPage();
 // set color for background
 $pdf->SetFillColor(255, 255, 255);
 
-$params = array("school_unit_id" => "1000017");
-$infos = Reports::getKeplhnetInfo($params);
-$name=$infos['data'][0]['name'];
-$fax=$infos['data'][0]['fax_number'];
-$phone_number=$infos['data'][0]['phone_number'];
-$worker_name=$infos['data'][0]['school_unit_worker']['lastname'];
+//get infos about keplhnet
+$params = array("state"=>1, "unit_type" => 24, "edu_admin"=>$edu_admin);
+$info_keplhnet = Reports::getKeplhnetInfo($params);
+
+$keplinet_mm_id = $info_keplhnet['data'][0]['mm_id'];
+$name = $info_keplhnet['data'][0]['name'];
+$street_address = $info_keplhnet['data'][0]['street_address'];
+$postal_code = $info_keplhnet['data'][0]['postal_code'];
+$fax_number = $info_keplhnet['data'][0]['fax_number'];
+$phone_number = $info_keplhnet['data'][0]['phone_number'];
+$email = $info_keplhnet['data'][0]['email'];
+$region_edu_admin_id = $info_keplhnet['data'][0]['region_edu_admin_id'];
+$edu_admin_id = $info_keplhnet['data'][0]['edu_admin_id'];
+$worker_name = $info_keplhnet['data'][0]['workers'][0]['unit_worker_id'];
+
+//var_dump($worker_name);
+//die();
 
 
 
 // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
 $column_width = '90';
 
-
-//infos about keplinet
-$infos = Reports::getKeplhnetInfo();
-$name=$infos['data'][0]['name'];
-
 $pdf->MultiCell(180, 6, "Στοιχεία του ΚΕ.ΠΛΗ.ΝΕ.Τ." , 0, 'C', 0, 1, '', '', true, 0);
 $pdf->Ln(1);
 $pdf->MultiCell($column_width, 6, "ΚΕΠΛΗΝΕΤ" , 1, 'L', 0, 0, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, $name , 1, 'L', 0, 1, '', '', true, 0);
 $pdf->MultiCell($column_width, 6, "Στελέχωση" , 0, 'L', 0, 1, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "Υπεύθυνος [Ονοματεπώνυμο]", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, $worker_name , 1, 'L', 0, 1, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "Υπέυθυνος [Ειδικότητα]", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "Τεχνικός Υπεύθυνος [Ονοματεπώνυμο]", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "Τεχνικός Υπεύθυνος [Ειδικότητα]", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "Τεχνικός Υπεύθυνος [Ονοματεπώνυμο]", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "Τεχνικός Υπεύθυνος [Ειδικότητα]", 1, 'L', 0, 0, '', '', true, 0);
-$pdf->MultiCell($column_width, 6, "" , 1, 'L', 0, 1, '', '', true, 0);
+
+
+foreach ($info_keplhnet['data'][0]['workers'] as $worker)
+{
+    if ($worker['worker_position_id'] == 4){
+        $pdf->MultiCell($column_width, 6, "Υπεύθυνος [Ονοματεπώνυμο]", 1, 'L', 0, 0, '', '', true, 0);
+        $pdf->MultiCell($column_width, 6, $worker['firstname'].' '.$worker['lastname'] , 1, 'L', 0, 1, '', '', true, 0);
+        $pdf->MultiCell($column_width, 6, "Υπέυθυνος [Ειδικότητα]", 1, 'L', 0, 0, '', '', true, 0);
+        $pdf->MultiCell($column_width, 6, $worker['worker_position'] , 1, 'L', 0, 1, '', '', true, 0);
+    } else if ($worker['worker_position_id'] == 5) {
+        $pdf->MultiCell($column_width, 6, "Τεχνικός Υπεύθυνος [Ονοματεπώνυμο]", 1, 'L', 0, 0, '', '', true, 0);
+        $pdf->MultiCell($column_width, 6, $worker['firstname'].' '.$worker['lastname'] , 1, 'L', 0, 1, '', '', true, 0);
+        $pdf->MultiCell($column_width, 6, "Τεχνικός Υπεύθυνος [Ειδικότητα]", 1, 'L', 0, 0, '', '', true, 0);
+        $pdf->MultiCell($column_width, 6, $worker['worker_position'] , 1, 'L', 0, 1, '', '', true, 0);
+    }
+}
+
+
 
 $pdf->Ln(4);
 
@@ -153,18 +165,19 @@ $pdf->Ln(4);
 // set color for background
 $pdf->SetFillColor(220, 255, 220);
 
-$keplinet = array("edu_admin"=>"5,34");
+$keplhnet = array("edu_admin"=>"5,34");
 //$keplinet = array("edu_admin" => $keplhnet);
         
-$sum_kindergarten = Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" , "school_unit_type"=>"1") );
-$sum_primary_school =  Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" ,"school_unit_type"=>"2") );
-$sum_secondary_education_units = Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" , "education_level"=>"2") );
-$sum_primary_education_labs = Reports::Statistics('statistic_labs', $keplinet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1") );
-$sum_secondary_education_labs = Reports::Statistics('statistic_labs', $keplinet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2") );
-$sum_primary_education_troxilata = Reports::Statistics('statistic_labs', $keplinet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "lab_type" => "2" ) );
-$sum_secondary_education_troxilata = Reports::Statistics('statistic_labs', $keplinet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "lab_type" => "2") );
-$sum_primary_education_null_labs = Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" , "education_level"=>"1" , "lab_id" => "null" ) );
-$sum_secondary_education_null_labs = Reports::Statistics('statistic_school_units', $keplinet, array("school_unit_state"=>"1" , "education_level"=>"2" , "lab_id" => "null") );
+$sum_kindergarten = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "school_unit_type"=>"1") );
+$sum_primary_school =  Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" ,"school_unit_type"=>"2") );
+$sum_secondary_education_units = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "education_level"=>"2") );
+$sum_primary_education_labs = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1") );
+$sum_secondary_education_labs = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2") );
+$sum_primary_education_troxilata = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "lab_type" => "2" ) );
+$sum_secondary_education_troxilata = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "lab_type" => "2") );
+$sum_primary_education_null_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "education_level"=>"1" , "lab_id" => "null" ) );
+$sum_secondary_education_null_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "education_level"=>"2" , "lab_id" => "null") );
+
 
 $pdf->MultiCell(180, 6, "Εργαστήρια Πληροφορικής" , 0, 'C', 0, 1, '', '', true, 0);
 $pdf->MultiCell(180, 6, "Συνοπτικός πίνακας για τα εργαστήρια Πληροφορικής στα σχολεία αρμοδιότητας σας" , 0, 'L', 0, 1, '', '', true, 0);

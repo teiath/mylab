@@ -21,10 +21,11 @@ class ExceptionMessages
     //general messages=========================================================================================================================== 
     
         const NoErrors = 'success';
+        const UserNoRoleAccess = 'Ο χρήστης δεν έχει κανένα ρόλο, και δεν επιτρεπεται η πρόσβαση.';
         const UserAccesDenied = 'Πολλαπλα ονόματα χρήστη. Ο χρήστης δεν έχει πρόσβαση';
         const UserAccesFrontDenied = 'Δεν σταλθηκα δεδομένα του χρήστη.Ο χρήστης δεν έχει πρόσβαση';
         const UserAccesEmptyDenied = 'Ονομα χρήστη κενό. Ο χρήστης δεν έχει πρόσβαση';
-        const UserNoPermissions = 'Ο χρήστης δεν έχει συγκεριμενα δικαιώματα πρόσβασης';
+        const UserNoRolePermissions = 'Ο χρήστης δεν έχει συγκεριμενα δικαιώματα πρόσβασης';
         const InvalidPageNumber = 'Η παράμετρος $page πρέπει να είναι μεγαλύτερη από 0';
         const InvalidMaxPageNumber = 'Η παράμετρος $page έιναι μεγαλύτερη από την μέγιστη τιμή της σελιδοποίησης. $maxPage = ';
         const InvalidPageType = 'Η παράμετρος $page πρέπει να είναι αριθμητική';
@@ -994,7 +995,7 @@ class ExceptionMessages
     //authentication roles
     const NoPermissionsError = 'Δεν βρέθηκαν σχολική μονάδα που να αντιστοιχεί στον ρόλο του χρήστη';
     
-    const NotFoundUserPermissions = 'Δεν βρηθηκαν δικαιωματα για τον ρόλο του χρήστη.';
+    const NotFoundUserPermissions = 'Δεν βρεθηκαν δικαιωματα για τον ρόλο του χρήστη.';
     const NotFoundFullSchoolUnitDnsName = 'Δεν βρέθηκε σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const DuplicateFullSchoolUnitDnsName = 'Βρέθηκαν παραπάνω από μία σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const MissingLdapLattribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
