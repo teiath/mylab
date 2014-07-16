@@ -122,17 +122,17 @@ function newLabsDS(school_unit_id, detailInitEvent){
         serverSorting: true,
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
-            console.log("labs datasource requestEnd e:", e);
+            console.log("newLabsDS - labs datasource requestEnd e:", e);
             if(e.type=="read"){
                 //δεν υπάρχει πρόβλημα με όλα τα read, καθώς όταν γίνεται ενα lab CREATE στη συνέχεια γίνεται στα καπάκια ένα search labs (read) για τα labs της
                 //συγκεκριμένης σχολικής μονάδας. Επομένως μάλλον δεν ειναι αναγκαίο να μπει κάποια συνθήκη
-//                var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
-//                var row = $("#school_units_view").data("kendoGrid").tbody.find("tr[data-uid='" + dataItem.uid + "']"); //an then get its row
-//                index = row.index();
-//                console.log("INDEX: ", index);
-                    console.log("STEP 3");
-                    var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
-                    dataItem.set("total_labs_by_type", e.response.all_labs_by_type);
+                //var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
+                //var row = $("#school_units_view").data("kendoGrid").tbody.find("tr[data-uid='" + dataItem.uid + "']"); //an then get its row
+                //index = row.index();
+                //console.log("INDEX: ", index);
+//                    console.log("STEP 3");
+//                    var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
+//                    dataItem.set("total_labs_by_type", e.response.all_labs_by_type);
             }
             if (e.type=="create" || e.type=="destroy"){
                 
@@ -145,11 +145,11 @@ function newLabsDS(school_unit_id, detailInitEvent){
                         message: e.response.message
                     }, "success");
                     
-                    console.log("STEP 1");
-                    var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
-                    var row = $("#school_units_view").data("kendoGrid").tbody.find("tr[data-uid='" + dataItem.uid + "']"); //an then get its row
-                    index = row.index();
-                    console.log("INDEX: ", index);
+//                    console.log("STEP 1");
+//                    var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the school unit grid row's dataItem based on the school_unit_id
+//                    var row = $("#school_units_view").data("kendoGrid").tbody.find("tr[data-uid='" + dataItem.uid + "']"); //an then get its row
+//                    index = row.index();
+//                    console.log("INDEX: ", index);
                     
                     grid.dataSource.read(); // refresh school units view
                     LabsViewVM.labs.read(); //refresh labs view

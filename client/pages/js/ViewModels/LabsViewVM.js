@@ -926,7 +926,7 @@ var LabsViewVM = kendo.observable({
          
     },
     dataBinding: function(e){
-        console.log("dataBinding: ", e);
+        console.log("LabsViewVM: labs grid DATABINDING event: ", e);
         
         /* create "expandedRows" array as data attribute to labs view grid.
          * "expandedRows" will contain info for the currently expanded rows
@@ -935,32 +935,33 @@ var LabsViewVM = kendo.observable({
         */
         
         if(e.action !== "add"){ //αυτη η συνθήκη παίζει να πρέπει να εμπλουτιστεί γιατί ισως πετάει bugακια σε κάποια σενάρια
+            
+            var expandedRows = e.sender.element.data("kendoGrid").table.find("tr.k-master-row a.k-minus").closest("tr");
 
-            var expandedRows = $("#labs_view").data("kendoGrid").table.find("tr.k-master-row a.k-minus").closest("tr");
-
-            $("#labs_view").data('expandedRows', []);
+            e.sender.element.data('expandedRows', []);
             $.each(expandedRows, function(index,value){
 
                 var detailRowTabstrip = $(this).next().find("div#lab_details_tabstrip").data("kendoTabStrip");
                 var tabstrip_index = detailRowTabstrip.select().index();
 
-                $("#labs_view").data('expandedRows').push( {row_index: $(this).index(), tabstrip_index: tabstrip_index, scroll_position: $(document).scrollTop()} );
+                e.sender.element.data('expandedRows').push( {row_index: $(this).index(), tabstrip_index: tabstrip_index, scroll_position: $(document).scrollTop()} );
             });
 
-            $.each($("#labs_view").data('expandedRows'), function(index,value){
-                $("#labs_view").data('expandedRows')[index]['row_index'] = $("#labs_view").data('expandedRows')[index]['row_index'] - index;
+            $.each(e.sender.element.data('expandedRows'), function(index,value){
+                e.sender.element.data('expandedRows')[index]['row_index'] = e.sender.element.data('expandedRows')[index]['row_index'] - index;
                 index++;
             });
-        }        
+        }     
         
     },
     dataBound: function(e){
-        console.log("dataBound: ", e);
-        
-        var grid = $("#labs_view").data("kendoGrid");
-        $.each($("#labs_view").data('expandedRows'), function(index,value){
+        console.log("LabsViewVM: labs grid DATABOUND event: ", e);
+                
+        var grid = e.sender.element.data("kendoGrid");
+        console.log("grid in dom: ", e.sender.element);
+        $.each(e.sender.element.data('expandedRows'), function(index,value){
             // get current row and expand it
-            var tr = $("#labs_view").data("kendoGrid").table.find("tr.k-master-row:eq("+ value['row_index'] + ")").closest("tr");
+            var tr = e.sender.element.data("kendoGrid").table.find("tr.k-master-row:eq("+ value['row_index'] + ")").closest("tr");
             grid.expandRow( tr );
             // preserving scroll position
             $(document).scrollTop(value['scroll_position']);
