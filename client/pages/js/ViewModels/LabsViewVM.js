@@ -296,22 +296,15 @@ var LabsViewVM = kendo.observable({
         //console.log("e.detailRow: ", e.detailRow);
         //console.log("e.data: ", e.data);
         
-        //auto einai to tabstrip
+        var scroll;
         e.detailRow.find("#lab_details_tabstrip").kendoTabStrip({
-            animation: { open: { effects: "fadeIn" } }//,
-            //select: function(e){
-                //console.log(" tabstrip select: ", e);
-                //e.preventDefault();
-            //}
-        });
-        //prosethesa auto
-        //console.log("mmm:", e.detailRow.find("#lab_details_tabstrip").children(".k-tabstrip-items").find(".k-link"));
-        
-        e.detailRow.find("#lab_details_tabstrip").children(".k-tabstrip-items").find(".k-link").click(function(e){
-            
-            //e.preventDefault();
-            //e.stopPropagation();
-            //alert("TO PATHSA REEE");
+            animation: { open: { effects: "fadeIn" } },
+            select: function(e){
+                scroll = $(document).scrollTop();
+            },
+            activate: function(e){
+                $(document).scrollTop(scroll);
+            }
         });
                    
         var equipment_details = e.detailRow.find("#equipment_details").kendoGrid({
@@ -659,7 +652,8 @@ var LabsViewVM = kendo.observable({
                 { field: "relation_type_name",
                   title: "συσχέτιση",
                   editor: function (container, options){
-
+                        
+                        //check if there's already a 'served online' relation and hide the corresponding option
                         var data = lab_relations_details.dataSource.data();
                         var isServedOnline=false;
                         $.each(data, function(index, value){
@@ -670,22 +664,37 @@ var LabsViewVM = kendo.observable({
                         });
                         
                         console.log("options.field", options.field);
-                        $('<input id="relation_type_parent" name="' + options.field + '" data-bind="value:' + options.field + '" data-text-field="name" data-value-field="name" required data-required-msg="Ξέχασες τον τύπο συσχέτισης!" />')
+                        $('<input id="relation_type_parent" name="' + options.field + '" data-bind="value:' + options.field + '" data-value-field="name" required data-required-msg="Ξέχασες τον τύπο συσχέτισης!" />')
                         .appendTo(container)
                         .kendoDropDownList({
                             autoBind: false,
-                            optionLabel: {
-                                name: "Επιλέξτε συσχέτιση"
-                            },
+                            dataTextField: "name",
+//                            optionLabel: { //bug του kendo λογικα.. όταν το optionLabel ειναι enabled δεν παίζει το validation tooltip
+//                                name: "Επιλέξτε συσχέτιση"
+//                            },
                             dataSource: newRelationTypesDS(isServedOnline),
-                            change: function(e){                                                 
+                            change: function(e){
                                 
+                                var parent = $('#school_unit_parent').data("kendoComboBox");
                                 var child = $('#child').data("kendoDropDownList");
+                                
+                                parent.text("");
+                                parent.value("");
+                                var koko = newSchoolUnitsDS();
+                                koko.read();
+                                parent.setDataSource(koko);
+                                
+                                //var kiki = newCircuitsDS();
+                                //kiki.read();
+                                //child.setDataSource(kiki);
+                                
                                 if(this.value() === "ΕΞΥΠΗΡΕΤΕΙΤΑΙ ΔΙΑΔΙΚΤΥΑΚΑ"){
                                     child.enable(true);
                                 }else if(this.value() === "ΕΞΥΠΗΡΕΤΕΙ ΥΠΗΡΕΣΙΑΚΑ"){
-                                    child.enable(false);
                                     //αν υπάρχει validation tooltip στον αρ. κυκλώματος βγάλτο
+                                    child.enable(false); // discable circuit input
+                                    child.select(child.ul.children().eq(0)); // set circuit input's text to its option label
+                                    child.element.closest(".k-dropdown").next().css("display", "none"); // hide circuit's input validation tooltip
                                 }
                            }
                         });
@@ -916,11 +925,52 @@ var LabsViewVM = kendo.observable({
         //}
          
     },
-    dataBoundLab: function(e){
-        console.log("dataBoundLab e: ", e );
+    dataBinding: function(e){
+        console.log("dataBinding: ", e);
+        
+        /* create "expandedRows" array as data attribute to labs view grid.
+         * "expandedRows" will contain info for the currently expanded rows
+         * in order to maintain their status (expanded, tabstrip index, scroll position)
+         * after lab general info or rating update (inside dataBound event)
+        */
+        
+        if(e.action !== "add"){ //αυτη η συνθήκη παίζει να πρέπει να εμπλουτιστεί γιατί ισως πετάει bugακια σε κάποια σενάρια
+
+            var expandedRows = $("#labs_view").data("kendoGrid").table.find("tr.k-master-row a.k-minus").closest("tr");
+
+            $("#labs_view").data('expandedRows', []);
+            $.each(expandedRows, function(index,value){
+
+                var detailRowTabstrip = $(this).next().find("div#lab_details_tabstrip").data("kendoTabStrip");
+                var tabstrip_index = detailRowTabstrip.select().index();
+
+                $("#labs_view").data('expandedRows').push( {row_index: $(this).index(), tabstrip_index: tabstrip_index, scroll_position: $(document).scrollTop()} );
+            });
+
+            $.each($("#labs_view").data('expandedRows'), function(index,value){
+                $("#labs_view").data('expandedRows')[index]['row_index'] = $("#labs_view").data('expandedRows')[index]['row_index'] - index;
+                index++;
+            });
+        }        
+        
+    },
+    dataBound: function(e){
+        console.log("dataBound: ", e);
+        
+        var grid = $("#labs_view").data("kendoGrid");
+        $.each($("#labs_view").data('expandedRows'), function(index,value){
+            // get current row and expand it
+            var tr = $("#labs_view").data("kendoGrid").table.find("tr.k-master-row:eq("+ value['row_index'] + ")").closest("tr");
+            grid.expandRow( tr );
+            // preserving scroll position
+            $(document).scrollTop(value['scroll_position']);
+            // and selected tab
+            var tabstrip = tr.next().find("div#lab_details_tabstrip").data("kendoTabStrip");
+            tabstrip.select(value['tabstrip_index']);
+        });
         
         //disable transit buttons according to lab state
-        var data_items = e.sender.dataSource.data();        
+        var data_items = e.sender.dataSource.data();
         $.each(data_items, function(index, value){
             //console.log("data_item: ", data_items[index]);
             
@@ -929,7 +979,7 @@ var LabsViewVM = kendo.observable({
             var suspendButton = $(currentRow).children('td:last').find(".k-grid-suspend");
             var abolishButton = $(currentRow).children('td:last').find(".k-grid-abolish");
 
-            //check whether databoundLab gets triggered from school units view (get labs api function) or labs view (search labs api function)
+            //check whether databound gets triggered from school units view (get labs api function) or labs view (search labs api function)
             if(typeof data_items[index].lab_state_id !== 'undefined'){
                 var state = data_items[index].lab_state_id; //get labs api function
             }else{
@@ -1141,8 +1191,15 @@ var LabsViewVM = kendo.observable({
     },
 
     toggleLabWorkersLogs: function(e){
+
+//        if($('#switch_to_labs_view_btn').is(':checked')){
         LabsViewVM.set("labWorkersLogsVisible", !LabsViewVM.get("labWorkersLogsVisible"));
-        //console.log("labWorkersLogsVisible:", LabsViewVM.get("labWorkersLogsVisible"));
+        console.log("labWorkersLogsVisible:", LabsViewVM.get("labWorkersLogsVisible"));
         LabsViewVM.get("labWorkersLogsVisible") ? $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-s"></span>') : $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-e"></span>');
+//        }else{
+//            LabsViewVM.set("labWorkersLogsVisible", !LabsViewVM.get("labWorkersLogsVisible"));
+//            console.log("labWorkersLogsVisible:", LabsViewVM.get("labWorkersLogsVisible"));
+//            LabsViewVM.get("labWorkersLogsVisible") ? $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-s"></span>') : $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-e"></span>');
+//        }
     }
 });

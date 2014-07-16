@@ -87,11 +87,10 @@ var SchoolUnitsViewVM = kendo.observable({
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("school units datasource requestEnd e:", e);
-            if (e.type=="read" && e.response.status == 0){
+            if (e.type=="read" && /*e.response.status == 0*/ maxRole === "noAccess"){
                 
-
                 notification.show({
-                    title: "Η λήψη δεδομένων δεν ειναι εφικτή",
+                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
                     message: e.response.message
                 }, "error");
                 
@@ -197,13 +196,13 @@ var SchoolUnitsViewVM = kendo.observable({
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend'},
                                   {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn()}],
             edit: function(event){
-                console.log("nested labs grid edit event: ", event);
+                console.log("SchoolUnitsViewVM: nested labs grid EDIT event: ", event);
                 kendo.bind(event.container, LabsViewVM);
                 kendo.bind(event.container, event.model);
                 LabsViewVM.createLab(event);
             },
             dataBinding: function(event){
-                console.log("SchoolUnitsViewVM: nested labs grid databinding event: ", event);
+                console.log("SchoolUnitsViewVM: nested labs grid DATABINDING event: ", event);
 //                if(index !== null){
 //                    console.log("do i get in data-binding != null ?? ", index);
 //                    var school_unis_grid = $("#school_units_view").data("kendoGrid");
@@ -213,7 +212,7 @@ var SchoolUnitsViewVM = kendo.observable({
 //                }
             },
             dataBound: function(event){
-                console.log("nested labs grid databound event: ", event);
+                console.log("SchoolUnitsViewVM: nested labs grid DATABOUND event: ", event);
                 
                 kendo.bind($("#school_unit_labs").find(".k-grid-toolbar>.school_unit_labs_refresh_btn"), LabsViewVM);
                 kendo.bind($("#school_unit_labs").find(".k-grid-toolbar>.school_unit_labs_grid_columns_btn"), LabsViewVM);
@@ -221,7 +220,7 @@ var SchoolUnitsViewVM = kendo.observable({
                 
                 console.log("STEP 2");
                 //kendo.bind(event.sender.element, LabsViewVM);
-                LabsViewVM.dataBoundLab(event);
+                LabsViewVM.dataBound(event);
                 if(index !== null){
                     console.log("do i get in data-binding != null ?? ", index);
                     var school_units_grid = $("#school_units_view").data("kendoGrid");
