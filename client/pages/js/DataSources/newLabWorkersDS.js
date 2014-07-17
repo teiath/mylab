@@ -65,7 +65,7 @@ function newLabWorkersDS(labID, detailRow, status){
                 }
             }
         },
-        sort: { field: "worker_start_service", dir: "desc" },
+        sort: [{ field: "worker_status", dir: "asc" } , { field: "worker_start_service", dir: "desc" }],
         change: function(e){
             console.log("newLabWorkersDS CHANGE event", e);
 //            if(e.field = "fullname" && e.action == "itemchange"){
@@ -90,13 +90,12 @@ function newLabWorkersDS(labID, detailRow, status){
                     
                     notification.show({
                         title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
-                        message: e.response.message
+                        message: e.response.message_internal
                     }, "error");
                     
                 }                
                 
                 detailRow.find("#lab_workers_details").data("kendoGrid").dataSource.read();
-                detailRow.find("#lab_workers_logs").data("kendoGrid").dataSource.read(); 
             }
         }
     };

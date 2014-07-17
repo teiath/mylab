@@ -1,7 +1,6 @@
 var LabsViewVM = kendo.observable({
 
     isVisible: true,
-    labWorkersLogsVisible: false,
 
     labs:  new kendo.data.DataSource({
         transport: {
@@ -438,15 +437,10 @@ var LabsViewVM = kendo.observable({
 
         var lab_workers_details = e.detailRow.find("#lab_workers_details").kendoGrid({
             //dataSource: e.data.lab_workers,
-            dataSource: newLabWorkersDS(e.data.lab_id, e.detailRow, 1),
+            dataSource: newLabWorkersDS(e.data.lab_id, e.detailRow/*, 1*/),
             scrollable: false,
             selectable: false,
             editable: "inline",
-//            toolbar: function(){
-//                        if(jQuery.inArray( authorized_user , edit_lab_worker ) !== -1){
-//                            return [{ name: "create", text: "Προσθήκη Υπεύθυνου Εργαστηρίου" }];
-//                        }
-//                    }(),
             toolbar: [{ template: kendo.template($("#lab_details_lab_workers_toolbar_template").html()) }],
             columns: [
                 { field: "fullname", 
@@ -479,15 +473,15 @@ var LabsViewVM = kendo.observable({
                 },
                 { field: "registry_no", 
                   title: "ΑΜ", 
-                  width: '5%' 
+                  width: '10%' 
                 },
                 { field: "specialization_code", 
                   title: "ειδικότητα", 
-                  width: '5%' 
+                  width: '10%' 
                 },
                 {
                   field: "worker_start_service", 
-                  title: "ημ/νία διορισμού",
+                  title: "ανάληψη ευθύνης",
                   editor: function (container, options){
                         //options.field: The name of the field to which the column is bound.
                         //options.field= worker_start_service
@@ -502,7 +496,7 @@ var LabsViewVM = kendo.observable({
                         tooltipElement.appendTo(container);                        
                         
                   }, 
-                  width: '10%' 
+                  width: '15%' 
                 },
                 {
                   field: "worker_status",
@@ -510,22 +504,22 @@ var LabsViewVM = kendo.observable({
                       if(dataItem.worker_status == 1) return "ΕΝΕΡΓΟΣ"; else if (dataItem.worker_status == 3) return "ΑΝΕΝΕΡΓΟΣ";
                   },
                   title: "κατάσταση", 
-                  width: '5%' 
+                  width: '10%' 
                 },
                 { command: [ { name: 'edit'}, 
                              { name: "Απενεργοποίηση Υπευθύνου",
                                 click: function(e) {
-                                    
+
                                     e.preventDefault();
 
                                     var tr = $(e.target).closest("tr");
                                     var data = this.dataItem(tr);
-                                    
+
                                     var parameters = {
                                       lab_worker_id: data.lab_worker_id,
                                       worker_status: 3
                                     };
-                                    
+
                                     var disable_lab_worker_dialog = $("#disable_lab_worker_dialog").kendoWindow({
                                                 modal: true,
                                                 visible: false,
@@ -558,7 +552,6 @@ var LabsViewVM = kendo.observable({
 
                                                                         //detailRow.find("#lab_workers_details").data("kendoGrid").dataSource.read();
                                                                         lab_workers_details.dataSource.read();
-                                                                        lab_workers_logs.dataSource.read();
 
                                                                     }else if(data.status == 500){
 
@@ -586,7 +579,7 @@ var LabsViewVM = kendo.observable({
                              }
                            ],
                   title: 'ενέργειες', 
-                  width: '30%',
+                  width: '25%',
                   hidden: function(){
                       var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1) ? false : true;
                       return hide;
@@ -600,41 +593,20 @@ var LabsViewVM = kendo.observable({
                     e.container.find("td:eq(2)").text(e.model.specialization_code);
                     e.container.find("td:eq(4)").text("ΕΝΕΡΓΟΣ");
                 //}
+            },
+            dataBound: function(e){
+                console.log("lab workers databound: ", e);
+                    $.each(e.sender.dataSource.data(), function(index, value){
+                        var tr= e.sender.tbody.find("tr:eq(" + index + ")");
+                        var dataitem= e.sender.dataItem(tr);
+                        if (dataitem.worker_status !== "1" && dataitem.worker_status !== ""){
+                            tr.find("td:last-child>a.k-grid-ΑπενεργοποίησηΥπευθύνου").remove();
+                            if(lab_workers_details.element.find(".k-toolbar>button#show_lab_worker_logs_btn").text() === "προβολή ιστορικού"){
+                                tr.hide();
+                            }
+                        }
+                    });
             }
-        }).data("kendoGrid");      
-
-        var lab_workers_logs = e.detailRow.find("#lab_workers_logs").kendoGrid({
-            dataSource: newLabWorkersDS(e.data.lab_id, e.detailRow, 3),
-            scrollable: false,
-            selectable: false,
-            //visible: false,//LabsViewVM.get('labWorkersLogsVisible'),
-            columns: [
-                { template: "#= lastname + ' ' + firstname #",
-                  title: "ονοματεπώνυμο", 
-                  width: '10%' 
-                },
-                { field: "registry_no", 
-                  title: "ΑΜ", 
-                  width: '5%' 
-                },
-                { field: "specialization_code", 
-                  title: "ειδικότητα", 
-                  width: '5%' 
-                },
-                {
-                  field: "worker_start_service", 
-                  title: "ημ/νία διορισμού",
-                  width: '10%' 
-                },
-                {
-                  field: "worker_status",
-                  template: function(dataItem){
-                      if(dataItem.worker_status == 1) return "ΕΝΕΡΓΟΣ"; else if (dataItem.worker_status == 3) return "ΑΝΕΝΕΡΓΟΣ";
-                  },
-                  title: "κατάσταση", 
-                  width: '5%' 
-                }
-            ]
         }).data("kendoGrid");
 
         var lab_relations_details = e.detailRow.find("#lab_relations_details").kendoGrid({
@@ -831,7 +803,6 @@ var LabsViewVM = kendo.observable({
                                     }, "success");                                            
 
                                     //lab_workers_details.dataSource.read();
-                                    //lab_workers_logs.dataSource.read();
 
                                 }else if(data.status == 500){
 
@@ -889,7 +860,6 @@ var LabsViewVM = kendo.observable({
                                     }, "success");                                            
 
                                     //lab_workers_details.dataSource.read();
-                                    //lab_workers_logs.dataSource.read();
 
                                 }else if(data.status == 500){
 
@@ -909,10 +879,6 @@ var LabsViewVM = kendo.observable({
             editTemplate: kendo.template($("#edit_rating_template").html())
         }).data("kendoListView");
         
-        e.detailRow.find("#show_lab_worker_logs_btn").kendoButton({
-            click: LabsViewVM.toggleLabWorkersLogs
-        });
-        
         // edit_lab_details & edit_lab_workers authorization
         if(jQuery.inArray( authorized_user , edit_lab_details ) === -1){
             e.detailRow.find("#equipment_details>.k-grid-toolbar").hide();
@@ -920,9 +886,22 @@ var LabsViewVM = kendo.observable({
             e.detailRow.find("#lab_relations_details>.k-grid-toolbar").hide();
         }
         
-        //if(jQuery.inArray( authorized_user , edit_lab_worker ) === -1){
-        //    e.detailRow.find("#lab_workers_details>.k-grid-toolbar").hide();
-        //}
+        //toggle lab workers logs
+        lab_workers_details.element.find(".k-toolbar").on("click", "button#show_lab_worker_logs_btn", function(e){
+            
+            $.each(lab_workers_details.dataSource.data(), function(index, value){
+                var tr= lab_workers_details.tbody.find("tr:eq(" + index + ")");
+                var dataitem= lab_workers_details.dataItem(tr);
+                if (dataitem.worker_status !== "1" && dataitem.worker_status !== ""){
+                    tr.toggle();
+                }
+            });            
+                        
+            $(this).text(function(i, text){
+                return (text === "προβολή ιστορικού") ? "απόκρυψη ιστορικού" : "προβολή ιστορικού";
+            });
+            
+        });
          
     },
     dataBinding: function(e){
@@ -1189,18 +1168,5 @@ var LabsViewVM = kendo.observable({
     hideLabTransitColumn: function(e){
         var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
         return hide;
-    },
-
-    toggleLabWorkersLogs: function(e){
-
-//        if($('#switch_to_labs_view_btn').is(':checked')){
-        LabsViewVM.set("labWorkersLogsVisible", !LabsViewVM.get("labWorkersLogsVisible"));
-        console.log("labWorkersLogsVisible:", LabsViewVM.get("labWorkersLogsVisible"));
-        LabsViewVM.get("labWorkersLogsVisible") ? $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-s"></span>') : $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-e"></span>');
-//        }else{
-//            LabsViewVM.set("labWorkersLogsVisible", !LabsViewVM.get("labWorkersLogsVisible"));
-//            console.log("labWorkersLogsVisible:", LabsViewVM.get("labWorkersLogsVisible"));
-//            LabsViewVM.get("labWorkersLogsVisible") ? $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-s"></span>') : $("#show_lab_worker_logs_btn").html('ιστορικό <span class="k-icon k-i-arrowhead-e"></span>');
-//        }
-    }
+    }    
 });
