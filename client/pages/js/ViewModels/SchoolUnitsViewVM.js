@@ -213,18 +213,6 @@ var SchoolUnitsViewVM = kendo.observable({
                 kendo.bind($("#school_unit_labs").find(".k-grid-toolbar>.school_unit_labs_grid_columns_btn"), LabsViewVM);
                 
                 LabsViewVM.dataBound(event);
-                
-//                console.log("STEP 2");
-//                //kendo.bind(event.sender.element, LabsViewVM);
-//                LabsViewVM.dataBound(event);
-//                if(index !== null){
-//                    console.log("do i get in data-binding != null ?? ", index);
-//                    var school_units_grid = $("#school_units_view").data("kendoGrid");
-//                    console.log(school_units_grid.tbody.find("tr:eq(" + index+ ")"));
-//                    school_units_grid.expandRow(school_units_grid.tbody.find("tr:eq(" + index+ ")"));
-//                    index=null;
-//                    console.log("INDEX: ", index);
-//                }
             }
             
         }).data("kendoGrid");
