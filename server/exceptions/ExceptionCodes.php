@@ -70,6 +70,7 @@ class ExceptionCodes
         const UnknownLabTransitionIdValue = 500;
         const UnknownOperationalRatingValue = 500;
         const UnknownTechnologicalRatingValue = 500;
+        const UnknowneEduAdminCodeValue = 500;
       
         const InvalidLabIdValue = 500;
         const InvalidMmIdValue = 500;
@@ -930,6 +931,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidEduAdminArray} */   
     const InvalidEduAdminArray = 500;
 
+    /** {@see ExceptionMessages::MissingEduAdminCodeParam} */   
+    const MissingEduAdminCodeParam = 500;
+    /** {@see ExceptionMessages::MissingEduAdminCodeValue} */   
+    const MissingEduAdminCodeValue = 500;
+    /** {@see ExceptionMessages::InvalidEduAdminCodeType} */   
+    const InvalidEduAdminCodeType = 500;
+    /** {@see ExceptionMessages::InvalidEduAdminCodeArray} */   
+    const InvalidEduAdminCodeArray = 500;
+     
     /** {@see ExceptionMessages::DuplicatedEduAdminValue} */   
     const DuplicatedEduAdminValue = 500;
     /** {@see ExceptionMessages::UsedEduAdminBySchoolUnits} */   
@@ -1417,6 +1427,10 @@ class ExceptionCodes
     const NoPermissionToDeleteLab = 500;
     /** {@see ExceptionMessages::NoPermissionToGet} */   
     const NoPermissionToGetLab = 500;
+   
+     //reports  
+    /** {@see ExceptionMessages::ErrorEduAdminReportKeplhnet} */ 
+    const ErrorEduAdminReportKeplhnet = 500;
     
 }
 

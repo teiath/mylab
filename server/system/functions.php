@@ -72,4 +72,10 @@ function array_key_exists_r($needle, $haystack)
     return $result;
 }
 
+function convert_greek_accents($str) {
+        $unwanted_array = array('Ά' => 'Α', 'ά' => 'α', 'Έ' => 'Ε', 'έ' => 'ε', 'Ή' => 'Η', 'ή' => 'η', 'Ί' => 'Ι', 'ί' => 'ι', 'Ό' => 'Ο', 'ό' => 'ο', 'Ύ' => 'Υ', 'ύ' => 'υ', 'Ώ' => 'Ω', 'ώ' => 'ω', 'ϊ' => 'ι','ϋ' => 'υ', 'Ϊ' => 'Ι', 'Ϋ' => 'Υ');
+        $str = mb_strtoupper(str_replace(array_keys($unwanted_array), array_values($unwanted_array), $str), 'UTF-8');
+        return $str;
+    }
+
 ?>

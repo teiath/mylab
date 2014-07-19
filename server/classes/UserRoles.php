@@ -184,9 +184,12 @@ private static $Permissions = array(
     'statistic_lab_workers' => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
-    'report_keplhnet'      => array(
+    'report_keplhnet'       => array(
                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
-                                       )
+                                        ) ,
+    'user_permits'          => array(
+                                   'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+                                        )    
     
     );
 
