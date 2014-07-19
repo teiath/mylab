@@ -205,7 +205,8 @@ function UserRolesPermission(){
     catch (Exception $e)
     {
         $result["user"] =  $app->request->user['uid'];
-        //$result["user_role"] = $app->request->user;
+        //$result["user_all"] = $app->request->user;       
+        $result["user_role"] = UserRoles::getRole($app->request->user);
         $result["status"] = $e->getCode();
         $result["message"] = "[".$method."][".$controller."]:".$e->getMessage();
 
@@ -1707,8 +1708,6 @@ function UserPermitsController()
     {
         case MethodTypes::GET : 
             $result = GetUserPermits(
-                $params->user,
-                $params->school_unit
             );      
             break;
     }
