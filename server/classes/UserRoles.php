@@ -188,7 +188,7 @@ private static $Permissions = array(
                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
     'user_permits'          => array(
-                                   'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         )    
     
     );
@@ -292,7 +292,8 @@ private static $Permissions = array(
 
 public static function getRole($user) {
 
-    if (isset($user['title'])) {      
+    if (!validator::IsNull($user['title'])) {  
+    //if (isset($user['title'])) {      
         $role =  self::getLdapRoleRanking($user);  
         return $role;
     } else{
@@ -308,14 +309,19 @@ public static function getRole($user) {
      switch ($user_role){
         case 'ΔΙΕΥΘΥΝΤΗΣ' :
             return self::getSchoolUnitWorkerPermissions($user);
+            break;
         case 'ΚΕΠΛΗΝΕΤ' :
             return self::getKeplhnetWorkerPermissions($user,$getSchoolUnits);
+            break;
         case 'ΣΕΠΕΗΥ' :
             return self::getLabWorkerPermissions($user,$getSchoolUnits);
+            break;
         case 'ΠΣΔ' :
             return self::getAllPermissions();
+            break;
         case 'ΥΠΕΠΘ' :
             return self::getAllPermissions();
+            break;
         default:
             throw new Exception(ExceptionMessages::NotFoundUserPermissions, ExceptionCodes::NotFoundUserPermissions);
     }
@@ -354,9 +360,11 @@ public static function getRole($user) {
     
     $dns = null;
     $dns = explode(',', $user['l'][0]);
-    
-    if (Validator::IsNull($dns)) throw new Exception(ExceptionMessages::MissingLdapLAttribute, ExceptionCodes::MissingLdApLattribute); 
-  
+
+    if (Validator::IsNull($dns[1])){
+        throw new Exception(ExceptionMessages::MissingLdapLAttribute, ExceptionCodes::MissingLdApLattribute); 
+    }
+
     $edu_admin_code = explode('=', $dns[1]);  
       
     $lab_ids = Filters::getLabsfromEduAdminCode($edu_admin_code[1]);
