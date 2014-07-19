@@ -82,6 +82,8 @@ $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, Statist
 
 $app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
 
+$app->map('/user_permits', Authentication, UserRolesPermission, UserPermitsController)->via(MethodTypes::GET);
+
 $app->get('/docs/*', function () use ($app) {
     $app->redirect("http://mmsch.teiath.gr/mylab/docs/");
 });
@@ -1686,7 +1688,27 @@ function ReportKeplhnetController()
     {
         case MethodTypes::GET : 
             $result = ReportKeplhnet(
-                $params->edu_admin
+                $params->edu_admin_code
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function UserPermitsController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = GetUserPermits(
+                $params->user,
+                $params->school_unit
             );      
             break;
     }
