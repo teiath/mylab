@@ -33,6 +33,19 @@ class Validator
 
     /**
      * 
+     * Validates that value has exist from params list.
+     * 
+     *  Use php array_key_exists function that checks if the given key or index exists in the array.
+     * 
+     * @return bool True on success, false on failure.
+     * 
+     */
+    public static function Exists($param, $params) {
+        return array_key_exists($param, $params);
+    }
+    
+    /**
+     * 
      * Validates that value has missing from array list.
      * 
      * @return bool True if exist, false if not.
@@ -40,6 +53,17 @@ class Validator
      */
     public static function isMissing($param) {
         return ! self::IsExists($param);
+    }
+
+    /**
+     * 
+     * Validates that value has missing from params list.
+     * 
+     * @return bool True if exist, false if not.
+     * 
+     */
+    public static function Missing($param, $params) {
+        return ! self::Exists($param, $params);
     }
     
     /**
@@ -779,6 +803,28 @@ class Validator
         }
 
         return (self::isInteger($value) &&  ($value == $val));
+    }
+
+    /**
+     * 
+     * Forces the string to lowercase.
+     * 
+     * @return string Lowercase string.
+     * 
+     */
+    public static function ToLower($value){     
+        return (strtolower($value));        
+    }
+    
+    /**
+     * 
+     * Forces the string to uppercase.
+     * 
+     * @return string Uppercase string.
+     * 
+     */
+    public static function ToUpper($value){
+        return (strtoupper($value));        
     }
     
 }
