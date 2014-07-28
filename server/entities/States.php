@@ -28,5 +28,22 @@ class States
      */
     private $name;
 
+    //getter and setter
 
+    public function getStateId() {
+        return $this->stateId;
+    }
+
+    public function setStateId($stateId) {
+        $this->stateId = $stateId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+    
 }

@@ -28,5 +28,23 @@ class WorkerPositions
      */
     private $name = '0';
 
+    //getter and setter
+
+    public function getWorkerPositionId() {
+        return $this->workerPositionId;
+    }
+
+    public function setWorkerPositionId($workerPositionId) {
+        $this->workerPositionId = $workerPositionId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
 
 }

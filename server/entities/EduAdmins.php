@@ -36,11 +36,48 @@ class EduAdmins
     private $eduAdminCode;
 
     /**
-     * @var integer
+     * @var \RegionEduAdmins
      *
-     * @ORM\Column(name="region_edu_admin_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="RegionEduAdmins")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="region_edu_admin_id", referencedColumnName="region_edu_admin_id")
+     * })
      */
-    private $regionEduAdminId;
+    private $regionEduAdmin;
+
+    //getter and setter
+    
+    public function getEduAdminId() {
+        return $this->eduAdminId;
+    }
+
+    public function setEduAdminId($eduAdminId) {
+        $this->eduAdminId = $eduAdminId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getEduAdminCode() {
+        return $this->eduAdminCode;
+    }
+
+    public function setEduAdminCode($eduAdminCode) {
+        $this->eduAdminCode = $eduAdminCode;
+    }
+
+    public function getRegionEduAdmin() {
+        return $this->regionEduAdmin;
+    }
+
+    public function setRegionEduAdmin(\RegionEduAdmins $regionEduAdmin) {
+        $this->regionEduAdmin = $regionEduAdmin;
+    }
 
 
 }

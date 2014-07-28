@@ -36,11 +36,48 @@ class SchoolUnitTypes
     private $initials;
 
     /**
-     * @var integer
+     * @var \EducationLevels
      *
-     * @ORM\Column(name="education_level_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="EducationLevels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="education_level_id", referencedColumnName="education_level_id")
+     * })
      */
-    private $educationLevelId;
+    private $educationLevel;
 
+    //getter and setter
+    
+    public function getSchoolUnitTypeId() {
+        return $this->schoolUnitTypeId;
+    }
 
+    public function setSchoolUnitTypeId($schoolUnitTypeId) {
+        $this->schoolUnitTypeId = $schoolUnitTypeId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getInitials() {
+        return $this->initials;
+    }
+
+    public function setInitials($initials) {
+        $this->initials = $initials;
+    }
+
+    public function getEducationLevel() {
+        return $this->educationLevel;
+    }
+
+    public function setEducationLevel(\EducationLevels $educationLevel) {
+        $this->educationLevel = $educationLevel;
+    }
+
+   
 }

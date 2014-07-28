@@ -78,67 +78,237 @@ class SchoolUnits
     private $postalCode;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="region_edu_admin_id", type="integer", nullable=true)
-     */
-    private $regionEduAdminId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="edu_admin_id", type="integer", nullable=true)
-     */
-    private $eduAdminId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="transfer_area_id", type="integer", nullable=true)
-     */
-    private $transferAreaId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="municipality_id", type="integer", nullable=true)
-     */
-    private $municipalityId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="prefecture_id", type="integer", nullable=true)
-     */
-    private $prefectureId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="education_level_id", type="integer", nullable=true)
-     */
-    private $educationLevelId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="school_unit_type_id", type="integer", nullable=true)
-     */
-    private $schoolUnitTypeId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="state_id", type="integer", nullable=true)
-     */
-    private $stateId;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="unit_dns", type="string", length=100, nullable=true)
      */
     private $unitDns;
+
+    /**
+     * @var \EducationLevels
+     *
+     * @ORM\ManyToOne(targetEntity="EducationLevels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="education_level_id", referencedColumnName="education_level_id")
+     * })
+     */
+    private $educationLevel;
+
+    /**
+     * @var \EduAdmins
+     *
+     * @ORM\ManyToOne(targetEntity="EduAdmins")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="edu_admin_id", referencedColumnName="edu_admin_id")
+     * })
+     */
+    private $eduAdmin;
+
+    /**
+     * @var \Municipalities
+     *
+     * @ORM\ManyToOne(targetEntity="Municipalities")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="municipality_id", referencedColumnName="municipality_id")
+     * })
+     */
+    private $municipality;
+
+    /**
+     * @var \Prefectures
+     *
+     * @ORM\ManyToOne(targetEntity="Prefectures")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="prefecture_id", referencedColumnName="prefecture_id")
+     * })
+     */
+    private $prefecture;
+
+    /**
+     * @var \RegionEduAdmins
+     *
+     * @ORM\ManyToOne(targetEntity="RegionEduAdmins")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="region_edu_admin_id", referencedColumnName="region_edu_admin_id")
+     * })
+     */
+    private $regionEduAdmin;
+
+    /**
+     * @var \SchoolUnitTypes
+     *
+     * @ORM\ManyToOne(targetEntity="SchoolUnitTypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="school_unit_type_id", referencedColumnName="school_unit_type_id")
+     * })
+     */
+    private $schoolUnitType;
+
+    /**
+     * @var \States
+     *
+     * @ORM\ManyToOne(targetEntity="States")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="state_id", referencedColumnName="state_id")
+     * })
+     */
+    private $state;
+
+    /**
+     * @var \TransferAreas
+     *
+     * @ORM\ManyToOne(targetEntity="TransferAreas")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="transfer_area_id", referencedColumnName="transfer_area_id")
+     * })
+     */
+    private $transferArea;
+
+    //getter and setter
+    
+    public function getSchoolUnitId() {
+        return $this->schoolUnitId;
+    }
+
+    public function setSchoolUnitId($schoolUnitId) {
+        $this->schoolUnitId = $schoolUnitId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getSpecialName() {
+        return $this->specialName;
+    }
+
+    public function setSpecialName($specialName) {
+        $this->specialName = $specialName;
+    }
+
+    public function getLastUpdate() {
+        return $this->lastUpdate;
+    }
+
+    public function setLastUpdate(\DateTime $lastUpdate) {
+        $this->lastUpdate = $lastUpdate;
+    }
+
+    public function getFaxNumber() {
+        return $this->faxNumber;
+    }
+
+    public function setFaxNumber($faxNumber) {
+        $this->faxNumber = $faxNumber;
+    }
+
+    public function getPhoneNumber() {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber($phoneNumber) {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    public function getStreetAddress() {
+        return $this->streetAddress;
+    }
+
+    public function setStreetAddress($streetAddress) {
+        $this->streetAddress = $streetAddress;
+    }
+
+    public function getPostalCode() {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode($postalCode) {
+        $this->postalCode = $postalCode;
+    }
+
+    public function getUnitDns() {
+        return $this->unitDns;
+    }
+
+    public function setUnitDns($unitDns) {
+        $this->unitDns = $unitDns;
+    }
+
+    public function getEducationLevel() {
+        return $this->educationLevel;
+    }
+
+    public function setEducationLevel(\EducationLevels $educationLevel) {
+        $this->educationLevel = $educationLevel;
+    }
+
+    public function getEduAdmin() {
+        return $this->eduAdmin;
+    }
+
+    public function setEduAdmin(\EduAdmins $eduAdmin) {
+        $this->eduAdmin = $eduAdmin;
+    }
+
+    public function getMunicipality() {
+        return $this->municipality;
+    }
+
+    public function setMunicipality(\Municipalities $municipality) {
+        $this->municipality = $municipality;
+    }
+
+    public function getPrefecture() {
+        return $this->prefecture;
+    }
+
+    public function setPrefecture(\Prefectures $prefecture) {
+        $this->prefecture = $prefecture;
+    }
+
+    public function getRegionEduAdmin() {
+        return $this->regionEduAdmin;
+    }
+
+    public function setRegionEduAdmin(\RegionEduAdmins $regionEduAdmin) {
+        $this->regionEduAdmin = $regionEduAdmin;
+    }
+
+    public function getSchoolUnitType() {
+        return $this->schoolUnitType;
+    }
+
+    public function setSchoolUnitType(\SchoolUnitTypes $schoolUnitType) {
+        $this->schoolUnitType = $schoolUnitType;
+    }
+
+    public function getState() {
+        return $this->state;
+    }
+
+    public function setState(\States $state) {
+        $this->state = $state;
+    }
+
+    public function getTransferArea() {
+        return $this->transferArea;
+    }
+
+    public function setTransferArea(\TransferAreas $transferArea) {
+        $this->transferArea = $transferArea;
+    }
 
 
 }

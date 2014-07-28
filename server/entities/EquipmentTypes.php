@@ -29,11 +29,63 @@ class EquipmentTypes
     private $name;
 
     /**
-     * @var integer
+     * @var \EquipmentCategories
      *
-     * @ORM\Column(name="equipment_category_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="EquipmentCategories")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="equipment_category_id", referencedColumnName="equipment_category_id")
+     * })
      */
-    private $equipmentCategoryId;
+    private $equipmentCategory;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Labs", mappedBy="equipmentType")
+     */
+    private $lab;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lab = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    //getter and setter
+    
+    public function getEquipmentTypeId() {
+        return $this->equipmentTypeId;
+    }
+
+    public function setEquipmentTypeId($equipmentTypeId) {
+        $this->equipmentTypeId = $equipmentTypeId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getEquipmentCategory() {
+        return $this->equipmentCategory;
+    }
+
+    public function setEquipmentCategory(\EquipmentCategories $equipmentCategory) {
+        $this->equipmentCategory = $equipmentCategory;
+    }
+
+    public function getLab() {
+        return $this->lab;
+    }
+
+    public function setLab(\Doctrine\Common\Collections\Collection $lab) {
+        $this->lab = $lab;
+    }
 
 
 }

@@ -43,18 +43,74 @@ class Circuits
     private $status;
 
     /**
-     * @var integer
+     * @var \CircuitTypes
      *
-     * @ORM\Column(name="circuit_type_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="CircuitTypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="circuit_type_id", referencedColumnName="circuit_type_id")
+     * })
      */
-    private $circuitTypeId;
+    private $circuitType;
 
     /**
-     * @var integer
+     * @var \SchoolUnits
      *
-     * @ORM\Column(name="school_unit_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="SchoolUnits")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="school_unit_id", referencedColumnName="school_unit_id")
+     * })
      */
-    private $schoolUnitId;
+    private $schoolUnit;
 
+    //getter and setter
+    
+    public function getCircuitId() {
+        return $this->circuitId;
+    }
 
+    public function setCircuitId($circuitId) {
+        $this->circuitId = $circuitId;
+    }
+
+    public function getPhoneNumber() {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber($phoneNumber) {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    public function getUpdatedDate() {
+        return $this->updatedDate;
+    }
+
+    public function setUpdatedDate(\DateTime $updatedDate) {
+        $this->updatedDate = $updatedDate;
+    }
+
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+
+    public function getCircuitType() {
+        return $this->circuitType;
+    }
+
+    public function setCircuitType(\CircuitTypes $circuitType) {
+        $this->circuitType = $circuitType;
+    }
+
+    public function getSchoolUnit() {
+        return $this->schoolUnit;
+    }
+
+    public function setSchoolUnit(\SchoolUnits $schoolUnit) {
+        $this->schoolUnit = $schoolUnit;
+    }
+
+    
 }

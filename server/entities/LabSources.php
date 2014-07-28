@@ -28,5 +28,23 @@ class LabSources
      */
     private $name;
 
+    //getter and setter
+
+    public function getLabSourceId() {
+        return $this->labSourceId;
+    }
+
+    public function setLabSourceId($labSourceId) {
+        $this->labSourceId = $labSourceId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
 
 }

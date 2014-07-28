@@ -28,5 +28,23 @@ class AquisitionSources
      */
     private $name;
 
+    //getter and setter
+    
+    public function getAquisitionSourceId() {
+        return $this->aquisitionSourceId;
+    }
+
+    public function setAquisitionSourceId($aquisitionSourceId) {
+        $this->aquisitionSourceId = $aquisitionSourceId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
 
 }

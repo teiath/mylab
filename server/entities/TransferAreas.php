@@ -29,11 +29,40 @@ class TransferAreas
     private $name;
 
     /**
-     * @var integer
+     * @var \EduAdmins
      *
-     * @ORM\Column(name="edu_admin_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="EduAdmins")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="edu_admin_id", referencedColumnName="edu_admin_id")
+     * })
      */
-    private $eduAdminId;
+    private $eduAdmin;
+
+    //getter and setter
+    
+    public function getTransferAreaId() {
+        return $this->transferAreaId;
+    }
+
+    public function setTransferAreaId($transferAreaId) {
+        $this->transferAreaId = $transferAreaId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getEduAdmin() {
+        return $this->eduAdmin;
+    }
+
+    public function setEduAdmin(\EduAdmins $eduAdmin) {
+        $this->eduAdmin = $eduAdmin;
+    }
 
 
 }

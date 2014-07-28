@@ -29,18 +29,58 @@ class Municipalities
     private $name;
 
     /**
-     * @var integer
+     * @var \Prefectures
      *
-     * @ORM\Column(name="transfer_area_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Prefectures")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="prefecture_id", referencedColumnName="prefecture_id")
+     * })
      */
-    private $transferAreaId;
+    private $prefecture;
 
     /**
-     * @var integer
+     * @var \TransferAreas
      *
-     * @ORM\Column(name="prefecture_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="TransferAreas")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="transfer_area_id", referencedColumnName="transfer_area_id")
+     * })
      */
-    private $prefectureId;
+    private $transferArea;
+
+    //getter and setter
+
+    public function getMunicipalityId() {
+        return $this->municipalityId;
+    }
+
+    public function setMunicipalityId($municipalityId) {
+        $this->municipalityId = $municipalityId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getPrefecture() {
+        return $this->prefecture;
+    }
+
+    public function setPrefecture(\Prefectures $prefecture) {
+        $this->prefecture = $prefecture;
+    }
+
+    public function getTransferArea() {
+        return $this->transferArea;
+    }
+
+    public function setTransferArea(\TransferAreas $transferArea) {
+        $this->transferArea = $transferArea;
+    }
 
 
 }

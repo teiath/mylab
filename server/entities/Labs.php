@@ -92,32 +92,197 @@ class Labs
     private $technologicalRating;
 
     /**
-     * @var integer
+     * @var \LabSources
      *
-     * @ORM\Column(name="lab_type_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="LabSources")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lab_source_id", referencedColumnName="lab_source_id")
+     * })
      */
-    private $labTypeId;
+    private $labSource;
 
     /**
-     * @var integer
+     * @var \LabTypes
      *
-     * @ORM\Column(name="school_unit_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="LabTypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lab_type_id", referencedColumnName="lab_type_id")
+     * })
      */
-    private $schoolUnitId;
+    private $labType;
 
     /**
-     * @var integer
+     * @var \SchoolUnits
      *
-     * @ORM\Column(name="state_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="SchoolUnits")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="school_unit_id", referencedColumnName="school_unit_id")
+     * })
      */
-    private $stateId;
+    private $schoolUnit;
 
     /**
-     * @var integer
+     * @var \States
      *
-     * @ORM\Column(name="lab_source_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="States")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="state_id", referencedColumnName="state_id")
+     * })
      */
-    private $labSourceId;
+    private $state;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="EquipmentTypes", inversedBy="lab")
+     * @ORM\JoinTable(name="lab_equipment_types",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="equipment_type_id", referencedColumnName="equipment_type_id")
+     *   }
+     * )
+     */
+    private $equipmentType;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->equipmentType = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    //getter and setter
+    
+    public function getLabId() {
+        return $this->labId;
+    }
+
+    public function setLabId($labId) {
+        $this->labId = $labId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getSpecialName() {
+        return $this->specialName;
+    }
+
+    public function setSpecialName($specialName) {
+        $this->specialName = $specialName;
+    }
+
+    public function getCreationDate() {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTime $creationDate) {
+        $this->creationDate = $creationDate;
+    }
+
+    public function getCreatedBy() {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy($createdBy) {
+        $this->createdBy = $createdBy;
+    }
+
+    public function getLastUpdated() {
+        return $this->lastUpdated;
+    }
+
+    public function setLastUpdated(\DateTime $lastUpdated) {
+        $this->lastUpdated = $lastUpdated;
+    }
+
+    public function getUpdatedBy() {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy($updatedBy) {
+        $this->updatedBy = $updatedBy;
+    }
+
+    public function getPositioning() {
+        return $this->positioning;
+    }
+
+    public function setPositioning($positioning) {
+        $this->positioning = $positioning;
+    }
+
+    public function getComments() {
+        return $this->comments;
+    }
+
+    public function setComments($comments) {
+        $this->comments = $comments;
+    }
+
+    public function getOperationalRating() {
+        return $this->operationalRating;
+    }
+
+    public function setOperationalRating($operationalRating) {
+        $this->operationalRating = $operationalRating;
+    }
+
+    public function getTechnologicalRating() {
+        return $this->technologicalRating;
+    }
+
+    public function setTechnologicalRating($technologicalRating) {
+        $this->technologicalRating = $technologicalRating;
+    }
+
+    public function getLabSource() {
+        return $this->labSource;
+    }
+
+    public function setLabSource(\LabSources $labSource) {
+        $this->labSource = $labSource;
+    }
+
+    public function getLabType() {
+        return $this->labType;
+    }
+
+    public function setLabType(\LabTypes $labType) {
+        $this->labType = $labType;
+    }
+
+    public function getSchoolUnit() {
+        return $this->schoolUnit;
+    }
+
+    public function setSchoolUnit(\SchoolUnits $schoolUnit) {
+        $this->schoolUnit = $schoolUnit;
+    }
+
+    public function getState() {
+        return $this->state;
+    }
+
+    public function setState(\States $state) {
+        $this->state = $state;
+    }
+
+    public function getEquipmentType() {
+        return $this->equipmentType;
+    }
+
+    public function setEquipmentType(\Doctrine\Common\Collections\Collection $equipmentType) {
+        $this->equipmentType = $equipmentType;
+    }
 
 
 }

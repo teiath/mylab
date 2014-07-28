@@ -35,5 +35,31 @@ class LabTypes
      */
     private $fullName;
 
+    //getter and setter
+    
+    public function getLabTypeId() {
+        return $this->labTypeId;
+    }
+
+    public function setLabTypeId($labTypeId) {
+        $this->labTypeId = $labTypeId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getFullName() {
+        return $this->fullName;
+    }
+
+    public function setFullName($fullName) {
+        $this->fullName = $fullName;
+    }
+
 
 }

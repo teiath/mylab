@@ -22,25 +22,68 @@ class SchoolUnitWorkers
     private $schoolUnitWorkerId;
 
     /**
-     * @var integer
+     * @var \SchoolUnits
      *
-     * @ORM\Column(name="school_unit_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="SchoolUnits")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="school_unit_id", referencedColumnName="school_unit_id")
+     * })
      */
-    private $schoolUnitId;
+    private $schoolUnit;
 
     /**
-     * @var integer
+     * @var \Workers
      *
-     * @ORM\Column(name="worker_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Workers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="worker_id", referencedColumnName="worker_id")
+     * })
      */
-    private $workerId;
+    private $worker;
 
     /**
-     * @var integer
+     * @var \WorkerPositions
      *
-     * @ORM\Column(name="worker_position_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="WorkerPositions")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="worker_position_id", referencedColumnName="worker_position_id")
+     * })
      */
-    private $workerPositionId;
+    private $workerPosition;
+
+    //getter and setter
+    
+    public function getSchoolUnitWorkerId() {
+        return $this->schoolUnitWorkerId;
+    }
+
+    public function setSchoolUnitWorkerId($schoolUnitWorkerId) {
+        $this->schoolUnitWorkerId = $schoolUnitWorkerId;
+    }
+
+    public function getSchoolUnit() {
+        return $this->schoolUnit;
+    }
+
+    public function setSchoolUnit(\SchoolUnits $schoolUnit) {
+        $this->schoolUnit = $schoolUnit;
+    }
+
+    public function getWorker() {
+        return $this->worker;
+    }
+
+    public function setWorker(\Workers $worker) {
+        $this->worker = $worker;
+    }
+
+    public function getWorkerPosition() {
+        return $this->workerPosition;
+    }
+
+    public function setWorkerPosition(\WorkerPositions $workerPosition) {
+        $this->workerPosition = $workerPosition;
+    }
 
 
 }

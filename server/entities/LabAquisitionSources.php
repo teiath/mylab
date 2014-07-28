@@ -22,20 +22,6 @@ class LabAquisitionSources
     private $labAquisitionSourceId;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="lab_id", type="integer", nullable=false)
-     */
-    private $labId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="aquisition_source_id", type="integer", nullable=false)
-     */
-    private $aquisitionSourceId;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="aquisition_year", type="date", nullable=true)
@@ -49,5 +35,67 @@ class LabAquisitionSources
      */
     private $aquisitionComments;
 
+    /**
+     * @var \AquisitionSources
+     *
+     * @ORM\ManyToOne(targetEntity="AquisitionSources")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="aquisition_source_id", referencedColumnName="aquisition_source_id")
+     * })
+     */
+    private $aquisitionSource;
 
+    /**
+     * @var \Labs
+     *
+     * @ORM\ManyToOne(targetEntity="Labs")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
+     * })
+     */
+    private $lab;
+
+    //getter and setter
+
+    public function getLabAquisitionSourceId() {
+        return $this->labAquisitionSourceId;
+    }
+
+    public function setLabAquisitionSourceId($labAquisitionSourceId) {
+        $this->labAquisitionSourceId = $labAquisitionSourceId;
+    }
+
+    public function getAquisitionYear() {
+        return $this->aquisitionYear;
+    }
+
+    public function setAquisitionYear(\DateTime $aquisitionYear) {
+        $this->aquisitionYear = $aquisitionYear;
+    }
+
+    public function getAquisitionComments() {
+        return $this->aquisitionComments;
+    }
+
+    public function setAquisitionComments($aquisitionComments) {
+        $this->aquisitionComments = $aquisitionComments;
+    }
+
+    public function getAquisitionSource() {
+        return $this->aquisitionSource;
+    }
+
+    public function setAquisitionSource(\AquisitionSources $aquisitionSource) {
+        $this->aquisitionSource = $aquisitionSource;
+    }
+
+    public function getLab() {
+        return $this->lab;
+    }
+
+    public function setLab(\Labs $lab) {
+        $this->lab = $lab;
+    }
+
+      
 }

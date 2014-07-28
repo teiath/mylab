@@ -28,5 +28,23 @@ class EquipmentCategories
      */
     private $name;
 
+    //getter and setter
+    
+    public function getEquipmentCategoryId() {
+        return $this->equipmentCategoryId;
+    }
+
+    public function setEquipmentCategoryId($equipmentCategoryId) {
+        $this->equipmentCategoryId = $equipmentCategoryId;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
 
 }
