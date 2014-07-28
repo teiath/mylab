@@ -83,7 +83,7 @@ if (Validator::Exists('sex', $params)){
 
 //= $worker_specialization  ====================================================
 if (Validator::Exists('worker_specialization', $params)){
-    Filters::setFilter($qb, $worker_specialization, "ws", "workerSpecialization", "name", "null,id,value", ExceptionMessages::InvalidWorkerSpecializationType, ExceptionCodes::InvalidWorkerSpecializationType);    
+    Filters::setFilter($qb, $worker_specialization, "ws", "workerSpecializationId", "name", "null,id,value", ExceptionMessages::InvalidWorkerSpecializationType, ExceptionCodes::InvalidWorkerSpecializationType);    
 }  
              
 //execution=====================================================================
