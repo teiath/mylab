@@ -219,99 +219,186 @@ header("Content-Type: text/html; charset=utf-8");
  */
 
 function GetLabTypes($pagesize, $page) {
-    global $db;
-    global $app;
+//    global $db;
+//    global $app;
+//    
+//    $filter = array();
+//    $result = array();  
+//
+//    $result["data"] = array();
+//    $controller = $app->environment();
+//    $controller = substr($controller["PATH_INFO"], 1);
+//    
+//    $result["function"] = $controller;
+//    $result["method"] = $app->request()->getMethod();
+//
+//    try {
+//        
+////        //= Pages/Pagination ==============================================================
+////        if (! $page)
+////            $page = 1;
+////        else if (intval($page) < 0)
+////	        throw new Exception(ExceptionMessages::InvalidPageNumber." : ".$page, ExceptionCodes::InvalidPageNumber);
+////        else if (!is_numeric($page))
+////	        throw new Exception(ExceptionMessages::InvalidPageType." : ".$page, ExceptionCodes::InvalidPageType);
+////        
+////        if (! $pagesize)
+////                $pagesize = $Options["PageSize"];
+////        else if (intval($pagesize) < 0)
+////	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
+////        else if (!is_numeric($pagesize))
+////	        throw new Exception(ExceptionMessages::InvalidPageSizeType." : ".$pagesize, ExceptionCodes::InvalidPageSizeType);
+////        else if ($pagesize > $Options["MaxPageSize"])
+////                throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
+//// 
+////        $startat = ($page -1) * $pagesize;
+////        $pagesize = 0;
+//       
+//        //pagination ==============================================================    
+//        $page = Pagination::Page($page);
+//        $pagesize = Pagination::Pagesize($pagesize);
+//        $startAt = Pagination::StartPagesizeFrom($page, $pagesize);
+//         
+//        //sort lab_types by name and initialize object $oLabType
+//        $sort = array( new DSC(LabTypesExt::FIELD_NAME, DSC::ASC) );
+//        $oLabTypes = new LabTypesExt($db);
+//        
+//        //find total results by filter
+//        $totalRows = $oLabTypes->findByFilterAsCount($db, $filter, true);
+//        $total = $totalRows[0]->getLabTypeId();
+//        $result["total"] = (int)$total;
+//
+//        //check if $page input from user, is valid
+//        $maxPage = Pagination::checkMaxPage($total, $page, $pagesize);
+//        
+//        //find all results by filter ,return array of objects into variable $countRows (1st ver)
+//        //if ($pagesize)        
+//        //    $countRows = $oLabType->findByFilterWithLimit($db, $filter, true, $sort, $startat, $pagesize);
+//        //else
+//        //    $countRows = $oLabType->findByFilter($db, $filter, true, $sort);
+//      
+//        //find all results by filter or not ,return objects with key-value 
+//        //from getObjsArray and complete set as getObjsArray 
+//        if ($pagesize)        
+//            $oLabTypes->getAllWithLimit($db, $filter, true, $sort, $startAt, $pagesize);
+//        else
+//            $oLabTypes->getAll($db, $filter, true, $sort);
+//
+//        //find total results by filter with limits of $page and $pagesize
+//        //$result["count"] = count($countRows)  1st ver
+//        $result["count"] = count( $oLabTypes->getObjsArray() );
+//
+//        //loop for results
+//        //foreach ($countRows as $row) {   1st ver
+//        foreach ($oLabTypes->getObjsArray() as $row) {
+//            $result["data"][] = array("lab_type_id" => (int)$row->getLabTypeId(), 
+//                                      "name" => $row->getName(),
+//                                      "full_name" => $row->getFullName()
+//                                     );
+//        }
+//        
+//        //return pagination values 
+//        $pagination = array(
+//            "page" => (int)$page,
+//            "maxPage" => (int)$maxPage,
+//            "pagesize" => (int)$pagesize
+//        ); 
+//        
+//        $result["pagination"]=$pagination;        
+//        $result["status"] = ExceptionCodes::NoErrors;
+//        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+//    } catch (Exception $e) {
+//        $result["status"] = $e->getCode();
+//        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
+//    }   
+//    return $result;
     
-    $filter = array();
+    
+    
+    
+     global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
-    $result["data"] = array();
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["data"] = array();   
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-
+    $params = loadParameters();
+    
     try {
         
-//        //= Pages/Pagination ==============================================================
-//        if (! $page)
-//            $page = 1;
-//        else if (intval($page) < 0)
-//	        throw new Exception(ExceptionMessages::InvalidPageNumber." : ".$page, ExceptionCodes::InvalidPageNumber);
-//        else if (!is_numeric($page))
-//	        throw new Exception(ExceptionMessages::InvalidPageType." : ".$page, ExceptionCodes::InvalidPageType);
-//        
-//        if (! $pagesize)
-//                $pagesize = $Options["PageSize"];
-//        else if (intval($pagesize) < 0)
-//	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-//        else if (!is_numeric($pagesize))
-//	        throw new Exception(ExceptionMessages::InvalidPageSizeType." : ".$pagesize, ExceptionCodes::InvalidPageSizeType);
-//        else if ($pagesize > $Options["MaxPageSize"])
-//                throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-// 
-//        $startat = ($page -1) * $pagesize;
-//        $pagesize = 0;
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+    
+ //$orderby======================================================================
+       $columns = array(
+            "lt.labTypeId" => "lab_type_id",
+            "lt.name" => "name",
+            "lt.fullName" => "full_name" 
+             );
        
-        //pagination ==============================================================    
-        $page = Pagination::Page($page);
-        $pagesize = Pagination::Pagesize($pagesize);
-        $startAt = Pagination::StartPagesizeFrom($page, $pagesize);
-         
-        //sort lab_types by name and initialize object $oLabType
-        $sort = array( new DSC(LabTypesExt::FIELD_NAME, DSC::ASC) );
-        $oLabTypes = new LabTypesExt($db);
-        
-        //find total results by filter
-        $totalRows = $oLabTypes->findByFilterAsCount($db, $filter, true);
-        $total = $totalRows[0]->getLabTypeId();
-        $result["total"] = (int)$total;
-
-        //check if $page input from user, is valid
-        $maxPage = Pagination::checkMaxPage($total, $page, $pagesize);
-        
-        //find all results by filter ,return array of objects into variable $countRows (1st ver)
-        //if ($pagesize)        
-        //    $countRows = $oLabType->findByFilterWithLimit($db, $filter, true, $sort, $startat, $pagesize);
-        //else
-        //    $countRows = $oLabType->findByFilter($db, $filter, true, $sort);
-      
-        //find all results by filter or not ,return objects with key-value 
-        //from getObjsArray and complete set as getObjsArray 
-        if ($pagesize)        
-            $oLabTypes->getAllWithLimit($db, $filter, true, $sort, $startAt, $pagesize);
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "lab_type_id";
         else
-            $oLabTypes->getAll($db, $filter, true, $sort);
+        {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
+        }   
+        
+ //execution=====================================================================
+        $qb->select('lt');
+        $qb->from('LabTypes', 'lt');     
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
 
-        //find total results by filter with limits of $page and $pagesize
-        //$result["count"] = count($countRows)  1st ver
-        $result["count"] = count( $oLabTypes->getObjsArray() );
+//results=======================================================================      
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $results->getQuery()->setMaxResults($pagesize);
 
-        //loop for results
-        //foreach ($countRows as $row) {   1st ver
-        foreach ($oLabTypes->getObjsArray() as $row) {
-            $result["data"][] = array("lab_type_id" => (int)$row->getLabTypeId(), 
-                                      "name" => $row->getName(),
-                                      "full_name" => $row->getFullName()
+//data==========================================================================       
+        $count = 0;
+        foreach ($results as $labtype)
+        {
+
+            $result["data"][] = array(
+                                        "lab_type_id"       => $labtype->getLabTypeId(),
+                                        "name"              => $labtype->getName(),
+                                        "full_name"         => $labtype->getFullName(),
                                      );
+            $count++;
         }
+        $result["count"] = $count;
+   
+//pagination====================================================================     
+        $maxPage = Pagination::checkMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page, "maxPage" => $maxPage, "pagesize" => $pagesize );    
+        $result["pagination"]=$pagination;
         
-        //return pagination values 
-        $pagination = array(
-            "page" => (int)$page,
-            "maxPage" => (int)$maxPage,
-            "pagesize" => (int)$pagesize
-        ); 
+  //debug=======================================================================
+        if ( Validator::IsTrue( $params["debug"]  ) )
+        {
+             $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+             $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+        }
+    
         
-        $result["pagination"]=$pagination;        
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
+
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    }   
-    return $result;
+    } 
+    
+    return $result;       
+        
+    
 }
 
 ?>
