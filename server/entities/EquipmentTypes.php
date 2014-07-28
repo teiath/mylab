@@ -29,28 +29,11 @@ class EquipmentTypes
     private $name;
 
     /**
-     * @var \EquipmentCategories
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="EquipmentCategories")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="equipment_category_id", referencedColumnName="equipment_category_id")
-     * })
+     * @ORM\Column(name="equipment_category_id", type="integer", nullable=true)
      */
-    private $equipmentCategory;
+    private $equipmentCategoryId;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Labs", mappedBy="equipmentType")
-     */
-    private $lab;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->lab = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 }

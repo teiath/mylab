@@ -43,24 +43,18 @@ class Circuits
     private $status;
 
     /**
-     * @var \CircuitTypes
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="CircuitTypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="circuit_type_id", referencedColumnName="circuit_type_id")
-     * })
+     * @ORM\Column(name="circuit_type_id", type="integer", nullable=true)
      */
-    private $circuitType;
+    private $circuitTypeId;
 
     /**
-     * @var \SchoolUnits
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="SchoolUnits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="school_unit_id", referencedColumnName="school_unit_id")
-     * })
+     * @ORM\Column(name="school_unit_id", type="integer", nullable=true)
      */
-    private $schoolUnit;
+    private $schoolUnitId;
 
 
 }

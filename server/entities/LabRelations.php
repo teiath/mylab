@@ -22,44 +22,32 @@ class LabRelations
     private $labRelationId;
 
     /**
-     * @var \Circuits
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Circuits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="circuit_id", referencedColumnName="circuit_id")
-     * })
+     * @ORM\Column(name="lab_id", type="integer", nullable=false)
      */
-    private $circuit;
+    private $labId;
 
     /**
-     * @var \Labs
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Labs")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
-     * })
+     * @ORM\Column(name="school_unit_id", type="integer", nullable=false)
      */
-    private $lab;
+    private $schoolUnitId;
 
     /**
-     * @var \RelationTypes
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="RelationTypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="relation_type_id", referencedColumnName="relation_type_id")
-     * })
+     * @ORM\Column(name="relation_type_id", type="integer", nullable=false)
      */
-    private $relationType;
+    private $relationTypeId;
 
     /**
-     * @var \SchoolUnits
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="SchoolUnits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="school_unit_id", referencedColumnName="school_unit_id")
-     * })
+     * @ORM\Column(name="circuit_id", type="integer", nullable=true)
      */
-    private $schoolUnit;
+    private $circuitId;
 
 
 }

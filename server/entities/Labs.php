@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Labs
  *
- * @ORM\Table(name="labs", indexes={@ORM\Index(name="lab_type_idx", columns={"lab_type_id"}), @ORM\Index(name="lab_school_unit_idx", columns={"school_unit_id"}), @ORM\Index(name="state_idx", columns={"state_id"}), @ORM\Index(name="source_idx", columns={"lab_source_id"})})
+ * @ORM\Table(name="labs", indexes={@ORM\Index(name="lab_type_idx", columns={"lab_type_id"}), @ORM\Index(name="state_idx", columns={"state_id"}), @ORM\Index(name="source_idx", columns={"lab_source_id"}), @ORM\Index(name="school_unit_id", columns={"school_unit_id"})})
  * @ORM\Entity
  */
 class Labs
@@ -92,66 +92,32 @@ class Labs
     private $technologicalRating;
 
     /**
-     * @var \LabSources
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="LabSources")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lab_source_id", referencedColumnName="lab_source_id")
-     * })
+     * @ORM\Column(name="lab_type_id", type="integer", nullable=true)
      */
-    private $labSource;
+    private $labTypeId;
 
     /**
-     * @var \LabTypes
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="LabTypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lab_type_id", referencedColumnName="lab_type_id")
-     * })
+     * @ORM\Column(name="school_unit_id", type="integer", nullable=true)
      */
-    private $labType;
+    private $schoolUnitId;
 
     /**
-     * @var \SchoolUnits
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="SchoolUnits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="school_unit_id", referencedColumnName="school_unit_id")
-     * })
+     * @ORM\Column(name="state_id", type="integer", nullable=true)
      */
-    private $schoolUnit;
+    private $stateId;
 
     /**
-     * @var \States
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="States")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="state_id", referencedColumnName="state_id")
-     * })
+     * @ORM\Column(name="lab_source_id", type="integer", nullable=true)
      */
-    private $state;
+    private $labSourceId;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="EquipmentTypes", inversedBy="lab")
-     * @ORM\JoinTable(name="lab_equipment_types",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="equipment_type_id", referencedColumnName="equipment_type_id")
-     *   }
-     * )
-     */
-    private $equipmentType;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->equipmentType = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
 }

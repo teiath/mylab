@@ -29,14 +29,11 @@ class TransferAreas
     private $name;
 
     /**
-     * @var \EduAdmins
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="EduAdmins")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="edu_admin_id", referencedColumnName="edu_admin_id")
-     * })
+     * @ORM\Column(name="edu_admin_id", type="integer", nullable=true)
      */
-    private $eduAdmin;
+    private $eduAdminId;
 
 
 }

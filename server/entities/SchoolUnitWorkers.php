@@ -22,34 +22,25 @@ class SchoolUnitWorkers
     private $schoolUnitWorkerId;
 
     /**
-     * @var \SchoolUnits
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="SchoolUnits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="school_unit_id", referencedColumnName="school_unit_id")
-     * })
+     * @ORM\Column(name="school_unit_id", type="integer", nullable=true)
      */
-    private $schoolUnit;
+    private $schoolUnitId;
 
     /**
-     * @var \Workers
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Workers")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="worker_id", referencedColumnName="worker_id")
-     * })
+     * @ORM\Column(name="worker_id", type="integer", nullable=true)
      */
-    private $worker;
+    private $workerId;
 
     /**
-     * @var \WorkerPositions
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="WorkerPositions")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="worker_position_id", referencedColumnName="worker_position_id")
-     * })
+     * @ORM\Column(name="worker_position_id", type="integer", nullable=true)
      */
-    private $workerPosition;
+    private $workerPositionId;
 
 
 }

@@ -29,14 +29,18 @@ class EduAdmins
     private $name;
 
     /**
-     * @var \RegionEduAdmins
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="RegionEduAdmins")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="region_edu_admin_id", referencedColumnName="region_edu_admin_id")
-     * })
+     * @ORM\Column(name="edu_admin_code", type="string", length=45, nullable=true)
      */
-    private $regionEduAdmin;
+    private $eduAdminCode;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="region_edu_admin_id", type="integer", nullable=true)
+     */
+    private $regionEduAdminId;
 
 
 }

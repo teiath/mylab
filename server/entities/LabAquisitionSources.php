@@ -22,6 +22,20 @@ class LabAquisitionSources
     private $labAquisitionSourceId;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="lab_id", type="integer", nullable=false)
+     */
+    private $labId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="aquisition_source_id", type="integer", nullable=false)
+     */
+    private $aquisitionSourceId;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="aquisition_year", type="date", nullable=true)
@@ -34,26 +48,6 @@ class LabAquisitionSources
      * @ORM\Column(name="aquisition_comments", type="string", length=255, nullable=true)
      */
     private $aquisitionComments;
-
-    /**
-     * @var \AquisitionSources
-     *
-     * @ORM\ManyToOne(targetEntity="AquisitionSources")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="aquisition_source_id", referencedColumnName="aquisition_source_id")
-     * })
-     */
-    private $aquisitionSource;
-
-    /**
-     * @var \Labs
-     *
-     * @ORM\ManyToOne(targetEntity="Labs")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
-     * })
-     */
-    private $lab;
 
 
 }

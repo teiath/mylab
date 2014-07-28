@@ -22,6 +22,27 @@ class LabTransitions
     private $labTransitionId;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="lab_id", type="integer", nullable=true)
+     */
+    private $labId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="from_state", type="integer", nullable=true)
+     */
+    private $fromState;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="to_state", type="integer", nullable=true)
+     */
+    private $toState;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="transition_justification", type="string", length=255, nullable=true)
@@ -41,36 +62,6 @@ class LabTransitions
      * @ORM\Column(name="transition_source", type="string", nullable=true)
      */
     private $transitionSource;
-
-    /**
-     * @var \States
-     *
-     * @ORM\ManyToOne(targetEntity="States")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="from_state", referencedColumnName="state_id")
-     * })
-     */
-    private $fromState;
-
-    /**
-     * @var \Labs
-     *
-     * @ORM\ManyToOne(targetEntity="Labs")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
-     * })
-     */
-    private $lab;
-
-    /**
-     * @var \States
-     *
-     * @ORM\ManyToOne(targetEntity="States")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="to_state", referencedColumnName="state_id")
-     * })
-     */
-    private $toState;
 
 
 }

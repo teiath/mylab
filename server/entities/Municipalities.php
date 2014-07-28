@@ -29,24 +29,18 @@ class Municipalities
     private $name;
 
     /**
-     * @var \Prefectures
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Prefectures")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="prefecture_id", referencedColumnName="prefecture_id")
-     * })
+     * @ORM\Column(name="transfer_area_id", type="integer", nullable=true)
      */
-    private $prefecture;
+    private $transferAreaId;
 
     /**
-     * @var \TransferAreas
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="TransferAreas")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="transfer_area_id", referencedColumnName="transfer_area_id")
-     * })
+     * @ORM\Column(name="prefecture_id", type="integer", nullable=true)
      */
-    private $transferArea;
+    private $prefectureId;
 
 
 }

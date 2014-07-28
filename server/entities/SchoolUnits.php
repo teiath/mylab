@@ -78,84 +78,67 @@ class SchoolUnits
     private $postalCode;
 
     /**
-     * @var \EducationLevels
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="EducationLevels")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="education_level_id", referencedColumnName="education_level_id")
-     * })
+     * @ORM\Column(name="region_edu_admin_id", type="integer", nullable=true)
      */
-    private $educationLevel;
+    private $regionEduAdminId;
 
     /**
-     * @var \EduAdmins
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="EduAdmins")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="edu_admin_id", referencedColumnName="edu_admin_id")
-     * })
+     * @ORM\Column(name="edu_admin_id", type="integer", nullable=true)
      */
-    private $eduAdmin;
+    private $eduAdminId;
 
     /**
-     * @var \Municipalities
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Municipalities")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="municipality_id", referencedColumnName="municipality_id")
-     * })
+     * @ORM\Column(name="transfer_area_id", type="integer", nullable=true)
      */
-    private $municipality;
+    private $transferAreaId;
 
     /**
-     * @var \Prefectures
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Prefectures")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="prefecture_id", referencedColumnName="prefecture_id")
-     * })
+     * @ORM\Column(name="municipality_id", type="integer", nullable=true)
      */
-    private $prefecture;
+    private $municipalityId;
 
     /**
-     * @var \RegionEduAdmins
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="RegionEduAdmins")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="region_edu_admin_id", referencedColumnName="region_edu_admin_id")
-     * })
+     * @ORM\Column(name="prefecture_id", type="integer", nullable=true)
      */
-    private $regionEduAdmin;
+    private $prefectureId;
 
     /**
-     * @var \SchoolUnitTypes
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="SchoolUnitTypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="school_unit_type_id", referencedColumnName="school_unit_type_id")
-     * })
+     * @ORM\Column(name="education_level_id", type="integer", nullable=true)
      */
-    private $schoolUnitType;
+    private $educationLevelId;
 
     /**
-     * @var \States
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="States")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="state_id", referencedColumnName="state_id")
-     * })
+     * @ORM\Column(name="school_unit_type_id", type="integer", nullable=true)
      */
-    private $state;
+    private $schoolUnitTypeId;
 
     /**
-     * @var \TransferAreas
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="TransferAreas")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="transfer_area_id", referencedColumnName="transfer_area_id")
-     * })
+     * @ORM\Column(name="state_id", type="integer", nullable=true)
      */
-    private $transferArea;
+    private $stateId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unit_dns", type="string", length=100, nullable=true)
+     */
+    private $unitDns;
 
 
 }

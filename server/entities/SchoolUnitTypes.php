@@ -36,14 +36,11 @@ class SchoolUnitTypes
     private $initials;
 
     /**
-     * @var \EducationLevels
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="EducationLevels")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="education_level_id", referencedColumnName="education_level_id")
-     * })
+     * @ORM\Column(name="education_level_id", type="integer", nullable=true)
      */
-    private $educationLevel;
+    private $educationLevelId;
 
 
 }

@@ -22,6 +22,27 @@ class LabWorkers
     private $labWorkerId;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="lab_id", type="integer", nullable=true)
+     */
+    private $labId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="worker_id", type="integer", nullable=true)
+     */
+    private $workerId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="worker_position_id", type="integer", nullable=true)
+     */
+    private $workerPositionId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="worker_email", type="string", length=255, nullable=true)
@@ -41,36 +62,6 @@ class LabWorkers
      * @ORM\Column(name="worker_start_service", type="date", nullable=true)
      */
     private $workerStartService;
-
-    /**
-     * @var \Labs
-     *
-     * @ORM\ManyToOne(targetEntity="Labs")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
-     * })
-     */
-    private $lab;
-
-    /**
-     * @var \Workers
-     *
-     * @ORM\ManyToOne(targetEntity="Workers")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="worker_id", referencedColumnName="worker_id")
-     * })
-     */
-    private $worker;
-
-    /**
-     * @var \WorkerPositions
-     *
-     * @ORM\ManyToOne(targetEntity="WorkerPositions")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="worker_position_id", referencedColumnName="worker_position_id")
-     * })
-     */
-    private $workerPosition;
 
 
 }
