@@ -296,32 +296,32 @@ function EduAdminsController()
     {
         case MethodTypes::GET : 
             $result = GetEduAdmins(
-                $params->region_edu_admin,
-                $params->pagesize, 
-                $params->page,
-                $params->sort_field,
-                $params->sort_mode
+                $params["region_edu_admin"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["sort_field"],
+                $params["sort_mode"]
                 
             );      
             break;
         case MethodTypes::POST :
             $result = PostEduAdmins(
-                $params->edu_admin_id, 
-                $params->name, 
-                $params->region_edu_admin,
-                $params->sync_array
+                $params["edu_admin_id"], 
+                $params["name"], 
+                $params["region_edu_admin"],
+                $params["sync_array"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutEduAdmins(
-                $params->edu_admin_id,
-                $params->name,
-                $params->region_edu_admin
+                $params["edu_admin_id"],
+                $params["name"],
+                $params["region_edu_admin"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelEduAdmins(
-                $params->name 
+                $params["name"] 
             );      
             break;  
     }
@@ -341,24 +341,24 @@ function EducationLevelsController()
     {
         case MethodTypes::GET : 
             $result = GetEducationLevels(
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostEducationLevels(
-                $params->name
+                $params["name"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutEducationLevels(
-                 $params->education_level_id,
-                 $params->name
+                 $params["education_level_id"],
+                 $params["name"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelEducationLevels(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -376,30 +376,30 @@ function MunicipalitiesController()
     {
         case MethodTypes::GET : 
             $result = GetMunicipalities(
-                $params->prefecture, 
-                $params->transfer_area,
-                $params->pagesize, 
-                $params->page
+                $params["prefecture"], 
+                $params["transfer_area"],
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostMunicipalities(
-                $params->name, 
-                $params->transfer_area,
-                $params->prefecture
+                $params["name"], 
+                $params["transfer_area"],
+                $params["prefecture"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutMunicipalities(
-                $params->municipality_id,
-                $params->name, 
-                $params->transfer_area,
-                $params->prefecture
+                $params["municipality_id"],
+                $params["name"], 
+                $params["transfer_area"],
+                $params["prefecture"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelMunicipalities(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -417,24 +417,24 @@ function PrefecturesController()
     {
         case MethodTypes::GET : 
             $result = GetPrefectures(
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostPrefectures(
-                $params->name
+                $params["name"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutPrefectures(
-                $params->prefecture_id,
-                $params->name
+                $params["prefecture_id"],
+                $params["name"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelPrefectures(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -452,24 +452,24 @@ function RegionEduAdminsController()
     {
         case MethodTypes::GET : 
             $result = GetRegionEduAdmins(
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostRegionEduAdmins(
-                $params->name
+                $params["name"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutRegionEduAdmins(
-                $params->region_edu_admin_id,
-                $params->name
+                $params["region_edu_admin_id"],
+                $params["name"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelRegionEduAdmins(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -488,68 +488,68 @@ function SchoolUnitsController()
     {
         case MethodTypes::GET : 
             $result = GetSchoolUnits(
-                $params->school_unit_id,
-                $params->name,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture, 
-                $params->education_level, 
-                $params->school_unit_type,
-                $params->state,
-                $params->lab_type,
-                $params->operational_rating,
-                $params->technological_rating,
-                $params->lab_state,
-                $params->aquisition_source,
-                $params->equipment_type,
-                $params->lab_id,
-                $params->lab_worker,
-                $params->pagesize, 
-                $params->page,
-                $params->sort_field,
-                $params->sort_mode
+                $params["school_unit_id"],
+                $params["name"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"], 
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["state"],
+                $params["lab_type"],
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["lab_state"],
+                $params["aquisition_source"],
+                $params["equipment_type"],
+                $params["lab_id"],
+                $params["lab_worker"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["sort_field"],
+                $params["sort_mode"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostSchoolUnits(
-                $params->name,
-                $params->fax_number,
-                $params->phone_number,
-                $params->email,
-                $params->street_address,
-                $params->postal_code,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture, 
-                $params->education_level, 
-                $params->school_unit_type  
+                $params["name"],
+                $params["fax_number"],
+                $params["phone_number"],
+                $params["email"],
+                $params["street_address"],
+                $params["postal_code"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"], 
+                $params["education_level"], 
+                $params["school_unit_type"]  
             );      
             break;
       case MethodTypes::PUT :
             $result = PutSchoolUnits(
-                $params->school_unit_id,
-                $params->name,
-                $params->fax_number,
-                $params->phone_number,
-                $params->email,
-                $params->street_address,
-                $params->postal_code,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture, 
-                $params->education_level, 
-                $params->school_unit_type  
+                $params["school_unit_id"],
+                $params["name"],
+                $params["fax_number"],
+                $params["phone_number"],
+                $params["email"],
+                $params["street_address"],
+                $params["postal_code"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"], 
+                $params["education_level"], 
+                $params["school_unit_type"]  
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelSchoolUnits(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -567,27 +567,27 @@ function SchoolUnitTypesController()
     {
         case MethodTypes::GET : 
             $result = GetSchoolUnitTypes(
-                $params->education_level, 
-                $params->pagesize, 
-                $params->page
+                $params["education_level"], 
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostSchoolUnitTypes(
-                $params->name,
-                $params->education_level
+                $params["name"],
+                $params["education_level"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutSchoolUnitTypes(
-                $params->school_unit_type_id,
-                $params->name,
-                $params->education_level
+                $params["school_unit_type_id"],
+                $params["name"],
+                $params["education_level"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelSchoolUnitTypes(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -605,27 +605,27 @@ function TranferAreasController()
     {
         case MethodTypes::GET : 
             $result = GetTransferAreas(
-                $params->edu_admin, 
-                $params->pagesize, 
-                $params->page
+                $params["edu_admin"], 
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostTransferAreas(
-                $params->name, 
-                $params->edu_admin
+                $params["name"], 
+                $params["edu_admin"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutTransferAreas(
-                $params->transfer_area_id,
-                $params->name, 
-                $params->edu_admin
+                $params["transfer_area_id"],
+                $params["name"], 
+                $params["edu_admin"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelTransferAreas(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -643,24 +643,24 @@ function StatesController()
     {
         case MethodTypes::GET : 
             $result = GetStates(    
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
 //        case MethodTypes::POST :
 //            $result = PostStates(
-//                $params->name
+//                $params["name"]
 //            );      
 //            break;
 //      case MethodTypes::PUT :
 //            $result = PutStates(
-//                $params->state_id,
-//                $params->name
+//                $params["state_id"],
+//                $params["name"]
 //            );      
 //            break;
 //       case MethodTypes::DELETE :
 //            $result = DelStates(
-//                $params->name
+//                $params["name"]
 //            );      
 //            break;  
     }
@@ -678,11 +678,11 @@ function SchoolUnitWorkersController()
     {
         case MethodTypes::GET : 
             $result = GetSchoolUnitWorkers(
-                $params->school_unit, 
-                $params->worker, 
-                $params->worker_position, 
-                $params->pagesize, 
-                $params->page
+                $params["school_unit"], 
+                $params["worker"], 
+                $params["worker_position"], 
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
 //        case MethodTypes::POST :
@@ -714,12 +714,12 @@ function CircuitsController()
     {
         case MethodTypes::GET : 
             $result = GetCircuits(
-                $params->school_unit, 
-                $params->circuit_type,
-                $params->phone_number,
-                $params->circuit,
-                $params->pagesize, 
-                $params->page
+                $params["school_unit"], 
+                $params["circuit_type"],
+                $params["phone_number"],
+                $params["circuit"],
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
 //        case MethodTypes::POST :
@@ -751,8 +751,8 @@ function CircuitTypesController()
     {
         case MethodTypes::GET : 
             $result = GetCircuitTypes(
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
 //        case MethodTypes::POST :
@@ -786,24 +786,24 @@ function AquisitionSourcesController()
     {
         case MethodTypes::GET : 
             $result = GetAquisitionSources(    
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostAquisitionSources(
-                $params->name
+                $params["name"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutAquisitionSources(
-                $params->aquisition_source_id,
-                $params->name
+                $params["aquisition_source_id"],
+                $params["name"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelAquisitionSources(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -822,24 +822,24 @@ function WorkerPositionsController()
     {
         case MethodTypes::GET : 
             $result = GetWorkerPositions(    
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostWorkerPositions(
-                $params->name
+                $params["name"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutWorkerPositions(
-                $params->employment_relationship_id,
-                $params->name
+                $params["employment_relationship_id"],
+                $params["name"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelWorkerPositions(
-                $params->name
+                $params["name"]
             );      
             break;  
     }   
@@ -857,24 +857,24 @@ function EquipmentCategoriesController()
     {
         case MethodTypes::GET : 
             $result = GetEquipmentCategories(    
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostEquipmentCategories(
-                $params->name
+                $params["name"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutEquipmentCategories(
-                $params->equipment_category_id,
-                $params->name
+                $params["equipment_category_id"],
+                $params["name"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelEquipmentCategories(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -892,29 +892,29 @@ function EquipmentTypesController()
     {
         case MethodTypes::GET : 
             $result = GetEquipmentTypes(
-                $params->equipment_category,
-                $params->pagesize, 
-                $params->page
+                $params["equipment_category"],
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostEquipmentTypes(
-                $params->name,
-                $params->number,
-                $params->equipment_category
+                $params["name"],
+                $params["number"],
+                $params["equipment_category"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutEquipmentTypes(
-                $params->equipment_type_id,
-                $params->name,
-                $params->number,
-                $params->equipment_category
+                $params["equipment_type_id"],
+                $params["name"],
+                $params["number"],
+                $params["equipment_category"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelEquipmentTypes(
-                $params->name
+                $params["name"]
             );      
             break;  
     }
@@ -933,65 +933,65 @@ function LabsController()
     {
         case MethodTypes::GET : 
             $result = GetLabs(
-                $params->lab_id,
-                $params->name,
-                $params->special_name,
-                $params->creation_date,
-                $params->operational_rating,
-                $params->technological_rating,
-                $params->lab_worker,
-                $params->lab_type,
-                $params->school_unit,
-                $params->state,
-                $params->source,
-                $params->aquisition_source,
-                $params->equipment_type,
-                $params->pagesize, 
-                $params->page,
-                $params->sort_field,
-                $params->sort_mode
+                $params["lab_id"],
+                $params["name"],
+                $params["special_name"],
+                $params["creation_date"],
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["lab_worker"],
+                $params["lab_type"],
+                $params["school_unit"],
+                $params["state"],
+                $params["source"],
+                $params["aquisition_source"],
+                $params["equipment_type"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["sort_field"],
+                $params["sort_mode"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostLabs(
-                $params->special_name,
-                $params->positioning,
-                $params->comments,
-                $params->operational_rating,
-                $params->technological_rating,
-                $params->lab_type,
-                $params->school_unit,
-                $params->state,
-                $params->lab_source,
-                $params->lab_worker,
-                $params->worker_start_service,
-                $params->transition_date, 
-                $params->transition_justification, 
-                $params->transition_source,
-                $params->relation_served_service,
-                $params->relation_served_online,
-                $params->aquisition_sources,
-                $params->equipment_types
+                $params["special_name"],
+                $params["positioning"],
+                $params["comments"],
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["lab_type"],
+                $params["school_unit"],
+                $params["state"],
+                $params["lab_source"],
+                $params["lab_worker"],
+                $params["worker_start_service"],
+                $params["transition_date"], 
+                $params["transition_justification"], 
+                $params["transition_source"],
+                $params["relation_served_service"],
+                $params["relation_served_online"],
+                $params["aquisition_sources"],
+                $params["equipment_types"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutLabs(
-                $params->lab_id,
-                $params->special_name,
-                $params->positioning,
-                $params->comments,
-                $params->operational_rating,
-                $params->technological_rating,
-                $params->state,
-                $params->lab_source,
-                $params->transition_date, 
-                $params->transition_justification, 
-                $params->transition_source
+                $params["lab_id"],
+                $params["special_name"],
+                $params["positioning"],
+                $params["comments"],
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["state"],
+                $params["lab_source"],
+                $params["transition_date"], 
+                $params["transition_justification"], 
+                $params["transition_source"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelLabs(
-                $params->lab_id
+                $params["lab_id"]
             );      
             break;  
     }
@@ -1009,35 +1009,35 @@ function LabAquisitionSourcesController()
     {
         case MethodTypes::GET : 
             $result = GetLabAquisitionSources(
-                $params->lab,
-                $params->aquisition_source,
-                $params->aquisition_year,
-                $params->pagesize, 
-                $params->page
+                $params["lab"],
+                $params["aquisition_source"],
+                $params["aquisition_year"],          
+                $params["pagesize"],
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostLabAquisitionSources(
-                $params->lab_id,
-                $params->aquisition_source,
-                $params->aquisition_year,
-                $params->aquisition_comments,
-                $params->multiple_aquisition_sources
+                $params["lab_id"],
+                $params["aquisition_source"],
+                $params["aquisition_year"],
+                $params["aquisition_comments"],
+                $params["multiple_aquisition_sources"]
             );
       
             break;
       case MethodTypes::PUT :
             $result = PutLabAquisitionSources(
-                $params->lab_aquisition_source_id,
-                $params->lab_id,
-                $params->aquisition_source,
-                $params->aquisition_year,
-                $params->aquisition_comments
+                $params["lab_aquisition_source_id"],
+                $params["lab_id"],
+                $params["aquisition_source"],
+                $params["aquisition_year"],
+                $params["aquisition_comments"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelLabAquisitionSources(
-                $params->lab_aquisition_source_id
+                $params["lab_aquisition_source_id"]
             );      
             break;  
     }
@@ -1055,32 +1055,32 @@ function LabEquipmentTypesController()
     {
         case MethodTypes::GET : 
             $result = GetLabEquipmentTypes(
-                $params->lab,
-                $params->equipment_type,
-                $params->equipment_category,
-                $params->pagesize, 
-                $params->page
+                $params["lab"],
+                $params["equipment_type"],
+                $params["equipment_category"],
+                $params["pagesize"],
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostLabEquipmentTypes(
-                $params->lab_id,
-                $params->equipment_type,
-                $params->items,
-                $params->multiple_equipment_types
+                $params["lab_id"],
+                $params["equipment_type"],
+                $params["items"],
+                $params["multiple_equipment_types"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutLabEquipmentTypes(
-                $params->lab_id,
-                $params->equipment_type,
-                $params->items 
+                $params["lab_id"],
+                $params["equipment_type"],
+                $params["items"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelLabEquipmentTypes(
-                $params->lab_id,
-                $params->equipment_type
+                $params["lab_id"],
+                $params["equipment_type"]
             );     
             break;  
     }
@@ -1116,30 +1116,30 @@ function WorkersController()
             break;
         case MethodTypes::POST :
             $result = PostWorkers(
-                $params->registry_number,
-                $params->firstname,
-                $params->lastname, 
-                $params->fathername,
-                $params->sex,
-                $params->specialization_code,
-                $params->employment_relationship
+                $params["registry_number"],
+                $params["firstname"],
+                $params["lastname"], 
+                $params["fathername"],
+                $params["sex"],
+                $params["specialization_code"],
+                $params["employment_relationship"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutWorkers(
-                $params->lab_responsible_id,
-                $params->registry_number,
-                $params->firstname,
-                $params->lastname, 
-                $params->fathername,
-                $params->sex,
-                $params->specialization_code,
-                $params->employment_relationship      
+                $params["lab_responsible_id"],
+                $params["registry_number"],
+                $params["firstname"],
+                $params["lastname"], 
+                $params["fathername"],
+                $params["sex"],
+                $params["specialization_code"],
+                $params["employment_relationship"]    
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelWorkers(
-                $params->registry_number
+                $params["registry_number"]
             );      
             break;  
     }
@@ -1157,26 +1157,26 @@ function LabTypesController()
     {
         case MethodTypes::GET : 
             $result = GetLabTypes(    
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostLabTypes(
-                $params->name,
-                $params->info_name
+                $params["name"],
+                $params["info_name"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutLabTypes(
-                $params->lab_type_id,
-                $params->name,
-                $params->info_name
+                $params["lab_type_id"],
+                $params["name"],
+                $params["info_name"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelLabTypes(
-                $params->name
+                $params["name"]
             );      
             break;  
     }   
@@ -1195,24 +1195,24 @@ function WorkerSpecializationsController()
     {
         case MethodTypes::GET : 
             $result = GetWorkerSpecializations(    
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostWorkerSpecializations(
-                $params->code
+                $params["code"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutWorkerSpecializations(
-                $params->specialization_code_id,
-                $params->code
+                $params["specialization_code_id"],
+                $params["code"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelWorkerSpecializations(
-                $params->code
+                $params["code"]
             );      
             break;  
     }   
@@ -1230,35 +1230,35 @@ function LabRelationsController()
     {
         case MethodTypes::GET : 
             $result = GetLabRelations(
-                $params->lab,
-                $params->school_unit,
-                $params->relation_type,
-                $params->circuit,
-                $params->phone_number,
-                $params->pagesize, 
-                $params->page
+                $params["lab"],
+                $params["school_unit"],
+                $params["relation_type"],
+                $params["circuit"],
+                $params["phone_number"],
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostLabRelations(
-                $params->lab_id, 
-                $params->school_unit,
-                $params->relation_type, 
-                $params->circuit_id
+                $params["lab_id"], 
+                $params["school_unit"],
+                $params["relation_type"], 
+                $params["circuit_id"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutLabRelations(
-                $params->lab_relation_id,
-                $params->lab_id, 
-                $params->school_unit,
-                $params->relation_type, 
-                $params->circuit_id
+                $params["lab_relation_id"],
+                $params["lab_id"], 
+                $params["school_unit"],
+                $params["relation_type"], 
+                $params["circuit_id"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelLabRelations(
-                $params->lab_relation_id
+                $params["lab_relation_id"]
             );      
             break;  
     }
@@ -1276,8 +1276,8 @@ function RelationTypesController()
     {
         case MethodTypes::GET : 
             $result = GetRelationTypes(
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
 //        case MethodTypes::POST :
@@ -1309,8 +1309,8 @@ function LabSourcesController()
     {
         case MethodTypes::GET : 
             $result = GetLabSources(
-                $params->pagesize, 
-                $params->page
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
 //        case MethodTypes::POST :
@@ -1342,30 +1342,30 @@ function LabTransitionsController()
     {
         case MethodTypes::GET : 
             $result = GetLabTransitions(
-                $params->lab, 
-                $params->pagesize, 
-                $params->page
+                $params["lab"], 
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostLabTransitions(
-                $params->lab_id, 
-                $params->state,
-                $params->transition_date, 
-                $params->transition_justification, 
-                $params->transition_source
+                $params["lab_id"], 
+                $params["state"],
+                $params["transition_date"], 
+                $params["transition_justification"], 
+                $params["transition_source"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutLabTransitions(
-                $params->lab_transition_id,
-                $params->transition_justification, 
-                $params->transition_source
+                $params["lab_transition_id"],
+                $params["transition_justification"], 
+                $params["transition_source"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelLabTransitions(
-                $params->lab_transition_id
+                $params["lab_transition_id"]
             );      
             break;  
     }
@@ -1383,33 +1383,33 @@ function LabWorkersController()
     {
         case MethodTypes::GET : 
             $result = GetLabWorkers(
-                $params->lab, 
-                $params->worker, 
-                $params->worker_position,
-                $params->worker_status, 
-                $params->pagesize, 
-                $params->page
+                $params["lab"], 
+                $params["worker"], 
+                $params["worker_position"],
+                $params["worker_status"], 
+                $params["pagesize"], 
+                $params["page"]
             );      
             break;
         case MethodTypes::POST :
             $result = PostLabWorkers(
-                    $params->lab_id,
-                    $params->worker_id,
-                    $params->worker_position,
-                    $params->worker_email,
-                    $params->worker_status,
-                    $params->worker_start_service
+                    $params["lab_id"],
+                    $params["worker_id"],
+                    $params["worker_position"],
+                    $params["worker_email"],
+                    $params["worker_status"],
+                    $params["worker_start_service"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutLabWorkers(
-                    $params->lab_worker_id,
-                    $params->worker_status
+                    $params["lab_worker_id"],
+                    $params["worker_status"]
             );      
             break;
        case MethodTypes::DELETE :
             $result = DelLabWorkers(
-                    $params->lab_worker_id
+                    $params["lab_worker_id"]
             );      
             break;  
     }
@@ -1429,36 +1429,36 @@ function SearchSchoolUnitsController()
     {
         case MethodTypes::GET : 
             $result = SearchSchoolUnits(
-                $params->school_unit_id,
-                $params->school_unit_name,
-                $params->school_unit_special_name,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture, 
-                $params->education_level, 
-                $params->school_unit_type,
-                $params->school_unit_state,
-                $params->lab_id,
-                $params->lab_name,
-                $params->lab_special_name,
-                $params->creation_date,
-                $params->operational_rating,
-                $params->technological_rating,
-                $params->lab_type,
-                $params->lab_state,
-                $params->lab_source,
-                $params->aquisition_source,
-                $params->equipment_type,
-                $params->lab_worker,
-                $params->pagesize, 
-                $params->page,
-                $params->orderby,
-                $params->ordertype,
-                $params->searchtype,
-                $params->export,
-                $params->debug
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["school_unit_special_name"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"], 
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["school_unit_state"],
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["lab_special_name"],
+                $params["creation_date"],
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["lab_type"],
+                $params["lab_state"],
+                $params["lab_source"],
+                $params["aquisition_source"],
+                $params["equipment_type"],
+                $params["lab_worker"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["orderby"],
+                $params["ordertype"],
+                $params["searchtype"],
+                $params["export"],
+                $params["debug"]
             );      
             break;
     }
@@ -1477,36 +1477,36 @@ function SearchLabsController()
     {
         case MethodTypes::GET : 
             $result = SearchLabs(
-                $params->lab_id,
-                $params->lab_name,
-                $params->lab_special_name,
-                $params->creation_date,
-                $params->operational_rating,
-                $params->technological_rating,
-                $params->lab_type,
-                $params->school_unit_id,
-                $params->school_unit_name,
-                $params->school_unit_special_name,
-                $params->lab_state,
-                $params->lab_source,
-                $params->aquisition_source,
-                $params->equipment_type,                    
-                $params->lab_worker,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture,
-                $params->education_level, 
-                $params->school_unit_type,
-                $params->school_unit_state,
-                $params->pagesize, 
-                $params->page,
-                $params->orderby,
-                $params->ordertype,
-                $params->searchtype,
-                $params->export,
-                $params->debug
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["lab_special_name"],
+                $params["creation_date"],
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["lab_type"],
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["school_unit_special_name"],
+                $params["lab_state"],
+                $params["lab_source"],
+                $params["aquisition_source"],
+                $params["equipment_type"],                    
+                $params["lab_worker"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"],
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["school_unit_state"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["orderby"],
+                $params["ordertype"],
+                $params["searchtype"],
+                $params["export"],
+                $params["debug"]
             );      
             break;
     }
@@ -1525,33 +1525,33 @@ function SearchLabWorkersController()
     {
         case MethodTypes::GET : 
             $result = SearchLabWorkers(
-                $params->lab_worker_id,
-                $params->worker_status,
-                $params->worker_start_service,
-                $params->lab_id,
-                $params->lab_name,
-                $params->worker_position,
-                $params->worker,
-                $params->worker_registry_no,
-                $params->lab_type,
-                $params->school_unit_id,
-                $params->school_unit_name,
-                $params->lab_state,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture,
-                $params->education_level, 
-                $params->school_unit_type,
-                $params->school_unit_state,
-                $params->pagesize, 
-                $params->page,
-                $params->orderby,
-                $params->ordertype,
-                $params->searchtype,
-                $params->export,
-                $params->debug
+                $params["lab_worker_id"],
+                $params["worker_status"],
+                $params["worker_start_service"],
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["worker_position"],
+                $params["worker"],
+                $params["worker_registry_no"],
+                $params["lab_type"],
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["lab_state"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"],
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["school_unit_state"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["orderby"],
+                $params["ordertype"],
+                $params["searchtype"],
+                $params["export"],
+                $params["debug"]
             );      
             break;
     }
@@ -1570,31 +1570,31 @@ function StatisticSchoolUnitsController()
     {
         case MethodTypes::GET : 
             $result = StatisticSchoolUnits(
-                $params->school_unit_id,
-                $params->school_unit_name,
-                $params->school_unit_special_name,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture, 
-                $params->education_level, 
-                $params->school_unit_type,
-                $params->school_unit_state,
-                $params->lab_id,
-                $params->lab_name,
-                $params->lab_special_name,
-                $params->creation_date,
-                $params->operational_rating,
-                $params->technological_rating,
-                $params->lab_type,
-                $params->lab_state,
-                $params->lab_source,
-                $params->aquisition_source,
-                $params->equipment_type,
-                $params->lab_worker,
-                $params->searchtype,
-                $params->debug
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["school_unit_special_name"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"], 
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["school_unit_state"],
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["lab_special_name"],
+                $params["creation_date"],
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["lab_type"],
+                $params["lab_state"],
+                $params["lab_source"],
+                $params["aquisition_source"],
+                $params["equipment_type"],
+                $params["lab_worker"],
+                $params["searchtype"],
+                $params["debug"]
             );      
             break;
     }
@@ -1613,31 +1613,31 @@ function StatisticLabsController()
     {
         case MethodTypes::GET : 
             $result = StatisticLabs(
-                $params->lab_id,
-                $params->lab_name,
-                $params->lab_special_name,
-                $params->creation_date,
-                $params->operational_rating,
-                $params->technological_rating,
-                $params->lab_type,
-                $params->school_unit_id,
-                $params->school_unit_name,
-                $params->school_unit_special_name,
-                $params->lab_state,
-                $params->lab_source,
-                $params->aquisition_source,
-                $params->equipment_type,                    
-                $params->lab_worker,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture,
-                $params->education_level, 
-                $params->school_unit_type,
-                $params->school_unit_state,
-                $params->searchtype,
-                $params->debug
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["lab_special_name"],
+                $params["creation_date"],
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["lab_type"],
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["school_unit_special_name"],
+                $params["lab_state"],
+                $params["lab_source"],
+                $params["aquisition_source"],
+                $params["equipment_type"],                    
+                $params["lab_worker"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"],
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["school_unit_state"],
+                $params["searchtype"],
+                $params["debug"]
             );      
             break;
     }
@@ -1656,28 +1656,28 @@ function StatisticLabWorkersController()
     {
         case MethodTypes::GET : 
             $result = StatisticLabWorkers(
-                $params->lab_worker_id,
-                $params->worker_status,
-                $params->worker_start_service,
-                $params->lab_id,
-                $params->lab_name,
-                $params->worker_position,
-                $params->worker,
-                $params->worker_registry_no,
-                $params->lab_type,
-                $params->school_unit_id,
-                $params->school_unit_name,
-                $params->lab_state,
-                $params->region_edu_admin,
-                $params->edu_admin,
-                $params->transfer_area,
-                $params->municipality,
-                $params->prefecture,
-                $params->education_level, 
-                $params->school_unit_type,
-                $params->school_unit_state,
-                $params->searchtype,
-                $params->debug
+                $params["lab_worker_id"],
+                $params["worker_status"],
+                $params["worker_start_service"],
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["worker_position"],
+                $params["worker"],
+                $params["worker_registry_no"],
+                $params["lab_type"],
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["lab_state"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"],
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["school_unit_state"],
+                $params["searchtype"],
+                $params["debug"]
             );      
             break;
     }
@@ -1696,7 +1696,7 @@ function ReportKeplhnetController()
     {
         case MethodTypes::GET : 
             $result = ReportKeplhnet(
-                $params->edu_admin_code
+                $params["edu_admin_code"]
             );      
             break;
     }
