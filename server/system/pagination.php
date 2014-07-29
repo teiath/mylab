@@ -70,8 +70,6 @@ class Pagination
        public static function getPageSize($pagesize, $params, $useAllPageSize = false) { 
         if ( Validator::Missing('pagesize', $params) )
             $pagesize = $useAllPageSize == true ? Parameters::AllPageSize : Parameters::DefaultPageSize;
-        else if ( Validator::isEqualTo($pagesize, 0) )
-            $pagesize = Parameters::AllPageSize;
         else if ( Validator::isNull($pagesize) )
             throw new Exception(ExceptionMessages::MissingPageSizeValue, ExceptionCodes::MissingPageSizeValue);
         else if ( Validator::isArray($pagesize) )
