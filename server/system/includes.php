@@ -90,6 +90,7 @@ require_once('../api/get/StatisticSchoolUnits.php');
 require_once('../api/get/StatisticLabs.php');
 require_once('../api/get/StatisticLabWorkers.php');
 require_once('../api/get/ReportKeplhnet.php');
+require_once('../api/get/GetUserPermits.php');
 
 ////----get from mm
 require_once('../api/get/GetRegionEduAdmins.php');

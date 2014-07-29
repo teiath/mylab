@@ -102,21 +102,21 @@ private static $Permissions = array(
                                         ) ,
     'labs'                  => array(
                                         'GET' => array( 'ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'POST' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ'),
-                                        'PUT' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ'),
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ'),
                                         'DELETE' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         ) ,
     'lab_aquisition_sources'=> array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'POST' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
-                                        'PUT' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
-                                        'DELETE' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
+                                        'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         ) ,
     'lab_equipment_types'   => array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'POST' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
-                                        'PUT' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
-                                        'DELETE' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
+                                        'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         ) ,
     'workers'               => array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
@@ -138,9 +138,9 @@ private static $Permissions = array(
                                         ) ,
     'lab_relations'         => array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'POST' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         'PUT' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'DELETE' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
+                                        'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         ) ,
     'relation_types'        => array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
@@ -156,15 +156,15 @@ private static $Permissions = array(
                                         ) ,
     'lab_transitions'       => array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'POST' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ'),
                                         'PUT' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         'DELETE' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         ) ,
     'lab_workers'           => array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'POST' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ'),
-                                        'PUT' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ'),
-                                        'DELETE' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ'),
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ'),
+                                        'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ'),
                                         ) ,
     'search_school_units'   => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ')                                       
@@ -184,9 +184,12 @@ private static $Permissions = array(
     'statistic_lab_workers' => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
-    'report_keplhnet'      => array(
+    'report_keplhnet'       => array(
                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
-                                       )
+                                        ) ,
+    'user_permits'          => array(
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ')
+                                        )    
     
     );
 
@@ -289,7 +292,8 @@ private static $Permissions = array(
 
 public static function getRole($user) {
 
-    if (isset($user['title'])) {      
+    if (!validator::IsNull($user['title'])) {  
+    //if (isset($user['title'])) {      
         $role =  self::getLdapRoleRanking($user);  
         return $role;
     } else{
@@ -305,14 +309,19 @@ public static function getRole($user) {
      switch ($user_role){
         case 'ΔΙΕΥΘΥΝΤΗΣ' :
             return self::getSchoolUnitWorkerPermissions($user);
+            break;
         case 'ΚΕΠΛΗΝΕΤ' :
             return self::getKeplhnetWorkerPermissions($user,$getSchoolUnits);
+            break;
         case 'ΣΕΠΕΗΥ' :
             return self::getLabWorkerPermissions($user,$getSchoolUnits);
+            break;
         case 'ΠΣΔ' :
             return self::getAllPermissions();
+            break;
         case 'ΥΠΕΠΘ' :
             return self::getAllPermissions();
+            break;
         default:
             throw new Exception(ExceptionMessages::NotFoundUserPermissions, ExceptionCodes::NotFoundUserPermissions);
     }
@@ -351,9 +360,11 @@ public static function getRole($user) {
     
     $dns = null;
     $dns = explode(',', $user['l'][0]);
-    
-    if (Validator::IsNull($dns)) throw new Exception(ExceptionMessages::MissingLdapLAttribute, ExceptionCodes::MissingLdApLattribute); 
-  
+
+    if (Validator::IsNull($dns[1])){
+        throw new Exception(ExceptionMessages::MissingLdapLAttribute, ExceptionCodes::MissingLdApLattribute); 
+    }
+
     $edu_admin_code = explode('=', $dns[1]);  
       
     $lab_ids = Filters::getLabsfromEduAdminCode($edu_admin_code[1]);

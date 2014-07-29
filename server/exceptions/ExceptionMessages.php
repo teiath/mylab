@@ -56,20 +56,21 @@ class ExceptionMessages
     // dictionary messages (not found)=============================================================================================================
    
 
-        const UnknownLabIdValue = 'Αγνωστη τιμή $lab_id';
-        const UnknownLabTypeValue = 'Αγνωστη τιμή $lab_type';
-        const UnknownLabSourceValue = 'Αγνωστη τιμή $lab_source';
-        const UnknownLabStateValue = 'Αγνωστη τιμή $state';
-        const UnknownWorkerPositionValue = 'Αγνωστη τιμή $worker_position';
-        const UnknownLabWorkerIdValue = 'Αγνωστη τιμή $lab_worker_id';
-        const UnknownSchoolUnitValue = 'Αγνωστη τιμή $school_unit';
-        const UnknownRelationTypeValue = 'Αγνωστη τιμή $relation_type';
-        const UnknownCircuitIdValue = 'Αγνωστη τιμή $circuit_id';
-        const UnknownLabRelationIdValue = 'Αγνωστη τιμή $lab_relation_id';
-        const UnknownLabAquisitionSourceIdValue = 'Αγνωστη τιμή $lab_aquisition_source_id';
-        const UnknownLabTransitionIdValue = 'Αγνωστη τιμή $lab_transition_id';
-        const UnknownOperationalRatingValue = 'Αγνωστη τιμή $operational_rating';
-        const UnknownTechnologicalRatingValue = 'Αγνωστη τιμή $technological_rating';
+        const UnknownLabIdValue = 'Αγνωστη τιμή lab_id';
+        const UnknownLabTypeValue = 'Αγνωστη τιμή lab_type';
+        const UnknownLabSourceValue = 'Αγνωστη τιμή lab_source';
+        const UnknownLabStateValue = 'Αγνωστη τιμή state';
+        const UnknownWorkerPositionValue = 'Αγνωστη τιμή worker_position';
+        const UnknownLabWorkerIdValue = 'Αγνωστη τιμή lab_worker_id';
+        const UnknownSchoolUnitValue = 'Αγνωστη τιμή school_unit';
+        const UnknownRelationTypeValue = 'Αγνωστη τιμή relation_type';
+        const UnknownCircuitIdValue = 'Αγνωστη τιμή circuit_id';
+        const UnknownLabRelationIdValue = 'Αγνωστη τιμή lab_relation_id';
+        const UnknownLabAquisitionSourceIdValue = 'Αγνωστη τιμή lab_aquisition_source_id';
+        const UnknownLabTransitionIdValue = 'Αγνωστη τιμή lab_transition_id';
+        const UnknownOperationalRatingValue = 'Αγνωστη τιμή operational_rating';
+        const UnknownTechnologicalRatingValue = 'Αγνωστη τιμή technological_rating';
+        const UnknowneEduAdminCodeValue = 'Αγνωστη τιμή edu_admin_code';
         
         const InvalidLabIdValue = 'Το εργαστήριο δεν βρέθηκε';
         const InvalidMmIdValue ='Η σχολική μονάδα δεν βρέθηκε';
@@ -734,6 +735,11 @@ class ExceptionMessages
     const InvalidEduAdminValue = 'Η Διεύθυνση Εκπαίδευσης δεν υπάρχει στο λεξικό';
     const InvalidEduAdminType = 'Η Διεύθυνση Εκπαίδευσης πρέπει να είναι αριθμητική ή αλφαριθμητική';
     const InvalidEduAdminArray = 'Η Διεύθυνση Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingEduAdminCodeParam = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης είναι υποχρεωτικό πεδίο';
+    const MissingEduAdminCodeValue = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης πρέπει να έχει τιμή';
+    const InvalidEduAdminCodeType = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης πρέπει να είναι αλφαριθμητικό';
+    const InvalidEduAdminCodeArray = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';
       
     const DuplicatedEduAdminValue = 'Η Διεύθυνση Εκπαίδευσης υπάρχει ήδη';
     const UsedEduAdminBySchoolUnits = 'Ο Κωδικός Διεύθυνσης Εκπαίδευσης χρησιμοποιείται από Σχολικές Μονάδες';
@@ -1006,6 +1012,7 @@ class ExceptionMessages
     const NoPermissionToDeleteLab = 'Ο χρήστης δεν έχει δικαίωμα διαγραφης στο συγκεκριμενο εργαστηριο';    
     const NoPermissionToGetLab = 'Ο χρήστης δεν έχει δικαίωμα αναζητησης στο συγκεκριμενο εργαστηριο';
    
-    
+    //reports
+    const ErrorEduAdminReportKeplhnet = 'Κάθε ΚΕΠΛΗΝΕΤ αντιστοιχίζεται υποχρεωτικά με μια Διεύθυνση Δ.Ε. και μια Διεύθυνση Δ.Ε. ίδιας πόλης.'; 
 }
    ?>

@@ -15,61 +15,61 @@ $app = new \Slim\Slim();
 $app->config('debug', true);
 
 //school units
-$app->map('/edu_admins', EduAdminsController)
+$app->map('/edu_admins', Authentication, UserRolesPermission, EduAdminsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/education_levels',  EducationLevelsController)
+$app->map('/education_levels', Authentication, UserRolesPermission, EducationLevelsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/municipalities',  MunicipalitiesController)
+$app->map('/municipalities', Authentication, UserRolesPermission, MunicipalitiesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/prefectures', PrefecturesController)
+$app->map('/prefectures', Authentication, UserRolesPermission, PrefecturesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/region_edu_admins',  RegionEduAdminsController)
+$app->map('/region_edu_admins', Authentication, UserRolesPermission, RegionEduAdminsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/school_units',  SchoolUnitsController)
+$app->map('/school_units', Authentication, UserRolesPermission, SchoolUnitsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/school_unit_types',  SchoolUnitTypesController)
+$app->map('/school_unit_types', Authentication, UserRolesPermission, SchoolUnitTypesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/transfer_areas', TranferAreasController)
+$app->map('/transfer_areas', Authentication, UserRolesPermission, TranferAreasController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/states',  StatesController)
+$app->map('/states', Authentication, UserRolesPermission, StatesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/school_unit_workers', SchoolUnitWorkersController)
+$app->map('/school_unit_workers', Authentication, UserRolesPermission, SchoolUnitWorkersController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/circuits',  CircuitsController)
+$app->map('/circuits', Authentication, UserRolesPermission, CircuitsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/circuit_types', CircuitTypesController)
+$app->map('/circuit_types', Authentication, UserRolesPermission, CircuitTypesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
 
 //labs
-$app->map('/aquisition_sources', AquisitionSourcesController)
+$app->map('/aquisition_sources', Authentication, UserRolesPermission, AquisitionSourcesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/worker_positions', WorkerPositionsController)
+$app->map('/worker_positions', Authentication, UserRolesPermission, WorkerPositionsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/equipment_categories', EquipmentCategoriesController)
+$app->map('/equipment_categories', Authentication, UserRolesPermission, EquipmentCategoriesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/equipment_types', EquipmentTypesController)
+$app->map('/equipment_types', Authentication, UserRolesPermission, EquipmentTypesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/labs', LabsController)
+$app->map('/labs', Authentication, UserRolesPermission, LabsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/lab_aquisition_sources',  LabAquisitionSourcesController)
+$app->map('/lab_aquisition_sources', Authentication, UserRolesPermission, LabAquisitionSourcesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/lab_equipment_types',  LabEquipmentTypesController)
+$app->map('/lab_equipment_types', Authentication, UserRolesPermission, LabEquipmentTypesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/workers',  WorkersController)
+$app->map('/workers', Authentication, UserRolesPermission, WorkersController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/lab_types', LabTypesController)
+$app->map('/lab_types', Authentication, UserRolesPermission, LabTypesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/worker_specializations', WorkerSpecializationsController)
+$app->map('/worker_specializations', Authentication, UserRolesPermission, WorkerSpecializationsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/lab_relations', LabRelationsController)
+$app->map('/lab_relations', Authentication, UserRolesPermission, LabRelationsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/relation_types', RelationTypesController)
+$app->map('/relation_types', Authentication, UserRolesPermission, RelationTypesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/lab_sources', LabSourcesController)
+$app->map('/lab_sources', Authentication, UserRolesPermission, LabSourcesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/lab_transitions', LabTransitionsController)
+$app->map('/lab_transitions', Authentication, UserRolesPermission, LabTransitionsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
-$app->map('/lab_workers', LabWorkersController)
+$app->map('/lab_workers', Authentication, UserRolesPermission, LabWorkersController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
 
 $app->map('/search_school_units', Authentication, UserRolesPermission, SearchSchoolUnitsController)->via(MethodTypes::GET);
@@ -81,6 +81,8 @@ $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsC
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 
 $app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
+
+$app->map('/user_permits', Authentication, UserRolesPermission, UserPermitsController)->via(MethodTypes::GET);
 
 $app->get('/docs/*', function () use ($app) {
     $app->redirect("http://mmsch.teiath.gr/mylab/docs/");
@@ -203,7 +205,8 @@ function UserRolesPermission(){
     catch (Exception $e)
     {
         $result["user"] =  $app->request->user['uid'];
-        //$result["user_role"] = $app->request->user;
+        //$result["user_all"] = $app->request->user;       
+        $result["user_role"] = UserRoles::getRole($app->request->user);
         $result["status"] = $e->getCode();
         $result["message"] = "[".$method."][".$controller."]:".$e->getMessage();
 
@@ -1686,7 +1689,25 @@ function ReportKeplhnetController()
     {
         case MethodTypes::GET : 
             $result = ReportKeplhnet(
-                $params->edu_admin
+                $params->edu_admin_code
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function UserPermitsController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = GetUserPermits(
             );      
             break;
     }
