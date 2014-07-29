@@ -1014,11 +1014,16 @@ function LabAquisitionSourcesController()
     {
         case MethodTypes::GET : 
             $result = GetLabAquisitionSources(
-                $params["lab"],
+                $params["lab_aquisition_source_id"],
+                $params["aquisition_year"],
                 $params["aquisition_source"],
-                $params["aquisition_year"],          
+                $params["lab_id"],
+                $params["lab_name"],
                 $params["pagesize"],
-                $params["page"]
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
@@ -1104,7 +1109,7 @@ function WorkersController()
     {
         case MethodTypes::GET : 
             $result = GetWorkers(
-                $params["worker"],
+                $params["worker_id"],
                 $params["registry_no"],
                 $params["tax_number"],          
                 $params["firstname"],
@@ -1112,11 +1117,11 @@ function WorkersController()
                 $params["fathername"],   
                 $params["sex"],
                 $params["worker_specialization"],
-                $params["pagesize"], 
+                $params["pagesize"],
                 $params["page"],
-                $params["orderby"],
+                $params["searchtype"],
                 $params["ordertype"],
-                $params["searchtype"]
+                $params["orderby"]
             );   
             break;
         case MethodTypes::POST :
@@ -1162,8 +1167,14 @@ function LabTypesController()
     {
         case MethodTypes::GET : 
             $result = GetLabTypes(    
-                $params["pagesize"], 
-                $params["page"]
+                $params["lab_type_id"],
+                $params["name"],
+                $params["full_name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :

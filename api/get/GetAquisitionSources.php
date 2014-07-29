@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @version 1.4
+ * @version 2.0
  * @author  ΤΕΙ Αθήνας
  * @package GET
  */
@@ -202,26 +202,28 @@ header("Content-Type: text/html; charset=utf-8");
  * 
  */
 
-function GetAquisitionSources($aquisition_source_id, $name, $pagesize, $page, $searchtype, $ordertype, $orderby) {
+function GetAquisitionSources( $aquisition_source_id, $name, 
+                               $pagesize, $page, $searchtype, $ordertype, $orderby ) {
    
     global $entityManager, $app;
 
     $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
-    $result["data"] = array();   
+    $result["data"] = array();
+    $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
     $params = loadParameters();
 
     try {
-      
+            
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params, true);     
        $searchtype = Filters::getSearchType($searchtype, $params);
-       $ordertype =  Filters::getOrderType($ordertype, $params);
-               
+       $ordertype =  Filters::getOrderType($ordertype, $params);    
+      
 //$orderby======================================================================
        $columns = array(
             "aqs.aquisitionSourceId" => "aquisition_source_id",
@@ -230,22 +232,22 @@ function GetAquisitionSources($aquisition_source_id, $name, $pagesize, $page, $s
        
        if ( Validator::Missing('orderby', $params) )
             $orderby = "aquisition_source_id";
-        else
-        {   
+       else
+       {   
             $orderby = Validator::ToLower($orderby);
             if (!in_array($orderby, $columns))
                 throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
-        }
+       }
                       
 //$aquisition_source_id=========================================================
-if (Validator::Exists('aquisition_source_id', $params)){
-    CRUDUtils::setFilter($qb, $aquisition_source_id, "aqs", "aquisitionSourceId", "aquisitionSourceId", "null,id", ExceptionMessages::InvalidAquisitionSourceIDType, ExceptionCodes::InvalidAquisitionSourceIDType);
-} 
+        if (Validator::Exists('aquisition_source_id', $params)){
+            CRUDUtils::setFilter($qb, $aquisition_source_id, "aqs", "aquisitionSourceId", "aquisitionSourceId", "id", ExceptionMessages::InvalidAquisitionSourceIDType, ExceptionCodes::InvalidAquisitionSourceIDType);
+        } 
 
 //$name=========================================================================
-if (Validator::Exists('name', $params)){
-    CRUDUtils::setSearchFilter($qb, $name, "aqs", "name", $searchtype, ExceptionMessages::InvalidAquisitionSourceNameType, ExceptionCodes::InvalidAquisitionSourceNameType);    
-} 
+        if (Validator::Exists('name', $params)){
+            CRUDUtils::setSearchFilter($qb, $name, "aqs", "name", $searchtype, ExceptionMessages::InvalidAquisitionSourceNameType, ExceptionCodes::InvalidAquisitionSourceNameType);    
+        } 
              
 //execution=====================================================================
         $qb->select('aqs');
@@ -257,7 +259,7 @@ if (Validator::Exists('name', $params)){
         $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
         $result["total"] = count($results);
         $results->getQuery()->setFirstResult($pagesize * ($page-1));
-        $pagesize!=0 ? $results->getQuery()->setMaxResults($pagesize) : null;
+        $pagesize!==Parameters::AllPageSize ? $results->getQuery()->setMaxResults($pagesize) : null;
        
 //data results==================================================================       
         $count = 0;
@@ -272,7 +274,7 @@ if (Validator::Exists('name', $params)){
         }
         $result["count"] = $count;
    
-//pagination====================================================================     
+//pagination results============================================================     
         $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
         $pagination = array( "page" => $page,   
                              "maxPage" => $maxPage, 
@@ -280,21 +282,20 @@ if (Validator::Exists('name', $params)){
                             );    
         $result["pagination"]=$pagination;
         
- //debug========================================================================
-        if ( Validator::IsTrue( $params["debug"]  ) )
-        {
-             $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
-             $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
-        }
-    
-//result_messages=============================================================      
+//result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
-
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
     } 
+    
+//debug=========================================================================
+   if ( Validator::IsTrue( $params["debug"]  ) )
+   {
+        $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+        $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+   }
     
     return $result;
     
