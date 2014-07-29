@@ -87,6 +87,7 @@ var SchoolUnitsViewVM = kendo.observable({
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("school units datasource requestEnd e:", e);
+            console.log("maxRole:", maxRole);
             if (e.type=="read" && /*e.response.status == 0*/ maxRole === "noAccess"){
                 
                 notification.show({
@@ -167,7 +168,7 @@ var SchoolUnitsViewVM = kendo.observable({
 //            },
             pageable: false,
             editable: { mode : 'popup', template: $('#lab_create_template').html()},
-            toolbar: [{ template : $('#lab_toolbar_template_school_unit_labs').html()  }],
+            toolbar: [{ template : $('#lab_toolbar_template_school_unit_labs').html(), binded_data: e.data }],
             columns: [{ field: 'lab_id', title:'κωδικός', width:'65px', hidden : true},
                       { field: 'lab_name', title:'ονομασία', width:'440px'},
                       { field: 'lab_type', title:'τύπος', width:'150px', hidden : true},

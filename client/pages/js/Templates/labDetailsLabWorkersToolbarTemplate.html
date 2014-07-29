@@ -1,6 +1,6 @@
 <script type="text/x-kendo-template" id="lab_details_lab_workers_toolbar_template">
 
-    #if(jQuery.inArray( authorized_user , edit_lab_worker ) !== -1){ #
+    #if(jQuery.inArray( authorized_user , edit_lab_worker ) !== -1 && data.binded_data.lab_state_id === 1){#
         <a class="k-button k-button-icontext k-grid-add" href="\#">
             <span class="k-icon k-add"></span>
             Προσθήκη Υπεύθυνου Εργαστηρίου

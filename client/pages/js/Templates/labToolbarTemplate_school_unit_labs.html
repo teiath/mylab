@@ -1,6 +1,6 @@
 <script type="text/x-kendo-template" id="lab_toolbar_template_school_unit_labs">
 
-    #if(jQuery.inArray( authorized_user , create_lab ) !== -1){ #
+    #if(jQuery.inArray( authorized_user , create_lab ) !== -1 && data.binded_data.school_unit_state_id === 1){ #
         <a class="k-button k-button-icontext k-grid-add" href="\#">
             <span class="k-icon k-add"></span>
             Προσθήκη Νέας Διάταξης Η/Υ
