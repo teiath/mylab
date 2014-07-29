@@ -79,18 +79,27 @@ function newLabWorkersDS(labID, detailRow, status){
             
             if (e.type==="create" || e.type==="update" || e.type==="destroy"){
                 
+                var message;
+                if (typeof e.response.message !== 'undefined'){
+                    message= e.response.message;
+                }else if (typeof e.response.message_internal !== 'undefined'){
+                    message= e.response.message_internal;
+                }else if (typeof e.response.message_external !== 'undefined'){
+                    message= e.response.message_external;
+                }
+                
                 if (e.response.status == "200"){
                     
                     notification.show({
                         title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
-                        message: e.response.message
+                        message: message
                     }, "success");               
                     
                 }else{
                     
                     notification.show({
                         title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
-                        message: e.response.message_internal
+                        message: message
                     }, "error");
                     
                 }                

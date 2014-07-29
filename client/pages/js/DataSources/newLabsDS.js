@@ -127,11 +127,20 @@ function newLabsDS(school_unit_id, detailInitEvent){
                 
                 var grid = detailInitEvent.detailRow.find("#school_unit_labs").data("kendoGrid");
                 
+                var message;
+                if (typeof e.response.message !== 'undefined'){
+                    message= e.response.message;
+                }else if (typeof e.response.message_internal !== 'undefined'){
+                    message= e.response.message_internal;
+                }else if (typeof e.response.message_external !== 'undefined'){
+                    message= e.response.message_external;
+                }
+                
                 if (e.response.status == "200"){
                     
                     notification.show({
                         title: "Το εργαστήριο δημιουργήθηκε επιτυχώς",
-                        message: e.response.message
+                        message: message
                     }, "success");
                     
                     grid.dataSource.read(); // refresh school units view
@@ -141,7 +150,7 @@ function newLabsDS(school_unit_id, detailInitEvent){
                     
                     notification.show({
                         title: "Η δημιουργία του εργαστηρίου απέτυχε",
-                        message: e.response.message
+                        message: message
                     }, "error");
                     
                     grid.dataSource.read(); // refresh school units view
