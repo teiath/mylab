@@ -34,7 +34,7 @@ class Pagination
         return $startPagesizeFrom;
     }
     
-    public static function checkMaxPage($total, $page, $pagesize)
+    public static function getMaxPage($total, $page, $pagesize)
     {
         if ($pagesize > 0 && $total > 0 ) {
             $maxPage = ceil($total / self::Pagesize($pagesize));
@@ -67,7 +67,7 @@ class Pagination
         return $page;
     }
 
-       public static function getPageSize($pagesize, $params, $useAllPageSize = false) {
+       public static function getPageSize($pagesize, $params, $useAllPageSize = false) { 
         if ( Validator::Missing('pagesize', $params) )
             $pagesize = $useAllPageSize == true ? Parameters::AllPageSize : Parameters::DefaultPageSize;
         else if ( Validator::isEqualTo($pagesize, 0) )

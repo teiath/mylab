@@ -26,11 +26,10 @@ class ExceptionMessages
         const UserAccesFrontDenied = 'Δεν σταλθηκα δεδομένα του χρήστη.Ο χρήστης δεν έχει πρόσβαση';
         const UserAccesEmptyDenied = 'Ονομα χρήστη κενό. Ο χρήστης δεν έχει πρόσβαση';
         const UserNoRolePermissions = 'Ο χρήστης δεν έχει συγκεριμενα δικαιώματα πρόσβασης';
-        const InvalidPageNumber = 'Η παράμετρος $page πρέπει να είναι μεγαλύτερη από 0';
-        const InvalidMaxPageNumber = 'Η παράμετρος $page έιναι μεγαλύτερη από την μέγιστη τιμή της σελιδοποίησης. $maxPage = ';
-        const InvalidPageType = 'Η παράμετρος $page πρέπει να είναι αριθμητική';
-        const InvalidPageSizeNumber = 'Η παράμετρος $pagesize πρέπει να είναι μεγαλύτερη από 0 και < 500';
-        const InvalidPageSizeType = 'Η παράμετρος $pagesize πρέπει να είναι αριθμητική';
+        //const InvalidPageNumber = 'Η παράμετρος $page πρέπει να είναι μεγαλύτερη από 0';
+        //const InvalidPageType = 'Η παράμετρος $page πρέπει να είναι αριθμητική';
+        //const InvalidPageSizeNumber = 'Η παράμετρος $pagesize πρέπει να είναι μεγαλύτερη από 0 και < 500';
+        //const InvalidPageSizeType = 'Η παράμετρος $pagesize πρέπει να είναι αριθμητική';
         const InvalidSortModeType = 'Η παράμετρος $sort_table πρέπει να έχει τιμή "ASC"/"0" ή "DESC"/"1"';
         const InvalidSortFieldType = 'Η παράμετρος $sort_table δεν ειναι υπάρχει στο λεξικό προς ταξινόμηση των στοιχείων';
         const InvalidExport = 'Η παράμετρος $export δεν υπάρχει στο λεξικό';
@@ -648,8 +647,8 @@ class ExceptionMessages
     const MissingLabAquisitionSourceParam = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου είναι υποχρεωτικό πεδίο';   
     const MissingLabAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου πρέπει να έχει τιμή';
     const InvalidLabAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου δεν βρέθηκε';
-    const InvalidLabAquisitionSourceType = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
-    const InvalidLabAquisitionSourceArray = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    const InvalidLabAquisitionSourceType = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabAquisitionSourceArray = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedLabAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου υπάρχει ήδη';
     const UsedLabAquisitionSourceByLabs = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
@@ -995,8 +994,30 @@ class ExceptionMessages
     const InvalidAquisitionSourceType = 'Η Πηγή Χρηματοδότησης πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
     const InvalidAquisitionSourceArray = 'Η Πηγή Χρηματοδότησης δεν μπορεί να έχει πολλαπλές τιμές'; 
     
+    const MissingAquisitionSourceNameParam = 'Το Όνομα της Πηγής Χρηματοδότησης είναι υποχρεωτικό πεδίο';
+    const MissingAquisitionSourceNameValue = 'Το Όνομα της Πηγής Χρηματοδότησης πρέπει να έχει τιμή';
+    const InvalidAquisitionSourceNameType = 'Το Όνομα της Πηγής Χρηματοδότησης πρέπει να είναι αλφαριθμητικό';
+    const InvalidAquisitionSourceNameArray = 'Το Όνομα της Πηγής Χρηματοδότησης δεν μπορεί να έχει πολλαπλές τιμές';
+    
     const DuplicatedAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης υπάρχει ήδη';
-    const UsedAquisitionSourceSourceByLabAquisitionSources = 'Ο Κωδικός της Πηγής Χρηματοδότησης χρησιμοποιείται στην Πηγή Χρηματοδότησης Εργαστήριων';
+    const UsedAquisitionSourceByLabAquisitionSources = 'Ο Κωδικός της Πηγής Χρηματοδότησης χρησιμοποιείται στην Πηγή Χρηματοδότησης Εργαστήριων';
+    
+    //page,pagesize,orderby,ordertype,searchtype
+    const MissingPageValue = 'Ο Αριθμός Σελίδας πρέπει να έχει τιμή';
+    const InvalidPageNumber = 'Ο Αριθμός Σελίδας πρέπει να είναι μεγαλύτερος από 0';
+    const InvalidPageType = 'Ο Αριθμός Σελίδας πρέπει να είναι αριθμητικός';
+    const InvalidPageArray = 'Ο Αριθμός Σελίδας δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const InvalidMaxPageNumber = 'Ο Αριθμός Σελίδας έιναι μεγαλύτερος από την μέγιστη τιμή της σελιδοποίησης. Μέγιστη τιμή σελιδοποίησης = ';
+    
+    const MissingPageSizeValue = 'Ο Αριθμός Εγγραφών/Σελίδα πρέπει να έχει τιμή';
+    const InvalidPageSizeNumber = 'Ο Αριθμός Εγγραφών/Σελίδα πρέπει να είναι από 0 έως 500';
+    const InvalidPageSizeType = 'Ο Αριθμός Εγγραφών/Σελίδα πρέπει να είναι αριθμητικός';
+    const InvalidPageSizeArray = 'Ο Αριθμός Εγγραφών/Σελίδα δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const InvalidSearchType = 'Ο Τύπος Αναζήτησης είναι λάθος';
+    const InvalidOrderType = 'Ο Τύπος Ταξινόμησης πρέπει να είναι ASC ή DESC';
+    const InvalidOrderBy = 'Το Πεδίο Ταξινόμησης πρέπει να είναι κάποιο από τα πεδία που επιστρέφει η συνάρτηση';
     
     //authentication roles
     const NoPermissionsError = 'Δεν βρέθηκαν σχολική μονάδα που να αντιστοιχεί στον ρόλο του χρήστη';

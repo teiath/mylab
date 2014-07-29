@@ -785,9 +785,14 @@ function AquisitionSourcesController()
     switch ( strtoupper( $app->request()->getMethod() ) )
     {
         case MethodTypes::GET : 
-            $result = GetAquisitionSources(    
+            $result = GetAquisitionSources(                             
+                $params["aquisition_source_id"], 
+                $params["name"],
                 $params["pagesize"], 
-                $params["page"]
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :

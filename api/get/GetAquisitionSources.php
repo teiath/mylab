@@ -202,73 +202,102 @@ header("Content-Type: text/html; charset=utf-8");
  * 
  */
 
-function GetAquisitionSources($pagesize, $page) {
-    global $db;
-    global $app;
-    
-    $filter = array();
+function GetAquisitionSources($aquisition_source_id, $name, $pagesize, $page, $searchtype, $ordertype, $orderby) {
+   
+    global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
-    $result["data"] = array();
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["data"] = array();   
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
+    $params = loadParameters();
 
     try {
-        //pagination 
-        $page = Pagination::Page($page);
-        $pagesize = Pagination::Pagesize($pagesize);
-        $startAt = Pagination::StartPagesizeFrom($page, $pagesize);
-
-        //sorting aquisition_sources by name and Initialize object $oAquisitionSource
-        $sort = array( new DSC(AquisitionSourcesExt::FIELD_NAME, DSC::ASC) );
-        $oAquisitionSources = new AquisitionSourcesExt($db);
-        
-        //find total results by filter
-        $totalRows = $oAquisitionSources->findByFilterAsCount($db, $filter, true);
-        $total = $totalRows[0]->getAquisitionSourceId();
-        $result["total"] = (int)$total;
-        
-        //check if $page input from user, is valid
-        $maxPage = Pagination::checkMaxPage($total, $page, $pagesize);
-        
-        //find all results by filter or not ,return objects with key-value 
-        //from getObjsArray and complete set as getObjsArray
-        if ($pagesize)        
-            $oAquisitionSources->getAllWithLimit($db, $filter, true, $sort, $startAt, $pagesize);
+      
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params, true);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+               
+//$orderby======================================================================
+       $columns = array(
+            "aqs.aquisitionSourceId" => "aquisition_source_id",
+            "aqs.name" => "name"
+             );
+       
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "aquisition_source_id";
         else
-            $oAquisitionSources->getAll($db, $filter, true, $sort );
-
-        //find total results by filter with limits of $page and $pagesize
-        $result["count"] = count( $oAquisitionSources->getObjsArray() );
-
-        //loop for results
-        foreach ($oAquisitionSources->getObjsArray() as $row) {
-            $result["data"][] = array("aquisition_source_id" => (int)$row->getAquisitionSourceId(), 
-                                      "name" => $row->getName()
-                                     );
+        {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
         }
+                      
+//$aquisition_source_id=========================================================
+if (Validator::Exists('aquisition_source_id', $params)){
+    CRUDUtils::setFilter($qb, $aquisition_source_id, "aqs", "aquisitionSourceId", "aquisitionSourceId", "null,id", ExceptionMessages::InvalidAquisitionSourceIDType, ExceptionCodes::InvalidAquisitionSourceIDType);
+} 
+
+//$name=========================================================================
+if (Validator::Exists('name', $params)){
+    CRUDUtils::setSearchFilter($qb, $name, "aqs", "name", $searchtype, ExceptionMessages::InvalidAquisitionSourceNameType, ExceptionCodes::InvalidAquisitionSourceNameType);    
+} 
+             
+//execution=====================================================================
+        $qb->select('aqs');
+        $qb->from('AquisitionSources', 'aqs');  
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
+
+//pagination and results========================================================      
         
-        //return pagination values 
-        $pagination = array(
-            "page" => (int)$page,
-            "maxPage" => (int)$maxPage,
-            "pagesize" => (int)$pagesize
-        ); 
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!=0 ? $results->getQuery()->setMaxResults($pagesize) : null;
+       
+//data results==================================================================       
+        $count = 0;
+        foreach ($results as $worker)
+        {
+
+            $result["data"][] = array(
+                                        "aquisition_source_id"  => $worker->getAquisitionSourceId(),
+                                        "name"                  => $worker->getName(),
+                                        );
+            $count++;
+        }
+        $result["count"] = $count;
+   
+//pagination====================================================================     
+        $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page,   
+                             "maxPage" => $maxPage, 
+                             "pagesize" => $pagesize 
+                            );    
+        $result["pagination"]=$pagination;
+        
+ //debug========================================================================
+        if ( Validator::IsTrue( $params["debug"]  ) )
+        {
+             $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+             $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+        }
     
-        //$result["test"]=print_r($oAquisitionSource->getObjsArray() );
-        //$result["test"]=print_r($oAquisitionSource->searchArrayForValue("ΔΩΡΕΑ") );
-        
-        $result["pagination"]=$pagination;       
+//result_messages=============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
+
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    }   
+    } 
+    
     return $result;
+    
 }
 
 ?>

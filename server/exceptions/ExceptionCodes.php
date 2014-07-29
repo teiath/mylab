@@ -26,11 +26,10 @@ class ExceptionCodes
         const UserAccesFrontDenied = 500;
         const UserAccesEmptyDenied = 500;
         const UserNoRolePermissions = 500;
-        const InvalidPageNumber = 500;
-        const InvalidMaxPageNumber = 500;
-        const InvalidPageType = 500;
-        const InvalidPageSizeNumber = 500;
-        const InvalidPageSizeType = 500;
+        //const InvalidPageNumber = 500;
+        //const InvalidPageType = 500;
+        //const InvalidPageSizeNumber = 500;
+        //const InvalidPageSizeType = 500;
         const InvalidSortModeType = 500;
         const InvalidSortFieldType = 500;
         const InvalidExport =500;
@@ -1399,10 +1398,51 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidAquisitionSourceArray} */  
     const InvalidAquisitionSourceArray = 500;
     
+    /** {@see ExceptionMessages::MissingAquisitionSourceNameParam} */ 
+    const MissingAquisitionSourceNameParam = 500;
+    /** {@see ExceptionMessages::MissingAquisitionSourceNameValue} */ 
+    const MissingAquisitionSourceNameValue = 500;
+     /** {@see ExceptionMessages::InvalidAquisitionSourceNameType} */ 
+    const InvalidAquisitionSourceNameType = 500;
+     /** {@see ExceptionMessages::InvalidAquisitionSourceNameArray} */ 
+    const InvalidAquisitionSourceNameArray = 500;
+    
     /** {@see ExceptionMessages::DuplicatedAquisitionSourceValue} */  
     const DuplicatedAquisitionSourceValue = 500;
     /** {@see ExceptionMessages::UsedAquisitionSourceSourceByLabAquisitionSources} */  
-    const UsedAquisitionSourceSourceByLabAquisitionSources = 500;
+    const UsedAquisitionSourceByLabAquisitionSources = 500;
+    
+    //page,pagesize,orderby,ordertype,searchtype
+    
+    /** {@see ExceptionMessages::MissingPageValue} */  
+    const MissingPageValue = 500;
+    /** {@see ExceptionMessages::InvalidPageNumber} */  
+    const InvalidPageNumber = 500;
+    /** {@see ExceptionMess/**ages::InvalidPageType} */  
+    const InvalidPageType = 500;
+    /** {@see ExceptionMessages::InvalidPageArray} */  
+    const InvalidPageArray = 500;
+   
+    /** {@see ExceptionMessages::InvalidMaxPageNumber} */  
+    const InvalidMaxPageNumber = 500;
+    
+    /** {@see ExceptionMessages::MissingPageSizeValue} */   
+    const MissingPageSizeValue = 500;
+    /** {@see ExceptionMessages::InvalidPageSizeNumber} */ 
+    const InvalidPageSizeNumber = 500;
+    /** {@see ExceptionMessages::InvalidPageSizeType} */ 
+    const InvalidPageSizeType = 500;
+    /** {@see ExceptionMessages::InvalidPageSizeArray} */ 
+    const InvalidPageSizeArray = 500;
+    
+    /** {@see ExceptionMessages::InvalidPageSizeArray} */ 
+    const InvalidSearchType = 500;
+    /** {@see ExceptionMessages::InvalidPageSizeArray} */ 
+    const InvalidOrderType = 500;
+    /** {@see ExceptionMessages::InvalidPageSizeArray} */ 
+    const InvalidOrderBy = 500;
+    
+    
     
      //authentication roles 
     /** {@see ExceptionMessages::NoPermissionsError} */  

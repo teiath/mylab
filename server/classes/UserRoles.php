@@ -1,9 +1,15 @@
 <?php
 
 class UserRoles {
-    
+ 
 private static $Permissions = array(
     
+    'aquisition_sources'    => array(
+                                    'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ'),
+                                    'POST' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
+                                    'PUT' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
+                                    'DELETE' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
+                                    ) ,
     'edu_admins'            => array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         'POST' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
@@ -76,12 +82,6 @@ private static $Permissions = array(
                                         'PUT' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         'DELETE' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         ) , 
-    'aquisition_sources'    => array(
-                                        'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'POST' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'PUT' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        'DELETE' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
-                                        ) ,
     'worker_positions'      => array(
                                         'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         'POST' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
@@ -107,7 +107,7 @@ private static $Permissions = array(
                                         'DELETE' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         ) ,
     'lab_aquisition_sources'=> array(
-                                        'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ'),
                                         'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
@@ -119,13 +119,13 @@ private static $Permissions = array(
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         ) ,
     'workers'               => array(
-                                        'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ'),
                                         'POST' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         'PUT' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         'DELETE' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         ) ,
     'lab_types'             => array(
-                                        'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ'),
                                         'POST' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         'PUT' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
                                         'DELETE' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
@@ -302,7 +302,7 @@ public static function getRole($user) {
 
 }
 
- public static function getUserPermissions($user, $getSchoolUnits) {
+ public static function getUserPermissions($user, $getSchoolUnits, $implodeData) {
  
    $user_role = UserRoles::getRole($user);
    
@@ -311,7 +311,7 @@ public static function getRole($user) {
             return self::getSchoolUnitWorkerPermissions($user);
             break;
         case 'ΚΕΠΛΗΝΕΤ' :
-            return self::getKeplhnetWorkerPermissions($user,$getSchoolUnits);
+            return self::getKeplhnetWorkerPermissions($user,$getSchoolUnits,$implodeData);
             break;
         case 'ΣΕΠΕΗΥ' :
             return self::getLabWorkerPermissions($user,$getSchoolUnits);
@@ -354,7 +354,7 @@ public static function getRole($user) {
     
   }            
 
-  public static function getKeplhnetWorkerPermissions($user, $getSchoolUnits = false) {
+  public static function getKeplhnetWorkerPermissions($user, $getSchoolUnits = false, $implodeData = false) {
     global $app;
     $method = strtoupper($app->request()->getMethod());
     
@@ -370,7 +370,8 @@ public static function getRole($user) {
     $lab_ids = Filters::getLabsfromEduAdminCode($edu_admin_code[1]);
     $school_units = $getSchoolUnits == true ? Filters::getSchoolUnitsfromEduAdminCode($edu_admin_code[1]) : NULL;
     
-         if ($method == MethodTypes::GET) {      
+         //if ($method == MethodTypes::GET) {
+         if ($implodeData == true) {
             $lab_ids = implode(",", $lab_ids);
             $school_units = implode(",", $school_units);  
          }
