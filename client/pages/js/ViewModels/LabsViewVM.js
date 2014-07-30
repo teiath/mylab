@@ -476,7 +476,7 @@ var LabsViewVM = kendo.observable({
                             filter: "contains",
                             //dataValueField: "worker_id",
                             //dataTextField: "fullname",
-                            minLength: 3,
+                            //minLength: 1,
                             change: function(e){
                                 console.log("worker_id column editor on change e:", e);
                                 //var dataItem =  lab_workers_details.dataSource.at(0);
