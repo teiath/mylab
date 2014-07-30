@@ -69,6 +69,9 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUser
                 
                 kendo.bind($("#search-container"), SearchVM);
                 kendo.bind($("#switch_view"), LabsViewVM);
+                kendo.bind($("#school_unit_info_pane").find("#details-container"), SchoolUnitsViewVM);
+                kendo.bind($("#school_unit_info_dialog"), SchoolUnitsViewVM);
+                
                 
                 //NOTIFICATIONS
                 notification = $("#notification").kendoNotification({
@@ -129,8 +132,12 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUser
         ?>
         <div style='height:90px'> </div>    
         <?php
-                //if(in_array($user['title'], $search_xls)){ require_once('search.html'); } //search pane
-                require_once('search.html'); //search pane
+                if(in_array($user['title'], $search_xls)){ require_once('search.html'); } //search pane
+                //require_once('search.html'); //search pane
+                //var_dump($user['title']);
+                
+                if(in_array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ", $user['title'])){ require_once('school_unit_info.html'); }
+                //require_once('school_unit_info.html');
                 require_once('switch_views.html'); //switch views button
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view

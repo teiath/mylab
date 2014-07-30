@@ -9,15 +9,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <img class="psd_icon" alt="ΠΣΔ" src="client/pages/icons/sch_grey.jpg">
+        <img class="psd_icon" alt="ΠΣΔ" src="client/pages/icons/sch_grey_2.jpg">
         <!--<img src="client/img/logo-teia.jpg" alt="ΤΕΙ Αθήνας" style="float:left; padding-left:15px;">-->
         <!--<a class="navbar-brand" href="home.php" style="font-size:30px;font-weight:bold;font-family: 'Crafty Girls', cursive;">Υπηρεσία MyLab</a>-->
         <a href="home.php" style="line-height: 1.60; margin-left:20px; font-size:30px; font-family: 'Crafty Girls', cursive; color: #8EBC00;"> MyLab</a>
             <!--<span style="font-family: 'Calibri'; font-size:32px; font-weight:400;">Υπηρεσία</span> MyLab</a>-->
         <!--<span class="label label-danger" style="position:absolute; margin-top:5px;">BETA</span>-->
     </div>
-          
-    
+
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
             
@@ -33,15 +32,7 @@
                 <li class="divider"></li>
                 <li><a href="#" id="lnkLogout"><i class="fa fa-sign-out"></i> Αποσύνδεση</a></li>
               </ul>
-            </div>            
-            
-<!--            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Αναφορές <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="http://mmsch.teiath.gr/mylab/api/report_keplhnet" target="_blank">Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
-                </ul>
-            </li>
-          <li><div style="margin:10px 30px;"><a href="#" id="lnkLogout" class="btn btn-sm btn-default"></a></div></li>-->
+            </div>
         </ul>
     </div>    
 </nav>

@@ -87,13 +87,20 @@ var SchoolUnitsViewVM = kendo.observable({
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             console.log("school units datasource requestEnd e:", e);
-            console.log("maxRole:", maxRole);
-            if (e.type=="read" && /*e.response.status == 0*/ maxRole === "noAccess"){
+            if (e.type=="read" && authorized_user === "ΔΙΕΥΘΥΝΤΗΣ"){ //maxRole === "noAccess", authorized_user === "noAccess"
                 
-                notification.show({
-                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
-                    message: e.response.message
-                }, "error");
+                SchoolUnitsViewVM.set("principal_school_unit_name", e.response.data[0].school_unit_name);
+                SchoolUnitsViewVM.set("principal_school_unit_special_name", e.response.data[0].school_unit_special_name);
+                SchoolUnitsViewVM.set("principal_phone_number", e.response.data[0].phone_number);
+                SchoolUnitsViewVM.set("principal_fax_number", e.response.data[0].fax_number);
+                SchoolUnitsViewVM.set("principal_email", e.response.data[0].email);
+                SchoolUnitsViewVM.set("principal_street_address", e.response.data[0].street_address + ", ΤΚ " + e.response.data[0].postal_code);
+                SchoolUnitsViewVM.set("principal_school_unit_worker", e.response.data[0].school_unit_worker[0].lastname + " " + e.response.data[0].school_unit_worker[0].firstname);
+                                
+//                notification.show({
+//                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
+//                    message: e.response.message
+//                }, "error");
                 
 //                console.log("ΣΕΠΕΗΥ:", e.response.all_labs_by_type["ΣΕΠΕΗΥ"]);
 //                console.log("ΕΤΠ:", e.response.all_labs_by_type["ΕΤΠ"]);
@@ -124,6 +131,29 @@ var SchoolUnitsViewVM = kendo.observable({
     
     school_unit_parameters: null,
     
+    principal_school_unit_name: null,
+    principal_school_unit_special_name: null,
+    principal_phone_number: null,
+    principal_fax_number: null,
+    principal_email: null,
+    principal_street_address: null,
+    principal_school_unit_worker: null,
+    showPrincipalSchoolUnitInfo: function(e){
+       
+        var school_unit_info_dialog = $("#school_unit_info_dialog").kendoWindow({
+            title: SchoolUnitsViewVM.principal_school_unit_name,
+            modal: true,
+            visible: false,
+            resizable: false,
+            width: 400,
+            pinned: true
+        }).data("kendoWindow");
+        
+        school_unit_info_dialog.content();
+        school_unit_info_dialog.center().open();
+        
+    },
+        
     showContactDetails: function(e){
         //console.log("showContactDetails e: ", e);
 
