@@ -462,6 +462,7 @@ class Filters {
 
 
         $qb->andWhere($orx);
+        
     }  
     
     public static function setSearchFilter ($qb, $filter_param, $table_name, $table_column_name, $searchtype, $ex_message, $ex_code) {
@@ -529,7 +530,7 @@ class Filters {
         else if ( SearchEnumTypes::isValidValue( $searchtype ) || SearchEnumTypes::isValidName( $searchtype ) )
             $searchtype = SearchEnumTypes::getValue($searchtype);
         else
-            throw new Exception(ExceptionMessages::InvalidSexValue." : ".$searchtype, ExceptionCodes::InvalidSexValue);
+            throw new Exception(ExceptionMessages::InvalidSearchType." : ".$searchtype, ExceptionCodes::InvalidSearchType);
         
         return $searchtype;
     }

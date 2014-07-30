@@ -37,36 +37,36 @@ require_once('exceptions/SyncExceptionMessages.php');
 require_once('exceptions/SyncExceptionCodes.php');
 
 ////----classes ext from mm
-require_once('classes/extends/RegionEduAdminsExt.class.php');
-require_once('classes/extends/EduAdminsExt.class.php');
-require_once('classes/extends/TransferAreasExt.class.php');
-require_once('classes/extends/PrefecturesExt.class.php');
-require_once('classes/extends/MunicipalitiesExt.class.php');
-require_once('classes/extends/SchoolUnitsExt.class.php');
-require_once('classes/extends/EducationLevelsExt.class.php');
-require_once('classes/extends/SchoolUnitTypesExt.class.php');
-require_once('classes/extends/StatesExt.class.php');
-require_once('classes/extends/SchoolUnitWorkers.class.php');
-require_once('classes/extends/Circuits.class.php');
-require_once('classes/extends/CircuitTypes.class.php');
+//require_once('classes/extends/RegionEduAdminsExt.class.php');
+//require_once('classes/extends/EduAdminsExt.class.php');
+//require_once('classes/extends/TransferAreasExt.class.php');
+//require_once('classes/extends/PrefecturesExt.class.php');
+//require_once('classes/extends/MunicipalitiesExt.class.php');
+//require_once('classes/extends/SchoolUnitsExt.class.php');
+//require_once('classes/extends/EducationLevelsExt.class.php');
+//require_once('classes/extends/SchoolUnitTypesExt.class.php');
+//require_once('classes/extends/StatesExt.class.php');
+//require_once('classes/extends/SchoolUnitWorkers.class.php');
+//require_once('classes/extends/Circuits.class.php');
+//require_once('classes/extends/CircuitTypes.class.php');
 //
 ////--classes ext from mylab
-require_once('classes/extends/LabTypesExt.class.php');
-require_once('classes/extends/EquipmentCategoriesExt.class.php');
-//require_once('classes/extends/WorkerSpecializationsExt.class.php');
-require_once('classes/extends/WorkerPositionsExt.class.php');
-require_once('classes/extends/AquisitionSourcesExt.class.php');
-//require_once('classes/extends/WorkersExt.class.php');
-require_once('classes/extends/LabAquisitionSourcesExt.class.php');
-require_once('classes/extends/LabsExt.class.php');
-require_once('classes/extends/EquipmentTypesExt.class.php');
-require_once('classes/extends/LabEquipmentTypesExt.class.php');
-require_once('classes/extends/LabRelationsExt.class.php');
-require_once('classes/extends/RelationTypesExt.class.php');
-require_once('classes/extends/LabSourcesExt.class.php');
-require_once('classes/extends/LabTransitions.class.php');
-require_once('classes/extends/LabWorkersExt.class.php');
-
+////require_once('classes/extends/LabTypesExt.class.php');
+//require_once('classes/extends/EquipmentCategoriesExt.class.php');
+////require_once('classes/extends/WorkerSpecializationsExt.class.php');
+//require_once('classes/extends/WorkerPositionsExt.class.php');
+////require_once('classes/extends/AquisitionSourcesExt.class.php');
+////require_once('classes/extends/WorkersExt.class.php');
+////require_once('classes/extends/LabAquisitionSourcesExt.class.php');
+////require_once('classes/extends/LabsExt.class.php');
+//require_once('classes/extends/EquipmentTypesExt.class.php');
+//require_once('classes/extends/LabEquipmentTypesExt.class.php');
+//require_once('classes/extends/LabRelationsExt.class.php');
+//require_once('classes/extends/RelationTypesExt.class.php');
+//require_once('classes/extends/LabSourcesExt.class.php');
+//require_once('classes/extends/LabTransitions.class.php');
+//require_once('classes/extends/LabWorkersExt.class.php');
+//
 require_once('classes/OrderEnumTypes.php');
 require_once('classes/SearchEnumTypes.php');
 require_once('classes/OrderTypes.php');
@@ -81,6 +81,7 @@ require_once('classes/SearchLabsExt.php');
 require_once('classes/SearchSchoolUnitsExt.php');
 require_once('classes/Reports.php');
 require_once('classes/UserRoles.php');
+require_once('classes/CRUDUtils.php');
 
 //-----search functions
 require_once('../api/get/SearchSchoolUnits.php');

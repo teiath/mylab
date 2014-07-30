@@ -34,10 +34,10 @@ class Pagination
         return $startPagesizeFrom;
     }
     
-    public static function checkMaxPage($total, $page, $pagesize)
+    public static function getMaxPage($total, $page, $pagesize)
     {
         if ($pagesize > 0 && $total > 0 ) {
-            $maxPage = ceil($total / self::Pagesize($pagesize));
+            $maxPage = ceil($total / $pagesize);
         } else {
             $maxPage = 1;   
         }
@@ -55,11 +55,11 @@ class Pagination
             $page = Parameters::DefaultPage;
         else if ( Validator::isNull($page) )
             throw new Exception(ExceptionMessages::MissingPageValue, ExceptionCodes::MissingPageValue);
-        elseif ( Validator::isArray($page) )
+        else if ( Validator::isArray($page) )
             throw new Exception(ExceptionMessages::InvalidPageArray, ExceptionCodes::InvalidPageArray);
-        elseif (Validator::isLowerThan($page, 0, true) )
+        else if (Validator::isLowerThan($page, 0, true) )
             throw new Exception(ExceptionMessages::InvalidPageNumber, ExceptionCodes::InvalidPageNumber);
-        elseif (!Validator::isGreaterThan($page, 0) )
+        else if (!Validator::IsID($page) )
             throw new Exception(ExceptionMessages::InvalidPageType, ExceptionCodes::InvalidPageType);
         else
             return Validator::toInteger($page);
@@ -67,21 +67,21 @@ class Pagination
         return $page;
     }
 
-       public static function getPageSize($pagesize, $params, $useAllPageSize = false) {
+       public static function getPageSize($pagesize, $params, $useAllPageSize = false) { 
         if ( Validator::Missing('pagesize', $params) )
             $pagesize = $useAllPageSize == true ? Parameters::AllPageSize : Parameters::DefaultPageSize;
-        else if ( Validator::isEqualTo($pagesize, 0) )
-            $pagesize = Parameters::AllPageSize;
         else if ( Validator::isNull($pagesize) )
             throw new Exception(ExceptionMessages::MissingPageSizeValue, ExceptionCodes::MissingPageSizeValue);
-        elseif ( Validator::isArray($pagesize) )
+        else if ( Validator::isArray($pagesize) )
             throw new Exception(ExceptionMessages::InvalidPageSizeArray, ExceptionCodes::InvalidPageSizeArray);
-        elseif ( (Validator::isLowerThan($pagesize, 0) ) )
+        else if ( Validator::isLowerThan($pagesize, 0, true) )
+            throw new Exception(ExceptionMessages::MissingPageSizeNegativeValue, ExceptionCodes::InvalidPageSizeNumber);
+        else if ( Validator::isGreaterThan($pagesize, Parameters::MaxPageSize) )
             throw new Exception(ExceptionMessages::InvalidPageSizeNumber, ExceptionCodes::InvalidPageSizeNumber);
-        elseif (!Validator::isGreaterThan($pagesize, 0) )
+         else if (!Validator::IsID($pagesize))
             throw new Exception(ExceptionMessages::InvalidPageSizeType, ExceptionCodes::InvalidPageSizeType);
         else
-            $pagesize = Validator::toInteger($pagesize);
+            $pagesize = Validator::toID($pagesize);
 
         return $pagesize;
     }

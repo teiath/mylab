@@ -1,281 +1,197 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package GET
  */
+
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
+ * @global type $entityManager
  * @global type $app
- * @param type $lab
- * @param type $relation_type
+ * @param type $lab_worker_id
+ * @param type $worker_status
+ * @param type $worker_start_service
+ * @param type $worker_id
+ * @param type $worker_position
+ * @param type $lab_id
+ * @param type $lab_name
  * @param type $pagesize
- * @param int $page
- * @return string
+ * @param type $page
+ * @param type $searchtype
+ * @param type $ordertype
+ * @param type $orderby
+ * @return type
  * @throws Exception
  */
  
-function GetLabWorkers($lab, $worker_id, $worker_position, $worker_status, $pagesize, $page) {
-    global $db;
-    global $Options;
-    global $app;
-   
-    $filter = array();
+function GetLabWorkers( $lab_worker_id, $worker_status, $worker_start_service,
+                        $worker_id, $worker_position, $lab_id, $lab_name,
+                        $pagesize, $page, $searchtype, $ordertype, $orderby ) {
+
+    global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
     $result["data"] = array();
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-
+    $params = loadParameters();
+    
     try {
-        
-        //= Pages ==============================================================
-        if (! $page)
-            $page = 1;
-        else if (intval($page) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageNumber." : ".$page, ExceptionCodes::InvalidPageNumber);
-        else if (!is_numeric($page))
-	        throw new Exception(ExceptionMessages::InvalidPageType." : ".$page, ExceptionCodes::InvalidPageType);
-        
-        if (! $pagesize)
-                $pagesize = $Options["PageSize"];
-        else if (intval($pagesize) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-        else if (!is_numeric($pagesize))
-	        throw new Exception(ExceptionMessages::InvalidPageSizeType." : ".$pagesize, ExceptionCodes::InvalidPageSizeType);
-        else if ($pagesize > $Options["MaxPageSize"])
-                throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
 
-        $startat = ($page -1) * $pagesize;
-        
-           //= $worker_id ==================================================
+//set user permissions==========================================================
+    $permissions = UserRoles::getUserPermissions($app->request->user);
 
-            $oWorkers= new WorkersExt($db);
-
-            $paramFilter = array();
-            $arrayValues = preg_split("/[\s]*[,][\s]*/",$worker_id);
-
-            foreach ($arrayValues as $worker_id)
-            {
-                $worker_id = trim($worker_id);
-
-                if (is_numeric($worker_id))
-                {
-                    $paramFilter[] = new DFC(WorkersExt::FIELD_WORKER_ID, $worker_id, DFC::EXACT);
-                }
-                else if ($worker_id)
-                {
-                    $paramFilter[] = new DFC(WorkersExt::FIELD_WORKER_ID, $worker_id, DFC::EXACT);
-                }
-            }
-           
-            if ( count($paramFilter) > 0 )
-            {
-                $oWorkers->getAll($db, $paramFilter, false);
-            } 
-            
-            $paramFilter = array();
-            foreach ($oWorkers->getObjsArray() as $oWorker)
-            {
-                 $paramFilter[] = new DFC(LabWorkers::FIELD_WORKER_ID, $oWorker->getWorkerId(), DFC::EXACT);
-            }
-            
-            if ( count($paramFilter) > 0 )
-            {
-                $filter[] = new DFCAggregate($paramFilter, false);
-            }
-            
-        //= $lab ==================================================
-
-            $oLabs = new LabsExt($db);
-
-            $paramFilter = array();
-            $arrayValues = preg_split("/[\s]*[,][\s]*/",$lab);
-
-            foreach ($arrayValues as $lab)
-            {
-                $lab = trim($lab);
-
-                if (is_numeric($lab))
-                {
-                    $paramFilter[] = new DFC(LabsExt::FIELD_LAB_ID, $lab, DFC::EXACT);
-                }
-                else if ($lab)
-                {
-                    $paramFilter[] = new DFC(LabsExt::FIELD_NAME, $lab, DFC::EXACT);
-                }
-            }
-           
-            if ( count($paramFilter) > 0 )
-            {
-                $oLabs->getAll($db, $paramFilter, false);
-            } 
-            
-            $paramFilter = array();
-            foreach ($oLabs->getObjsArray() as $oLab)
-            {
-                 $paramFilter[] = new DFC(LabWorkers::FIELD_LAB_ID, $oLab->getLabId(), DFC::EXACT);
-            }
-            
-            if ( count($paramFilter) > 0 )
-            {
-                $filter[] = new DFCAggregate($paramFilter, false);
-            }
-                     
-        //$worker_position==============================================================================
- 
-            $oWorkerPositions = new WorkerPositionsExt($db);
-            $oWorkerPositions ->getAll($db);
-
-            $paramFilter = array();
-            $arrayValues = preg_split("/[\s]*[,][\s]*/", $worker_position);
-
-            foreach ($arrayValues as $worker_position)
-            {
-                $worker_position = trim($worker_position);
-
-                if (is_numeric($worker_position))
-                {
-                    $paramFilter[] = new DFC(LabWorkers::FIELD_WORKER_POSITION_ID, $worker_position, DFC::EXACT);
-                }
-                else if ($worker_position)
-                {
-                    $oWorkerPositions->searchArrayForValue($worker_position);
-                    $paramFilter[] = new DFC(LabWorkers::FIELD_WORKER_POSITION_ID, $oWorkerPositions->getWorkerPositionId(), DFC::EXACT);
-                }
-            }
-
-            if ( count($paramFilter) > 0 )
-            {
-                $filter[] = new DFCAggregate($paramFilter, false);
-            } 
-        
-        //$worker_status=============================================================            
-        
- 
-        $paramFilter = array();
-        $arrayValues = preg_split("/[\s]*[,][\s]*/", $worker_status);
-
-        foreach ($arrayValues as $worker_status)
-        {
-            $worker_status = trim($worker_status);
-
-            if (($worker_status) && (!is_numeric($worker_status)))
-            {
-                throw new Exception(ExceptionMessages::InvalidWorkerStatusValue." : ".$worker_status, ExceptionCodes::InvalidWorkerStatusValue);
-            }
-            else if (is_numeric($worker_status))
-            {
-                $paramFilter[] = new DFC(LabWorkersExt::FIELD_WORKER_STATUS, $worker_status, DFC::EXACT);
-            }
-        }
-
-        if ( count($paramFilter) > 0 )
-        {
-            $filter[] = new DFCAggregate($paramFilter, false);
-        }
-            
-            
-        //==============================================================================        
+    if (Validator::IsNull($permissions['permit_labs'])){
+        throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     
+    }else { 
+        $permit_labs = $permissions['permit_labs'];
+    }
   
-        $oWorkerSpecializations = new WorkerSpecializationsExt($db);
-        $oWorkerSpecializations->getAll($db);
-        
-        
-        $sort = array( new DSC(LabWorkers::FIELD_WORKER_ID, DSC::ASC),
-                       new DSC(LabWorkers::FIELD_LAB_ID, DSC::ASC),
-                       new DSC(LabWorkers::FIELD_WORKER_POSITION_ID, DSC::ASC)
-                      );
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+       
+//$orderby======================================================================
+       $columns = array(
+                            "lw.labWorkerId" => "lab_worker_id",
+                            "lw.workerStatus" => "worker_status",
+                            "lw.workerStartService" => "worker_start_service",
+                            "w.workerId" => "worker_id",
+                            "wp.workerPositionId" => "worker_position_id",
+                            "wp.name" => "worker_position_name",
+                            "l.labId" => "lab_id",
+                            "l.name" => "lab_name"
+                        );
+       
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "lab_id";
+       else
+       {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
+       }  
+    
+//$lab_worker_id================================================================
+    if (Validator::Exists('lab_worker_id', $params)){
+        CRUDUtils::setFilter($qb, $lab_worker_id, "lw", "labWorkerId", "labWorkerId", "id", ExceptionMessages::InvalidLabWorkerIDType, ExceptionCodes::InvalidLabWorkerIDType);
+    } 
+      
+//$worker_status================================================================
+    if (Validator::Exists('worker_status', $params)){
+        CRUDUtils::setFilter($qb, $worker_status, "lw", "workerStatus", "workerStatus", "numeric", ExceptionMessages::InvalidLabWorkerStatusType, ExceptionCodes::InvalidLabWorkerStatusType);
+    }   
+         
+//$worker_start_service=========================================================
+    if (Validator::Exists('worker_start_service', $params)){
+        CRUDUtils::setFilter($qb, $worker_start_service, "lw", "workerStartService", "workerStartService", "date", ExceptionMessages::InvalidLabWorkerStartServiceType, ExceptionCodes::InvalidLabWorkerStartServiceType);
+    } 
+  
+//$worker_id====================================================================
+    if (Validator::Exists('worker_id', $params)){
+        CRUDUtils::setFilter($qb, $worker_id, "w", "workerId", "workerId", "id", ExceptionMessages::InvalidWorkerIDType, ExceptionCodes::InvalidWorkerIDType);
+    } 
+    
+//$worker_position==============================================================
+    if (Validator::Exists('worker_position', $params)){
+        CRUDUtils::setFilter($qb, $worker_position, "wp", "workerPositionId", "name", "id,value", ExceptionMessages::InvalidWorkerPositionType, ExceptionCodes::InvalidWorkerPositionType);
+    } 
+    
+//$lab_id=======================================================================
+    if (Validator::Exists('lab_id', $params)){
+        CRUDUtils::setFilter($qb, $lab_id, "l", "labId", "labId", "id", ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
+    } 
+    
+//$lab_name=====================================================================
+    if (Validator::Exists('lab_name', $params)){
+        CRUDUtils::setSearchFilter($qb, $lab_name, "l", "name", $searchtype, ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType);   
+    }
+ 
+ //execution====================================================================
 
-        $oLabWorkers = new LabWorkersExt($db);
-        $totalRows = $oLabWorkers->findByFilterAsCount($db, $filter, true);
-        $result["total"] = $totalRows[0]->getLabWorkerId();
-        
-        if ($pagesize)        
-            $countRows = $oLabWorkers->findByFilterWithLimit($db, $filter, true, $sort, $startat, $pagesize);
-        else
-            $countRows = $oLabWorkers->findByFilter($db, $filter, true, $sort);
-        
-        $result["count"] = count( $countRows );
-        
-        if ($countRows) {         
-        $LabsFilter = array();
-        $workerFilter = array();
-
-        foreach ($countRows as $rows)
-        {                
-            $LabsFilter[] = new DFC(LabsExt::FIELD_LAB_ID, $rows->getLabId(), DFC::EXACT);
-            $workerFilter[] = new DFC(WorkersExt::FIELD_WORKER_ID, $rows->getWorkerId(), DFC::EXACT);
+        $qb->select('lw');
+        $qb->from('LabWorkers', 'lw');
+        $qb->leftjoin('lw.worker', 'w');
+        $qb->leftjoin('lw.workerPosition', 'wp');
+        $qb->leftjoin('w.workerSpecialization', 'ws');
+        $qb->leftjoin('lw.lab', 'l');
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
+ 
+        if ($permit_labs !== 'ALLRESULTS'){
+            $qb->andWhere($qb->expr()->in('l.labId', ':ids'))
+                ->setParameter('ids', $permit_labs);
         }
+  
+//pagination and results========================================================     
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $results->getQuery()->setMaxResults($pagesize) : null;
 
-      //  $LabsFilter = array_unique($LabsFilter,SORT_REGULAR);
-      //  $workerFilter = array_unique($workerFilter,SORT_REGULAR);
-      //  
-//        $counter =count($workerFilter);
-//        $check = array_unique($workerFilter,SORT_REGULAR);
-//        $found = ($counter != $check) ? false:true;
-//        $result["dsbvcds"]= array_values($check);
-        
-        $oLabs->getAll($db, Validator::ToUniqueObject($LabsFilter), false); 
-        $oWorkers->getAll($db, Validator::ToUniqueObject($workerFilter), false); 
+//data results==================================================================       
+        $count = 0;
+        foreach ($results as $labworker)
+        {
+
+            $result["data"][] = array(              
+                                        "lab_worker_id"         => $labworker->getLabWorkerId(),
+                                        "worker_email"          => $labworker->getWorkerEmail(),
+                                        "worker_status"         => $labworker->getWorkerStatus(),
+                                        "worker_start_service"  => $labworker->getWorkerStartService()->format('Y-m-d'),
+                                        "worker_id"             => $labworker->getWorker()->getWorkerId(),
+                                        "worker_registry_no"    => $labworker->getWorker()->getRegistryNo(),
+                                        "tax_number"            => Validator::IsNull($labworker->getWorker()->getTaxNumber()) ? Validator::ToNull() : $labworker->getWorker()->getTaxNumber(),
+                                        "firstname"             => Validator::IsNull($labworker->getWorker()->getFirstname()) ? Validator::ToNull() : $labworker->getWorker()->getFirstname(),
+                                        "lastname"              => Validator::IsNull($labworker->getWorker()->getLastname()) ? Validator::ToNull() : $labworker->getWorker()->getLastname(),
+                                        "fathername"            => Validator::IsNull($labworker->getWorker()->getFathername()) ? Validator::ToNull() : $labworker->getWorker()->getFathername(),
+                                        "sex"                   => Validator::IsNull($labworker->getWorker()->getSex()) ? Validator::ToNull() : $labworker->getWorker()->getSex(),
+                                        "specialization_code_id"     => Validator::IsNull($labworker->getWorker()->getWorkerSpecialization()) ? Validator::ToNull() : $labworker->getWorker()->getWorkerSpecialization()->getWorkerSpecializationId(),
+                                        "specialization_code_name"   => Validator::IsNull($labworker->getWorker()->getWorkerSpecialization()) ? Validator::ToNull() : $labworker->getWorker()->getWorkerSpecialization()->getName(),
+                                        "worker_position_id"    => $labworker->getWorkerPosition()->getWorkerPositionId(),
+                                        "worker_position"       => $labworker->getWorkerPosition()->getName(),
+                                        "lab_id"                => $labworker->getLab()->getLabId(),
+                                        "lab"                   => $labworker->getLab()->getName()
+                                       );
+                
+            $count++;
             
-        foreach ($countRows as $row)
-        {        
-            
-             $data = array( "lab_worker_id"=> $row->getLabWorkerId(),
-                            "worker_id" => $row->getWorkerId(),
-                            "worker_registry_no" => $oWorkers->searchArrayForID( $row->getWorkerId() )->getRegistryNo(),
-                            "lab_id" => $row->getLabId(),
-                            "lab" => $oLabs->searchArrayForID( $row->getLabId())->getName(),
-                            "worker_position_id" => $row->getWorkerPositionId(),
-                            "worker_position" => $oWorkerPositions->searchArrayForID( $row->getWorkerPositionId())->getName(),
-                            "worker_email" => $row->getWorkerEmail(),
-                            "worker_status" => $row->getWorkerStatus(),
-                            "worker_start_service" => $row->getWorkerStartService()
-                  );
-             
-            //$data["worker_details"] = null;
-            $data_workers["worker_details"] = null;
-            foreach ($oWorkers->getObjsArray() as $oWorker){
-               if ($row->getWorkerId()==$oWorker->getWorkerId()) {
-                    //$oWorker = $oWorkers->findById($db,$row->getWorkerId()); -->>if used this , you have many many queries!!!!!!
-                    
-                    //$data["worker_details"][] = array( "worker_id" => $oWorker->getWorkerId(),
-                    $data_workers = array( 
-                        "workers_worker_id" => $oWorker->getWorkerId(),
-                                                "registry_no" => $oWorker->getRegistryNo(),
-                                                "tax_number" => $oWorker->getTaxNumber(),
-                                                "firstname" => $oWorker->getFirstname(),
-                                                "lastname" => $oWorker->getLastname(),
-                                                "fathername" => $oWorker->getFathername(),
-                                                "sex" => $oWorker->getSex(),
-                                                "specialization_code" => $oWorkerSpecializations->searchArrayForID( $oWorker->getWorkerSpecializationId() )->getName()
-                                );
-                }
-            }
-        //$result["data"][] = $data;
-        $result["data"][] = array_merge($data,$data_workers);
         }
-        
-        }else {
-            $result["data"] = $data; 
-        }  
-        
-        
+        $result["count"] = $count;
+
+//pagination results============================================================     
+        $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page,   
+                             "maxPage" => $maxPage, 
+                             "pagesize" => $pagesize 
+                            );    
+        $result["pagination"]=$pagination;
+           
+//result_messages===============================================================    
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
     } 
-    return $result;
-} 
+    
+//debug=========================================================================       
+        if ( Validator::IsTrue( $params["debug"]  ) )
+        {
+             $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+             $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+        }
+    
+    return $result;       
+           
+}
 
 ?>
