@@ -88,7 +88,7 @@
                                        { 'field': 'lab_source', 'title':'Πηγή', 'width':'130px', 'hidden' : true},
                                        { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
                                                      {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},
-                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'Ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn() }
                                       ]">
                 </div>
             </div>
