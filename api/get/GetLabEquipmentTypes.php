@@ -235,12 +235,12 @@ function GetLabEquipmentTypes( $lab_id, $lab_name, $equipment_type_id, $equipmen
                
 //$orderby======================================================================
        $columns = array(
-            "l.labId" => "lab_id",
-            "l.name" => "lab_name",
-            "eqt.equipmentTypeId" => "equipment_type_id" ,
-            "eqt.name" => "equipment_type_name",
-            "leqt.items" => "items"
-             );
+                            "l.labId" => "lab_id",
+                            "l.name" => "lab_name",
+                            "eqt.equipmentTypeId" => "equipment_type_id" ,
+                            "eqt.name" => "equipment_type_name",
+                            "leqt.items" => "items"
+                        );
        
        if ( Validator::Missing('orderby', $params) )
             $orderby = "lab_id";
@@ -280,7 +280,7 @@ function GetLabEquipmentTypes( $lab_id, $lab_name, $equipment_type_id, $equipmen
         $qb->select('leqt');
         $qb->from('LabEquipmentTypes', 'leqt');
         $qb->leftjoin('leqt.labId', 'l');
-     //   $qb->leftjoin('leqt.EquipmentTypes', 'eqt'); 
+        $qb->leftjoin('leqt.EquipmentTypes', 'eqt'); 
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
 
 //pagination and results========================================================     

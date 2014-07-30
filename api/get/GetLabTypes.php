@@ -242,10 +242,10 @@ function GetLabTypes( $lab_type_id, $name, $full_name,
     
  //$orderby=====================================================================
        $columns = array(
-            "lt.labTypeId" => "lab_type_id",
-            "lt.name" => "name",
-            "lt.fullName" => "full_name" 
-             );
+                            "lt.labTypeId" => "lab_type_id",
+                            "lt.name" => "name",
+                            "lt.fullName" => "full_name" 
+                        );
        
        if ( Validator::Missing('orderby', $params) )
             $orderby = "lab_type_id";

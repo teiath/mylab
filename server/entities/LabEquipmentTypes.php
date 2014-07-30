@@ -18,10 +18,6 @@ class LabEquipmentTypes
      *
      * @ORM\Column(name="lab_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Labs")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
-     * })
      */
     private $labId;
     
@@ -30,10 +26,6 @@ class LabEquipmentTypes
      *
      * @ORM\Column(name="lab_equipment_type_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="EquipmentTypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="equipment_type_id", referencedColumnName="equipment_type_id")
-     * })
      */
     private $labEquipmentTypeId;
     

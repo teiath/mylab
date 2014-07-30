@@ -54,16 +54,16 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
                
 //$orderby======================================================================
        $columns = array(
-            "w.workerId" => "worker_id",
-            "w.registryNo" => "registry_no",
-            "w.taxNumber" => "tax_number" ,
-            "w.firstname" => "firstname",
-            "w.lastname" => "lastname",
-            "w.fathername" => "fathername",
-            "w.sex" => "sex",
-            "ws.workerSpecializationId" => "worker_specialization_id",
-            "ws.name" => "worker_specialization_name",
-             );
+                            "w.workerId" => "worker_id",
+                            "w.registryNo" => "registry_no",
+                            "w.taxNumber" => "tax_number" ,
+                            "w.firstname" => "firstname",
+                            "w.lastname" => "lastname",
+                            "w.fathername" => "fathername",
+                            "w.sex" => "sex",
+                            "ws.workerSpecializationId" => "worker_specialization_id",
+                            "ws.name" => "worker_specialization_name",
+                        );
        
        if ( Validator::Missing('orderby', $params) )
             $orderby = "worker_id";

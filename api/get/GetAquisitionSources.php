@@ -226,9 +226,9 @@ function GetAquisitionSources( $aquisition_source_id, $name,
       
 //$orderby======================================================================
        $columns = array(
-            "aqs.aquisitionSourceId" => "aquisition_source_id",
-            "aqs.name" => "name"
-             );
+                            "aqs.aquisitionSourceId" => "aquisition_source_id",
+                            "aqs.name" => "name"
+                        );
        
        if ( Validator::Missing('orderby', $params) )
             $orderby = "aquisition_source_id";

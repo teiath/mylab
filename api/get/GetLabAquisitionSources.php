@@ -60,13 +60,13 @@ function GetLabAquisitionSources( $lab_aquisition_source_id, $aquisition_year,
        
 //$orderby======================================================================
        $columns = array(
-            "las.labAquisitionSourceId" => "lab_aquisition_source_id",
-            "las.aquisitionYear" => "aquisition_year",
-            "aqs.aquisitionSourceId" => "aquisition_source_id",
-            "aqs.name" => "aquisition_source_name",
-            "l.labId" => "lab_id",
-            "l.name" => "lab_name"
-             );
+                            "las.labAquisitionSourceId" => "lab_aquisition_source_id",
+                            "las.aquisitionYear" => "aquisition_year",
+                            "aqs.aquisitionSourceId" => "aquisition_source_id",
+                            "aqs.name" => "aquisition_source_name",
+                            "l.labId" => "lab_id",
+                            "l.name" => "lab_name"
+                        );
        
        if ( Validator::Missing('orderby', $params) )
             $orderby = "lab_id";
