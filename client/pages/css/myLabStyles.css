@@ -13,7 +13,7 @@ body {
   /*padding-top: 70px;*/
   /*margin-top:70px;*/
   padding-bottom: 40px;
-  /*background-color: #353332;*/
+  background-color: #e6ece1;
 }
 
 a:hover, a:visited, a:link, a:active{
@@ -33,6 +33,17 @@ input.k-textbox{
 label{
     margin: 5px 0px 0px 0px;
 }
+
+.k-alt, .k-separator {
+    background-color: #eff8ff;
+}
+
+.k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-list > .k-state-selected, .k-list > .k-state-highlight, .k-panel > .k-state-selected, .k-ghost-splitbar-vertical, .k-ghost-splitbar-horizontal, .k-draghandle.k-state-selected:hover, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-marquee-color {
+    background-color: #7ea700;
+    border-color: #7ea700;
+    color: #fff;
+}
+
 
 /*αφορά τα placeholders των multiselect*/
 .k-multiselect-wrap>.k-input {

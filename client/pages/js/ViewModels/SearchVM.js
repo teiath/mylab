@@ -38,8 +38,8 @@ var SearchVM = kendo.observable({
     transfer_area: "",          //πολλαπλό
     municipality: "",           //πολλαπλό
     
-    eduAdminVisible: false,
-    regionEduAdminVisible : false,
+//    eduAdminVisible: false,
+//    regionEduAdminVisible : false,
     
     resetForm: function(e) {
 
