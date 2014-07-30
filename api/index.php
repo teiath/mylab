@@ -1419,12 +1419,18 @@ function LabWorkersController()
     {
         case MethodTypes::GET : 
             $result = GetLabWorkers(
-                $params["lab"], 
-                $params["worker"], 
-                $params["worker_position"],
+                $params["lab_worker_id"], 
                 $params["worker_status"], 
-                $params["pagesize"], 
-                $params["page"]
+                $params["worker_start_service"], 
+                $params["worker_id"],
+                $params["worker_position"], 
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
