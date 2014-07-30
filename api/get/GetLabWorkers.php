@@ -142,34 +142,28 @@ function GetLabWorkers( $lab_worker_id, $worker_status, $worker_start_service,
         foreach ($results as $labworker)
         {
 
-            $data = array(              
+            $result["data"][] = array(              
                                         "lab_worker_id"         => $labworker->getLabWorkerId(),
                                         "worker_email"          => $labworker->getWorkerEmail(),
                                         "worker_status"         => $labworker->getWorkerStatus(),
                                         "worker_start_service"  => $labworker->getWorkerStartService()->format('Y-m-d'),
                                         "worker_id"             => $labworker->getWorker()->getWorkerId(),
                                         "worker_registry_no"    => $labworker->getWorker()->getRegistryNo(),
+                                        "tax_number"            => Validator::IsNull($labworker->getWorker()->getTaxNumber()) ? Validator::ToNull() : $labworker->getWorker()->getTaxNumber(),
+                                        "firstname"             => Validator::IsNull($labworker->getWorker()->getFirstname()) ? Validator::ToNull() : $labworker->getWorker()->getFirstname(),
+                                        "lastname"              => Validator::IsNull($labworker->getWorker()->getLastname()) ? Validator::ToNull() : $labworker->getWorker()->getLastname(),
+                                        "fathername"            => Validator::IsNull($labworker->getWorker()->getFathername()) ? Validator::ToNull() : $labworker->getWorker()->getFathername(),
+                                        "sex"                   => Validator::IsNull($labworker->getWorker()->getSex()) ? Validator::ToNull() : $labworker->getWorker()->getSex(),
+                                        "specialization_code_id"     => Validator::IsNull($labworker->getWorker()->getWorkerSpecialization()) ? Validator::ToNull() : $labworker->getWorker()->getWorkerSpecialization()->getWorkerSpecializationId(),
+                                        "specialization_code_name"   => Validator::IsNull($labworker->getWorker()->getWorkerSpecialization()) ? Validator::ToNull() : $labworker->getWorker()->getWorkerSpecialization()->getName(),
                                         "worker_position_id"    => $labworker->getWorkerPosition()->getWorkerPositionId(),
                                         "worker_position"       => $labworker->getWorkerPosition()->getName(),
                                         "lab_id"                => $labworker->getLab()->getLabId(),
                                         "lab"                   => $labworker->getLab()->getName()
                                        );
-            
-            $data_workers["worker_details"][] = null;
-            $data_workers = array( 
-                                    "workers_worker_id"     => $labworker->getWorker()->getWorkerId(),
-                                    "registry_no"           => $labworker->getWorker()->getRegistryNo(),
-                                    "tax_number"            => $labworker->getWorker()->getTaxNumber(),
-                                    "firstname"             => $labworker->getWorker()->getFirstname(),
-                                    "lastname"              => $labworker->getWorker()->getLastname(),
-                                    "fathername"            => $labworker->getWorker()->getFathername(),
-                                    "sex"                   => $labworker->getWorker()->getSex(),
-                                    "specialization_code_id"     => Validator::IsNull($labworker->getWorker()->getWorkerSpecialization()) ? Validator::ToNull() : $labworker->getWorker()->getWorkerSpecialization()->getWorkerSpecializationId(),
-                                    "specialization_code_name"   => Validator::IsNull($labworker->getWorker()->getWorkerSpecialization()) ? Validator::ToNull() : $labworker->getWorker()->getWorkerSpecialization()->getName()
-                                );
                 
             $count++;
-            $result["data"][] = array_merge($data,$data_workers);
+            
         }
         $result["count"] = $count;
 

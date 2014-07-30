@@ -101,7 +101,7 @@ function GetLabRelations( $lab_relation_id,
     
 //$relation_type================================================================
     if (Validator::Exists('relation_type', $params)){
-        CRUDUtils::setFilter($qb, $relation_type, "rt", "relationType", "name", "id,name", ExceptionMessages::InvalidRelationTypeType, ExceptionCodes::InvalidRelationTypeType);
+        CRUDUtils::setFilter($qb, $relation_type, "rt", "relationType", "name", "id,value", ExceptionMessages::InvalidRelationTypeType, ExceptionCodes::InvalidRelationTypeType);
     } 
  
 //$school_unit_id===============================================================

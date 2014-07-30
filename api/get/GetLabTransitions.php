@@ -1,9 +1,11 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package GET
  */
+
 header("Content-Type: text/html; charset=utf-8");
 
 /**
@@ -143,7 +145,7 @@ function GetLabTransitions( $lab_transition_id, $transition_date, $transition_so
 
             $result["data"][] = array(              
                                         "lab_transition_id"  => $labtransition->getLabTransitionId(),
-                                        "transition_date"    => $labtransition->getTransitionDate(),
+                                        "transition_date"    => $labtransition->getTransitionDate()->format('Y-m-d'),
                                         "transition_source"  => $labtransition->getTransitionSource(),
                                         "from_state_id"      => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getStateId(),
                                         "from_state_name"    => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getName(),
