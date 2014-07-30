@@ -567,9 +567,14 @@ function SchoolUnitTypesController()
     {
         case MethodTypes::GET : 
             $result = GetSchoolUnitTypes(
+                $params["school_unit_type_id"], 
+                $params["name"], 
                 $params["education_level"], 
-                $params["pagesize"], 
-                $params["page"]
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
