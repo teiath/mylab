@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--navigation bar-->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:#5E5E5E;">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -9,21 +9,30 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <img class="psd_icon" alt="ΠΣΔ" src="client/pages/icons/sch-icon38px.png">
+        <img class="psd_icon" alt="ΠΣΔ" src="client/pages/icons/sch_grey_2.jpg">
         <!--<img src="client/img/logo-teia.jpg" alt="ΤΕΙ Αθήνας" style="float:left; padding-left:15px;">-->
-        <a class="navbar-brand" href="index.php" style="font-size:30px;">Υπηρεσία MyLab - Πανελλήνιο Σχολικό Δίκτυο </a> 
-        <span class="label label-danger" style="position:absolute; margin-top:5px;">BETA</span>
+        <!--<a class="navbar-brand" href="home.php" style="font-size:30px;font-weight:bold;font-family: 'Crafty Girls', cursive;">Υπηρεσία MyLab</a>-->
+        <a href="home.php" style="line-height: 1.60; margin-left:20px; font-size:30px; font-family: 'Crafty Girls', cursive; color: #8EBC00;"> MyLab</a>
+            <!--<span style="font-family: 'Calibri'; font-size:32px; font-weight:400;">Υπηρεσία</span> MyLab</a>-->
+        <!--<span class="label label-danger" style="position:absolute; margin-top:5px;">BETA</span>-->
     </div>
-        
+
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Αναφορές <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="http://mmsch.teiath.gr/mylab/api/report_keplhnet" target="_blank">Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
-                </ul>
-            </li>
-          <li><div style="margin:10px 30px"><a href="#" id="lnkLogout" class="btn btn-sm btn-warning"></a></div></li>
+            
+            <div id="user_menu" class="btn-group" style="margin: 8px 23px 0px 0px;">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-user"></i> <span id="user_button" style="font-size: 13px;"> </span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li>
+                <li><a href="http://mmsch.teiath.gr/mylab/api/report_keplhnet" target="_blank"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
+                <li><a href="#"><i class="fa fa-file-pdf-o"></i> Αναφορά 1</a></li>
+                <li><a href="#"><i class="fa fa-file-pdf-o"></i> Αναφορά 2</a></li>
+                <li class="divider"></li>
+                <li><a href="#" id="lnkLogout"><i class="fa fa-sign-out"></i> Αποσύνδεση</a></li>
+              </ul>
+            </div>
         </ul>
     </div>    
 </nav>
@@ -43,7 +52,7 @@
     //console.log("create_lab: ", create_lab);
     
     var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
-    //console.log("user: ", user);
+    console.log("user: ", user);
     var value_ranks=[], authorized_user;
 
     $.each(user.title, function(index, value){
@@ -81,12 +90,11 @@
     
     var maxRanking = 50;
     var maxRole = "noAccess";
-    
     $.each(value_ranks, function(index, value){
         if (value.ranking < maxRanking) {
             maxRanking = value.ranking;
             maxRole = value.role;
-        }      
+        }
     });
     
     authorized_user = maxRole;

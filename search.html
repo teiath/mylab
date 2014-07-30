@@ -56,6 +56,17 @@
                                 </div>
                                 
                                 <div class="col-md-11">
+                                    <label for="lab_creation_date">ημ/νια δημιουργίας Διάταξης Η/Υ</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="sl_lab_creation_date" 
+                                           name="lab_creation_date"
+                                           data-role="datepicker"
+                                           data-format="yyyy-MM-dd"
+                                           data-bind="value: creation_date, events: {change : filterChanged }"/>
+                                </div>                                
+                                
+                                <div class="col-md-11">
                                     <label for="lab_type">τύπος Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
@@ -70,17 +81,6 @@
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
-                                </div>
-                                
-                                <div class="col-md-11">
-                                    <label for="lab_creation_date">ημερομηνία δημιουργίας Διάταξης Η/Υ</label>
-                                </div>
-                                <div class="col-md-11">
-                                    <input id="sl_lab_creation_date" 
-                                           name="lab_creation_date"
-                                           data-role="datepicker"
-                                           data-format="yyyy-MM-dd"
-                                           data-bind="value: creation_date, events: {change : filterChanged }"/>
                                 </div>
                                 
                             </div>
@@ -255,7 +255,7 @@
                             <div class="col-md-4">
                                 
                                 <div class="col-md-11">
-                                    <label for="region_edu_admin" data-bind="visible: regionEduAdminVisible">Περιφερειακή Διεύθυνση Εκπαίδευσης</label>
+                                    <label for="region_edu_admin">Περιφερειακή Διεύθυνση Εκπαίδευσης</label> <!--data-bind="visible: regionEduAdminVisible"-->
                                 </div>                                
                                 <div class="col-md-11">
                                     <select id="sl_region_edu_admin" 
@@ -265,7 +265,7 @@
                                             data-value-primitive="true"
                                             data-text-field="name"
                                             data-value-field="region_edu_admin_id"
-                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterChanged }, visible: regionEduAdminVisible"
+                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterChanged }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">                    
@@ -273,7 +273,7 @@
                                 </div>
                                 
                                 <div class="col-md-11">
-                                    <label for="edu_admin"  data-bind="visible: eduAdminVisible">Διεύθυνση Εκπαίδευσης</label>
+                                    <label for="edu_admin">Διεύθυνση Εκπαίδευσης</label> <!--data-bind="visible: eduAdminVisible-->
                                 </div>                                
                                 <div class="col-md-11">
                                     <select id="sl_edu_admin" 
@@ -282,7 +282,7 @@
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="edu_admin_id"
-                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterChanged }, visible: eduAdminVisible"
+                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterChanged }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">

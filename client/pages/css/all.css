@@ -45,11 +45,11 @@ table, td, k-toolbar, k-pager-wrap
 
 /*διαμόρφωση του panelbar της αναζήτησης*/
 #search-form #panelbar{ /*k-widget*/
-    border-style: none;
+    /*border-style: none;*/
 }
 
 #search-form #panelbar > .k-item > .k-link{  /*k-panelbar*/
-    border-bottom-style: none;
+    /*border-bottom-style: none;*/
 }
 
 /*min width για button, αφορά το info button στο school units grid*/
@@ -71,7 +71,7 @@ table, td, k-toolbar, k-pager-wrap
 
 
 .psd_icon{
-    float:left; 
-    padding-left:10px; 
-    padding-top:7px;
+    float:left;
+    padding-left: 3px;
+    padding-top: 4px;
 }

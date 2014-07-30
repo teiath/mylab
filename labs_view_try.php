@@ -23,6 +23,24 @@
     ?>
 
     <!--transition dialog-->
+    <div id="school_unit_info_dialog" style="display:none; color: #5E5E5E">
+        
+        <ul style="margin: 10px; list-style: none;">
+            <li style="margin: 5px 10px; display: inline; font-size: 13px; font-weight: bold"> Διεύθυνση </li>
+            <li style="margin: 5px 25px; "> <i class="fa fa-user"></i> <span data-bind="text: principal_school_unit_worker" ></span> </li>
+        </ul>                                        
+
+        <ul style="margin: 10px; list-style: none;">
+            <li style="margin: 5px 10px; display: inline; font-size: 13px; font-weight: bold"> Στοιχεία Επικοινωνίας </li>
+            <li style="margin: 5px 25px; "> <i class="fa fa-phone"></i> <span data-bind="text: principal_phone_number" ></span> </li>
+            <li style="margin: 5px 25px; "> <i class="fa fa-fax"></i>  <span data-bind="text: principal_fax_number" ></span> </li>
+            <li style="margin: 5px 25px; "> <i class="fa fa-envelope"></i>  <span data-bind="text: principal_email" ></span> </li>
+            <li style="margin: 5px 25px; "> <i class="fa fa-home"></i>  <span data-bind="text: principal_street_address" ></span> </li>
+        </ul>        
+        
+    </div>
+    
+    <!--transition dialog-->
     <div id="transition_dialog"></div>
     
     <!--disable lab worker dialog-->
@@ -70,7 +88,7 @@
                                        { 'field': 'lab_source', 'title':'Πηγή', 'width':'130px', 'hidden' : true},
                                        { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
                                                      {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},
-                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'Ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn() }
                                       ]">
                 </div>
             </div>

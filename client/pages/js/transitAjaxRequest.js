@@ -6,7 +6,15 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
             dataType: "json",
             data: JSON.stringify(parameters),
             success: function(data){
-                console.log("data:", data);
+
+                var message;
+                if (typeof data.message !== 'undefined'){
+                    message= data.message;
+                }else if (typeof data.message_internal !== 'undefined'){
+                    message= data.message_internal;
+                }else if (typeof data.message_external !== 'undefined'){
+                    message= data.message_external;
+                }
 
                 if(data.status == 200){
                         
@@ -14,7 +22,7 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
                         
                         notification.show({
                             title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
-                            message: data.message
+                            message: message
                         }, "success");                                            
 
 
@@ -24,7 +32,7 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
                     
                         notification.show({
                             title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
-                            message: data.message
+                            message: message
                         }, "error");
                 }
 

@@ -1,154 +1,153 @@
-<?php 
-
-//psd user authentication to front-end
-
-require_once ('server/system/config.php');
-require_once ('server/libs/phpCAS/CAS.php');
-
-
-if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
-    //echo("eimai mesa stou index to if");
-    // initialize phpCAS using SAML
-    phpCAS::client(SAML_VERSION_1_1,$casOptions["Url"],$casOptions["Port"],'', false);
-    // no SSL validation for the CAS server, only for testing environments
-    phpCAS::setNoCasServerValidation();
-    // handle backend logout requests from CAS server
-    phpCAS::handleLogoutRequests(array($casOptions["Url"]));
-    if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
-        phpCAS::logout();
-        exit();
-    } else {
-        // force CAS authentication
-        if (!phpCAS::checkAuthentication())
-          phpCAS::forceAuthentication();
-    }
-    // at this step, the user has been authenticated by the CAS server and the user's login name can be read with //phpCAS::getUser(). for this test, simply print who is the authenticated user and his attributes.
-    $user = phpCAS::getAttributes();
-    
-    //var_dump($user['title']);//die();
-}
-
-//$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
-$user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
-
-?>
-
 <!DOCTYPE html>
 <html>
+    
     <head>
-        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+
+        <link rel="shortcut icon" href="" />
+
+        <title>MyLab</title>
 
         <?php require_once('includes.html');?>
-        
-        <script>
-                       
-            $(document).ready(function() {
-                $.ajaxSetup({
-                    data: { user: user },
-                    beforeSend: function(req) {
-//                    console.log("beforeSend: req = ", req);
-                        req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
-                    }
-                });
 
-                baseURL = config.serverUrl;//"http://mmsch.teiath.gr/mylab/api/";
+        <style>
+            .sch_logo_text {
+                color: #1d73a3;
+                float: left;
+                font-size: 19px;
+                line-height: 0.9;
+                /*margin: 21px 0 0;*/
+                font-weight:bold;
+            }
 
-                //BINDINGS
-                kendo.bind($("#labs_container"), LabsViewVM);
-                kendo.bind($("#labs_container").find(".k-grid-toolbar"), LabsViewVM);
-                kendo.bind($("#labs_view").find(".k-grid-toolbar>.export_to_xlsx"), SearchVM); //bind labs view toolbar 'export to xlsx button' to SearchVM
-                kendo.bind($("#labs_view").find(".k-grid-toolbar>.lab_grid_columns_btn"), LabsViewVM);
-                kendo.bind($("#labs_view").find(".k-grid-toolbar>.lab_refresh_btn"), LabsViewVM);
-                
-                kendo.bind($("#school_units_container"), SchoolUnitsViewVM);
-                kendo.bind($("#school_units_view").find(".k-grid-toolbar>.export_to_xlsx"), SearchVM); // bind school units view toolbar 'export to xlsx button' to SearchVM
-                kendo.bind($("#school_units_view").find(".k-grid-toolbar>.school_unit_grid_columns_btn"), SchoolUnitsViewVM);
-                kendo.bind($("#school_units_view").find(".k-grid-toolbar>.school_unit_refresh_btn"), SchoolUnitsViewVM);
-                
-                
-                kendo.bind($("#search-container"), SearchVM);
-                kendo.bind($("#switch_view"), LabsViewVM);
-                
-                //NOTIFICATIONS
-                notification = $("#notification").kendoNotification({
-                    position: {
-                        pinned: true,
-                        top: 70,
-                        right: 30
-                    },
-                    allowHideAfter: 2000,
-                    autoHideAfter: 7000, //0
-                    hideOnClick: true,
-                    stacking: "down",
-                    //button: true, //??? γιατι δεν παίζει?
-                    templates: [{
-                        type: "error",
-                        template: $("#errorTemplate").html()
-                    }, {
-                        //type: "upload-success",
-                        type: "success",
-                        template: $("#successTemplate").html()
-                    }]
+            .sch_logo_text2 {
+                color: #73a41d;
+                font-size: 12px;
+                fonr-weight:bold;
+                 font-weight:bold;
+            }
 
-                }).data("kendoNotification");
-                
-                //SCROLL-TOP
-                //depending on the .scrollTop() value fade in or out the scroll-to-top img
-                $(window).scroll(function(){
-                    if ($(this).scrollTop() > 100) {
-                        $('.scrollup').fadeIn();
-                    } else {
-                        $('.scrollup').fadeOut();
-                    }
-                });
-                // scroll to top
-                $('.scrollup').click(function(){
-                    $("html, body").animate({ scrollTop: 0 }, 600);
-                    return false;
-                });
-                
-                //reset radio btn to labs view
-                $('#switch_to_labs_view_btn').attr('checked',true);
-                $('#switch_to_school_units_view_btn').attr('checked',false);
-                
-                //index holds thr grid's row index in school units view, in order to expand it after lab creation
-                index= null;
-                searchParameters = [];
-                                               
-            });
+            .vcenter {
+                display: inline-block;
+                vertical-align: middle;
+                float: none;
+            }
             
-        </script>
-     
+            .btn-default:hover, .btn-default:focus, .btn-default:active, .open, .dropdown-toggle.btn-default{
+               background-color: #445E3E;
+               border-color: #445E3E;
+               color: #FFFFFF;
+            }
+            
+            .btn-default{
+               background-color: #699360;
+               border-color: #699360;
+               color: #FFFFFF;
+            }
+            
+        </style>
+
     </head>
-   
-    <body>
-        
-        <?php 
-                require_once('navigation_bar.php'); //navigation bar
-        ?>
-        <div style='height:90px'> </div>    
-        <?php
-                //if(in_array($user['title'], $search_xls)){ require_once('search.html'); } //search pane
-                require_once('search.html'); //search pane
-                require_once('switch_views.html'); //switch views button
-                require_once('labs_view_try.php'); //labs view
-                require_once('school_units_view_try.php'); //school units view
-        ?>
-        <a href="#" class="scrollup">Scroll</a>
-        
-        
-        <script>
-    
-            var g_casUrl = "<?php echo $casOptions['Url'] ?>";
-            //console.log("g_casUrl: ", g_casUrl);
-            // Build logout link
-            
-            $("#lnkLogout").attr("href", config.url + "?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
-            //$("#lnkLogout").attr("href", "http://" + g_casUrl + "/logout ");
-            $("#lnkLogout").html("<strong>" + user.uid + " [Logout]" + "</strong>");
 
-        </script>        
-        
+    <body>
+
+        <div class="container">
+
+            <div style="clear: both;" >&nbsp;</div>
+
+            <div class="header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="pull-left"><img src="client/pages/icons/sch_logo.png" />&nbsp;&nbsp;&nbsp;</p>			
+                            <p class="pull-left" style="padding-top:5px;"><strong><a href="http://www.sch.gr" style="color: #1d73a3;font: bold 20px Tahoma,sans-serif;">Πανελλήνιο Σχολικό Δίκτυο</a></strong><br>
+                                <span class="sch_logo_text2">Το Δίκτυο στην Υπηρεσία της Εκπαίδευσης</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="jumbotron" style="background-color: #D7E4BD;"> <!--7EA700-->
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-12"><h2 style="color:#699360; font-weight:bold;">Υπηρεσία MyLab <br/>Πανελλήνιου Σχολικού Δικτύου</h2></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>
+                                        <strong style="font-size:18px;">
+                                            Το Πληροφοριακό Σύστημα MyLab έχει ως κύριο σκοπό την ψηφιακή αποτύπωση των Εργαστηρίων Πληροφορικής (ΣΕΠΕΗΥ) ή άλλου τύπου (πχ Εργαστηρίων Τομέα) καθώς και άλλων ομαδοποιημένων διατάξεων Η/Υ (εφεξής Δομές Η/Υ), όλων των Δημόσιων Σχολικών Μονάδων Α’θμιας και Β’θμιας Εκπαίδευσης της Ελληνικής Επικράτειας. 
+                                            Επιπρόσθετα, επιδιώκεται η διαστασιοποίηση των παραπάνω Δομών Η/Υ, μέσω της δυνατότητας προσάρτησης, αποκλειστικά σε ποσοτικό επίπεδο, κατηγοριών εξοπλισμού ΤΠΕ σε κάθε Δομή Η/Υ.
+                                        </strong>
+                                    </p>
+                                </div>				
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">
+                                <div class="col-md-12">						
+                                    <a role="button" class="btn btn-default btn-lg btn-block access_button" href="home.php" >Διαπιστευμένη Πρόσβαση</a>
+                                </div>
+                            </div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <strong>Υποστηρίζεται από το ΤΕΙ Αθήνας<br/>
+                                                Επικοινωνία: mm@sch.gr
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12"><p class="pull-left"><img src="client/pages/icons/sthrizw_logos.jpg" /></p></div>
+<!--                        <div class="col-md-4"><p class="pull-left"><img src="client/pages/icons/ypepth_logo.png" /></p></div>
+                        <div class="col-md-4"><p><img src="client/pages/icons/logo_stirizo.png" /></p></div>
+                        <div class="col-md-4"><p class="pull-right"><img src="client/pages/icons/espa_logo.png" /></p></div>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </body>
+
 </html>
