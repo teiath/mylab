@@ -38,21 +38,6 @@ class EquipmentTypes
      */
     private $equipmentCategory;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Labs", mappedBy="equipmentType")
-     */
-    private $lab;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->lab = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     //getter and setter
     
     public function getEquipmentTypeId() {
@@ -79,13 +64,5 @@ class EquipmentTypes
         $this->equipmentCategory = $equipmentCategory;
     }
 
-    public function getLab() {
-        return $this->lab;
-    }
-
-    public function setLab(\Doctrine\Common\Collections\Collection $lab) {
-        $this->lab = $lab;
-    }
-
-
+    
 }
