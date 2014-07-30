@@ -1065,11 +1065,16 @@ function LabEquipmentTypesController()
     {
         case MethodTypes::GET : 
             $result = GetLabEquipmentTypes(
-                $params["lab"],
-                $params["equipment_type"],
-                $params["equipment_category"],
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["equipment_type_id"],
+                $params["equipment_type_name"],
+                $params["items"],
                 $params["pagesize"],
-                $params["page"]
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
@@ -1246,13 +1251,19 @@ function LabRelationsController()
     {
         case MethodTypes::GET : 
             $result = GetLabRelations(
-                $params["lab"],
+                $params["lab_relation_id"],
+                $params["lab_id"],                 
+                $params["lab_name"],
                 $params["school_unit"],
+                $params["school_unit_name"],
                 $params["relation_type"],
                 $params["circuit"],
                 $params["phone_number"],
-                $params["pagesize"], 
-                $params["page"]
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :

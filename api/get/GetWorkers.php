@@ -132,16 +132,16 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
         {
 
             $result["data"][] = array(
-               "worker_id"        => $worker->getWorkerId(),
-               "registry_no"      => $worker->getRegistryNo(),
-               "tax_number"       => $worker->getTaxNumber(),
-               "firstname"        => $worker->getFirstname(),
-               "lastname"         => $worker->getLastname(),
-               "fathername"       => $worker->getFathername(),
-               "sex"              => $worker->getSex(),
-               "worker_specialization"      => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getWorkerSpecializationId(),
-               "worker_specialization_name" => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getName(),
-            );
+                                        "worker_id"        => $worker->getWorkerId(),
+                                        "registry_no"      => $worker->getRegistryNo(),
+                                        "tax_number"       => $worker->getTaxNumber(),
+                                        "firstname"        => $worker->getFirstname(),
+                                        "lastname"         => $worker->getLastname(),
+                                        "fathername"       => $worker->getFathername(),
+                                        "sex"              => $worker->getSex(),
+                                        "worker_specialization"      => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getWorkerSpecializationId(),
+                                        "worker_specialization_name" => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getName(),
+                                     );
             $count++;
         }
         $result["count"] = $count;

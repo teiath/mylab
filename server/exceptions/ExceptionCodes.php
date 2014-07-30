@@ -33,7 +33,7 @@ class ExceptionCodes
 //        const InvalidSortModeType = 500;
 //        const InvalidSortFieldType = 500;
 //        const InvalidExport =500;
-//        const MethodNotFound = 500;
+        const MethodNotFound = 500;
 //        const DeleteError = 500;
 //        const DeleteNotFoundAquisitionSources = 500;
 //        const DeleteNotFoundEquipmentTypes = 500;

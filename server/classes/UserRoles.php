@@ -113,7 +113,7 @@ private static $Permissions = array(
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         ) ,
     'lab_equipment_types'   => array(
-                                        'GET' => array('ΠΡΟΣΩΠΙΚΟ ΠΣΔ'),
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ'),
                                         'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
