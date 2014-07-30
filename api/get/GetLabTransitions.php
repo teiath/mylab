@@ -11,147 +11,177 @@ header("Content-Type: text/html; charset=utf-8");
  * @global type $db
  * @global type $Options
  * @global type $app
- * @param type $lab
- * @param type $relation_type
+ * @param type $lab_transition_id
+ * @param type $transition_date
+ * @param type $transition_source
+ * @param type $lab_id
+ * @param type $lab_name
+ * @param type $from_state
+ * @param type $to_state
  * @param type $pagesize
  * @param int $page
+ * @param type $searchtype
+ * @param type $ordertype
+ * @param type $orderby
  * @return string
  * @throws Exception
  */
  
-function GetLabTransitions($lab, $pagesize, $page) {
-    global $db;
-    global $Options;
-    global $app;
-   
-    $filter = array();
+function GetLabTransitions( $lab_transition_id, $transition_date, $transition_source, 
+                            $from_state, $to_state, $lab_id, $lab_name,
+                            $pagesize, $page, $searchtype, $ordertype, $orderby ) {
+
+    global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
     $result["data"] = array();
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-
+    $params = loadParameters();
+    
     try {
-        
-        //= Pages ==============================================================
-        if (! $page)
-            $page = 1;
-        else if (intval($page) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageNumber." : ".$page, ExceptionCodes::InvalidPageNumber);
-        else if (!is_numeric($page))
-	        throw new Exception(ExceptionMessages::InvalidPageType." : ".$page, ExceptionCodes::InvalidPageType);
-        
-        if (! $pagesize)
-                $pagesize = $Options["PageSize"];
-        else if (intval($pagesize) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-        else if (!is_numeric($pagesize))
-	        throw new Exception(ExceptionMessages::InvalidPageSizeType." : ".$pagesize, ExceptionCodes::InvalidPageSizeType);
-        else if ($pagesize > $Options["MaxPageSize"])
-                throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
 
-        $startat = ($page -1) * $pagesize;
-        
-        //= $lab ==================================================
+//set user permissions==========================================================
+    $permissions = UserRoles::getUserPermissions($app->request->user);
 
-            $oLabs = new LabsExt($db);
+    if (Validator::IsNull($permissions['permit_labs'])){
+        throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     
+    }else { 
+        $permit_labs = $permissions['permit_labs'];
+    }
+  
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+       
+//$orderby======================================================================
+       $columns = array(
+                            "lt.labTransitionId" => "lab_transition_id",
+                            "lt.transitionDate" => "transition_date",
+                            "lt.transitionSource" => "transition_source",
+                            "fs.stateId" => "from_state_id",
+                            "fs.name" => "from_state_id",
+                            "ts.stateId" => "from_state_id",
+                            "ts.name" => "from_state_id",
+                            "l.labId" => "lab_id",
+                            "l.name" => "lab_name"
+                        );
+       
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "lab_id";
+       else
+       {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
+       }  
+    
+//$lab_transition_id============================================================
+    if (Validator::Exists('lab_transition_id', $params)){
+        CRUDUtils::setFilter($qb, $lab_transition_id, "lt", "labTransitionId", "labTransitionId", "id", ExceptionMessages::InvalidLabTransitionIDType, ExceptionCodes::InvalidLabTransitionSourceType);
+    } 
+      
+//$transition_date==============================================================
+    if (Validator::Exists('transition_date', $params)){
+        CRUDUtils::setFilter($qb, $transition_date, "lt", "transitionDate", "transitionDate", "date", ExceptionMessages::InvalidLabTransitionDateType, ExceptionCodes::InvalidLabTransitionSourceType);
+    }   
+         
+//$transition_source============================================================
+    if (Validator::Exists('transition_source', $params)){
+        CRUDUtils::setFilter($qb, $transition_source, "lt", "transitionSource", "name", "value", ExceptionMessages::InvalidLabTransitionSourceType, ExceptionCodes::InvalidLabTransitionSourceType);
+    } 
+ 
+//$from_state===================================================================
+    if (Validator::Exists('from_state', $params)){
+        CRUDUtils::setFilter($qb, $from_state, "fs", "stateId", "name", "null,id,value", ExceptionMessages::InvalidStateType, ExceptionCodes::InvalidStateType);
+    } 
+    
+//$to_state=====================================================================
+    if (Validator::Exists('to_state', $params)){
+        CRUDUtils::setFilter($qb, $to_state, "ts", "stateId", "name", "id,value", ExceptionMessages::InvalidStateType, ExceptionCodes::InvalidStateType); 
+    }
+    
+//$lab_id=======================================================================
+    if (Validator::Exists('lab_id', $params)){
+        CRUDUtils::setFilter($qb, $lab_id, "l", "labId", "labId", "id", ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
+    } 
+    
+//$lab_name=====================================================================
+    if (Validator::Exists('lab_name', $params)){
+        CRUDUtils::setSearchFilter($qb, $lab_name, "l", "name", $searchtype, ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType);   
+    }
+ 
+ //execution====================================================================
 
-            $paramFilter = array();
-            $arrayValues = preg_split("/[\s]*[,][\s]*/",$lab);
+        $qb->select('lt');
+        $qb->from('LabTransitions', 'lt');
+        $qb->leftjoin('lt.fromState', 'fs');
+        $qb->leftjoin('lt.toState', 'ts');
+        $qb->leftjoin('lt.lab', 'l');
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
+ 
+        if ($permit_labs !== 'ALLRESULTS'){
+            $qb->andWhere($qb->expr()->in('l.labId', ':ids'))
+                ->setParameter('ids', $permit_labs);
+        }
+  
+//pagination and results========================================================     
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $results->getQuery()->setMaxResults($pagesize) : null;
 
-            foreach ($arrayValues as $lab)
-            {
-                $lab = trim($lab);
+//data results==================================================================       
+        $count = 0;
+        foreach ($results as $labtransition)
+        {
 
-                if (is_numeric($lab))
-                {
-                    $paramFilter[] = new DFC(LabsExt::FIELD_LAB_ID, $lab, DFC::EXACT);
-                }
-                else if ($lab)
-                {
-                    $paramFilter[] = new DFC(LabsExt::FIELD_NAME, $lab, DFC::EXACT);
-                }
-            }
+            $result["data"][] = array(              
+                                        "lab_transition_id"  => $labtransition->getLabTransitionId(),
+                                        "transition_date"    => $labtransition->getTransitionDate(),
+                                        "transition_source"  => $labtransition->getTransitionSource(),
+                                        "from_state_id"      => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getStateId(),
+                                        "from_state_name"    => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getName(),
+                                        "to_state_id"        => $labtransition->getToState()->getStateId(),
+                                        "to_state_name"      => $labtransition->getToState()->getName(),
+                                        "lab_id"             => $labtransition->getLab()->getLabId(),
+                                        "lab_name"           => $labtransition->getLab()->getName()
+
+                                       );
+            $count++;
+        }
+        $result["count"] = $count;
+
+//pagination results============================================================     
+        $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page,   
+                             "maxPage" => $maxPage, 
+                             "pagesize" => $pagesize 
+                            );    
+        $result["pagination"]=$pagination;
            
-            if ( count($paramFilter) > 0 )
-            {
-                $oLabs->getAll($db, $paramFilter, false);
-            } 
-            
-            $paramFilter = array();
-            foreach ($oLabs->getObjsArray() as $oLab)
-            {
-                 $paramFilter[] = new DFC(LabTransitionsExt::FIELD_LAB_ID, $oLab->getLabId(), DFC::EXACT);
-            }
-            
-            if ( count($paramFilter) > 0 )
-            {
-                $filter[] = new DFCAggregate($paramFilter, false);
-            }
-     
-        
-        //==============================================================================        
-        $oStates = new StatesExt($db);
-        $oStates ->getAll($db);
-        
-        $sort = array( new DSC(LabTransitionsExt::FIELD_LAB_ID, DSC::ASC));
-
-        $oLabTransitions = new LabTransitionsExt($db);
-        $totalRows = $oLabTransitions->findByFilterAsCount($db, $filter, true);
-        $result["total"] = $totalRows[0]->getLabTransitionId();
-        
-        if ($pagesize)        
-            $countRows = $oLabTransitions->findByFilterWithLimit($db, $filter, true, $sort, $startat, $pagesize);
-        else
-            $countRows = $oLabTransitions->findByFilter($db, $filter, true, $sort);
-        
-        $result["count"] = count( $countRows );
-        
-        if ($countRows) {         
-      //  $schoolUnitsFilter = array();
-        $labsFilter = array();
-
-        foreach ($countRows as $rows)
-        {                
-          //  $schoolUnitsFilter[] = new DFC(SchoolUnitsExt::FIELD_SCHOOL_UNIT_ID, $rows->getSchoolUnitId(), DFC::EXACT);
-            $labsFilter[] = new DFC(LabsExt::FIELD_LAB_ID, $rows->getLabId(), DFC::EXACT);
-        }
-
-       // $oSchoolUnits->getAll($db, $schoolUnitsFilter, false); 
-        $oLabs->getAll($db, $labsFilter, false); 
-            
-        foreach ($countRows as $row)
-        {        
-            
-             $data = array( "lab_transition_id"=> $row->getLabTransitionId(),
-                            "lab_id" => $row->getLabId(),
-                            "from_state_id" => $row->getFromState(),
-                            "from_state" => $oStates->searchArrayForID($row->getFromState())->getName(),
-                            "to_state_id" => $row->getToState(),
-                            "to_state" => $oStates->searchArrayForID($row->getToState())->getName(),
-                            "transition_date" => $row->getTransitionDate(),
-                            "transition_justification" => $row->getTransitionJustification(),
-                            "transition_source" => $row->getTransitionSource()
-                 
-                  );
-        $result["data"][] = $data;
-        }
-        
-        }else {
-            $result["data"] = $data; 
-        }  
-        
-        
+//result_messages===============================================================    
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
     } 
-    return $result;
-} 
+    
+//debug=========================================================================       
+        if ( Validator::IsTrue( $params["debug"]  ) )
+        {
+             $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+             $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+        }
+    
+    return $result;       
+           
+}
 
 ?>
