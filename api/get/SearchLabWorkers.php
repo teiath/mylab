@@ -24,61 +24,26 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
     $result = array();
     
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
     $result["data"] = array();
     $result["controller"] = __FUNCTION__;
-    $result["function"] = $controller;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
+    $params = loadParameters();
 
     try
     {
-    //======================================================================================================================
-    //= Paging
-    //======================================================================================================================
-
-        if ( Validator::isMissing('searchtype') )
-            $searchtype = SearchEnumTypes::Contain;
-        else if ( SearchEnumTypes::isValidValue( $searchtype ) || SearchEnumTypes::isValidName( $searchtype ) )
-            $searchtype = SearchEnumTypes::getValue($searchtype);
-        else
-            throw new Exception(ExceptionMessages::InvalidSearchType." : ".$searchtype, ExceptionCodes::InvalidSearchType);
         
-        if ( Validator::isMissing('page') )
-            $page = 1;
-        else if ( Validator::isNull($page) )
-            throw new Exception(ExceptionMessages::MissingPageValue, ExceptionCodes::MissingPageValue);
-        elseif ( Validator::isArray($page) )
-            throw new Exception(ExceptionMessages::InvalidPageArray, ExceptionCodes::InvalidPageArray);
-        elseif (Validator::isLowerThan($page, 0, true) )
-            throw new Exception(ExceptionMessages::InvalidPageNumber, ExceptionCodes::InvalidPageNumber);
-        elseif (!Validator::isGreaterThan($page, 0) )
-            throw new Exception(ExceptionMessages::InvalidPageType, ExceptionCodes::InvalidPageType);
-        else
-            $page = Validator::toInteger($page);
-
-        
-        if ( Validator::isMissing('pagesize') )
-            $pagesize = Parameters::DefaultPageSize;
-        else if ( Validator::isEqualTo($pagesize, 0) )
-            $pagesize = Parameters::AllPageSize;
-        else if ( Validator::isNull($pagesize) )
-            throw new Exception(ExceptionMessages::MissingPageSizeValue, ExceptionCodes::MissingPageSizeValue);
-        elseif ( Validator::isArray($pagesize) )
-            throw new Exception(ExceptionMessages::InvalidPageSizeArray, ExceptionCodes::InvalidPageSizeArray);
-        elseif ( (Validator::isLowerThan($pagesize, 0) ) )
-            throw new Exception(ExceptionMessages::InvalidPageSizeNumber, ExceptionCodes::InvalidPageSizeNumber);
-        elseif (!Validator::isGreaterThan($pagesize, 0) )
-            throw new Exception(ExceptionMessages::InvalidPageSizeType, ExceptionCodes::InvalidPageSizeType);
-        else
-            $pagesize = Validator::toInteger($pagesize);
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
         
 //======================================================================================================================
 //= $lab_worker_id
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_worker_id') )
+        if ( Validator::Exists('lab_worker_id', $params) )
         {
             $table_name = "lab_workers";
             $table_column_id = "lab_worker_id";
@@ -94,7 +59,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $worker_status
 //======================================================================================================================
 
-        if ( Validator::isExists('worker_status') )
+        if ( Validator::Exists('worker_status', $params) )
         {
             $table_name = "lab_workers";
             $table_column_id = "worker_status";
@@ -110,7 +75,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $worker_start_service
 //======================================================================================================================
 
-        if ( Validator::isExists('worker_start_service') )
+        if ( Validator::Exists('worker_start_service', $params) )
         {
             $table_name = "lab_workers";
             $table_column_name = "worker_start_service";
@@ -125,7 +90,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $worker
 //======================================================================================================================
 
-        if ( Validator::isExists('worker') )
+        if ( Validator::Exists('worker', $params) )
         {
 
             $table_name = "workers";
@@ -142,7 +107,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $worker_registry_no
 //======================================================================================================================
 
-        if ( Validator::isExists('registry_no') )
+        if ( Validator::Exists('registry_no', $params) )
         {
 
             $table_name = "workers";
@@ -159,7 +124,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $worker_position
 //======================================================================================================================
 
-        if ( Validator::isExists('worker_position') )
+        if ( Validator::Exists('worker_position', $params) )
         {
 
             $table_name = "worker_positions";
@@ -175,7 +140,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $lab
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_id') )
+        if ( Validator::Exists('lab_id', $params) )
         {
             $table_name = "labs";
             $table_column_id = "lab_id";
@@ -191,7 +156,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $lab_name
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_name') )
+        if ( Validator::Exists('lab_name', $params) )
         {
             $table_name = "labs";
             $table_column_name = "name";
@@ -205,7 +170,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $lab_type
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_type') )
+        if ( Validator::Exists('lab_type', $params) )
         {
 
             $table_name = "lab_types";
@@ -222,7 +187,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $school_unit_id
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_id') )
+        if ( Validator::Exists('school_unit_id', $params) )
         {
 
             $table_name = "school_units";
@@ -239,7 +204,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $school_unit_name
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_name') )
+        if ( Validator::Exists('school_unit_name', $params) )
         {
             $table_name = "school_units";
             $table_column_name = "name";
@@ -253,7 +218,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $lab_state
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_state') )
+        if ( Validator::Exists('lab_state', $params) )
         {
 
             $table_name = "lab_states";
@@ -270,7 +235,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $region_edu_admin
 //======================================================================================================================
 
-        if ( Validator::isExists('region_edu_admin') )
+        if ( Validator::Exists('region_edu_admin', $params) )
         {
 
             $table_name = "region_edu_admins";
@@ -287,7 +252,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $edu_admin
 //======================================================================================================================
 
-        if ( Validator::isExists('edu_admin') )
+        if ( Validator::Exists('edu_admin', $params) )
         {
 
             $table_name = "edu_admins";
@@ -304,7 +269,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $transfer_area
 //======================================================================================================================
 
-        if ( Validator::isExists('transfer_area') )
+        if ( Validator::Exists('transfer_area', $params) )
         {
             $table_name = "transfer_areas";
             $table_column_id = "transfer_area_id";
@@ -320,7 +285,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $municipality
 //======================================================================================================================
 
-        if ( Validator::isExists('municipality') )
+        if ( Validator::Exists('municipality', $params) )
         {
             
             $table_name = "municipalities";
@@ -337,7 +302,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $prefecture
 //======================================================================================================================
 
-        if ( Validator::isExists('prefecture') )
+        if ( Validator::Exists('prefecture', $params) )
         {
             $table_name = "prefectures";
             $table_column_id = "prefecture_id";
@@ -353,7 +318,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $education_level
 //======================================================================================================================
 
-        if ( Validator::isExists('education_level') )
+        if ( Validator::Exists('education_level', $params) )
         {
             $table_name = "education_levels";
             $table_column_id = "education_level_id";
@@ -369,7 +334,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $school_unit_type
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_type') )
+        if ( Validator::Exists('school_unit_type', $params) )
         {
             $table_name = "school_unit_types";
             $table_column_id = "school_unit_type_id";
@@ -385,7 +350,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $school_unit_state
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_state') )
+        if ( Validator::Exists('school_unit_state', $params) )
         {
             $table_name = "school_unit_states";
             $table_column_id = "state_id";
@@ -401,30 +366,19 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //= $export
 //======================================================================================================================
         
-        if ( Validator::isMissing('export') )
+        if ( Validator::Missing('export', $params) )
             $export = ExportDataEnumTypes::JSON;
         else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
             $export = ExportDataEnumTypes::getValue($export);
             //$pagesize = Parameters::AllPageSize;
         } else
             throw new Exception(ExceptionMessages::InvalidExport." : ".$export, ExceptionCodes::InvalidExport);
-   
-//======================================================================================================================
-//= $ordertype
-//======================================================================================================================
-
-        if ( Validator::isMissing('ordertype') )
-            $ordertype = OrderEnumTypes::ASC ;
-        else if ( OrderEnumTypes::isValidValue( $ordertype ) || OrderEnumTypes::isValidName( $ordertype ) )
-            $ordertype = OrderEnumTypes::getValue($ordertype);
-        else
-            throw new Exception(ExceptionMessages::InvalidOrderType." : ".$ordertype, ExceptionCodes::InvalidOrderType);      
         
 //======================================================================================================================
 //= $orderby
 //======================================================================================================================
 
-        if ( Validator::isExists('orderby') )
+        if ( Validator::Exists('orderby', $params) )
         {
             $columns = array(
                 "lab_worker_id",
@@ -445,7 +399,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //======================================================================================================================
 
         //set user permissions
-       $permissions = UserRoles::getUserPermissions($app->request->user, true);
+       $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
        
        if (Validator::IsNull($permissions['permit_labs'])){
            $permit_labs = null;
@@ -549,7 +503,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         $result["total"] = $rows["total_lab_workers"];
         
         //check if $page input from user, is valid
-        $maxPage = Pagination::checkMaxPage($rows["total_lab_workers"], $page, $pagesize);
+        $maxPage = Pagination::getMaxPage($rows["total_lab_workers"], $page, $pagesize);
         
         //#############find count lab_workers with filter of limits(page and pagesize)
         $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlPermissions . $sqlOrder . $sqlLimit ;
@@ -673,7 +627,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
     }
 
-    if ( Validator::IsExists('debug') )
+    if ( Validator::IsTrue( $params["debug"]  ) )
     {
         $result["sql"] =  trim(preg_replace('/\s\s+/', ' ', $sql));
     }

@@ -23,31 +23,23 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
     $filter = array();        
     $result = array();
     
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
+    $result["data"] = array();
     $result["controller"] = __FUNCTION__;
-    $result["function"] = $controller;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
+    $params = loadParameters();
 
     try
     {
-    //======================================================================================================================
-    //= Paging
-    //======================================================================================================================
-    
-        if ( Validator::isMissing('searchtype') )
-            $searchtype = SearchEnumTypes::Contain;
-        else if ( SearchEnumTypes::isValidValue( $searchtype ) || SearchEnumTypes::isValidName( $searchtype ) )
-            $searchtype = SearchEnumTypes::getValue($searchtype);
-        else
-            throw new Exception(ExceptionMessages::InvalidSearchType." : ".$searchtype, ExceptionCodes::InvalidSearchType);
+        
+//$searchtype===================================================================     
+       $searchtype = Filters::getSearchType($searchtype, $params);
 
 //======================================================================================================================
 //= $lab_id
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_id') )
+        if ( Validator::Exists('lab_id', $params) )
         {
             $table_name = "labs";
             $table_column_id = "lab_id";
@@ -63,7 +55,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $lab_name
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_name') )
+        if ( Validator::Exists('lab_name', $params) )
         {
             $table_name = "labs";
             $table_column_name = "name";
@@ -77,7 +69,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $lab_special_name
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_special_name') )
+        if ( Validator::Exists('lab_special_name', $params) )
         {
             $table_name = "labs";
             $table_column_name = "special_name";
@@ -91,7 +83,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $creation_date
 //======================================================================================================================
 
-        if ( Validator::isExists('creation_date') )
+        if ( Validator::Exists('creation_date', $params) )
         {
             $table_name = "labs";
             $table_column_name = "creation_date";
@@ -106,7 +98,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $operational_rating
 //======================================================================================================================
 
-        if ( Validator::isExists('operational_rating') )
+        if ( Validator::Exists('operational_rating', $params) )
         {
             $table_name = "labs";
             $table_column_id = "operational_rating";
@@ -121,7 +113,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $technological_rating
 //======================================================================================================================
 
-        if ( Validator::isExists('technological_rating') )
+        if ( Validator::Exists('technological_rating', $params) )
         {
             $table_name = "labs";
             $table_column_id = "technological_rating";
@@ -137,7 +129,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $lab_type
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_type') )
+        if ( Validator::Exists('lab_type', $params) )
         {
 
             $table_name = "lab_types";
@@ -154,7 +146,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $school_unit_id
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_id') )
+        if ( Validator::Exists('school_unit_id', $params) )
         {
 
             $table_name = "school_units";
@@ -171,7 +163,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $school_unit_name
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_name') )
+        if ( Validator::Exists('school_unit_name', $params) )
         {
             $table_name = "school_units";
             $table_column_name = "name";
@@ -185,7 +177,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $school_unit_special_name
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_special_name') )
+        if ( Validator::Exists('school_unit_special_name', $params) )
         {
             $table_name = "school_units";
             $table_column_name = "special_name";
@@ -199,7 +191,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $lab_state
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_state') )
+        if ( Validator::Exists('lab_state', $params) )
         {
 
             $table_name = "lab_states";
@@ -216,7 +208,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $lab_source
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_source') )
+        if ( Validator::Exists('lab_source', $params) )
         {
 
             $table_name = "lab_sources";
@@ -232,7 +224,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $aquisition_source
 //======================================================================================================================
 
-        if ( Validator::isExists('aquisition_source') )
+        if ( Validator::Exists('aquisition_source', $params) )
         {
             $table_name = "aquisition_sources";
             $table_column_id = "aquisition_source_id";
@@ -248,7 +240,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $equipment_type
 //======================================================================================================================
 
-        if ( Validator::isExists('equipment_type') )
+        if ( Validator::Exists('equipment_type', $params) )
         {
             $table_name = "equipment_types";
             $table_column_id = "equipment_type_id";
@@ -264,7 +256,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $lab_worker
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_worker') )
+        if ( Validator::Exists('lab_worker', $params) )
         {
             $table_name = "workers";
             $table_column_id = "registry_no";
@@ -280,7 +272,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $region_edu_admin
 //======================================================================================================================
 
-        if ( Validator::isExists('region_edu_admin') )
+        if ( Validator::Exists('region_edu_admin', $params) )
         {
 
             $table_name = "region_edu_admins";
@@ -297,7 +289,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $edu_admin
 //======================================================================================================================
 
-        if ( Validator::isExists('edu_admin') )
+        if ( Validator::Exists('edu_admin', $params) )
         {
 
             $table_name = "edu_admins";
@@ -314,7 +306,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $transfer_area
 //======================================================================================================================
 
-        if ( Validator::isExists('transfer_area') )
+        if ( Validator::Exists('transfer_area', $params) )
         {
             $table_name = "transfer_areas";
             $table_column_id = "transfer_area_id";
@@ -330,7 +322,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $municipality
 //======================================================================================================================
 
-        if ( Validator::isExists('municipality') )
+        if ( Validator::Exists('municipality', $params) )
         {
             
             $table_name = "municipalities";
@@ -347,7 +339,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $prefecture
 //======================================================================================================================
 
-        if ( Validator::isExists('prefecture') )
+        if ( Validator::Exists('prefecture', $params) )
         {
             $table_name = "prefectures";
             $table_column_id = "prefecture_id";
@@ -363,7 +355,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $education_level
 //======================================================================================================================
 
-        if ( Validator::isExists('education_level') )
+        if ( Validator::Exists('education_level', $params) )
         {
             $table_name = "education_levels";
             $table_column_id = "education_level_id";
@@ -379,7 +371,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $school_unit_type
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_type') )
+        if ( Validator::Exists('school_unit_type', $params) )
         {
             $table_name = "school_unit_types";
             $table_column_id = "school_unit_type_id";
@@ -395,7 +387,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= $school_unit_state
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_state') )
+        if ( Validator::Exists('school_unit_state', $params) )
         {
             $table_name = "school_unit_states";
             $table_column_id = "state_id";
@@ -412,7 +404,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //======================================================================================================================
 
             //set user permissions
-           $permissions = UserRoles::getUserPermissions($app->request->user, true);
+           $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
 
            if (Validator::IsNull($permissions['permit_labs'])){
                $permit_labs = null;
@@ -484,8 +476,8 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 
     }
 
-   if ( Validator::IsExists('debug') )
-   {
+    if ( Validator::IsTrue( $params["debug"]  ) )
+    {
         $result["sql"] =  trim(preg_replace('/\s\s+/', ' ', $sql));
     }
 

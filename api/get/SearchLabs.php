@@ -24,66 +24,30 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
     $filter_aquisition_sources = array();
     $filter_equipment_types = array();
     $filter_lab_relations = array();
-    $filter_lab_transitions = array();
-            
+    $filter_lab_transitions = array();         
     $result = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
+   
     $result["data"] = array();
     $result["controller"] = __FUNCTION__;
-    $result["function"] = $controller;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
+    $params = loadParameters();
+    
 
     try
     {
-    //======================================================================================================================
-    //= Paging
-    //======================================================================================================================
-
-        if ( Validator::isMissing('searchtype') )
-            $searchtype = SearchEnumTypes::Contain;
-        else if ( SearchEnumTypes::isValidValue( $searchtype ) || SearchEnumTypes::isValidName( $searchtype ) )
-            $searchtype = SearchEnumTypes::getValue($searchtype);
-        else
-            throw new Exception(ExceptionMessages::InvalidSearchType." : ".$searchtype, ExceptionCodes::InvalidSearchType);
-
-        if ( Validator::isMissing('page') )
-            $page = 1;
-        else if ( Validator::isNull($page) )
-            throw new Exception(ExceptionMessages::MissingPageValue, ExceptionCodes::MissingPageValue);
-        elseif ( Validator::isArray($page) )
-            throw new Exception(ExceptionMessages::InvalidPageArray, ExceptionCodes::InvalidPageArray);
-        elseif (Validator::isLowerThan($page, 0, true) )
-            throw new Exception(ExceptionMessages::InvalidPageNumber, ExceptionCodes::InvalidPageNumber);
-        elseif (!Validator::isGreaterThan($page, 0) )
-            throw new Exception(ExceptionMessages::InvalidPageType, ExceptionCodes::InvalidPageType);
-        else
-            $page = Validator::toInteger($page);
-
-
-
-        if ( Validator::isMissing('pagesize') )
-            $pagesize = Parameters::DefaultPageSize;
-        else if ( Validator::isEqualTo($pagesize, 0) )
-            $pagesize = Parameters::AllPageSize;
-        else if ( Validator::isNull($pagesize) )
-            throw new Exception(ExceptionMessages::MissingPageSizeValue, ExceptionCodes::MissingPageSizeValue);
-        elseif ( Validator::isArray($pagesize) )
-            throw new Exception(ExceptionMessages::InvalidPageSizeArray, ExceptionCodes::InvalidPageSizeArray);
-        elseif ( (Validator::isLowerThan($pagesize, 0) ) )
-            throw new Exception(ExceptionMessages::InvalidPageSizeNumber, ExceptionCodes::InvalidPageSizeNumber);
-        elseif (!Validator::isGreaterThan($pagesize, 0) )
-            throw new Exception(ExceptionMessages::InvalidPageSizeType, ExceptionCodes::InvalidPageSizeType);
-        else
-            $pagesize = Validator::toInteger($pagesize);
-
+        
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+       
 //======================================================================================================================
 //= $lab_id
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_id') )
+        if ( Validator::Exists('lab_id', $params) )
         {
             $table_name = "labs";
             $table_column_id = "lab_id";
@@ -94,12 +58,12 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
                                                ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
 
         }
-        
+     
 //======================================================================================================================
 //= $lab_name
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_name') )
+        if ( Validator::Exists('lab_name', $params) )
         {
             $table_name = "labs";
             $table_column_name = "name";
@@ -113,7 +77,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $lab_special_name
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_special_name') )
+        if ( Validator::Exists('lab_special_name', $params) )
         {
             $table_name = "labs";
             $table_column_name = "special_name";
@@ -127,7 +91,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $creation_date
 //======================================================================================================================
 
-        if ( Validator::isExists('creation_date') )
+        if ( Validator::Exists('creation_date', $params) )
         {
             $table_name = "labs";
             $table_column_name = "creation_date";
@@ -142,7 +106,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $operational_rating
 //======================================================================================================================
 
-        if ( Validator::isExists('operational_rating') )
+        if ( Validator::Exists('operational_rating', $params) )
         {
             $table_name = "labs";
             $table_column_id = "operational_rating";
@@ -157,7 +121,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $technological_rating
 //======================================================================================================================
 
-        if ( Validator::isExists('technological_rating') )
+        if ( Validator::Exists('technological_rating', $params) )
         {
             $table_name = "labs";
             $table_column_id = "technological_rating";
@@ -173,7 +137,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $lab_type
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_type') )
+        if ( Validator::Exists('lab_type', $params) )
         {
 
             $table_name = "lab_types";
@@ -190,7 +154,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $school_unit_id
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_id') )
+        if ( Validator::Exists('school_unit_id', $params) )
         {
 
             $table_name = "school_units";
@@ -207,7 +171,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $school_unit_name
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_name') )
+        if ( Validator::Exists('school_unit_name', $params) )
         {
             $table_name = "school_units";
             $table_column_name = "name";
@@ -221,7 +185,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $school_unit_special_name
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_special_name') )
+        if ( Validator::Exists('school_unit_special_name', $params) )
         {
             $table_name = "school_units";
             $table_column_name = "special_name";
@@ -235,7 +199,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $lab_state
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_state') )
+        if ( Validator::Exists('lab_state', $params) )
         {
 
             $table_name = "lab_states";
@@ -252,7 +216,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $lab_source
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_source') )
+        if ( Validator::Exists('lab_source', $params) )
         {
 
             $table_name = "lab_sources";
@@ -268,7 +232,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $aquisition_source
 //======================================================================================================================
 
-        if ( Validator::isExists('aquisition_source') )
+        if ( Validator::Exists('aquisition_source', $params) )
         {
             $table_name = "aquisition_sources";
             $table_column_id = "aquisition_source_id";
@@ -284,7 +248,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $equipment_type
 //======================================================================================================================
 
-        if ( Validator::isExists('equipment_type') )
+        if ( Validator::Exists('equipment_type', $params) )
         {
             $table_name = "equipment_types";
             $table_column_id = "equipment_type_id";
@@ -300,7 +264,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $lab_worker
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_worker') )
+        if ( Validator::Exists('lab_worker', $params) )
         {
             $table_name = "workers";
             $table_column_id = "registry_no";
@@ -316,7 +280,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $region_edu_admin
 //======================================================================================================================
 
-        if ( Validator::isExists('region_edu_admin') )
+        if ( Validator::Exists('region_edu_admin', $params) )
         {
 
             $table_name = "region_edu_admins";
@@ -333,7 +297,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $edu_admin
 //======================================================================================================================
 
-        if ( Validator::isExists('edu_admin') )
+        if ( Validator::Exists('edu_admin', $params) )
         {
 
             $table_name = "edu_admins";
@@ -350,7 +314,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $transfer_area
 //======================================================================================================================
 
-        if ( Validator::isExists('transfer_area') )
+        if ( Validator::Exists('transfer_area', $params) )
         {
             $table_name = "transfer_areas";
             $table_column_id = "transfer_area_id";
@@ -366,7 +330,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $municipality
 //======================================================================================================================
 
-        if ( Validator::isExists('municipality') )
+        if ( Validator::Exists('municipality', $params) )
         {
             
             $table_name = "municipalities";
@@ -383,7 +347,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $prefecture
 //======================================================================================================================
 
-        if ( Validator::isExists('prefecture') )
+        if ( Validator::Exists('prefecture', $params) )
         {
             $table_name = "prefectures";
             $table_column_id = "prefecture_id";
@@ -399,7 +363,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $education_level
 //======================================================================================================================
 
-        if ( Validator::isExists('education_level') )
+        if ( Validator::Exists('education_level', $params) )
         {
             $table_name = "education_levels";
             $table_column_id = "education_level_id";
@@ -415,7 +379,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $school_unit_type
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_type') )
+        if ( Validator::Exists('school_unit_type', $params) )
         {
             $table_name = "school_unit_types";
             $table_column_id = "school_unit_type_id";
@@ -431,7 +395,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $school_unit_state
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_state') )
+        if ( Validator::Exists('school_unit_state', $params) )
         {
             $table_name = "school_unit_states";
             $table_column_id = "state_id";
@@ -447,7 +411,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= $export
 //======================================================================================================================
         
-        if ( Validator::isMissing('export') )
+        if ( Validator::Missing('export', $params) )
             $export = ExportDataEnumTypes::JSON;
         else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
            $export = ExportDataEnumTypes::getValue($export);
@@ -456,21 +420,10 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
             throw new Exception(ExceptionMessages::InvalidExport." : ".$export, ExceptionCodes::InvalidExport);
 
 //======================================================================================================================
-//= $ordertype
-//======================================================================================================================
-
-        if ( Validator::isMissing('ordertype') )
-            $ordertype = OrderEnumTypes::ASC ;
-        else if ( OrderEnumTypes::isValidValue( $ordertype ) || OrderEnumTypes::isValidName( $ordertype ) )
-            $ordertype = OrderEnumTypes::getValue($ordertype);
-        else
-            throw new Exception(ExceptionMessages::InvalidOrderType." : ".$ordertype, ExceptionCodes::InvalidOrderType);      
-
-//======================================================================================================================
 //= $orderby
 //======================================================================================================================
 
-        if ( Validator::isExists('orderby') )
+        if ( Validator::Exists('orderby', $params) )
         {
             $columns = array(
                 "lab_id",
@@ -492,7 +445,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //======================================================================================================================
        
        //set user permissions
-       $permissions = UserRoles::getUserPermissions($app->request->user, true);
+       $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
        
        if (Validator::IsNull($permissions['permit_labs'])){
            $permit_labs = null;
@@ -590,7 +543,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
         $result["total"] = $rows["total_labs"];
         
         //check if $page input from user, is valid
-        $maxPage = Pagination::checkMaxPage($rows["total_labs"], $page, $pagesize);
+        $maxPage = Pagination::getMaxPage($rows["total_labs"], $page, $pagesize);
         
         //#############find count labs with filter of limits(page and pagesize)
         $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlPermissions . $sqlOrder . $sqlLimit ;
@@ -1067,7 +1020,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 
     }
 
-   if ( Validator::IsExists('debug') )
+   if ( Validator::IsTrue( $params["debug"]  ) )
    {
         $result["sql"] =  trim(preg_replace('/\s\s+/', ' ', $sql));
     }

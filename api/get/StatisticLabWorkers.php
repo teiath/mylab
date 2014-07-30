@@ -23,31 +23,24 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
     $filter = array();       
     $result = array();
     
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
+    $result["data"] = array();
     $result["controller"] = __FUNCTION__;
-    $result["function"] = $controller;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
+    $params = loadParameters();
 
     try
     {
-    //======================================================================================================================
-    //= Paging
-    //======================================================================================================================
 
-        if ( Validator::isMissing('searchtype') )
-            $searchtype = SearchEnumTypes::Contain;
-        else if ( SearchEnumTypes::isValidValue( $searchtype ) || SearchEnumTypes::isValidName( $searchtype ) )
-            $searchtype = SearchEnumTypes::getValue($searchtype);
-        else
-            throw new Exception(ExceptionMessages::InvalidSearchType." : ".$searchtype, ExceptionCodes::InvalidSearchType);
+//$searchtype===================================================================     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+
     
 //======================================================================================================================
 //= $lab_worker_id
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_worker_id') )
+        if ( Validator::Exists('lab_worker_id', $params) )
         {
             $table_name = "lab_workers";
             $table_column_id = "lab_worker_id";
@@ -63,7 +56,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $worker_status
 //======================================================================================================================
 
-        if ( Validator::isExists('worker_status') )
+        if ( Validator::Exists('worker_status', $params) )
         {
             $table_name = "lab_workers";
             $table_column_id = "worker_status";
@@ -79,7 +72,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $worker_start_service
 //======================================================================================================================
 
-        if ( Validator::isExists('worker_start_service') )
+        if ( Validator::Exists('worker_start_service', $params) )
         {
             $table_name = "lab_workers";
             $table_column_name = "worker_start_service";
@@ -94,7 +87,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $worker
 //======================================================================================================================
 
-        if ( Validator::isExists('worker') )
+        if ( Validator::Exists('worker', $params) )
         {
 
             $table_name = "workers";
@@ -111,7 +104,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $worker_registry_no
 //======================================================================================================================
 
-        if ( Validator::isExists('registry_no') )
+        if ( Validator::Exists('registry_no', $params) )
         {
 
             $table_name = "workers";
@@ -128,7 +121,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $worker_position
 //======================================================================================================================
 
-        if ( Validator::isExists('worker_position') )
+        if ( Validator::Exists('worker_position', $params) )
         {
 
             $table_name = "worker_positions";
@@ -144,7 +137,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $lab
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_id') )
+        if ( Validator::Exists('lab_id', $params) )
         {
             $table_name = "labs";
             $table_column_id = "lab_id";
@@ -160,7 +153,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $lab_name
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_name') )
+        if ( Validator::Exists('lab_name', $params) )
         {
             $table_name = "labs";
             $table_column_name = "name";
@@ -174,7 +167,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $lab_type
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_type') )
+        if ( Validator::Exists('lab_type', $params) )
         {
 
             $table_name = "lab_types";
@@ -191,7 +184,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $school_unit_id
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_id') )
+        if ( Validator::Exists('school_unit_id', $params) )
         {
 
             $table_name = "school_units";
@@ -208,7 +201,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $school_unit_name
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_name') )
+        if ( Validator::Exists('school_unit_name', $params) )
         {
             $table_name = "school_units";
             $table_column_name = "name";
@@ -222,7 +215,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $lab_state
 //======================================================================================================================
 
-        if ( Validator::isExists('lab_state') )
+        if ( Validator::Exists('lab_state', $params) )
         {
 
             $table_name = "lab_states";
@@ -239,7 +232,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $region_edu_admin
 //======================================================================================================================
 
-        if ( Validator::isExists('region_edu_admin') )
+        if ( Validator::Exists('region_edu_admin', $params) )
         {
 
             $table_name = "region_edu_admins";
@@ -256,7 +249,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $edu_admin
 //======================================================================================================================
 
-        if ( Validator::isExists('edu_admin') )
+        if ( Validator::Exists('edu_admin', $params) )
         {
 
             $table_name = "edu_admins";
@@ -273,7 +266,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $transfer_area
 //======================================================================================================================
 
-        if ( Validator::isExists('transfer_area') )
+        if ( Validator::Exists('transfer_area', $params) )
         {
             $table_name = "transfer_areas";
             $table_column_id = "transfer_area_id";
@@ -289,7 +282,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $municipality
 //======================================================================================================================
 
-        if ( Validator::isExists('municipality') )
+        if ( Validator::Exists('municipality', $params) )
         {
             
             $table_name = "municipalities";
@@ -306,7 +299,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $prefecture
 //======================================================================================================================
 
-        if ( Validator::isExists('prefecture') )
+        if ( Validator::Exists('prefecture', $params) )
         {
             $table_name = "prefectures";
             $table_column_id = "prefecture_id";
@@ -322,7 +315,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $education_level
 //======================================================================================================================
 
-        if ( Validator::isExists('education_level') )
+        if ( Validator::Exists('education_level', $params) )
         {
             $table_name = "education_levels";
             $table_column_id = "education_level_id";
@@ -338,7 +331,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $school_unit_type
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_type') )
+        if ( Validator::Exists('school_unit_type', $params) )
         {
             $table_name = "school_unit_types";
             $table_column_id = "school_unit_type_id";
@@ -354,7 +347,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //= $school_unit_state
 //======================================================================================================================
 
-        if ( Validator::isExists('school_unit_state') )
+        if ( Validator::Exists('school_unit_state', $params) )
         {
             $table_name = "school_unit_states";
             $table_column_id = "state_id";
@@ -371,7 +364,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 //======================================================================================================================
 
             //set user permissions
-           $permissions = UserRoles::getUserPermissions($app->request->user, true);
+           $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
 
            if (Validator::IsNull($permissions['permit_labs'])){
                $permit_labs = null;
@@ -436,7 +429,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
 
     }
 
-    if ( Validator::IsExists('debug') )
+    if ( Validator::IsTrue( $params["debug"]  ) )
     {
         $result["sql"] =  trim(preg_replace('/\s\s+/', ' ', $sql));
     }
