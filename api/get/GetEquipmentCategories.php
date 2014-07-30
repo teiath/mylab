@@ -1,10 +1,11 @@
 <?php
 /**
-*
-* @version 1.4
-* @author  ΤΕΙ Αθήνας
-* @package api\classes\extends
-*/
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package GET
+ */
+
 header("Content-Type: text/html; charset=utf-8");
 
 /** 
@@ -204,71 +205,103 @@ header("Content-Type: text/html; charset=utf-8");
  * 
  */
 
-function GetEquipmentCategories($pagesize, $page){
-    global $db;
-    global $app;
-    
-    $filter = array();
+function GetEquipmentCategories( $equipment_category_id, $name,
+                                 $pagesize, $page, $searchtype, $ordertype, $orderby ) {
+  
+    global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
     $result["data"] = array();
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
+    $params = loadParameters();
     
     try {
         
-        //pagination 
-        $page = Pagination::Page($page);
-        $pagesize = Pagination::Pagesize($pagesize);
-        $startAt = Pagination::StartPagesizeFrom($page, $pagesize);
-
-        //sorting equipment_categories by name and Initialize object $oEquipmentCategories
-        $sort = array( new DSC(EquipmentCategoriesExt::FIELD_NAME, DSC::ASC) );
-        $oEquipmentCategories = new EquipmentCategoriesExt($db);   
-        
-        //find total results by filter 
-        $totalRows = $oEquipmentCategories->findByFilterAsCount($db, $filter, true); 
-        $total = $totalRows[0]->getEquipmentCategoryId();
-        $result["total"] = (int)$total;
-          
-        //check if $page input from user, is valid
-        $maxPage = Pagination::checkMaxPage($total, $page, $pagesize);
-        
-        //find all results by filter or not ,return objects with key-value 
-        //from getObjsArray and complete set as getObjsArray
-        if ($pagesize)        
-            $oEquipmentCategories->getAllWithLimit($db, $filter, true, $sort, $startAt, $pagesize);
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params, true);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+    
+ //$orderby=====================================================================
+       $columns = array(
+                            "eqc.equipmentCategoryId"  => "equipment_category_id",
+                            "eqc.name"                 => "name"
+                        );
+       
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "equipment_category_id";
         else
-            $oEquipmentCategories->getAll($db, $filter, true, $sort);
+        {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
+        } 
+        
+//$equipment_category_id========================================================
+        if (Validator::Exists('equipment_category_id', $params)){
+            CRUDUtils::setFilter($qb, $equipment_category_id, "eqc", "equipmentCategoryId", "equipmentCategoryId", "id", ExceptionMessages::InvalidEquipmentCategoryIDType, ExceptionCodes::InvalidEquipmentCategoryIDType);
+        } 
 
-        //find total results by filter with limits of $page and $pagesize   
-        $result["count"] = count( $oEquipmentCategories->getObjsArray() );      
+//$name=========================================================================
+        if (Validator::Exists('name', $params)){
+            CRUDUtils::setSearchFilter($qb, $name, "eqc", "name", $searchtype, ExceptionMessages::InvalidAquisitionSourceNameType, ExceptionCodes::InvalidAquisitionSourceNameType);    
+        }  
+        
+//execution=====================================================================
+        $qb->select('eqc');
+        $qb->from('EquipmentCategories', 'eqc');
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
 
-        //loop for results
-        foreach ($oEquipmentCategories->getObjsArray() as $row) {
-            $result["data"][] = array("equipment_category_id" => (int)$row->getEquipmentCategoryId(), 
-                                      "name" => $row->getName()
-                                );
+//pagination and results========================================================      
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $results->getQuery()->setMaxResults($pagesize) : null;
+
+//data results==================================================================       
+        $count = 0;
+        foreach ($results as $equipmentcategory)
+        {
+
+            $result["data"][] = array(
+                                        "equipment_category_id"     => $equipmentcategory->getEquipmentCategoryId(),
+                                        "name"                      => $equipmentcategory->getName()
+                                      
+                                     );
+            $count++;
         }
-        
-        //return pagination values 
-        $pagination = array(
-            "page" => (int)$page,
-            "maxPage" => (int)$maxPage,
-            "pagesize" => (int)$pagesize
-        ); 
-        
+        $result["count"] = $count;
+   
+//pagination results============================================================     
+        $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page,   
+                             "maxPage" => $maxPage, 
+                             "pagesize" => $pagesize 
+                            );    
         $result["pagination"]=$pagination;
+        
+//result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
-        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;   
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    }   
+    } 
+    
+//debug=========================================================================
+   if ( Validator::IsTrue( $params["debug"]  ) )
+   {
+        $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+        $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+   }
+    
     return $result;
+    
 }
 
 ?>

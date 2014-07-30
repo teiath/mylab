@@ -1344,6 +1344,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidEquipmentCategoryArray} */  
     const InvalidEquipmentCategoryArray = 500;
     
+    /** {@see ExceptionMessages::MissingEquipmentCategoryNameParam} */  
+    const MissingEquipmentCategoryNameParam = 500;
+    /** {@see ExceptionMessages::MissingEquipmentCategoryNameValue} */  
+    const MissingEquipmentCategoryNameValue = 500;
+    /** {@see ExceptionMessages::InvalidEquipmentCategoryNameType} */  
+    const InvalidEquipmentCategoryNameType = 500;
+    /** {@see ExceptionMessages::InvalidEquipmentCategoryNameArray} */  
+    const InvalidEquipmentCategoryNameArray = 500;
+    
     /** {@see ExceptionMessages::DuplicatedEquipmentCategoryValue} */  
     const DuplicatedEquipmentCategoryValue = 500;
     /** {@see ExceptionMessages::UsedEquipmentCategoryByEquipmentTypes} */  
@@ -1370,6 +1379,15 @@ class ExceptionCodes
     const InvalidEquipmentTypeType = 500;
     /** {@see ExceptionMessages::InvalidEquipmentTypeArray} */  
     const InvalidEquipmentTypeArray = 500;
+ 
+    /** {@see ExceptionMessages::MissingEquipmentTypeNameParam} */  
+    const MissingEquipmentTypeNameParam = 500;
+    /** {@see ExceptionMessages::MissingEquipmentTypeNameValue} */  
+    const MissingEquipmentTypeNameValue = 500;
+    /** {@see ExceptionMessages::InvalidEquipmentTypeNameType} */  
+    const InvalidEquipmentTypeNameType = 500;
+    /** {@see ExceptionMessages::InvalidEquipmentTypeNameArray} */  
+    const InvalidEquipmentTypeNameArray = 500;
     
     /** {@see ExceptionMessages::DuplicatedEquipmentTypeValue} */  
     const DuplicatedEquipmentTypeValue = 500;

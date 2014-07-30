@@ -964,6 +964,11 @@ class ExceptionMessages
     const InvalidEquipmentCategoryType = 'Η Κατηγορία Εξοπλισμού πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
     const InvalidEquipmentCategoryArray = 'Η Κατηγορία Εξοπλισμού δεν μπορεί να έχει πολλαπλές τιμές'; 
     
+    const MissingEquipmentCategoryNameParam = 'Το Όνομα της Κατηγορίας Εξοπλισμού είναι υποχρεωτικό πεδίο';
+    const MissingEquipmentCategoryNameValue = 'Το Όνομα της Κατηγορίας Εξοπλισμού πρέπει να έχει τιμή';
+    const InvalidEquipmentCategoryNameType = 'Το Όνομα της Κατηγορίας Εξοπλισμού πρέπει να είναι αλφαριθμητικό';
+    const InvalidEquipmentCategoryNameArray = 'Το Όνομα της Κατηγορίας Εξοπλισμού δεν μπορεί να έχει πολλαπλές τιμές';
+    
     const DuplicatedEquipmentCategoryValue = 'Η Κατηγορία Εξοπλισμού υπάρχει ήδη';
     const UsedEquipmentCategoryByEquipmentTypes = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού χρησιμοποιείται από Τύπους Εξοπλισμού Εργαστηρίων';
     
@@ -978,6 +983,11 @@ class ExceptionMessages
     const InvalidEquipmentTypeValue = 'Ο Τύπος Εξοπλισμού δεν υπάρχει στο λεξικό';
     const InvalidEquipmentTypeType = 'Ο Τύπος Εξοπλισμού πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
     const InvalidEquipmentTypeArray = 'Ο Τύπος Εξοπλισμού δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingEquipmentTypeNameParam = 'Το Όνομα του Τύπου Εξοπλισμού είναι υποχρεωτικό πεδίο';
+    const MissingEquipmentTypeNameValue = 'Το Όνομα του Τύπου Εξοπλισμού πρέπει να έχει τιμή';
+    const InvalidEquipmentTypeNameType = 'Το Όνομα του Τύπου Εξοπλισμού πρέπει να είναι αλφαριθμητικό';
+    const InvalidEquipmentTypeNameArray = 'Το Όνομα του Τύπου Εξοπλισμού δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedEquipmentTypeValue = 'Ο Τύπος Εξοπλισμού υπάρχει ήδη';
     const UsedEquipmentTypeByLabEquipmentTypes = 'Ο Κωδικός του Τύπου Εξοπλισμού χρησιμοποιείται στον Εξοπλισμό Εργαστηρίων';

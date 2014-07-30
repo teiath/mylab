@@ -866,9 +866,14 @@ function EquipmentCategoriesController()
     switch ( strtoupper( $app->request()->getMethod() ) )
     {
         case MethodTypes::GET : 
-            $result = GetEquipmentCategories(    
-                $params["pagesize"], 
-                $params["page"]
+            $result = GetEquipmentCategories( 
+                $params["equipment_category_id"],
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
@@ -902,9 +907,14 @@ function EquipmentTypesController()
     {
         case MethodTypes::GET : 
             $result = GetEquipmentTypes(
+                $params["equipment_type_id"],
+                $params["name"],
                 $params["equipment_category"],
-                $params["pagesize"], 
-                $params["page"]
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
