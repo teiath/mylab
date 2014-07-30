@@ -308,13 +308,13 @@ public static function getRole($user) {
    
      switch ($user_role){
         case 'ΔΙΕΥΘΥΝΤΗΣ' :
-            return self::getSchoolUnitWorkerPermissions($user);
+            return self::getSchoolUnitWorkerPermissions($user, $getSchoolUnits, $implodeData);
             break;
         case 'ΚΕΠΛΗΝΕΤ' :
-            return self::getKeplhnetWorkerPermissions($user,$getSchoolUnits,$implodeData);
+            return self::getKeplhnetWorkerPermissions($user, $getSchoolUnits, $implodeData);
             break;
         case 'ΣΕΠΕΗΥ' :
-            return self::getLabWorkerPermissions($user,$getSchoolUnits);
+            return self::getLabWorkerPermissions($user, $getSchoolUnits, $implodeData);
             break;
         case 'ΠΣΔ' :
             return self::getAllPermissions();
@@ -328,7 +328,7 @@ public static function getRole($user) {
      
   }
  
-  public static function getLabWorkerPermissions($user, $getSchoolUnits = false) {
+  public static function getLabWorkerPermissions($user, $getSchoolUnits = false, $implodeData = false) {
     global $app;
     $method = strtoupper($app->request()->getMethod());  
     
@@ -339,9 +339,9 @@ public static function getRole($user) {
     $lab_ids = Filters::getLabsfromRegistryNo($registry_no);
     $school_units = $getSchoolUnits == true ? Filters::getSchoolUnitsfromRegistryNo($registry_no): NULL;
         
-        if ($method == MethodTypes::GET) {      
-            $lab_ids = implode(",", $lab_ids);
-            $school_units = implode(",", $school_units);  
+        if ($implodeData == true) {
+           $lab_ids = implode(",", $lab_ids);
+           $school_units = implode(",", $school_units);  
         }
         
         $results = array (
@@ -349,7 +349,6 @@ public static function getRole($user) {
                             'permit_school_units' => $school_units
                           );
         
-   // print_r($results);
     return $results;
     
   }            
@@ -370,22 +369,20 @@ public static function getRole($user) {
     $lab_ids = Filters::getLabsfromEduAdminCode($edu_admin_code[1]);
     $school_units = $getSchoolUnits == true ? Filters::getSchoolUnitsfromEduAdminCode($edu_admin_code[1]) : NULL;
     
-         //if ($method == MethodTypes::GET) {
-         if ($implodeData == true) {
-            $lab_ids = implode(",", $lab_ids);
-            $school_units = implode(",", $school_units);  
-         }
+        if ($implodeData == true) {
+           $lab_ids = implode(",", $lab_ids);
+           $school_units = implode(",", $school_units);  
+        }
         
         $results = array (
                             'permit_labs' => $lab_ids,             
                             'permit_school_units' => $school_units
                           );
         
-    //print_r($results);
     return $results;
    }
    
-  public static function getSchoolUnitWorkerPermissions($user ) {
+  public static function getSchoolUnitWorkerPermissions($user, $getSchoolUnits = false, $implodeData = false ) {
     global $app;
     $method = strtoupper($app->request()->getMethod());
     
@@ -403,14 +400,13 @@ public static function getRole($user) {
         $school_units = $full_unit_dns[0]['school_unit_id'];
         $lab_ids = Filters::getLabsfromSchoolUnit($school_units);
 
-        if ($method == MethodTypes::GET) {              
-            $lab_ids = implode(",", $lab_ids);
+        if ($implodeData == true) {
+           $lab_ids = implode(",", $lab_ids);
         }
             
         $results = array ('permit_labs' => $lab_ids,             
                           'permit_school_units' => $school_units);    
             
-        //print_r($results);
         return $results;
     
     }else if (count($full_unit_dns) == 0){
@@ -427,7 +423,6 @@ public static function getRole($user) {
                             'permit_school_units' => 'ALLRESULTS'
                           );   
        
-       //print_r($results);
         return $results;
   }
    
