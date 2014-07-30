@@ -1252,13 +1252,13 @@ function LabRelationsController()
         case MethodTypes::GET : 
             $result = GetLabRelations(
                 $params["lab_relation_id"],
-                $params["lab_id"],                 
-                $params["lab_name"],
-                $params["school_unit_id"],
-                $params["school_unit_name"],
                 $params["relation_type"],
                 $params["circuit_id"],
                 $params["circuit_phone_number"],
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["lab_id"],                 
+                $params["lab_name"],
                 $params["pagesize"],
                 $params["page"],
                 $params["searchtype"],
@@ -1369,9 +1369,18 @@ function LabTransitionsController()
     {
         case MethodTypes::GET : 
             $result = GetLabTransitions(
-                $params["lab"], 
-                $params["pagesize"], 
-                $params["page"]
+                $params["lab_transition_id"],                 
+                $params["transition_date"], 
+                $params["transition_source"],
+                $params["from_state"], 
+                $params["to_state"],
+                $params["lab_id"], 
+                $params["lab_name"], 
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :

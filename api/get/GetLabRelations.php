@@ -10,19 +10,28 @@ header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
+ * @global type $entityManager
  * @global type $app
- * @param type $lab
+ * @param type $lab_relation_id
+ * @param type $lab_id
+ * @param type $lab_name
+ * @param type $school_unit_id
+ * @param type $school_unit_name
  * @param type $relation_type
+ * @param type $circuit_id
+ * @param type $circuit_phone_number
  * @param type $pagesize
- * @param int $page
- * @return string
+ * @param type $page
+ * @param type $searchtype
+ * @param type $ordertype
+ * @param type $orderby
+ * @return type
  * @throws Exception
  */
  
-function GetLabRelations( $lab_relation_id, $lab_id, $lab_name ,$school_unit_id, $school_unit_name, 
-                          $relation_type, $circuit_id, $circuit_phone_number,    
+function GetLabRelations( $lab_relation_id,
+                          $relation_type, $circuit_id, $circuit_phone_number,
+                          $school_unit_id, $school_unit_name, $lab_id, $lab_name,  
                           $pagesize, $page, $searchtype, $ordertype, $orderby ) {
 
     global $entityManager, $app;
@@ -56,14 +65,14 @@ function GetLabRelations( $lab_relation_id, $lab_id, $lab_name ,$school_unit_id,
 //$orderby======================================================================
        $columns = array(
                             "lr.labRelationId" => "lab_relation_id",
-                            "l.labId" => "lab_id",
-                            "l.name" => "lab_name",
-                            "su.schoolUnitId" => "school_unit_id",
-                            "su.name" => "school_unit_name",
                             "rt.relationTypeId" => "relation_type_id",
                             "rt.name" => "relation_type_name",
                             "c.circuitId" => "circuit_id",         
-                            "c.phoneNumber" => "circuit_phone_number"
+                            "c.phoneNumber" => "circuit_phone_number",
+                            "su.schoolUnitId" => "school_unit_id",
+                            "su.name" => "school_unit_name",
+                            "l.labId" => "lab_id",
+                            "l.name" => "lab_name",
                         );
        
        if ( Validator::Missing('orderby', $params) )
@@ -79,27 +88,7 @@ function GetLabRelations( $lab_relation_id, $lab_id, $lab_name ,$school_unit_id,
     if (Validator::Exists('lab_relation_id', $params)){
         CRUDUtils::setFilter($qb, $lab_relation_id, "lr", "labRelationId", "labRelationId", "id", ExceptionMessages::InvalidLabRelationIDType, ExceptionCodes::InvalidLabRelationIDType);
     } 
-
-//$lab_id=======================================================================
-    if (Validator::Exists('lab_id', $params)){
-        CRUDUtils::setFilter($qb, $lab_id, "l", "labId", "labId", "id", ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
-    } 
-    
-//$lab_name=====================================================================
-    if (Validator::Exists('lab_name', $params)){
-        CRUDUtils::setSearchFilter($qb, $lab_name, "l", "name", $searchtype, ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType);   
-    }
-    
-//$school_unit_id===============================================================
-    if (Validator::Exists('school_unit_id', $params)){
-        CRUDUtils::setFilter($qb, $school_unit_id, "su", "schoolUnitId", "schoolUnitId", "id", ExceptionMessages::InvalidSchoolUnitIDType, ExceptionCodes::InvalidSchoolUnitIDType);
-    }   
-         
-//$school_unit_name=============================================================
-    if (Validator::Exists('school_unit_name', $params)){
-        CRUDUtils::setSearchFilter($qb, $school_unit_name, "su", "name", $searchtype, ExceptionMessages::InvalidSchoolUnitNameType, ExceptionCodes::InvalidSchoolUnitNameType);  
-    } 
-  
+ 
 //$circuit_id===================================================================
     if (Validator::Exists('circuit_id', $params)){
         CRUDUtils::setFilter($qb, $circuit_id, "c", "circuitId", "circuitId", "null,numeric", ExceptionMessages::InvalidCircuitIDType, ExceptionCodes::InvalidCircuitIDType);
@@ -114,15 +103,35 @@ function GetLabRelations( $lab_relation_id, $lab_id, $lab_name ,$school_unit_id,
     if (Validator::Exists('relation_type', $params)){
         CRUDUtils::setFilter($qb, $relation_type, "rt", "relationType", "name", "id,name", ExceptionMessages::InvalidRelationTypeType, ExceptionCodes::InvalidRelationTypeType);
     } 
+ 
+//$school_unit_id===============================================================
+    if (Validator::Exists('school_unit_id', $params)){
+        CRUDUtils::setFilter($qb, $school_unit_id, "su", "schoolUnitId", "schoolUnitId", "id", ExceptionMessages::InvalidSchoolUnitIDType, ExceptionCodes::InvalidSchoolUnitIDType);
+    }   
+         
+//$school_unit_name=============================================================
+    if (Validator::Exists('school_unit_name', $params)){
+        CRUDUtils::setSearchFilter($qb, $school_unit_name, "su", "name", $searchtype, ExceptionMessages::InvalidSchoolUnitNameType, ExceptionCodes::InvalidSchoolUnitNameType);  
+    }
+    
+//$lab_id=======================================================================
+    if (Validator::Exists('lab_id', $params)){
+        CRUDUtils::setFilter($qb, $lab_id, "l", "labId", "labId", "id", ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
+    } 
+    
+//$lab_name=====================================================================
+    if (Validator::Exists('lab_name', $params)){
+        CRUDUtils::setSearchFilter($qb, $lab_name, "l", "name", $searchtype, ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType);   
+    }
     
  //execution====================================================================
 
         $qb->select('lr');
         $qb->from('LabRelations', 'lr');
-        $qb->leftjoin('lr.lab', 'l');
-        $qb->leftjoin('lr.schoolUnit', 'su');
-        $qb->leftjoin('lr.circuit', 'c');
         $qb->leftjoin('lr.relationType', 'rt');
+        $qb->leftjoin('lr.circuit', 'c');
+        $qb->leftjoin('lr.schoolUnit', 'su');
+        $qb->leftjoin('lr.lab', 'l');
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
 
         if ($permit_labs !== 'ALLRESULTS'){
@@ -143,14 +152,14 @@ function GetLabRelations( $lab_relation_id, $lab_id, $lab_name ,$school_unit_id,
 
             $result["data"][] = array(              
                                         "lab_relation_id"       => $labrelation->getLabRelationId(),
-                                        "lab_id"                => $labrelation->getLab()->getLabId(),
-                                        "lab_name"              => $labrelation->getLab()->getName(),
-                                        "school_unit_id"        => $labrelation->getSchoolUnit()->getSchoolUnitId(),
-                                        "school_unit_name"      => $labrelation->getSchoolUnit()->getName(),
                                         "relation_type_id"      => $labrelation->getRelationType()->getRelationTypeId(),
                                         "relation_type_name"    => $labrelation->getRelationType()->getName(), 
                                         "circuit_id"            => Validator::IsNull($labrelation->getCircuit()) ? Validator::ToNull() : $labrelation->getCircuit()->getCircuitId(),
-                                        "circuit_phone_number"  => Validator::IsNull($labrelation->getCircuit()) ? Validator::ToNull() : $labrelation->getCircuit()->getPhoneNumber(),                                
+                                        "circuit_phone_number"  => Validator::IsNull($labrelation->getCircuit()) ? Validator::ToNull() : $labrelation->getCircuit()->getPhoneNumber(),
+                                        "school_unit_id"        => $labrelation->getSchoolUnit()->getSchoolUnitId(),
+                                        "school_unit_name"      => $labrelation->getSchoolUnit()->getName(),
+                                        "lab_id"                => $labrelation->getLab()->getLabId(),
+                                        "lab_name"              => $labrelation->getLab()->getName()
                                        );
             $count++;
         }
