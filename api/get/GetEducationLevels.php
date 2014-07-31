@@ -1,8 +1,9 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package GET
  */
 
 header("Content-Type: text/html; charset=utf-8");
@@ -18,90 +19,122 @@ header("Content-Type: text/html; charset=utf-8");
  */
 
 
-function GetEducationLevels( $pagesize, $page) {
-    global $db;
-    global $Options;
-    global $app;
+function GetEducationLevels( $education_level, $name,
+                             $pagesize, $page, $searchtype, $ordertype, $orderby ) {
+        
+//            //retrieve school_unit_types
+//            $school_unit_type["school_unit_type_info"] = array();   
+//            $filter = array( new DFC(SchoolUnitTypesExt::FIELD_EDUCATION_LEVEL_ID,$row->getEducationLevelId(), DFC::EXACT));
+//            $sort = array( new DSC(SchoolUnitTypesExt::FIELD_EDUCATION_LEVEL_ID, DSC::ASC) );
+//            $arraySchoolUnitTypes = $oSchoolUnitTypes->findByFilter($db, $filter, true, $sort);  
+//                if ($arraySchoolUnitTypes) {
+//                foreach ($arraySchoolUnitTypes as $arraySchoolUnitType){
+//                    $school_unit_type["school_unit_type_info"][] = array("school_unit_type_id" => $arraySchoolUnitType->getSchoolUnitTypeId(),
+//                                                                         "name" => $arraySchoolUnitType->getName()                                                                      
+//                                                                   );  
+//                 }
+//                } else {
+//                   $school_unit_type["school_unit_type_info"] = null; 
+//                }
+//            $result["data"][] = array("education_level_id" => $row->getEducationLevelId(), 
+//                                      "name" => $row->getName(),
+//                                      "school_unit_types"=>$school_unit_type
+//                                );
+//        }
     
-    $filter = array();
+    global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["data"] = array();
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-
+    $params = loadParameters();
+    
     try {
         
-        //= Pages ==============================================================
-        if (! $page)
-            $page = 1;
-        else if (intval($page) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageNumber." : ".$page, ExceptionCodes::InvalidPageNumber);
-        else if (!is_numeric($page))
-	        throw new Exception(ExceptionMessages::InvalidPageType." : ".$page, ExceptionCodes::InvalidPageType);
-        
-        if (! $pagesize)
-                $pagesize = $Options["PageSize"];
-        else if (intval($pagesize) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-        else if (!is_numeric($pagesize))
-	        throw new Exception(ExceptionMessages::InvalidPageSizeType." : ".$pagesize, ExceptionCodes::InvalidPageSizeType);
-        else if ($pagesize > $Options["MaxPageSize"])
-                throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
- 
-        $startat = ($page -1) * $pagesize;
-        $pagesize = 0;
-
-        //school_unit_types==============================================================================           
-        $oSchoolUnitTypes = new SchoolUnitTypesExt($db);
-        $oSchoolUnitTypes->getAll($db);    
-        
-        //==============================================================================        
-
-        $sort = array( new DSC(EducationLevelsExt::FIELD_NAME, DSC::ASC) );
-
-        $oEducationLevels = new EducationLevelsExt($db);
-        $totalRows = $oEducationLevels->findByFilterAsCount($db, $filter, true);
-        $result["total"] = $totalRows[0]->getEducationLevelId();
-        
-        if ($pagesize)        
-            $countRows = $oEducationLevels->findByFilterWithLimit($db, $filter, true, $sort, $startat, $pagesize);
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params, true);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+    
+ //$orderby=====================================================================
+       $columns = array(
+                            "el.educationLevelId"  => "education_level",
+                            "el.name"              => "name"
+                        );
+       
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "education_level";
         else
-            $countRows = $oEducationLevels->findByFilter($db, $filter, true, $sort);
+        {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
+        } 
         
-        $result["count"] = count( $countRows );
+//$education_level==============================================================
+        if (Validator::Exists('education_level', $params)){
+            CRUDUtils::setFilter($qb, $education_level, "el", "educationLevelId", "educationLevelId", "id", ExceptionMessages::InvalidEducationLevelIDType, ExceptionCodes::InvalidEducationLevelIDType);
+        } 
 
-        foreach ($countRows as $row) {
-            
-            //retrieve school_unit_types
-            $school_unit_type["school_unit_type_info"] = array();   
-            $filter = array( new DFC(SchoolUnitTypesExt::FIELD_EDUCATION_LEVEL_ID,$row->getEducationLevelId(), DFC::EXACT));
-            $sort = array( new DSC(SchoolUnitTypesExt::FIELD_EDUCATION_LEVEL_ID, DSC::ASC) );
-            $arraySchoolUnitTypes = $oSchoolUnitTypes->findByFilter($db, $filter, true, $sort);  
-                if ($arraySchoolUnitTypes) {
-                foreach ($arraySchoolUnitTypes as $arraySchoolUnitType){
-                    $school_unit_type["school_unit_type_info"][] = array("school_unit_type_id" => $arraySchoolUnitType->getSchoolUnitTypeId(),
-                                                                         "name" => $arraySchoolUnitType->getName()                                                                      
-                                                                   );  
-                 }
-                } else {
-                   $school_unit_type["school_unit_type_info"] = null; 
-                }
-            $result["data"][] = array("education_level_id" => $row->getEducationLevelId(), 
-                                      "name" => $row->getName(),
-                                      "school_unit_types"=>$school_unit_type
-                                );
+//$name=========================================================================
+        if (Validator::Exists('name', $params)){
+            CRUDUtils::setSearchFilter($qb, $name, "el", "name", $searchtype, ExceptionMessages::InvalidEducationLevelTypeNameType, ExceptionCodes::InvalidEducationLevelTypeNameType);    
+        }  
+        
+//execution=====================================================================
+        $qb->select('el');
+        $qb->from('EducationLevels', 'el');
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
+
+//pagination and results========================================================      
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $results->getQuery()->setMaxResults($pagesize) : null;
+
+//data results==================================================================       
+        $count = 0;
+        foreach ($results as $educationlevel)
+        {
+
+            $result["data"][] = array(
+                                        "education_level_id"     => $educationlevel->getEducationLevelId(),
+                                        "name"                   => $educationlevel->getName()
+                                     );
+            $count++;
         }
-
+        $result["count"] = $count;
+   
+//pagination results============================================================     
+        $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page,   
+                             "maxPage" => $maxPage, 
+                             "pagesize" => $pagesize 
+                            );    
+        $result["pagination"]=$pagination;
+        
+//result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
     } 
+    
+//debug=========================================================================
+   if ( Validator::IsTrue( $params["debug"]  ) )
+   {
+        $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+        $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+   }
+    
     return $result;
+    
 }
 
 ?>
