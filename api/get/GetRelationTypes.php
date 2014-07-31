@@ -1,85 +1,124 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package GET
  */
+
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
+ * @global type $entityManager
+ * @global type $app
+ * @param type $relation_type_id
+ * @param type $name
  * @param type $pagesize
- * @param int $page
- * @return string
+ * @param type $page
+ * @param type $searchtype
+ * @param type $ordertype
+ * @param type $orderby
+ * @return type
  * @throws Exception
  */
 
-function GetRelationTypes($pagesize, $page) {
-    global $db;
-    global $Options;
-    global $app;
-    
-    $filter = array();
+function GetRelationTypes( $relation_type_id, $name,
+                           $pagesize, $page, $searchtype, $ordertype, $orderby ) {
+ 
+    global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
     $result["data"] = array();
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-
+    $params = loadParameters();
+    
     try {
-        //= Pages ==============================================================
-        if (! $page)
-            $page = 1;
-        else if (intval($page) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageNumber." : ".$page, ExceptionCodes::InvalidPageNumber);
-        else if (!is_numeric($page))
-	        throw new Exception(ExceptionMessages::InvalidPageType." : ".$page, ExceptionCodes::InvalidPageType);
         
-        if (! $pagesize)
-            $pagesize = $Options["PageSize"];
-        else if (intval($pagesize) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-        else if (!is_numeric($pagesize))
-	        throw new Exception(ExceptionMessages::InvalidPageSizeType." : ".$pagesize, ExceptionCodes::InvalidPageSizeType);
-        else if ($pagesize > $Options["MaxPageSize"])
-                throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-
-        $startat = ($page -1) * $pagesize;
-        $pagesize = 0;
-        
-//==============================================================================  
-
-        $sort = array( new DSC(RelationTypesExt::FIELD_NAME, DSC::ASC) );
-
-        $oRelationType = new RelationTypesExt($db);
-        $totalRows = $oRelationType->findByFilterAsCount($db, $filter, true);
-        $result["total"] = $totalRows[0]->getRelationTypeId();
-        
-        if ($pagesize)
-            $countRows = $oRelationType->findByFilterWithLimit($db, $filter, true, $sort, $startat, $pagesize);
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params, true);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+    
+ //$orderby=====================================================================
+       $columns = array(
+                            "rt.relationTypeId"  => "relation_type_id",
+                            "rt.name"            => "name"
+                        );
+       
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "relation_type_id";
         else
-            $countRows = $oRelationType->findByFilter($db, $filter, true, $sort);
+        {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
+        } 
         
-        $result["count"] = count( $countRows );
+//$relation_type_id=============================================================
+        if (Validator::Exists('relation_type_id', $params)){
+            CRUDUtils::setFilter($qb, $relation_type_id, "rt", "relationTypeId", "relationTypeId", "id", ExceptionMessages::InvalidRelationTypeIDType, ExceptionCodes::InvalidRelationTypeIDType);
+        } 
 
-        foreach ($countRows as $row){
-            $result["data"][] = array("relation_type_id" => $row->getRelationTypeId(), 
-                                      "name" => $row->getName()
-                                );
+//$name=========================================================================
+        if (Validator::Exists('name', $params)){
+            CRUDUtils::setSearchFilter($qb, $name, "rt", "name", $searchtype, ExceptionMessages::InvalidRelationTypeNameType, ExceptionCodes::InvalidRelationTypeNameType);    
+        }  
+        
+//execution=====================================================================
+        $qb->select('rt');
+        $qb->from('RelationTypes', 'rt');
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
+
+//pagination and results========================================================      
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $results->getQuery()->setMaxResults($pagesize) : null;
+
+//data results==================================================================       
+        $count = 0;
+        foreach ($results as $relationtype)
+        {
+
+            $result["data"][] = array(
+                                        "relation_type_id"     => $relationtype->getRelationTypeId(),
+                                        "name"                 => $relationtype->getName()
+                                     );
+            $count++;
         }
-
+        $result["count"] = $count;
+   
+//pagination results============================================================     
+        $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page,   
+                             "maxPage" => $maxPage, 
+                             "pagesize" => $pagesize 
+                            );    
+        $result["pagination"]=$pagination;
+        
+//result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    }   
+    } 
+    
+//debug=========================================================================
+   if ( Validator::IsTrue( $params["debug"]  ) )
+   {
+        $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+        $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+   }
+    
     return $result;
+    
 }
 
 ?>

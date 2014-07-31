@@ -862,6 +862,11 @@ class ExceptionMessages
     const InvalidCircuitTypeType = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
     const InvalidCircuitTypeArray = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές'; 
     
+    const MissingCircuitTypeNameParam = 'Το Όνομα του Τύπου Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
+    const MissingCircuitTypeNameValue = 'Το Όνομα του Τύπου Τηλεπικοινωνιακού Κυκλώματος πρέπει να έχει τιμή';
+    const InvalidCircuitTypeNameType = 'Το Όνομα του Τύπου Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι αλφαριθμητικό';
+    const InvalidCircuitTypeNameArray = 'Το Όνομα του Τύπου Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
+    
     const DuplicatedCircuitTypeValue = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος υπάρχει ήδη';
     const UsedCircuitTypeByCircuits = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος χρησιμοποιείται από Τηλεπικοινωνιακά Κυκλώματα';
 
@@ -876,6 +881,11 @@ class ExceptionMessages
     const InvalidRelationTypeValue = 'Ο Τύπος Συσχέτισης δεν υπάρχει στο λεξικό';
     const InvalidRelationTypeType = 'Ο Τύπος Συσχέτισης πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
     const InvalidRelationTypeArray = 'Ο Τύπος Συσχέτισης δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingRelationTypeNameParam = 'Το Όνομα του Τύπου Συσχέτισης είναι υποχρεωτικό πεδίο';
+    const MissingRelationTypeNameValue = 'Το Όνομα του Τύπου Συσχέτισης πρέπει να έχει τιμή';
+    const InvalidRelationTypeNameType = 'Το Όνομα του Τύπου Συσχέτισης πρέπει να είναι αλφαριθμητικό';
+    const InvalidRelationTypeNameArray = 'Το Όνομα του Τύπου Συσχέτισης δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedRelationTypeValue = 'Ο Τύπος Συσχέτισης υπάρχει ήδη';
     const UsedRelationTypeByLabRelations = 'Ο Κωδικός του Τυπου Συσχέτισης χρησιμοποιείται από Συσχέτισεις Εργαστηρίων';

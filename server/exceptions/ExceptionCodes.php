@@ -1159,6 +1159,15 @@ class ExceptionCodes
     const InvalidCircuitTypeType = 500;
     /** {@see ExceptionMessages::InvalidCircuitTypeArray} */  
     const InvalidCircuitTypeArray = 500; 
+  
+    /** {@see ExceptionMessages::MissingCircuitTypeNameParam} */  
+    const MissingCircuitTypeNameParam = 500; 
+    /** {@see ExceptionMessages::MissingCircuitTypeNameValue} */  
+    const MissingCircuitTypeNameValue = 500; 
+    /** {@see ExceptionMessages::InvalidCircuitTypeNameType} */  
+    const InvalidCircuitTypeNameType = 500; 
+    /** {@see ExceptionMessages::InvalidCircuitTypeNameArray} */  
+    const InvalidCircuitTypeNameArray = 500; 
     
     /** {@see ExceptionMessages::DuplicatedCircuitTypeValue} */  
     const DuplicatedCircuitTypeValue = 500;
@@ -1186,6 +1195,15 @@ class ExceptionCodes
     const InvalidRelationTypeType = 500;
       /** {@see ExceptionMessages::InvalidRelationTypeArray} */  
     const InvalidRelationTypeArray = 500;
+  
+    /** {@see ExceptionMessages::MissingRelationTypeNameParam} */  
+    const MissingRelationTypeNameParam = 500;
+    /** {@see ExceptionMessages::MissingRelationTypeNameValue} */  
+    const MissingRelationTypeNameValue = 500;
+    /** {@see ExceptionMessages::InvalidRelationTypeNameType} */  
+    const InvalidRelationTypeNameType = 500;
+    /** {@see ExceptionMessages::InvalidRelationTypeNameArray} */  
+    const InvalidRelationTypeNameArray = 500;
     
       /** {@see ExceptionMessages::DuplicatedRelationTypeValue} */  
     const DuplicatedRelationTypeValue = 500;
