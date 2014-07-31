@@ -461,8 +461,13 @@ function RegionEduAdminsController()
     {
         case MethodTypes::GET : 
             $result = GetRegionEduAdmins(
-                $params["pagesize"], 
-                $params["page"]
+                $params["region_edu_admin_id"],
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :

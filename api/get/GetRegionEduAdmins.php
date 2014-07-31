@@ -1,142 +1,151 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package GET
  */
  
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
+ * @global type $entityManager
+ * @global type $app
+ * @param type $region_edu_admin
+ * @param type $name
  * @param type $pagesize
- * @param int $page
- * @return string
+ * @param type $page
+ * @param type $searchtype
+ * @param type $ordertype
+ * @param type $orderby
+ * @return type
  * @throws Exception
  */
 
-function GetRegionEduAdmins($pagesize, $page) {
-    global $db;
-    global $Options;
-    global $app;
+function GetRegionEduAdmins( $region_edu_admin_id, $name,
+                             $pagesize, $page, $searchtype, $ordertype, $orderby ) {
+
     
-    $filter = array();
+    global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
     $result["data"] = array();
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-
+    $params = loadParameters();
+    
     try {
         
-        //= Pages ==============================================================
-        if (! $page)
-            $page = 1;
-        else if (intval($page) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageNumber." : ".$page, ExceptionCodes::InvalidPageNumber);
-        else if (!is_numeric($page))
-	        throw new Exception(ExceptionMessages::InvalidPageType." : ".$page, ExceptionCodes::InvalidPageType);
-        
-        if (! $pagesize)
-            $pagesize = $Options["PageSize"];
-        else if (intval($pagesize) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-        else if (!is_numeric($pagesize))
-	        throw new Exception(ExceptionMessages::InvalidPageSizeType." : ".$pagesize, ExceptionCodes::InvalidPageSizeType);
-        else if ($pagesize > $Options["MaxPageSize"])
-	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-
-        $startat = ($page -1) * $pagesize;
-        $pagesize = 0; 
-     
-        //$edu_admin===========================================================================
-        $oEduAdmins = new EduAdminsExt($db);
-        $oEduAdmins->getAll($db);
-      
-        //$transfer_area==============================================================================           
-        $oTransferAreas = new TransferAreasExt($db);
-        $oTransferAreas->getAll($db);     
-
-        //$municipalities==============================================================================           
-        $oMunicipalities = new MunicipalitiesExt($db);
-        $oMunicipalities->getAll($db); 
-   
-        //==============================================================================
-
-        $sort = array( new DSC(RegionEduAdminsExt::FIELD_NAME, DSC::ASC) );
-
-        $oRegionEduAdmins = new RegionEduAdminsExt($db);
-        $totalRows = $oRegionEduAdmins->findByFilterAsCount($db, $filter, true);
-        $result["total"] = $totalRows[0]->getRegionEduAdminId();
-        
-        if ($pagesize)        
-            $countRows = $oRegionEduAdmins->findByFilterWithLimit($db, $filter, true, $sort, $startat, $pagesize);
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params, true);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
+    
+ //$orderby=====================================================================
+       $columns = array(
+                            "rea.regionEduAdminId"   => "region_edu_admin_id",
+                            "rea.name"               => "name"
+                        );
+       
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "region_edu_admin_id";
         else
-            $countRows = $oRegionEduAdmins->findByFilter($db, $filter, true, $sort);
+        {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
+        } 
         
-        $result["count"] = count( $countRows );
-         
-        foreach ($countRows as $row) {
-            
-            //retrieve edu_admins
-            $edu_admin["edu_admin_info"] = array();   
-            $filter = array( new DFC(EduAdminsExt::FIELD_REGION_EDU_ADMIN_ID, $row->getRegionEduAdminId(), DFC::EXACT) );
-            $sort = array( new DSC(EduAdminsExt::FIELD_EDU_ADMIN_ID, DSC::ASC) );
-            $arrayEduAdmins = $oEduAdmins->findByFilter($db, $filter, true, $sort);
+//$region_edu_admin_id=================================================================
+        if (Validator::Exists('region_edu_admin_id', $params)){
+            CRUDUtils::setFilter($qb, $region_edu_admin_id, "rea", "regionEduAdminId", "regionEduAdminId", "id", ExceptionMessages::InvalidRegionEduAdminIDType, ExceptionCodes::InvalidRegionEduAdminIDType);
+        } 
 
-                foreach ($arrayEduAdmins as $arrayEduAdmin){
-                    
-                    //retrieve transfer_area
-                    $transfer_area["transfer_area_info"] = array();   
-                    $filter = array( new DFC(TransferAreasExt::FIELD_EDU_ADMIN_ID,$arrayEduAdmin->getEduAdminId(), DFC::EXACT));
-                    $sort = array( new DSC(TransferAreasExt::FIELD_EDU_ADMIN_ID, DSC::ASC) );
-                    $arrayTransferAreas = $oTransferAreas->findByFilter($db, $filter, true, $sort);
-  
-                        foreach ($arrayTransferAreas as $arrayTransferArea){
-
-                            //retrieve municipality
-                            $municipality["municipality_info"] = array();   
-                            $filter = array( new DFC(MunicipalitiesExt::FIELD_TRANSFER_AREA_ID,$arrayTransferArea->getTransferAreaId(), DFC::EXACT));
-                            $sort = array( new DSC(MunicipalitiesExt::FIELD_TRANSFER_AREA_ID, DSC::ASC) );
-                            $arrayMunicipalities = $oMunicipalities->findByFilter($db, $filter, true, $sort);
-                               
-                                foreach ($arrayMunicipalities as $arrayMunicipality){ 
-                              
-                                    $municipality["municipality_info"][] = array("municipality_id" => $arrayMunicipality->getMunicipalityId(),
-                                                                                "name" => $arrayMunicipality->getName()  
-                                                                               );
-                                }
-
-                            $transfer_area["transfer_area_info"][] = array("tranfer_area_id" => $arrayTransferArea->getTransferAreaId(),
-                                                                            "name" => $arrayTransferArea->getName(),
-                                                                            "municipalities"=>$municipality
-                                                                           );  
-                        }
-                         
-                    $edu_admin["edu_admin_info"][] = array("edu_admin_id" =>$arrayEduAdmin->getEduAdminId(),
-                                                            "name" => $arrayEduAdmin->getName(),
-                                                            "transfer_areas"=>$transfer_area
-                                                           );
-                }
-      
-        $result["data"][] = array("region_edu_admin_id" => $row->getRegionEduAdminId(), 
-                                  "name" => $row->getName(),
-                                  "edu_admins"=>$edu_admin             
-                                  );
+//$name=========================================================================
+        if (Validator::Exists('name', $params)){
+            CRUDUtils::setSearchFilter($qb, $name, "rea", "name", $searchtype, ExceptionMessages::InvalidRegionEduAdminNameType, ExceptionCodes::InvalidRegionEduAdminNameType);    
         }
+        
+//execution=====================================================================
+        $qb->select('rea');
+        $qb->from('RegionEduAdmins', 'rea');
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
 
+//pagination and results========================================================      
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $results->getQuery()->setMaxResults($pagesize) : null;
+
+//data results==================================================================       
+        $count = 0;
+        foreach ($results as $regioneduadmin)
+        {
+
+            $result["data"][] = array(
+                                            "region_edu_admin_id"    => $regioneduadmin->getRegionEduAdminId(),
+                                            "name"                   => $regioneduadmin->getName()
+                                     );
+            $count++;
+        }
+        $result["count"] = $count;
+   
+//pagination results============================================================     
+        $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page,   
+                             "maxPage" => $maxPage, 
+                             "pagesize" => $pagesize 
+                            );    
+        $result["pagination"]=$pagination;
+        
+//result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
     } 
+    
+//debug=========================================================================
+   if ( Validator::IsTrue( $params["debug"]  ) )
+   {
+        $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+        $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+   }
+    
     return $result;
+    
 }
+
+                               
+//                                foreach ($arrayMunicipalities as $arrayMunicipality){ 
+//                              
+//                                    $municipality["municipality_info"][] = array("municipality_id" => $arrayMunicipality->getMunicipalityId(),
+//                                                                                "name" => $arrayMunicipality->getName()  
+//                                                                               );
+//                                }
+//
+//                            $transfer_area["transfer_area_info"][] = array("tranfer_area_id" => $arrayTransferArea->getTransferAreaId(),
+//                                                                            "name" => $arrayTransferArea->getName(),
+//                                                                            "municipalities"=>$municipality
+//                                                                           );  
+//                        }
+//                         
+//                    $edu_admin["edu_admin_info"][] = array("edu_admin_id" =>$arrayEduAdmin->getEduAdminId(),
+//                                                            "name" => $arrayEduAdmin->getName(),
+//                                                            "transfer_areas"=>$transfer_area
+//                                                           );
+//                }
+//      
+//        $result["data"][] = array("region_edu_admin_id" => $row->getRegionEduAdminId(), 
+//                                  "name" => $row->getName(),
+//                                  "edu_admins"=>$edu_admin             
+//                                  );
+//        }
 
 ?>

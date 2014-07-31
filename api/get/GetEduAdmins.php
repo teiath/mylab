@@ -25,8 +25,8 @@ header("Content-Type: text/html; charset=utf-8");
  * @throws Exception
  */
 
-function GetEduAdmins($edu_admin_id, $name, $edu_admin_code, $region_edu_admin,
-                      $pagesize, $page, $searchtype, $ordertype, $orderby ) {
+function GetEduAdmins( $edu_admin_id, $name, $edu_admin_code, $region_edu_admin,
+                       $pagesize, $page, $searchtype, $ordertype, $orderby ) {
  
     global $entityManager, $app;
 
