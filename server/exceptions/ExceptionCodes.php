@@ -502,7 +502,7 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedCircuitBySchoolUnits} */
     const UsedCircuitBySchoolUnits = 500;
 
-        /** {@see ExceptionMessages::MissingCircuitPhoneNumberParam} */
+    /** {@see ExceptionMessages::MissingCircuitPhoneNumberParam} */
     const MissingCircuitPhoneNumberParam = 500;
     /** {@see ExceptionMessages::MissingCircuitPhoneNumberDValue} */
     const MissingCircuitPhoneNumberValue = 500;
@@ -796,56 +796,56 @@ class ExceptionCodes
     
 //LabTransitions
         
-        /** {@see ExceptionMessages::MissingLabTransitionIDParam} */
+    /** {@see ExceptionMessages::MissingLabTransitionIDParam} */
     const MissingLabTransitionIDParam = 500;
-        /** {@see ExceptionMessages::MissingLabTransitionIDValue} */
+    /** {@see ExceptionMessages::MissingLabTransitionIDValue} */
     const MissingLabTransitionIDValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionIDType} */
+    /** {@see ExceptionMessages::InvalidLabTransitionIDType} */
     const InvalidLabTransitionIDType = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionIDArray} */
+    /** {@see ExceptionMessages::InvalidLabTransitionIDArray} */
     const InvalidLabTransitionIDArray = 500; 
 
-        /** {@see ExceptionMessages::MissingLabTransitionParam} */
+    /** {@see ExceptionMessages::MissingLabTransitionParam} */
     const MissingLabTransitionParam = 500;   
-        /** {@see ExceptionMessages::MissingLabTransitionValue} */
+    /** {@see ExceptionMessages::MissingLabTransitionValue} */
     const MissingLabTransitionValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionValue} */
+    /** {@see ExceptionMessages::InvalidLabTransitionValue} */
     const InvalidLabTransitionValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionType} */
+    /** {@see ExceptionMessages::InvalidLabTransitionType} */
     const InvalidLabTransitionType = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionArray} */
+    /** {@see ExceptionMessages::InvalidLabTransitionArray} */
     const InvalidLabTransitionArray = 500;
     
-        /** {@see ExceptionMessages::DuplicatedLabTransitionValue} */
+    /** {@see ExceptionMessages::DuplicatedLabTransitionValue} */
     const DuplicatedLabTransitionValue = 500;
-        /** {@see ExceptionMessages::UsedLabTransitionByLabs} */
+    /** {@see ExceptionMessages::UsedLabTransitionByLabs} */
     const UsedLabTransitionByLabs = 500;
     
-        /** {@see ExceptionMessages::MissingLabTransitionJustificationParam} */
+    /** {@see ExceptionMessages::MissingLabTransitionJustificationParam} */
     const MissingLabTransitionJustificationParam = 500;
-        /** {@see ExceptionMessages::MissingLabTransitionJustificationValue} */
+    /** {@see ExceptionMessages::MissingLabTransitionJustificationValue} */
     const MissingLabTransitionJustificationValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionJustificationType} */
+    /** {@see ExceptionMessages::InvalidLabTransitionJustificationType} */
     const InvalidLabTransitionJustificationType = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionJustificationArray} */
+    /** {@see ExceptionMessages::InvalidLabTransitionJustificationArray} */
     const InvalidLabTransitionJustificationArray = 500;
     
-        /** {@see ExceptionMessages::MissingLabTransitionDateParam} */
+    /** {@see ExceptionMessages::MissingLabTransitionDateParam} */
     const MissingLabTransitionDateParam = 500;
-        /** {@see ExceptionMessages::MissingLabTransitionDateValue} */
+    /** {@see ExceptionMessages::MissingLabTransitionDateValue} */
     const MissingLabTransitionDateValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionDateType} */
+    /** {@see ExceptionMessages::InvalidLabTransitionDateType} */
     const InvalidLabTransitionDateType = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionDateArray} */
+    /** {@see ExceptionMessages::InvalidLabTransitionDateArray} */
     const InvalidLabTransitionDateArray = 500; 
     
-        /** {@see ExceptionMessages::MissingLabTransitionSourceParam} */
+    /** {@see ExceptionMessages::MissingLabTransitionSourceParam} */
     const MissingLabTransitionSourceParam = 500;
-        /** {@see ExceptionMessages::MissingLabTransitionSourceValue} */
+    /** {@see ExceptionMessages::MissingLabTransitionSourceValue} */
     const MissingLabTransitionSourceValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionSourceType} */
+    /** {@see ExceptionMessages::InvalidLabTransitionSourceType} */
     const InvalidLabTransitionSourceType = 500;
-        /** {@see ExceptionMessages::InvalidLabTransitionSourceArray} */
+    /** {@see ExceptionMessages::InvalidLabTransitionSourceArray} */
     const InvalidLabTransitionSourceArray = 500; 
     
 //LabRelations
@@ -900,6 +900,15 @@ class ExceptionCodes
     const InvalidRegionEduAdminType = 500;
     /** {@see ExceptionMessages::InvalidRegionEduAdminArray} */
     const InvalidRegionEduAdminArray = 500;
+ 
+    /** {@see ExceptionMessages::MissingRegionEduAdminNameParam} */
+    const MissingRegionEduAdminNameParam = 500;
+    /** {@see ExceptionMessages::MissingRegionEduAdminNameValue} */
+    const MissingRegionEduAdminNameValue = 500;
+    /** {@see ExceptionMessages::InvalidRegionEduAdminNameType} */
+    const InvalidRegionEduAdminNameType = 500;
+    /** {@see ExceptionMessages::InvalidRegionEduAdminNameArray} */
+    const InvalidRegionEduAdminNameArray = 500;
     
     /** {@see ExceptionMessages::DuplicatedRegionEduAdminValue} */
     const DuplicatedRegionEduAdminValue = 500;
@@ -938,7 +947,16 @@ class ExceptionCodes
     const InvalidEduAdminCodeType = 500;
     /** {@see ExceptionMessages::InvalidEduAdminCodeArray} */   
     const InvalidEduAdminCodeArray = 500;
-     
+    
+    /** {@see ExceptionMessages::MissingEduAdminNameParam} */ 
+    const MissingEduAdminNameParam = 500;
+    /** {@see ExceptionMessages::MissingEduAdminNameValue} */ 
+    const MissingEduAdminNameValue = 500;
+    /** {@see ExceptionMessages::InvalidEduAdminNameType} */ 
+    const InvalidEduAdminNameType = 500;
+    /** {@see ExceptionMessages::InvalidEduAdminNameArray} */ 
+    const InvalidEduAdminNameArray = 500;
+    
     /** {@see ExceptionMessages::DuplicatedEduAdminValue} */   
     const DuplicatedEduAdminValue = 500;
     /** {@see ExceptionMessages::UsedEduAdminBySchoolUnits} */   
@@ -967,6 +985,15 @@ class ExceptionCodes
     const InvalidTransferAreaType = 500;
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
     const InvalidTransferAreaArray = 500;
+   
+    /** {@see ExceptionMessages::MissingTransferAreaNameParam} */  
+    const MissingTransferAreaNameParam = 500;
+    /** {@see ExceptionMessages::MissingTransferAreaNameValue} */  
+    const MissingTransferAreaNameValue = 500;
+    /** {@see ExceptionMessages::InvalidTransferAreaNameType} */  
+    const InvalidTransferAreaNameType = 500;
+    /** {@see ExceptionMessages::InvalidTransferAreaNameArray} */  
+    const InvalidTransferAreaNameArray = 500;
     
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
     const DuplicatedTransferAreaValue = 500;
@@ -983,7 +1010,7 @@ class ExceptionCodes
     const MissingMunicipalityIDValue = 500;
     /** {@see ExceptionMessages::InvalidMunicipalityIDType} */   
     const InvalidMunicipalityIDType = 500;
-        /** {@see ExceptionMessages::InvalidMunicipalityIDArray} */   
+    /** {@see ExceptionMessages::InvalidMunicipalityIDArray} */   
     const InvalidMunicipalityIDArray = 500;
     
     /** {@see ExceptionMessages::MissingMunicipalityParam} */   
@@ -996,7 +1023,16 @@ class ExceptionCodes
     const InvalidMunicipalityType = 500;
     /** {@see ExceptionMessages::InvalidMunicipalityArray} */   
     const InvalidMunicipalityArray = 500;
-   
+  
+    /** {@see ExceptionMessages::MissingMunicipalityNameParam} */   
+    const MissingMunicipalityNameParam = 500;
+    /** {@see ExceptionMessages::MissingMunicipalityNameValue} */   
+    const MissingMunicipalityNameValue = 500;
+    /** {@see ExceptionMessages::InvalidMunicipalityNameType} */   
+    const InvalidMunicipalityNameType = 500;
+    /** {@see ExceptionMessages::InvalidMunicipalityNameArray} */   
+    const InvalidMunicipalityNameArray = 500;  
+
     /** {@see ExceptionMessages::DuplicatedMunicipalityValue} */   
     const DuplicatedMunicipalityValue = 500;
     /** {@see ExceptionMessages::UsedMunicipalityBySchoolUnits} */   
@@ -1025,7 +1061,16 @@ class ExceptionCodes
     const InvalidPrefectureType = 500;
     /** {@see ExceptionMessages::InvalidPrefectureArray} */   
     const InvalidPrefectureArray = 500;
-    
+  
+    /** {@see ExceptionMessages::MissingPrefectureNameParam} */  
+    const MissingPrefectureNameParam = 500;
+    /** {@see ExceptionMessages::MissingPrefectureNameValue} */  
+    const MissingPrefectureNameValue = 500;
+    /** {@see ExceptionMessages::InvalidPrefectureNameType} */  
+    const InvalidPrefectureNameType = 500;
+    /** {@see ExceptionMessages::InvalidPrefectureNameArray} */  
+    const InvalidPrefectureNameArray = 500;  
+
     /** {@see ExceptionMessages::DuplicatedPrefectureValue} */   
     const DuplicatedPrefectureValue = 500;
     /** {@see ExceptionMessages::UsedPrefectureBySchoolUnits} */   
@@ -1053,14 +1098,14 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidEducationLevelArray} */   
     const InvalidEducationLevelArray = 500;
     
-    /** {@see ExceptionMessages::MissingEducationLevelTypeNameParam} */   
-    const MissingEducationLevelTypeNameParam = 500;
-    /** {@see ExceptionMessages::MissingEducationLevelTypeNameValue} */   
-    const MissingEducationLevelTypeNameValue = 500;
-    /** {@see ExceptionMessages::InvalidEducationLevelTypeNameType} */   
-    const InvalidEducationLevelTypeNameType = 500;
-    /** {@see ExceptionMessages::InvalidEducationLevelTypeNameArray} */   
-    const InvalidEducationLevelTypeNameArray = 500;  
+    /** {@see ExceptionMessages::MissingEducationLevelNameParam} */   
+    const MissingEducationLevelNameParam = 500;
+    /** {@see ExceptionMessages::MissingEducationLevelNameValue} */   
+    const MissingEducationLevelNameValue = 500;
+    /** {@see ExceptionMessages::InvalidEducationLevelNameType} */   
+    const InvalidEducationLevelNameType = 500;
+    /** {@see ExceptionMessages::InvalidEducationLevelNameArray} */   
+    const InvalidEducationLevelNameArray = 500;  
     
     /** {@see ExceptionMessages::DuplicatedEducationLevelValue} */   
     const DuplicatedEducationLevelValue = 500;
@@ -1140,6 +1185,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidStateArray} */   
     const InvalidStateArray = 500;
     
+    /** {@see ExceptionMessages::MissingStateNameParam} */   
+    const MissingStateNameParam = 500;
+    /** {@see ExceptionMessages::MissingStateNameValue} */ 
+    const MissingStateNameValue = 500;
+    /** {@see ExceptionMessages::InvalidStateNameType} */ 
+    const InvalidStateNameType = 500;
+    /** {@see ExceptionMessages::InvalidStateNameArray} */ 
+    const InvalidStateNameArray = 500;
+    
     /** {@see ExceptionMessages::DuplicatedStateValue} */   
     const DuplicatedStateValue = 500;
     /** {@see ExceptionMessages::UsedStateBySchoolUnits} */   
@@ -1185,24 +1239,24 @@ class ExceptionCodes
 
 //= RelationTypes
     
-      /** {@see ExceptionMessages::MissingRelationTypeIDParam} */  
+    /** {@see ExceptionMessages::MissingRelationTypeIDParam} */  
     const MissingRelationTypeIDParam = 500;
-      /** {@see ExceptionMessages::MissingRelationTypeIDValue} */  
+    /** {@see ExceptionMessages::MissingRelationTypeIDValue} */  
     const MissingRelationTypeIDValue = 500;
-      /** {@see ExceptionMessages::InvalidRelationTypeIDType} */  
+    /** {@see ExceptionMessages::InvalidRelationTypeIDType} */  
     const InvalidRelationTypeIDType = 500;
-      /** {@see ExceptionMessages::InvalidRelationTypeIDArray} */  
+    /** {@see ExceptionMessages::InvalidRelationTypeIDArray} */  
     const InvalidRelationTypeIDArray = 500;
     
-      /** {@see ExceptionMessages::MissingRelationTypeParam} */  
+    /** {@see ExceptionMessages::MissingRelationTypeParam} */  
     const MissingRelationTypeParam = 500;
-      /** {@see ExceptionMessages::MissingRelationTypeValue} */  
+    /** {@see ExceptionMessages::MissingRelationTypeValue} */  
     const MissingRelationTypeValue = 500;
-      /** {@see ExceptionMessages::InvalidRelationTypeValue} */  
+    /** {@see ExceptionMessages::InvalidRelationTypeValue} */  
     const InvalidRelationTypeValue = 500;
-      /** {@see ExceptionMessages::InvalidRelationTypeType} */  
+    /** {@see ExceptionMessages::InvalidRelationTypeType} */  
     const InvalidRelationTypeType = 500;
-      /** {@see ExceptionMessages::InvalidRelationTypeArray} */  
+    /** {@see ExceptionMessages::InvalidRelationTypeArray} */  
     const InvalidRelationTypeArray = 500;
   
     /** {@see ExceptionMessages::MissingRelationTypeNameParam} */  
@@ -1214,38 +1268,47 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidRelationTypeNameArray} */  
     const InvalidRelationTypeNameArray = 500;
     
-      /** {@see ExceptionMessages::DuplicatedRelationTypeValue} */  
+    /** {@see ExceptionMessages::DuplicatedRelationTypeValue} */  
     const DuplicatedRelationTypeValue = 500;
-      /** {@see ExceptionMessages::UsedRelationTypeByLabRelations} */  
+    /** {@see ExceptionMessages::UsedRelationTypeByLabRelations} */  
     const UsedRelationTypeByLabRelations = 500;
   
 //= WorkerPositions
     
-      /** {@see ExceptionMessages::MissingWorkerPositionIDParam} */  
+    /** {@see ExceptionMessages::MissingWorkerPositionIDParam} */  
     const MissingWorkerPositionIDParam = 500;
-      /** {@see ExceptionMessages::MissingWorkerPositionIDValue} */  
+    /** {@see ExceptionMessages::MissingWorkerPositionIDValue} */  
     const MissingWorkerPositionIDValue = 500;
-      /** {@see ExceptionMessages::InvalidWorkerPositionIDType} */  
+    /** {@see ExceptionMessages::InvalidWorkerPositionIDType} */  
     const InvalidWorkerPositionIDType = 500;
-      /** {@see ExceptionMessages::InvalidWorkerPositionIDArray} */  
+    /** {@see ExceptionMessages::InvalidWorkerPositionIDArray} */  
     const InvalidWorkerPositionIDArray = 500;
     
-      /** {@see ExceptionMessages::MissingWorkerPositionParam} */  
+    /** {@see ExceptionMessages::MissingWorkerPositionParam} */  
     const MissingWorkerPositionParam = 500;
-      /** {@see ExceptionMessages::MissingWorkerPositionValue} */  
+    /** {@see ExceptionMessages::MissingWorkerPositionValue} */  
     const MissingWorkerPositionValue = 500;
-      /** {@see ExceptionMessages::InvalidWorkerPositionValue} */  
+    /** {@see ExceptionMessages::InvalidWorkerPositionValue} */  
     const InvalidWorkerPositionValue = 500;
-      /** {@see ExceptionMessages::InvalidWorkerPositionType} */  
+    /** {@see ExceptionMessages::InvalidWorkerPositionType} */  
     const InvalidWorkerPositionType = 500;
-      /** {@see ExceptionMessages::InvalidWorkerPositionArray} */  
+    /** {@see ExceptionMessages::InvalidWorkerPositionArray} */  
     const InvalidWorkerPositionArray = 500;
     
-      /** {@see ExceptionMessages::DuplicatedWorkerPositionValue} */  
+    /** {@see ExceptionMessages::MissingWorkerPositionNameParam} */  
+    const MissingWorkerPositionNameParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerPositionNameValue} */  
+    const MissingWorkerPositionNameValue = 500;
+    /** {@see ExceptionMessages::InvalidWorkerPositionNameType} */  
+    const InvalidWorkerPositionNameType = 500;
+    /** {@see ExceptionMessages::InvalidWorkerPositionNameArray} */  
+    const InvalidWorkerPositionNameArray = 500; 
+
+    /** {@see ExceptionMessages::DuplicatedWorkerPositionValue} */  
     const DuplicatedWorkerPositionValue = 500;
-      /** {@see ExceptionMessages::UsedWorkerPositionBySchoolUnitWorkers} */  
+    /** {@see ExceptionMessages::UsedWorkerPositionBySchoolUnitWorkers} */  
     const UsedWorkerPositionBySchoolUnitWorkers = 500;
-      /** {@see ExceptionMessages::UsedWorkerPositionByLabWorkers} */  
+    /** {@see ExceptionMessages::UsedWorkerPositionByLabWorkers} */  
     const UsedWorkerPositionByLabWorkers = 500;
     
 //= WorkerSpecializations
@@ -1269,6 +1332,15 @@ class ExceptionCodes
     const InvalidWorkerSpecializationType = 500;
     /** {@see ExceptionMessages::InvalidWorkerSpecializationArray} */  
     const InvalidWorkerSpecializationArray = 500;
+ 
+    /** {@see ExceptionMessages::MissingWorkerSpecializationNameParam} */  
+    const MissingWorkerSpecializationNameParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerSpecializationNameValue} */  
+    const MissingWorkerSpecializationNameValue = 500;
+    /** {@see ExceptionMessages::InvalidWorkerSpecializationNameType} */  
+    const InvalidWorkerSpecializationNameType = 500;
+    /** {@see ExceptionMessages::InvalidWorkerSpecializationNameArray} */  
+    const InvalidWorkerSpecializationNameArray = 500;
     
     /** {@see ExceptionMessages::DuplicatedWorkerSpecializationValue} */  
     const DuplicatedWorkerSpecializationValue = 500;
@@ -1279,47 +1351,47 @@ class ExceptionCodes
     
 //= LabTypes
 
-        /** {@see ExceptionMessages::MissingLabTypeIDParam} */  
+    /** {@see ExceptionMessages::MissingLabTypeIDParam} */  
     const MissingLabTypeIDParam = 500;
-        /** {@see ExceptionMessages::MissingLabTypeIDValue} */  
+    /** {@see ExceptionMessages::MissingLabTypeIDValue} */  
     const MissingLabTypeIDValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeIDType} */  
+    /** {@see ExceptionMessages::InvalidLabTypeIDType} */  
     const InvalidLabTypeIDType = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeIDArray} */  
+    /** {@see ExceptionMessages::InvalidLabTypeIDArray} */  
     const InvalidLabTypeIDArray = 500;
     
-        /** {@see ExceptionMessages::MissingLabTypeParam} */  
+    /** {@see ExceptionMessages::MissingLabTypeParam} */  
     const MissingLabTypeParam = 500;
-        /** {@see ExceptionMessages::MissingLabTypeValue} */  
+    /** {@see ExceptionMessages::MissingLabTypeValue} */  
     const MissingLabTypeValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeValue} */  
+    /** {@see ExceptionMessages::InvalidLabTypeValue} */  
     const InvalidLabTypeValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeType} */  
+    /** {@see ExceptionMessages::InvalidLabTypeType} */  
     const InvalidLabTypeType = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeArray} */  
+    /** {@see ExceptionMessages::InvalidLabTypeArray} */  
     const InvalidLabTypeArray = 500;
     
-        /** {@see ExceptionMessages::MissingLabTypeNameParam} */  
+    /** {@see ExceptionMessages::MissingLabTypeNameParam} */  
     const MissingLabTypeNameParam = 500;
-        /** {@see ExceptionMessages::MissingLabTypeNameValue} */  
+    /** {@see ExceptionMessages::MissingLabTypeNameValue} */  
     const MissingLabTypeNameValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeNameType} */  
+    /** {@see ExceptionMessages::InvalidLabTypeNameType} */  
     const InvalidLabTypeNameType = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeNameArray} */  
+    /** {@see ExceptionMessages::InvalidLabTypeNameArray} */  
     const InvalidLabTypeNameArray = 500;
     
-        /** {@see ExceptionMessages::MissingLabTypeFullNameParam} */  
+    /** {@see ExceptionMessages::MissingLabTypeFullNameParam} */  
     const MissingLabTypeFullNameParam = 500;
-        /** {@see ExceptionMessages::MissingLabTypeFullNameValue} */  
+    /** {@see ExceptionMessages::MissingLabTypeFullNameValue} */  
     const MissingLabTypeFullNameValue = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeFullNameType} */  
+    /** {@see ExceptionMessages::InvalidLabTypeFullNameType} */  
     const InvalidLabTypeFullNameType = 500;
-        /** {@see ExceptionMessages::InvalidLabTypeFullNameArray} */  
+    /** {@see ExceptionMessages::InvalidLabTypeFullNameArray} */  
     const InvalidLabTypeFullNameArray = 500;
     
-        /** {@see ExceptionMessages::DuplicatedLabTypeValue} */  
+    /** {@see ExceptionMessages::DuplicatedLabTypeValue} */  
     const DuplicatedLabTypeValue = 500;
-        /** {@see ExceptionMessages::UsedLabTypeByLabs} */  
+    /** {@see ExceptionMessages::UsedLabTypeByLabs} */  
     const UsedLabTypeByLabs = 500;
 
 //= LabSources
@@ -1343,6 +1415,15 @@ class ExceptionCodes
     const InvalidLabSourceType = 500;
     /** {@see ExceptionMessages::InvalidLabSourceArray} */  
     const InvalidLabSourceArray = 500;
+
+    /** {@see ExceptionMessages::MissingLabSourceNameParam} */  
+    const MissingLabSourceNameParam = 500;
+    /** {@see ExceptionMessages::MissingLabSourceNameValue} */  
+    const MissingLabSourceNameValue = 500;
+    /** {@see ExceptionMessages::InvalidLabSourceNameType} */  
+    const InvalidLabSourceNameType = 500;
+    /** {@see ExceptionMessages::InvalidLabSourceNameArray} */  
+    const InvalidLabSourceNameArray = 500;
     
     /** {@see ExceptionMessages::DuplicatedLabSourceValue} */  
     const DuplicatedLabSourceValue = 500;
