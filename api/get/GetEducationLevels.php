@@ -83,7 +83,7 @@ function GetEducationLevels( $education_level, $name,
 
 //$name=========================================================================
         if (Validator::Exists('name', $params)){
-            CRUDUtils::setSearchFilter($qb, $name, "el", "name", $searchtype, ExceptionMessages::InvalidEducationLevelTypeNameType, ExceptionCodes::InvalidEducationLevelTypeNameType);    
+            CRUDUtils::setSearchFilter($qb, $name, "el", "name", $searchtype, ExceptionMessages::InvalidEducationLevelNameType, ExceptionCodes::InvalidEducationLevelNameType);    
         }  
         
 //execution=====================================================================

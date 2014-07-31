@@ -296,11 +296,15 @@ function EduAdminsController()
     {
         case MethodTypes::GET : 
             $result = GetEduAdmins(
+                $params["edu_admin_id"],
+                $params["name"],
+                $params["edu_admin_code"],
                 $params["region_edu_admin"],
-                $params["pagesize"], 
+                $params["pagesize"],
                 $params["page"],
-                $params["sort_field"],
-                $params["sort_mode"]
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
                 
             );      
             break;

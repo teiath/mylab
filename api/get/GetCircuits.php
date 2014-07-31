@@ -10,14 +10,21 @@ header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
+ * @global type $entityManager
  * @global type $app
- * @param type $lab
- * @param type $relation_type
+ * @param type $circuit_id
+ * @param type $phone_number
+ * @param type $updated_date
+ * @param type $status
+ * @param type $circuit_type
+ * @param type $school_unit_id
+ * @param type $school_unit_name
  * @param type $pagesize
- * @param int $page
- * @return string
+ * @param type $page
+ * @param type $searchtype
+ * @param type $ordertype
+ * @param type $orderby
+ * @return type
  * @throws Exception
  */
  
