@@ -385,10 +385,15 @@ function MunicipalitiesController()
     {
         case MethodTypes::GET : 
             $result = GetMunicipalities(
-                $params["prefecture"], 
+                $params["municipality_id"],
+                $params["name"],
                 $params["transfer_area"],
-                $params["pagesize"], 
-                $params["page"]
+                $params["prefecture"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
@@ -426,8 +431,13 @@ function PrefecturesController()
     {
         case MethodTypes::GET : 
             $result = GetPrefectures(
-                $params["pagesize"], 
-                $params["page"]
+                $params["prefecture_id"],
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
@@ -624,9 +634,14 @@ function TranferAreasController()
     {
         case MethodTypes::GET : 
             $result = GetTransferAreas(
-                $params["edu_admin"], 
-                $params["pagesize"], 
-                $params["page"]
+                $params["transfer_area_id"],
+                $params["name"],
+                $params["edu_admin"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
