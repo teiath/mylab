@@ -1053,6 +1053,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidEducationLevelArray} */   
     const InvalidEducationLevelArray = 500;
     
+    /** {@see ExceptionMessages::MissingEducationLevelTypeNameParam} */   
+    const MissingEducationLevelTypeNameParam = 500;
+    /** {@see ExceptionMessages::MissingEducationLevelTypeNameValue} */   
+    const MissingEducationLevelTypeNameValue = 500;
+    /** {@see ExceptionMessages::InvalidEducationLevelTypeNameType} */   
+    const InvalidEducationLevelTypeNameType = 500;
+    /** {@see ExceptionMessages::InvalidEducationLevelTypeNameArray} */   
+    const InvalidEducationLevelTypeNameArray = 500;  
+    
     /** {@see ExceptionMessages::DuplicatedEducationLevelValue} */   
     const DuplicatedEducationLevelValue = 500;
     /** {@see ExceptionMessages::UsedEducationLevelBySchoolUnits} */   

@@ -803,6 +803,11 @@ class ExceptionMessages
     const InvalidEducationLevelType = 'Το Επίπεδο Εκπαίδευσης πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
     const InvalidEducationLevelArray = 'Το Επίπεδο Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές'; 
     
+    const MissingEducationLevelTypeNameParam = 'Το Όνομα του Επιπέδου Εκπαίδευσης είναι υποχρεωτικό πεδίο';
+    const MissingEducationLevelTypeNameValue = 'Το Όνομα του Επιπέδου Εκπαίδευσης πρέπει να έχει τιμή';
+    const InvalidEducationLevelTypeNameType = 'Το Όνομα του Επιπέδου Εκπαίδευσης πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidEducationLevelTypeNameArray = 'Το Όνομα του Επιπέδου Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';    
+
     const DuplicatedEducationLevelValue = 'Το Επίπεδο Εκπαίδευσης υπάρχει ήδη';
     const UsedEducationLevelBySchoolUnits = 'Ο Κωδικός Επίπεδου Εκπαίδευσης χρησιμοποιείται από Σχολικές Μονάδες';
     const UsedEducationLevelBySchoolUnitTYpes = 'Ο Κωδικός Επίπεδου Εκπαίδευσης χρησιμοποιείται από Τύπους Σχολικών Μονάδων';

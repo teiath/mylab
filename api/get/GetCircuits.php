@@ -1,9 +1,11 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package GET
  */
+
 header("Content-Type: text/html; charset=utf-8");
 
 /**
@@ -19,265 +21,141 @@ header("Content-Type: text/html; charset=utf-8");
  * @throws Exception
  */
  
-function GetCircuits($school_unit, $circuit_type, $phone_number, $circuit, $pagesize, $page) {
-    global $db;
-    global $Options;
-    global $app;
-   
-    $filter = array();
+function GetCircuits( $circuit_id, $phone_number, $updated_date, $status, $circuit_type, $school_unit_id, $school_unit_name,
+                      $pagesize, $page, $searchtype, $ordertype, $orderby ) {
+ 
+    global $entityManager, $app;
+
+    $qb = $entityManager->createQueryBuilder();
     $result = array();  
 
     $result["data"] = array();
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-
+    $params = loadParameters();
+    
     try {
         
-        //= Pages ==============================================================
-        if (! $page)
-            $page = 1;
-        else if (intval($page) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageNumber." : ".$page, ExceptionCodes::InvalidPageNumber);
-        else if (!is_numeric($page))
-	        throw new Exception(ExceptionMessages::InvalidPageType." : ".$page, ExceptionCodes::InvalidPageType);
-        
-        if (! $pagesize)
-                $pagesize = $Options["PageSize"];
-        else if (intval($pagesize) < 0)
-	        throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-        else if (!is_numeric($pagesize))
-	        throw new Exception(ExceptionMessages::InvalidPageSizeType." : ".$pagesize, ExceptionCodes::InvalidPageSizeType);
-        else if ($pagesize > $Options["MaxPageSize"])
-                throw new Exception(ExceptionMessages::InvalidPageSizeNumber." : ".$pagesize, ExceptionCodes::InvalidPageSizeNumber);
-
-        $startat = ($page -1) * $pagesize;
-        
-        //= $school_unit ==================================================
-        $oSchoolUnits = new SchoolUnitsExt($db);
-
-        if ($school_unit){
-        
-        $paramFilter = array();
-        $arrayValues = preg_split("/[\s]*[,][\s]*/",$school_unit);
-
-        foreach ($arrayValues as $school_unit)
-        {
-            $school_unit = trim($school_unit);
-
-            if (is_numeric($school_unit))
-            {
-                $paramFilter[] = new DFC(SchoolUnitsExt::FIELD_SCHOOL_UNIT_ID, $school_unit, DFC::EXACT);
-            }
-            else if ($school_unit)
-            {
-                $paramFilter[] = new DFC(SchoolUnitsExt::FIELD_NAME, $school_unit, DFC::EXACT);
-            }
-        }
-        
-        
-        if ( count($paramFilter) > 0 )
-        {
-            $oSchoolUnits->getAll($db, $paramFilter, false);
-        } 
-
-       if (count($oSchoolUnits->getObjsArray()) != 0 ) {
-
-            $paramFilter = array();
-            foreach ($oSchoolUnits->getObjsArray() as $oSchoolUnit)
-            {  
-                 $paramFilter[] = new DFC(CircuitsExt::FIELD_SCHOOL_UNIT_ID, $oSchoolUnit->getSchoolUnitId(), DFC::EXACT); 
-            }
-       } else {
-             $paramFilter[] = new DFC(CircuitsExt::FIELD_SCHOOL_UNIT_ID, "0", DFC::EXACT);
-        }
-            
-        //if ( count($paramFilter) > 0 )
-       // {
-            $filter[] = $school_unit_filter[] = new DFCAggregate($paramFilter, false);
-                      
-        //}
-
-        }
-                     
-        //$circuit_type==============================================================================
- 
-            $oCircuitTypes = new CircuitTypesExt($db);
-            $oCircuitTypes ->getAll($db);
-
-            $paramFilter = array();
-            $arrayValues = preg_split("/[\s]*[,][\s]*/", $circuit_type);
-
-            foreach ($arrayValues as $circuit_type)
-            {
-                $circuit_type = trim($circuit_type);
-
-                if (is_numeric($circuit_type))
-                {
-                    $paramFilter[] = new DFC(CircuitsExt::FIELD_CIRCUIT_TYPE_ID, $circuit_type, DFC::EXACT);
-                }
-                else if ($circuit_type)
-                {
-                    $oCircuitTypes->searchArrayForValue($circuit_type);
-                    $paramFilter[] = new DFC(CircuitsExt::FIELD_CIRCUIT_TYPE_ID, $oCircuitTypes->getCircuitTypeId(), DFC::EXACT);
-                }
-            }
-
-            if ( count($paramFilter) > 0 )
-            {
-                $filter[] = new DFCAggregate($paramFilter, false);
-            } 
-        
-    //$phone_number==============================================================
-        
-        $paramFilter = array();
-        $arrayValues = preg_split("/[\s]*[,][\s]*/", $phone_number);
-
-        foreach ($arrayValues as $phone_number)
-        {
-            $phone_number = trim($phone_number);
-
-            if (($phone_number) && (!is_numeric($phone_number)))
-            {
-                throw new Exception(ExceptionMessages::InvalidPhoneNumberValue." : ".$phone_number, ExceptionCodes::InvalidPhoneNumberValue);
-            }
-            else if (is_numeric($phone_number))
-            {
-                $paramFilter[] = new DFC(CircuitsExt::FIELD_PHONE_NUMBER, $phone_number, DFC::EXACT);
-            }
-        }
-
-        if ( count($paramFilter) > 0 )
-        {
-            $filter[] = new DFCAggregate($paramFilter, false);
-        }
-        
-        //= $circuit ==========================================================
-        if ($circuit){
-            
-            $school_unit=$circuit;
-            
-        $paramFilter = array();
-        $arrayValues = preg_split("/[\s]*[,][\s]*/",$school_unit);
-
-        foreach ($arrayValues as $school_unit)
-        {
-            $school_unit = trim($school_unit);
-
-            if (is_numeric($school_unit))
-            {
-                $paramFilter[] = new DFC(SchoolUnitsExt::FIELD_SCHOOL_UNIT_ID, $school_unit, DFC::BEGINS_WITH);
-            }
-            else if ($school_unit)
-            {
-                $paramFilter[] = new DFC(SchoolUnitsExt::FIELD_NAME, $school_unit, DFC::CONTAINS);
-            }
-        }
-        
-        
-        if ( count($paramFilter) > 0 )
-        {
-            $oSchoolUnits->getAll($db, $paramFilter, false);
-        } 
-
-       if (count($oSchoolUnits->getObjsArray()) != 0 ) {
-
-            $paramFilter = array();
-            foreach ($oSchoolUnits->getObjsArray() as $oSchoolUnit)
-            {  
-                 $paramFilter[] = new DFC(CircuitsExt::FIELD_SCHOOL_UNIT_ID, $oSchoolUnit->getSchoolUnitId(), DFC::EXACT); 
-            }
-       } else {
-             $paramFilter[] = new DFC(CircuitsExt::FIELD_SCHOOL_UNIT_ID, "0", DFC::EXACT);
-        }
-            
-        //if ( count($paramFilter) > 0 )
-       // {
-          $multi_filter[] = new DFCAggregate($paramFilter, false);
-                      
-            
-            
-            
-            
-            
-            $paramFilter = array();
-            $arrayValues = preg_split("/[\s]*[,][\s]*/", $circuit);
-
-            foreach ($arrayValues as $circuit)
-            {
-                $circuit = trim($circuit);
-
-                    $paramFilter[] = new DFC(CircuitsExt::FIELD_PHONE_NUMBER, $circuit, DFC::BEGINS_WITH);
-
-            }
-            
-            if ( count($paramFilter) > 0 )
-            {
-                $multi_filter[] = new DFCAggregate($paramFilter, false);
-            }
-            
-            $filter[] = new DFCAggregate($multi_filter, false);
-        
-        }
-        //==============================================================================        
+//$page - $pagesize - $searchtype - $ordertype =================================
+       $page = Pagination::getPage($page, $params);
+       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $searchtype = Filters::getSearchType($searchtype, $params);
+       $ordertype =  Filters::getOrderType($ordertype, $params);
     
-        $sort = array( new DSC(CircuitsExt::FIELD_SCHOOL_UNIT_ID, DSC::ASC),
-                       new DSC(CircuitsExt::FIELD_CIRCUIT_TYPE_ID, DSC::ASC)
-                      );
-
-        $oCircuits = new CircuitsExt($db);
-        $totalRows = $oCircuits->findByFilterAsCount($db, $filter, true);
-        $result["total"] = $totalRows[0]->getCircuitId();
-        
-        if ($pagesize)        
-            $countRows = $oCircuits->findByFilterWithLimit($db, $filter, true, $sort, $startat, $pagesize);
+ //$orderby=====================================================================
+       $columns = array(
+                            "c.circuitId"       => "circuit_id",
+                            "c.phoneNumber"     => "phone_number",
+                            "c.updatedDate"     => "updated_date",
+                            "c.status"          => "status" ,
+                            "ct.circuitTypeId"  => "circuit_type_id",
+                            "ct.name"           => "circuit_type_name",
+                            "su.schoolUnitId"   => "school_unit_id",
+                            "su.name"           => "school_unit_name",
+                        );
+       
+       if ( Validator::Missing('orderby', $params) )
+            $orderby = "circuit_id";
         else
-            $countRows = $oCircuits->findByFilter($db, $filter, true, $sort);
+        {   
+            $orderby = Validator::ToLower($orderby);
+            if (!in_array($orderby, $columns))
+                throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
+        } 
         
-        $result["count"] = count( $countRows );
-        
-        if ($countRows) {         
-        $schoolUnitsFilter = array();
-       
+//$circuit_id===================================================================
+        if (Validator::Exists('circuit_id', $params)){
+            CRUDUtils::setFilter($qb, $circuit_id, "c", "circuitId", "circuitId", "id", ExceptionMessages::InvalidCircuitIDType, ExceptionCodes::InvalidCircuitIDType);
+        } 
 
-        foreach ($countRows as $rows)
-        {                
-            $schoolUnitsFilter[] =  new DFC(SchoolUnitsExt::FIELD_SCHOOL_UNIT_ID, $rows->getSchoolUnitId(), DFC::EXACT);       
-        }
+//$phone_number=================================================================
+        if (Validator::Exists('phone_number', $params)){
+            CRUDUtils::setSearchFilter($qb, $phone_number, "c", "phoneNumber", $searchtype, ExceptionMessages::InvalidCircuitPhoneNumberType, ExceptionCodes::InvalidCircuitPhoneNumberType);    
+        }  
 
-        $oSchoolUnits->getAll($db, $schoolUnitsFilter, false); 
-       
-            
-        foreach ($countRows as $row)
-        {        
-            
-             $data = array( "circuit_id"=> $row->getCircuitId(),
-                            "phone_number" => $row->getPhoneNumber(),
-                            "updated_date" => $row->getUpdatedDate(),
-                            "status" => $row->getStatus(),
-                            "circuit_type" => $row->getCircuitTypeId(),
-                            "circuit_type_name" => $oCircuitTypes->searchArrayForID( $row->getCircuitTypeId())->getName(),
-                            "school_unit_id" => $row->getSchoolUnitId(),
-                            "school_unit_name" => $oSchoolUnits->searchArrayForID( $row->getSchoolUnitId())->getName()
-                  );
-        $result["data"][] = $data;
+//$updated_date=================================================================
+        if (Validator::Exists('updated_date', $params)){
+            CRUDUtils::setFilter($qb, $updated_date, "c", "updatedDate", "updatedDate", "date", ExceptionMessages::InvalidCircuitUpdatedDateType, ExceptionCodes::InvalidCircuitUpdatedDateType);
+        } 
+        
+//$status=======================================================================
+        if (Validator::Exists('status', $params)){
+            CRUDUtils::setFilter($qb, $status, "c", "status", "status", "numeric", ExceptionMessages::InvalidCircuitStatusType, ExceptionCodes::InvalidCircuitStatusType);
+        }    
+ 
+//$circuit_type=================================================================
+        if (Validator::Exists('circuit_type', $params)){
+            CRUDUtils::setFilter($qb, $circuit_type, "ct", "circuitTypeId", "name", "id,value", ExceptionMessages::InvalidCircuitTypeType, ExceptionCodes::InvalidCircuitTypeType);
+        }  
+        
+//$school_unit_id===============================================================
+        if (Validator::Exists('school_unit_id', $params)){
+            CRUDUtils::setFilter($qb, $school_unit_id, "su", "schoolUnitId", "schoolUnitId", "id", ExceptionMessages::InvalidSchoolUnitIDType, ExceptionCodes::InvalidSchoolUnitIDType);
+        }  
+ 
+//$school_unit_name=============================================================
+        if (Validator::Exists('school_unit_name', $params)){
+            CRUDUtils::setSearchFilter($qb, $school_unit_name, "su", "name", $searchtype, ExceptionMessages::InvalidSchoolUnitNameType, ExceptionCodes::InvalidSchoolUnitNameType);    
         }
         
+//execution=====================================================================
+        $qb->select('c');
+        $qb->from('Circuits', 'c');
+        $qb->leftjoin('c.circuitType', 'ct');
+        $qb->leftjoin('c.schoolUnit', 'su');
+        $qb->orderBy(array_search($orderby, $columns), $ordertype);
+
+//pagination and results========================================================      
+        $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
+        $result["total"] = count($results);
+        $results->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $results->getQuery()->setMaxResults($pagesize) : null;
+
+//data results==================================================================       
+        $count = 0;
+        foreach ($results as $circuit)
+        {
+
+            $result["data"][] = array(
+                                            "circuit_id"         => $circuit->getCircuitId(),
+                                            "phone_number"       => $circuit->getPhoneNumber(),
+                                            "updated_date"       => $circuit->getUpdatedDate()->format('Y-m-d H:i:s'),
+                                            "status"             => $circuit->getStatus(),
+                                            "circuit_type_id"    => $circuit->getCircuitType()->getCircuitTypeId(),
+                                            "circuit_type_name"  => $circuit->getCircuitType()->getName(),
+                                            "school_unit_id"     => $circuit->getSchoolUnit()->getSchoolUnitId(),
+                                            "school_unit_name"   => $circuit->getSchoolUnit()->getName()
+                                     );
+            $count++;
         }
-        //else {
-       //     $result["data"] = $data; 
-       // }  
+        $result["count"] = $count;
+   
+//pagination results============================================================     
+        $maxPage = Pagination::getMaxPage($result["total"],$page,$pagesize);
+        $pagination = array( "page" => $page,   
+                             "maxPage" => $maxPage, 
+                             "pagesize" => $pagesize 
+                            );    
+        $result["pagination"]=$pagination;
         
-        
+//result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
     } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
     } 
+    
+//debug=========================================================================
+   if ( Validator::IsTrue( $params["debug"]  ) )
+   {
+        $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
+        $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
+   }
+    
     return $result;
-} 
+    
+}
 
 ?>

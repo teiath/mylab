@@ -341,8 +341,13 @@ function EducationLevelsController()
     {
         case MethodTypes::GET : 
             $result = GetEducationLevels(
-                $params["pagesize"], 
-                $params["page"]
+                $params["education_level_id"], 
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
@@ -719,12 +724,18 @@ function CircuitsController()
     {
         case MethodTypes::GET : 
             $result = GetCircuits(
-                $params["school_unit"], 
-                $params["circuit_type"],
+                $params["circuit_id"],
                 $params["phone_number"],
-                $params["circuit"],
-                $params["pagesize"], 
-                $params["page"]
+                $params["updated_date"],
+                $params["status"],
+                $params["circuit_type"],
+                $params["school_unit_id"],
+                $params["school_unit_name"], 
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
 //        case MethodTypes::POST :
@@ -756,8 +767,13 @@ function CircuitTypesController()
     {
         case MethodTypes::GET : 
             $result = GetCircuitTypes(
-                $params["pagesize"], 
-                $params["page"]
+                $params["circuit_type_id"], 
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
 //        case MethodTypes::POST :
@@ -1318,8 +1334,13 @@ function RelationTypesController()
     {
         case MethodTypes::GET : 
             $result = GetRelationTypes(
-                $params["pagesize"], 
-                $params["page"]
+                $params["relation_type_id"], 
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
 //        case MethodTypes::POST :
