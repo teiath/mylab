@@ -6,7 +6,7 @@ function newLabEquipmentTypesDS(labID, detailRow){
             read: {
                 url: "api/lab_equipment_types",
                 type: "GET",
-                data: { "lab": labID },
+                data: { "lab_id": labID },
                 dataType: "json"
             },
             create: {
@@ -36,7 +36,7 @@ function newLabEquipmentTypesDS(labID, detailRow){
                     //ΠΡΟΣΕΧΩΣ equipment_category_id: {editable: false},
                     //ΠΡΟΣΕΧΩΣ equipment_category: { editable: false },
                     equipment_type_id: {editable: false},
-                    equipment_type: { type: "string", validation: { required: true, validationMessage:"Ξέχασες τον εξοπλισμό!" } },
+                    equipment_type_name: { type: "string", validation: { required: true, validationMessage:"Ξέχασες τον εξοπλισμό!" } },
                     items:{ type: "number", validation: { required: true, validationMessage:"Ξέχασες το πλήθος!", min: 1, max: 1000} }
                 }
             }

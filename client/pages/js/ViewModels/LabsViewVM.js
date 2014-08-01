@@ -338,7 +338,7 @@ var LabsViewVM = kendo.observable({
                         }
                      }(),
             columns: [
-                { field: "equipment_type", 
+                { field: "equipment_type_name", 
                   title: "εξοπλισμός",
                   editor: function (container, options){
                       
