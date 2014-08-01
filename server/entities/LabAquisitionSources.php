@@ -22,9 +22,9 @@ class LabAquisitionSources
     private $labAquisitionSourceId;
 
     /**
-     * @var \DateTime
+     * @var \Year
      *
-     * @ORM\Column(name="aquisition_year", type="date", nullable=true)
+     * @ORM\Column(name="aquisition_year", columnDefinition="YEAR", nullable=true)
      */
     private $aquisitionYear;
 
