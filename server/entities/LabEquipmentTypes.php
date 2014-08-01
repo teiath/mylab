@@ -1,34 +1,31 @@
 <?php
 
-
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LabEquipmentTypes
- * 
  * @ORM\Table(name="lab_equipment_types", indexes={@ORM\Index(name="equipment_type_idx", columns={"equipment_type_id"}), @ORM\Index(name="lab_idx", columns={"lab_id"})})
  * @ORM\Entity
  */
 class LabEquipmentTypes
 {
-    
     /**
-     * @var \Labs
-     *
-     * @ORM\Column(name="lab_id", type="integer", nullable=false)
+     * 
      * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="Labs")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lab_id", referencedColumnName="lab_id")
+     * })
      */
-    private $labId;
-    
+    private $lab;
     /**
-     * @var \EquipmentTypes
-     *
-     * @ORM\Column(name="lab_equipment_type_id", type="integer", nullable=false)
      * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="EquipmentTypes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="equipment_type_id", referencedColumnName="equipment_type_id")
+     * })
      */
-    private $labEquipmentTypeId;
-    
+    private $equipmentType;
+
     /**
      * @var integer
      *
@@ -36,14 +33,14 @@ class LabEquipmentTypes
      */
     private $items;
     
- 
-    public function __construct($lab_id, $equipment_type_id)
+    
+    public function __construct($labId, $labEquipmentTypeId)
     {
-        $this->lab_id = $lab_id;
-        $this->equipment_type_id = $equipment_type_id;
+        $this->labId = $labId;
+        $this->labEquipmentTypeId = $labEquipmentTypeId;
     }
 
-    //getter and setter
+    
     
     public function getLab()
     {
@@ -58,7 +55,7 @@ class LabEquipmentTypes
     {
         return $this->equipmentType;
     }
-    
+
     public function setEquipmentType(\EquipmentTypes $equipmentType) {
         $this->equipmentType = $equipmentType;
     }
@@ -70,4 +67,5 @@ class LabEquipmentTypes
     public function setItems($items) {
         $this->items = $items;
     }
+    
 }
