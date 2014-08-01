@@ -144,15 +144,16 @@ function GetLabTransitions( $lab_transition_id, $transition_date, $transition_so
         {
 
             $result["data"][] = array(              
-                                        "lab_transition_id"  => $labtransition->getLabTransitionId(),
-                                        "transition_date"    => $labtransition->getTransitionDate()->format('Y-m-d'),
-                                        "transition_source"  => $labtransition->getTransitionSource(),
-                                        "from_state_id"      => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getStateId(),
-                                        "from_state_name"    => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getName(),
-                                        "to_state_id"        => $labtransition->getToState()->getStateId(),
-                                        "to_state_name"      => $labtransition->getToState()->getName(),
-                                        "lab_id"             => $labtransition->getLab()->getLabId(),
-                                        "lab_name"           => $labtransition->getLab()->getName()
+                                        "lab_transition_id"         => $labtransition->getLabTransitionId(),
+                                        "transition_date"           => $labtransition->getTransitionDate()->format('Y-m-d'),
+                                        "transition_source"         => $labtransition->getTransitionSource(),
+                                        "transition_justification"  => $labtransition->getTransitionJustification(),
+                                        "from_state_id"             => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getStateId(),
+                                        "from_state_name"           => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getName(),
+                                        "to_state_id"               => $labtransition->getToState()->getStateId(),
+                                        "to_state_name"             => $labtransition->getToState()->getName(),
+                                        "lab_id"                    => $labtransition->getLab()->getLabId(),
+                                        "lab_name"                  => $labtransition->getLab()->getName()
 
                                        );
             $count++;
