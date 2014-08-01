@@ -470,6 +470,8 @@ class ExceptionCodes
     const InvalidSchoolUnitStreetAddressType = 500;
     /** {@see ExceptionMessages::InvalidSchoolUnitPostalCodeType} */
     const InvalidSchoolUnitPostalCodeType = 500;
+    /** {@see ExceptionMessages::InvalidSchoolUnitUnitDns} */  
+    const InvalidSchoolUnitUnitDns = 500;
  
  
 //= Circuits
