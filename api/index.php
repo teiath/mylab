@@ -514,6 +514,14 @@ function SchoolUnitsController()
             $result = GetSchoolUnits(
                 $params["school_unit_id"],
                 $params["name"],
+                $params["special_name"],
+                $params["last_update"],
+                $params["fax_number"],
+                $params["phone_number"],
+                $params["email"],
+                $params["street_address"],
+                $params["postal_code"],
+                $params["unit_dns"],     
                 $params["region_edu_admin"],
                 $params["edu_admin"],
                 $params["transfer_area"],
@@ -522,60 +530,53 @@ function SchoolUnitsController()
                 $params["education_level"], 
                 $params["school_unit_type"],
                 $params["state"],
-                $params["lab_type"],
-                $params["operational_rating"],
-                $params["technological_rating"],
-                $params["lab_state"],
-                $params["aquisition_source"],
-                $params["equipment_type"],
-                $params["lab_id"],
-                $params["lab_worker"],
-                $params["pagesize"], 
+                $params["pagesize"],
                 $params["page"],
-                $params["sort_field"],
-                $params["sort_mode"]
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]           
             );      
             break;
         case MethodTypes::POST :
-            $result = PostSchoolUnits(
-                $params["name"],
-                $params["fax_number"],
-                $params["phone_number"],
-                $params["email"],
-                $params["street_address"],
-                $params["postal_code"],
-                $params["region_edu_admin"],
-                $params["edu_admin"],
-                $params["transfer_area"],
-                $params["municipality"],
-                $params["prefecture"], 
-                $params["education_level"], 
-                $params["school_unit_type"]  
-            );      
-            break;
+//            $result = PostSchoolUnits(
+//                $params["name"],
+//                $params["fax_number"],
+//                $params["phone_number"],
+//                $params["email"],
+//                $params["street_address"],
+//                $params["postal_code"],
+//                $params["region_edu_admin"],
+//                $params["edu_admin"],
+//                $params["transfer_area"],
+//                $params["municipality"],
+//                $params["prefecture"], 
+//                $params["education_level"], 
+//                $params["school_unit_type"]  
+//            );      
+//            break;
       case MethodTypes::PUT :
-            $result = PutSchoolUnits(
-                $params["school_unit_id"],
-                $params["name"],
-                $params["fax_number"],
-                $params["phone_number"],
-                $params["email"],
-                $params["street_address"],
-                $params["postal_code"],
-                $params["region_edu_admin"],
-                $params["edu_admin"],
-                $params["transfer_area"],
-                $params["municipality"],
-                $params["prefecture"], 
-                $params["education_level"], 
-                $params["school_unit_type"]  
-            );      
-            break;
+//            $result = PutSchoolUnits(
+//                $params["school_unit_id"],
+//                $params["name"],
+//                $params["fax_number"],
+//                $params["phone_number"],
+//                $params["email"],
+//                $params["street_address"],
+//                $params["postal_code"],
+//                $params["region_edu_admin"],
+//                $params["edu_admin"],
+//                $params["transfer_area"],
+//                $params["municipality"],
+//                $params["prefecture"], 
+//                $params["education_level"], 
+//                $params["school_unit_type"]  
+//            );      
+//            break;
        case MethodTypes::DELETE :
-            $result = DelSchoolUnits(
-                $params["name"]
-            );      
-            break;  
+//            $result = DelSchoolUnits(
+//                $params["name"]
+//            );      
+//            break;  
     }
     
     PrepareResponse();
