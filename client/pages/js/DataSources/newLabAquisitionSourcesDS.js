@@ -6,7 +6,7 @@ function newLabAquisitionSourcesDS(labID, detailRow){
             read: {
                 url: "api/lab_aquisition_sources",
                 type: "GET",
-                data: { "lab": labID },
+                data: { "lab_id": labID },
                 dataType: "json"
             },
             create: {
@@ -32,7 +32,8 @@ function newLabAquisitionSourcesDS(labID, detailRow){
                 id:"aquisition_source_id",
                 fields:{
                     lab_id:{editable: false, defaultValue: labID},
-                    lab:{editable: false},
+                    lab_name:{editable: false},
+                    //lab:{editable: false},
                     aquisition_source_id: {editable: false},
                     aquisition_source: {type: "string"/*, validation: { required: true, validationMessage:"Ξέχασες την πηγή χρηματοδότησης!" }*/},
                     aquisition_year: { type: "string"/*, validation: { required: true, validationMessage:"Ξέχασες τη χρονολογία χρηματοδότησης!" }*/},

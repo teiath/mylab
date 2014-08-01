@@ -1,5 +1,7 @@
 function newLabResponsiblesDS(){
 
+    console.log("im inside newLabResponsiblesDS");
+
     var lab_responisbles_ds =  new kendo.data.DataSource({
         
             serverFiltering: true,
@@ -29,20 +31,22 @@ function newLabResponsiblesDS(){
                     fields:{
 
                         lab_id:{},
-                        lab:{},
+                        //lab:{},
+                        lab_name:{},
                         worker_id: {},  
-                        worker_position:{defaultValue:2},
+                        worker_position_name:{defaultValue:2},
                         worker_position_id:{},
                         worker_status:{},
                         worker_start_service:{},
                         worker_email:{},                    
-                        registry_no: {},
+                        worker_registry_no: {},
                         tax_number: {},
                         firstname: {},
                         lastname: {},
                         fathername: {},
                         sex: {},
-                        specialization_code: {},
+                        specialization_code_id: {},
+                        specialization_code_name: {},
                         fullname: {type:"string"}
                     }
                 }

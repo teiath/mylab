@@ -25,7 +25,7 @@ function newLabWorkersDS(labID, detailRow, status){
             },
             parameterMap: function(data, type) {
                 if (type === 'read') {
-                    data['lab'] = labID;
+                    data['lab_id'] = labID;
                     if (typeof status !== 'undefined'){
                         data['worker_status'] = status;   
                     }
@@ -33,7 +33,7 @@ function newLabWorkersDS(labID, detailRow, status){
                 }else if (type === 'create') {
                     data['worker_id'] = data['fullname'];
                     data['worker_status'] = 1;
-                    data['worker_position'] = 2;
+                    data['worker_position_id'] = 2;
                     data['worker_start_service'] = kendo.toString(data['worker_start_service'], "yyyy-MM-dd");
                     return data;
                 }
@@ -47,20 +47,24 @@ function newLabWorkersDS(labID, detailRow, status){
                 fields:{
 
                     lab_id:{editable: false, defaultValue: labID},
-                    lab:{editable: false},
+                    //lab:{editable: false},
+                    lab_name:{editable: false},
                     worker_id: {},  
                     worker_position:{},
+                    worker_position_name:{},
                     worker_position_id:{},
                     worker_status:{},
                     worker_start_service:{},
                     worker_email:{},                    
-                    registry_no: {},
+                    worker_registry_no: {},
                     tax_number: {},
                     firstname: {},
                     lastname: {},
                     fathername: {},
                     sex: {},
-                    specialization_code: {},
+                    specialization_code_id: {},
+                    specialization_code_name: {},
+                    
                     fullname: {}
                 }
             }

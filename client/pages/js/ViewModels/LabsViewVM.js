@@ -491,11 +491,11 @@ var LabsViewVM = kendo.observable({
                   }, 
                   width: '30%'
                 },
-                { field: "registry_no", 
+                { field: "worker_registry_no", 
                   title: "ΑΜ", 
                   width: '10%' 
                 },
-                { field: "specialization_code", 
+                { field: "specialization_code_name", 
                   title: "ειδικότητα", 
                   width: '10%' 
                 },
@@ -628,8 +628,9 @@ var LabsViewVM = kendo.observable({
                 $.each(e.sender.dataSource.data(), function(index, value){
                     var tr= e.sender.tbody.find("tr:eq(" + index + ")");
                     var dataitem= e.sender.dataItem(tr);
-                    if (dataitem.worker_status !== "1" && dataitem.worker_status !== ""){
-                        tr.find("td:last-child>a.k-grid-ΑπενεργοποίησηΥπευθύνου").remove();
+                    // if worker is not active 1)remove its row's "disable responsible" functionality and 2) hide its row from grid if grid is not in the "show logs" mode
+                    if (dataitem.worker_status !== 1 && dataitem.worker_status !== ""){
+                        tr.find("td:last-child>a.k-grid-ΑπενεργοποίησηΥπευθύνου").remove(); 
                         if(lab_workers_details.element.find(".k-toolbar>button#show_lab_worker_logs_btn").text() === "προβολή ιστορικού"){
                             tr.hide();
                         }
@@ -723,7 +724,7 @@ var LabsViewVM = kendo.observable({
                                 if(relation_type_parent.value() === "ΕΞΥΠΗΡΕΤΕΙΤΑΙ ΔΙΑΔΙΚΤΥΑΚΑ"){
                                     var school_unit_id = this.value();
                                     var child = $('#child').data("kendoDropDownList");
-                                    child.dataSource.read({ school_unit: school_unit_id });
+                                    child.dataSource.read({ school_unit_id: school_unit_id });
                                 }
                                 
                             }                         
@@ -780,8 +781,8 @@ var LabsViewVM = kendo.observable({
             scrollable: false,
             selectable: false,
             columns: [
-                { field: "from_state", title: "προηγούμενη κατάσταση"},
-                { field: "to_state", title:"παρούσα κατάσταση"},
+                { field: "from_state_name", title: "προηγούμενη κατάσταση"},
+                { field: "to_state_name", title:"παρούσα κατάσταση"},
                 { field: "transition_date", title: "ημερομηνία μετάβασης"},
                 { field: "transition_justification", title: "αιτιολογία μετάβασης"},
                 { field: "transition_source", title: "πηγή μετάβασης"}
@@ -942,7 +943,7 @@ var LabsViewVM = kendo.observable({
             $.each(lab_workers_details.dataSource.data(), function(index, value){
                 var tr= lab_workers_details.tbody.find("tr:eq(" + index + ")");
                 var dataitem= lab_workers_details.dataItem(tr);
-                if (dataitem.worker_status !== "1" && dataitem.worker_status !== ""){
+                if (dataitem.worker_status !== 1 && dataitem.worker_status !== ""){
                     tr.toggle();
                 }
             });            

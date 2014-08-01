@@ -35,7 +35,7 @@ function newEduAdminsDS(){
                                                 edu_admin_id: {editable: false},
                                                 name:{editable: false},
                                                 region_edu_admin_id: {editable: false},
-                                                region_edu_admin:{editable: false}
+                                                region_edu_admin_name:{editable: false}
                                             }
                                         }
                                     },

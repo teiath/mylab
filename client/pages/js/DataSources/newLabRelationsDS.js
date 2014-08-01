@@ -25,7 +25,7 @@ function newLabRelationsDS(labID, detailRow){
             },
             parameterMap: function(data, type) {
                 if (type === 'read') {
-                    data['lab'] = labID;
+                    data['lab_id'] = labID;
                     return data;
                 }else if (type === 'create') {
                     
@@ -56,7 +56,8 @@ function newLabRelationsDS(labID, detailRow){
                     lab_id:{editable: false, defaultValue: labID},
                     lab_name:{editable: false},
                     school_unit_id: {},
-                    school_unit: {},
+                    //school_unit: {},
+                    school_unit_name: {},
                     relation_type_id: {},
                     relation_type_name:{},
                     circuit_id:{},

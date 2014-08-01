@@ -16,7 +16,9 @@ function newSchoolUnitTypesDS(){
                                                 school_unit_type_id: {editable: false},
                                                 name:{editable: false},
                                                 initials:{editable: false},
-                                                education_level :{editable: false}
+                                                //education_level :{editable: false}
+                                                education_level_id :{editable: false},
+                                                education_level_name :{editable: false}
                                             }
                                         }
                                     }

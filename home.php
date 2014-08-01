@@ -1,36 +1,34 @@
 <?php 
+    //psd user authentication to front-end
 
-//psd user authentication to front-end
-
-require_once ('server/system/config.php');
-require_once ('server/libs/phpCAS/CAS.php');
+    require_once ('server/system/config.php');
+    require_once ('server/libs/phpCAS/CAS.php');
 
 
-if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
-    //echo("eimai mesa stou index to if");
-    // initialize phpCAS using SAML
-    phpCAS::client(SAML_VERSION_1_1,$casOptions["Url"],$casOptions["Port"],'', false);
-    // no SSL validation for the CAS server, only for testing environments
-    phpCAS::setNoCasServerValidation();
-    // handle backend logout requests from CAS server
-    phpCAS::handleLogoutRequests(array($casOptions["Url"]));
-    if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
-        phpCAS::logout();
-        exit();
-    } else {
-        // force CAS authentication
-        if (!phpCAS::checkAuthentication())
-          phpCAS::forceAuthentication();
+    if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
+        //echo("eimai mesa stou index to if");
+        // initialize phpCAS using SAML
+        phpCAS::client(SAML_VERSION_1_1,$casOptions["Url"],$casOptions["Port"],'', false);
+        // no SSL validation for the CAS server, only for testing environments
+        phpCAS::setNoCasServerValidation();
+        // handle backend logout requests from CAS server
+        phpCAS::handleLogoutRequests(array($casOptions["Url"]));
+        if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
+            phpCAS::logout();
+            exit();
+        } else {
+            // force CAS authentication
+            if (!phpCAS::checkAuthentication())
+              phpCAS::forceAuthentication();
+        }
+        // at this step, the user has been authenticated by the CAS server and the user's login name can be read with //phpCAS::getUser(). for this test, simply print who is the authenticated user and his attributes.
+        $user = phpCAS::getAttributes();
+
+        //var_dump($user['title']);//die();
     }
-    // at this step, the user has been authenticated by the CAS server and the user's login name can be read with //phpCAS::getUser(). for this test, simply print who is the authenticated user and his attributes.
-    $user = phpCAS::getAttributes();
-    
-    //var_dump($user['title']);//die();
-}
 
-//$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
-$user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
-
+    //$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
+    $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
 ?>
 
 <!DOCTYPE html>
@@ -115,6 +113,26 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUser
                 $('#switch_to_labs_view_btn').attr('checked',true);
                 $('#switch_to_school_units_view_btn').attr('checked',false);
                 
+                //get user role
+                    
+                $.ajax({
+                        type: 'GET',
+                        url: baseURL + 'user_permits',
+                        dataType: "json",
+                        success: function(data){
+
+                            if (data.user_role === "noAccess"){
+                                notification.show({
+                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
+                                    message: "Δεν πληρούνται τα απαραίτητα δικαιώματα πρόσβασης"
+                                }, "error");
+                            }
+
+                        },
+                        error: function (data){ console.log("GET user_permits error data: ", data);}
+                });
+                
+                
                 //index holds thr grid's row index in school units view, in order to expand it after lab creation
                 index= null;
                 searchParameters = [];
@@ -130,12 +148,26 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUser
         <?php 
                 require_once('navigation_bar.php'); //navigation bar
         ?>
-        <div style='height:90px'> </div>    
+        <div style='height:90px'> </div> 
+        <script> 
+//            if(jQuery.inArray( authorized_user, search_xls ) !== -1){
+//                alert("im in!!");
+//            };
+        </script>
+        
         <?php
-                if(in_array($user['title'], $search_xls)){ require_once('search.html'); } //search pane
+                //var_dump($user['title']); //string(25) "ΠΡΟΣΩΠΙΚΟ ΠΣΔ" 
+                //$search_xls = array("ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ", "ΠΡΟΣΩΠΙΚΟ ΠΣΔ", "ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", "ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ");
+                //if(in_array($user['title'], $search_xls)){ require_once('search.html'); } //search pane
                 //require_once('search.html'); //search pane
                 //var_dump($user['title']);
-                
+                if(in_array("ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ", $user['title']) || 
+                   in_array("ΠΡΟΣΩΠΙΚΟ ΠΣΔ", $user['title']) ||
+                   in_array("ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", $user['title']) ||
+                   in_array("ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", $user['title']) ||
+                   in_array("ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", $user['title'])){ 
+                    require_once('search.html'); 
+                }
                 if(in_array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ", $user['title'])){ require_once('school_unit_info.html'); }
                 //require_once('school_unit_info.html');
                 require_once('switch_views.html'); //switch views button

@@ -25,7 +25,7 @@ function newLabTransitionsDS(labID, detailRow){
             },
             parameterMap: function(data, type) {
                 if (type === 'read') {
-                    data['lab'] = labID;
+                    data['lab_id'] = labID;
                     return data;
                 }else if (type === 'create') {
                     //δεν χρησιμοποιείται
@@ -47,10 +47,11 @@ function newLabTransitionsDS(labID, detailRow){
                 fields:{
                     lab_transition_id:{editable: false},
                     lab_id:{editable: false, defaultValue: labID},
+                    lab_name:{editable: false},
                     from_state_id: {},
-                    from_state: {},
+                    from_state_name: {},
                     to_state_id: {},
-                    to_state: {},
+                    to_state_name: {},
                     transition_date: {},
                     transition_justification: {},
                     transition_source: {}

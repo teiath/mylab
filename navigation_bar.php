@@ -40,7 +40,7 @@
 
 <script>
     
-    var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ"];
+    var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ", "ΠΣΔ"];
     //console.log("search_xls: ", search_xls);
     var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ"];
     //console.log("edit_lab_details: ", edit_lab_details);
