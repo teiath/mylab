@@ -27,7 +27,8 @@ class Validator
      * 
      */
     public static function IsExists($param) {
-        $params = get_object_vars( loadParameters() );     
+        //$params = get_object_vars( loadParameters() );
+       $params = loadParameters();
     return array_key_exists($param, $params);
     }
 
