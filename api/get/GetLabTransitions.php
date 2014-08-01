@@ -145,7 +145,7 @@ function GetLabTransitions( $lab_transition_id, $transition_date, $transition_so
 
             $result["data"][] = array(              
                                         "lab_transition_id"         => $labtransition->getLabTransitionId(),
-                                        "transition_date"           => $labtransition->getTransitionDate()->format('Y-m-d'),
+                                        "transition_date"           =>  Validator::IsNull($labtransition->getTransitionDate()) ? Validator::ToNull() : $labtransition->getTransitionDate()->format('Y-m-d'),
                                         "transition_source"         => $labtransition->getTransitionSource(),
                                         "transition_justification"  => $labtransition->getTransitionJustification(),
                                         "from_state_id"             => Validator::IsNull($labtransition->getFromState()) ? Validator::ToNull() : $labtransition->getFromState()->getStateId(),
