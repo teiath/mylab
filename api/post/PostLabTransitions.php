@@ -82,11 +82,11 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
             throw new Exception(ExceptionMessages::InvalidLabTransitionSourceType." : ".$transition_source, ExceptionCodes::InvalidLabTransitionSourceType);
 
 //user permisions===============================================================
-//         $permissions = UserRoles::getUserPermissions($app->request->user);
-//         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
-//             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
-//         }; 
-//         
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+         }; 
+         
 //controls======================================================================  
 
         //find last state of lab from labs table================================ 
