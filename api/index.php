@@ -155,16 +155,33 @@ function Authentication()
                     throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied); // Multiple users with this username?? Fail
                 }
             }
-
+////$tets=   $userObj;
+////         print_r( $tets) ;    
+////           die();          
+////            
+//            if ($app->request()->getMethod() == 'POST'){
+////          $user = $app->request->getBody();
+//////            $user1= get_object_vars( json_decode($app->request->getBody(), false) );
+////          //    $user2= UrlParamstoArray($app->request->getBody());
+//////            $user3= json_decode( key($_REQUEST) );
+//
+//              $tets=   $app->request->get('user') ;
+////              $all = loadParameters();
+////             // print_r( $all) ;  die();
+////              $teds = $user;
+//            print_r( $tets) ;    
+//           die();
+//            }
+            
             // userObj has all the user attributes now - We can check roles
-            if($app->request->get('user') != null) {           
+            if ($app->request->get('user') != null) {           
                 $app->request->user = array_map("convertCasTOLdap", $app->request->get('user'));
             } else if (($app->request->get('user') == null) && ($userObj['uid'][0] == $frontendOptions['frontendUsername'])){
                 throw new Exception(ExceptionMessages::UserAccesFrontDenied, ExceptionCodes::UserAccesFrontDenied); 
             }else { 
                 $app->request->user = $userObj;
             }
-            
+        
         } else {
             throw new Exception(ExceptionMessages::UserAccesEmptyDenied, ExceptionCodes::UserAccesEmptyDenied); // Empty username/pass - Maybe guest access?
         }
@@ -1087,8 +1104,7 @@ function LabAquisitionSourcesController()
                 $params["lab_id"],
                 $params["aquisition_source"],
                 $params["aquisition_year"],
-                $params["aquisition_comments"],
-                $params["multiple_aquisition_sources"]
+                $params["aquisition_comments"]
             );
       
             break;
@@ -1137,8 +1153,7 @@ function LabEquipmentTypesController()
             $result = PostLabEquipmentTypes(
                 $params["lab_id"],
                 $params["equipment_type"],
-                $params["items"],
-                $params["multiple_equipment_types"]
+                $params["items"]
             );      
             break;
       case MethodTypes::PUT :
