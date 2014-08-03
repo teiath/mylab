@@ -851,11 +851,6 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabTransitionArray} */
     const InvalidLabTransitionArray = 500;
     
-    /** {@see ExceptionMessages::DuplicatedLabTransitionValue} */
-    const DuplicatedLabTransitionValue = 500;
-    /** {@see ExceptionMessages::UsedLabTransitionByLabs} */
-    const UsedLabTransitionByLabs = 500;
-    
     /** {@see ExceptionMessages::MissingLabTransitionJustificationParam} */
     const MissingLabTransitionJustificationParam = 500;
     /** {@see ExceptionMessages::MissingLabTransitionJustificationValue} */
@@ -883,6 +878,24 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabTransitionSourceArray} */
     const InvalidLabTransitionSourceArray = 500; 
     
+    /** {@see ExceptionMessages::DuplicatedLabTransitionValue} */
+    const DuplicatedLabTransitionValue = 500;
+    /** {@see ExceptionMessages::UsedLabTransitionByLabs} */
+    const UsedLabTransitionByLabs = 500;
+    /** {@see ExceptionMessages::InvalidDiscontinuedStateValue} */
+    const InvalidDiscontinuedStateValue = 500;
+    /** {@see ExceptionMessages::InvalidSameStateValue} */
+    const InvalidSameStateValue = 500;
+    /** {@see ExceptionMessages::NotAllowedLabTransitionDate} */  
+    const NotAllowedLabTransitionDate = 500;
+    /** {@see ExceptionMessages::SeriousProblemLabTransitionState} */ 
+    const SeriousProblemLabTransitionState = 500;
+
+
+    //extra
+    /** {@see ExceptionMessages::InvalidLabTransitionValidType} */
+    const InvalidLabTransitionValidType = 500;
+     
 //LabRelations
     
     /** {@see ExceptionMessages::MissingLabRelationIDParam} */    

@@ -21,9 +21,7 @@ header("Content-Type: text/html; charset=utf-8");
  * @throws Exception
  */
 
-function PostLabAquisitionSources($lab_id, $aquisition_source, $aquisition_year, $aquisition_comments) 
-
-{
+function PostLabAquisitionSources($lab_id, $aquisition_source, $aquisition_year, $aquisition_comments) {
     
     global $app,$entityManager;
 

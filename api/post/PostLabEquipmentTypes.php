@@ -20,9 +20,8 @@ header("Content-Type: text/html; charset=utf-8");
  * @throws Exception
  */
 
-function PostLabEquipmentTypes($lab_id, $equipment_type, $items) 
-
-{
+function PostLabEquipmentTypes($lab_id, $equipment_type, $items) {
+    
     global $app,$entityManager;
 
     $LabEquipmentTypes = new LabEquipmentTypes();
@@ -43,8 +42,7 @@ function PostLabEquipmentTypes($lab_id, $equipment_type, $items)
 //$equipment_type===============================================================       
         CRUDUtils::entitySetAssociation($LabEquipmentTypes, $equipment_type, 'EquipmentTypes', 'equipmentType', 'EquipmentType');
     
-//$items========================================================================
-        
+//$items========================================================================      
         if (Validator::Missing('items', $params))
             throw new Exception(ExceptionMessages::MissingLabEquipmentTypeItemsParam." : ".$items, ExceptionCodes::MissingLabEquipmentTypeItemsParam);          
         else if (Validator::IsNull($items))

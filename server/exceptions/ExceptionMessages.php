@@ -688,10 +688,7 @@ class ExceptionMessages
     const InvalidLabTransitionValue = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου δεν βρέθηκε';
     const InvalidLabTransitionType = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabTransitionArray = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
-    
-    const DuplicatedLabTransitionValue = 'Η Αλλαγή της Κατάστασης Μετάβασης του Εργαστηρίου του Εργαστηρίου υπάρχει ήδη';
-    const UsedLabTransitionByLabs = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου χρησιμοποιούνται από Σχολικά Εργαστήρια';
-    
+        
     const MissingLabTransitionJustificationParam = 'Η Αιτιολογία Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
     const MissingLabTransitionJustificationValue = 'Η Αιτιολογία Αλλαγής της Κατάστασης Μετάβασηςτου Εργαστηρίου πρέπει να έχει τιμή';
     const InvalidLabTransitionJustificationType = 'Η Αιτιολογία Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
@@ -706,6 +703,16 @@ class ExceptionMessages
     const MissingLabTransitionSourceValue = 'Η Πηγή Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου πρέπει να έχει τιμή';
     const InvalidLabTransitionSourceType = 'Η Πηγή Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου πρέπει να είναι mmsch ή mylab';
     const InvalidLabTransitionSourceArray = 'Η Πηγή Αλλαγής της Κατάστασης Μετάβασης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const DuplicatedLabTransitionValue = 'Η Αλλαγή της Κατάστασης Μετάβασης του Εργαστηρίου του Εργαστηρίου υπάρχει ήδη';
+    const UsedLabTransitionByLabs = 'Οι Καταστάσεις Μετάβασης του Εργαστηρίου χρησιμοποιούνται από Σχολικά Εργαστήρια';
+    const InvalidDiscontinuedStateValue = 'Η τελευταία Κατάσταση Μεταβασης του Εργαστηρίου έχει τιμή 3=ΚΑΤΑΡΓΗΜΕΝΗ και δεν δυνατή η Μετάβαση του σε άλλα Κατάσταση.';
+    const InvalidSameStateValue = 'Η τελευταία Κατάσταση Μεταβασης του Εργαστηρίου έχει την ίδια τιμή και δεν δυνατή η Μετάβαση του σε άλλα Κατάσταση.';
+    const NotAllowedLabTransitionDate = 'Δεν είναι δυνατή η εισαγωγή ημερομηνίας προγενέστερη από την ημερομηνία εισαγωγής της προηγούμενης μεταβασης';
+    const SeriousProblemLabTransitionState = 'Ενημερωστε τον διαχειριστή!! Η Κατάσταση Μεταβασης έιναι διαφορετικη στους πίνακες Εργαστηριων Καταστάσεων Μεταβασης';
+
+    //extra
+    const InvalidLabTransitionValidType = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
     
 //LabRelations
         
