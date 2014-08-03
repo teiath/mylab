@@ -6,22 +6,25 @@ class CRUDUtils {
         $missingValue = 'Missing'.$exceptionType.'Value';
         $invalidType = 'Invalid'.$exceptionType.'Type';
         $invalidValue = 'Invalid'.$exceptionType.'Value';
+        $duplicateValue = 'Duplicate'.$exceptionType.'UniqueValue';
 
         if ( $param === _MISSED_ ) {
             if(!$required) { return; }
-            throw new Exception(constant('ExceptionMessages::'.$missingParam), constant('ExceptionCodes::'.$missingParam));
+            throw new Exception(constant('ExceptionMessages::'.$missingParam)." : ".$param, constant('ExceptionCodes::'.$missingParam));
         } else if ( Validator::IsNull($param) ) {
             if(!$required) { return; }
-            throw new Exception(constant('ExceptionMessages::'.$missingValue), constant('ExceptionCodes::'.$missingValue));
+            throw new Exception(constant('ExceptionMessages::'.$missingValue)." : ".$param, constant('ExceptionCodes::'.$missingValue));
         } else if ( Validator::IsID($param) )
             $retrievedObject = $entityManager->getRepository($repo)->find(Validator::ToID($param));
         else if ( Validator::IsValue($param) )
             $retrievedObject = $entityManager->getRepository($repo)->findOneBy(array('name' => Validator::ToValue($param)));
         else
-            throw new Exception(constant('ExceptionMessages::'.$invalidType), constant('ExceptionCodes::'.$invalidType));
-
+            throw new Exception(constant('ExceptionMessages::'.$invalidType)." : ".$param, constant('ExceptionCodes::'.$invalidType));
+        
         if ( !isset($retrievedObject) )
-            throw new Exception(constant('ExceptionMessages::'.$invalidValue), constant('ExceptionCodes::'.$invalidValue));
+            throw new Exception(constant('ExceptionMessages::'.$invalidValue)." : ".$param, constant('ExceptionCodes::'.$invalidValue));
+        else if (count($retrievedObject)>1)
+            throw new Exception(constant('ExceptionMessages::'.$duplicateValue)." : ".$param, constant('ExceptionCodes::'.$duplicateValue));
         else
         {
             $method = 'set'.ucfirst($field);

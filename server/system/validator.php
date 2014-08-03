@@ -381,7 +381,7 @@ class Validator
             return false;
         }
         
-        return ( is_int($value) || (is_numeric($value) && $value == (int) $value) );
+        return ( is_int($value) || (is_numeric($value) && $value == (int)$value) );
     }
 
     /**
@@ -413,7 +413,7 @@ class Validator
             return false;
         }
         
-        return ( is_int($value) || (is_numeric($value) && $value == (int) $value) )  && ( $value > 0 );
+        return ( is_int($value) || (is_numeric($value) && $value == (int)$value) )  && ( $value > 0 );
     }
     
     
