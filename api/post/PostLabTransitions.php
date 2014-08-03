@@ -146,6 +146,7 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
 //update lab status to labs table===============================================
         $updateLabState = $entityManager->find('Labs',$lab_id);
         CRUDUtils::entitySetAssociation($updateLabState, $state, 'States', 'State', 'State');
+        $entityManager->persist($updateLabState);
         $entityManager->flush($updateLabState);
         
  //insert to db=================================================================
