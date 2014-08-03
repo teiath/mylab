@@ -454,9 +454,6 @@ class ExceptionMessages
     const InvalidSchoolUnitValue = 'Η Μονάδα δεν βρέθηκε';
     const InvalidSchoolUnitType = 'Η Μονάδα πρέπει να είναι αριθμητική ή αλφαριθμητική';
     const InvalidSchoolUnitArray = 'Η Μονάδα δεν μπορεί να έχει πολλαπλές τιμές';
-    
-    const DuplicatedSchoolUnitValue = 'H Μονάδα υπάρχει ήδη';
-    const DuplicatedSchoolUnitNameValue = 'Το Όνομα της Μονάδας υπάρχει ήδη';
      
     const MissingSchoolUnitNameParam = 'Το Όνομα της Μονάδας είναι υποχρεωτικό πεδίο';
     const MissingSchoolUnitNameValue = 'Το Όνομα της Μονάδας πρέπει να έχει τιμή';
@@ -471,7 +468,10 @@ class ExceptionMessages
     const InvalidSchoolUnitStreetAddressType = 'Η Διεύθυνση της Μονάδας πρέπει να είναι αλφαριθμητική';
     const InvalidSchoolUnitPostalCodeType = 'Ο Ταχυδρομικός Κώδικας της Μονάδας πρέπει να είναι αριθμητικός';
     const InvalidSchoolUnitUnitDns = 'Ο Κωδικός DNS της Μονάδας πρέπει να είναι αλφαριθμητικός';
- 
+     
+    const DuplicatedSchoolUnitValue = 'H Μονάδα υπάρχει ήδη';
+    const DuplicateSchoolUnitUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key SchoolUnit';
+    
 //= Circuits
     
     const MissingCircuitIDParam = 'Ο Κωδικός του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
@@ -727,9 +727,11 @@ class ExceptionMessages
     const InvalidLabRelationType = 'Η Συσχέτιση του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
     const InvalidLabRelationArray = 'Η Συσχέτιση του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const DuplicatedLabRelationValue = 'Η Συσχέτιση του Εργαστηρίου  του Εργαστηρίου υπάρχει ήδη';
+    const DuplicatedLabRelationValue = 'Η Συσχέτιση του Εργαστηρίου που εξυπηρετειται υπηρεσιακά από Σχολική Μονάδα υπάρχει ήδη';
     const UsedLabRelationByLabs = 'Η Συσχέτιση του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
-    
+    const UsedLabRelationServerOnline = 'Είναι αδύνατη η εισαγωγή, διότι το εργαστήριο εξυπηρετείται διαδικτυακά από σχολική μονάδα.';
+    const ErrorInputCircuitIdParam  = 'H εισαγωγή κυκλώματος δεν επιτρέπεται στην περίπτωση που το εχει γίνει επιλογή Κωδικού Συσχετισης 2=(ΕΞΥΠΗΡΕΤΕΙ ΥΠΗΡΕΣΙΑΚΑ)';
+
     //########################################
     //Vocabularies Functions
     //######################################## 
@@ -951,6 +953,7 @@ class ExceptionMessages
     
     const DuplicatedRelationTypeValue = 'Ο Τύπος Συσχέτισης υπάρχει ήδη';
     const UsedRelationTypeByLabRelations = 'Ο Κωδικός του Τυπου Συσχέτισης χρησιμοποιείται από Συσχέτισεις Εργαστηρίων';
+    const DuplicateRelationTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key RelationType';
   
     //= WorkerPositions
     const MissingWorkerPositionIDParam = 'Ο Κωδικός της Θέσης Εργασίας είναι υποχρεωτικό πεδίο';

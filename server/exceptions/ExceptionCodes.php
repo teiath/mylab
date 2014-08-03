@@ -441,11 +441,6 @@ class ExceptionCodes
     const InvalidSchoolUnitType = 500;
     /** {@see ExceptionMessages::InvalidSchoolUnitArray} */
     const InvalidSchoolUnitArray = 500;
-    
-    /** {@see ExceptionMessages::DuplicatedSchoolUnitValue} */
-    const DuplicatedSchoolUnitValue = 500;
-    /** {@see ExceptionMessages::DuplicatedSchoolUnitNameValue} */
-    const DuplicatedSchoolUnitNameValue = 500;
      
     /** {@see ExceptionMessages::MissingSchoolUnitNameParam} */
     const MissingSchoolUnitNameParam = 500;
@@ -472,7 +467,13 @@ class ExceptionCodes
     const InvalidSchoolUnitPostalCodeType = 500;
     /** {@see ExceptionMessages::InvalidSchoolUnitUnitDns} */  
     const InvalidSchoolUnitUnitDns = 500;
- 
+    
+    /** {@see ExceptionMessages::DuplicatedSchoolUnitValue} */
+    const DuplicatedSchoolUnitValue = 500;
+    /** {@see ExceptionMessages::DuplicatedSchoolUnitNameValue} */
+    const DuplicatedSchoolUnitNameValue = 500;
+    /** {@see ExceptionMessages::DuplicateSchoolUnitUniqueValue} */
+    const DuplicateSchoolUnitUniqueValue = 500;
  
 //= Circuits
     
@@ -922,6 +923,12 @@ class ExceptionCodes
     const DuplicatedLabRelationValue = 500;
     /** {@see ExceptionMessages::UsedLabRelationByLabs} */
     const UsedLabRelationByLabs = 500;
+    /** {@see ExceptionMessages::DuplicateRelationTypeUniqueValue} */
+    const DuplicateRelationTypeUniqueValue = 500;
+    /** {@see ExceptionMessages::UsedLabRelationServerOnline} */   
+    const UsedLabRelationServerOnline = 500;
+    /** {@see ExceptionMessages::ErrorInputCircuitIdParam} */       
+    const ErrorInputCircuitIdParam = 500;
     
     //########################################
     //Vocabularies Functions
