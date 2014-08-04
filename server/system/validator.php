@@ -358,6 +358,17 @@ class Validator
      * 
      * @return bool True if valid, false if not.
      * 
+     * info  
+     * 32-bit builds of PHP:
+     *   Integers can be from -2147483648 to 2147483647
+     * 64-bit builds of PHP:
+     *   Integers can be from -9223372036854775808 to 9223372036854775807
+     *
+     * if value is out of the above limits then 
+     * 1) $value became float
+     * 2 )value == (int)$value break 
+     * and return false
+     * 
      */
     public static function IsNegative($value)
     {
@@ -365,14 +376,26 @@ class Validator
             return false;
         }
         
-        return ( is_int($value) || (is_numeric($value) && $value == (int) $value) )  && ( $value <= 0 );
+        return ( is_int($value) || (is_numeric($value) && $value == (int)$value) )  && ( $value <= 0 );
     }
     
     /**
      * 
      * Validates that the value is an number. 
-     * 
+     *
+     * info  
+     * 32-bit builds of PHP:
+     *   Integers can be from -2147483648 to 2147483647
+     * 64-bit builds of PHP:
+     *   Integers can be from -9223372036854775808 to 9223372036854775807
+     *
+     * if value is out of the above limits then 
+     * 1) $value became float
+     * 2 )value == (int)$value break 
+     * and return false
+     *  
      * @return bool True if valid, false if not.
+     * 
      * 
      */
     public static function IsNumeric($value)
@@ -402,6 +425,17 @@ class Validator
     /**
      * 
      * Validates that the value is a positive number, and mean an ID representation .
+     * 
+     * info  
+     * 32-bit builds of PHP:
+     *   Integers can be from -2147483648 to 2147483647
+     * 64-bit builds of PHP:
+     *   Integers can be from -9223372036854775808 to 9223372036854775807
+     *
+     * if value is out of the above limits then 
+     * 1) $value became float
+     * 2 )value == (int)$value break 
+     * and return false
      * 
      * @return bool True if valid, false if not.
      * 
@@ -727,6 +761,17 @@ class Validator
     /**
      * 
      * Validates that the value is a integer representation.
+     * 
+     * info  
+     * 32-bit builds of PHP:
+     *   Integers can be from -2147483648 to 2147483647
+     * 64-bit builds of PHP:
+     *   Integers can be from -9223372036854775808 to 9223372036854775807
+     *
+     * if value is out of the above limits then 
+     * 1) $value became float
+     * 2 )value == (int)$value break 
+     * and return false
      * 
      * @return bool True if valid, false if not.
      * 
