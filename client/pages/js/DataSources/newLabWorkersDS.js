@@ -33,7 +33,7 @@ function newLabWorkersDS(labID, detailRow, status){
                 }else if (type === 'create') {
                     data['worker_id'] = data['fullname'];
                     data['worker_status'] = 1;
-                    data['worker_position_id'] = 2;
+                    data['worker_position'] = 2;
                     data['worker_start_service'] = kendo.toString(data['worker_start_service'], "yyyy-MM-dd");
                     return data;
                 }

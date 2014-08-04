@@ -61,6 +61,8 @@ var LabsViewVM = kendo.observable({
                     
                 }else if(type === 'create'){
                     
+                    alert("POST LABS");
+                    
                     //normalize transition_date parameter
                     data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
 
@@ -328,7 +330,7 @@ var LabsViewVM = kendo.observable({
                         }
                      }(),
             columns: [
-                { field: "equipment_type_name", 
+                { field: "equipment_type", 
                   title: "εξοπλισμός",
                   editor: function (container, options){
                       
@@ -676,10 +678,6 @@ var LabsViewVM = kendo.observable({
                                 var koko = newSchoolUnitsDS();
                                 koko.read();
                                 parent.setDataSource(koko);
-                                
-                                //var kiki = newCircuitsDS();
-                                //kiki.read();
-                                //child.setDataSource(kiki);
                                 
                                 if(this.value() === "ΕΞΥΠΗΡΕΤΕΙΤΑΙ ΔΙΑΔΙΚΤΥΑΚΑ"){
                                     child.enable(true);
