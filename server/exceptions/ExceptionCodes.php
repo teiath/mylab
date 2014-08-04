@@ -441,11 +441,6 @@ class ExceptionCodes
     const InvalidSchoolUnitType = 500;
     /** {@see ExceptionMessages::InvalidSchoolUnitArray} */
     const InvalidSchoolUnitArray = 500;
-    
-    /** {@see ExceptionMessages::DuplicatedSchoolUnitValue} */
-    const DuplicatedSchoolUnitValue = 500;
-    /** {@see ExceptionMessages::DuplicatedSchoolUnitNameValue} */
-    const DuplicatedSchoolUnitNameValue = 500;
      
     /** {@see ExceptionMessages::MissingSchoolUnitNameParam} */
     const MissingSchoolUnitNameParam = 500;
@@ -472,7 +467,13 @@ class ExceptionCodes
     const InvalidSchoolUnitPostalCodeType = 500;
     /** {@see ExceptionMessages::InvalidSchoolUnitUnitDns} */  
     const InvalidSchoolUnitUnitDns = 500;
- 
+    
+    /** {@see ExceptionMessages::DuplicatedSchoolUnitValue} */
+    const DuplicatedSchoolUnitValue = 500;
+    /** {@see ExceptionMessages::DuplicatedSchoolUnitNameValue} */
+    const DuplicatedSchoolUnitNameValue = 500;
+    /** {@see ExceptionMessages::DuplicateSchoolUnitUniqueValue} */
+    const DuplicateSchoolUnitUniqueValue = 500;
  
 //= Circuits
     
@@ -701,11 +702,6 @@ class ExceptionCodes
     const InvalidLabType = 500;
     /** {@see ExceptionMessages::InvalidLabArray} */
     const InvalidLabArray = 500;
-    
-    /** {@see ExceptionMessages::DuplicatedLabValue} */
-    const DuplicatedLabValue = 500;
-    /** {@see ExceptionMessages::DuplicateLabUniqueValue} */
-    const DuplicateLabUniqueValue = 500;
      
     /** {@see ExceptionMessages::MissingLabNameParam} */
     const MissingLabNameParam = 500;
@@ -715,7 +711,35 @@ class ExceptionCodes
     const InvalidLabNameType = 500;
     /** {@see ExceptionMessages::InvalidLabNameArray} */
     const InvalidLabNameArray = 500;
+
+    /** {@see ExceptionMessages::MissingLabOperationalRatingParam} */
+    const MissingLabOperationalRatingParam = 500;
+    /** {@see ExceptionMessages::MissingLabOperationalRatingValue} */
+    const MissingLabOperationalRatingValue = 500;
+    /** {@see ExceptionMessages::InvalidLabOperationalRatingType} */
+    const InvalidLabOperationalRatingType = 500;
+    /** {@see ExceptionMessages::InvalidLabOperationalRatingArray} */
+    const InvalidLabOperationalRatingArray = 500;
     
+    /** {@see ExceptionMessages::MissingLabTechnologicalRatingParam} */
+    const MissingLabTechnologicalRatingParam = 500;
+    /** {@see ExceptionMessages::MissingLabTechnologicalRatingValue} */
+    const MissingLabTechnologicalRatingValue = 500;
+    /** {@see ExceptionMessages::InvalidLabTechnologicalRatingType} */
+    const InvalidLabTechnologicalRatingType = 500;
+    /** {@see ExceptionMessages::InvalidLabTechnologicalRatingArray} */
+    const InvalidLabTechnologicalRatingArray = 500;
+            
+    /** {@see ExceptionMessages::DuplicatedLabValue} */
+    const DuplicatedLabValue = 500;
+    /** {@see ExceptionMessages::DuplicatedLabNameValue} */
+    const DuplicatedLabNameValue = 500;
+    /** {@see ExceptionMessages::DuplicateLabUniqueValue} */
+    const DuplicateLabUniqueValue = 500;
+    /** {@see ExceptionMessages::NotAllowedLabNameValue} */
+    const NotAllowedLabNameValue = 500;
+    
+    //extra
     /** {@see ExceptionMessages::InvalidLabSpecialNameType} */
     const InvalidLabSpecialNameType = 500;
     /** {@see ExceptionMessages::InvalidLabCreationDateType} */
@@ -730,10 +754,6 @@ class ExceptionCodes
     const InvalidLabPositioningType = 500;
     /** {@see ExceptionMessages::InvalidLabCommentsType} */
     const InvalidLabCommentsType = 500;
-    /** {@see ExceptionMessages::InvalidLabOperationalRatingType} */
-    const InvalidLabOperationalRatingType = 500;
-    /** {@see ExceptionMessages::InvalidLabTechnologicalRatingType} */
-    const InvalidLabTechnologicalRatingType = 500;
    
 //LabEquipmentTypes
         
@@ -851,11 +871,6 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabTransitionArray} */
     const InvalidLabTransitionArray = 500;
     
-    /** {@see ExceptionMessages::DuplicatedLabTransitionValue} */
-    const DuplicatedLabTransitionValue = 500;
-    /** {@see ExceptionMessages::UsedLabTransitionByLabs} */
-    const UsedLabTransitionByLabs = 500;
-    
     /** {@see ExceptionMessages::MissingLabTransitionJustificationParam} */
     const MissingLabTransitionJustificationParam = 500;
     /** {@see ExceptionMessages::MissingLabTransitionJustificationValue} */
@@ -883,6 +898,24 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabTransitionSourceArray} */
     const InvalidLabTransitionSourceArray = 500; 
     
+    /** {@see ExceptionMessages::DuplicatedLabTransitionValue} */
+    const DuplicatedLabTransitionValue = 500;
+    /** {@see ExceptionMessages::UsedLabTransitionByLabs} */
+    const UsedLabTransitionByLabs = 500;
+    /** {@see ExceptionMessages::InvalidDiscontinuedStateValue} */
+    const InvalidDiscontinuedStateValue = 500;
+    /** {@see ExceptionMessages::InvalidSameStateValue} */
+    const InvalidSameStateValue = 500;
+    /** {@see ExceptionMessages::NotAllowedLabTransitionDate} */  
+    const NotAllowedLabTransitionDate = 500;
+    /** {@see ExceptionMessages::SeriousProblemLabTransitionState} */ 
+    const SeriousProblemLabTransitionState = 500;
+
+
+    //extra
+    /** {@see ExceptionMessages::InvalidLabTransitionValidType} */
+    const InvalidLabTransitionValidType = 500;
+     
 //LabRelations
     
     /** {@see ExceptionMessages::MissingLabRelationIDParam} */    
@@ -909,6 +942,12 @@ class ExceptionCodes
     const DuplicatedLabRelationValue = 500;
     /** {@see ExceptionMessages::UsedLabRelationByLabs} */
     const UsedLabRelationByLabs = 500;
+    /** {@see ExceptionMessages::DuplicateRelationTypeUniqueValue} */
+    const DuplicateRelationTypeUniqueValue = 500;
+    /** {@see ExceptionMessages::UsedLabRelationServerOnline} */   
+    const UsedLabRelationServerOnline = 500;
+    /** {@see ExceptionMessages::ErrorInputCircuitIdParam} */       
+    const ErrorInputCircuitIdParam = 500;
     
     //########################################
     //Vocabularies Functions
@@ -1235,6 +1274,8 @@ class ExceptionCodes
     const UsedStateBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedStateBySchoolUnitTYpes} */   
     const UsedStateBySchoolUnitTYpes = 500;
+    /** {@see ExceptionMessages::DuplicateStateUniqueValue} */      
+    const DuplicateStateUniqueValue = 500;
     
 //= CircuitTypes
     
@@ -1430,6 +1471,8 @@ class ExceptionCodes
     const DuplicatedLabTypeValue = 500;
     /** {@see ExceptionMessages::UsedLabTypeByLabs} */  
     const UsedLabTypeByLabs = 500;
+    /** {@see ExceptionMessages::DuplicateLabTypeUniqueValue} */  
+    const DuplicateLabTypeUniqueValue = 500;
 
 //= LabSources
 
@@ -1466,6 +1509,8 @@ class ExceptionCodes
     const DuplicatedLabSourceValue = 500;
     /** {@see ExceptionMessages::UsedLabSourceByLabs} */  
     const UsedLabSourceByLabs = 500;
+    /** {@see ExceptionMessages::DuplicateLabSourceUniqueValue} */  
+    const DuplicateLabSourceUniqueValue = 500;
  
 //= EquipmentCategories
     

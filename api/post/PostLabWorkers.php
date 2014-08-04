@@ -63,20 +63,18 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
     }
 
 //$worker_start_service=========================================================
-       if (Validator::Missing('worker_start_service', $params))
-           throw new Exception(ExceptionMessages::MissingLabWorkerStartServiceParam." : ".$worker_start_service, ExceptionCodes::MissingLabWorkerStartServiceParam);
-       else if (Validator::IsNull($worker_start_service))
-            throw new Exception(ExceptionMessages::MissingLabWorkerStartServiceValue." : ".$worker_start_service, ExceptionCodes::MissingLabWorkerStartServiceValue);
-       else if (Validator::IsArray($worker_start_service))
-            throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceArray." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceArray);    
-       else if (! Validator::IsValidDate($worker_start_service) )
-            throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceValidType." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceValidType); 
-       else if (Validator::IsDate($worker_start_service,'Y-m-d')){
-            $fWorkerStartService = new \DateTime($worker_start_service);
-            $LabWorker->setWorkerStartService($fWorkerStartService);
-            }
-        else
-            throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceType." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceType);    
+    if (Validator::Missing('worker_start_service', $params))
+        throw new Exception(ExceptionMessages::MissingLabWorkerStartServiceParam." : ".$worker_start_service, ExceptionCodes::MissingLabWorkerStartServiceParam);
+    else if (Validator::IsNull($worker_start_service))
+         throw new Exception(ExceptionMessages::MissingLabWorkerStartServiceValue." : ".$worker_start_service, ExceptionCodes::MissingLabWorkerStartServiceValue);
+    else if (Validator::IsArray($worker_start_service))
+         throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceArray." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceArray);    
+    else if (! Validator::IsValidDate($worker_start_service) )
+         throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceValidType." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceValidType); 
+    else if (Validator::IsDate($worker_start_service,'Y-m-d'))
+         $LabWorker->setWorkerStartService(new \DateTime($worker_start_service));
+    else
+         throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceType." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceType);    
  
 //$worker_email=================================================================
     CRUDUtils::entitySetParam($LabWorker, $worker_email, ExceptionCodes::InvalidLabWorkerEmailType, 'workerEmail');
@@ -111,16 +109,16 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
                    $date[] = $findAllDate->getWorkerStartService()->format('Y-m-d'); 
                 }
            }
-                   
-        //validate that new date is greater than previous date==================
+               
         $max_date = max($date);   
         $result['max_date'] = $max_date;
+        
+        //validate that new date is greater than previous date==================
         $previous_date = strtotime($max_date);
-
         $new_date = strtotime(Validator::ToDate($worker_start_service, 'Y-m-d'));
         
         if (Validator::isLowerThan($new_date, $previous_date, true)) {   
-            throw new Exception(ExceptionMessages::NotAllowedLabWorkerStartService, ExceptionCodes::NotAllowedLabWorkerStartService);  
+            throw new Exception(ExceptionMessages::NotAllowedLabTransitionDate, ExceptionCodes::NotAllowedLabTransitionDate);  
         }
             
         //check for previous active lab worker  and set status->3===============
