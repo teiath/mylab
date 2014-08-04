@@ -10,17 +10,17 @@ function newLabAquisitionSourcesDS(labID, detailRow){
                 dataType: "json"
             },
             create: {
-                url: "api/lab_aquisition_sources?" + user_url,
+                url: "api/lab_aquisition_sources?user=" + user_url,
                 type: "POST",
                 dataType: "json"
             },
             update: {
-                url: "api/lab_aquisition_sources?" + user_url,
+                url: "api/lab_aquisition_sources?user=" + user_url,
                 type: "PUT",
                 dataType: "json"
             },
             destroy: {
-                url: "api/lab_aquisition_sources?" + user_url,
+                url: "api/lab_aquisition_sources?user=" + user_url,
                 type: "DELETE",
                 dataType: "json"
             }
