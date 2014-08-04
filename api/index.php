@@ -1342,6 +1342,7 @@ function LabRelationsController()
             break;
        case MethodTypes::DELETE :
             $result = DelLabRelations(
+                $params["lab_id"],
                 $params["lab_relation_id"]
             );      
             break;  

@@ -957,9 +957,17 @@ class ExceptionCodes
     const DuplicateRelationTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedLabRelationServerOnline} */   
     const UsedLabRelationServerOnline = 500;
+    
+    //extra
     /** {@see ExceptionMessages::ErrorInputCircuitIdParam} */       
     const ErrorInputCircuitIdParam = 500;
     
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabRelationValue} */  
+    const DuplicateDelLabRelationValue = 500;
+    /** {@see ExceptionMessages::NotFoundDelLabRelationValue} */  
+    const NotFoundDelLabRelationValue = 500;    
+        
     //########################################
     //Vocabularies Functions
     //######################################## 
