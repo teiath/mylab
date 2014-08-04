@@ -18,7 +18,7 @@ function newSchoolUnitsDS(school_units_state){
                                         },
                                         parameterMap: function(data, type) {
 
-                                            console.log("newSchoolUnitsDS parametermap data", data);
+                                            //console.log("newSchoolUnitsDS parametermap data", data);
                                             if (type === 'read') {
                                                 if (typeof data.filter !== 'undefined' && typeof data.filter.filters !== 'undefined') {
                                                     
@@ -53,10 +53,10 @@ function newSchoolUnitsDS(school_units_state){
                                         }
                                     },
                                     change: function(e){ 
-                                        console.log("newSchoolUnitsDS change event:", e);
+                                        //console.log("newSchoolUnitsDS change event:", e);
                                     },
                                     requestEnd: function(e){
-                                        console.log("newSchoolUnitsDS requestEnd event:", e);
+                                        //console.log("newSchoolUnitsDS requestEnd event:", e);
                                         
                                         $.each(e.response.data, function(index, value){
                                             e.response.data[index].text_field_template = e.response.data[index].school_unit_name + " | " + e.response.data[index].school_unit_id;

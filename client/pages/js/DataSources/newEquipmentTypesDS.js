@@ -22,10 +22,10 @@ function newEquipmentTypesDS(usedEquipment){
                                     },
                                     filter: { field: "used", operator: "neq", value: true },
                                     change: function(e){
-                                        console.log("newEquipmentTypesDS change event:", e);
+                                        //console.log("newEquipmentTypesDS change event:", e);
                                     },
                                     requestEnd: function(e){
-                                        console.log("newEquipmentTypesDS requestEnd event:", e);
+                                        //console.log("newEquipmentTypesDS requestEnd event:", e);
                                         
                                         // με βάση το usedEquipment διαμόρφωσε ανάλογα την τιμή used στα δεδομένα που επιστρέφονται
                                         $.each(e.response.data, function(index, value){

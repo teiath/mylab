@@ -10,17 +10,17 @@ function newLabAquisitionSourcesDS(labID, detailRow){
                 dataType: "json"
             },
             create: {
-                url: "api/lab_aquisition_sources",
+                url: "api/lab_aquisition_sources?" + user_url,
                 type: "POST",
                 dataType: "json"
             },
             update: {
-                url: "api/lab_aquisition_sources",
+                url: "api/lab_aquisition_sources?" + user_url,
                 type: "PUT",
                 dataType: "json"
             },
             destroy: {
-                url: "api/lab_aquisition_sources",
+                url: "api/lab_aquisition_sources?" + user_url,
                 type: "DELETE",
                 dataType: "json"
             }
@@ -44,7 +44,7 @@ function newLabAquisitionSourcesDS(labID, detailRow){
         //change: function(e){console.log("newLabEquipmentTypesDS CHANGE event", e);},
         requestEnd: function(e){
             /*εδώ θα μπουν και τα μηνύματα επιτυχίας/αποτυχίας */
-            console.log("newLabAquisitionSourcesDS REQUESTEND event", e);
+            //console.log("newLabAquisitionSourcesDS REQUESTEND event", e);
             
             if (e.type==="create" || e.type==="update" || e.type==="destroy"){
                 

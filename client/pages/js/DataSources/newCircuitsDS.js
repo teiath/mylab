@@ -37,10 +37,10 @@ function newCircuitsDS(){
                             }
                         },
                         change: function(e){ 
-                            console.log("newCircuitsDS change event:", e);
+                            //console.log("newCircuitsDS change event:", e);
                         },
                         requestEnd: function(e){
-                            console.log("newCircuitsDS requestEnd event:", e);
+                            //console.log("newCircuitsDS requestEnd event:", e);
                         }
                     });
                     

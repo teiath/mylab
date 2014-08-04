@@ -14,11 +14,11 @@ var LabsViewVM = kendo.observable({
                 type: "POST",
                 dataType: "json"
             },
-            update: {
-                url: "api/labs",
-                type: "POST",
-                dataType: "json"
-            },
+//            update: {
+//                url: "api/labs",
+//                type: "POST",
+//                dataType: "json"
+//            },
             parameterMap: function(data, type) {
                 if (type === 'read') {
                     
@@ -118,7 +118,7 @@ var LabsViewVM = kendo.observable({
         serverSorting: true,
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
-            console.log("labs datasource requestEnd e:", e);
+            //console.log("labs datasource requestEnd e:", e);
             if (e.type=="read"){
                 if(typeof e.response.all_labs_by_type !== 'undefined'){
                     LabsViewVM.set("sepehy",  e.response.all_labs_by_type['ΣΕΠΕΗΥ']);
@@ -174,7 +174,7 @@ var LabsViewVM = kendo.observable({
              *  e.items Array                     The array of data items that were affected (or read).
              */
     
-            console.log("labs datasource change e:", e);
+            //console.log("labs datasource change e:", e);
             //console.log("einai to 1o lab new?:", e.items[0].isNew());
             //console.log("einai to 1o lab dirty?:", e.items[0].dirty);
         }
@@ -193,7 +193,7 @@ var LabsViewVM = kendo.observable({
     
     createLab:  function(e){
 
-        console.log("labsview create lab: ", e);       
+        //console.log("labsview create lab: ", e);       
         e.preventDefault(); //?
         
         if (e.model.isNew()) {
@@ -209,7 +209,6 @@ var LabsViewVM = kendo.observable({
             var tr = e.sender.element.closest("tr").prev();
             var grid = tr.closest("div#school_units_view").data("kendoGrid");
             var item = grid.dataItem(tr);
-            console.log("item: ", item);
             var school_unit = item.school_unit_name; //item.school_unit_id;
             
             $("#cl_school_unit").data("kendoComboBox").readonly(true);
@@ -224,7 +223,7 @@ var LabsViewVM = kendo.observable({
          
     },
     transitLab: function(e){
-        console.log("transitLab e:", e);
+        //console.log("transitLab e:", e);
         e.preventDefault();
         //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         //var toState = dataItem.state_id;
@@ -286,7 +285,6 @@ var LabsViewVM = kendo.observable({
                                       state: toState
                                     };
 
-                            console.log("e.delegateTarget: ", parent_grid);
                             transitAjaxRequest('POST', 'lab_transitions', parameters, transition_dialog, parent_grid);
                             
                         });
@@ -299,16 +297,8 @@ var LabsViewVM = kendo.observable({
         transition_dialog.center().open();
     },
     detailInit: function(e){
-        console.log("labs view detailInit", e);
+        //console.log("labs view detailInit", e);
         e.preventDefault();
-        // stin ousia pairnei ta data tou event. dld to e.data.lab_state_id. katalaves?
-        // ta antistoixa tou allou template pou de doulevei pou einai? edw. ma einai akrivws to idio.! gi auto einai koulo.
-        // 
-        // de katalavainw. pou orizeis poio template tha fortwsei kai kaneis bind ta data? koita.
-        // einai akrivws idia logiki. eimai mesa sto detailInit event kai arxikopoioudai ola ta tabs m ena grid
-        // ta dedomena pou epeksergazomai sto template to ekastote. einai dedoemna pou pairnw apo to event (e.data.blabla)
-        // 
-        // 
         //kendo.bind($("#lab_details_tabstrip"), LabsViewVM); //δεν καταλαβαίνω γιατι αλλά without this line, detail template EVENT bindings  will not work!!
         kendo.bind(e.detailRow, e.data); //SOS: without this line, detail template bindings will not work!!
         
@@ -417,7 +407,7 @@ var LabsViewVM = kendo.observable({
                   title:"έτος",
                   editor: function (container, options){
                         //options.field =  aquisition_year
-                        console.log("options.field: ", options.field);
+                        //console.log("options.field: ", options.field);
                         $('<input name="' + options.field + '" data-bind="value:' + options.field + '" required data-required-msg="Ξέχασες το έτος χρηματοδότησης!"/>')
                         .appendTo(container)
                         .kendoComboBox({                    
@@ -478,7 +468,7 @@ var LabsViewVM = kendo.observable({
                             //dataTextField: "fullname",
                             //minLength: 1,
                             change: function(e){
-                                console.log("worker_id column editor on change e:", e);
+                                //console.log("worker_id column editor on change e:", e);
                                 //var dataItem =  lab_workers_details.dataSource.at(0);
                                 //dataItem.specialization_code = "pe70";
                                 //dataItem.registry_no = "123146";
@@ -624,7 +614,7 @@ var LabsViewVM = kendo.observable({
                 //}
             },
             dataBound: function(e){
-                console.log("lab workers databound: ", e);
+                //console.log("lab workers databound: ", e);
                 $.each(e.sender.dataSource.data(), function(index, value){
                     var tr= e.sender.tbody.find("tr:eq(" + index + ")");
                     var dataitem= e.sender.dataItem(tr);
@@ -666,7 +656,7 @@ var LabsViewVM = kendo.observable({
                             }
                         });
                         
-                        console.log("options.field", options.field);
+                        //console.log("options.field", options.field);
                         $('<input id="relation_type_parent" name="' + options.field + '" data-bind="value:' + options.field + '" data-value-field="name" required data-required-msg="Ξέχασες τον τύπο συσχέτισης!" />')
                         .appendTo(container)
                         .kendoDropDownList({
@@ -740,7 +730,7 @@ var LabsViewVM = kendo.observable({
                   title: "αριθμός κυκλώματος",
                   editor: function (container, options){
               
-                        console.log("options.field", options.field); // =circuit_phone_number
+                        //console.log("options.field", options.field); // =circuit_phone_number
                         $('<input id="child" name="' + options.field + '" data-bind="value:' + options.field + '" data-value-field="circuit_id" required data-required-msg="Ξέχασες τον αρ. κυκλώματος!" />')
                         .appendTo(container)
                         .kendoDropDownList({
@@ -893,7 +883,7 @@ var LabsViewVM = kendo.observable({
                             data: JSON.stringify(parameters),
                             success: function(data){
 
-                                console.log("put rating response", data);
+                                //console.log("put rating response", data);
 
                                 var message;
                                 if (typeof data.message !== 'undefined'){
@@ -956,7 +946,7 @@ var LabsViewVM = kendo.observable({
          
     },
     dataBinding: function(e){
-        console.log("LabsViewVM: labs grid DATABINDING event: ", e);
+        //console.log("LabsViewVM: labs grid DATABINDING event: ", e);
         
         /* create "expandedRows" array as data attribute to labs view grid.
          * "expandedRows" will contain info for the currently expanded rows
@@ -984,12 +974,12 @@ var LabsViewVM = kendo.observable({
                 index++;
             });
         }else{
-            console.log("im inside dataBinding after i pressed refresh", LabsViewVM.get("refresh_btn"));
+            //console.log("im inside dataBinding after i pressed refresh", LabsViewVM.get("refresh_btn"));
         }
         
     },
     dataBound: function(e){
-        console.log("LabsViewVM: labs grid DATABOUND event: ", e);
+        //console.log("LabsViewVM: labs grid DATABOUND event: ", e);
           
         if(LabsViewVM.get("refresh_btn") === false){
             var grid = e.sender.element.data("kendoGrid");
@@ -1006,7 +996,7 @@ var LabsViewVM = kendo.observable({
             });
         }else{
             LabsViewVM.set("refresh_btn", false);
-            console.log("i set refresh_btn to false after refresh: ", LabsViewVM.get("refresh_btn"));
+            //console.log("i set refresh_btn to false after refresh: ", LabsViewVM.get("refresh_btn"));
         }
     
         //disable transit buttons according to lab state
@@ -1127,8 +1117,6 @@ var LabsViewVM = kendo.observable({
         } else {
             grid.hideColumn(+col);
         }
-        
-        console.log("grid: ", grid);
     },
     restoreDefaultColumns: function() {
         
@@ -1165,7 +1153,6 @@ var LabsViewVM = kendo.observable({
         }
         //grid.refresh();
         LabsViewVM.set("refresh_btn", true);
-        console.log("i pressed refresh_btn: ", LabsViewVM.get("refresh_btn"));
         grid.dataSource.read();
     },
     refreshTooltip: function(e){

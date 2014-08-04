@@ -10,17 +10,17 @@ function newLabEquipmentTypesDS(labID, detailRow){
                 dataType: "json"
             },
             create: {
-                url: "api/lab_equipment_types",
+                url: "api/lab_equipment_types?" + user_url,
                 type: "POST",
                 dataType: "json"
             },
             update: {
-                url: "api/lab_equipment_types",
+                url: "api/lab_equipment_types?" + user_url,
                 type: "PUT",
                 dataType: "json"
             },
             destroy: {
-                url: "api/lab_equipment_types",
+                url: "api/lab_equipment_types?" + user_url,
                 type: "DELETE",
                 dataType: "json"
             }
@@ -44,7 +44,7 @@ function newLabEquipmentTypesDS(labID, detailRow){
         //change: function(e){console.log("newLabEquipmentTypesDS CHANGE event", e);},
         requestEnd: function(e){
             /*εδώ θα μπουν και τα μηνύματα επιτυχίας/αποτυχίας */
-            console.log("newLabEquipmentTypesDS REQUESTEND event", e);
+            //console.log("newLabEquipmentTypesDS REQUESTEND event", e);
                         
             if (e.type==="create" || e.type==="update" || e.type==="destroy"){
                 

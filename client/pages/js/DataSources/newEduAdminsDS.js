@@ -41,7 +41,7 @@ function newEduAdminsDS(){
                                     },
                                     //filter: { field: "used", operator: "neq", value: true },
                                     //change: function(e){ console.log("newEduAdminsDS change event:", e);},
-                                    requestEnd: function(e){console.log("newEduAdminsDS requestEnd event:", e);}
+                                    //requestEnd: function(e){console.log("newEduAdminsDS requestEnd event:", e);}
                                 });
     return edu_admins_ds;
     

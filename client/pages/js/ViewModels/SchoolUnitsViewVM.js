@@ -86,7 +86,7 @@ var SchoolUnitsViewVM = kendo.observable({
         serverSorting: true,
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
-            console.log("school units datasource requestEnd e:", e);
+            //console.log("school units datasource requestEnd e:", e);
             if (e.type=="read" && authorized_user === "ΔΙΕΥΘΥΝΤΗΣ"){ //maxRole === "noAccess", authorized_user === "noAccess"
                 
                 SchoolUnitsViewVM.set("principal_school_unit_name", e.response.data[0].school_unit_name);
@@ -125,7 +125,7 @@ var SchoolUnitsViewVM = kendo.observable({
              *  e.items Array                     The array of data items that were affected (or read).
              */
     
-            console.log("school units datasource change e:", e);
+            //console.log("school units datasource change e:", e);
         }
     }),
     
@@ -173,7 +173,7 @@ var SchoolUnitsViewVM = kendo.observable({
         
     },
     detailInit: function(e){
-        console.log("SchoolUnitsViewVM detailInit: ", e);
+        //console.log("SchoolUnitsViewVM detailInit: ", e);
 
         //nested labsGrid 
         var labsGrid = e.detailRow.find("#school_unit_labs").kendoGrid({
@@ -227,18 +227,18 @@ var SchoolUnitsViewVM = kendo.observable({
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend'},
                                   {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn()}],
             edit: function(event){
-                console.log("SchoolUnitsViewVM: nested labs grid EDIT event: ", event);
+                //console.log("SchoolUnitsViewVM: nested labs grid EDIT event: ", event);
                 kendo.bind(event.container, LabsViewVM);
                 kendo.bind(event.container, event.model);
                 LabsViewVM.createLab(event);
             },
             dataBinding: function(event){
-                console.log("SchoolUnitsViewVM: nested labs grid DATABINDING event: ", event);
+                //console.log("SchoolUnitsViewVM: nested labs grid DATABINDING event: ", event);
                 
                 LabsViewVM.dataBinding(event);
             },
             dataBound: function(event){
-                console.log("SchoolUnitsViewVM: nested labs grid DATABOUND event: ", event);
+                //console.log("SchoolUnitsViewVM: nested labs grid DATABOUND event: ", event);
                 
                 kendo.bind($("#school_unit_labs").find(".k-grid-toolbar>.school_unit_labs_refresh_btn"), LabsViewVM);
                 kendo.bind($("#school_unit_labs").find(".k-grid-toolbar>.school_unit_labs_grid_columns_btn"), LabsViewVM);
@@ -277,7 +277,6 @@ var SchoolUnitsViewVM = kendo.observable({
         var template = kendo.template($("#school_units_column_selection_template").html());
         var toolbar = "";
         var grid = $("#school_units_view").data("kendoGrid");
-        console.log("grid: ", grid);
         $.each(grid.columns, function (idx, item) {
             toolbar += template({ idx: idx, item: item });
         });
@@ -292,8 +291,6 @@ var SchoolUnitsViewVM = kendo.observable({
         } else {
             grid.hideColumn(+col);
         }
-        
-        console.log("grid: ", grid);
     },
     restoreDefaultColumns: function() {
         
