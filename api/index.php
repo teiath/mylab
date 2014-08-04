@@ -1151,7 +1151,7 @@ function LabEquipmentTypesController()
        case MethodTypes::DELETE :
             $result = DelLabEquipmentTypes(
                 $params["lab_id"],
-                $params["equipment_type"]
+                $params["equipment_type_id"]
             );     
             break;  
     }
