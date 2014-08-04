@@ -103,7 +103,12 @@ class LabWorkers
     }
 
     public function setWorkerStartService(\DateTime $workerStartService) {
-        $this->workerStartService = $workerStartService;
+         $this->workerStartService = $workerStartService;
+//        if(is_string($workerStartService) && $workerStartService != '') {
+//            $this->workerStartService = \DateTime::createFromFormat('Y-m-d', $workerStartService);
+//        } else if($workerStartService instanceof \DateTime) {
+//            $this->workerStartService = $workerStartService;
+//        }
     }
 
     public function getLab() {

@@ -69,10 +69,19 @@ class LabAquisitionSources
         return $this->aquisitionYear;
     }
 
-    public function setAquisitionYear(\DateTime $aquisitionYear) {
+//    public function setAquisitionYear(\DateTime $aquisitionYear) {
+//        
+//        if(is_string($aquisitionYear) && $aquisitionYear != '') {
+//            $this->aquisitionYear = \DateTime::createFromFormat('Y-m-d H:i:s', $aquisitionYear);
+//        } else if($aquisitionYear instanceof \DateTime) {
+//           $this->aquisitionYear = $aquisitionYear;
+//        }
+//    }
+
+    public function setAquisitionYear($aquisitionYear) {
         $this->aquisitionYear = $aquisitionYear;
     }
-
+    
     public function getAquisitionComments() {
         return $this->aquisitionComments;
     }

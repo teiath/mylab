@@ -571,9 +571,6 @@ class ExceptionMessages
     const InvalidLabWorkerType = 'Ο Εργαζόμενος Εργαστηρίου πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
     const InvalidLabWorkerArray = 'Ο Εργαζόμενος Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const DuplicatedLabWorkerValue = 'Ο Εργαζόμενος Εργαστηρίου υπάρχει ήδη';
-    const UsedLabWorkerByLabs = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
-    
     const MissingLabWorkerStatusParam = 'H Κατάσταση του Εργαζομένου Εργαστηρίου είναι υποχρεωτικό πεδίο';
     const MissingLabWorkerStatusValue = 'H Κατάσταση του Εργαζομένου Εργαστηρίου πρέπει να έχει τιμή';
     const InvalidLabWorkerStatusType = 'H Κατάσταση του Εργαζομένου Εργαστηρίου πρέπει να είναι αριθμητική : 1 (Ενεργή) ή 3 (Ανενεργή)';
@@ -584,7 +581,14 @@ class ExceptionMessages
     const InvalidLabWorkerStartServiceType = 'Η Ημερομηνία Έναρξης  του Εργαζομένου Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
     const InvalidLabWorkerStartServiceArray = 'Η Ημερομηνία Έναρξης  του Εργαζομένου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const DuplicatedLabWorkerValue = 'Ο Εργαζόμενος Εργαστηρίου υπάρχει ήδη';
+    const UsedLabWorkerByLabs = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
+    const DuplicateWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
+    const NotAllowedLabWorkerStartService = 'Δεν είναι δυνατή η εισαγωγή ημερομηνίας προγενέστερη από την ημερομηνία εισαγωγής του προηγούμενου υπεύθυνου';
+    
+    //extra
     const InvalidLabWorkerEmailType = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
+    const InvalidLabWorkerStartServiceValidType = 'Η Ημερομηνία Έναρξης του Εργαζομένου Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
         
 //Labs
         
@@ -600,7 +604,7 @@ class ExceptionMessages
     const InvalidLabArray = 'Το Εργαστήριο δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedLabValue = 'Το Εργαστήριο υπάρχει ήδη';
-    const DuplicatedLabNameValue = 'Το Όνομα του Εργαστηρίου υπάρχει ήδη';
+    const DuplicateLabUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Lab';
      
     const MissingLabNameParam = 'Το Όνομα του Εργαστηρίου είναι υποχρεωτικό πεδίο';
     const MissingLabNameValue = 'Το Όνομα του Εργαστηρίου πρέπει να έχει τιμή';
@@ -629,15 +633,19 @@ class ExceptionMessages
     const InvalidLabEquipmentTypeValue = 'Ο Εξοπλισμός του Εργαστηρίου δεν βρέθηκε';
     const InvalidLabEquipmentTypeType = 'Ο Εξοπλισμός του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabEquipmentTypeArray = 'Ο Εξοπλισμός του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
-    
-    const DuplicatedLabEquipmentTypeValue = 'Ο Εξοπλισμός του Εργαστηρίου υπάρχει ήδη';
-    const UsedLabEquipmentTypeByLabs = 'Ο Κωδικός του Εξοπλισμού του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
      
     const MissingLabEquipmentTypeItemsParam = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου είναι υποχρεωτικό πεδίο';
     const MissingLabEquipmentTypeItemsValue = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να έχει τιμή';
-    const InvalidLabEquipmentTypeItemsType = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabEquipmentTypeItemsType = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να είναι αριθμητικο';
     const InvalidLabEquipmentTypeItemsArray = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
-
+    
+    const DuplicatedLabEquipmentTypeValue = 'Ο Εξοπλισμός του Εργαστηρίου υπάρχει ήδη';
+    const UsedLabEquipmentTypeByLabs = 'Ο Κωδικός του Εξοπλισμού του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
+    const DuplicateLabEquipmentTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabEquipmentType';
+    
+    //extra
+    const InvalidLabEquipmentTypeItemsValidType = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να είναι αριθμητική τιμή μεταξύ 1-10000';
+    
 //LabAquisitionSources
         
     const MissingLabAquisitionSourceIDParam = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
@@ -650,12 +658,23 @@ class ExceptionMessages
     const InvalidLabAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου δεν βρέθηκε';
     const InvalidLabAquisitionSourceType = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabAquisitionSourceArray = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+     
+    const MissingLabAquisitionSourceYearParam = 'Το Έτος Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabAquisitionSourceYearValue = 'Το Έτος Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabAquisitionSourceYearType = 'Το Έτος Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι αριθμητικό format="yyyy"';
+    const InvalidLabAquisitionSourceYearArray = 'Το Έτος Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+
+    const MissingLabAquisitionSourceCommentsParam = 'Τα Σχόλια για την Πηγή Χρηματοδότησης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabAquisitionSourceCommentsValue = 'Τα Σχόλια για την Πηγή Χρηματοδότησης του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabAquisitionSourceCommentsType = 'Τα Σχόλια για την Πηγή Χρηματοδότησης του Εργαστηρίου πρέπει να είναι αλφαριθμητικά';
+    const InvalidLabAquisitionSourceCommentsArray = 'Τα Σχόλια για την Πηγή Χρηματοδότησης του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
     
     const DuplicatedLabAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης του Εργαστηρίου του Εργαστηρίου υπάρχει ήδη';
     const UsedLabAquisitionSourceByLabs = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
-     
-    const InvalidLabAquisitionSourceYearType = 'Το Έτος Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι της μορφής (yyyy)';
-    const InvalidLabAquisitionSourceCommentsType = 'Τα Σχόλια για την Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι αλφαριθμητικά';
+    const DuplicateLabAquisitionSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabAquisitionSource';
+    
+    //extra
+    const InvalidLabAquisitionSourceYearValidType = 'Το Έτος Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι μεταξύ των τιμών "1975 - τρέχων έτος" .';
     
 //LabTransitions
         
@@ -946,6 +965,8 @@ class ExceptionMessages
     const DuplicatedWorkerPositionValue = 'Η Θέση Εργασίας υπάρχει ήδη';
     const UsedWorkerPositionBySchoolUnitWorkers = 'Ο Κωδικός της Θέσης Εργασίας χρησιμοποιείται από Εργαζόμενους Σχολικών Μοναδων';
     const UsedWorkerPositionByLabWorkers = 'Ο Κωδικός της Θέσης Εργασίας χρησιμοποιείται από Εργαζόμενους Εργαστηρίων';
+    const DuplicateWorkerPositionUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key WorkerPosition';
+
     
     //= WorkerSpecializations
     const MissingWorkerSpecializationIDParam = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου είναι υποχρεωτικό πεδίο';
@@ -1072,6 +1093,7 @@ class ExceptionMessages
     
     const DuplicatedAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης υπάρχει ήδη';
     const UsedAquisitionSourceByLabAquisitionSources = 'Ο Κωδικός της Πηγής Χρηματοδότησης χρησιμοποιείται στην Πηγή Χρηματοδότησης Εργαστήριων';
+    const DuplicateAquisitionSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key AquisitionSource';
     
     //page,pagesize,orderby,ordertype,searchtype
     const MissingPageValue = 'Ο Αριθμός Σελίδας πρέπει να έχει τιμή';

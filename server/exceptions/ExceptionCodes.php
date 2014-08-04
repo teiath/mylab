@@ -647,11 +647,6 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabWorkerArray} */
     const InvalidLabWorkerArray = 500;
     
-    /** {@see ExceptionMessages::DuplicatedLabWorkerValue} */
-    const DuplicatedLabWorkerValue = 500;
-    /** {@see ExceptionMessages::UsedLabWorkerByLabs} */
-    const UsedLabWorkerByLabs = 500;
-    
     /** {@see ExceptionMessages::MissingLabWorkerStatusParam} */
     const MissingLabWorkerStatusParam = 500;
     /** {@see ExceptionMessages::MissingLabWorkerStatusValue} */
@@ -670,8 +665,20 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabWorkerStartServiceArray} */
     const InvalidLabWorkerStartServiceArray = 500;
     
+    /** {@see ExceptionMessages::DuplicatedLabWorkerValue} */
+    const DuplicatedLabWorkerValue = 500;
+    /** {@see ExceptionMessages::UsedLabWorkerByLabs} */
+    const UsedLabWorkerByLabs = 500;
+    /** {@see ExceptionMessages::DuplicateWorkerUniqueValue} */
+    const DuplicateWorkerUniqueValue = 500;
+    /** {@see ExceptionMessages::NotAllowedLabWorkerStartService} */
+    const NotAllowedLabWorkerStartService = 500;
+    
+    //extra
     /** {@see ExceptionMessages::InvalidLabWorkerEmailType} */
     const InvalidLabWorkerEmailType = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerStartServiceValidType} */    
+    const InvalidLabWorkerStartServiceValidType = 500;
    
 //Labs
         
@@ -697,8 +704,8 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedLabValue} */
     const DuplicatedLabValue = 500;
-    /** {@see ExceptionMessages::DuplicatedLabNameValue} */
-    const DuplicatedLabNameValue = 500;
+    /** {@see ExceptionMessages::DuplicateLabUniqueValue} */
+    const DuplicateLabUniqueValue = 500;
      
     /** {@see ExceptionMessages::MissingLabNameParam} */
     const MissingLabNameParam = 500;
@@ -750,11 +757,6 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabEquipmentTypeArray} */
     const InvalidLabEquipmentTypeArray = 500;
     
-    /** {@see ExceptionMessages::DuplicatedLabEquipmentTypeValue} */
-    const DuplicatedLabEquipmentTypeValue = 500;
-    /** {@see ExceptionMessages::UsedLabEquipmentTypeByLabs} */
-    const UsedLabEquipmentTypeByLabs = 500;
-    
     /** {@see ExceptionMessages::MissingLabEquipmentTypeItemsParam} */ 
     const MissingLabEquipmentTypeItemsParam = 500;
     /** {@see ExceptionMessages::MissingLabEquipmentTypeItemsValue} */
@@ -764,6 +766,17 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabEquipmentTypeItemsArray} */
     const InvalidLabEquipmentTypeItemsArray = 500;
    
+    /** {@see ExceptionMessages::DuplicatedLabEquipmentTypeValue} */
+    const DuplicatedLabEquipmentTypeValue = 500;
+    /** {@see ExceptionMessages::UsedLabEquipmentTypeByLabs} */
+    const UsedLabEquipmentTypeByLabs = 500;
+    /** {@see ExceptionMessages::DuplicateLabEquipmentTypeUniqueValue} */
+    const DuplicateLabEquipmentTypeUniqueValue = 500;
+    
+    //extra
+    /** {@see ExceptionMessages::InvalidLabEquipmentTypeItemsValidType} */
+    const InvalidLabEquipmentTypeItemsValidType = 500;
+    
 //LabAquisitionSources
         
     /** {@see ExceptionMessages::MissingLabAquisitionSourceIDParam} */
@@ -785,16 +798,36 @@ class ExceptionCodes
     const InvalidLabAquisitionSourceType = 500;
     /** {@see ExceptionMessages::InvalidLabAquisitionSourceArray} */
     const InvalidLabAquisitionSourceArray = 500;
-    
+  
+    /** {@see ExceptionMessages::MissingLabAquisitionSourceYearParam} */
+    const MissingLabAquisitionSourceYearParam = 500;
+    /** {@see ExceptionMessages::MissingLabAquisitionSourceYearValue} */
+    const MissingLabAquisitionSourceYearValue = 500;
+    /** {@see ExceptionMessages::InvalidLabAquisitionSourceYearType} */
+    const InvalidLabAquisitionSourceYearType = 500;
+    /** {@see ExceptionMessages::InvalidLabAquisitionSourceYearArray} */
+    const InvalidLabAquisitionSourceYearArray = 500;
+
+    /** {@see ExceptionMessages::MissingLabAquisitionSourceCommentsParam} */
+    const MissingLabAquisitionSourceCommentsParam = 500;
+    /** {@see ExceptionMessages::MissingLabAquisitionSourceCommentsValue} */
+    const MissingLabAquisitionSourceCommentsValue = 500;
+    /** {@see ExceptionMessages::InvalidLabAquisitionSourceCommentsType} */
+    const InvalidLabAquisitionSourceCommentsType = 500;
+    /** {@see ExceptionMessages::InvalidLabAquisitionSourceCommentsArray} */
+    const InvalidLabAquisitionSourceCommentsArray = 500; 
+     
     /** {@see ExceptionMessages::DuplicatedLabAquisitionSourceValue} */
     const DuplicatedLabAquisitionSourceValue = 500;
     /** {@see ExceptionMessages::UsedLabAquisitionSourceByLabs} */
     const UsedLabAquisitionSourceByLabs = 500;
-     
-    /** {@see ExceptionMessages::InvalidLabAquisitionSourceYearType} */
-    const InvalidLabAquisitionSourceYearType = 500;
-    /** {@see ExceptionMessages::InvalidLabAquisitionSourceCommentsType} */
-    const InvalidLabAquisitionSourceCommentsType = 500;
+    /** {@see ExceptionMessages::DuplicateLabAquisitionSourceUniqueValue} */
+    const DuplicateLabAquisitionSourceUniqueValue = 500;
+    
+    //extra
+    /** {@see ExceptionMessages::InvalidLabAquisitionSourceYearValidType} */
+    const InvalidLabAquisitionSourceYearValidType = 500;
+
     
 //LabTransitions
         
@@ -1312,6 +1345,8 @@ class ExceptionCodes
     const UsedWorkerPositionBySchoolUnitWorkers = 500;
     /** {@see ExceptionMessages::UsedWorkerPositionByLabWorkers} */  
     const UsedWorkerPositionByLabWorkers = 500;
+    /** {@see ExceptionMessages::DuplicateWorkerUniqueValue} */
+    const DuplicateWorkerPositionUniqueValue = 500;
     
 //= WorkerSpecializations
     
@@ -1539,6 +1574,8 @@ class ExceptionCodes
     const DuplicatedAquisitionSourceValue = 500;
     /** {@see ExceptionMessages::UsedAquisitionSourceSourceByLabAquisitionSources} */  
     const UsedAquisitionSourceByLabAquisitionSources = 500;
+    /** {@see ExceptionMessages::DuplicateAquisitionSourceUniqueValue} */  
+    const DuplicateAquisitionSourceUniqueValue = 500;
     
     //page,pagesize,orderby,ordertype,searchtype
     

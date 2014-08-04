@@ -34,10 +34,10 @@ class LabEquipmentTypes
     private $items;
     
     
-    public function __construct($labId, $labEquipmentTypeId)
+    public function __construct($lab, $labEquipmentType)
     {
-        $this->labId = $labId;
-        $this->labEquipmentTypeId = $labEquipmentTypeId;
+        $this->lab = $lab;
+        $this->labEquipmentType = $labEquipmentType;
     }
 
     
