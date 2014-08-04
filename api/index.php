@@ -155,25 +155,18 @@ function Authentication()
                     throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied); // Multiple users with this username?? Fail
                 }
             }
-       
-//            $tets=   $app->request->get('user') ;
-//            print_r( $tets) ; 
-             
-//            if ($app->request()->getMethod() == 'POST'){
-//                $tets=   $app->request->get('user') ;
-//                print_r( $tets) ;    
-//            }
-                     
+            
             // userObj has all the user attributes now - We can check roles
             if ($app->request->get('user') != null) {  
                 
-              //  if ($app->request()->getMethod() == 'POST'){
-//                    $tets =   $app->request->get('user') ;
-//                    $arraymap = array_map("convertCasTOLdap", $app->request->get('user')); 
-//                    print_r($arraymap) ;    
-              //  }
-                
-                $app->request->user = array_map("convertCasTOLdap", $app->request->get('user'));
+                if ($app->request()->getMethod() == 'POST' || $app->request()->getMethod() == 'PUT' || $app->request()->getMethod() == 'DELETE' ){
+                    $user = $app->request->get('user');
+                    $userdecode = json_decode(urldecode($user),TRUE);
+                    $app->request->user = array_map("convertCasTOLdap", $userdecode);
+                }else{                    
+                    $app->request->user = array_map("convertCasTOLdap", $app->request->get('user'));              
+                }
+                    
             } else if (($app->request->get('user') == null) && ($userObj['uid'][0] == $frontendOptions['frontendUsername'])){
                 throw new Exception(ExceptionMessages::UserAccesFrontDenied, ExceptionCodes::UserAccesFrontDenied); 
             }else { 
