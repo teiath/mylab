@@ -59,7 +59,7 @@
         console.log("key: ", key);
         if(value instanceof Array){ 
             console.log("stringified value: ", JSON.stringify(value)); 
-            user_url += (user_url === "") ? "user[" + key + "]=" + JSON.stringify(value) : "&user[" + key + "]=" + JSON.stringify(value);
+            user_url += (user_url === "") ? "user[" + key + "]=" + encodeURIComponent(JSON.stringify(value)) : "&user[" + key + "]=" + encodeURIComponent(JSON.stringify(value));
         }else{
             console.log("value: ", value);
             user_url += (user_url === "") ? "user[" + key + "]=" + value : "&user[" + key + "]=" + value;
