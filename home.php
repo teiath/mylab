@@ -45,7 +45,7 @@
                 $.ajaxSetup({
                     data: { user: user },
                     beforeSend: function(req) {
-//                    console.log("beforeSend: req = ", req);
+                        console.log("ajaxSetup req: ", req);
                         req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
                     }
                 });

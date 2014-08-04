@@ -1,5 +1,10 @@
 function newLabTransitionsDS(labID, detailRow){
-
+    
+    /*η newLabTransitionsDS χρησιμοποιείται μόνο για read, καθότι η post 
+     * πραγματοποιείται μέσα στην transitAjaxRequest. Οι update και destroy
+     * δεν χρησιμοποιούνται
+     * */
+    
     return {
         serverFiltering: true,
         transport: {
@@ -59,14 +64,7 @@ function newLabTransitionsDS(labID, detailRow){
             }
         },
         change: function(e){console.log("newLabRelationsDS CHANGE event", e);},
-        requestEnd: function(e){
-            /*εδώ θα μπουν και τα μηνύματα επιτυχίας/αποτυχίας */
-            console.log("newLabRelationsDS REQUESTEND event", e);
-            
-            if (e.type==="create" || e.type==="update" || e.type==="destroy"){
-                detailRow.find("#lab_relations_details").data("kendoGrid").dataSource.read();            
-            }
-        }
+        requestEnd: function(e){console.log("newLabRelationsDS REQUESTEND event", e);}
     };
     
 }

@@ -14,11 +14,11 @@ var LabsViewVM = kendo.observable({
                 type: "POST",
                 dataType: "json"
             },
-            update: {
-                url: "api/labs",
-                type: "POST",
-                dataType: "json"
-            },
+//            update: {
+//                url: "api/labs",
+//                type: "POST",
+//                dataType: "json"
+//            },
             parameterMap: function(data, type) {
                 if (type === 'read') {
                     
@@ -118,7 +118,7 @@ var LabsViewVM = kendo.observable({
         serverSorting: true,
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
-            console.log("labs datasource requestEnd e:", e);
+            //console.log("labs datasource requestEnd e:", e);
             if (e.type=="read"){
                 if(typeof e.response.all_labs_by_type !== 'undefined'){
                     LabsViewVM.set("sepehy",  e.response.all_labs_by_type['ΣΕΠΕΗΥ']);
@@ -174,7 +174,7 @@ var LabsViewVM = kendo.observable({
              *  e.items Array                     The array of data items that were affected (or read).
              */
     
-            console.log("labs datasource change e:", e);
+            //console.log("labs datasource change e:", e);
             //console.log("einai to 1o lab new?:", e.items[0].isNew());
             //console.log("einai to 1o lab dirty?:", e.items[0].dirty);
         }
@@ -299,16 +299,8 @@ var LabsViewVM = kendo.observable({
         transition_dialog.center().open();
     },
     detailInit: function(e){
-        console.log("labs view detailInit", e);
+        //console.log("labs view detailInit", e);
         e.preventDefault();
-        // stin ousia pairnei ta data tou event. dld to e.data.lab_state_id. katalaves?
-        // ta antistoixa tou allou template pou de doulevei pou einai? edw. ma einai akrivws to idio.! gi auto einai koulo.
-        // 
-        // de katalavainw. pou orizeis poio template tha fortwsei kai kaneis bind ta data? koita.
-        // einai akrivws idia logiki. eimai mesa sto detailInit event kai arxikopoioudai ola ta tabs m ena grid
-        // ta dedomena pou epeksergazomai sto template to ekastote. einai dedoemna pou pairnw apo to event (e.data.blabla)
-        // 
-        // 
         //kendo.bind($("#lab_details_tabstrip"), LabsViewVM); //δεν καταλαβαίνω γιατι αλλά without this line, detail template EVENT bindings  will not work!!
         kendo.bind(e.detailRow, e.data); //SOS: without this line, detail template bindings will not work!!
         
@@ -984,12 +976,12 @@ var LabsViewVM = kendo.observable({
                 index++;
             });
         }else{
-            console.log("im inside dataBinding after i pressed refresh", LabsViewVM.get("refresh_btn"));
+            //console.log("im inside dataBinding after i pressed refresh", LabsViewVM.get("refresh_btn"));
         }
         
     },
     dataBound: function(e){
-        console.log("LabsViewVM: labs grid DATABOUND event: ", e);
+        //console.log("LabsViewVM: labs grid DATABOUND event: ", e);
           
         if(LabsViewVM.get("refresh_btn") === false){
             var grid = e.sender.element.data("kendoGrid");
@@ -1006,7 +998,7 @@ var LabsViewVM = kendo.observable({
             });
         }else{
             LabsViewVM.set("refresh_btn", false);
-            console.log("i set refresh_btn to false after refresh: ", LabsViewVM.get("refresh_btn"));
+            //console.log("i set refresh_btn to false after refresh: ", LabsViewVM.get("refresh_btn"));
         }
     
         //disable transit buttons according to lab state

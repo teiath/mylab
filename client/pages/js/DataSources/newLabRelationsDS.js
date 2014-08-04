@@ -56,7 +56,7 @@ function newLabRelationsDS(labID, detailRow){
                     lab_id:{editable: false, defaultValue: labID},
                     lab_name:{editable: false},
                     school_unit_id: {},
-                    //school_unit: {},
+                    school_unit: {},
                     school_unit_name: {},
                     relation_type_id: {},
                     relation_type_name:{},

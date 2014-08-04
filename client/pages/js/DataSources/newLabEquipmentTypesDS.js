@@ -10,17 +10,17 @@ function newLabEquipmentTypesDS(labID, detailRow){
                 dataType: "json"
             },
             create: {
-                url: "api/lab_equipment_types",
+                url: "api/lab_equipment_types?" + user_url,
                 type: "POST",
                 dataType: "json"
             },
             update: {
-                url: "api/lab_equipment_types",
+                url: "api/lab_equipment_types?" + user_url,
                 type: "PUT",
                 dataType: "json"
             },
             destroy: {
-                url: "api/lab_equipment_types",
+                url: "api/lab_equipment_types?" + user_url,
                 type: "DELETE",
                 dataType: "json"
             }
