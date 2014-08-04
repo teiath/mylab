@@ -797,6 +797,12 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabEquipmentTypeItemsValidType} */
     const InvalidLabEquipmentTypeItemsValidType = 500;
     
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabEquipmentTypeValue} */
+    const DuplicateDelLabEquipmentTypeValue = 500;
+    /** {@see ExceptionMessages::NotFoundDelLabEquipmentTypeValue} */
+    const NotFoundDelLabEquipmentTypeValue = 500;
+    
 //LabAquisitionSources
         
     /** {@see ExceptionMessages::MissingLabAquisitionSourceIDParam} */

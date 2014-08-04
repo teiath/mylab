@@ -13,7 +13,7 @@ header("Content-Type: text/html; charset=utf-8");
  * @global type $db
  * @global type $app
  * @param type $lab_id
- * @param type $equipment_type
+ * @param type $equipment_type_id
  * @return string
  * @throws Exception
  */
@@ -30,6 +30,7 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
     $result["method"] = $app->request()->getMethod();
     $result["parameters"] = $app->request()->getBody();
     $params = loadParameters();
+    
     try
     {
       
@@ -65,17 +66,20 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
 
 //controls======================================================================  
 
-        //check duplicates======================================================        
-        $checkDuplicate = $entityManager->getRepository('LabEquipmentTypes')->findOneBy(array(  'lab'           => Validator::toID($fLabId),
-                                                                                                'equipmentType' => Validator::toID($fEquipmentType),
-                                                                                              ));
+        //check duplicates and unique row=======================================        
+        $check = $entityManager->getRepository('LabEquipmentTypes')->findBy(array( 'lab'            => Validator::toID($fLabId),
+                                                                                   'equipmentType'  => Validator::toID($fEquipmentType),
+                                                                                  ));
 
-        if (Validator::isNull($checkDuplicate)){
-            throw new Exception(ExceptionMessages::DuplicatedLabEquipmentTypeValue ,ExceptionCodes::DuplicatedLabEquipmentTypeValue);
-        } 
-       
-        //set entity for delete row
-        $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes',array("lab" => $fLabId, "equipmentType" => $fEquipmentType));
+        $countLabEquipmentTypes = count($check);
+        
+        if ($countLabEquipmentTypes == 1)
+            //set entity for delete row
+            $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes',array("lab" => $fLabId, "equipmentType" => $fEquipmentType));
+        else if ($countLabEquipmentTypes == 0)
+            throw new Exception(ExceptionMessages::NotFoundDelLabEquipmentTypeValue." : ".$fLabId." - ".$fEquipmentType,ExceptionCodes::NotFoundDelLabEquipmentTypeValue);
+        else 
+            throw new Exception(ExceptionMessages::DuplicateDelLabEquipmentTypeValue." : ".$fLabId." - ".$fEquipmentType,ExceptionCodes::DuplicateDelLabEquipmentTypeValue);
       
 //insert to db==================================================================
          

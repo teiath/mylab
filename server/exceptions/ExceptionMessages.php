@@ -657,6 +657,10 @@ class ExceptionMessages
     //extra
     const InvalidLabEquipmentTypeItemsValidType = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να είναι αριθμητική τιμή μεταξύ 1-10000';
     
+    //delete
+    const DuplicateDelLabEquipmentTypeValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο εργαστήριο και κωδικό εξοπλισμού.'; 
+    const NotFoundDelLabEquipmentTypeValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+    
 //LabAquisitionSources
         
     const MissingLabAquisitionSourceIDParam = 'Ο Κωδικός της Πηγής Χρηματοδότησης του Εργαστηρίου είναι υποχρεωτικό πεδίο';
