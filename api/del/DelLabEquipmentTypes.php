@@ -75,7 +75,9 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
         
         if ($countLabEquipmentTypes == 1)
             //set entity for delete row
-            $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes',array("lab" => $fLabId, "equipmentType" => $fEquipmentType));
+            $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes', array("lab"           =>  Validator::toID($fLabId), 
+                                                                                 "equipmentType" =>  Validator::toID($fEquipmentType))
+                                                                                );
         else if ($countLabEquipmentTypes == 0)
             throw new Exception(ExceptionMessages::NotFoundDelLabEquipmentTypeValue." : ".$fLabId." - ".$fEquipmentType,ExceptionCodes::NotFoundDelLabEquipmentTypeValue);
         else 
