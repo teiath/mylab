@@ -35,6 +35,7 @@ function newLabEquipmentTypesDS(labID, detailRow){
                     lab:{editable: false},
                     //ΠΡΟΣΕΧΩΣ equipment_category_id: {editable: false},
                     //ΠΡΟΣΕΧΩΣ equipment_category: { editable: false },
+                    equipment_type:{},
                     equipment_type_id: {editable: false},
                     equipment_type_name: { type: "string", validation: { required: true, validationMessage:"Ξέχασες τον εξοπλισμό!" } },
                     items:{ type: "number", validation: { required: true, validationMessage:"Ξέχασες το πλήθος!", min: 1, max: 1000} }
