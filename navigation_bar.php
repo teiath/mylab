@@ -54,17 +54,20 @@
     var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
     console.log("user: ", user);
     
-    var user_url="";
-    $.each(user, function(key, value){
-        console.log("key: ", key);
-        if(value instanceof Array){ 
-            console.log("stringified value: ", JSON.stringify(value)); 
-            user_url += (user_url === "") ? "user[" + key + "]=" + encodeURIComponent(JSON.stringify(value)) : "&user[" + key + "]=" + encodeURIComponent(JSON.stringify(value));
-        }else{
-            console.log("value: ", value);
-            user_url += (user_url === "") ? "user[" + key + "]=" + value : "&user[" + key + "]=" + value;
-        };        
-    });
+    
+    var user_url = encodeURIComponent(JSON.stringify(user));
+    
+//    var user_url="";
+//    $.each(user, function(key, value){
+//        console.log("key: ", key);
+//        if(value instanceof Array){ 
+//            console.log("stringified value: ", JSON.stringify(value)); 
+//            user_url += (user_url === "") ? "user[" + key + "]=" + encodeURIComponent(JSON.stringify(value)) : "&user[" + key + "]=" + encodeURIComponent(JSON.stringify(value));
+//        }else{
+//            console.log("value: ", value);
+//            user_url += (user_url === "") ? "user[" + key + "]=" + value : "&user[" + key + "]=" + value;
+//        };        
+//    });
     console.log("user_url: ", user_url);
     
     var value_ranks=[], authorized_user;
