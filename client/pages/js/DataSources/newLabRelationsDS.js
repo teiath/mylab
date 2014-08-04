@@ -9,17 +9,17 @@ function newLabRelationsDS(labID, detailRow){
                 dataType: "json"
             },
             create: {
-                url: "api/lab_relations",
+                url: "api/lab_relations?user=" + user_url,
                 type: "POST",
                 dataType: "json"
             },
             update: {
-                url: "api/lab_relations",
+                url: "api/lab_relations?user=" + user_url,
                 type: "PUT",
                 dataType: "json"
             },
             destroy: {
-                url: "api/lab_relations",
+                url: "api/lab_relations?user=" + user_url,
                 type: "DELETE",
                 dataType: "json"
             },

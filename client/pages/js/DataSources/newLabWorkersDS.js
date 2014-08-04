@@ -9,17 +9,17 @@ function newLabWorkersDS(labID, detailRow, status){
                 dataType: "json"
             },
             create: {
-                url: "api/lab_workers",
+                url: "api/lab_workers?user=" + user_url,
                 type: "POST",
                 dataType: "json"
             },
             update: {
-                url: "api/lab_workers",
+                url: "api/lab_workers?user=" + user_url,
                 type: "PUT",
                 dataType: "json"
             },
             destroy: {
-                url: "api/lab_workers",
+                url: "api/lab_workers?user=" + user_url,
                 type: "DELETE",
                 dataType: "json"
             },
