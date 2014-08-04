@@ -155,26 +155,24 @@ function Authentication()
                     throw new Exception(ExceptionMessages::UserAccesDenied, ExceptionCodes::UserAccesDenied); // Multiple users with this username?? Fail
                 }
             }
-////$tets=   $userObj;
-////         print_r( $tets) ;    
-////           die();          
-////            
+       
+//            $tets=   $app->request->get('user') ;
+//            print_r( $tets) ; 
+             
 //            if ($app->request()->getMethod() == 'POST'){
-////          $user = $app->request->getBody();
-//////            $user1= get_object_vars( json_decode($app->request->getBody(), false) );
-////          //    $user2= UrlParamstoArray($app->request->getBody());
-//////            $user3= json_decode( key($_REQUEST) );
-//
-//              $tets=   $app->request->get('user') ;
-////              $all = loadParameters();
-////             // print_r( $all) ;  die();
-////              $teds = $user;
-//            print_r( $tets) ;    
-//           die();
+//                $tets=   $app->request->get('user') ;
+//                print_r( $tets) ;    
 //            }
-            
+                     
             // userObj has all the user attributes now - We can check roles
-            if ($app->request->get('user') != null) {           
+            if ($app->request->get('user') != null) {  
+                
+              //  if ($app->request()->getMethod() == 'POST'){
+//                    $tets =   $app->request->get('user') ;
+//                    $arraymap = array_map("convertCasTOLdap", $app->request->get('user')); 
+//                    print_r($arraymap) ;    
+              //  }
+                
                 $app->request->user = array_map("convertCasTOLdap", $app->request->get('user'));
             } else if (($app->request->get('user') == null) && ($userObj['uid'][0] == $frontendOptions['frontendUsername'])){
                 throw new Exception(ExceptionMessages::UserAccesFrontDenied, ExceptionCodes::UserAccesFrontDenied); 
@@ -1038,18 +1036,12 @@ function LabsController()
                 $params["operational_rating"],
                 $params["technological_rating"],
                 $params["lab_type"],
-                $params["school_unit"],
+                $params["school_unit_id"],
                 $params["state"],
                 $params["lab_source"],
-                $params["lab_worker"],
-                $params["worker_start_service"],
                 $params["transition_date"], 
                 $params["transition_justification"], 
-                $params["transition_source"],
-                $params["relation_served_service"],
-                $params["relation_served_online"],
-                $params["aquisition_sources"],
-                $params["equipment_types"]
+                $params["transition_source"]
             );      
             break;
       case MethodTypes::PUT :
@@ -1340,7 +1332,7 @@ function LabRelationsController()
         case MethodTypes::POST :
             $result = PostLabRelations(
                 $params["lab_id"], 
-                $params["school_unit"],
+                $params["school_unit_id"],
                 $params["relation_type"], 
                 $params["circuit_id"]
             );      
@@ -1349,7 +1341,7 @@ function LabRelationsController()
             $result = PutLabRelations(
                 $params["lab_relation_id"],
                 $params["lab_id"], 
-                $params["school_unit"],
+                $params["school_unit_id"],
                 $params["relation_type"], 
                 $params["circuit_id"]
             );      

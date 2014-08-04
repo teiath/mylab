@@ -602,15 +602,28 @@ class ExceptionMessages
     const InvalidLabValue = 'Το Εργαστήριο δεν βρέθηκε';
     const InvalidLabType = 'Το Εργαστήριο πρέπει να είναι αλφαριθμητική';
     const InvalidLabArray = 'Το Εργαστήριο δεν μπορεί να έχει πολλαπλές τιμές';
-    
-    const DuplicatedLabValue = 'Το Εργαστήριο υπάρχει ήδη';
-    const DuplicateLabUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Lab';
      
     const MissingLabNameParam = 'Το Όνομα του Εργαστηρίου είναι υποχρεωτικό πεδίο';
     const MissingLabNameValue = 'Το Όνομα του Εργαστηρίου πρέπει να έχει τιμή';
     const InvalidLabNameType = 'Το Όνομα του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabNameArray = 'Το Όνομα του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+  
+    const MissingLabOperationalRatingParam = 'Η Λειτουργική Βαθμολόγηση του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabOperationalRatingValue = 'Η Λειτουργική Βαθμολόγηση του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabOperationalRatingType = 'Η Λειτουργική Βαθμολόγηση του Εργαστηρίου πρέπει να είναι αριθμητική';
+    const InvalidLabOperationalRatingArray = 'Η Λειτουργική Βαθμολόγηση του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingLabTechnologicalRatingParam = 'Η Τεχνολογική Βαθμολόγηση του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabTechnologicalRatingValue = 'Η Τεχνολογική Βαθμολόγηση του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabTechnologicalRatingType = 'Η Τεχνολογική Βαθμολόγηση του Εργαστηρίου πρέπει να είναι αριθμητική';
+    const InvalidLabTechnologicalRatingArray = 'Η Τεχνολογική Βαθμολόγηση του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedLabValue = 'Το Εργαστήριο υπάρχει ήδη';
+    const DuplicatedLabNameValue = 'Το Όνομα του Εργαστηρίου υπάρχει ήδη';
+    const DuplicateLabUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Lab';
+    const NotAllowedLabNameValue = 'Δεν επιτρέπεται η δημιουργία εργαστηρίου σε σχολικές μονάδες που είναι σε αναστολή ή καταργημένες';
+    
+    //extra
     const InvalidLabSpecialNameType = 'Το Ειδικό Όνομα του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabCreationDateType = 'Η Ημερομηνία Δημιουργίας του Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
     const InvalidLabCreatedByType = 'Το Ονοματεπώνυμο του Δημιουργού της Εγγραφής του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
@@ -618,8 +631,6 @@ class ExceptionMessages
     const InvalidLabUpdatedByType = 'Το Ονοματεπώνυμο του Τελευταίου που Ενημέρωσε την Εγγραφής του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabPositioningType = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
     const InvalidLabCommentsType = 'Τα Σχόλια για το Εργαστήριο πρέπει να αλφαριθμητικά ή αλφαριθμητικά';
-    const InvalidLabOperationalRatingType = 'Η Λειτουργική Βαθμολόγηση του Εργαστηρίου πρέπει να είναι αριθμητική';
-    const InvalidLabTechnologicalRatingType = 'Η Τεχνολογική Βαθμολόγηση του Εργαστηρίου πρέπει να είναι αριθμητική';
 
 //LabEquipmentTypes
         
@@ -913,6 +924,7 @@ class ExceptionMessages
     const DuplicatedStateValue = 'Η Κατάσταση υπάρχει ήδη';
     const UsedStateBySchoolUnits = 'Ο Κωδικός της Κατάστασης χρησιμοποιείται από Σχολικές Μονάδες';
     const UsedStateBySchoolUnitTYpes = 'Ο Κωδικός της Κατάστασης χρησιμοποιείται από Τύπους Σχολικών Μονάδων';
+    const DuplicateStateUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key State';    
     
     //= CircuitTypes
     const MissingCircuitTypeIDParam = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
@@ -1023,6 +1035,7 @@ class ExceptionMessages
     
     const DuplicatedLabTypeValue = 'Ο Τύπος Εργαστηρίου υπάρχει ήδη';
     const UsedLabTypeByLabs = 'Ο Κωδικός του Τύπου Εργαστηρίου χρησιμοποιείται από Εργαστήρια';
+    const DuplicateLabTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabType';
 
     //= LabSources
     const MissingLabSourceIDParam = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου είναι υποχρεωτικό πεδίο';
@@ -1043,6 +1056,7 @@ class ExceptionMessages
     
     const DuplicatedLabSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων Εργαστηρίου υπάρχει ήδη';
     const UsedLabSourceByLabs = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου χρησιμοποιείται από Εργαστήρια';
+    const DuplicateLabSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabSource';
     
     //= EquipmentCategories
     const MissingEquipmentCategoryIDParam = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού είναι υποχρεωτικό πεδίο';

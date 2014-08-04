@@ -100,7 +100,7 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
         else 
             $ToState = $state;
 
-//        //check if post the same active lab transition======================== 
+        //check if post the same active lab transition========================== 
         $checkDuplicate = $entityManager->getRepository('LabTransitions')->findOneBy(array( 'lab'               => Validator::toID($lab_id),
                                                                                             'fromState'         => Validator::toID($labStateId),
                                                                                             'toState'           => Validator::toID($ToState),
@@ -145,7 +145,7 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
  
 //update lab status to labs table===============================================
         $updateLabState = $entityManager->find('Labs',$lab_id);
-        CRUDUtils::entitySetAssociation($updateLabState, $state, 'States', 'State', 'State');
+        CRUDUtils::entitySetAssociation($updateLabState, $state, 'States', 'state', 'State');
         $entityManager->persist($updateLabState);
         $entityManager->flush($updateLabState);
         
