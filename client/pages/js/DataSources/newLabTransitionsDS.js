@@ -62,9 +62,9 @@ function newLabTransitionsDS(labID, detailRow){
                     transition_source: {}
                 }
             }
-        },
-        change: function(e){console.log("newLabRelationsDS CHANGE event", e);},
-        requestEnd: function(e){console.log("newLabRelationsDS REQUESTEND event", e);}
+        }//,
+        //change: function(e){console.log("newLabRelationsDS CHANGE event", e);},
+        //requestEnd: function(e){console.log("newLabRelationsDS REQUESTEND event", e);}
     };
     
 }

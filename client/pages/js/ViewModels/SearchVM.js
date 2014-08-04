@@ -44,7 +44,7 @@ var SearchVM = kendo.observable({
     resetForm: function(e) {
 
         e.preventDefault();
-        console.log("resetform e:", e);
+        //console.log("resetform e:", e);
         
         this.set("lab_id", "");
         this.set("lab_name", "");
@@ -83,7 +83,7 @@ var SearchVM = kendo.observable({
         
     },
     filterChanged: function(e){
-        console.log("filterChanged e :", e);
+        //console.log("filterChanged e :", e);
         var formData = $("#search-form").serializeArray();
         SchoolUnitsViewVM.school_units.filter(normalizeParams(formData));
         LabsViewVM.labs.filter(normalizeParams(formData));
@@ -121,11 +121,10 @@ var SearchVM = kendo.observable({
         //url.slice(0, - 1);
         url = url.substring(0, url.length-1);
         
-        console.log("url:", url);
+        //console.log("url:", url);
         window.location.href = url;
     },
     labIDInfoTooltip: function(e){
-        console.log("focused!");
         var tooltip = $("#sl_lab_id").kendoTooltip({
             autoHide: true,
             content:"για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα",
@@ -141,7 +140,6 @@ var SearchVM = kendo.observable({
         tooltip.show($("#sl_lab_id"));
     },
     schoolUnitIDInfoTooltip: function(e){
-        console.log("focused!");
         var tooltip = $("#sl_school_unit_id").kendoTooltip({
             autoHide: true,
             content:"για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα",

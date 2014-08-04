@@ -44,7 +44,7 @@ function newLabEquipmentTypesDS(labID, detailRow){
         //change: function(e){console.log("newLabEquipmentTypesDS CHANGE event", e);},
         requestEnd: function(e){
             /*εδώ θα μπουν και τα μηνύματα επιτυχίας/αποτυχίας */
-            console.log("newLabEquipmentTypesDS REQUESTEND event", e);
+            //console.log("newLabEquipmentTypesDS REQUESTEND event", e);
                         
             if (e.type==="create" || e.type==="update" || e.type==="destroy"){
                 

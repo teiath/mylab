@@ -122,7 +122,7 @@ function newLabsDS(school_unit_id, detailInitEvent){
         serverSorting: true,
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
-            console.log("newLabsDS - labs datasource requestEnd e:", e);
+            //console.log("newLabsDS - labs datasource requestEnd e:", e);
             if (e.type=="create" || e.type=="destroy"){
                 
                 var grid = detailInitEvent.detailRow.find("#school_unit_labs").data("kendoGrid");
@@ -167,7 +167,7 @@ function newLabsDS(school_unit_id, detailInitEvent){
              *  e.items Array                     The array of data items that were affected (or read).
              */
     
-            console.log("newLabsDS - labs datasource change e:", e);
+            //console.log("newLabsDS - labs datasource change e:", e);
             //console.log("einai to 1o lab new?:", e.items[0].isNew());
             //console.log("einai to 1o lab dirty?:", e.items[0].dirty);
         }

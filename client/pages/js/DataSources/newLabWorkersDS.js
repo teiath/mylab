@@ -71,7 +71,7 @@ function newLabWorkersDS(labID, detailRow, status){
         },
         sort: [{ field: "worker_status", dir: "asc" } , { field: "worker_start_service", dir: "desc" }],
         change: function(e){
-            console.log("newLabWorkersDS CHANGE event", e);
+            //console.log("newLabWorkersDS CHANGE event", e);
 //            if(e.field = "fullname" && e.action == "itemchange"){
 //                e.items[0].registry_no = 123456;
 //                e.items[0].specialization_code = 'ΠΕ40';
@@ -79,7 +79,7 @@ function newLabWorkersDS(labID, detailRow, status){
         },
         requestEnd: function(e){
             /*εδώ θα μπουν και τα μηνύματα επιτυχίας/αποτυχίας */
-            console.log("newLabWorkersDS REQUESTEND event", e);
+            //console.log("newLabWorkersDS REQUESTEND event", e);
             
             if (e.type==="create" || e.type==="update" || e.type==="destroy"){
                 

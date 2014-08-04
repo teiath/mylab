@@ -20,10 +20,10 @@ function newRelationTypesDS(isServedOnline){
                                     },
                                     filter: { field: "used", operator: "neq", value: true },
                                     change: function(e){
-                                        console.log("newRelationTypesDS change event:", e);
+                                        //console.log("newRelationTypesDS change event:", e);
                                     },
                                     requestEnd: function(e){
-                                        console.log("newRelationTypesDS requestEnd event:", e);
+                                        //console.log("newRelationTypesDS requestEnd event:", e);
                                         
                                         // με βάση το isServedOnline διαμόρφωσε ανάλογα την τιμή used στα δεδομένα που επιστρέφονται
                                         $.each(e.response.data, function(index, value){

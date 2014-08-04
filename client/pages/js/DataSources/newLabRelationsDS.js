@@ -65,10 +65,10 @@ function newLabRelationsDS(labID, detailRow){
                 }
             }
         },
-        change: function(e){console.log("newLabRelationsDS CHANGE event", e);},
+        //change: function(e){console.log("newLabRelationsDS CHANGE event", e);},
         requestEnd: function(e){
             /*εδώ θα μπουν και τα μηνύματα επιτυχίας/αποτυχίας */
-            console.log("newLabRelationsDS REQUESTEND event", e);
+            //console.log("newLabRelationsDS REQUESTEND event", e);
             
             if (e.type==="create" || e.type==="update" || e.type==="destroy"){
                 
