@@ -85,9 +85,6 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
          
         $entityManager->remove($LabEquipmentTypes);
         $entityManager->flush($LabEquipmentTypes);
-
-        $result["lab_id"] = $LabEquipmentTypes->getLab()->getLabId();
-        $result["equipment_type_id"] = $LabEquipmentTypes->getEquipmentType()->getEquipmentTypeId();
            
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;

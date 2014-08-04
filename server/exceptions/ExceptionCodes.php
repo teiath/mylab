@@ -854,6 +854,11 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabAquisitionSourceYearValidType} */
     const InvalidLabAquisitionSourceYearValidType = 500;
 
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabAquisitionSourceValue} */
+    const DuplicateDelLabAquisitionSourceValue = 500; 
+    /** {@see ExceptionMessages::NotFoundDelLabAquisitionSourceValue} */
+    const NotFoundDelLabAquisitionSourceValue = 500;
     
 //LabTransitions
         

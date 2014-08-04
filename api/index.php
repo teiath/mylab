@@ -1104,6 +1104,7 @@ function LabAquisitionSourcesController()
             break;
        case MethodTypes::DELETE :
             $result = DelLabAquisitionSources(
+                $params["lab_id"],
                 $params["lab_aquisition_source_id"]
             );      
             break;  

@@ -658,7 +658,7 @@ class ExceptionMessages
     const InvalidLabEquipmentTypeItemsValidType = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να είναι αριθμητική τιμή μεταξύ 1-10000';
     
     //delete
-    const DuplicateDelLabEquipmentTypeValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο εργαστήριο και κωδικό εξοπλισμού.'; 
+    const DuplicateDelLabEquipmentTypeValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εξοπλισμού.'; 
     const NotFoundDelLabEquipmentTypeValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
     
 //LabAquisitionSources
@@ -690,6 +690,10 @@ class ExceptionMessages
     
     //extra
     const InvalidLabAquisitionSourceYearValidType = 'Το Έτος Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι μεταξύ των τιμών "1975 - τρέχων έτος" .';
+   
+    //delete
+    const DuplicateDelLabAquisitionSourceValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+    const NotFoundDelLabAquisitionSourceValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
     
 //LabTransitions
         
