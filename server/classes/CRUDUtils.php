@@ -146,5 +146,43 @@ class CRUDUtils {
         }
     } 
     
+    
+    public static function checkIDParam($params, $param, $exceptionType ){
+
+        $missingParam = 'Missing'.$exceptionType.'Param';
+        $missingValue = 'Missing'.$exceptionType.'Value';
+        $invalidArray = 'Invalid'.$exceptionType.'Array';
+        $invalidType = 'Invalid'.$exceptionType.'Type';
+        
+        if (Validator::Missing('lab_id', $params))
+            throw new Exception(constant('ExceptionMessages::'.$missingParam)." : ".$param, constant('ExceptionCodes::'.$missingParam));       
+        else if (Validator::IsNull($param))
+        throw new Exception(constant('ExceptionMessages::'.$missingValue)." : ".$param, constant('ExceptionCodes::'.$missingValue));
+        else if (Validator::IsArray($param))
+            throw new Exception(constant('ExceptionMessages::'.$invalidArray)." : ".$param, constant('ExceptionCodes::'.$invalidArray));   
+        else if (Validator::IsID($param))
+            return Validator::ToID($param);
+        else
+          throw new Exception(constant('ExceptionMessages::'.$invalidType)." : ".$param, constant('ExceptionCodes::'.$invalidType));
+          
+    }  
+    
+    public static function findIDParam ($param, $repo, $exceptionType){        
+        
+        global $entityManager;
+             
+        $invalidValue = 'Invalid'.$exceptionType.'Value';
+        $duplicateValue = 'Duplicate'.$exceptionType.'UniqueValue';
+ 
+        $retrievedObject = $entityManager->find($repo, $param);
+                
+        if(!isset($retrievedObject))
+            throw new Exception(constant('ExceptionMessages::'.$invalidValue)." : ".$param, constant('ExceptionCodes::'.$invalidValue));
+        else if (count($retrievedObject) > 1)
+            throw new Exception(constant('ExceptionMessages::'.$duplicateValue)." : ".$param, constant('ExceptionCodes::'.$duplicateValue));           
+        else   
+            return $retrievedObject;
+    }
+    
 }
 ?>

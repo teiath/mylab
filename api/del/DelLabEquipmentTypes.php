@@ -35,28 +35,10 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
     {
       
 //$lab_id=======================================================================       
-        if (Validator::Missing('lab_id', $params))
-            throw new Exception(ExceptionMessages::MissingLabIDParam." : ".$lab_id, ExceptionCodes::MissingLabIDParam);          
-        else if (Validator::IsNull($lab_id))
-            throw new Exception(ExceptionMessages::MissingLabIDValue." : ".$lab_id, ExceptionCodes::MissingLabIDValue);                        
-        else if (Validator::IsArray($lab_id))
-            throw new Exception(ExceptionMessages::InvalidLabIDArray." : ".$lab_id, ExceptionCodes::InvalidLabIDArray);
-        else if (Validator::IsID($lab_id))
-            $fLabId = Validator::ToID($lab_id);
-        else
-            throw new Exception(ExceptionMessages::InvalidLabIDType." : ".$lab_id, ExceptionCodes::InvalidLabIDType);
+        $fLabID = CRUDUtils::checkIDParam($params, $lab_id, 'LabID');
 
-//$equipment_type_id=============================================================== 
-        if (Validator::Missing('equipment_type_id', $params))
-            throw new Exception(ExceptionMessages::MissingLabEquipmentTypeIDParam." : ".$equipment_type_id, ExceptionCodes::MissingLabEquipmentTypeIDParam);          
-        else if (Validator::IsNull($equipment_type_id))
-            throw new Exception(ExceptionMessages::MissingLabEquipmentTypeIDValue." : ".$equipment_type_id, ExceptionCodes::MissingLabEquipmentTypeIDValue);                        
-        else if (Validator::IsArray($equipment_type_id))
-            throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeIDArray." : ".$equipment_type_id, ExceptionCodes::InvalidLabEquipmentTypeIDArray);
-        else if (Validator::IsID($equipment_type_id))
-            $fEquipmentType = Validator::ToID($equipment_type_id);
-        else
-            throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeIDType." : ".$equipment_type_id, ExceptionCodes::InvalidLabEquipmentTypeIDType);
+//$equipment_type_id============================================================ 
+        $fEquipmentTypeID = CRUDUtils::checkIDParam($params, $equipment_type_id, 'LabEquipmentTypeID');
              
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
@@ -67,21 +49,21 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
 //controls======================================================================  
 
         //check duplicates and unique row=======================================        
-        $check = $entityManager->getRepository('LabEquipmentTypes')->findBy(array( 'lab'            => Validator::toID($fLabId),
-                                                                                   'equipmentType'  => Validator::toID($fEquipmentType),
+        $check = $entityManager->getRepository('LabEquipmentTypes')->findBy(array( 'lab'            => Validator::toID($fLabID),
+                                                                                   'equipmentType'  => Validator::toID($fEquipmentTypeID),
                                                                                   ));
 
         $countLabEquipmentTypes = count($check);
         
         if ($countLabEquipmentTypes == 1)
             //set entity for delete row
-            $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes', array("lab"           =>  Validator::toID($fLabId), 
-                                                                                 "equipmentType" =>  Validator::toID($fEquipmentType))
+            $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes', array("lab"           =>  Validator::toID($fLabID), 
+                                                                                 "equipmentType" =>  Validator::toID($fEquipmentTypeID))
                                                                                 );
         else if ($countLabEquipmentTypes == 0)
-            throw new Exception(ExceptionMessages::NotFoundDelLabEquipmentTypeValue." : ".$fLabId." - ".$fEquipmentType,ExceptionCodes::NotFoundDelLabEquipmentTypeValue);
+            throw new Exception(ExceptionMessages::NotFoundDelLabEquipmentTypeValue." : ".$fLabID." - ".$fEquipmentTypeID,ExceptionCodes::NotFoundDelLabEquipmentTypeValue);
         else 
-            throw new Exception(ExceptionMessages::DuplicateDelLabEquipmentTypeValue." : ".$fLabId." - ".$fEquipmentType,ExceptionCodes::DuplicateDelLabEquipmentTypeValue);
+            throw new Exception(ExceptionMessages::DuplicateDelLabEquipmentTypeValue." : ".$fLabID." - ".$fEquipmentTypeID,ExceptionCodes::DuplicateDelLabEquipmentTypeValue);
       
 //insert to db==================================================================
          
