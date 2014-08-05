@@ -19,6 +19,14 @@ $conOptions = array(
     "Password"=>""
 );
 
+// cas options
+$casOptions = array(
+    "Url" => "sso-test.sch.gr",
+    "Port" => 443,
+    "NoAuth" => true,
+    "LogoutURL"=>"http://mmsch.teiath.gr/mylab",
+);
+
 //credecial and general web options
 $Options = array(
     "PageSize" => 50,
