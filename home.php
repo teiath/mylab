@@ -15,7 +15,7 @@ if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
     // handle backend logout requests from CAS server
     phpCAS::handleLogoutRequests(array($casOptions["Url"]));
     if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
-        phpCAS::logout();
+        phpCAS::logoutWithRedirectService($casOptions["LogoutURL"]);
         exit();
     } else {
         // force CAS authentication
