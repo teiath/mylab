@@ -35,10 +35,10 @@ function DelLabRelations($lab_id, $lab_relation_id) {
     {
       
 //$lab_id=======================================================================
-        $fLabID = CRUDUtils::checkIDParam($params, $lab_id, 'LabID');
+        $fLabID = CRUDUtils::checkIDParam('lab_id', $params, $lab_id, 'LabID');
 
 //$lab_relation_id==============================================================
-        $fLabRelationID = CRUDUtils::checkIDParam($params, $lab_relation_id, 'LabRelationID');
+        $fLabRelationID = CRUDUtils::checkIDParam('lab_relation_id', $params, $lab_relation_id, 'LabRelationID');
              
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);

@@ -33,10 +33,10 @@ function DelLabAquisitionSources($lab_id, $lab_aquisition_source_id) {
     try {
  
 //$lab_id=======================================================================             
-        $fLabID = CRUDUtils::checkIDParam($params, $lab_id, 'LabID');
+        $fLabID = CRUDUtils::checkIDParam('lab_id', $params, $lab_id, 'LabID');
         
 //$lab_aquisition_source_id=====================================================      
-        $fLabAquisitionSourceID = CRUDUtils::checkIDParam($params, $lab_aquisition_source_id, 'LabAquisitionSourceID');
+        $fLabAquisitionSourceID = CRUDUtils::checkIDParam('lab_aquisition_source_id', $params, $lab_aquisition_source_id, 'LabAquisitionSourceID');
         
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);

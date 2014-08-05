@@ -35,10 +35,10 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
     {
       
 //$lab_id=======================================================================       
-        $fLabID = CRUDUtils::checkIDParam($params, $lab_id, 'LabID');
+        $fLabID = CRUDUtils::checkIDParam('lab_id', $params, $lab_id, 'LabID');
 
 //$equipment_type_id============================================================ 
-        $fEquipmentTypeID = CRUDUtils::checkIDParam($params, $equipment_type_id, 'LabEquipmentTypeID');
+        $fEquipmentTypeID = CRUDUtils::checkIDParam('equipment_type_id', $params, $equipment_type_id, 'LabEquipmentTypeID');
              
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
