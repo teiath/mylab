@@ -45,18 +45,15 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
             CRUDUtils::entitySetAssociation($LabAquisitionSources, $lab_id, 'Labs', 'lab', 'Lab');
         } else if ( Validator::IsNull($LabAquisitionSources->getLab()) ){
             throw new Exception(ExceptionMessages::MissingLabValue." : ".$lab_id, ExceptionCodes::MissingLabValue);
-        } else {
-            $result["db_lab_id"]= $lab_id = $LabAquisitionSources->getLab()->getLabId();
-        }
+        } 
       
 //$aquisition_source============================================================       
         if ( Validator::IsExists('aquisition_source') ){
             CRUDUtils::entitySetAssociation($LabAquisitionSources, $aquisition_source, 'AquisitionSources', 'aquisitionSource', 'AquisitionSource');
         } else if ( Validator::IsNull($LabAquisitionSources->getAquisitionSource()) ){
             throw new Exception(ExceptionMessages::MissingAquisitionSourceValue." : ".$aquisition_source, ExceptionCodes::MissingAquisitionSourceValue);
-        } else {
-            $result["db_aquisition_source"]= $aquisition_source = $LabAquisitionSources->getAquisitionSource()->getAquisitionSourceId();
-        }
+        } 
+        
 //$aquisition_year===============================================================
         if (Validator::IsExists('aquisition_year')){
             
@@ -76,8 +73,6 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
                
         } else if ( Validator::IsNull($LabAquisitionSources->getAquisitionYear()) ){
             throw new Exception(ExceptionMessages::MissingLabAquisitionSourceYearValue." : ".$aquisition_source, ExceptionCodes::MissingLabAquisitionSourceYearValue);
-        } else {
-            $result["db_aquisition_year"]= $aquisition_year =$LabAquisitionSources->getAquisitionYear();
         } 
 
 //$aquisition_comments==========================================================
@@ -94,12 +89,12 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
 //         }; 
 //         
 //controls======================================================================  
-        
+
         //check duplicates======================================================           
-        $checkDuplicate = $entityManager->getRepository('LabAquisitionSources')->findOneBy(array(   'lab'               => $lab_id,
-                                                                                                    'aquisitionSource'  => $aquisition_source,
-                                                                                                    'aquisitionYear'    => $aquisition_year
-                                                                                                 ));
+        $checkDuplicate = $entityManager->getRepository('LabAquisitionSources')->findOneBy(array( 'lab'               => $LabAquisitionSources->getLab(),
+                                                                                                  'aquisitionSource'  => $LabAquisitionSources->getAquisitionSource(),
+                                                                                                  'aquisitionYear'    => $LabAquisitionSources->getAquisitionYear()
+                                                                                                ));
 
         if (!Validator::isNull($checkDuplicate)){
             throw new Exception(ExceptionMessages::DuplicatedLabAquisitionSourceValue ,ExceptionCodes::DuplicatedLabAquisitionSourceValue);
