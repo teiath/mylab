@@ -538,6 +538,7 @@ function SchoolUnitsController()
                 $params["education_level"], 
                 $params["school_unit_type"],
                 $params["state"],
+                $params["school_unit"],
                 $params["pagesize"],
                 $params["page"],
                 $params["searchtype"],

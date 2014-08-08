@@ -41,7 +41,8 @@ header("Content-Type: text/html; charset=utf-8");
  */
 
 function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $fax_number, $phone_number, $email, $street_address, $postal_code, $unit_dns,
-                         $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture, $education_level, $school_unit_type, $state, 
+                         $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture, $education_level, $school_unit_type, $state,
+                         $school_unit,
                          $pagesize, $page, $searchtype, $ordertype, $orderby ) {
    
     global $entityManager, $app;
@@ -56,7 +57,16 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
     $params = loadParameters();
     
     try {
-        
+
+//set user permissions==========================================================
+//    $permissions = UserRoles::getUserPermissions($app->request->user);
+//
+//    if (Validator::IsNull($permissions['permit_labs'])){
+//        throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     
+//    }else { 
+//        $permit_labs = $permissions['permit_labs'];
+//    }
+    
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params);     
@@ -97,7 +107,7 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
             if (!in_array($orderby, $columns))
                 throw new Exception(ExceptionMessages::InvalidOrderBy." : ".$orderby, ExceptionCodes::InvalidOrderBy);
         } 
- 
+    
 //$school_unit_id===============================================================
         if (Validator::Exists('school_unit_id', $params)){
             CRUDUtils::setFilter($qb, $school_unit_id, "su", "schoolUnitId", "schoolUnitId", "id", ExceptionMessages::InvalidSchoolUnitIDType, ExceptionCodes::InvalidSchoolUnitIDType);
@@ -188,6 +198,15 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
             CRUDUtils::setFilter($qb, $state, "s", "stateId", "name", "null,id,value", ExceptionMessages::InvalidStateType, ExceptionCodes::InvalidStateType);
         } 
 
+//balander parameter============================================================        
+if (Validator::Exists('school_unit', $params)){
+
+    if (Validator::IsID($school_unit))
+        CRUDUtils::setFilter($qb, $school_unit, "su", "schoolUnitId", "schoolUnitId", "startWith", ExceptionMessages::InvalidSchoolUnitIDType, ExceptionCodes::InvalidSchoolUnitIDType);
+    else
+        CRUDUtils::setSearchFilter($qb, $school_unit, "su", "name", $searchtype, ExceptionMessages::InvalidSchoolUnitNameType, ExceptionCodes::InvalidSchoolUnitNameType);    
+} 
+
  //execution====================================================================
         $qb->select('su');
         $qb->from('SchoolUnits', 'su');
@@ -201,6 +220,11 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
         $qb->leftjoin('su.state', 's');
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
 
+//        if ($permit_labs !== 'ALLRESULTS'){
+//            $qb->andWhere($qb->expr()->in('l.labId', ':ids'))
+//                ->setParameter('ids', $permit_labs);
+//        }
+        
 //pagination and results========================================================      
         $results = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
         $result["total"] = count($results);
