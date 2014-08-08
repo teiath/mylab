@@ -144,15 +144,15 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
             throw new Exception(ExceptionMessages::InvalidLabTransitionSourceType." : ".$transition_source, ExceptionCodes::InvalidLabTransitionSourceType);
 
 //user permisions===============================================================
-//         $permissions = UserRoles::getUserPermissions($app->request->user, TRUE);
-//               
-//         if (!is_array($permissions["permit_school_units"])) {  
-//            $permissions["permit_school_units"] = array($permissions["permit_school_units"]);                     
-//         };
-//        
-//         if (!in_array($Lab->getSchoolUnit()->getSchoolUnitId(), $permissions['permit_school_units'])) {
-//             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
-//         }; 
+         $permissions = UserRoles::getUserPermissions($app->request->user, TRUE);
+               
+         if (!is_array($permissions["permit_school_units"])) {  
+            $permissions["permit_school_units"] = array($permissions["permit_school_units"]);                     
+         };
+        
+         if (!in_array($Lab->getSchoolUnit()->getSchoolUnitId(), $permissions['permit_school_units'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+         }; 
          
 //controls======================================================================
         //$lab_name created auto with format : "lab_type_name.number_lab - school_unit_name"===
