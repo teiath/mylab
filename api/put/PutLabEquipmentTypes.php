@@ -28,7 +28,7 @@ function PutLabEquipmentTypes($lab_id, $equipment_type_id, $items) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
     
     try
@@ -41,45 +41,45 @@ function PutLabEquipmentTypes($lab_id, $equipment_type_id, $items) {
         $fEquipmentTypeID = CRUDUtils::checkIDParam('equipment_type_id', $params, $equipment_type_id, 'EquipmentTypeID');
   
 //init entity for update row====================================================         
-        $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes',array("lab" => $fLabID, "equipmentType" => $fEquipmentTypeID));
+        $LabEquipmentTypes = CRUDUtils::findIDParam(array("lab" => $fLabID, "equipmentType" => $fEquipmentTypeID), 'LabEquipmentTypes', 'LabEquipmentType');
 
 //$items========================================================================     
-    if (!Validator::isNull($LabEquipmentTypes)){  
-        
-        if (Validator::Missing('items', $params))
-            throw new Exception(ExceptionMessages::MissingLabEquipmentTypeItemsParam." : ".$items, ExceptionCodes::MissingLabEquipmentTypeItemsParam);          
-        else if (Validator::IsNull($items))
-            throw new Exception(ExceptionMessages::MissingLabEquipmentTypeItemsValue." : ".$items, ExceptionCodes::MissingLabEquipmentTypeItemsValue);
-        else if (Validator::IsArray($items))
-            throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeItemsArray." : ".$items, ExceptionCodes::InvalidLabEquipmentTypeItemsArray);
-        else if (Validator::ToNumeric($items) <=0 || Validator::ToNumeric($items) > 10000 ) 
-            throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeItemsValidType." : ".$items, ExceptionCodes::InvalidLabEquipmentTypeItemsValidType);
-        else if (Validator::IsNumeric($items))
-            $LabEquipmentTypes->setItems(Validator::ToNumeric($items));
-        else
-            throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeItemsType." : ".$items, ExceptionCodes::InvalidLabEquipmentTypeItemsType);
+        if (!Validator::isNull($LabEquipmentTypes)){  
 
-    }     
+            if (Validator::Missing('items', $params))
+                throw new Exception(ExceptionMessages::MissingLabEquipmentTypeItemsParam." : ".$items, ExceptionCodes::MissingLabEquipmentTypeItemsParam);          
+            else if (Validator::IsNull($items))
+                throw new Exception(ExceptionMessages::MissingLabEquipmentTypeItemsValue." : ".$items, ExceptionCodes::MissingLabEquipmentTypeItemsValue);
+            else if (Validator::IsArray($items))
+                throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeItemsArray." : ".$items, ExceptionCodes::InvalidLabEquipmentTypeItemsArray);
+            else if (Validator::ToNumeric($items) <=0 || Validator::ToNumeric($items) > 10000 ) 
+                throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeItemsValidType." : ".$items, ExceptionCodes::InvalidLabEquipmentTypeItemsValidType);
+            else if (Validator::IsNumeric($items))
+                $LabEquipmentTypes->setItems(Validator::ToNumeric($items));
+            else
+                throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeItemsType." : ".$items, ExceptionCodes::InvalidLabEquipmentTypeItemsType);
+
+        } else if ( Validator::IsNull($LabEquipmentTypes->getItems()) ){
+                throw new Exception(ExceptionMessages::MissingLabEquipmentTypeValue." : ".$items, ExceptionCodes::MissingLabEquipmentTypeValue);
+        }      
+
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
-         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
+         if (!in_array($LabEquipmentTypes->getLab()->getLabId(), $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          };  
 
 //controls======================================================================  
         
         //check duplicates and unique row=======================================        
-        $check = $entityManager->getRepository('LabEquipmentTypes')->findBy(array( 'lab'            => $fLabID,
-                                                                                   'equipmentType'  => $fEquipmentTypeID,
-                                                                                  ));
-
-        $countLabEquipmentTypes = count($check);    
-        if ($countLabEquipmentTypes == 0)
-            throw new Exception(ExceptionMessages::NotFoundDelLabEquipmentTypeValue." : ".$fLabID." - ".$fEquipmentTypeID,ExceptionCodes::NotFoundDelLabEquipmentTypeValue);
-        else if ($countLabEquipmentTypes > 1) 
-            throw new Exception(ExceptionMessages::DuplicateDelLabEquipmentTypeValue." : ".$fLabID." - ".$fEquipmentTypeID,ExceptionCodes::DuplicateDelLabEquipmentTypeValue);
-        else 
-            $result["update"] = true;
+        $checkDuplicate= $entityManager->getRepository('LabEquipmentTypes')->findOneBy(array( 'lab'             => $LabEquipmentTypes->getLab(),
+                                                                                               'equipmentType'  => $LabEquipmentTypes->getEquipmentType(),
+                                                                                               'items'          => $LabEquipmentTypes->getItems(),
+                                                                                            ));
+    
+        if (!Validator::isNull($checkDuplicate)){
+            throw new Exception(ExceptionMessages::DuplicatedLabEquipmentTypeValue ,ExceptionCodes::DuplicatedLabEquipmentTypeValue);
+        } 
         
  //insert to db==================================================================
         $entityManager->persist($LabEquipmentTypes);
@@ -87,7 +87,7 @@ function PutLabEquipmentTypes($lab_id, $equipment_type_id, $items) {
 
         $result["lab_id"] = $LabEquipmentTypes->getLab()->getLabId();
         $result["equipment_type_id"] = $LabEquipmentTypes->getEquipmentType()->getEquipmentTypeId();
-        $result["items"] = $LabEquipmentTypes->getItems();   
+  
         
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;

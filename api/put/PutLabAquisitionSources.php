@@ -30,14 +30,15 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
    
     try {
         
-//$lab_aquisition_source_id=====================================================  
-    
+//$lab_aquisition_source_id=====================================================    
         $fLabAquisitionSourceId = CRUDUtils::checkIDParam('lab_aquisition_source_id', $params, $lab_aquisition_source_id, 'LabAquisitionSourceID');
+       
+//init entity for update row====================================================
         $LabAquisitionSources = CRUDUtils::findIDParam($fLabAquisitionSourceId, 'LabAquisitionSources', 'LabAquisitionSource');
         
 //$lab_id=======================================================================
@@ -83,30 +84,31 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
         }
  
 //user permisions===============================================================
-//         $permissions = UserRoles::getUserPermissions($app->request->user);
-//         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
-//             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
-//         }; 
-//         
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($LabAquisitionSources->getLab()->getLabId(), $permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+         }; 
+         
 //controls======================================================================  
 
         //check duplicates======================================================           
         $checkDuplicate = $entityManager->getRepository('LabAquisitionSources')->findOneBy(array( 'lab'               => $LabAquisitionSources->getLab(),
                                                                                                   'aquisitionSource'  => $LabAquisitionSources->getAquisitionSource(),
-                                                                                                  'aquisitionYear'    => $LabAquisitionSources->getAquisitionYear()
+                                                                                                  'aquisitionYear'    => $LabAquisitionSources->getAquisitionYear(),
+                                                                                                  'aquisitionComments'    => $LabAquisitionSources->getAquisitionComments()
                                                                                                 ));
 
         if (!Validator::isNull($checkDuplicate)){
             throw new Exception(ExceptionMessages::DuplicatedLabAquisitionSourceValue ,ExceptionCodes::DuplicatedLabAquisitionSourceValue);
         }    
-        
+    
 //update to db==================================================================
          
            $entityManager->persist($LabAquisitionSources);
            $entityManager->flush($LabAquisitionSources);
        
            $result["lab_aquisition_source_id"] = $LabAquisitionSources->getLabAquisitionSourceId();
-            
+
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;

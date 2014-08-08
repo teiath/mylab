@@ -1044,12 +1044,7 @@ function LabsController()
                 $params["positioning"],
                 $params["comments"],
                 $params["operational_rating"],
-                $params["technological_rating"],
-                $params["state"],
-                $params["lab_source"],
-                $params["transition_date"], 
-                $params["transition_justification"], 
-                $params["transition_source"]
+                $params["technological_rating"]
             );      
             break;
        case MethodTypes::DELETE :
@@ -1145,7 +1140,7 @@ function LabEquipmentTypesController()
       case MethodTypes::PUT :
             $result = PutLabEquipmentTypes(
                 $params["lab_id"],
-                $params["equipment_type"],
+                $params["equipment_type_id"],
                 $params["items"]
             );      
             break;
