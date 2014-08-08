@@ -27,7 +27,7 @@ function DelLabAquisitionSources($lab_id, $lab_aquisition_source_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
     
     try {
@@ -37,30 +37,29 @@ function DelLabAquisitionSources($lab_id, $lab_aquisition_source_id) {
         
 //$lab_aquisition_source_id=====================================================      
         $fLabAquisitionSourceID = CRUDUtils::checkIDParam('lab_aquisition_source_id', $params, $lab_aquisition_source_id, 'LabAquisitionSourceID');
-        
+
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
-         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
+         if (!in_array($fLabID, $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          }; 
         
 //controls======================================================================  
 
         //check duplicates and unique row=======================================        
-        $check = $entityManager->getRepository('LabAquisitionSources')->findBy(array( 'lab'                    => Validator::toID($fLabID),
-                                                                                      'labAquisitionSourceId'  => Validator::toID($fLabAquisitionSourceID)
+        $check = $entityManager->getRepository('LabAquisitionSources')->findBy(array( 'lab'                    => $fLabID,
+                                                                                      'labAquisitionSourceId'  => $fLabAquisitionSourceID
                                                                                     ));
 
-        $countLabAquisitionSources = count($check);     
+        $countLabAquisitionSources = count($check); 
+        
         if ($countLabAquisitionSources == 1)
-        //set entity for delete row
-        $LabAquisitionSources= $entityManager->find('LabAquisitionSources', array( "lab" => Validator::toID($fLabID), 
-                                                                                   "labAquisitionSourceId" => Validator::toID($fLabAquisitionSourceID)
-                                                                                  ));
+            //set entity for delete row
+            $LabAquisitionSources= $entityManager->find('LabAquisitionSources', $fLabAquisitionSourceID);
         else if ($countLabAquisitionSources == 0)
-            throw new Exception(ExceptionMessages::NotFoundDelLabEquipmentTypeValue." : ".$fLabID." - ".$fLabAquisitionSourceID,ExceptionCodes::NotFoundDelLabEquipmentTypeValue);
+            throw new Exception(ExceptionMessages::NotFoundDelLabAquisitionSourceValue." : ".$fLabID." - ".$fLabAquisitionSourceID,ExceptionCodes::NotFoundDelLabAquisitionSourceValue);
         else 
-            throw new Exception(ExceptionMessages::DuplicateDelLabEquipmentTypeValue." : ".$fLabID." - ".$fLabAquisitionSourceID,ExceptionCodes::DuplicateDelLabEquipmentTypeValue);
+            throw new Exception(ExceptionMessages::DuplicateDelLabAquisitionSourceValue." : ".$fLabID." - ".$fLabAquisitionSourceID,ExceptionCodes::DuplicateDelLabAquisitionSourceValue);
       
 //insert to db==================================================================
          

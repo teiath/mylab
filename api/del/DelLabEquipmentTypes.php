@@ -28,7 +28,7 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
     
     try
@@ -49,16 +49,16 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
 //controls======================================================================  
 
         //check duplicates and unique row=======================================        
-        $check = $entityManager->getRepository('LabEquipmentTypes')->findBy(array( 'lab'            => Validator::toID($fLabID),
-                                                                                   'equipmentType'  => Validator::toID($fEquipmentTypeID),
+        $check = $entityManager->getRepository('LabEquipmentTypes')->findBy(array( 'lab'            => $fLabID,
+                                                                                   'equipmentType'  => $fEquipmentTypeID,
                                                                                   ));
 
         $countLabEquipmentTypes = count($check);
         
         if ($countLabEquipmentTypes == 1)
             //set entity for delete row
-            $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes', array("lab"           =>  Validator::toID($fLabID), 
-                                                                                 "equipmentType" =>  Validator::toID($fEquipmentTypeID))
+            $LabEquipmentTypes = $entityManager->find('LabEquipmentTypes', array("lab"           =>  $fLabID, 
+                                                                                 "equipmentType" =>  $fEquipmentTypeID)
                                                                                 );
         else if ($countLabEquipmentTypes == 0)
             throw new Exception(ExceptionMessages::NotFoundDelLabEquipmentTypeValue." : ".$fLabID." - ".$fEquipmentTypeID,ExceptionCodes::NotFoundDelLabEquipmentTypeValue);

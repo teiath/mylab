@@ -28,7 +28,7 @@ function DelLabRelations($lab_id, $lab_relation_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
     
     try
@@ -42,24 +42,22 @@ function DelLabRelations($lab_id, $lab_relation_id) {
              
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
-         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
+         if (!in_array($fLabID, $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          };  
 
 //controls======================================================================  
 
         //check duplicates and unique row=======================================        
-        $check = $entityManager->getRepository('LabRelations')->findBy(array( 'lab'            => Validator::toID($fLabID),
-                                                                              'labRelationId'  => Validator::toID($fLabRelationID),
+        $check = $entityManager->getRepository('LabRelations')->findBy(array( 'lab'            => $fLabID,
+                                                                              'labRelationId'  => $fLabRelationID,
                                                                             ));
 
         $countLabRelations = count($check);
         
         if ($countLabRelations == 1)
             //set entity for delete row
-            $LabRelations = $entityManager->find('LabRelations',array( 'lab'            => Validator::toID($fLabID),
-                                                                       'labRelationId'  => Validator::toID($fLabRelationID),
-                                                                      ));
+            $LabRelations = $entityManager->find('LabRelations', $fLabRelationID);
         else if ($countLabRelations == 0)
             throw new Exception(ExceptionMessages::NotFoundDelLabRelationValue." : ".$fLabID." - ".$fLabRelationID,ExceptionCodes::NotFoundDelLabRelationValue);
         else 
