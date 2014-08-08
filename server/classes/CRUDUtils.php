@@ -195,7 +195,11 @@ class CRUDUtils {
         $duplicateValue = 'Duplicate'.$exceptionType.'UniqueValue';
  
         $retrievedObject = $entityManager->find($repo, $param);
-                
+
+        if (is_array($param)){
+            $param = 'lab_id = '.$param["lab"].' : equipment_type = '.$param["equipmentType"];                   
+        };
+        
         if(!isset($retrievedObject))
             throw new Exception(constant('ExceptionMessages::'.$invalidValue)." : ".$param, constant('ExceptionCodes::'.$invalidValue));
         else if (count($retrievedObject) > 1)
