@@ -79,6 +79,12 @@ class CRUDUtils {
                    $orx->add($qb->expr()->gte($table_name.".".$table_column_name, $db->quote(Validator::ToDate($values,'Y-m-d'))));
               elseif (in_array('lower', $validators, true) && Validator::IsDate($values,'Y-m-d'))  
                    $orx->add($qb->expr()->lte($table_name.".".$table_column_name, $db->quote(Validator::ToDate($values,'Y-m-d'))));
+              elseif (in_array('contain', $validators, true) && Validator::IsValue($values))  
+                   $orx->add($qb->expr()->like($table_name.".".$table_column_name, $db->quote('%'.Validator::toValue($values).'%')));
+              elseif (in_array('startWith', $validators, true) && Validator::IsValue($values))  
+                   $orx->add($qb->expr()->like($table_name.".".$table_column_name, $db->quote(Validator::toValue($values).'%')));
+              elseif (in_array('endWith', $validators, true) && Validator::IsValue($values))  
+                   $orx->add($qb->expr()->like($table_name.".".$table_column_name, $db->quote('%'.Validator::toValue($values))));
               else
                   throw new Exception($ex_message . " : " . $values, $ex_code);
          }
