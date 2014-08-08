@@ -30,7 +30,8 @@ header("Content-Type: text/html; charset=utf-8");
  */
 
 function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastname, $fathername, $sex,
-                     $worker_specialization, 
+                     $worker_specialization,
+                     $worker,
                      $pagesize, $page, $searchtype, $ordertype, $orderby ) {
   
     global $entityManager, $app;
@@ -76,44 +77,53 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
                       
 //$worker_id====================================================================
         if (Validator::Exists('worker_id', $params)){
-            Filters::setFilter($qb, $worker_id, "w", "workerId", "workerId", "id", ExceptionMessages::InvalidWorkerIDType, ExceptionCodes::InvalidWorkerIDType);
+            CRUDUtils::setFilter($qb, $worker_id, "w", "workerId", "workerId", "id", ExceptionMessages::InvalidWorkerIDType, ExceptionCodes::InvalidWorkerIDType);
         } 
 
 //$registry_number==============================================================
         if (Validator::Exists('registry_no', $params)){
-            Filters::setFilter($qb, $registry_no, "w", "registryNo", "registryNo", "numeric", ExceptionMessages::InvalidWorkerRegistryNoType, ExceptionCodes::InvalidWorkerRegistryNoType);    
+            CRUDUtils::setFilter($qb, $registry_no, "w", "registryNo", "registryNo", "numeric", ExceptionMessages::InvalidWorkerRegistryNoType, ExceptionCodes::InvalidWorkerRegistryNoType);    
         }
         
 //$tax_number===================================================================
         if (Validator::Exists('tax_number', $params)){
-            Filters::setFilter($qb, $tax_number, "w", "taxNumber", "taxNumber", "null,numeric", ExceptionMessages::InvalidWorkerTaxNumberType, ExceptionCodes::InvalidWorkerTaxNumberType);    
+            CRUDUtils::setFilter($qb, $tax_number, "w", "taxNumber", "taxNumber", "null,numeric", ExceptionMessages::InvalidWorkerTaxNumberType, ExceptionCodes::InvalidWorkerTaxNumberType);    
         } 
 
 //$firstname====================================================================
         if (Validator::Exists('firstname', $params)){
-            Filters::setSearchFilter($qb, $firstname, "w", "firstname", $searchtype, ExceptionMessages::InvalidWorkerFirstnameType, ExceptionCodes::InvalidWorkerFirstnameType);    
+            CRUDUtils::setSearchFilter($qb, $firstname, "w", "firstname", $searchtype, ExceptionMessages::InvalidWorkerFirstnameType, ExceptionCodes::InvalidWorkerFirstnameType);    
         } 
 
 //$lastname=====================================================================
         if (Validator::Exists('lastname', $params)){
-            Filters::setSearchFilter ($qb, $lastname, "w", "lastname", $searchtype, ExceptionMessages::InvalidWorkerLastnameType, ExceptionCodes::InvalidWorkerLastnameType);
+            CRUDUtils::setSearchFilter ($qb, $lastname, "w", "lastname", $searchtype, ExceptionMessages::InvalidWorkerLastnameType, ExceptionCodes::InvalidWorkerLastnameType);
         }  
 
 //$fathername===================================================================
         if (Validator::Exists('fathername', $params)){
-            Filters::setSearchFilter($qb, $fathername, "w", "fathername", $searchtype, ExceptionMessages::InvalidWorkerFatherNameType, ExceptionCodes::InvalidWorkerFatherNameType);    
+            CRUDUtils::setSearchFilter($qb, $fathername, "w", "fathername", $searchtype, ExceptionMessages::InvalidWorkerFatherNameType, ExceptionCodes::InvalidWorkerFatherNameType);    
         } 
 
 //$sex==========================================================================
         if (Validator::Exists('sex', $params)){
-            Filters::setFilter($qb, $sex, "w", "sex", "sex", "null,value", ExceptionMessages::InvalidWorkerSexType, ExceptionCodes::InvalidWorkerSexType);    
+            CRUDUtils::setFilter($qb, $sex, "w", "sex", "sex", "null,value", ExceptionMessages::InvalidWorkerSexType, ExceptionCodes::InvalidWorkerSexType);    
         } 
 
 //= $worker_specialization  ====================================================
-    if (Validator::Exists('worker_specialization', $params)){
-        Filters::setFilter($qb, $worker_specialization, "ws", "workerSpecializationId", "name", "null,id,value", ExceptionMessages::InvalidWorkerSpecializationType, ExceptionCodes::InvalidWorkerSpecializationType);    
-    }  
-             
+        if (Validator::Exists('worker_specialization', $params)){
+            CRUDUtils::setFilter($qb, $worker_specialization, "ws", "workerSpecializationId", "name", "null,id,value", ExceptionMessages::InvalidWorkerSpecializationType, ExceptionCodes::InvalidWorkerSpecializationType);    
+        }  
+ 
+//balander parameter============================================================        
+        if (Validator::Exists('worker', $params)){
+
+            if (Validator::IsID($worker))
+                CRUDUtils::setFilter($qb, $worker, "w", "registryNo", "registryNo", "startWith", ExceptionMessages::InvalidWorkerRegistryNoType, ExceptionCodes::InvalidWorkerRegistryNoType);    
+            else
+                CRUDUtils::setSearchFilter ($qb, $worker, "w", "lastname", $searchtype, ExceptionMessages::InvalidWorkerLastnameType, ExceptionCodes::InvalidWorkerLastnameType);
+        } 
+
 //execution=====================================================================
         $qb->select('w');
         $qb->from('Workers', 'w');

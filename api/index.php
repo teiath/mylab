@@ -1175,6 +1175,7 @@ function WorkersController()
                 $params["fathername"],   
                 $params["sex"],
                 $params["worker_specialization"],
+                $params["worker"],
                 $params["pagesize"],
                 $params["page"],
                 $params["searchtype"],
