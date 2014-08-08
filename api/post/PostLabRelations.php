@@ -8,7 +8,6 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
-
 /**
  * 
  * @global type $db
@@ -31,7 +30,7 @@ function PostLabRelations($lab_id, $school_unit_id, $relation_type, $circuit_id)
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
       
     try {
@@ -47,28 +46,19 @@ function PostLabRelations($lab_id, $school_unit_id, $relation_type, $circuit_id)
 
 //$circuit_id=================================================================== 
         
-        //check relation_type and set circuit if required=======================
-        if (!Validator::IsID($relation_type)){
-            $findRelationTypeId = $entityManager->getRepository('RelationTypes')->findOneBy(array ('name'=>$relation_type));
-            $fRelationTypeId = $findRelationTypeId->getRelationTypeId();
-        } else {
-            $fRelationTypeId = $relation_type;
-        }
-            
-            if ($fRelationTypeId == 1) {
+        //check relation_type and set circuit if required=======================    
+            if ($LabRelations->getRelationType()->getRelationTypeId() == 1) {
                 //check if lab has at least one relation served online========== 
-                $checkDuplicate = $entityManager->getRepository('LabRelations')->findOneBy(array(  'lab'          => Validator::toID($lab_id),
-                                                                                                   'relationType' => $fRelationTypeId
-                                                                                                 ));
+                $checkUnique = $entityManager->getRepository('LabRelations')->findOneBy(array(  'lab'          => $LabRelations->getLab(),
+                                                                                                'relationType' => $LabRelations->getRelationType()
+                                                                                              ));
 
-                if (!Validator::isNull($checkDuplicate)){
+                if (!Validator::isNull($checkUnique)){
                     throw new Exception(ExceptionMessages::UsedLabRelationServerOnline ,ExceptionCodes::UsedLabRelationServerOnline);
                 }   
                 
                 //find circuit_id and school_unit_id=============================
                 CRUDUtils::entitySetAssociation($LabRelations, $circuit_id, 'Circuits', 'circuit', 'Circuit');
-                //$findSchoolUnit= $entityManager->getRepository('Circuits')->find((Validator::ToID($circuit_id)));  
-                //$circuitSchoolUnit = $findSchoolUnit->getSchoolUnit()->getSchoolUnitId(); 
              
             } else {            
                 if (Validator::Exists('circuit_id', $params))
@@ -77,17 +67,17 @@ function PostLabRelations($lab_id, $school_unit_id, $relation_type, $circuit_id)
      
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
-         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
+         if (!in_array($LabRelations->getLab()->getLabId(), $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          }; 
        
 //controls======================================================================  
 
         //check duplicates======================================================        
-        $checkDuplicate = $entityManager->getRepository('LabRelations')->findOneBy(array( 'lab'            => Validator::toID($lab_id),
-                                                                                           'relationType'  => Validator::toID(2),
-                                                                                           'schoolUnit'    => Validator::toID($school_unit_id),
-                                                                                           'circuit'       => Validator::isNull($circuit_id)?Validator::ToNull($circuit_id):Validator::ToID($circuit_id)
+        $checkDuplicate = $entityManager->getRepository('LabRelations')->findOneBy(array( 'lab'            => $LabRelations->getLab(),
+                                                                                           'relationType'  => $LabRelations->getRelationType(),
+                                                                                           'schoolUnit'    => $LabRelations->getSchoolUnit(),
+                                                                                           'circuit'       => $LabRelations->getCircuit()
                                                                                           ));
 
         if (!Validator::isNull($checkDuplicate)){

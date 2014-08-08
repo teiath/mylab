@@ -8,7 +8,6 @@
  */
  
 header("Content-Type: text/html; charset=utf-8");
-
 /**
  * 
  * @global type $app
@@ -33,7 +32,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
     
     try
@@ -81,17 +80,17 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
     
 //user permisions=============================================================== 
      $permissions = UserRoles::getUserPermissions($app->request->user);
-     if (!in_array(Validator::ToID($lab_id),$permissions['permit_labs'])) {
+     if (!in_array($LabWorker->getLab()->getLabId(),$permissions['permit_labs'])) {
          throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
      };
  
 //controls======================================================================   
-  
+
         //check if post the same active lab worker==============================  
-        $checkDuplicate = $entityManager->getRepository('LabWorkers')->findOneBy(array( 'lab'               => Validator::toID($lab_id),
-                                                                                        'worker'            => Validator::toID($worker_id),
-                                                                                        'workerPosition'    => Validator::toID($worker_position),
-                                                                                        'workerStatus'      => Validator::ToWorkerState($worker_status),
+        $checkDuplicate = $entityManager->getRepository('LabWorkers')->findOneBy(array( 'lab'               => $LabWorker->getLab(),
+                                                                                        'worker'            => $LabWorker->getWorker(),
+                                                                                        'workerPosition'    => $LabWorker->getWorkerPosition(),
+                                                                                        'workerStatus'      => $LabWorker->getWorkerStatus()
                                                                                        ));
  
         if (!Validator::isNull($checkDuplicate)){
@@ -99,9 +98,8 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
         }
      
         //check for max date====================================================
-        $findAllDates = $entityManager->getRepository('LabWorkers')->findBy(array( 'lab'               => Validator::toID($lab_id),
-                                                                                    'workerPosition'    => Validator::toID($worker_position),
-                                                                                    'workerStatus'      => Validator::ToWorkerState(3),
+        $findAllDates = $entityManager->getRepository('LabWorkers')->findBy(array( 'lab'               => $LabWorker->getLab(),
+                                                                                   'workerPosition'    => $LabWorker->getWorkerPosition()
                                                                                   ));
            if (!Validator::isNull($findAllDates)){
                $date = array();
@@ -110,7 +108,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
                 }
            }
                
-        $max_date = max($date);   
+        $max_date = max($date);  
         $result['max_date'] = $max_date;
         
         //validate that new date is greater than previous date==================
@@ -122,9 +120,9 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
         }
             
         //check for previous active lab worker  and set status->3===============
-        $findActiveWorkers = $entityManager->getRepository('LabWorkers')->findBy(array( 'lab'               => Validator::toID($lab_id),
-                                                                                        'workerPosition'    => Validator::toID($worker_position),
-                                                                                        'workerStatus'      => Validator::ToWorkerState(1),
+        $findActiveWorkers = $entityManager->getRepository('LabWorkers')->findBy(array( 'lab'               => $LabWorker->getLab(),
+                                                                                        'workerPosition'    => $LabWorker->getWorkerPosition(),
+                                                                                        'workerStatus'      => Validator::ToWorkerState(1)
                                                                                        ));
         
             if (!Validator::isNull($findActiveWorkers)){

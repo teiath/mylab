@@ -8,7 +8,6 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
-
 /**
  * 
  * @global type $db
@@ -32,7 +31,7 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
 
       
@@ -43,7 +42,7 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
         CRUDUtils::entitySetAssociation($LabTransitions, $lab_id, 'Labs', 'lab', 'Lab');
         
 //$state========================================================================       
-        CRUDUtils::entitySetAssociation($LabTransitions, $state, 'States', 'toState', 'State');
+       CRUDUtils::entitySetAssociation($LabTransitions, $state, 'States', 'toState', 'State');
         
 //$transition_date==============================================================      
         if (Validator::Missing('transition_date', $params))
@@ -83,36 +82,36 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
 
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
-         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
+         if (!in_array($LabTransitions->getLab()->getLabId(),$permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          }; 
          
 //controls======================================================================  
 
         //find last state of lab from labs table================================ 
-        $checkLabState = $entityManager->getRepository('Labs')->find((Validator::ToID($lab_id)));  
-        $labStateId = $checkLabState->getState()->getStateId(); 
-
-        if ($labStateId == 3)
+        $checkLab = $entityManager->getRepository('Labs')->find((Validator::ToID($lab_id)));  
+        $fromLabState = $checkLab->getState()->getStateId();
+        
+       $toLabState = $LabTransitions->getToState()->getStateId();
+       
+        if ($fromLabState == 3)
             throw new Exception(ExceptionMessages::InvalidDiscontinuedStateValue, ExceptionCodes::InvalidDiscontinuedStateValue);
-        else if ($labStateId == $state )
+        else if ($fromLabState == $toLabState)
             throw new Exception(ExceptionMessages::InvalidSameStateValue, ExceptionCodes::InvalidSameStateValue);
-        else 
-            $ToState = $state;
-
+        
         //check if post the same active lab transition========================== 
-        $checkDuplicate = $entityManager->getRepository('LabTransitions')->findOneBy(array( 'lab'               => Validator::toID($lab_id),
-                                                                                            'fromState'         => Validator::toID($labStateId),
-                                                                                            'toState'           => Validator::toID($ToState),
-                                                                                            'transitionDate'    => new \DateTime(Validator::ToDate($transition_date,'Y-m-d'))
+        $checkDuplicate = $entityManager->getRepository('LabTransitions')->findOneBy(array( 'lab'               => $LabTransitions->getLab(),
+                                                                                            'fromState'         => $fromLabState,
+                                                                                            'toState'           => $toLabState,
+                                                                                            'transitionDate'    => $LabTransitions->getTransitionDate()
                                                                                            ));
- 
+        
         if (!Validator::isNull($checkDuplicate)){
             throw new Exception(ExceptionMessages::DuplicatedLabTransitionValue ,ExceptionCodes::DuplicatedLabTransitionValue);
         }
         
         //find max date of lab_transition=======================================
-        $findAllDates = $entityManager->getRepository('LabTransitions')->findBy(array('lab'=> Validator::toID($lab_id)));
+        $findAllDates = $entityManager->getRepository('LabTransitions')->findBy(array('lab'=> $LabTransitions->getLab()));
         
             if (!Validator::isNull($findAllDates)){
                 $date = $labTransitionId = array(); 
@@ -140,7 +139,7 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
         }       
              
         //check for previous active lab transition to transition table==========
-        if ($labStateId !== $checkLabTransitionState)
+        if ($fromLabState !== $checkLabTransitionState)
             throw new Exception(ExceptionMessages::SeriousProblemLabTransitionState, ExceptionCodes::SeriousProblemLabTransitionState);
  
 //update lab status to labs table===============================================

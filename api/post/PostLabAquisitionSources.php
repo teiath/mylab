@@ -8,7 +8,6 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
-
 /**
  * 
  * @global type $app
@@ -31,7 +30,7 @@ function PostLabAquisitionSources($lab_id, $aquisition_source, $aquisition_year,
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = $app->request()->getBody();
+    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
     
     try
@@ -62,16 +61,17 @@ function PostLabAquisitionSources($lab_id, $aquisition_source, $aquisition_year,
 
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
-         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
+         if (!in_array($LabAquisitionSources->getLab()->getLabId(), $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          }; 
  
 //controls======================================================================  
 
         //check duplicates======================================================        
-        $checkDuplicate = $entityManager->getRepository('LabAquisitionSources')->findOneBy(array(   'lab'               => Validator::toID($lab_id),
-                                                                                                    'aquisitionSource'  => Validator::toID($aquisition_source),
-                                                                                                    'aquisitionYear'    => Validator::toID($aquisition_year),
+        $checkDuplicate = $entityManager->getRepository('LabAquisitionSources')->findOneBy(array(   'lab'               => $LabAquisitionSources->getLab(),
+                                                                                                    'aquisitionSource'  => $LabAquisitionSources->getAquisitionSource(),
+                                                                                                    'aquisitionYear'    => $LabAquisitionSources->getAquisitionYear(),
+                                                                                                    'aquisitionComments'    => $LabAquisitionSources->getAquisitionComments()
                                                                                                 ));
 
         if (!Validator::isNull($checkDuplicate)){
