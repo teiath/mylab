@@ -122,4 +122,4 @@ function GetPrefectures( $prefecture_id, $name,
     
 }
 
-?>     
+?>
