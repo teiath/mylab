@@ -354,9 +354,8 @@ $result["method"] = $app->request()->getMethod();
         $sum_primary_education_troxilata = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "lab_type" => "2" ) );
         $sum_secondary_education_troxilata = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "lab_type" => "2") );
         
-        //TODO
-        $sum_primary_education_ellak_labs = NULL;
-        $sum_secondary_education_ellak_labs = NULL;
+        $sum_primary_education_ellak_labs = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "equipment_type" => "48" ) );;
+        $sum_secondary_education_ellak_labs = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "equipment_type" => "48" ) );;
         
         $sum_primary_education_excellent_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "operational_rating" => "4,5" ) );
         $sum_secondary_education_excellent_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "operational_rating" => "4,5") );
