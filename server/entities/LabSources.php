@@ -27,7 +27,14 @@ class LabSources
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
-
+ 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="infos", type="string", length=255, nullable=true)
+     */
+    private $infos;
+    
     //getter and setter
 
     public function getLabSourceId() {
@@ -45,6 +52,14 @@ class LabSources
     public function setName($name) {
         $this->name = $name;
     }
+    
+    public function getInfos() {
+        return $this->infos;
+    }
 
+    public function setInfos($infos) {
+        $this->infos = $infos;
+    }
 
+    
 }

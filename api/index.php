@@ -1396,8 +1396,13 @@ function LabSourcesController()
     {
         case MethodTypes::GET : 
             $result = GetLabSources(
-                $params["pagesize"], 
-                $params["page"]
+                $params["lab_source_id"], 
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
 //        case MethodTypes::POST :
