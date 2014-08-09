@@ -1524,6 +1524,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabSourceNameArray} */  
     const InvalidLabSourceNameArray = 500;
     
+    /** {@see ExceptionMessages::MissingLabSourceInfosParam} */  
+    const MissingLabSourceInfosParam = 500;
+    /** {@see ExceptionMessages::MissingLabSourceInfosValue} */  
+    const MissingLabSourceInfosValue = 500;
+    /** {@see ExceptionMessages::InvalidLabSourceInfosType} */  
+    const InvalidLabSourceInfosType = 500;
+    /** {@see ExceptionMessages::InvalidLabSourceInfosArray} */  
+    const InvalidLabSourceInfosArray = 500;
+    
     /** {@see ExceptionMessages::DuplicatedLabSourceValue} */  
     const DuplicatedLabSourceValue = 500;
     /** {@see ExceptionMessages::UsedLabSourceByLabs} */  

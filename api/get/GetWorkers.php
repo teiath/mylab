@@ -30,7 +30,7 @@ header("Content-Type: text/html; charset=utf-8");
  */
 
 function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastname, $fathername, $sex,
-                     $worker_specialization,
+                     $worker_specialization, $source,
                      $worker,
                      $pagesize, $page, $searchtype, $ordertype, $orderby ) {
   
@@ -64,6 +64,8 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
                             "w.sex" => "sex",
                             "ws.workerSpecializationId" => "worker_specialization_id",
                             "ws.name" => "worker_specialization_name",
+                            "ls.labSourceId" => "source",
+                            "ls.name" => "source_name"
                         );
        
        if ( Validator::Missing('orderby', $params) )
@@ -110,11 +112,16 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
             CRUDUtils::setFilter($qb, $sex, "w", "sex", "sex", "null,value", ExceptionMessages::InvalidWorkerSexType, ExceptionCodes::InvalidWorkerSexType);    
         } 
 
-//= $worker_specialization  ====================================================
+//$worker_specialization========================================================
         if (Validator::Exists('worker_specialization', $params)){
             CRUDUtils::setFilter($qb, $worker_specialization, "ws", "workerSpecializationId", "name", "null,id,value", ExceptionMessages::InvalidWorkerSpecializationType, ExceptionCodes::InvalidWorkerSpecializationType);    
         }  
- 
+        
+//$source=======================================================================
+        if (Validator::Exists('source', $params)){
+            CRUDUtils::setFilter($qb, $source, "ls", "labSourceId", "name", "null,id,value", ExceptionMessages::InvalidLabSourceType, ExceptionCodes::InvalidLabSourceType);    
+        } 
+        
 //balander parameter============================================================        
         if (Validator::Exists('worker', $params)){
 
@@ -127,7 +134,8 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
 //execution=====================================================================
         $qb->select('w');
         $qb->from('Workers', 'w');
-        $qb->leftjoin('w.workerSpecialization', 'ws');        
+        $qb->leftjoin('w.workerSpecialization', 'ws');
+        $qb->leftjoin('w.source', 'ls');
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
 
 //pagination and results========================================================     
@@ -151,6 +159,8 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
                                         "sex"              => $worker->getSex(),
                                         "worker_specialization"      => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getWorkerSpecializationId(),
                                         "worker_specialization_name" => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getName(),
+                                        "source"      => Validator::IsNull($worker->getSource()) ? Validator::ToNull() : $worker->getSource()->getLabSourceId(),
+                                        "source_name" => Validator::IsNull($worker->getSource()) ? Validator::ToNull() : $worker->getSource()->getName()
                                      );
             $count++;
         }

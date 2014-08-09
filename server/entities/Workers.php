@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Workers
  *
- * @ORM\Table(name="workers", indexes={@ORM\Index(name="specialization_code_idx", columns={"worker_specialization_id"})})
+ * @ORM\Table(name="workers", indexes={@ORM\Index(name="specialization_code_idx", columns={"worker_specialization_id"}, @ORM\Index(name="source_idx", columns={"source_id"}))})
  * @ORM\Entity
  */
 class Workers
@@ -72,7 +72,17 @@ class Workers
      * })
      */
     private $workerSpecialization;
-
+    
+    /**
+     * @var \LabSources
+     *
+     * @ORM\ManyToOne(targetEntity="LabSources")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="source_id", referencedColumnName="lab_source_id")
+     * })
+     */
+    private $source;
+    
     //getter and setter
     
     public function getWorkerId() {
@@ -137,6 +147,14 @@ class Workers
 
     public function setWorkerSpecialization(\WorkerSpecializations $workerSpecialization) {
         $this->workerSpecialization = $workerSpecialization;
+    }
+    
+    public function getSource() {
+        return $this->source;
+    }
+
+    public function setSource(\LabSources $source) {
+        $this->source = $source;
     }
 
 

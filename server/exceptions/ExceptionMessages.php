@@ -1069,6 +1069,11 @@ class ExceptionMessages
     const InvalidLabSourceNameType = 'Το Όνομα της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabSourceNameArray = 'Το Όνομα της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingLabSourceInfosParam = 'Οι Πληροφοριες της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabSourceInfosValue = 'Οι Πληροφοριες της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabSourceInfosType = 'Οι Πληροφοριες της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabSourceInfosArray = 'Οι Πληροφοριες της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
     const DuplicatedLabSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων Εργαστηρίου υπάρχει ήδη';
     const UsedLabSourceByLabs = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου χρησιμοποιείται από Εργαστήρια';
     const DuplicateLabSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabSource';
