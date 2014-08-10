@@ -124,6 +124,12 @@ private static $Permissions = array(
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
                                         ) ,
+    'mylab_workers'         => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ'),
+                                        'POST' => array('none'),
+                                        'PUT' => array('none'),
+                                        'DELETE' => array('none'),
+                                        ) ,
     'lab_types'             => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ'),
                                         'POST' => array('none'),

@@ -537,7 +537,6 @@ class ExceptionMessages
     const DuplicatedWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου υπάρχει ήδη';
     const DuplicatedWorkerTaxNumberValue = 'Το ΑΦΜ του Εργαζομένου υπάρχει ήδη';
     const UsedWorkerBySchoolUnitWorkers = 'Ο Κωδικός του Εργαζόμενου χρησιμοποιείται από Σχολικές Μονάδες';
-    const UsedWorkerBySchoolUnitLabs = 'Ο Κωδικός του Εργαζόμενου χρησιμοποιείται από Σχολικά Εργαστήρια';
    
     const MissingWorkerRegistryNoParam = 'Ο Αριθμός Μητρώου του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να έχει τιμή';
@@ -589,7 +588,44 @@ class ExceptionMessages
     //extra
     const InvalidLabWorkerEmailType = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
     const InvalidLabWorkerStartServiceValidType = 'Η Ημερομηνία Έναρξης του Εργαζομένου Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
-        
+
+    //= MylabWorkers
+
+    const MissingMylabWorkerIDParam = 'Ο Κωδικός του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingMylabWorkerIDValue = 'Ο Κωδικός του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidMylabWorkerIDType = 'Ο Κωδικός του Εργαζομένου πρέπει να είναι αριθμητικός';
+    const InvalidMylabWorkerIDArray = 'Ο Κωδικός του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+   
+    const MissingMylabWorkerParam = 'Ο Εργαζόμενος είναι υποχρεωτικό πεδίο';
+    const MissingMylabWorkerValue = 'Ο Εργαζόμενος πρέπει να έχει τιμή';
+    const InvalidMylabWorkerValue = 'Ο Εργαζόμενος δεν βρέθηκε';
+    const InvalidMylabWorkerType = 'Ο Εργαζόμενος πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidMylabWorkerArray = 'Ο Εργαζόμενος δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedMylabWorkerValue = 'Ο Εργαζόμενος υπάρχει ήδη';
+    const DuplicatedMylabWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου υπάρχει ήδη';
+    const DuplicatedMylabWorkerTaxNumberValue = 'Το ΑΦΜ του Εργαζομένου υπάρχει ήδη';
+    const UsedMylabWorkerBySchoolUnitLabs = 'Ο Κωδικός του Εργαζόμενου χρησιμοποιείται από Σχολικά Εργαστήρια';
+   
+    const MissingMylabWorkerRegistryNoParam = 'Ο Αριθμός Μητρώου του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingMylabWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidMylabWorkerRegistryNoType = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να είναι αριθμητικός';
+    const InvalidMylabWorkerRegistryNoArray = 'Ο Αριθμός Μητρώου του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingMylabWorkerLastnameParam = 'Το Επώνυμο του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingMylabWorkerLastnameValue = 'Το Επώνυμο του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidMylabWorkerLastnameType = 'Το Επώνυμο του Εργαζομένου πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidMylabWorkerLastnameArray = 'Το Επώνυμο του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+
+    const MissingMylabWorkerFirstnameParam = 'Το Όνομα του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingMylabWorkerFirstnameValue = 'Το Όνομα του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidMylabWorkerFirstnameType = 'Το Όνομα του Εργαζομένου πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidMylabWorkerFirstnameArray = 'Το Όνομα του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const InvalidMylabWorkerTaxNumberType = 'Το ΑΦΜ του Εργαζομένου πρέπει να είναι αριθμητικό';
+    const InvalidMylabWorkerFatherNameType = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να είναι αλφαριθμητικός';
+    const InvalidMylabWorkerSexType = 'Το Φύλο του Εργαζομένου πρέπει να είναι αλφαριθμητική : Α (Άντρας) ή Γ (Γυναικα)';
+    
 //Labs
         
     const MissingLabIDParam = 'Ο Κωδικός του Εργαστηρίου είναι υποχρεωτικό πεδίο';

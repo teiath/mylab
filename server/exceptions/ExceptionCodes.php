@@ -589,8 +589,6 @@ class ExceptionCodes
     const DuplicatedWorkerTaxNumberValue = 500;
     /** {@see ExceptionMessages::UsedWorkerBySchoolUnitWorkers} */
     const UsedWorkerBySchoolUnitWorkers = 500;
-    /** {@see ExceptionMessages::UsedWorkerBySchoolUnitLabs} */
-    const UsedWorkerBySchoolUnitLabs = 500;
    
     /** {@see ExceptionMessages::MissingWorkerRegistryNoParam} */
     const MissingWorkerRegistryNoParam = 500;
@@ -680,7 +678,72 @@ class ExceptionCodes
     const InvalidLabWorkerEmailType = 500;
     /** {@see ExceptionMessages::InvalidLabWorkerStartServiceValidType} */    
     const InvalidLabWorkerStartServiceValidType = 500;
+
+    //= MylabWorkers
+
+    /** {@see ExceptionMessages::MissingMylabWorkerIDParam} */
+    const MissingMylabWorkerIDParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerIDValue} */
+    const MissingMylabWorkerIDValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerIDType} */
+    const InvalidMylabWorkerIDType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerIDArray} */
+    const InvalidMylabWorkerIDArray = 500;
    
+    /** {@see ExceptionMessages::MissingMylabWorkerParam} */
+    const MissingMylabWorkerParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerValue} */
+    const MissingMylabWorkerValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerValue} */
+    const InvalidMylabWorkerValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerType} */
+    const InvalidMylabWorkerType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerArray} */
+    const InvalidMylabWorkerArray = 500;
+    
+    /** {@see ExceptionMessages::DuplicatedMylabWorkerValue} */
+    const DuplicatedMylabWorkerValue = 500;
+    /** {@see ExceptionMessages::DuplicatedMylabWorkerRegistryNoValue} */
+    const DuplicatedMylabWorkerRegistryNoValue = 500;
+    /** {@see ExceptionMessages::DuplicatedMylabWorkerTaxNumberValue} */
+    const DuplicatedMylabWorkerTaxNumberValue = 500;
+    /** {@see ExceptionMessages::UsedMylabWorkerBySchoolUnitLabs} */
+    const UsedMylabWorkerBySchoolUnitLabs = 500;
+   
+    /** {@see ExceptionMessages::MissingMylabWorkerRegistryNoParam} */
+    const MissingMylabWorkerRegistryNoParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerRegistryNoValue} */
+    const MissingMylabWorkerRegistryNoValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerRegistryNoType} */
+    const InvalidMylabWorkerRegistryNoType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerRegistryNoArray} */
+    const InvalidMylabWorkerRegistryNoArray = 500;
+    
+    /** {@see ExceptionMessages::MissingMylabWorkerLastnameParam} */
+    const MissingMylabWorkerLastnameParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerLastnameValue} */
+    const MissingMylabWorkerLastnameValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerLastnameType} */
+    const InvalidMylabWorkerLastnameType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerLastnameArray} */
+    const InvalidMylabWorkerLastnameArray = 500;
+
+    /** {@see ExceptionMessages::MissingMylabWorkerFirstnameParam} */
+    const MissingMylabWorkerFirstnameParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerFirstnameValue} */
+    const MissingMylabWorkerFirstnameValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerFirstnameType} */
+    const InvalidMylabWorkerFirstnameType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerFirstnameArray} */
+    const InvalidMylabWorkerFirstnameArray = 500;
+    
+    /** {@see ExceptionMessages::InvalidMylabWorkerTaxNumberType} */
+    const InvalidMylabWorkerTaxNumberType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerFatherNameType} */
+    const InvalidMylabWorkerFatherNameType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerSexType} */
+    const InvalidMylabWorkerSexType = 500;
+    
 //Labs
         
     /** {@see ExceptionMessages::MissingLabIDParam} */

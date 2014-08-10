@@ -73,6 +73,8 @@ $app->map('/lab_transitions', Authentication, UserRolesPermission, LabTransition
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
 $app->map('/lab_workers', Authentication, UserRolesPermission, LabWorkersController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
+$app->map('/mylab_workers', Authentication, UserRolesPermission, MylabWorkersController)
+    ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
 
 $app->map('/search_school_units', Authentication, UserRolesPermission, SearchSchoolUnitsController)->via(MethodTypes::GET);
 $app->map('/search_labs', Authentication, UserRolesPermission, SearchLabsController)->via(MethodTypes::GET);
@@ -1568,6 +1570,65 @@ function LabWorkersController()
 
 }
 
+function MylabWorkersController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = GetMylabWorkers(
+                $params["worker_id"],
+                $params["registry_no"],
+                $params["tax_number"],          
+                $params["firstname"],
+                $params["lastname"],
+                $params["fathername"],   
+                $params["sex"],
+                $params["worker_specialization"],
+                $params["lab_source"],
+                $params["worker"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
+            );   
+            break;
+        case MethodTypes::POST :
+            $result = PostMylabWorkers(
+                $params["registry_number"],
+                $params["firstname"],
+                $params["lastname"], 
+                $params["fathername"],
+                $params["sex"],
+                $params["specialization_code"],
+                $params["lab_source"]
+            );      
+            break;
+      case MethodTypes::PUT :
+            $result = PutMylabWorkers(
+                $params["worker_id"],
+                $params["registry_number"],
+                $params["firstname"],
+                $params["lastname"], 
+                $params["fathername"],
+                $params["sex"],
+                $params["specialization_code"],
+                $params["lab_source"]    
+            );      
+            break;
+       case MethodTypes::DELETE :
+            $result = DelMylabWorkers(
+                $params["worker_id"]
+            );      
+            break;  
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+}
 
 function SearchSchoolUnitsController()
 {
