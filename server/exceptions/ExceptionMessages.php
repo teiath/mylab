@@ -51,7 +51,7 @@ class ExceptionMessages
 //        const InsertDuplicateEquipmentTypes = 'Δεν είναι δυνατή η εισαγωγή, δύο ή περισσότερων παραμέτρων με τις ίδιες τιμές equipment_type = ';
 //        const InsertDuplicateSchoolUnits = 'Δεν είναι δυνατή η εισαγωγή, δύο ή περισσότερων παραμέτρων με τις ίδιες τιμές school_unit_id = ';
 //        
-//        const Unauthorized = 'Unauthorized';
+        const Unauthorized = 'Unauthorized';
 //    // dictionary messages (not found)=============================================================================================================
 //   
 //
@@ -1025,6 +1025,27 @@ class ExceptionMessages
     const DuplicatedWorkerSpecializationValue = 'Η Ειδικότητα Εργαζόμενου υπάρχει ήδη';
     const UsedWorkerSpecializationBySchoolUnitWorkers = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Σχολικών Μοναδων';
     const UsedWorkerSpecializationByLabWorkers = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Εργαστηρίων';
+    
+    //= Sources
+    const MissingSourceIDParam = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων είναι υποχρεωτικό πεδίο';
+    const MissingSourceIDValue = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων πρέπει να έχει τιμή';
+    const InvalidSourceIDType = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων πρέπει να είναι αριθμητικός';
+    const InvalidSourceIDArray = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingSourceParam = 'Η Πρωτογενής Πηγή Δεδομένων είναι υποχρεωτικό πεδίο';
+    const MissingSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων πρέπει να έχει τιμή';
+    const InvalidSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων δεν υπάρχει στο λεξικό';
+    const InvalidSourceType = 'Η Πρωτογενής Πηγή Δεδομένων πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidSourceArray = 'Η Πρωτογενής Πηγή Δεδομένων δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
+    const MissingSourceNameParam = 'Το Όνομα της Πρωτογενής Πηγής Δεδομένων είναι υποχρεωτικό πεδίο';
+    const MissingSourceNameValue = 'Το Όνομα της Πρωτογενής Πηγής Δεδομένων πρέπει να έχει τιμή';
+    const InvalidSourceNameType = 'Το Όνομα της Πρωτογενής Πηγής Δεδομένων πρέπει να είναι αλφαριθμητικό';
+    const InvalidSourceNameArray = 'Το Όνομα της Πρωτογενής Πηγής Δεδομένων δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicatedSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων υπάρχει ήδη';
+    const UsedSourceByWorkers = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων χρησιμοποιείται από Εργαζόμενο';
+    const DuplicateSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Source';
     
     //= LabTypes
     const MissingLabTypeIDParam = 'Ο Κωδικός του Τύπου Εργαστηρίου είναι υποχρεωτικό πεδίο';

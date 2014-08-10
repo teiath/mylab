@@ -136,6 +136,12 @@ private static $Permissions = array(
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
                                         ) ,
+    'sources'               => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ'),
+                                        'POST' => array('none'),
+                                        'PUT' => array('none'),
+                                        'DELETE' => array('none'),
+                                        ) , 
     'lab_relations'         => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ'),
                                         'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),

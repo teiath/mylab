@@ -39,6 +39,8 @@ $app->map('/circuits', Authentication, UserRolesPermission, CircuitsController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
 $app->map('/circuit_types', Authentication, UserRolesPermission, CircuitTypesController)
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
+$app->map('/sources', Authentication, UserRolesPermission, SourcesController)
+    ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
 
 //labs
 $app->map('/aquisition_sources', Authentication, UserRolesPermission, AquisitionSourcesController)
@@ -829,6 +831,45 @@ function CircuitTypesController()
     PrepareResponse();
     $app->response()->setBody( toGreek( json_encode( $result ) ) );
 }
+
+function SourcesController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = GetSources(
+                $params["source_id"], 
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
+            );      
+            break;
+//        case MethodTypes::POST :
+//            $result = PostCircuitTypes(
+//         
+//            );      
+//            break;
+//      case MethodTypes::PUT :
+//            $result = PutCircuitTypes(
+//       
+//            );      
+//            break;
+//       case MethodTypes::DELETE :
+//            $result = DelCircuitTypes(
+//            );      
+//            break;  
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+}
+
 #======= labs controllers ===================================================================
 #============================================================================================
 

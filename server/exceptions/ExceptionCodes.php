@@ -51,7 +51,7 @@ class ExceptionCodes
 //        const InsertDuplicateEquipmentTypes = 500;
 //        const InsertDuplicateSchoolUnits =500;
 // 
-//        const Unauthorized = 500;
+        const Unauthorized = 500;
 //    // dictionary messages (not found)=====================================================================================================================
 //    
 //
@@ -1445,6 +1445,44 @@ class ExceptionCodes
     const UsedWorkerSpecializationBySchoolUnitWorkers = 500;
     /** {@see ExceptionMessages::UsedWorkerSpecializationByLabWorkers} */  
     const UsedWorkerSpecializationByLabWorkers = 500;
+    
+    //Sources
+
+    /** {@see ExceptionMessages::MissingSourceIDParam} */  
+    const MissingSourceIDParam = 500;
+    /** {@see ExceptionMessages::MissingSourceIDValue} */  
+    const MissingSourceIDValue = 500;
+    /** {@see ExceptionMessages::InvalidSourceIDType} */  
+    const InvalidSourceIDType = 500;
+    /** {@see ExceptionMessages::InvalidSourceIDArray} */  
+    const InvalidSourceIDArray = 500;
+    
+    /** {@see ExceptionMessages::MissingSourceParam} */  
+    const MissingSourceParam = 500;
+    /** {@see ExceptionMessages::MissingSourceValue} */  
+    const MissingSourceValue = 500;
+    /** {@see ExceptionMessages::InvalidSourceValue} */  
+    const InvalidSourceValue = 500;
+    /** {@see ExceptionMessages::InvalidSourceType} */  
+    const InvalidSourceType = 500;
+    /** {@see ExceptionMessages::InvalidSourceArray} */  
+    const InvalidSourceArray = 500;
+
+    /** {@see ExceptionMessages::MissingSourceNameParam} */  
+    const MissingSourceNameParam = 500;
+    /** {@see ExceptionMessages::MissingSourceNameValue} */  
+    const MissingSourceNameValue = 500;
+    /** {@see ExceptionMessages::InvalidSourceNameType} */  
+    const InvalidSourceNameType = 500;
+    /** {@see ExceptionMessages::InvalidSourceNameArray} */  
+    const InvalidSourceNameArray = 500;
+    
+    /** {@see ExceptionMessages::DuplicatedSourceValue} */  
+    const DuplicatedSourceValue = 500;
+    /** {@see ExceptionMessages::UsedSourceByWorkers} */  
+    const UsedSourceByWorkers = 500;
+    /** {@see ExceptionMessages::DuplicateSourceUniqueValue} */  
+    const DuplicateSourceUniqueValue = 500;
     
 //= LabTypes
 

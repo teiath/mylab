@@ -103,6 +103,7 @@ require_once('../api/get/GetStates.php');
 require_once('../api/get/GetSchoolUnitWorkers.php');
 require_once('../api/get/GetCircuits.php');
 require_once('../api/get/GetCircuitTypes.php');
+require_once('../api/get/GetSources.php');
 
 ////----get from mylab
 require_once('../api/get/GetLabTypes.php');
