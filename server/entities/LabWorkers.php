@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LabWorkers
  *
- * @ORM\Table(name="lab_workers", indexes={@ORM\Index(name="lab_idx", columns={"lab_id"}), @ORM\Index(name="worker_idx", columns={"worker_id"}), @ORM\Index(name="worker_position_idx", columns={"worker_position_id"})})
+ * @ORM\Table(name="lab_workers", indexes={@ORM\Index(name="lab_idx", columns={"lab_id"}), @ORM\Index(name="mylab_worker_idx", columns={"worker_id"}), @ORM\Index(name="worker_position_idx", columns={"worker_position_id"})})
  * @ORM\Entity
  */
 class LabWorkers
@@ -53,9 +53,9 @@ class LabWorkers
     private $lab;
 
     /**
-     * @var \Workers
+     * @var \MylabWorkers
      *
-     * @ORM\ManyToOne(targetEntity="Workers")
+     * @ORM\ManyToOne(targetEntity="\MylabWorkers")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="worker_id", referencedColumnName="worker_id")
      * })
@@ -123,7 +123,7 @@ class LabWorkers
         return $this->worker;
     }
 
-    public function setWorker(\Workers $worker) {
+    public function setWorker(\MylabWorkers $worker) {
         $this->worker = $worker;
     }
 

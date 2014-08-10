@@ -42,7 +42,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
     CRUDUtils::entitySetAssociation($LabWorker, $lab_id, 'Labs', 'lab', 'Lab');
     
 //$worker_id====================================================================
-    CRUDUtils::entitySetAssociation($LabWorker, $worker_id, 'Workers', 'worker', 'Worker');
+    CRUDUtils::entitySetAssociation($LabWorker, $worker_id, 'MylabWorkers', 'worker', 'MylabWorker');
     
 //$worker_position==============================================================
     CRUDUtils::entitySetAssociation($LabWorker, $worker_position, 'WorkerPositions', 'workerPosition', 'WorkerPosition');

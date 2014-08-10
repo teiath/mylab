@@ -65,7 +65,7 @@ function GetLabWorkers( $lab_worker_id, $worker_status, $worker_start_service,
                             "lw.labWorkerId" => "lab_worker_id",
                             "lw.workerStatus" => "worker_status",
                             "lw.workerStartService" => "worker_start_service",
-                            "w.workerId" => "worker_id",
+                            "mlw.workerId" => "worker_id",
                             "wp.workerPositionId" => "worker_position_id",
                             "wp.name" => "worker_position_name",
                             "l.labId" => "lab_id",
@@ -98,7 +98,7 @@ function GetLabWorkers( $lab_worker_id, $worker_status, $worker_start_service,
   
 //$worker_id====================================================================
     if (Validator::Exists('worker_id', $params)){
-        CRUDUtils::setFilter($qb, $worker_id, "w", "workerId", "workerId", "id", ExceptionMessages::InvalidWorkerIDType, ExceptionCodes::InvalidWorkerIDType);
+        CRUDUtils::setFilter($qb, $worker_id, "mlw", "workerId", "workerId", "id", ExceptionMessages::InvalidMylabWorkerIDType, ExceptionCodes::InvalidMylabWorkerIDType);
     } 
     
 //$worker_position==============================================================
@@ -120,9 +120,9 @@ function GetLabWorkers( $lab_worker_id, $worker_status, $worker_start_service,
 
         $qb->select('lw');
         $qb->from('LabWorkers', 'lw');
-        $qb->leftjoin('lw.worker', 'w');
+        $qb->leftjoin('lw.worker', 'mlw');
         $qb->leftjoin('lw.workerPosition', 'wp');
-        $qb->leftjoin('w.workerSpecialization', 'ws');
+        $qb->leftjoin('mlw.workerSpecialization', 'ws');
         $qb->leftjoin('lw.lab', 'l');
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
  
