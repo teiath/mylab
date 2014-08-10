@@ -54,7 +54,7 @@ class Reports {
         global $Options; 
 
         //make the http request to mmsch with cURL 
-        $curl = curl_init($Options['Server_Mmsch']);
+        $curl = curl_init($Options['Server_Mmsch']."units");
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curl, CURLOPT_USERPWD, $Options['Server_Mmsch_username'] . ":" . $Options['Server_Mmsch_password']);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
