@@ -74,11 +74,11 @@ class Workers
     private $workerSpecialization;
     
     /**
-     * @var \LabSources
+     * @var \Sources
      *
-     * @ORM\ManyToOne(targetEntity="LabSources")
+     * @ORM\ManyToOne(targetEntity="Sources")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="source_id", referencedColumnName="lab_source_id")
+     *   @ORM\JoinColumn(name="source_id", referencedColumnName="source_id")
      * })
      */
     private $source;
@@ -153,7 +153,7 @@ class Workers
         return $this->source;
     }
 
-    public function setSource(\LabSources $source) {
+    public function setSource(\Sources $source) {
         $this->source = $source;
     }
 

@@ -20,12 +20,14 @@ header("Content-Type: text/html; charset=utf-8");
  * @param type $fathername
  * @param type $sex
  * @param type $worker_specialization
+ * @param type $source
+ * @param Doctrine\ORM\Tools\Pagination\Paginator $worker
  * @param type $pagesize
  * @param type $page
  * @param type $searchtype
  * @param type $ordertype
  * @param type $orderby
- * @return string
+ * @return type
  * @throws Exception
  */
 
@@ -64,8 +66,8 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
                             "w.sex" => "sex",
                             "ws.workerSpecializationId" => "worker_specialization_id",
                             "ws.name" => "worker_specialization_name",
-                            "ls.labSourceId" => "source",
-                            "ls.name" => "source_name"
+                            "s.sourceId" => "source_id",
+                            "s.name" => "source_name"
                         );
        
        if ( Validator::Missing('orderby', $params) )
@@ -119,7 +121,7 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
         
 //$source=======================================================================
         if (Validator::Exists('source', $params)){
-            CRUDUtils::setFilter($qb, $source, "ls", "labSourceId", "name", "null,id,value", ExceptionMessages::InvalidLabSourceType, ExceptionCodes::InvalidLabSourceType);    
+            CRUDUtils::setFilter($qb, $source, "s", "sourceId", "name", "null,id,value", ExceptionMessages::InvalidSourceType, ExceptionCodes::InvalidSourceType);    
         } 
         
 //balander parameter============================================================        
@@ -135,7 +137,7 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
         $qb->select('w');
         $qb->from('Workers', 'w');
         $qb->leftjoin('w.workerSpecialization', 'ws');
-        $qb->leftjoin('w.source', 'ls');
+        $qb->leftjoin('w.source', 's');
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
 
 //pagination and results========================================================     
@@ -159,7 +161,7 @@ function GetWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastnam
                                         "sex"              => $worker->getSex(),
                                         "worker_specialization"      => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getWorkerSpecializationId(),
                                         "worker_specialization_name" => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getName(),
-                                        "source"      => Validator::IsNull($worker->getSource()) ? Validator::ToNull() : $worker->getSource()->getLabSourceId(),
+                                        "source"      => Validator::IsNull($worker->getSource()) ? Validator::ToNull() : $worker->getSource()->getSourceId(),
                                         "source_name" => Validator::IsNull($worker->getSource()) ? Validator::ToNull() : $worker->getSource()->getName()
                                      );
             $count++;
