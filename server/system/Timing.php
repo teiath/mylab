@@ -127,11 +127,12 @@
                 }
                 
                 public function getTimeFilePath() {
+                    global $Options; 
                     if ($_SERVER['DOCUMENT_ROOT'] == "")
-                        $path = $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__).'/mylab_ver4/sync_logs';
+                        $path = $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__).$Options["SyncLogPath"];
                        // echo $docroot = dirname(getcwd() . '/../').'\mylab_ver4\sync_logs/';
                     else
-                        $path = $_SERVER['DOCUMENT_ROOT'].'/mylab_ver4/sync_logs/';
+                        $path = $_SERVER['DOCUMENT_ROOT'].$Options["SyncLogPath"];;
                    
                     return $path;
                 }
