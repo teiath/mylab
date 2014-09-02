@@ -13,12 +13,12 @@ function newLabWorkersDS(labID, detailRow, status){
                 type: "POST",
                 dataType: "json"
             },
-            update: {
+            update: { //δεν χρησιμοποιείται εδω
                 url: "api/lab_workers?user=" + user_url,
                 type: "PUT",
                 dataType: "json"
             },
-            destroy: {
+            destroy: { //δεν χρησιμοποιείται
                 url: "api/lab_workers?user=" + user_url,
                 type: "DELETE",
                 dataType: "json"
@@ -46,26 +46,29 @@ function newLabWorkersDS(labID, detailRow, status){
                 id:"worker_id",
                 fields:{
 
+                    lab_worker_id:{},
                     lab_id:{editable: false, defaultValue: labID},
-                    //lab:{editable: false},
                     lab_name:{editable: false},
-                    worker_id: {},  
-                    worker_position:{},
-                    worker_position_name:{},
-                    worker_position_id:{},
                     worker_status:{},
                     worker_start_service:{},
-                    worker_email:{},                    
-                    worker_registry_no: {},
-                    tax_number: {},
-                    firstname: {},
-                    lastname: {},
-                    fathername: {},
-                    sex: {},
-                    specialization_code_id: {},
-                    specialization_code_name: {},
+                    worker_id: {},  
+                    worker_position:{},
+                    worker_email:{},
                     
-                    fullname: {}
+                    //custom fields
+                    fullname: {},          
+                    worker_registry_no: {},
+                    specialization_code_name: {},
+                    firstname: {},
+                    lastname: {}
+            
+                    /*worker_position_name:{},
+                    worker_position_id:{},
+                    specialization_code_id: {}
+                    tax_number: {},
+                    fathername: {},
+                    sex: {},*/
+                    
                 }
             }
         },

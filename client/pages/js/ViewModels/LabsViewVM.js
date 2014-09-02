@@ -10,7 +10,7 @@ var LabsViewVM = kendo.observable({
                 dataType: "json"
             },
             create: {
-                url: "api/labs",
+                url: "api/labs?user=" + user_url,
                 type: "POST",
                 dataType: "json"
             },
@@ -61,7 +61,7 @@ var LabsViewVM = kendo.observable({
                     
                 }else if(type === 'create'){
                     
-                    alert("POST LABS");
+                    
                     
                     //normalize transition_date parameter
                     data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
@@ -195,7 +195,7 @@ var LabsViewVM = kendo.observable({
     
     createLab:  function(e){
 
-        //console.log("labsview create lab: ", e);       
+        console.log("labsview create lab: ", e);       
         e.preventDefault(); //?
         
         if (e.model.isNew()) {
@@ -330,18 +330,20 @@ var LabsViewVM = kendo.observable({
                         }
                      }(),
             columns: [
-                { field: "equipment_type", 
+                { field: "equipment_type_name", 
                   title: "εξοπλισμός",
                   editor: function (container, options){
                       
                         var data = equipment_details.dataSource.data();
                         var usedEquipment = [];
+                        //exclude already used equipment
                         $.each(data, function(index, value){
-                            if (data[index].equipment_type !== ""){
-                                usedEquipment.push(data[index].equipment_type);
+                            if (data[index].equipment_type_name !== ""){
+                                usedEquipment.push(data[index].equipment_type_name);
                             }
                         });
                         
+                        console.log("equipment_details options.field: ", options.field);
                         //options.field = "equipment_type"
                         $('<input id="equipment_type_column_editor" name="' + options.field + '" data-bind="value:' + options.field + '" data-text-field="name" data-value-field="name" required data-required-msg="Ξέχασες τον τύπο εξοπλισμού!" />')
                         .appendTo(container)
@@ -372,7 +374,7 @@ var LabsViewVM = kendo.observable({
             edit: function(e){
                 if (!e.model.isNew()) {
                     //on update, make equipment_type not editable
-                    e.container.find("td:eq(0)").text(e.model.equipment_type);
+                    e.container.find("td:eq(0)").text(e.model.equipment_type_name);
                 }
             }
         }).data("kendoGrid");        
@@ -472,8 +474,9 @@ var LabsViewVM = kendo.observable({
                             change: function(e){
                                 //console.log("worker_id column editor on change e:", e);
                                 //var dataItem =  lab_workers_details.dataSource.at(0);
-                                //dataItem.specialization_code = "pe70";
-                                //dataItem.registry_no = "123146";
+                                //console.log("dataItem: ", dataItem);
+                                //dataItem.specialization_code_name = "ΠΕ70";
+                                //dataItem.worker_registry_no = "123146";
                                         
                             }
                         });
@@ -551,7 +554,7 @@ var LabsViewVM = kendo.observable({
 
                                                         $.ajax({
                                                                 type: 'PUT',
-                                                                url: baseURL + 'lab_workers',
+                                                                url: baseURL + 'lab_workers?user=' + user_url,
                                                                 dataType: "json",
                                                                 data: JSON.stringify(parameters),
                                                                 success: function(data){
@@ -610,8 +613,8 @@ var LabsViewVM = kendo.observable({
             edit: function(e){
                 //if (!e.model.isNew()) {
                     //on update, make lab_worker not editable
-                    e.container.find("td:eq(1)").text(e.model.registry_no);
-                    e.container.find("td:eq(2)").text(e.model.specialization_code);
+                    e.container.find("td:eq(1)").text(e.model.worker_registry_no); //registry_no
+                    e.container.find("td:eq(2)").text(e.model.specialization_code_name); //specialization_code
                     e.container.find("td:eq(4)").text("ΕΝΕΡΓΟΣ");
                 //}
             },
@@ -652,7 +655,7 @@ var LabsViewVM = kendo.observable({
                         var data = lab_relations_details.dataSource.data();
                         var isServedOnline=false;
                         $.each(data, function(index, value){
-                            if (data[index].relation_type_id === "1"){
+                            if (data[index].relation_type_id === 1){
                                 isServedOnline = true;
                                 return;
                             }
@@ -664,9 +667,9 @@ var LabsViewVM = kendo.observable({
                         .kendoDropDownList({
                             autoBind: false,
                             dataTextField: "name",
-//                            optionLabel: { //bug του kendo λογικα.. όταν το optionLabel ειναι enabled δεν παίζει το validation tooltip
-//                                name: "Επιλέξτε συσχέτιση"
-//                            },
+                            optionLabel: { //bug του kendo λογικα.. όταν το optionLabel ειναι enabled δεν παίζει το validation tooltip
+                                name: "Επιλέξτε συσχέτιση"
+                            },
                             dataSource: newRelationTypesDS(isServedOnline),
                             change: function(e){
                                 
@@ -679,7 +682,11 @@ var LabsViewVM = kendo.observable({
                                 koko.read();
                                 parent.setDataSource(koko);
                                 
-                                if(this.value() === "ΕΞΥΠΗΡΕΤΕΙΤΑΙ ΔΙΑΔΙΚΤΥΑΚΑ"){
+                                var kiki = newCircuitsDS();
+                                kiki.read();
+                                child.setDataSource(kiki);
+                                
+                                if(this.value() === "ΕΞΥΠΗΡΕΤΕΙΤΑΙ ΔΙΑΔΙΚΤΥΑΚΑ"){ //BUG: στην 1η επιλογή του χρήστη απ'την ddl, αν αυτή είναι το "ΕΞΥΠΗΡΕΤΕΙΤΑΙ ΔΙΑΔΙΚΤΥΑΚΑ", ΔΕΝ τρέχει το on change event
                                     child.enable(true);
                                 }else if(this.value() === "ΕΞΥΠΗΡΕΤΕΙ ΥΠΗΡΕΣΙΑΚΑ"){
                                     //αν υπάρχει validation tooltip στον αρ. κυκλώματος βγάλτο
@@ -695,7 +702,7 @@ var LabsViewVM = kendo.observable({
                   }, 
                   width: '20%'
                 },
-                { field: "school_unit", 
+                { field: "school_unit_name", 
                   title:"σχολική μονάδα",
                   editor: function (container, options){
                         
@@ -810,7 +817,7 @@ var LabsViewVM = kendo.observable({
                     
                     $.ajax({
                             type: 'PUT',
-                            url: baseURL + 'labs',
+                            url: baseURL + "labs?user=" + user_url,
                             dataType: "json",
                             data: JSON.stringify(parameters),
                             success: function(data){
@@ -876,7 +883,7 @@ var LabsViewVM = kendo.observable({
                     
                     $.ajax({
                             type: 'PUT',
-                            url: baseURL + 'labs',
+                            url: baseURL + "labs?user=" + user_url,
                             dataType: "json",
                             data: JSON.stringify(parameters),
                             success: function(data){

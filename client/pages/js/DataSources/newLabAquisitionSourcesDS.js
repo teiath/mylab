@@ -31,13 +31,13 @@ function newLabAquisitionSourcesDS(labID, detailRow){
             model:{
                 id:"aquisition_source_id",
                 fields:{
+                    lab_aquisition_source_id:{},
                     lab_id:{editable: false, defaultValue: labID},
                     lab_name:{editable: false},
-                    //lab:{editable: false},
-                    aquisition_source_id: {editable: false},
-                    aquisition_source: {type: "string"/*, validation: { required: true, validationMessage:"Ξέχασες την πηγή χρηματοδότησης!" }*/},
                     aquisition_year: { type: "string"/*, validation: { required: true, validationMessage:"Ξέχασες τη χρονολογία χρηματοδότησης!" }*/},
-                    aquisition_comments:{ type: "string" }
+                    aquisition_source: {type: "string"/*, validation: { required: true, validationMessage:"Ξέχασες την πηγή χρηματοδότησης!" }*/},
+                    aquisition_comments:{ type: "string" },
+                    aquisition_source_id: {editable: false},
                 }
             }
         },

@@ -23,6 +23,18 @@ function newLabEquipmentTypesDS(labID, detailRow){
                 url: "api/lab_equipment_types?user=" + user_url,
                 type: "DELETE",
                 dataType: "json"
+            },
+            parameterMap: function(data, type) {
+                if (type === 'read') {
+                    return data;
+                }else if (type === 'create') {
+                    data['equipment_type'] = data['equipment_type_name'];
+                    return data;
+                }else if (type === 'update') {
+                    return data;
+                }else if (type === 'destroy') {
+                    return data;
+                }
             }
         },
         schema:{
@@ -32,13 +44,15 @@ function newLabEquipmentTypesDS(labID, detailRow){
                 id:"equipment_type_id",
                 fields:{
                     lab_id:{editable: false, defaultValue: labID},
-                    lab:{editable: false},
+                    lab_name:{editable: false},
+                    equipment_type_id: {editable: false},
+                    equipment_type_name: {},
+                    items:{ type: "number", validation: { required: true, validationMessage:"Ξέχασες το πλήθος!", min: 1, max: 1000} },
+                    
+                    equipment_type:{} // η παράμετρος του POST { type: "string", validation: { required: true, validationMessage:"Ξέχασες τον εξοπλισμό!" } },
+            
                     //ΠΡΟΣΕΧΩΣ equipment_category_id: {editable: false},
                     //ΠΡΟΣΕΧΩΣ equipment_category: { editable: false },
-                    equipment_type:{},
-                    equipment_type_id: {editable: false},
-                    equipment_type_name: { type: "string", validation: { required: true, validationMessage:"Ξέχασες τον εξοπλισμό!" } },
-                    items:{ type: "number", validation: { required: true, validationMessage:"Ξέχασες το πλήθος!", min: 1, max: 1000} }
                 }
             }
         },
