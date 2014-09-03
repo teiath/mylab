@@ -10,7 +10,7 @@ var LabsViewVM = kendo.observable({
                 dataType: "json"
             },
             create: {
-                url: "api/labs?user=" + user_url,
+                url: "api/labs",//?user=" + user_url,
                 type: "POST",
                 dataType: "json"
             },
@@ -195,7 +195,8 @@ var LabsViewVM = kendo.observable({
     
     createLab:  function(e){
 
-        console.log("labsview create lab: ", e);       
+        console.log("labsview create lab: ", e);
+        console.log("user_url: ", user_url);
         e.preventDefault(); //?
         
         if (e.model.isNew()) {
@@ -299,6 +300,9 @@ var LabsViewVM = kendo.observable({
         transition_dialog.center().open();
     },
     detailInit: function(e){
+        
+        console.log("user_url: ", LabsViewVM.user_url);
+        
         //console.log("labs view detailInit", e);
         e.preventDefault();
         //kendo.bind($("#lab_details_tabstrip"), LabsViewVM); //δεν καταλαβαίνω γιατι αλλά without this line, detail template EVENT bindings  will not work!!

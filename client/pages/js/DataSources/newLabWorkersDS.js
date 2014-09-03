@@ -54,20 +54,17 @@ function newLabWorkersDS(labID, detailRow, status){
                     worker_id: {},  
                     worker_position:{},
                     worker_email:{},
-                    
-                    //custom fields
                     fullname: {},          
                     worker_registry_no: {},
                     specialization_code_name: {},
                     firstname: {},
-                    lastname: {}
-            
-                    /*worker_position_name:{},
+                    lastname: {},
+                    worker_position_name:{},
                     worker_position_id:{},
-                    specialization_code_id: {}
+                    specialization_code_id: {},
                     tax_number: {},
                     fathername: {},
-                    sex: {},*/
+                    sex: {}
                     
                 }
             }
