@@ -99,8 +99,8 @@ function GetTransferAreas( $transfer_area_id, $name, $edu_admin,
             $result["data"][] = array(
                                             "transfer_area_id"      => $transferarea->getTransferAreaId(),
                                             "name"                  => $transferarea->getName(),                         
-                                            "edu_admin_id"          => $transferarea->getEduAdmin()->getEduAdminId(),
-                                            "edu_admin_name"        => $transferarea->getEduAdmin()->getName()
+                                            "edu_admin_id"          => Validator::IsNull($transferarea->getEduAdmin()) ? Validator::ToNull() : $transferarea->getEduAdmin()->getEduAdminId(),
+                                            "edu_admin_name"        => Validator::IsNull($transferarea->getEduAdmin()) ? Validator::ToNull() : $transferarea->getEduAdmin()->getName()
                                      );
             $count++;
         }
