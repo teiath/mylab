@@ -95,10 +95,10 @@ var SearchVM = kendo.observable({
         //console.log("exportToXLSX e :", e);
         
         if($('#switch_to_labs_view_btn').is(':checked')){
-            var url = baseURL + 'search_labs?export=xlsx&';
+            var url = baseURL + 'search_labs?user=' + user_url + '&export=xlsx&';
         }else{
-            var url = baseURL + 'search_school_units?export=xlsx&';
-        }   
+            var url = baseURL + 'search_school_units?user=' + user_url + '&export=xlsx&';
+        }
         
         var parameters = normalizeParams(searchParameters);
         //console.log("parameters:", parameters);

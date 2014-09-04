@@ -51,13 +51,8 @@
     var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
     //console.log("create_lab: ", create_lab);
     
-    var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
-    console.log("user: ", user);
-    
-    
-    var user_url = encodeURIComponent(JSON.stringify(user));
-    
-    console.log("user_url: ", user_url);
+    /*var user = JSON.parse(atob("<?php //echo base64_encode(json_encode($user));?>"));
+      var user_url = encodeURIComponent(JSON.stringify(user));*/
     
     var value_ranks=[], authorized_user;
     if(typeof user.title != 'object' && typeof user.title != 'array') {
