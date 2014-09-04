@@ -92,6 +92,43 @@ var SearchVM = kendo.observable({
     },
     exportToXLSX: function(e){
         e.preventDefault();
+              
+        
+        var parameters = normalizeParams(searchParameters);
+        console.log("parameters:", parameters);
+
+        var normalizedFilter = {};
+        $.each(parameters, function(index, value){
+            var filter = parameters[index];
+            var value = normalizedFilter[filter.field];
+            value = (value ? value+"," : "")+ filter.value;
+            normalizedFilter[filter.field] = value;                                   
+        });
+        console.log("normalizedFilter: ", normalizedFilter);
+
+        $.ajax({
+                type: 'GET',
+                url: baseURL + 'search_labs?&export=xlsx&',
+                dataType: "json",
+                data: normalizedFilter,
+                success: function(data){
+
+                    var message;
+                    if (typeof data.message !== 'undefined'){
+                        message= data.message;
+                    }else if (typeof data.message_internal !== 'undefined'){
+                        message= data.message_internal;
+                    }else if (typeof data.message_external !== 'undefined'){
+                        message= data.message_external;
+                    }
+                    
+                    console.log(message);
+
+                },
+                error: function (data){ console.log("export to xls data failed: ", data);}
+        });
+
+/*
         //console.log("exportToXLSX e :", e);
         
         if($('#switch_to_labs_view_btn').is(':checked')){
@@ -123,6 +160,7 @@ var SearchVM = kendo.observable({
         
         //console.log("url:", url);
         window.location.href = url;
+*/
     },
     labIDInfoTooltip: function(e){
         var tooltip = $("#sl_lab_id").kendoTooltip({
