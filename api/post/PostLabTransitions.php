@@ -23,7 +23,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PostLabTransitions($lab_id, $state, $transition_date, $transition_justification, $transition_source) {       
         
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $LabTransitions = new LabTransitions();
     $result = array();
@@ -82,10 +82,15 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
 
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
-         if (!in_array($LabTransitions->getLab()->getLabId(),$permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
-         }; 
-         
+   
+         if ( ($app->request->user['ou'][0] == 'ΤΕΙ ΑΘΗΝΑΣ') && ($app->request->user['uid'][0] ==  $Options['Server_MyLab_username'])){
+                $whatisthat = 'used for syncing with mmsch';
+         } else {
+                if (!in_array($LabTransitions->getLab()->getLabId(),$permissions['permit_labs'])) {
+                    throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+                }; 
+         }
+ 
 //controls======================================================================  
 
         //find last state of lab from labs table================================ 
