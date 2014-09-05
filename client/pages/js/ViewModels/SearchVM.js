@@ -205,7 +205,13 @@ var SearchVM = kendo.observable({
             }
         }).data("kendoTooltip");
         tooltip.show($(".export_to_xlsx"));
+    },
+    
+    panelBarCollapse:function(e){
+        //console.log("panelBarCollapse!!", e.item);
+        $(e.item).find("span").removeClass('k-state-selected');
     }
+    
     /*filterChangedRegionEduAdmin: function(e){
 
         //clear the option-values of all dependant multiselect widgets
