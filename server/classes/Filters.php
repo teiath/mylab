@@ -83,10 +83,10 @@ class Filters {
       
         $sql = "SELECT lab_workers.lab_id
                 FROM lab_workers
-                LEFT JOIN workers ON workers.worker_id = lab_workers.worker_id 
+                LEFT JOIN mylab_workers ON mylab_workers.worker_id = lab_workers.worker_id 
                 WHERE  lab_workers.worker_position_id = 2
                 AND lab_workers.worker_status = 1
-                AND workers.registry_no='".$registry_no."'";
+                AND mylab_workers.registry_no='".$registry_no."'";
         $stmt = $db->query( $sql );
         $lab_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
@@ -114,10 +114,10 @@ class Filters {
                 FROM school_units
                 LEFT JOIN labs ON school_units.school_unit_id = labs.school_unit_id
                 LEFT JOIN lab_workers ON labs.lab_id = lab_workers.lab_id 
-                LEFT JOIN workers ON lab_workers.worker_id = workers.worker_id 
+                LEFT JOIN mylab_workers ON lab_workers.worker_id = mylab_workers.worker_id 
                 WHERE  lab_workers.worker_position_id = 2
                 AND lab_workers.worker_status = 1
-                AND workers.registry_no='".$registry_no."'";
+                AND mylab_workers.registry_no='".$registry_no."'";
         $stmt = $db->query( $sql );
         $lab_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 

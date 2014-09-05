@@ -76,7 +76,7 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
         }
         
 //$technological_rating=========================================================
-        if (Validator::Exists('operational_rating', $params)) { 
+        if (Validator::Exists('technological_rating', $params)) { 
             if (Validator::Missing('technological_rating', $params))
                 throw new Exception(ExceptionMessages::MissingLabTechnologicalRatingParam." : ".$technological_rating, ExceptionCodes::MissingLabTechnologicalRatingParam);
             else if (Validator::isNull($technological_rating))
