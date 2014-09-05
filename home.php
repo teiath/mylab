@@ -37,10 +37,18 @@
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        <?php require_once('includes.html');?>
+        <script>
+            
+            var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
+            var user_url = encodeURIComponent(JSON.stringify(user));
+            console.log("user_url before includes:", user_url);
+            
+        </script>
+            
+        <?php require_once('includes.html'); // Prosexe. Fortwneis edw ta includes. Dld to LabViewVM fortwnei edw.?> 
         
         <script>
-                       
+                           
             $(document).ready(function() {
                 $.ajaxSetup({
                     data: { user: user },
@@ -145,7 +153,7 @@
     <body>
         
         <?php 
-                require_once('navigation_bar.php'); //navigation bar
+                require_once('navigation_bar.php'); //navigation bar // To navigation bar fortwnei edw. Pou shmainei oti PRWTA exei fortwsei to LabsViewVM kai META tou orizeis to user. .Ara otan fortwnei DEN yparxei user.swsta/ min ta sviseis auta pou egrapses. Asta na ta vlepw.
         ?>
         <div style='height:90px'> </div> 
         <script> 

@@ -10,7 +10,7 @@ var LabsViewVM = kendo.observable({
                 dataType: "json"
             },
             create: {
-                url: "api/labs",//?user=" + user_url,
+                url: "api/labs?user=" + user_url,
                 type: "POST",
                 dataType: "json"
             },
@@ -71,7 +71,11 @@ var LabsViewVM = kendo.observable({
                     data["lab_source"] = "1";
                     data["transition_source"] = "mylab";
                     data["transition_justification"] = "δημιουργία Διάταξης Η/Υ";
-                    //return JSON.stringify(data);                                        
+                    
+                    delete data.operational_rating; //τα δύο αυτά πεδία δεν ειναι υποχρεωτικά αλλα χτυπάει όταν υποβάλλονται κενα
+                    delete data.technological_rating;
+                    
+                    //return JSON.stringify(data);
                     return data;
 
                 }
