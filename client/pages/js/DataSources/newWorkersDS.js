@@ -4,7 +4,7 @@ function newWorkersDS(){
                         serverFiltering: true,
                         transport: {
                             read: {
-                                url: "api/workers",
+                                url: "api/mylab_workers", //"api/workers",
                                 type: "GET",
                                 dataType: "json"
                             },
@@ -33,8 +33,9 @@ function newWorkersDS(){
                                       fathername: {},
                                       sex: {},
                                       worker_specialization: {},
-                                      fullname: {type:"string"},
-                                      worker:{}
+                                      lab_source:{}, //source:{},
+                                      worker:{},
+                                      fullname: {type:"string"}
                                 }
                             }
                         },

@@ -108,10 +108,10 @@ function GetMunicipalities( $municipality_id, $name, $transfer_area, $prefecture
             $result["data"][] = array(
                                             "municipality_id"       => $municipality->getMunicipalityId(),
                                             "name"                  => $municipality->getName(),
-                                            "transfer_area_id"      => $municipality->getTransferArea()->getTransferAreaId(),                              
-                                            "transfer_area_name"    => $municipality->getTransferArea()->getName(),
-                                            "prefecture_id"         => $municipality->getPrefecture()->getPrefectureId(),
-                                            "prefecture_name"       => $municipality->getPrefecture()->getName()
+                                            "transfer_area_id"      => Validator::IsNull($municipality->getTransferArea()) ? Validator::ToNull() : $municipality->getTransferArea()->getTransferAreaId(),                              
+                                            "transfer_area_name"    => Validator::IsNull($municipality->getTransferArea()) ? Validator::ToNull() : $municipality->getTransferArea()->getName(),
+                                            "prefecture_id"         => Validator::IsNull($municipality->getPrefecture()) ? Validator::ToNull() : $municipality->getPrefecture()->getPrefectureId(),
+                                            "prefecture_name"       => Validator::IsNull($municipality->getPrefecture()) ? Validator::ToNull() : $municipality->getPrefecture()->getName()
                                      );
             $count++;
         }

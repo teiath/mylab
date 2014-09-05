@@ -156,10 +156,10 @@ function GetLabWorkers( $lab_worker_id, $worker_status, $worker_start_service,
                                         "sex"                   => Validator::IsNull($labworker->getWorker()->getSex()) ? Validator::ToNull() : $labworker->getWorker()->getSex(),
                                         "specialization_code_id"     => Validator::IsNull($labworker->getWorker()->getWorkerSpecialization()) ? Validator::ToNull() : $labworker->getWorker()->getWorkerSpecialization()->getWorkerSpecializationId(),
                                         "specialization_code_name"   => Validator::IsNull($labworker->getWorker()->getWorkerSpecialization()) ? Validator::ToNull() : $labworker->getWorker()->getWorkerSpecialization()->getName(),
-                                        "worker_position_id"    => $labworker->getWorkerPosition()->getWorkerPositionId(),
-                                        "worker_position"       => $labworker->getWorkerPosition()->getName(),
+                                        "worker_position_id"         => $labworker->getWorkerPosition()->getWorkerPositionId(),
+                                        "worker_position_name"       => $labworker->getWorkerPosition()->getName(),
                                         "lab_id"                => $labworker->getLab()->getLabId(),
-                                        "lab"                   => $labworker->getLab()->getName()
+                                        "lab_name"              => $labworker->getLab()->getName()
                                        );
                 
             $count++;

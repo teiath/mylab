@@ -99,8 +99,8 @@ function GetSchoolUnitTypes( $school_unit_type_id, $name, $education_level,
                                         "school_unit_type_id"     => $schoolunittype->getSchoolUnitTypeId(),
                                         "name"                    => $schoolunittype->getName(),
                                         "initials"                => $schoolunittype->getInitials(),
-                                        "education_level_id"      => $schoolunittype->getEducationLevel()->getEducationLevelId(),
-                                        "education_level_name"    => $schoolunittype->getEducationLevel()->getName()
+                                        "education_level_id"      => Validator::IsNull($schoolunittype->getEducationLevel()) ? Validator::ToNull() : $schoolunittype->getEducationLevel()->getEducationLevelId(),
+                                        "education_level_name"    => Validator::IsNull($schoolunittype->getEducationLevel()) ? Validator::ToNull() : $schoolunittype->getEducationLevel()->getName()
                                      );
             $count++;
         }

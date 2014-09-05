@@ -7,7 +7,8 @@
 		private $stop_time;
  
 		// Constructor for Timing class
-		public function __construct($break = "<br />") {
+		//public function __construct($break = "<br />") {
+		public function __construct($break = "\n") {
 			$this->break = $break;
 			// Set timezone
 			date_default_timezone_set('Europe/Athens');
@@ -116,6 +117,7 @@
 		}
                 
                 public function getTimeFileName($sync_table_name) {
+                    global $Options; 
                     if (!$sync_table_name) {
 				return null;
 			}
@@ -123,15 +125,16 @@
                     $filename = date('mdY_hias').'_sync_'.$sync_table_name.'.json';
                     //$filename = $filename;
                     
-                    return $filename;
+                    return $Options["LogFolder"].$filename;
                 }
                 
                 public function getTimeFilePath() {
+                    global $Options; 
                     if ($_SERVER['DOCUMENT_ROOT'] == "")
-                        $path = $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__).'/mylab_ver4/sync_logs';
+                        $path = $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__).$Options["SyncLogPath"];
                        // echo $docroot = dirname(getcwd() . '/../').'\mylab_ver4\sync_logs/';
                     else
-                        $path = $_SERVER['DOCUMENT_ROOT'].'/mylab_ver4/sync_logs/';
+                        $path = $_SERVER['DOCUMENT_ROOT'].$Options["SyncLogPath"];
                    
                     return $path;
                 }

@@ -2,7 +2,7 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
     
     $.ajax({
             type: type,
-            url: baseURL + api_function,
+            url: baseURL + api_function + "?user=" + user_url,
             dataType: "json",
             data: JSON.stringify(parameters),
             success: function(data){

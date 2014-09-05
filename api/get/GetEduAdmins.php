@@ -106,8 +106,8 @@ function GetEduAdmins( $edu_admin_id, $name, $edu_admin_code, $region_edu_admin,
                                             "edu_admin_id"           => $eduadmin->getEduAdminId(),
                                             "name"                   => $eduadmin->getName(),
                                             "edu_admin_code"         => $eduadmin->getEduAdminCode(),                              
-                                            "region_edu_admin_id"    => $eduadmin->getRegionEduAdmin()->getRegionEduAdminId(),
-                                            "region_edu_admin_name"  => $eduadmin->getRegionEduAdmin()->getName()
+                                            "region_edu_admin_id"    => Validator::IsNull($eduadmin->getRegionEduAdmin()) ? Validator::ToNull() : $eduadmin->getRegionEduAdmin()->getRegionEduAdminId(),
+                                            "region_edu_admin_name"  => Validator::IsNull($eduadmin->getRegionEduAdmin()) ? Validator::ToNull() : $eduadmin->getRegionEduAdmin()->getName()
                                      );
             $count++;
         }

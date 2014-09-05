@@ -1,11 +1,12 @@
 function newRatingDS(){
     
     var rating_ds =  new kendo.data.DataSource({
-                                    data: [ { rating_id: 1, name: "αριστα εξοπλισμένο" }, 
-                                            { rating_id: 2, name: "καλώς εξοπλισμένο" },
+                                    data: [ 
+                                            { rating_id: 1, name: "ανεπαρκώς εξοπλισμένο" },
+                                            { rating_id: 2, name: "μέτρια εξοπλισμένο" },
                                             { rating_id: 3, name: "επαρκώς εξοπλισμένο" }, 
-                                            { rating_id: 4, name: "μέτρια εξοπλισμένο" },
-                                            { rating_id: 5, name: "ανεπαρκώς εξοπλισμένο" }],
+                                            { rating_id: 4, name: "καλώς εξοπλισμένο" },
+                                            { rating_id: 5, name: "αριστα εξοπλισμένο" }],
                                     schema: {
                                         model:{
                                             id: "rating_id",

@@ -13,7 +13,7 @@ function newLabRelationsDS(labID, detailRow){
                 type: "POST",
                 dataType: "json"
             },
-            update: {
+            update: {  //δεν χρησιμοποιείται
                 url: "api/lab_relations?user=" + user_url,
                 type: "PUT",
                 dataType: "json"
@@ -36,6 +36,8 @@ function newLabRelationsDS(labID, detailRow){
                     }else{
                         delete data.circuit_id;
                     }
+                    
+                    data['school_unit_id'] = data['school_unit_name'];
                     return data;
                     
                 }else if (type === 'destroy'){
@@ -53,15 +55,19 @@ function newLabRelationsDS(labID, detailRow){
                 id:"lab_relation_id",
                 fields:{
                     lab_relation_id:{editable: false},
+                    relation_type:{},
+                    circuit_id:{},
+                    circuit_phone_number:{},
+                    school_unit_id: {},
+                    school_unit_name: {},                            
                     lab_id:{editable: false, defaultValue: labID},
                     lab_name:{editable: false},
-                    school_unit_id: {},
-                    school_unit: {},
-                    school_unit_name: {},
-                    relation_type_id: {},
+                    
+                    //custom fields
                     relation_type_name:{},
-                    circuit_id:{},
-                    circuit_phone_number:{}
+                    relation_type_id: {},
+                    school_unit: {}
+                    
                 }
             }
         },

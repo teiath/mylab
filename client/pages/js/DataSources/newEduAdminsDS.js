@@ -34,6 +34,7 @@ function newEduAdminsDS(){
                                             fields:{
                                                 edu_admin_id: {editable: false},
                                                 name:{editable: false},
+                                                edu_admin_code:{editable: false},
                                                 region_edu_admin_id: {editable: false},
                                                 region_edu_admin_name:{editable: false}
                                             }

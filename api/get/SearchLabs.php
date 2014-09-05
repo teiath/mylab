@@ -266,7 +266,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 
         if ( Validator::Exists('lab_worker', $params) )
         {
-            $table_name = "workers";
+            $table_name = "mylab_workers";
             $table_column_id = "registry_no";
             $table_column_name = "lastname";
             $filter_validators = 'null,id,value';
@@ -514,7 +514,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
                                 LEFT JOIN lab_equipment_types using (lab_id)
                                 LEFT JOIN equipment_types ON lab_equipment_types.equipment_type_id=equipment_types.equipment_type_id
                                 LEFT JOIN lab_workers using (lab_id)
-                                LEFT JOIN workers ON lab_workers.worker_id=workers.worker_id
+                                LEFT JOIN mylab_workers ON lab_workers.worker_id=mylab_workers.worker_id
                                 LEFT JOIN lab_relations using (lab_id)
                                 LEFT JOIN relation_types ON relation_types.relation_type_id=lab_relations.relation_type_id
                                 LEFT JOIN lab_transitions using (lab_id)
@@ -650,13 +650,13 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
                         lab_workers.worker_email,
                         lab_workers.worker_status,
                         lab_workers.worker_start_service,
-                        workers.worker_id,
-                        workers.registry_no,
-                        workers.tax_number,
-                        workers.firstname,
-                        workers.lastname,
-                        workers.fathername,
-                        workers.sex,
+                        mylab_workers.worker_id,
+                        mylab_workers.registry_no,
+                        mylab_workers.tax_number,
+                        mylab_workers.firstname,
+                        mylab_workers.lastname,
+                        mylab_workers.fathername,
+                        mylab_workers.sex,
                         worker_specializations.worker_specialization_id,
                         worker_specializations.name as worker_specialization,
                         worker_positions.worker_position_id,
@@ -665,8 +665,8 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 
         $sqlFrom   = "FROM lab_workers
                       LEFT JOIN worker_positions using (worker_position_id)
-                      LEFT JOIN workers using (worker_id)
-                      LEFT JOIN worker_specializations ON workers.worker_specialization_id = worker_specializations.worker_specialization_id
+                      LEFT JOIN mylab_workers using (worker_id)
+                      LEFT JOIN worker_specializations ON mylab_workers.worker_specialization_id = worker_specializations.worker_specialization_id
                       ";
 
         $sqlWhere = " WHERE lab_workers.lab_id in (".$lab_ids.")";
