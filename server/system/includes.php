@@ -4,8 +4,8 @@
 require_once('system/config.php');
 require_once('system/functions.php');
 require_once('system/parameters.php');
-require_once('system/validator.php');
-require_once('system/pagination.php');
+require_once('system/Validator.php');
+require_once('system/Pagination.php');
 require_once('system/JsonFunctions.php');
 require_once('system/Timing.php');
 require_once('system/methodtypes.php');
