@@ -517,7 +517,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                 LEFT JOIN lab_equipment_types ON labs.lab_id=lab_equipment_types.lab_id
                                 LEFT JOIN equipment_types ON lab_equipment_types.equipment_type_id=equipment_types.equipment_type_id
                                 LEFT JOIN lab_workers ON labs.lab_id=lab_workers.lab_id
-                                LEFT JOIN workers ON lab_workers.worker_id=workers.worker_id
+                                LEFT JOIN mylab_workers ON lab_workers.worker_id=mylab_workers.worker_id
                                 ";
 
         $sqlWhere = (count($filter) > 0 ? " WHERE " . implode(" AND ", $filter) : "" );
@@ -669,7 +669,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                       LEFT JOIN lab_workers using (lab_id)
                       LEFT JOIN aquisition_sources ON lab_aquisition_sources.aquisition_source_id=aquisition_sources.aquisition_source_id
                       LEFT JOIN equipment_types ON lab_equipment_types.equipment_type_id=equipment_types.equipment_type_id
-                      LEFT JOIN workers ON lab_workers.worker_id=workers.worker_id
+                      LEFT JOIN mylab_workers ON lab_workers.worker_id=mylab_workers.worker_id
                       ";
 
         $sqlWhere = " WHERE labs.school_unit_id in (".$school_unit_ids.")";
@@ -781,13 +781,13 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                         lab_workers.worker_email,
                         lab_workers.worker_status,
                         lab_workers.worker_start_service,
-                        workers.worker_id,
-                        workers.registry_no,
-                        workers.tax_number,
-                        workers.firstname,
-                        workers.lastname,
-                        workers.fathername,
-                        workers.sex,
+                        mylab_workers.worker_id,
+                        mylab_workers.registry_no,
+                        mylab_workers.tax_number,
+                        mylab_workers.firstname,
+                        mylab_workers.lastname,
+                        mylab_workers.fathername,
+                        mylab_workers.sex,
                         worker_specializations.worker_specialization_id,
                         worker_specializations.name as worker_specialization,
                         worker_positions.worker_position_id,
@@ -796,8 +796,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         $sqlFrom   = "FROM lab_workers
                       LEFT JOIN worker_positions using (worker_position_id)
-                      LEFT JOIN workers using (worker_id)
-                      LEFT JOIN worker_specializations ON workers.worker_specialization_id = worker_specializations.worker_specialization_id
+                      LEFT JOIN mylab_workers using (worker_id)
+                      LEFT JOIN worker_specializations ON mylab_workers.worker_specialization_id = worker_specializations.worker_specialization_id
                       ";
 
         $sqlWhere = " WHERE lab_workers.lab_id in (".$lab_ids.")";
