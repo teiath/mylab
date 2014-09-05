@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-md-12">
             <form id="search-form">
-                <ul id="panelbar" data-role="panelbar">
+                <ul id="panelbar" data-role="panelbar" data-bind="events: {collapse : panelBarCollapse}">
                     <li>
                         Αναζήτηση με βάση τα Στοιχεία Διάταξης Η/Υ
                         <div class="row" style="padding:20px;">
@@ -56,11 +56,11 @@
                                 </div>
                                 
                                 <div class="col-md-11">
-                                    <label for="lab_creation_date">ημ/νια δημιουργίας Διάταξης Η/Υ</label>
+                                    <label for="creation_date">ημ/νια δημιουργίας Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
                                     <input id="sl_lab_creation_date" 
-                                           name="lab_creation_date"
+                                           name="creation_date"
                                            data-role="datepicker"
                                            data-format="yyyy-MM-dd"
                                            data-bind="value: creation_date, events: {change : filterChanged }"/>
