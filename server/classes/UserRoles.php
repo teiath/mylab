@@ -103,7 +103,7 @@ private static $Permissions = array(
     'labs'                  => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ'),
                                         'POST' => array('ΔΙΕΥΘΥΝΤΗΣ'),
-                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ'),
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ'),
                                         ) ,
     'lab_aquisition_sources'=> array(
