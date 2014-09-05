@@ -395,7 +395,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         if ( Validator::Exists('lab_worker', $params) )
         {
-            $table_name = "workers";
+            $table_name = "mylab_workers";
             $table_column_id = "registry_no";
             $table_column_name = "lastname";
             $filter_validators = 'null,id,value';
