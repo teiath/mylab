@@ -421,7 +421,7 @@ $result["method"] = $app->request()->getMethod();
         //Close and save PDF document to folder
         $file = $_SERVER['DOCUMENT_ROOT'].$Options["TmpFolder"].$filename;
         $pdf->Output( $file, 'F');
-        return array("tmp_report_filepath" => $Options["WebTmpFolder"].$file);
+        return array("tmp_report_filepath" => $Options["WebTmpFolder"].$filename);
     //    exit();
 
     } catch (Exception $e) {
