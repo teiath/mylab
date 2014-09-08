@@ -17,7 +17,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
                       $education_level, $school_unit_type, $school_unit_state, 
                       $pagesize, $page, $orderby, $ordertype, $searchtype, $export ) {
 
-    global $db;
+    global $db,$Options;
     global $app;
     
     $filter = array();
@@ -1028,8 +1028,9 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
     if ($export == 'JSON'){
         return $result;
     } else if ($export == 'XLSX') {
-        SearchLabsExt::ExcelCreate($result);
-        exit;
+       $xlsx_filename = SearchLabsExt::ExcelCreate($result);
+       return array("tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+       // exit;
     } else if ($export == 'PDF'){
        return $result;
     } else {     

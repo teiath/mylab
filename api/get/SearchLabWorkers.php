@@ -17,7 +17,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                             $education_level, $school_unit_type, $school_unit_state, 
                             $pagesize, $page, $orderby, $ordertype, $searchtype, $export ) {
 
-    global $db;
+    global $db,$Options;
     global $app;
     
     $filter = array();
@@ -635,8 +635,9 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
     if ($export == 'JSON'){
         return $result;
     } else if ($export == 'XLSX') {
-        SearchSchoolUnitsExt::ExcelCreate($result);
-        exit;
+        $xlsx_filename = SearchLabWorkersExt::ExcelCreate($result);
+        return array("tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+        //exit;
     } else if ($export == 'PDF'){
        return $result;
     } else {     

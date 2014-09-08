@@ -20,7 +20,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                             $aquisition_source, $equipment_type, $lab_worker, 
                             $pagesize, $page, $orderby, $ordertype, $searchtype , $export ) {
 
-    global $db;
+    global $db,$Options;
     global $app;
     
     $filter = array();
@@ -1030,8 +1030,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
     if ($export == 'JSON'){
         return $result;
     } else if ($export == 'XLSX') {
-        SearchSchoolUnitsExt::ExcelCreate($result);
-        exit;
+       $xlsx_filename = SearchSchoolUnitsExt::ExcelCreate($result);
+       return array("tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+       //exit;
     } else if ($export == 'PDF'){
        return $result;
     } else {     
