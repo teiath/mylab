@@ -95,7 +95,7 @@ var SearchVM = kendo.observable({
               
         
         var parameters = normalizeParams(searchParameters);
-        console.log("parameters:", parameters);
+        //console.log("parameters:", parameters);
 
         var normalizedFilter = {};
         $.each(parameters, function(index, value){
@@ -104,11 +104,18 @@ var SearchVM = kendo.observable({
             value = (value ? value+"," : "")+ filter.value;
             normalizedFilter[filter.field] = value;                                   
         });
-        console.log("normalizedFilter: ", normalizedFilter);
+        //console.log("normalizedFilter: ", normalizedFilter);
+
+        var url;
+        if($('#switch_to_labs_view_btn').is(':checked')){
+            url = baseURL + 'search_labs?export=xlsx&';
+        }else{
+            url = baseURL + 'search_school_units?export=xlsx&';
+        }        
 
         $.ajax({
                 type: 'GET',
-                url: baseURL + 'search_labs?&export=xlsx&',
+                url: url,  //baseURL + 'search_labs?&export=xlsx&',
                 dataType: "json",
                 data: normalizedFilter,
                 success: function(data){
