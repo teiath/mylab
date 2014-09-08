@@ -304,9 +304,7 @@ var LabsViewVM = kendo.observable({
         transition_dialog.center().open();
     },
     detailInit: function(e){
-        
-        console.log("user_url: ", LabsViewVM.user_url);
-        
+                
         //console.log("labs view detailInit", e);
         e.preventDefault();
         //kendo.bind($("#lab_details_tabstrip"), LabsViewVM); //δεν καταλαβαίνω γιατι αλλά without this line, detail template EVENT bindings  will not work!!

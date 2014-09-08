@@ -41,11 +41,67 @@
             
             var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
             var user_url = encodeURIComponent(JSON.stringify(user));
-            console.log("user_url before includes:", user_url);
-            
+                       
         </script>
             
         <?php require_once('includes.html'); // Prosexe. Fortwneis edw ta includes. Dld to LabViewVM fortwnei edw.?> 
+        
+        <script>
+            
+            var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ", "ΠΣΔ"];
+            var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ"];
+            var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ"];
+            var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
+            var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
+
+            var value_ranks=[], authorized_user;
+            if(typeof user.title != 'object' && typeof user.title != 'array') {
+                user.title = [user.title];
+            }
+            $.each(user.title, function(index, value){
+                switch(value) {
+                    case 'ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ':
+                        value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                        break;
+                    case 'ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ':
+                        value_ranks.push({ldap_title: 'ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                        break;
+                    case  'ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ' :
+                        value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                        break;
+                    case  'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ' :
+                        value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ', ranking : 20, role: 'ΣΕΠΕΗΥ'});
+                        break;
+                    case  'ΠΡΟΣΩΠΙΚΟ ΠΣΔ' :
+                        value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΠΣΔ', ranking : 25, role: 'ΠΣΔ'});
+                        break;
+                    case  'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ' :
+                        value_ranks.push({ldap_title: 'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ', ranking : 15, role: 'ΔΙΕΥΘΥΝΤΗΣ'});
+                        break;
+                    case  'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
+                        value_ranks.push({ldap_title: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ', ranking : 35, role: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ'});
+                        break;
+                    case  'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ' :
+                        value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ', ranking : 30, role: 'ΥΠΕΠΘ'});
+                        break;
+                    default:
+                        value_ranks.push({ldap_title: '', ranking : 50, role: 'noAccess'});
+                }
+            });
+
+            var maxRanking = 50;
+            var maxRole = "noAccess";
+            $.each(value_ranks, function(index, value){
+                if (value.ranking < maxRanking) {
+                    maxRanking = value.ranking;
+                    maxRole = value.role;
+                }
+            });
+
+            authorized_user = maxRole;
+            console.log("authorized_user: ", authorized_user);            
+ 
+        </script>
         
         <script>
                            
@@ -76,6 +132,8 @@
                 kendo.bind($("#switch_view"), LabsViewVM);
                 kendo.bind($("#school_unit_info_pane").find("#details-container"), SchoolUnitsViewVM);
                 kendo.bind($("#school_unit_info_dialog"), SchoolUnitsViewVM);
+                
+                kendo.bind($("#annual_ypaith_report"), NavBarVM);
                 
                 
                 //NOTIFICATIONS
@@ -153,21 +211,10 @@
     <body>
         
         <?php 
-                require_once('navigation_bar.php'); //navigation bar // To navigation bar fortwnei edw. Pou shmainei oti PRWTA exei fortwsei to LabsViewVM kai META tou orizeis to user. .Ara otan fortwnei DEN yparxei user.swsta/ min ta sviseis auta pou egrapses. Asta na ta vlepw.
+                require_once('navigation_bar.php'); //navigation bar // To navigation bar fortwnei edw. Pou shmainei oti PRWTA exei fortwsei to LabsViewVM kai META tou orizeis to user. .Ara otan fortwnei DEN yparxei user
         ?>
-        <div style='height:90px'> </div> 
-        <script> 
-//            if(jQuery.inArray( authorized_user, search_xls ) !== -1){
-//                alert("im in!!");
-//            };
-        </script>
-        
+        <div style='height:90px'> </div>
         <?php
-                //var_dump($user['title']); //string(25) "ΠΡΟΣΩΠΙΚΟ ΠΣΔ" 
-                //$search_xls = array("ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ", "ΠΡΟΣΩΠΙΚΟ ΠΣΔ", "ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", "ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ");
-                //if(in_array($user['title'], $search_xls)){ require_once('search.html'); } //search pane
-                //require_once('search.html'); //search pane
-                //var_dump($user['title']);
                 if(in_array("ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ") ||
                    in_array("ΠΡΟΣΩΠΙΚΟ ΠΣΔ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΠΣΔ") ||
                    in_array("ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ") ||
@@ -175,24 +222,24 @@
                    in_array("ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ") ){ 
                     require_once('search.html'); 
                 }
-                if(in_array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ", $user['title'])){ require_once('school_unit_info.html'); }
-                //require_once('school_unit_info.html');
+                if(in_array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ", $user['title'])){ 
+                    require_once('school_unit_info.html');
+                }
                 require_once('switch_views.html'); //switch views button
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view
         ?>
         <a href="#" class="scrollup">Scroll</a>
-        
-        
-        <script>
+               
+<!--        <script>
     
-            var g_casUrl = "<?php echo $casOptions['Url'] ?>";
+            var g_casUrl = "<?php //echo $casOptions['Url'] ?>";
             
             // Build logout link
             $("#lnkLogout").attr("href", config.url + "home.php?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
             $("#user_button").html(user.uid);
 
-        </script>        
+        </script>        -->
         
     </body>
 </html>

@@ -24,11 +24,11 @@
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-user"></i> <span id="user_button" style="font-size: 13px;"> </span> <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu" role="menu">
+              <ul class="dropdown-menu" role="menu" style="cursor:pointer; cursor:hand;">
                 <li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li>
-                <li><a href="http://mmsch.teiath.gr/mylab/api/report_keplhnet" target="_blank"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
-                <li><a href="#"><i class="fa fa-file-pdf-o"></i> Αναφορά 1</a></li>
-                <li><a href="#"><i class="fa fa-file-pdf-o"></i> Αναφορά 2</a></li>
+                <li><a id="annual_ypaith_report" target="_blank" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
+                <!--<li><a href="#"><i class="fa fa-file-pdf-o"></i> Αναφορά 1</a></li>-->
+                <!--<li><a href="#"><i class="fa fa-file-pdf-o"></i> Αναφορά 2</a></li>-->
                 <li class="divider"></li>
                 <li><a href="#" id="lnkLogout"><i class="fa fa-sign-out"></i> Αποσύνδεση</a></li>
               </ul>
@@ -37,70 +37,13 @@
     </div>    
 </nav>
 
-
 <script>
-    
-    var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ", "ΠΣΔ"];
-    //console.log("search_xls: ", search_xls);
-    var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ"];
-    //console.log("edit_lab_details: ", edit_lab_details);
-    var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ"];
-    //console.log("edit_lab_worker: ", edit_lab_worker);
-    var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
-    //console.log("transit_lab: ", transit_lab);
-    var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
-    //console.log("create_lab: ", create_lab);
-    
-    /*var user = JSON.parse(atob("<?php //echo base64_encode(json_encode($user));?>"));
-      var user_url = encodeURIComponent(JSON.stringify(user));*/
-    
-    var value_ranks=[], authorized_user;
-    if(typeof user.title != 'object' && typeof user.title != 'array') {
-        user.title = [user.title];
-    }
-    $.each(user.title, function(index, value){
-        switch(value) {
-            case 'ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ':
-                value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
-                break;
-            case 'ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ':
-                value_ranks.push({ldap_title: 'ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
-                break;
-            case  'ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ' :
-                value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
-                break;
-            case  'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ' :
-                value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ', ranking : 20, role: 'ΣΕΠΕΗΥ'});
-                break;
-            case  'ΠΡΟΣΩΠΙΚΟ ΠΣΔ' :
-                value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΠΣΔ', ranking : 25, role: 'ΠΣΔ'});
-                break;
-            case  'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ' :
-                value_ranks.push({ldap_title: 'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ', ranking : 15, role: 'ΔΙΕΥΘΥΝΤΗΣ'});
-                break;
-            case  'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
-                value_ranks.push({ldap_title: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ', ranking : 35, role: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ'});
-                break;
-            case  'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ' :
-                value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ', ranking : 30, role: 'ΥΠΕΠΘ'});
-                break;
-            default:
-                value_ranks.push({ldap_title: '', ranking : 50, role: 'noAccess'});
-        }
-    });
-    
-    //console.log("value_ranks: ", value_ranks);
-    
-    var maxRanking = 50;
-    var maxRole = "noAccess";
-    $.each(value_ranks, function(index, value){
-        if (value.ranking < maxRanking) {
-            maxRanking = value.ranking;
-            maxRole = value.role;
-        }
-    });
-    
-    authorized_user = maxRole;
-    console.log("authorized_user: ", authorized_user);
 
+    var g_casUrl = "<?php echo $casOptions['Url'] ?>";
+
+    // Build logout link
+    $("#lnkLogout").attr("href", config.url + "home.php?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
+    $("#user_button").html(user.uid);
+    //$("#annual_ypaith_report").attr("href", config.serverUrl + "report_keplhnet?user=" + user_url);
+    
 </script>

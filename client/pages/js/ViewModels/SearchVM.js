@@ -92,7 +92,6 @@ var SearchVM = kendo.observable({
     },
     exportToXLSX: function(e){
         e.preventDefault();
-              
         
         var parameters = normalizeParams(searchParameters);
         //console.log("parameters:", parameters);
@@ -115,7 +114,7 @@ var SearchVM = kendo.observable({
 
         $.ajax({
                 type: 'GET',
-                url: url,  //baseURL + 'search_labs?&export=xlsx&',
+                url: url,
                 dataType: "json",
                 data: normalizedFilter,
                 success: function(data){
@@ -134,40 +133,6 @@ var SearchVM = kendo.observable({
                 },
                 error: function (data){ console.log("export to xls data failed: ", data);}
         });
-
-/*
-        //console.log("exportToXLSX e :", e);
-        
-        if($('#switch_to_labs_view_btn').is(':checked')){
-            var url = baseURL + 'search_labs?user=' + user_url + '&export=xlsx&';
-        }else{
-            var url = baseURL + 'search_school_units?user=' + user_url + '&export=xlsx&';
-        }
-        
-        var parameters = normalizeParams(searchParameters);
-        //console.log("parameters:", parameters);
-
-        var normalizedFilter = {};
-        $.each(parameters, function(index, value){
-            var filter = parameters[index];
-            var value = normalizedFilter[filter.field];
-            value = (value ? value+"," : "")+ filter.value;
-            normalizedFilter[filter.field] = value;                                   
-        });
-        //console.log("normalizedFilter: ", normalizedFilter);
-
-        $.each(normalizedFilter, function(index){
-            var key = index;
-            var value = normalizedFilter[index];
-            var par= key+"="+value+"&";
-            url = url.concat(par);
-        });
-        //url.slice(0, - 1);
-        url = url.substring(0, url.length-1);
-        
-        //console.log("url:", url);
-        window.location.href = url;
-*/
     },
     labIDInfoTooltip: function(e){
         var tooltip = $("#sl_lab_id").kendoTooltip({
