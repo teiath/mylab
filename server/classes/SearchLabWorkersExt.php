@@ -4,10 +4,7 @@ class SearchLabWorkersExt {
     
  public static function ExcelCreate($data){
 
-    define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
-
-    if (PHP_SAPI == 'cli')
-        die('This function should only be run from a Web Browser');
+    global $Options;
  
     $stringDate = date('dmYHis');
     $filename = "LabWorkers".$stringDate.".xlsx";
@@ -108,17 +105,23 @@ class SearchLabWorkersExt {
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet
     $objPHPExcel->setActiveSheetIndex(0);
 
-    // Redirect output to a client’s web browser (Excel2007)
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header("Content-Disposition: attachment;filename=\"".$filename."\"");
-    header('Cache-Control: max-age=0');
-    // If you're serving to IE 9, then the following may be needed
-    header('Cache-Control: max-age=1');
-
-    // Save Excel 2007 file
-    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    $objWriter->save('php://output');
+//    // Redirect output to a client’s web browser (Excel2007)
+//    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+//    header("Content-Disposition: attachment;filename=\"".$filename."\"");
+//    header('Cache-Control: max-age=0');
+//    // If you're serving to IE 9, then the following may be needed
+//    header('Cache-Control: max-age=1');
+//
+//    // Save Excel 2007 file
+//    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+//    $objWriter->save('php://output');
     
+    // Save Excel 2007 file
+    $file = $_SERVER['DOCUMENT_ROOT'].$Options["TmpFolder"].$filename;
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+    $objWriter->save(str_replace('.php', '.xlsx', $file));
+
+    return $filename;
 }
 
 public static function PdfCreate($data){

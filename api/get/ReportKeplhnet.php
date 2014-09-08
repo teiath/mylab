@@ -163,7 +163,8 @@ header("Content-Type: text/html; charset=utf-8");
 
 
 function ReportKeplhnet ($edu_admin_code ) {
-    
+
+global $Options;
 global $app;
 
 $result = array();
@@ -413,9 +414,15 @@ $result["method"] = $app->request()->getMethod();
         // move pointer to last page
         $pdf->lastPage();
 
-        //Close and output PDF document
-        $pdf->Output( "Ticket_".$filename.".pdf", 'I');
-        exit();
+//        //Close and output PDF document to browser
+//        $pdf->Output( "Ticket_".$filename.".pdf", 'I');
+//        exit();
+        
+        //Close and save PDF document to folder
+        $file = $_SERVER['DOCUMENT_ROOT'].$Options["TmpFolder"].$filename;
+        $pdf->Output( $file, 'F');
+        return array("tmp_report_filepath" => $Options["WebTmpFolder"].$file);
+    //    exit();
 
     } catch (Exception $e) {
 
