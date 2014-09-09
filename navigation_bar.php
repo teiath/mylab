@@ -26,7 +26,7 @@
               </button>
               <ul class="dropdown-menu" role="menu" style="cursor:pointer; cursor:hand;">
                 <li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li>
-                <li><a id="annual_ypaith_report" target="_blank" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
+                <li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li>
                 <!--<li><a href="#"><i class="fa fa-file-pdf-o"></i> Αναφορά 1</a></li>-->
                 <!--<li><a href="#"><i class="fa fa-file-pdf-o"></i> Αναφορά 2</a></li>-->
                 <li class="divider"></li>
@@ -37,6 +37,27 @@
     </div>    
 </nav>
 
+
+
+    <!--file_download_dialog-->
+    <div id="file_download_dialog" style="display:none; color: #5E5E5E">
+        
+        <div style="padding:13px;">Η έκδοση της αναφοράς βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+
+        <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+            <span class="k-progress-status-wrap">
+                <span class="k-progress-status">0</span>
+            </span>
+        </div>       
+        
+    </div>
+
+
+    <!--file_download_error_dialog-->
+    <div id="file_download_error_dialog" style="display:none; color: #5E5E5E">
+        <div style="padding:13px;">Υπήρξε κάποιο σφάλμα κατα τη διάρκεια της έκδοσης της αναφοράς, παρακαλώ ξαναπροσπαθείστε.</div>                                                
+    </div>
+    
 <script>
 
     var g_casUrl = "<?php echo $casOptions['Url'] ?>";

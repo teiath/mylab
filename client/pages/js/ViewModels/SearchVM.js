@@ -118,20 +118,22 @@ var SearchVM = kendo.observable({
                 dataType: "json",
                 data: normalizedFilter,
                 success: function(data){
-
-                    var message;
-                    if (typeof data.message !== 'undefined'){
-                        message= data.message;
-                    }else if (typeof data.message_internal !== 'undefined'){
-                        message= data.message_internal;
-                    }else if (typeof data.message_external !== 'undefined'){
-                        message= data.message_external;
-                    }
-                    
-                    console.log(message);
-
+                    window.location.href = data.tmp_xlsx_filepath;
                 },
-                error: function (data){ console.log("export to xls data failed: ", data);}
+                error: function (data){ 
+                    console.log("export to xls data failed: ", data);
+                    var xls_download_error_dialog = $("#xls_download_error_dialog").kendoWindow({
+                        title: "Αποτυχία Έκδοσης .xls Αρχείου",
+                        modal: true,
+                        visible: false,
+                        resizable: false,
+                        width: 400,
+                        pinned: true
+                    }).data("kendoWindow");
+
+                    xls_download_error_dialog.content();
+                    xls_download_error_dialog.center().open();
+                }
         });
     },
     labIDInfoTooltip: function(e){
