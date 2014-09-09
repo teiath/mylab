@@ -208,7 +208,7 @@
      
     </head>
    
-    <body>
+    <body style="background-color: #e6ece1;">
         
         <?php 
                 require_once('navigation_bar.php'); //navigation bar // To navigation bar fortwnei edw. Pou shmainei oti PRWTA exei fortwsei to LabsViewVM kai META tou orizeis to user. .Ara otan fortwnei DEN yparxei user
