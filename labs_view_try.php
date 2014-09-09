@@ -22,7 +22,7 @@
         
     ?>
 
-    <!--transition dialog-->
+    <!--school_unit_info_dialog-->
     <div id="school_unit_info_dialog" style="display:none; color: #5E5E5E">
         
         <ul style="margin: 10px; list-style: none;">
