@@ -4,6 +4,7 @@ require_once ('server/system/config.php');
 $user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);      
 //$results = $_POST['results']; 
 //var_dump($results);
+var_dump($user);
 
 ?>
 
@@ -11,11 +12,18 @@ $user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsern
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script>
+            
+            var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
+            //var user_url = encodeURIComponent(JSON.stringify(user));
+            //console.log("user_url before includes:", user_url);
+            
+        </script>
         <?php require_once('includes.html');?>
 
         <script>
             
-            var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user)); ?>"));
+            //var user = JSON.parse(atob("<?php //echo base64_encode(json_encode($user)); ?>"));
             function make_base_auth(hash) { return "Basic " + hash;}
 
             var parameters = {
