@@ -419,7 +419,7 @@ $result["method"] = $app->request()->getMethod();
 //        exit();
         
         //Close and save PDF document to folder
-        $file = $_SERVER['DOCUMENT_ROOT'].$Options["TmpFolder"].$filename;
+        $file = $Options["TmpFolder"].$filename;
         $pdf->Output( $file, 'F');
         return array("tmp_report_filepath" => $Options["WebTmpFolder"].$filename);
     //    exit();

@@ -90,7 +90,7 @@ foreach($data["data"] as $school_unit_data)
 //    $objWriter->save('php://output');
     
     // Save Excel 2007 file
-    $file = $_SERVER['DOCUMENT_ROOT'].$Options["TmpFolder"].$filename;
+    $file = $Options["TmpFolder"].$filename;
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
     $objWriter->save(str_replace('.php', '.xlsx', $file));
 
