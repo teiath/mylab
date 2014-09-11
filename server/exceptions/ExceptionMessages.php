@@ -52,6 +52,20 @@ class ExceptionMessages
 //        const InsertDuplicateSchoolUnits = 'Δεν είναι δυνατή η εισαγωγή, δύο ή περισσότερων παραμέτρων με τις ίδιες τιμές school_unit_id = ';
 //        
         const Unauthorized = 'Unauthorized';
+        
+        const MissingXAxisParam = 'Ο Άξονας x είναι υποχρεωτικό πεδίο';
+        const MissingXAxisValue = 'Ο Άξονας x πρέπει να έχει τιμή';
+        const InvalidXAxisType = 'Ο Άξονας x πρέπει να είναι αλφαριθμητικός';
+        const InvalidXAxisArray = 'Ο Άξονας x δεν μπορεί να έχει πολλαπλές τιμές';
+        const InvalidXAxis = 'Ο Άξονας x πρέπεινα πρέπει να είναι κάποιο από τα πεδία που επιστρέφει η συνάρτηση';
+
+        const MissingYAxisParam = 'Ο Άξονας y είναι υποχρεωτικό πεδίο';
+        const MissingYAxisValue = 'Ο Άξονας y πρέπει να έχει τιμή';
+        const InvalidYAxisType = 'Ο Άξονας y πρέπει να είναι αλφαριθμητικός';
+        const InvalidYAxisArray = 'Ο Άξονας y δεν μπορεί να έχει πολλαπλές τιμές';
+        const InvalidYAxis = 'Ο Άξονας y πρέπεινα πρέπει να είναι κάποιο από τα πεδία που επιστρέφει η συνάρτηση';
+        
+        
 //    // dictionary messages (not found)=============================================================================================================
 //   
 //

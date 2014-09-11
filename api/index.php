@@ -83,6 +83,7 @@ $app->map('/search_lab_workers', Authentication, UserRolesPermission, SearchLabW
 $app->map('/statistic_school_units', Authentication, UserRolesPermission, StatisticSchoolUnitsController)->via(MethodTypes::GET);
 $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsController)->via(MethodTypes::GET);
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
+$app->map('/stat_labs', Authentication, UserRolesPermission, StatLabsController)->via(MethodTypes::GET);
 
 $app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
 
@@ -1887,6 +1888,39 @@ function StatisticLabWorkersController()
                 $params["school_unit_type"],
                 $params["school_unit_state"],
                 $params["searchtype"],
+                $params["debug"]
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function StatLabsController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = StatLabs(
+                $params["x_axis"],
+                $params["y_axis"],                
+                $params["operational_rating"],
+                $params["technological_rating"],
+                $params["lab_type"],
+                $params["lab_state"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"],
+                $params["education_level"],
+                $params["school_unit_type"],
+                $params["school_unit_state"],
                 $params["debug"]
             );      
             break;

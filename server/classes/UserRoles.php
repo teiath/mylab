@@ -193,6 +193,9 @@ private static $Permissions = array(
     'statistic_labs'        => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
+    'stat_labs'             => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+                                        ) ,
     'statistic_lab_workers' => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
