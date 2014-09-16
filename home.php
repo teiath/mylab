@@ -44,7 +44,7 @@
                        
         </script>
             
-        <?php require_once('includes.html'); // Prosexe. Fortwneis edw ta includes. Dld to LabViewVM fortwnei edw.?> 
+        <?php require_once('includes.html'); ?> 
         
         <script>
             
@@ -129,9 +129,13 @@
                 
                 
                 kendo.bind($("#search-container"), SearchVM);
-                kendo.bind($("#switch_view"), LabsViewVM);
+                kendo.bind($("#switch_views"), LabsViewVM);
                 kendo.bind($("#school_unit_info_pane").find("#details-container"), SchoolUnitsViewVM);
                 kendo.bind($("#school_unit_info_dialog"), SchoolUnitsViewVM);
+                
+                
+                kendo.bind($("#statistics-container"), StatisticsVM);
+                kendo.bind($("#info-container"), InfoVM);
                 
                 kendo.bind($("#annual_ypaith_report"), NavBarVM);
                 
@@ -175,8 +179,8 @@
                 });
                 
                 //reset radio btn to labs view
-                $('#switch_to_labs_view_btn').attr('checked',true);
-                $('#switch_to_school_units_view_btn').attr('checked',false);
+                //$('#switch_to_labs_view_btn').attr('checked',true);
+                //$('#switch_to_school_units_view_btn').attr('checked',false);
                 
                 //get user role
                     
@@ -210,36 +214,35 @@
    
     <body style="background-color: #e6ece1;">
         
-        <?php 
-                require_once('navigation_bar.php'); //navigation bar // To navigation bar fortwnei edw. Pou shmainei oti PRWTA exei fortwsei to LabsViewVM kai META tou orizeis to user. .Ara otan fortwnei DEN yparxei user
-        ?>
+        <?php require_once('navigation_bar.php'); //navigation bar ?>
         <div style='height:90px'> </div>
+        <?php require_once('switch_views_new.php'); //switch views?>
+        <div style='height:50px'> </div>      
         <?php
                 if(in_array("ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ") ||
                    in_array("ΠΡΟΣΩΠΙΚΟ ΠΣΔ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΠΣΔ") ||
                    in_array("ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ") ||
                    in_array("ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ") ||
                    in_array("ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ") ){ 
-                    require_once('search.html'); 
+                    require_once('search.html');  //search
                 }
-                if(in_array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ", $user['title'])){ 
-                    require_once('school_unit_info.html');
-                }
-                require_once('switch_views.html'); //switch views button
+                /*if(in_array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ", $user['title'])){
+        ?>
+                <script> $("#tzoker").remove(); </script>
+                <div style="height:55px"> </div>
+        <?php
+                    require_once('school_unit_info.html'); //info
+        ?>
+                <div style="height:55px"> </div>
+        <?php
+                }*/
+
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view
+                require_once('statistics_new.php'); //statistics
+                require_once('info.php'); //info
         ?>
         <a href="#" class="scrollup">Scroll</a>
-               
-<!--        <script>
-    
-            var g_casUrl = "<?php //echo $casOptions['Url'] ?>";
-            
-            // Build logout link
-            $("#lnkLogout").attr("href", config.url + "home.php?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
-            $("#user_button").html(user.uid);
-
-        </script>        -->
-        
+                      
     </body>
 </html>
