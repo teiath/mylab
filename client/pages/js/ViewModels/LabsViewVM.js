@@ -1069,16 +1069,16 @@ var LabsViewVM = kendo.observable({
     },
   
     
-    hideLabsGrid: function(e) {
-        //console.log("im inside hideLabsGrid", e);
-        this.set("isVisible", false);
-        SchoolUnitsViewVM.set("isVisible", true);
-    },
-    showLabsGrid: function(e) {
-        //console.log("im inside showLabsGrid", e);
-        this.set("isVisible", true);
-        SchoolUnitsViewVM.set("isVisible", false);
-    },
+//    hideLabsGrid: function(e) {
+//        //console.log("im inside hideLabsGrid", e);
+//        this.set("isVisible", false);
+//        SchoolUnitsViewVM.set("isVisible", true);
+//    },
+//    showLabsGrid: function(e) {
+//        //console.log("im inside showLabsGrid", e);
+//        this.set("isVisible", true);
+//        SchoolUnitsViewVM.set("isVisible", false);
+//    },
     openColumnSelection: function(e){
         var column_selection_dialog = $("#labs_column_selection_dialog").kendoWindow({
                     modal: true,
@@ -1101,7 +1101,8 @@ var LabsViewVM = kendo.observable({
         var toolbar = "";
         
         var grid;
-        if($('#switch_to_labs_view_btn').is(':checked')){
+        if(LabsViewVM.isVisible){
+        //if($('#switch_to_labs_view_btn').is(':checked')){
             grid = $("#labs_view").data("kendoGrid");
         }else{
             grid = $("#school_unit_labs").data("kendoGrid");
@@ -1117,7 +1118,8 @@ var LabsViewVM = kendo.observable({
     hideColumn: function(col) {
 
         var grid;
-        if($('#switch_to_labs_view_btn').is(':checked')){
+        if(LabsViewVM.isVisible){
+        //if($('#switch_to_labs_view_btn').is(':checked')){
             grid = $("#labs_view").data("kendoGrid");
         }else{
             grid = $("#school_unit_labs").data("kendoGrid");
@@ -1132,7 +1134,8 @@ var LabsViewVM = kendo.observable({
     restoreDefaultColumns: function() {
         
         var grid;
-        if($('#switch_to_labs_view_btn').is(':checked')){
+        if(LabsViewVM.isVisible){
+        //if($('#switch_to_labs_view_btn').is(':checked')){
             grid = $("#labs_view").data("kendoGrid");
         }else{
             grid = $("#school_unit_labs").data("kendoGrid");
@@ -1157,7 +1160,8 @@ var LabsViewVM = kendo.observable({
     },
     refresh: function(){
         var grid;
-        if($('#switch_to_labs_view_btn').is(':checked')){
+        if(LabsViewVM.isVisible){
+        //if($('#switch_to_labs_view_btn').is(':checked')){
             grid = $("#labs_view").data("kendoGrid");
         }else{
             grid = $("#school_unit_labs").data("kendoGrid");
@@ -1168,7 +1172,8 @@ var LabsViewVM = kendo.observable({
     },
     refreshTooltip: function(e){
 
-        if($('#switch_to_labs_view_btn').is(':checked')){
+        if(LabsViewVM.isVisible){
+        //if($('#switch_to_labs_view_btn').is(':checked')){
             var tooltip = $(".lab_refresh_btn").kendoTooltip({
                 autoHide: true,
                 content:"ανανέωση",
@@ -1197,7 +1202,8 @@ var LabsViewVM = kendo.observable({
         }
     },
     columnsTooltip: function(e){
-        if($('#switch_to_labs_view_btn').is(':checked')){
+        if(LabsViewVM.isVisible){
+        //if($('#switch_to_labs_view_btn').is(':checked')){
             var tooltip = $(".lab_grid_columns_btn").kendoTooltip({
                 autoHide: true,
                 content:"επιλογή στηλών",
