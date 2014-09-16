@@ -1,10 +1,12 @@
 <?php
 require_once ('server/system/config.php');
-             
-$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);      
+//require_once ('server/libs/phpCAS/CAS.php');
+//$user = phpCAS::getAttributes();         
+//$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);      
+//$user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
 //$results = $_POST['results']; 
 //var_dump($results);
-var_dump($user);
+//var_dump($user);
 
 ?>
 
@@ -14,34 +16,66 @@ var_dump($user);
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script>
             
-            var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
-            //var user_url = encodeURIComponent(JSON.stringify(user));
+            var user={
+                authenticationMethod: "gr.uoa.devel.cas.adaptors.ldap.BindLdapAuthenticationHandler",
+                backendAuthorizationHash: "bXlsYWJmcm9udDpnNlMha3NkeA==",
+                cn: "ΔΟΚΙΜΑΣΤΙΚΟΣ ΛΟΓΑΡΙΑΣΜΟΣ 5",
+                edupersonorgunitdn: ["ou=1lyk-argous,ou=arg,ou=units,dc=sch,dc=gr", "ou=arg,ou=units,dc=sch,dc=gr"],
+                employeenumber: "0000999",
+                gsnBranch: "ΠΕ20-ΠΛΗΡΟΦΟΡΙΚΗΣ ΤΕΙ",
+                l: "ou=1lyk-argous,ou=arg,ou=units,dc=sch,dc=gr",
+                mail: "teiath-dok-gym-5@sch.gr",
+                ou: "1ο ΕΝΙΑΙΟ ΛΥΚΕΙΟ ΑΡΓΟΥΣ",
+                samlAuthenticationStatementAuthMethod: "urn:oasis:names:tc:SAML:1.0:am:password",
+                title: ["ΕΚΠΑΙΔΕΥΤΙΚΟΣ", "ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ"],
+                uid: "teiath-dok-gym-5",
+                umdobject: "aTeacher"
+            };
+            
+            console.log("user inside statistics", user);
+            //var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
+            var user_url = encodeURIComponent(JSON.stringify(user));
             //console.log("user_url before includes:", user_url);
             
         </script>
-        <?php require_once('includes.html');?>
-
+        
+        
+        <?php 
+                require_once('includes.html');
+                require_once('navigation_bar.php'); //navigation bar
+        ?>
+        
         <script>
             
+            //$(document).ready(function() {
+                $.ajaxSetup({
+                    data: { user: user },
+                    beforeSend: function(req) {
+                        req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
+                    }
+                });
+            //});
+            
             //var user = JSON.parse(atob("<?php //echo base64_encode(json_encode($user)); ?>"));
-            function make_base_auth(hash) { return "Basic " + hash;}
+            //function make_base_auth(hash) { return "Basic " + hash;}
 
             var parameters = {
-                 implementation_entity: "11",
-                 x_axis: "edu_admin",
-                 y_axis: "unit_type"
+                 //implementation_entity: "11",
+                 //x_axis: "edu_admin",
+                 //y_axis: "unit_type"
+                 edu_admin: "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΡΓΟΛΙΔΑΣ"
              };
             
             $.ajax({
                 type: "GET",
                 url: "http://mmsch.teiath.gr/mylab/api/statistic_school_units",
                 dataType: "json",
-                data: JSON.stringify(parameters),
-                beforeSend: function(req) {
-                    req.setRequestHeader(
-                    'Authorization', make_base_auth (user.backendAuthorizationHash)
-                    );
-                },
+                data: parameters,
+//                beforeSend: function(req) {
+//                    req.setRequestHeader(
+//                    'Authorization', make_base_auth (user.backendAuthorizationHash)
+//                    );
+//                },
                 success: function(data){
                     $(document).ready(function() {
                         
