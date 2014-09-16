@@ -25,8 +25,6 @@
                 <i class="fa fa-user"></i> <span id="user_button" style="font-size: 13px;"> </span> <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu" style="cursor:pointer; cursor:hand;">
-                <li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li>
-                <li class="divider"></li>
                 <li><a href="#" id="lnkLogout"><i class="fa fa-sign-out"></i> Αποσύνδεση</a></li>
               </ul>
             </div>
@@ -58,19 +56,14 @@
 <script>
 
     if(authorized_user === "ΚΕΠΛΗΝΕΤ"){
-        $("#user_menu").find("ul li:nth-child(1)").after('<li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li>');
-    }
-
-    if ( $("#user_menu").find("ul li").length === 3 ){
-        $("#user_menu").find("ul li:first").text("Δεν υπάρχουν διαθέσιμες αναφορές προς έκδοση");
+        $("#user_menu").find("ul li:eq(0)").before('<li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li><li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li><li class="divider"></li>');
     }
 
     var g_casUrl = "<?php echo $casOptions['Url'] ?>";
 
     // Build logout link
-    $("#lnkLogout").attr("href", config.url + "home.php?logout=true"); //"http://mmsch.teiath.gr/mylab/?logout=true"
+    $("#lnkLogout").attr("href", config.url + "home.php?logout=true");
     $("#user_button").html(user.uid);
-    //$("#annual_ypaith_report").attr("href", config.serverUrl + "report_keplhnet?user=" + user_url);
     
 </script>
 
