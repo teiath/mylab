@@ -1,5 +1,7 @@
 var SearchVM = kendo.observable({
 
+    isVisible: true,
+
     school_unit_types_ds: newSchoolUnitTypesDS(),
     education_levels_ds: newEducationLevelsDS(),
 
@@ -15,31 +17,28 @@ var SearchVM = kendo.observable({
     school_unit_states_ds: newStatesDS(),
     lab_rating_ds: newRatingDS(),
     
-    lab_id: "",                 //μονό
+    lab_id: "",                 //πολλαπλό
     lab_name: "",               //μονό
     lab_special_name: "",       //μονό    
     lab_type: "",               //πολλαπλό
-    creation_date: "",      //μονό
+    creation_date: "",          // μονό
     
     aquisition_source: "",      //πολλαπλό
     lab_worker: "",             //πολλαπλό
     operational_rating: "",     //πολλαπλό
     technological_rating: "",   //πολλαπλό
-    lab_state: "",              //μονό
+    lab_state: "",              //πολλαπλό
     
-    school_unit_id: "",         //μονό
+    school_unit_id: "",         //πολλαπλό
     school_unit_name: "",       //μονό
     school_unit_type: "",       //πολλαπλό
     education_level: "",        //πολλαπλό
-    school_unit_state: "",      //μονό
+    school_unit_state: "",      //πολλαπλό
     
     region_edu_admin: "",       //πολλαπλό
     edu_admin: "",              //πολλαπλό
     transfer_area: "",          //πολλαπλό
     municipality: "",           //πολλαπλό
-    
-//    eduAdminVisible: false,
-//    regionEduAdminVisible : false,
     
     resetForm: function(e) {
 
@@ -106,7 +105,8 @@ var SearchVM = kendo.observable({
         //console.log("normalizedFilter: ", normalizedFilter);
 
         var url;
-        if($('#switch_to_labs_view_btn').is(':checked')){
+        if(LabsViewVM.isVisible){
+        //if($('#switch_to_labs_view_btn').is(':checked')){
             url = baseURL + 'search_labs?export=xlsx&';
         }else{
             url = baseURL + 'search_school_units?export=xlsx&';
@@ -185,21 +185,5 @@ var SearchVM = kendo.observable({
         //console.log("panelBarCollapse!!", e.item);
         $(e.item).find("span").removeClass('k-state-selected');
     }
-    
-    /*filterChangedRegionEduAdmin: function(e){
-
-        //clear the option-values of all dependant multiselect widgets
-        this.edu_admin = "";//$("#eduAdmins").data("kendoMultiSelect").value("");
-        this.transfer_area = "";//$("#transferAreas").data("kendoMultiSelect").value("");
-        this.municipality = "";//$("#municipalities").data("kendoMultiSelect").value("");
-
-        console.log(this.region_edu_admin);
-        if(this.region_edu_admin.length > 0){
-            var selected_region_edu_admins = this.region_edu_admin.toString(); 
-            this.edu_admins_ds = newEduAdminsDS(selected_region_edu_admins);
-            
-        }
-
-    }*/
     
 });
