@@ -155,15 +155,12 @@ var StatisticsVM = kendo.observable({
                                 if(axis_y[k] === axisY){
                                     row = k;
                                     jQuery("#statistics-table tbody").find("tr:eq(" + row + ")>td:eq(" + column + ")").text(value);
-                                }else{
-                                    jQuery("#statistics-table tbody").find("tr:eq(" + k + ")>td:eq(" + column + ")").text("0");
+                                    console.log("column: " + column + ", row: " + row + ", value: " + value);
                                 }
                             }
-
-                            //jQuery("#statistics-table tbody").find("tr:eq(" + row + ")>td:eq(" + column + ")").text(value);
                             
                         }
-                        
+                                               
                         console.log("axis_x: ", axis_x);
                         console.log("axis_y: ", axis_y);
                         
