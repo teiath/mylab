@@ -1,175 +1,303 @@
-<?php
-require_once ('server/system/config.php');
-//require_once ('server/libs/phpCAS/CAS.php');
-//$user = phpCAS::getAttributes();         
-//$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);      
-//$user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
-//$results = $_POST['results']; 
-//var_dump($results);
-//var_dump($user);
-
-?>
-
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script>
-            
-            var user={
-                authenticationMethod: "gr.uoa.devel.cas.adaptors.ldap.BindLdapAuthenticationHandler",
-                backendAuthorizationHash: "bXlsYWJmcm9udDpnNlMha3NkeA==",
-                cn: "ΔΟΚΙΜΑΣΤΙΚΟΣ ΛΟΓΑΡΙΑΣΜΟΣ 5",
-                edupersonorgunitdn: ["ou=1lyk-argous,ou=arg,ou=units,dc=sch,dc=gr", "ou=arg,ou=units,dc=sch,dc=gr"],
-                employeenumber: "0000999",
-                gsnBranch: "ΠΕ20-ΠΛΗΡΟΦΟΡΙΚΗΣ ΤΕΙ",
-                l: "ou=1lyk-argous,ou=arg,ou=units,dc=sch,dc=gr",
-                mail: "teiath-dok-gym-5@sch.gr",
-                ou: "1ο ΕΝΙΑΙΟ ΛΥΚΕΙΟ ΑΡΓΟΥΣ",
-                samlAuthenticationStatementAuthMethod: "urn:oasis:names:tc:SAML:1.0:am:password",
-                title: ["ΕΚΠΑΙΔΕΥΤΙΚΟΣ", "ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ"],
-                uid: "teiath-dok-gym-5",
-                umdobject: "aTeacher"
-            };
-            
-            console.log("user inside statistics", user);
-            //var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
-            var user_url = encodeURIComponent(JSON.stringify(user));
-            //console.log("user_url before includes:", user_url);
-            
-        </script>
-        
-        
-        <?php 
-                require_once('includes.html');
-                require_once('navigation_bar.php'); //navigation bar
-        ?>
-        
-        <script>
-            
-            //$(document).ready(function() {
-                $.ajaxSetup({
-                    data: { user: user },
-                    beforeSend: function(req) {
-                        req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
-                    }
-                });
-            //});
-            
-            //var user = JSON.parse(atob("<?php //echo base64_encode(json_encode($user)); ?>"));
-            //function make_base_auth(hash) { return "Basic " + hash;}
 
-            var parameters = {
-                 //implementation_entity: "11",
-                 //x_axis: "edu_admin",
-                 //y_axis: "unit_type"
-                 edu_admin: "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΡΓΟΛΙΔΑΣ"
-             };
-            
-            $.ajax({
-                type: "GET",
-                url: "http://mmsch.teiath.gr/mylab/api/statistic_school_units",
-                dataType: "json",
-                data: parameters,
-//                beforeSend: function(req) {
-//                    req.setRequestHeader(
-//                    'Authorization', make_base_auth (user.backendAuthorizationHash)
-//                    );
-//                },
-                success: function(data){
-                    $(document).ready(function() {
-                        
-                        var results = data.results;
-                        /*var results = [{ "unit_type_name": "ΓΕΝΙΚΟ ΛΥΚΕΙΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΘΗΝΑΣ Α΄", "total_units": "42" }, 
-                                        { "unit_type_name": "ΓΕΝΙΚΟ ΛΥΚΕΙΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΘΗΝΑΣ Γ΄", "total_units": "2" }, 
-                                        { "unit_type_name": "ΓΥΜΝΑΣΙΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΘΗΝΑΣ Α΄", "total_units": "53" }, 
-                                        { "unit_type_name": "ΓΥΜΝΑΣΙΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΘΗΝΑΣ Γ΄", "total_units": "3" }, 
-                                        { "unit_type_name": "ΔΗΜΟΤΙΚΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Π.Ε. ΑΘΗΝΑΣ Α΄", "total_units": "158" }, 
-                                        { "unit_type_name": "ΔΗΜΟΤΙΚΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Π.Ε. ΑΘΗΝΑΣ Γ΄", "total_units": "7" }, 
-                                        { "unit_type_name": "ΕΙΔΙΚΟ ΕΡΓΑΣΤΗΡΙΟ ΕΠΑΓΓΕΛΜΑΤΙΚΗΣ ΕΚΠΑΙΔΕΥΣΗΣ ΚΑΙ ΚΑΤΑΡΤΙΣΗΣ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΘΗΝΑΣ Α΄", "total_units": "1" }, 
-                                        { "unit_type_name": "ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΛΥΚΕΙΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΘΗΝΑΣ Α΄", "total_units": "9" }, 
-                                        { "unit_type_name": "ΕΡΓΑΣΤΗΡΙΑΚΟ ΚΕΝΤΡΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΘΗΝΑΣ Α΄", "total_units": "2" }, 
-                                        { "unit_type_name": "ΝΗΠΙΑΓΩΓΕΙΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Π.Ε. ΑΘΗΝΑΣ Α΄", "total_units": "172" }, 
-                                        { "unit_type_name": "ΝΗΠΙΑΓΩΓΕΙΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Π.Ε. ΑΘΗΝΑΣ Γ΄", "total_units": "10" }, 
-                                        { "unit_type_name": "ΤΕΧΝΙΚΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΕΚΠΑΙΔΕΥΤΗΡΙΟ", "edu_admin_name": "ΔΙΕΥΘΥΝΣΗ Δ.Ε. ΑΘΗΝΑΣ Α΄", "total_units": "1" }
-                                        ];
-                        */               
-                        var unit_types = [{"unit_type_id": 1,"name": "ΝΗΠΙΑΓΩΓΕΙΟ","initials": "ΝΗΠ","category_id": 1,"education_level_id": 1}, {"unit_type_id": 2,"name": "ΔΗΜΟΤΙΚΟ","initials": "ΔΗΜ","category_id": 1,"education_level_id": 1}, {"unit_type_id": 3,"name": "ΓΥΜΝΑΣΙΟ","initials": "ΓΥΜ","category_id": 1,"education_level_id": 2}, {"unit_type_id": 4,"name": "ΓΕΝΙΚΟ ΛΥΚΕΙΟ","initials": "ΓΕΛ","category_id": 1,"education_level_id": 2}, {"unit_type_id": 5,"name": "ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΛΥΚΕΙΟ","initials": "ΕΠΑΛ","category_id": 1,"education_level_id": 2}, {"unit_type_id": 6,"name": "ΕΠΑΓΓΕΛΜΑΤΙΚΗ ΣΧΟΛΗ","initials": "ΕΠΑΣ","category_id": 1,"education_level_id": 2}, {"unit_type_id": 7,"name": "ΤΕΧΝΙΚΟ ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΕΚΠΑΙΔΕΥΤΗΡΙΟ","initials": "ΤΕΕ","category_id": 1,"education_level_id": 2}, {"unit_type_id": 8,"name": "ΕΡΓΑΣΤΗΡΙΑΚΟ ΚΕΝΤΡΟ","initials": "ΕΚ","category_id": 1,"education_level_id": 2}, {"unit_type_id": 9,"name": "ΕΠΑΓΓΕΛΜΑΤΙΚΟ ΓΥΜΝΑΣΙΟ ","initials": "ΕΠΑΓ","category_id": null,"education_level_id": null}, {"unit_type_id": 10,"name": "ΓΕΝΙΚΟ ΑΡΧΕΙΟ ΚΡΑΤΟΥΣ","initials": "ΓΑΚ","category_id": 5,"education_level_id": 4}, {"unit_type_id": 11,"name": "ΕΙΔΙΚΟ ΕΡΓΑΣΤΗΡΙΟ ΕΠΑΓΓΕΛΜΑΤΙΚΗΣ ΕΚΠΑΙΔΕΥΣΗΣ ΚΑΙ ΚΑΤΑΡΤΙΣΗΣ","initials": "ΕΕΕΕΚ","category_id": 1,"education_level_id": 2}, {"unit_type_id": 12,"name": "ΣΧΟΛΙΚΗ ΕΠΙΤΡΟΠΗ ΠΡΩΤΟΒΑΘΜΙΑΣ","initials": "ΣΕΠ","category_id": 3,"education_level_id": 4}, {"unit_type_id": 13,"name": "ΣΧΟΛΙΚΗ ΕΠΙΤΡΟΠΗ ΔΕΥΤΕΡΟΒΑΘΜΙΑΣ","initials": "ΣΕΔ","category_id": 3,"education_level_id": 4}, {"unit_type_id": 14,"name": "ΔΙΕΥΘΥΝΣΗ ΔΕΥΤΕΡΟΒΑΘΜΙΑΣ ΕΚΠΑΙΔΕΥΣΗΣ","initials": "ΔΔΕ","category_id": 8,"education_level_id": 4}, {"unit_type_id": 15,"name": "ΔΙΕΥΘΥΝΣΗ ΠΡΩΤΟΒΑΘΜΙΑΣ ΕΚΠΑΙΔΕΥΣΗΣ","initials": "ΔΠΕ","category_id": 8,"education_level_id": 4}, {"unit_type_id": 16,"name": "ΠΕΡΙΦΕΡΕΙΑΚΗ ΔΙΕΥΘΥΝΣΗ ΕΚΠΑΙΔΕΥΣΗΣ","initials": "ΠΔΕ","category_id": 8,"education_level_id": 4}, {"unit_type_id": 17,"name": "ΓΡΑΦΕΙΟ ΠΡΩΤΟΒΑΘΜΙΑΣ ΕΚΠΑΙΔΕΥΣΗΣ","initials": "ΓΠΕ","category_id": 8,"education_level_id": 4}, {"unit_type_id": 18,"name": "ΓΡΑΦΕΙΟ ΔΕΥΤΕΡΟΒΑΘΜΙΑΣ ΕΚΠΑΙΔΕΥΣΗΣ","initials": "ΓΔΕ","category_id": 8,"education_level_id": 4}, {"unit_type_id": 19,"name": "ΓΡΑΦΕΙΟ ΕΠΑΓΓΕΛΜΑΤΙΚΗΣ ΕΚΠΑΙΔΕΥΣΗΣ","initials": "ΓΕΕ","category_id": 8,"education_level_id": 4}, {"unit_type_id": 20,"name": "ΚΕΣΥΠ","initials": "ΚΕΣΥΠ","category_id": 2,"education_level_id": 4}, {"unit_type_id": 21,"name": "ΓΡΑΣΕΠ","initials": "ΓΡΑΣΕΠ","category_id": 2,"education_level_id": 4}, {"unit_type_id": 22,"name": "ΣΣΝ","initials": "ΣΣΝ","category_id": 2,"education_level_id": 4}, {"unit_type_id": 23,"name": "ΚΕΔΔΥ","initials": "ΚΕΔΔΥ","category_id": 2,"education_level_id": 4}, {"unit_type_id": 24,"name": "ΚΕΠΛΗΝΕΤ","initials": "ΚΕΠΛΗΝΕΤ","category_id": 2,"education_level_id": 4}, {"unit_type_id": 25,"name": "ΕΚΦΕ","initials": "ΕΚΦΕ","category_id": 2,"education_level_id": 4}, {"unit_type_id": 26,"name": "ΚΠΕ","initials": "ΚΠΕ","category_id": 2,"education_level_id": 4}, {"unit_type_id": 27,"name": "ΠΕΚ","initials": "ΠΕΚ","category_id": 2,"education_level_id": 4}, {"unit_type_id": 28,"name": "ΣΕΠΕΗΥ","initials": "ΣΕΠΕΗΥ","category_id": 4,"education_level_id": 4}, {"unit_type_id": 29,"name": "ΕΡΓΑΣΤΗΡΙΑ ΦΥΣΙΚΩΝ ΕΠΙΣΤΗΜΩΝ","initials": "ΕΦΕ","category_id": 4,"education_level_id": 4}, {"unit_type_id": 30,"name": "ΣΧΟΛΙΚΕΣ ΒΙΒΛΙΟΘΗΚΕΣ","initials": "ΣΒ","category_id": 4,"education_level_id": 4}];
-                        var edu_admins = [];
-                        
-                        for (i = 0; i < results.length; i++) {
-                            if(jQuery.inArray( results[i].edu_admin_name, edu_admins ) === -1){
-                                edu_admins.push(results[i].edu_admin_name);
-                            }
-                        }
+<div id="statistics-container"  data-bind="visible: isVisible" style="color: #787878">
 
-                        for (j = 0; j < edu_admins.length; j++) {
-                            jQuery("#table thead tr").append("<th>" + edu_admins[j] + "</th>");
-                        }
+    <div id="statistics-parameters" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form id="statistics-form">
 
-                        for (i = 0; i < unit_types.length; i++) {
-                            jQuery("#table tbody").append("<tr id=" + i + "><th class='text-nowrap'>" + unit_types[i].name + "</th></tr>");
-
-                            for(j = 0; j < edu_admins.length; j++){
-                                jQuery("#"+i).append("<td> </td>");
-                            }
-                        }
-
-                        for (i = 0; i < results.length; i++) {
-
-                            var edu_admin = results[i].edu_admin_name;
-                            var unit_type = results[i].unit_type_name;
-                            var value = results[i].total_units;
-
-                            var column = jQuery.inArray( edu_admin, edu_admins );
-
-                            for (x = 0; x < unit_types.length; x++) {
-                                if(unit_types[x].name === unit_type){
-                                    var row = x;
-                                }
-                            }     
-
-                            jQuery("#table tbody").find("tr:eq(" + row + ")>td:eq(" + column + ")").text(value);
-
-                            //console.log(results); 
-                            //console.log("edu_admins", edu_admins);
-                            //console.log("edu_admin:" + edu_admin + ", " + "unit_type:" + unit_type + ", " + "value:" + value);
-                            //console.log("row:" + row);
-                            //console.log("column:" + column);
-                            //console.log("tr: ", jQuery("#table tbody").find("tr:eq(" + row + ")>td:eq(" + column + ")"));
-
-                        }
-                        
-                        //console.log("GET statistic_units success data: ", results);
-                    });
+                    <div class="col-md-11" style="margin:20px 0px 25px 0px;">
+                        <button class="k-button" data-bind="click: resetForm">καθαρισμός</button>
+                        <button class="k-button" data-bind="click: getStatistic">Προβολή Στατιστικού</button>
+                    </div>
                     
+                    <div class="col-md-11">
+                        <label for="x_axis" style="font-size:13px;">Άξονας x: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις στήλες του στατιστικού πίνακα</label>
+                    </div>
+                    <div class="col-md-11" style="margin:5px 0px;">
+                        <input id="st_x_axis"  
+                                name="x_axis"
+                                data-role="combobox"
+                                data-auto-bind="true"
+                                data-text-field="name"
+                                data-value-field="axis_name"
+                                data-bind="source: axis_x_ds, value: x_axis "
+                                data-filter="contains"/>
+                    </div>
                     
-                },
-                error: function (data){
-                    console.log("GET statistic_units error data: ", data); 
-                }
-            });
-            
-             
-        </script>
-    </head>
-    <body style="font-size: 11px; color: #565e66">
-        <h4 style="text-align: center; margin-top:15px;">Στατιστικά</h4>
-        <div class="container" style="margin-top: 50px;">
-            <div class="row">
-                <div class="col-md-12">
+                    <div class="col-md-11">
+                        <label for="y_axis" style="font-size:13px;"> Άξονας y: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις γραμμές του στατιστικού πίνακα</label>
+                    </div>
+                    <div class="col-md-11" style="margin:5px 0px;">
+                       <input id="st_y_axis"  
+                                name="y_axis"
+                                data-role="combobox"
+                                data-ignore-case= "false"
+                                data-text-field="name"
+                                data-value-field="axis_name"
+                                data-bind="source: axis_y_ds, value: y_axis"
+                                data-filter="contains"/>
+                    </div>
+                    
+                    <div class="col-md-11" style="margin:10px 0px 20px 0px;">
+                        <label style="font-size:13px;"> Φίλτρα : Επιλέξτε ένα ή περισσότερα φίλτρα για την αποτελεσματικότερη εξαγωγή στατιστικών </label>
+                    </div>
+                    
+                    <div class="row" style="padding:20px;">
 
-                    <table id="table" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                        <div class="col-md-4">
 
-                </div>
+                            <div class="col-md-11">
+                                <label for="lab_type">τύπος Διάταξης Η/Υ</label>
+                            </div>
+                            <div class="col-md-11">
+                                <select id="st_lab_types"  
+                                        name="lab_type"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="name"
+                                        data-bind="source: lab_types_ds, value: lab_type"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select>
+                            </div>
+
+                            <div class="col-md-11">
+                                <label for="lab_state">λειτουργική κατάσταση Διάταξης Η/Υ</label>
+                             </div>
+                            <div class="col-md-11">
+                                <select id="st_lab_state" 
+                                       name="lab_state"
+                                       data-role="multiselect"
+                                       data-auto-bind="false"
+                                       data-text-field="name"
+                                       data-value-field="state_id"
+                                       data-filter="contains"
+                                       data-bind="source: lab_states_ds, value: lab_state"
+                                       data-placeholder="επιλέξτε από τη λίστα"
+                                       multiple="multiple">
+                                </select>
+                             </div>                                    
+
+                            <div class="col-md-11">
+                                <label for="operational_rating">λειτουργική βαθμολόγηση</label>
+                            </div>
+                            <div class="col-md-11">
+                                <select id="st_operational_rating" 
+                                        name="operational_rating"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="rating_id"
+                                        data-bind="source: lab_rating_ds, value: operational_rating"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select>
+                            </div>
+
+                            <div class="col-md-11">
+                                <label for="technological_rating">τεχνολογική βαθμολόγηση</label>
+                             </div>
+                            <div class="col-md-11">
+                                <select id="st_technological_rating" 
+                                        name="technological_rating"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="rating_id"
+                                        data-bind="source: lab_rating_ds, value: technological_rating"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select>
+                             </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="col-md-11">
+                                <label for="education_level">Βαθμίδα Εκπαίδευσης</label>
+                            </div>
+                            <div class="col-md-11">
+                                <select id="sl_education_level" 
+                                        name="education_level"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="education_level_id"
+                                        data-bind="source: education_levels_ds, value: education_level"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select> 
+                            </div>
+
+                            <div class="col-md-11">
+                                <label for="school_unit_type">τύπος Σχολικής Μονάδας</label>                                    
+                            </div>
+                            <div class="col-md-11">
+                                <select id="sl_school_unit_type" 
+                                        name="school_unit_type"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="school_unit_type_id"
+                                        data-bind="source: school_unit_types_ds, value: school_unit_type"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">  
+                                </select>                           
+                            </div>                                
+
+                            <div class="col-md-11">
+                                <label for="school_unit_state">λειτουργική κατάσταση Σχολικής Μονάδας</label>
+                            </div>
+                            <div class="col-md-11">
+                                <select id="sl_school_unit_state" 
+                                        name="school_unit_state"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="state_id"
+                                        data-filter="contains"
+                                        data-bind="source: school_unit_states_ds, value: school_unit_state"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="col-md-11">
+                                <label for="region_edu_admin">Περιφερειακή Διεύθυνση Εκπαίδευσης</label> <!--data-bind="visible: regionEduAdminVisible"-->
+                            </div>                                
+                            <div class="col-md-11">
+                                <select id="st_region_edu_admin" 
+                                        name="region_edu_admin"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-value-primitive="true"
+                                        data-text-field="name"
+                                        data-value-field="region_edu_admin_id"
+                                        data-bind="source: region_edu_admins_ds, value: region_edu_admin"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">                    
+                                </select>  
+                            </div>
+
+                            <div class="col-md-11">
+                                <label for="edu_admin">Διεύθυνση Εκπαίδευσης</label> <!--data-bind="visible: eduAdminVisible-->
+                            </div>                                
+                            <div class="col-md-11">
+                                <select id="st_edu_admin" 
+                                        name="edu_admin"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="edu_admin_id"
+                                        data-bind="source: edu_admins_ds, value: edu_admin"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select>
+                            </div>
+
+                            <div class="col-md-11">
+                                <label for="transfer_area">Περιοχή Μετάθεσης</label>
+                            </div>                                
+                            <div class="col-md-11">
+                                <select id="st_transfer_area" 
+                                        name="transfer_area"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="transfer_area_id"
+                                        data-bind="source: transfer_areas_ds, value: transfer_area"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select>                       
+                            </div>
+
+                            <div class="col-md-11">
+                                <label for="prefecture">Νομός</label>
+                            </div>                                
+                            <div class="col-md-11">
+                                <select id="st_prefecture" 
+                                        name="prefecture"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="prefecture_id"
+                                        data-bind="source: prefectures_ds, value: prefecture"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select>
+                            </div>                                    
+
+                            <div class="col-md-11">
+                                <label for="municipality">Δήμος</label>
+                            </div>                                
+                            <div class="col-md-11">
+                                <select id="st_municipality" 
+                                        name="municipality"
+                                        data-role="multiselect"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="municipality_id"
+                                        data-bind="source: municipalities_ds, value: municipality"
+                                        data-filter="contains"
+                                        data-placeholder="επιλέξτε από τη λίστα"
+                                        multiple="multiple">
+                                </select>
+                            </div>                                
+
+                        </div>                                
+
+                    </div>
+                    
+                </form>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+
+    <div id="statistics-results" class="container" style="margin-top: 50px;">
+        <div class="row" style="position:relative;">
+            <div class="col-md-12"  style="overflow:auto;"  >
+
+                <table id="statistics-table" class="table table-bordered table-striped" style="width:100%; ">
+                    <thead>
+                        <tr>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <!--file_download_dialog-->
+    <div id="export_statistic_dialog" style="display:none; color: #5E5E5E">
+        
+        <div style="padding:13px;">Η έκδοση του στατιστικού βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+
+        <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+            <span class="k-progress-status-wrap">
+                <span class="k-progress-status">0</span>
+            </span>
+        </div>       
+        
+    </div>

@@ -216,7 +216,7 @@
         
         <?php require_once('navigation_bar.php'); //navigation bar ?>
         <div style='height:90px'> </div>
-        <?php require_once('switch_views_new.php'); //switch views?>
+        <?php require_once('switch_views.php'); //switch views?>
         <div style='height:50px'> </div>      
         <?php
                 if(in_array("ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ") ||
@@ -239,7 +239,7 @@
 
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view
-                require_once('statistics_new.php'); //statistics
+                require_once('statistics.php'); //statistics
                 require_once('info.php'); //info
         ?>
         <a href="#" class="scrollup">Scroll</a>
