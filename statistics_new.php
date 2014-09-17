@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<div id="statistics-container"  data-bind="visible: isVisible">
+<div id="statistics-container"  data-bind="visible: isVisible" style="color: #787878">
 
     <div id="statistics-parameters" class="container">
         <div class="row">
@@ -13,7 +13,7 @@
                     </div>
                     
                     <div class="col-md-11">
-                        <label for="x_axis">Άξονας x: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις στήλες του στατιστικού πίνακα</label>
+                        <label for="x_axis" style="font-size:13px;">Άξονας x: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις στήλες του στατιστικού πίνακα</label>
                     </div>
                     <div class="col-md-11" style="margin:5px 0px;">
                         <input id="st_x_axis"  
@@ -27,7 +27,7 @@
                     </div>
                     
                     <div class="col-md-11">
-                        <label for="y_axis"> Άξονας y: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις γραμμές του στατιστικού πίνακα</label>
+                        <label for="y_axis" style="font-size:13px;"> Άξονας y: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις γραμμές του στατιστικού πίνακα</label>
                     </div>
                     <div class="col-md-11" style="margin:5px 0px;">
                        <input id="st_y_axis"  
@@ -41,7 +41,7 @@
                     </div>
                     
                     <div class="col-md-11" style="margin:10px 0px 20px 0px;">
-                        <label> Φίλτρα : Επιλέξτε ένα ή περισσότερα φίλτρα για την αποτελεσματικότερη εξαγωγή στατιστικών </label>
+                        <label style="font-size:13px;"> Φίλτρα : Επιλέξτε ένα ή περισσότερα φίλτρα για την αποτελεσματικότερη εξαγωγή στατιστικών </label>
                     </div>
                     
                     <div class="row" style="padding:20px;">
@@ -271,10 +271,10 @@
     </div>
 
     <div id="statistics-results" class="container" style="margin-top: 50px;">
-        <div class="row">
-            <div class="col-md-12">
+        <div class="row" style="position:relative;">
+            <div class="col-md-12"  style="overflow:auto;"  >
 
-                <table id="statistics-table" class="table table-bordered table-striped">
+                <table id="statistics-table" class="table table-bordered table-striped" style="width:100%; ">
                     <thead>
                         <tr>
                             <th></th>
@@ -289,4 +289,15 @@
 
 </div>
 
+    <!--file_download_dialog-->
+    <div id="export_statistic_dialog" style="display:none; color: #5E5E5E">
+        
+        <div style="padding:13px;">Η έκδοση του στατιστικού βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
 
+        <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+            <span class="k-progress-status-wrap">
+                <span class="k-progress-status">0</span>
+            </span>
+        </div>       
+        
+    </div>

@@ -74,6 +74,19 @@ var StatisticsVM = kendo.observable({
     getStatistic: function(e){
         
         e.preventDefault();
+
+        var export_statistic_dialog = $("#export_statistic_dialog").kendoWindow({
+            title: "Έκδοση Στατιστικού",
+            modal: true,
+            visible: false,
+            resizable: false,
+            width: 400,
+            pinned: true,
+            actions: []
+        }).data("kendoWindow");
+        
+        export_statistic_dialog.content();
+        export_statistic_dialog.center().open();          
         
         jQuery("#statistics-table tbody").empty();
         jQuery("#statistics-table thead tr").empty();
@@ -109,12 +122,16 @@ var StatisticsVM = kendo.observable({
 
                     if(data.status == 500){
 
+                        export_statistic_dialog.close();
+                        
                         notification.show({
                             title: "Η εξαγωγή του στατιστικού απέτυχε",
                             message: message
                         }, "error");
 
                     }else{
+
+                        export_statistic_dialog.close(); 
 
                         var results = data.results;
                         var axis_x=[], axis_y=[];
@@ -131,14 +148,14 @@ var StatisticsVM = kendo.observable({
                         }
 
                         for (var j = 0; j < axis_x.length; j++) {
-                            jQuery("#statistics-table thead tr").append("<th>" + axis_x[j] + "</th>");
+                            jQuery("#statistics-table thead tr").append("<th style='white-space:nowrap'>" + axis_x[j] + "</th>");
                         }
 
                         for (var i = 0; i < axis_y.length; i++) {
                             jQuery("#statistics-table tbody").append("<tr id=" + i + "><th class='text-nowrap'>" + axis_y[i] + "</th></tr>");
 
                             for(var j = 0; j < axis_x.length; j++){
-                                jQuery("#"+i).append("<td> </td>");
+                                jQuery("#"+i).append("<td style='text-align: center;'> </td>");
                             }
                         }
 

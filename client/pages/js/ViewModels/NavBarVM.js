@@ -25,7 +25,7 @@ var NavBarVM = kendo.observable({
                 dataType: "json",
                 success: function(data){
                     file_download_dialog.close(); 
-                    console.log(data.tmp_report_filepath);
+                    //console.log(data.tmp_report_filepath);
                     window.open(data.tmp_report_filepath);
                 },
                 error: function (data){
