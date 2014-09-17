@@ -22,8 +22,8 @@
 
         var view_1 = { id: 1, name: "Προβολή Διατάξεων Η/Υ", logo: "fa fa-search fa-lg"};
         var view_2 = { id: 2, name: "Προβολή Σχολικών Μονάδων", logo: "fa fa-search fa-lg"};
-        var view_3 = { id: 3, name: "Στατιστικά", logo: "fa fa-search fa-lg"};
-        var view_4 = { id: 4, name: "Σχετικά", logo: "fa fa-search fa-lg"};
+        var view_3 = { id: 3, name: "Στατιστικά", logo: "fa fa-bar-chart-o fa-lg"};
+        var view_4 = { id: 4, name: "Σχετικά", logo: "fa fa-user fa-lg"};
         
         var views;
         var width;
