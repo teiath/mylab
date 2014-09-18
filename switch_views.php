@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<div id="switch_views" style="">
-    <div class="container">
-        <div class="row">
-                <div id="listView" class="col-md-12"></div>
+
+<div id="switch_views" class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="listView"></div>
         </div>
     </div>
 </div>
 
 <script type="text/x-kendo-tmpl" id="template">
-    <div class="view col-md-3">
-         <i class="#:logo#"></i>
-        <h3>#:name#</h3>
+    <div class="col-md-3 view_tab">
+         <div class="col-md-12" style="padding:5px 0px; text-align: center;">
+            <i class="#:logo#" style="margin:0px 8px;"></i><span>#:name#</span>
+         </div>
     </div>
 </script>
 
@@ -26,28 +28,22 @@
         var view_4 = { id: 4, name: "Σχετικά", logo: "fa fa-user fa-lg"};
         
         var views;
-        var width;
         
         switch(authorized_user) {
             case 'ΚΕΠΛΗΝΕΤ':
                 views = [view_1, view_2, view_3, view_4];
-                width= "24.146%";
                 break;
             case  'ΣΕΠΕΗΥ' :
                 views = [view_1, view_2];
-                width= "49.146%";
                 break;
             case  'ΠΣΔ' :
                 views = [view_1, view_2, view_3, view_4];
-                width= "24.146%";
                 break;
             case  'ΔΙΕΥΘΥΝΤΗΣ' :
                 views = [view_1, view_2, view_4];
-                width= "32.48%";
                 break;
             case  'ΥΠΕΠΘ' :
                 views = [view_1, view_2, view_3, view_4];
-                width= "24.146%";
                 break;
         }
         
@@ -61,13 +57,9 @@
             change: switchView,
             template: kendo.template($("#template").html())
         });
-
-        //apply proper width to list tabs according to the number of tabs
-        $('#listView').children().css("width", width);  
         
         var listView = $("#listView").data("kendoListView");
-        // initially select first list view item
-        listView.select(listView.element.children().first());
+        listView.select(listView.element.children().first()); // initially select first list view item
 
         function switchView(e){
             
@@ -117,28 +109,10 @@
 
 <style scoped>
         
-    .view {
+    .view_tab {
         cursor: pointer;
-        float: left;
-        height: 30px;
-        margin: 0;
-        padding: 5px;
     }
-    .view i {
-        float: left;
-        height: 20px;
-        margin: 7px 12px 0;
-        width: 20px;
-    }
-    .view h3 {
-        float: left;
-        font-family: calibri;
-        font-size: 13px;
-        margin: 0;
-        overflow: hidden;
-        padding: 7px 20px;
-    }
-
+    
     .k-listview:after
     {
         content: ".";
@@ -147,10 +121,10 @@
         clear: both;
         visibility: hidden;
     }
-    .k-listview
-    {
-        padding: 0;
-        min-width: 600px;
-        min-height: 40px;
+    
+    #listView > div{
+        padding-left: 0px;
+        padding-right: 0px;
     }
+    
 </style>
