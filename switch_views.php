@@ -9,7 +9,7 @@
 </div>
 
 <script type="text/x-kendo-tmpl" id="template">
-    <div class="col-md-3 view_tab">
+    <div class="view_tab">
          <div class="col-md-12" style="padding:5px 0px; text-align: center;">
             <i class="#:logo#" style="margin:0px 8px;"></i><span>#:name#</span>
          </div>
@@ -28,22 +28,28 @@
         var view_4 = { id: 4, name: "Σχετικά", logo: "fa fa-user fa-lg"};
         
         var views;
+        var bootstrap_class;
         
         switch(authorized_user) {
             case 'ΚΕΠΛΗΝΕΤ':
                 views = [view_1, view_2, view_3, view_4];
+                bootstrap_class = "col-md-3";
                 break;
             case  'ΣΕΠΕΗΥ' :
                 views = [view_1, view_2];
+                bootstrap_class = "col-md-6";
                 break;
             case  'ΠΣΔ' :
                 views = [view_1, view_2, view_3, view_4];
+                bootstrap_class = "col-md-3";
                 break;
             case  'ΔΙΕΥΘΥΝΤΗΣ' :
                 views = [view_1, view_2, view_4];
+                bootstrap_class = "col-md-4";
                 break;
             case  'ΥΠΕΠΘ' :
                 views = [view_1, view_2, view_3, view_4];
+                bootstrap_class = "col-md-3";
                 break;
         }
         
@@ -57,7 +63,10 @@
             change: switchView,
             template: kendo.template($("#template").html())
         });
-        
+
+        //apply proper width to list tabs according to the number of tabs
+        $('#listView').find("div.view_tab").addClass(bootstrap_class);
+
         var listView = $("#listView").data("kendoListView");
         listView.select(listView.element.children().first()); // initially select first list view item
 
