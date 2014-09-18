@@ -11,7 +11,7 @@ function newAxisYDS(){
                                             { axis_id: 7, axis_name: "edu_admin", name: "Διεύθυνση Εκπαίδευσης" , parent:"edu_admin"},
                                             { axis_id: 8, axis_name: "transfer_area", name: "Περιοχή Μετάθεσης" , parent:"transfer_area"},
                                             { axis_id: 9, axis_name: "municipality", name: "Δήμος" , parent:"municipality"},
-                                            { axis_id: 10, axis_name: "prefecture", name: "Νομός" , parent:"prefecture"}],
+                                            { axis_id: 10, axis_name: "prefecture", name: "Περιφερειακή Ενότητα" , parent:"prefecture"}],
                                     schema: {
                                         model:{
                                             id: "axis_name",

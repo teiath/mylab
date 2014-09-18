@@ -304,6 +304,23 @@
                                             multiple="multiple">
                                     </select>                       
                                 </div>
+
+                                <div class="col-md-11">
+                                    <label for="prefecture">Περιφερειακή Ενότητα</label>
+                                </div>                                
+                                <div class="col-md-11">
+                                    <select id="sl_prefecture" 
+                                            name="prefecture"
+                                            data-role="multiselect"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="prefecture_id"
+                                            data-bind="source: prefectures_ds, value: prefecture, events: {change : filterChanged }"
+                                            data-filter="contains"
+                                            data-placeholder="επιλέξτε από τη λίστα"
+                                            multiple="multiple">
+                                    </select>
+                                </div>                                
                                 
                                 <div class="col-md-11">
                                     <label for="municipality">Δήμος</label>

@@ -8,6 +8,7 @@ var SearchVM = kendo.observable({
     region_edu_admins_ds: newRegionEduAdminsDS(),
     edu_admins_ds: newEduAdminsDS(),
     transfer_areas_ds: newTransferAreasDS(),
+    prefectures_ds: newPrefecturesDS(),
     municipalities_ds: newMunicipalitiesDS(),    
     
     lab_types_ds: newLabTypesDS(),
@@ -38,6 +39,7 @@ var SearchVM = kendo.observable({
     region_edu_admin: "",       //πολλαπλό
     edu_admin: "",              //πολλαπλό
     transfer_area: "",          //πολλαπλό
+    prefecture:"",              //πολλαπλό
     municipality: "",           //πολλαπλό
     
     resetForm: function(e) {
@@ -66,6 +68,7 @@ var SearchVM = kendo.observable({
         this.set("region_edu_admin", "");
         this.set("edu_admin", "");
         this.set("transfer_area", "");
+        this.set("prefecture", "");
         this.set("municipality", "");
 
 

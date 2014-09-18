@@ -11,7 +11,7 @@ function newAxisXDS(){
                                             { axis_id: 7, axis_name: "edu_admin", name: "Διεύθυνση Εκπαίδευσης"},
                                             { axis_id: 8, axis_name: "transfer_area", name: "Περιοχή Μετάθεσης"},
                                             { axis_id: 9, axis_name: "municipality", name: "Δήμος"},
-                                            { axis_id: 10, axis_name: "prefecture", name: "Νομός"}],
+                                            { axis_id: 10, axis_name: "prefecture", name: "Περιφερειακή Ενότητα"}],
                                     schema: {
                                         model:{
                                             id: "axis_name",

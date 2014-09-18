@@ -228,7 +228,7 @@
                             </div>
 
                             <div class="col-md-11">
-                                <label for="prefecture">Νομός</label>
+                                <label for="prefecture">Περιφερειακή Ενότητα</label>
                             </div>                                
                             <div class="col-md-11">
                                 <select id="st_prefecture" 
