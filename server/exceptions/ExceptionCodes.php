@@ -74,7 +74,9 @@ class ExceptionCodes
         const InvalidYAxisArray = 500;
         /** {@see ExceptionMessages::InvalidYAxis} */
         const InvalidYAxis = 500;
-    
+ 
+        /** {@see ExceptionMessages::DuplicateXYAxisParam} */
+        const DuplicateXYAxisParam = 500;
 //    // dictionary messages (not found)=====================================================================================================================
 //    
 //
