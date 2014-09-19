@@ -138,10 +138,9 @@
             <div class="footer">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-12"><p class="pull-left"><img src="client/pages/icons/sthrizw_logos.jpg" /></p></div>
-<!--                        <div class="col-md-4"><p class="pull-left"><img src="client/pages/icons/ypepth_logo.png" /></p></div>
-                        <div class="col-md-4"><p><img src="client/pages/icons/logo_stirizo.png" /></p></div>
-                        <div class="col-md-4"><p class="pull-right"><img src="client/pages/icons/espa_logo.png" /></p></div>-->
+                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/mainlogo_p8.png" /></p></div>
+                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/logo_stirizo.png" /></p></div>
+                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/logo.png" /></p></div>
                     </div>
                 </div>
             </div>
