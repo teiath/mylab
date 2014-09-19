@@ -181,6 +181,11 @@ var StatisticsVM = kendo.observable({
                         console.log("axis_x: ", axis_x);
                         console.log("axis_y: ", axis_y);
                         
+                        //scroll to the beginning of the statistic table
+                        $('html, body').animate({
+                            scrollTop: $("#statistics-results").offset().top
+                        }, 1000);
+                        
                     }
             },
             error: function (data){
