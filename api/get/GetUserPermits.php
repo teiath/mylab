@@ -38,6 +38,7 @@ function GetUserPermits() {
 
     $user_infos = array(    "user_name" => $user['cn'][0],
                             "user_unit" => $user['ou'][0],
+                            "ldap_role" => $user['title'][0],
                             "unit_name" => $info_keplhnet['data'][0]['name'],
                             "street_address" => $info_keplhnet['data'][0]['street_address'],
                             "fax_number" => $info_keplhnet['data'][0]['fax_number'],
