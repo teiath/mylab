@@ -3,6 +3,7 @@ var StatisticsVM = kendo.observable({
     isVisible: false,
     statisticExportEnabled: false,
     cascadeValidationVisible: false,
+    filtersVisible: false,
 
     axis_x_ds: newAxisXDS(),
     axis_y_ds: newAxisYDS(),
@@ -226,6 +227,17 @@ var StatisticsVM = kendo.observable({
             }
             console.log(StatisticsVM.statisticExportEnabled);
         }
-    }
-    
+    },
+    toggleFilters: function(e){
+
+        if($('#show_statistic_filters_btn').find('span').hasClass("k-i-arrow-e")){
+            $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-e");
+            $('#show_statistic_filters_btn').find('span').addClass("k-i-arrow-s");
+        }else{
+            $('#show_statistic_filters_btn').find('span').addClass("k-i-arrow-e");
+            $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-s");
+        }
+        
+        StatisticsVM.filtersVisible ? StatisticsVM.set("filtersVisible", false) : StatisticsVM.set("filtersVisible", true);
+    }    
 });

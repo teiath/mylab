@@ -7,16 +7,16 @@
             <div class="col-md-12">
                 <form id="statistics-form">
 
-                    <div class="col-md-11" style="margin:20px 0px 25px 0px;">
+                    <div class="col-md-12" style="margin:20px 0px 25px 0px;">
                         <button id="clear" class="k-button" data-bind="click: resetForm">καθαρισμός</button>
                         <button id="statistic_export_btn" class="k-button k-state-disabled" data-bind="click: getStatistic, enabled: statisticExportEnabled" >Προβολή Στατιστικού</button>
-                        <div class="col-md-11" style="padding:0px; margin-top:5px;"> <span data-bind="visible: cascadeValidationVisible" style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
+                        <div class="col-md-12" style="padding:0px; margin-top:5px;"> <span data-bind="visible: cascadeValidationVisible" style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
                     </div>
                     
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <label for="x_axis" style="font-size:13px;"> <span style="color: red;">*</span> Άξονας x: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις στήλες του στατιστικού πίνακα</label>
                     </div>
-                    <div class="col-md-11" style="margin:5px 0px;">
+                    <div class="col-md-12" style="margin:5px 0px;">
                         <input id="st_x_axis"  
                                 name="x_axis"
                                 data-role="combobox"
@@ -27,10 +27,10 @@
                                 data-filter="contains"/>
                     </div>
                     
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <label for="y_axis" style="font-size:13px;"> <span style="color: red;">*</span> Άξονας y: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις γραμμές του στατιστικού πίνακα</label>
                     </div>
-                    <div class="col-md-11" style="margin:5px 0px;">
+                    <div class="col-md-12" style="margin:5px 0px;">
                        <input id="st_y_axis"  
                                 name="y_axis"
                                 data-role="combobox"
@@ -41,12 +41,13 @@
                                 data-filter="contains"/>
                     </div>
                     
-                    <div class="col-md-11" style="margin:10px 0px 20px 0px;">
+                    <div class="col-md-12" style="margin:10px 0px 20px 0px;">
                         <label style="font-size:13px;"> Φίλτρα : Επιλέξτε ένα ή περισσότερα φίλτρα για την αποτελεσματικότερη εξαγωγή στατιστικών </label>
+                        <a id="show_statistic_filters_btn" class="k-button" data-bind="click: toggleFilters"><span class="k-icon k-i-arrow-e"></span></a>
                     </div>
                     
-                    <div class="row" style="padding:20px;">
-
+                    <!--<div class="row" style="padding:20px;">-->
+                    <div id="statistic_filters" class="col-md-12" data-bind="visible: filtersVisible">
                         <div class="col-md-4">
 
                             <div class="col-md-11">
