@@ -8,12 +8,13 @@
                 <form id="statistics-form">
 
                     <div class="col-md-11" style="margin:20px 0px 25px 0px;">
-                        <button class="k-button" data-bind="click: resetForm">καθαρισμός</button>
-                        <button class="k-button" data-bind="click: getStatistic">Προβολή Στατιστικού</button>
+                        <button id="clear" class="k-button" data-bind="click: resetForm">καθαρισμός</button>
+                        <button id="statistic_export_btn" class="k-button k-state-disabled" data-bind="click: getStatistic, enabled: statisticExportEnabled" >Προβολή Στατιστικού</button>
+                        <div class="col-md-11" style="padding:0px; margin-top:5px;"> <span data-bind="visible: cascadeValidationVisible" style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
                     </div>
                     
                     <div class="col-md-11">
-                        <label for="x_axis" style="font-size:13px;">Άξονας x: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις στήλες του στατιστικού πίνακα</label>
+                        <label for="x_axis" style="font-size:13px;"> <span style="color: red;">*</span> Άξονας x: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις στήλες του στατιστικού πίνακα</label>
                     </div>
                     <div class="col-md-11" style="margin:5px 0px;">
                         <input id="st_x_axis"  
@@ -22,12 +23,12 @@
                                 data-auto-bind="true"
                                 data-text-field="name"
                                 data-value-field="axis_name"
-                                data-bind="source: axis_x_ds, value: x_axis "
+                                data-bind="source: axis_x_ds, value: x_axis , events: {change : cascade }"
                                 data-filter="contains"/>
                     </div>
                     
                     <div class="col-md-11">
-                        <label for="y_axis" style="font-size:13px;"> Άξονας y: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις γραμμές του στατιστικού πίνακα</label>
+                        <label for="y_axis" style="font-size:13px;"> <span style="color: red;">*</span> Άξονας y: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις γραμμές του στατιστικού πίνακα</label>
                     </div>
                     <div class="col-md-11" style="margin:5px 0px;">
                        <input id="st_y_axis"  
@@ -36,7 +37,7 @@
                                 data-ignore-case= "false"
                                 data-text-field="name"
                                 data-value-field="axis_name"
-                                data-bind="source: axis_y_ds, value: y_axis"
+                                data-bind="source: axis_y_ds, value: y_axis, events: {change : cascade }"
                                 data-filter="contains"/>
                     </div>
                     
