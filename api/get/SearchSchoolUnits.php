@@ -651,6 +651,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                         labs.comments,
                         labs.operational_rating,
                         labs.technological_rating,
+                        labs.ellak,
                         labs.school_unit_id,
                         lab_types.lab_type_id,
                         lab_types.name as lab_type,
@@ -935,13 +936,14 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                 "comments"                  => $lab["comments"] ,
                                 "operational_rating"        => $lab["operational_rating"],
                                 "technological_rating"      => $lab["technological_rating"],
+                                "ellak"                     => $lab["ellak"] ,
                                 "school_unit_id"            => $lab["school_unit_id"] ,
                                 "lab_type_id"               => $lab["lab_type_id"],
                                 "lab_type"                  => $lab["lab_type"] ,
                                 "lab_state_id"              => $lab["lab_state_id"]? (int)$lab["lab_state_id"] : null,
                                 "lab_state"                 => $lab["lab_state"],
                                 "lab_source_id"             => $lab["lab_source_id"] ,
-                                "lab_source"                => $lab["lab_source"] 
+                                "lab_source"                => $lab["lab_source"]
                             );
                              
                 //$array_lab_workers

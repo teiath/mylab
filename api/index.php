@@ -1073,6 +1073,7 @@ function LabsController()
                 $params["comments"],
                 $params["operational_rating"],
                 $params["technological_rating"],
+                $params["ellak"],
                 $params["lab_type"],
                 $params["school_unit_id"],
                 $params["state"],
@@ -1089,7 +1090,8 @@ function LabsController()
                 $params["positioning"],
                 $params["comments"],
                 $params["operational_rating"],
-                $params["technological_rating"]
+                $params["technological_rating"],
+                $params["ellak"]
             );      
             break;
        case MethodTypes::DELETE :

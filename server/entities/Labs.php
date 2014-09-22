@@ -92,6 +92,13 @@ class Labs
     private $technologicalRating;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="ellak", type="boolean", nullable=false)
+     */
+    private $ellak=false;
+    
+    /**
      * @var \LabSources
      *
      * @ORM\ManyToOne(targetEntity="LabSources")
@@ -244,6 +251,14 @@ class Labs
         $this->technologicalRating = $technologicalRating;
     }
 
+    public function getEllak() {
+        return $this->ellak;
+    }
+
+    public function setEllak($ellak) {
+        $this->ellak = $ellak;
+    }
+    
     public function getLabSource() {
         return $this->labSource;
     }

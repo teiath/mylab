@@ -668,6 +668,11 @@ class ExceptionMessages
     const InvalidLabTechnologicalRatingType = 'Η Τεχνολογική Βαθμολόγηση του Εργαστηρίου πρέπει να είναι αριθμητική';
     const InvalidLabTechnologicalRatingArray = 'Η Τεχνολογική Βαθμολόγηση του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingLabEllakParam = 'Ο χαρακτηρισμός ΕΛΛΑΚ του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabEllakValue = 'Ο χαρακτηρισμός ΕΛΛΑΚ του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabEllakType = 'Ο χαρακτηρισμός ΕΛΛΑΚ του Εργαστηρίου πρέπει να είναι της μορφής true/false';
+    const InvalidLabEllakArray = 'Ο χαρακτηρισμός ΕΛΛΑΚ Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
     const DuplicatedLabValue = 'Το Εργαστήριο υπάρχει ήδη';
     const DuplicatedLabNameValue = 'Το Όνομα του Εργαστηρίου υπάρχει ήδη';
     const DuplicateLabUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Lab';

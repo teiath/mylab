@@ -10,20 +10,20 @@
 header("Content-Type: text/html; charset=utf-8");
 /**
  * 
- * @global type $db
  * @global type $app
+ * @global type $entityManager
  * @param type $lab_id
  * @param type $special_name
  * @param type $positioning
  * @param type $comments
- * @param type $lab_type
- * @param type $state
- * @param type $lab_source
+ * @param type $operational_rating
+ * @param type $technological_rating
+ * @param type $ellak
  * @return string
  * @throws Exception
  */
 
-function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_rating, $technological_rating ) {
+function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_rating, $technological_rating, $ellak ) {
     
     global $app,$entityManager;
 
@@ -83,8 +83,24 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
                  $Lab->setTechnologicalRating(Validator::ToFiveStarSystem($technological_rating));               
             else
                 throw new Exception(ExceptionMessages::InvalidLabTechnologicalRatingType." : ".$technological_rating, ExceptionCodes::InvalidLabTechnologicalRatingType);   
-        }   
+        } 
         
+//$ellak========================================================================
+        if (Validator::Exists('ellak', $params)) {    
+            if (Validator::Missing('ellak', $params))
+                throw new Exception(ExceptionMessages::MissingLabEllakParam." : ".$ellak, ExceptionCodes::MissingLabEllakParam);
+            else if (Validator::isNull($ellak))
+                throw new Exception(ExceptionMessages::MissingLabEllakValue." : ".$ellak, ExceptionCodes::MissingLabEllakValue); 
+            else if (Validator::IsArray($ellak))
+                throw new Exception(ExceptionMessages::InvalidLabEllakArray." : ".$ellak, ExceptionCodes::InvalidLabEllakArray);
+            else if (Validator::IsTrue($ellak)) 
+                 $Lab->setEllak(1);    
+            else if (Validator::IsFalse($ellak)) 
+                 $Lab->setEllak(Validator::ToFalse($ellak));       
+            else
+                throw new Exception(ExceptionMessages::InvalidLabEllakType." : ".$ellak, ExceptionCodes::InvalidLabEllakType); 
+        }
+
 //user permisions===============================================================
         
          $permissions = UserRoles::getUserPermissions($app->request->user);
@@ -93,7 +109,7 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
          }; 
     
 //controls======================================================================  
-
+//var_dump( $Lab->getEllak());die();
         //check duplicates======================================================           
         $checkDuplicate = $entityManager->getRepository('Labs')->findOneBy(array( 
                                                                                   'schoolUnit'  => $Lab->getSchoolUnit(),
@@ -102,7 +118,8 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
                                                                                   'comments'    => $Lab->getComments(),
                                                                                   'positioning' => $Lab->getPositioning(),
                                                                                   'operationalRating'   => $Lab->getOperationalRating(),
-                                                                                  'technologicalRating' => $Lab->getTechnologicalRating()
+                                                                                  'technologicalRating' => $Lab->getTechnologicalRating(),
+                                                                                  'ellak'               => $Lab->getEllak()
                                                                                  ));
 
         if (!Validator::isNull($checkDuplicate)){

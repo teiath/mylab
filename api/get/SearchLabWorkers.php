@@ -447,6 +447,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                         labs.comments,
                         labs.operational_rating,
                         labs.technological_rating,
+                        labs.ellak,
                         lab_types.lab_type_id, 
                         lab_types.name as lab_type, 
                         lab_states.state_id as lab_state_id, 
@@ -466,7 +467,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                         municipalities.municipality_id, 
                         municipalities.name as municipality, 
                         education_levels.education_level_id, 
-                        education_levels.name as education_level, 
+                        education_levels.name as education_level,
                         school_unit_types.school_unit_type_id, 
                         school_unit_types.name as school_unit_type
                        ";
@@ -577,6 +578,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                     "comments"                  => $lab_worker["comments"] ,
                     "operational_rating"        => $lab_worker["operational_rating"],
                     "technological_rating"      => $lab_worker["technological_rating"],
+                    "ellak"                     => $lab_worker["ellak"] ,
                     "lab_type_id"               => $lab_worker["lab_type_id"],
                     "lab_type"                  => $lab_worker["lab_type"] ,
                     "lab_state_id"              => $lab_worker["lab_state_id"]? (int)$lab_worker["lab_state_id"] : null,

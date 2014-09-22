@@ -817,7 +817,16 @@ class ExceptionCodes
     const InvalidLabTechnologicalRatingType = 500;
     /** {@see ExceptionMessages::InvalidLabTechnologicalRatingArray} */
     const InvalidLabTechnologicalRatingArray = 500;
-            
+  
+    /** {@see ExceptionMessages::MissingLabEllakParam} */
+    const MissingLabEllakParam = 500;
+    /** {@see ExceptionMessages::MissingLabEllakValue} */
+    const MissingLabEllakValue = 500;
+    /** {@see ExceptionMessages::InvalidLabEllakType} */
+    const InvalidLabEllakType = 500;
+    /** {@see ExceptionMessages::InvalidLabEllakArray} */
+    const InvalidLabEllakArray = 500;
+    
     /** {@see ExceptionMessages::DuplicatedLabValue} */
     const DuplicatedLabValue = 500;
     /** {@see ExceptionMessages::DuplicatedLabNameValue} */

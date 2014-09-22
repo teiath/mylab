@@ -10,14 +10,14 @@
 header("Content-Type: text/html; charset=utf-8");
 /**
  * 
- * @global type $db
- * @global type $Options
  * @global type $app
+ * @global type $entityManager
  * @param type $special_name
  * @param type $positioning
  * @param type $comments
  * @param type $operational_rating
  * @param type $technological_rating
+ * @param type $ellak
  * @param type $lab_type
  * @param type $school_unit_id
  * @param type $state
@@ -29,7 +29,7 @@ header("Content-Type: text/html; charset=utf-8");
  * @throws Exception
  */
 
-function PostLabs(  $special_name, $positioning, $comments, $operational_rating, $technological_rating, 
+function PostLabs(  $special_name, $positioning, $comments, $operational_rating, $technological_rating, $ellak,  
                     $lab_type, $school_unit_id, $state, $lab_source, 
                     $transition_date, $transition_justification, $transition_source ){
     
@@ -88,7 +88,23 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
             else
                 throw new Exception(ExceptionMessages::InvalidLabTechnologicalRatingType." : ".$technological_rating, ExceptionCodes::InvalidLabTechnologicalRatingType);   
         }    
-       
+
+//$ellak========================================================================
+        if (Validator::Exists('ellak', $params)) {    
+            if (Validator::Missing('ellak', $params))
+                throw new Exception(ExceptionMessages::MissingLabEllakParam." : ".$ellak, ExceptionCodes::MissingLabEllakParam);
+            else if (Validator::isNull($ellak))
+                throw new Exception(ExceptionMessages::MissingLabEllakValue." : ".$ellak, ExceptionCodes::MissingLabEllakValue); 
+            else if (Validator::IsArray($ellak))
+                throw new Exception(ExceptionMessages::InvalidLabEllakArray." : ".$ellak, ExceptionCodes::InvalidLabEllakArray);
+            else if (Validator::IsTrue($ellak)) 
+                 $Lab->setEllak(1);    
+            else if (Validator::IsFalse($ellak)) 
+                 $Lab->setEllak(Validator::ToFalse($ellak));       
+            else
+                throw new Exception(ExceptionMessages::InvalidLabEllakType." : ".$ellak, ExceptionCodes::InvalidLabEllakType); 
+        }
+
 //$lab_type=====================================================================       
         CRUDUtils::entitySetAssociation($Lab, $lab_type, 'LabTypes', 'labType', 'LabType');
         $fLabTypeId = $Lab->getLabType()->getLabTypeId();

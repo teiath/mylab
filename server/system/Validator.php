@@ -706,14 +706,50 @@ class Validator
      * 
      * Validate if value is true
      * 
-     * @return bool True if true, false if not
+     * @return bool True if true, null if not
      * 
      */ 
     public static function ToTrue($value)
     {   
         $lower = strtolower(trim($value));
         if (in_array($lower, self::$trueValue, true)) {
-            return 'true';
+            return 'TRUE';
+        } else {
+            return null;
+        }
+
+    }
+    
+    /**
+     * 
+     * Validate if value is false
+     * 
+     * @return bool True if true, false if not
+     * 
+     */ 
+    public static function IsFalse($value)
+    {   
+        $lower = strtolower(trim($value));
+        if (in_array($lower, self::$falseValue, true)) {
+            return true;
+        } else {
+            return false;
+        }
+    
+    }
+    
+    /**
+     * 
+     * Validate if value is false
+     * 
+     * @return bool False if false, null if not
+     * 
+     */ 
+    public static function ToFalse($value)
+    {   
+        $lower = strtolower(trim($value));
+        if (in_array($lower, self::$falseValue, true)) {
+            return 'FALSE';
         } else {
             return null;
         }
