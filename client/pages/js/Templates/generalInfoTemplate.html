@@ -12,6 +12,7 @@
             #}else{#
                 <dd> --δεν έχει οριστεί-- </dd>
             #}#
+        
             <dt><i class="fa fa-map-marker" style="padding-right:5px"></i>Τοποθεσία</dt>
             #if(positioning !== null){# 
                 <dd>#:positioning#</dd>
@@ -19,6 +20,12 @@
                 <dd> --δεν έχει οριστεί-- </dd>
             #}#
         
+            #if(lab_type === "ΣΕΠΕΗΥ" && (ellak == 0 || ellak == null)){#
+                <dt><i class="fa fa-square-o " style="padding-right:5px"></i>ΕΛΛΑΚ</dt>
+            #}else if(lab_type === "ΣΕΠΕΗΥ" && ellak == 1){ #
+                <dt><i class="fa fa-check-square-o " style="padding-right:5px"></i>ΕΛΛΑΚ</dt>
+            #}#
+
             <dt><i class="fa fa-calendar" style="padding-right:5px"></i>Ημερομηνία Δημιουργίας</dt> <dd>#:creation_date#</dd>
             
         </dl>

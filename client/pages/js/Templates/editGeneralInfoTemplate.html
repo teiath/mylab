@@ -9,6 +9,11 @@
         <dd><input type="text" data-bind="value: lab_special_name" name="lab_special_name" class="k-textbox" /></dd>
         <dt><i class="fa fa-map-marker" style="padding-right:5px"></i>Τοποθεσία</dt>
         <dd><textarea type="text" data-bind="value: positioning" name="positioning" class="k-textbox" style="width: 334px; height: 54px;"></textarea></dd>
+        #if(lab_type === "ΣΕΠΕΗΥ" && (ellak == 0 || ellak == null)){#
+            <dd><label><input type="checkbox" name="ellak_boolean" data-bind="value: ellak" /> ΕΛΛΑΚ </label></dd>
+        #}else if(lab_type === "ΣΕΠΕΗΥ" && ellak == 1 ){ #
+            <dd><label><input type="checkbox" name="ellak_boolean" data-bind="value: ellak, checked: true" /> ΕΛΛΑΚ </label></dd>            
+        # } #
         <dt><i class="fa fa-calendar" style="padding-right:5px"></i>Ημερομηνία Δημιουργίας</dt> <dd>#:creation_date#</dd>
       </dl>
     </div>

@@ -65,6 +65,7 @@ var LabsViewVM = kendo.observable({
                     
                     //normalize transition_date parameter
                     data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
+                    data["ellak"] = (data["ellak"])? true : false; 
 
                     //standar parameters in lab creation
                     data["state"] = "1";
@@ -72,7 +73,8 @@ var LabsViewVM = kendo.observable({
                     data["transition_source"] = "mylab";
                     data["transition_justification"] = "δημιουργία Διάταξης Η/Υ";
                     
-                    delete data.operational_rating; //τα δύο αυτά πεδία δεν ειναι υποχρεωτικά αλλα χτυπάει όταν υποβάλλονται κενα
+                    //υποβάλλονται κενά, λόγω του ότι βρίσκονται στο schema, παρότι στη δημιουργία εργαστηρίου δεν εισάγονται
+                    delete data.operational_rating;
                     delete data.technological_rating;
                     
                     //return JSON.stringify(data);
@@ -90,6 +92,7 @@ var LabsViewVM = kendo.observable({
                     lab_id:{editable:false},
                     lab_name:{},
                     lab_type:{},
+                    ellak:{},
                     lab_worker:{},
                     worker_start_service:{},
                     relation_served_service:{},
@@ -196,11 +199,11 @@ var LabsViewVM = kendo.observable({
     ds_school_units: newSchoolUnitsDS(1), //used inside labCreateTemplate.html
     
     refresh_btn: false,
+    //ellakVisible: false,
     
     createLab:  function(e){
 
         console.log("labsview create lab: ", e);
-        console.log("user_url: ", user_url);
         e.preventDefault(); //?
         
         if (e.model.isNew()) {
@@ -210,6 +213,24 @@ var LabsViewVM = kendo.observable({
         }
         
         $("#cl_transition_date").data("kendoDatePicker").max(new Date());
+        
+        //kendo.bind($("#cl_ellak"), LabsViewVM);
+        //$("#cl_ellak").attr("visible", LabsViewVM.ellakVisible);
+        
+        function changeEllak(e){
+            console.log("changeEllak e: ", e);
+            var value = this.value();
+            if (value==1){ // σεπεηυ = 1
+                $("#cl_ellak").closest("div.form-group").show();
+                //LabsViewVM.ellakVisible = true;
+            }else{
+                $("#cl_ellak").closest("div.form-group").hide();
+                //LabsViewVM.ellakVisible = false;
+            }
+        }
+        
+        var lab_type = $("#cl_lab_type").data("kendoComboBox");
+        lab_type.bind("change", changeEllak);
         
         //Αυτή η συνθήκη παίζει να μην χρειάζεται και απλά το πεδίο της σχ. μονάδας να γίνεται hide
         if (e.sender.element.closest("tr").hasClass("k-detail-row")){ //έλεγξε αν βρισκόμαστε σε school units view
@@ -806,7 +827,9 @@ var LabsViewVM = kendo.observable({
                             lab_id:{editable:false},
                             positioning:{},
                             lab_special_name:{},
-                            creation_date:{}
+                            creation_date:{},
+                            lab_type:{}, //needed for ellak
+                            ellak:{}
                         }
                     }
                 }
@@ -814,11 +837,14 @@ var LabsViewVM = kendo.observable({
             save: function(e) {
                 if (this.editable.end()) {
                     data.splice(data.indexOf(codeDetailData), 1, e.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
-                                        
+                               
+                    console.log("e.model: ", e.model);
+                    
                     var parameters = {
                               lab_id: e.model.lab_id,
                               special_name: e.model.lab_special_name,
-                              positioning: e.model.positioning
+                              positioning: e.model.positioning,
+                              ellak: "'" + e.model.ellak_boolean + "'"//)? "1" : "0"
                             };
                     
                     $.ajax({
@@ -1236,5 +1262,5 @@ var LabsViewVM = kendo.observable({
     hideLabTransitColumn: function(e){
         var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
         return hide;
-    }    
+    }
 });
