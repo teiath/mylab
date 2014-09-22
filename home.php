@@ -198,7 +198,7 @@
                             }else{
                                 InfoVM.set("all_info", data);
                                 InfoVM.set("user", data.user_infos.user_name);
-                                InfoVM.set("role", data.ldap_role);
+                                InfoVM.set("role", data.user_infos.ldap_role);
                                 InfoVM.set("unit", data.user_infos.user_unit);
                                 InfoVM.set("phone", data.user_infos.phone_number);
                                 InfoVM.set("fax", data.user_infos.fax_number);
