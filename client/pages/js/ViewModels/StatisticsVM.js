@@ -1,6 +1,9 @@
 var StatisticsVM = kendo.observable({
 
     isVisible: false,
+    statisticExportEnabled: false,
+    cascadeValidationVisible: false,
+    filtersVisible: false,
 
     axis_x_ds: newAxisXDS(),
     axis_y_ds: newAxisYDS(),
@@ -40,14 +43,6 @@ var StatisticsVM = kendo.observable({
     municipality: "",           //πολλαπλό
     prefecture:"",
     
-//    hideSameValue: function(e) {
-//        console.log("hideSameValue e: ", e);
-//        if(e.sender.element[0].id === "st_x_axis"){
-//            console.log( StatisticsVM.axis_y_ds.data());//.used = true;
-//            console.log("axis_y_ds: ", StatisticsVM.axis_y_ds);
-//        }
-//        
-//    },
     resetForm: function(e) {
 
         e.preventDefault();
@@ -70,6 +65,11 @@ var StatisticsVM = kendo.observable({
         this.set("municipality", "");
         this.set("prefecture", "");
         
+        //on reset, disable export statistics btn
+        StatisticsVM.set("statisticExportEnabled", false);
+        if ( !$('#statistic_export_btn').hasClass('k-state-disabled') ){
+            $('#statistic_export_btn').addClass('k-state-disabled');
+        }
     },
     getStatistic: function(e){
         
@@ -129,6 +129,15 @@ var StatisticsVM = kendo.observable({
                             message: message
                         }, "error");
 
+                    }else if(data.results.length === 0){
+                        
+                        export_statistic_dialog.close();
+                        
+                        notification.show({
+                            title: "Δεν υπάρχουν διαθέσιμα στατιστικά για τις τιμές που εισήχθησαν",
+                            message: ""
+                        }, "error");                     
+                    
                     }else{
 
                         export_statistic_dialog.close(); 
@@ -193,6 +202,42 @@ var StatisticsVM = kendo.observable({
             }
         });
 
-    }
-    
+    },
+    cascade: function(e){
+        
+        //if x_axis and y_axis have both values, and are different from each other
+        if ( StatisticsVM.x_axis !== "" && StatisticsVM.y_axis !== "" && (StatisticsVM.x_axis !== StatisticsVM.y_axis) ){
+            StatisticsVM.set("statisticExportEnabled", true);
+            $('#statistic_export_btn').removeClass('k-state-disabled');
+            console.log(StatisticsVM.statisticExportEnabled);
+
+            StatisticsVM.set("cascadeValidationVisible", false);
+
+        }else{ //else
+            
+            if(StatisticsVM.x_axis === StatisticsVM.y_axis){
+                StatisticsVM.set("cascadeValidationVisible", true);
+            }else{
+                StatisticsVM.set("cascadeValidationVisible", false);
+            }
+            
+            StatisticsVM.set("statisticExportEnabled", false);
+            if ( !$('#statistic_export_btn').hasClass('k-state-disabled') ){
+                $('#statistic_export_btn').addClass('k-state-disabled');
+            }
+            console.log(StatisticsVM.statisticExportEnabled);
+        }
+    },
+    toggleFilters: function(e){
+
+        if($('#show_statistic_filters_btn').find('span').hasClass("k-i-arrow-e")){
+            $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-e");
+            $('#show_statistic_filters_btn').find('span').addClass("k-i-arrow-s");
+        }else{
+            $('#show_statistic_filters_btn').find('span').addClass("k-i-arrow-e");
+            $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-s");
+        }
+        
+        StatisticsVM.filtersVisible ? StatisticsVM.set("filtersVisible", false) : StatisticsVM.set("filtersVisible", true);
+    }    
 });
