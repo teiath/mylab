@@ -20,7 +20,8 @@ function GetUserPermits() {
        $user = $app->request->user;
        $role = UserRoles::getRole($user);
        $permissions = UserRoles::getUserPermissions($user, true);
-       
+       $role_ldap = UserRoles::getLdapRoleRanking($user);
+
         if ($role == 'ΚΕΠΛΗΝΕΤ'){
                
             $dns = explode(',', $user['l'][0]);
@@ -35,10 +36,10 @@ function GetUserPermits() {
             $info_keplhnet = Reports::getKeplhnetInfo($params);
  
         } 
-
+        
     $user_infos = array(    "user_name" => $user['cn'][0],
                             "user_unit" => $user['ou'][0],
-                            "ldap_role" => $user['title'][0],
+                            "ldap_role" => $role_ldap['maxLdapRole'],//$user['title'][0],
                             "unit_name" => $info_keplhnet['data'][0]['name'],
                             "street_address" => $info_keplhnet['data'][0]['street_address'],
                             "fax_number" => $info_keplhnet['data'][0]['fax_number'],

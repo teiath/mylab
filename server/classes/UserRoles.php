@@ -226,7 +226,7 @@ private static $Permissions = array(
     return false; 
 }
 
- private static function getLdapRoleRanking($user){
+ public static function getLdapRoleRanking($user){
 
      $value_ranks = array();
 
@@ -298,10 +298,11 @@ private static $Permissions = array(
        if ($ranking['ranking'] < $maxRanking) {
            $maxRanking = $ranking['ranking'] ;
            $maxRole = $ranking['role'] ;
+           $maxLdapRole = $ranking['ldap_title'] ;
        }          
     }    
         
-    return $maxRole;
+    return array( "max_role" => $maxRole, "maxLdapRole"=>$maxLdapRole );
     
 }
 
@@ -309,8 +310,8 @@ public static function getRole($user) {
 
     if (!validator::IsNull($user['title'])) {  
     //if (isset($user['title'])) {      
-        $role =  self::getLdapRoleRanking($user);  
-        return $role;
+        $role =  self::getLdapRoleRanking($user);
+        return $role['max_role'];
     } else{
         return false;
     }
