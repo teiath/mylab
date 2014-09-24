@@ -67,7 +67,7 @@
                                        { 'field': 'edu_admin', 'title':'Διεύθυνση Εκπαίδευσης', 'width':'250px'},
                                        { 'field': 'transfer_area', 'title':'Περιοχή Μετάθεσης', 'width':'200px', 'hidden': true},
                                        { 'field': 'municipality', 'title':'Δήμος', 'width':'200px', 'hidden': true},
-                                       { 'field': 'prefecture', 'title':'Νομός', 'width':'200px', 'hidden': true},
+                                       { 'field': 'prefecture', 'title':'Περιφερειακή Ενότητα', 'width':'200px', 'hidden': true},
                                        { 'field': 'phone_number', 'title':'Τηλέφωνο', 'width':'150px', 'hidden': true},
                                        { 'field': 'fax_number', 'title':'Φαξ', 'width':'150px', 'hidden': true},
                                        { 'field': 'email', 'title':'E-mail', 'width':'250px', 'hidden': true},
