@@ -199,7 +199,7 @@ var LabsViewVM = kendo.observable({
     ds_school_units: newSchoolUnitsDS(1), //used inside labCreateTemplate.html
     
     refresh_btn: false,
-    //ellakVisible: false,
+//    ellakVisible: true,
     
     createLab:  function(e){
 
@@ -814,6 +814,8 @@ var LabsViewVM = kendo.observable({
         var data = this.dataSource.data(); //ta data items tou labs grid
         var codeDetailData = e.data;    //ta data tou expanded row
         
+        console.log("codeDetailData: ", codeDetailData);
+        
         var lab_general_info_details = e.detailRow.find("#lab_general_info_details").kendoListView({
             //dataSource: [e.data], //newLabGeneralInfoDS(e.data.lab_id, e.detailRow),
             //dataSource: newLabGeneralInfoDS(e.data.lab_id, e.detailRow),
@@ -834,18 +836,23 @@ var LabsViewVM = kendo.observable({
                     }
                 }
             }),
-            save: function(e) {
+            save: function(event) {
                 if (this.editable.end()) {
-                    data.splice(data.indexOf(codeDetailData), 1, e.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
+                    data.splice(data.indexOf(codeDetailData), 1, event.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
                                
-                    console.log("e.model: ", e.model);
+                    //console.log("event.model: ", event.model);                  
                     
                     var parameters = {
-                              lab_id: e.model.lab_id,
-                              special_name: e.model.lab_special_name,
-                              positioning: e.model.positioning,
-                              ellak: e.model.ellak_boolean //)? "1" : "0"
+                              lab_id: event.model.lab_id,
+                              special_name: event.model.lab_special_name,
+                              positioning: event.model.positioning
                             };
+                    
+                    if (e.detailRow.find("#lab_general_info_details input:checkbox[id='isEllak']").prop( "checked" )){
+                        parameters.ellak = "true";
+                    }else{
+                        parameters.ellak = "false";
+                    }
                     
                     $.ajax({
                             type: 'PUT',
