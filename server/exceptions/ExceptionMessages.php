@@ -677,6 +677,7 @@ class ExceptionMessages
     const DuplicatedLabNameValue = 'Το Όνομα του Εργαστηρίου υπάρχει ήδη';
     const DuplicateLabUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Lab';
     const NotAllowedLabNameValue = 'Δεν επιτρέπεται η δημιουργία εργαστηρίου σε σχολικές μονάδες που είναι σε αναστολή ή καταργημένες';
+    const NotAllowedEllakValue = 'Δεν επιτρέπεται ο χαρακτηρισμός ΕΛΛΑΚ σε εργαστηρίου που ΔΕΝ είναι τύπου ΣΕΠΕΥΗ ή ΕΤΠ';
     
     //extra
     const InvalidLabSpecialNameType = 'Το Ειδικό Όνομα του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
@@ -904,27 +905,27 @@ class ExceptionMessages
     
     const DuplicatedMunicipalityValue = 'Ο Δήμος υπάρχει ήδη';
     const UsedMunicipalityBySchoolUnits = 'Ο Κωδικός Δήμου χρησιμοποιείται από Σχολικές Μονάδες';
-    const UsedMunicipalityByPrefectures = 'Ο Κωδικός Δήμου χρησιμοποιείται από Νομούς '; 
+    const UsedMunicipalityByPrefectures = 'Ο Κωδικός Δήμου χρησιμοποιείται από Περιφερειακές Ενότητες'; 
     
     //= Prefectures
-    const MissingPrefectureIDParam = 'Ο Κωδικός του Νομού είναι υποχρεωτικό πεδίο';
-    const MissingPrefectureIDValue = 'Ο Κωδικός του Νομού πρέπει να έχει τιμή';
-    const InvalidPrefectureIDType = 'Ο Κωδικός του Νομού πρέπει να είναι αριθμητικός';
-    const InvalidPrefectureIDArray = 'Ο Κωδικός του Νομού δεν μπορεί να έχει πολλαπλές τιμές';
+    const MissingPrefectureIDParam = 'Ο Κωδικός της Περιφερειακής Ενότητας είναι υποχρεωτικό πεδίο';
+    const MissingPrefectureIDValue = 'Ο Κωδικός της Περιφερειακής Ενότητας πρέπει να έχει τιμή';
+    const InvalidPrefectureIDType = 'Ο Κωδικός της Περιφερειακής Ενότητας πρέπει να είναι αριθμητικός';
+    const InvalidPrefectureIDArray = 'Ο Κωδικός της Περιφερειακής Ενότητας δεν μπορεί να έχει πολλαπλές τιμές';
 
-    const MissingPrefectureParam = 'Ο Νομός είναι υποχρεωτικό πεδίο';
-    const MissingPrefectureValue = 'Ο Νομός πρέπει να έχει τιμή';
-    const InvalidPrefectureValue = 'Ο Νομός δεν υπάρχει στο λεξικό';
-    const InvalidPrefectureType = 'Ο Νομός πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
-    const InvalidPrefectureArray = 'Ο Νομός δεν μπορεί να έχει πολλαπλές τιμές';
+    const MissingPrefectureParam = 'Η Περιφερειακή Ενότητα είναι υποχρεωτικό πεδίο';
+    const MissingPrefectureValue = 'Η Περιφερειακή Ενότητα πρέπει να έχει τιμή';
+    const InvalidPrefectureValue = 'Η Περιφερειακή Ενότητα δεν υπάρχει στο λεξικό';
+    const InvalidPrefectureType = 'Η Περιφερειακή Ενότητα πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidPrefectureArray = 'Η Περιφερειακή Ενότητα δεν μπορεί να έχει πολλαπλές τιμές';
   
-    const MissingPrefectureNameParam = 'Το Όνομα του Νομού είναι υποχρεωτικό πεδίο';
-    const MissingPrefectureNameValue = 'Το Όνομα του Νομού πρέπει να έχει τιμή';
-    const InvalidPrefectureNameType = 'Το Όνομα ου Νομού πρέπει να είναι αλφαριθμητικό';
-    const InvalidPrefectureNameArray = 'Το Όνομα του Νομού δεν μπορεί να έχει πολλαπλές τιμές';
+    const MissingPrefectureNameParam = 'Το Όνομα της Περιφερειακής Ενότητας είναι υποχρεωτικό πεδίο';
+    const MissingPrefectureNameValue = 'Το Όνομα της Περιφερειακής Ενότητας πρέπει να έχει τιμή';
+    const InvalidPrefectureNameType = 'Το Όνομα της Περιφερειακής Ενότητας πρέπει να είναι αλφαριθμητικό';
+    const InvalidPrefectureNameArray = 'Το Όνομα της Περιφερειακής Ενότητας δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const DuplicatedPrefectureValue = 'Ο Νομός υπάρχει ήδη';
-    const UsedPrefectureBySchoolUnits = 'Ο Κωδικός Νομού χρησιμοποιείται από Σχολικές Μονάδες';
+    const DuplicatedPrefectureValue = 'Η Περιφερειακή Ενότητα υπάρχει ήδη';
+    const UsedPrefectureBySchoolUnits = 'Ο Κωδικός Περιφερειακής Ενότητας χρησιμοποιείται από Σχολικές Μονάδες';
 
     //= EducationLevels
     const MissingEducationLevelIDParam = 'Ο Κωδικός του Επιπέδου Εκπαίδευσης είναι υποχρεωτικό πεδίο';
@@ -1061,25 +1062,25 @@ class ExceptionMessages
 
     
     //= WorkerSpecializations
-    const MissingWorkerSpecializationIDParam = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου είναι υποχρεωτικό πεδίο';
-    const MissingWorkerSpecializationIDValue = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου πρέπει να έχει τιμή';
-    const InvalidWorkerSpecializationIDType = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου πρέπει να είναι αριθμητικός';
-    const InvalidWorkerSpecializationIDArray = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές';
+    const MissingWorkerSpecializationIDParam = 'Ο Κωδικός του Κλάδου Εργαζόμενου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerSpecializationIDValue = 'Ο Κωδικός του Κλάδου Εργαζόμενου πρέπει να έχει τιμή';
+    const InvalidWorkerSpecializationIDType = 'Ο Κωδικός του Κλάδου Εργαζόμενου πρέπει να είναι αριθμητικός';
+    const InvalidWorkerSpecializationIDArray = 'Ο Κωδικός του Κλάδου Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const MissingWorkerSpecializationParam = 'Η Ειδικότητα Εργαζόμενου είναι υποχρεωτικό πεδίο';
-    const MissingWorkerSpecializationValue = 'Η Ειδικότητα Εργαζόμενου πρέπει να έχει τιμή';
-    const InvalidWorkerSpecializationValue = 'Η Ειδικότητα Εργαζόμενου δεν υπάρχει στο λεξικό';
-    const InvalidWorkerSpecializationType = 'Η Ειδικότητα Εργαζόμενου πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
-    const InvalidWorkerSpecializationArray = 'Η Ειδικότητα Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    const MissingWorkerSpecializationParam = 'Ο Κλάδος Εργαζόμενου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerSpecializationValue = 'Ο Κλάδος Εργαζόμενου πρέπει να έχει τιμή';
+    const InvalidWorkerSpecializationValue = 'Ο Κλάδος Εργαζόμενου δεν υπάρχει στο λεξικό';
+    const InvalidWorkerSpecializationType = 'Ο Κλάδος Εργαζόμενου πρέπει να είναι αριθμητικό ή αλφαριθμητικό';
+    const InvalidWorkerSpecializationArray = 'Ο Κλάδος Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές'; 
     
-    const MissingWorkerSpecializationNameParam = 'Το Όνομα της Ειδικότητας Εργαζόμενου είναι υποχρεωτικό πεδίο';
-    const MissingWorkerSpecializationNameValue = 'Το Όνομα της Ειδικότητας Εργαζόμενου πρέπει να έχει τιμή';
-    const InvalidWorkerSpecializationNameType = 'Το Όνομα της Ειδικότητας Εργαζόμενου πρέπει να είναι αλφαριθμητικό';
-    const InvalidWorkerSpecializationNameArray = 'Το Όνομα της Ειδικότητας Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές';
+    const MissingWorkerSpecializationNameParam = 'Το Όνομα του Κλάδου Εργαζόμενου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerSpecializationNameValue = 'Το Όνομα του Κλάδου Εργαζόμενου πρέπει να έχει τιμή';
+    const InvalidWorkerSpecializationNameType = 'Το Όνομα του Κλάδου Εργαζόμενου πρέπει να είναι αλφαριθμητικό';
+    const InvalidWorkerSpecializationNameArray = 'Το Όνομα του Κλάδου Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const DuplicatedWorkerSpecializationValue = 'Η Ειδικότητα Εργαζόμενου υπάρχει ήδη';
-    const UsedWorkerSpecializationBySchoolUnitWorkers = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Σχολικών Μοναδων';
-    const UsedWorkerSpecializationByLabWorkers = 'Ο Κωδικός της Ειδικότητας Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Εργαστηρίων';
+    const DuplicatedWorkerSpecializationValue = 'Ο Κλάδος Εργαζόμενου υπάρχει ήδη';
+    const UsedWorkerSpecializationBySchoolUnitWorkers = 'Ο Κωδικός του Κλάδου Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Σχολικών Μοναδων';
+    const UsedWorkerSpecializationByLabWorkers = 'Ο Κωδικός του Κλάδου Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Εργαστηρίων';
     
     //= Sources
     const MissingSourceIDParam = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων είναι υποχρεωτικό πεδίο';
