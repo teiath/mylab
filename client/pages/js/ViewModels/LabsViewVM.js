@@ -220,7 +220,7 @@ var LabsViewVM = kendo.observable({
         function changeEllak(e){
             console.log("changeEllak e: ", e);
             var value = this.value();
-            if (value==1){ // σεπεηυ = 1
+            if (value==1 || value==3){ // σεπεηυ = 1, ετπ = 3
                 $("#cl_ellak").closest("div.form-group").show();
                 //LabsViewVM.ellakVisible = true;
             }else{
@@ -518,7 +518,7 @@ var LabsViewVM = kendo.observable({
                   width: '10%' 
                 },
                 { field: "specialization_code_name", 
-                  title: "ειδικότητα", 
+                  title: "κλάδος", 
                   width: '10%' 
                 },
                 {
@@ -844,7 +844,7 @@ var LabsViewVM = kendo.observable({
                               lab_id: e.model.lab_id,
                               special_name: e.model.lab_special_name,
                               positioning: e.model.positioning,
-                              ellak: "'" + e.model.ellak_boolean + "'"//)? "1" : "0"
+                              ellak: e.model.ellak_boolean //)? "1" : "0"
                             };
                     
                     $.ajax({
