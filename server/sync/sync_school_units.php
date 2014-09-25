@@ -299,21 +299,21 @@ try{
                                  if ( ($fLabStateId !== $fSchoolUnitStateId ) && ($fLabStateId != 3) )  {
 
                                      //mmsch parameters
-                                     $params = array("lab_id" => $fLabId,
-                                                     "state" => 3,//$fSchoolUnitStateId 
-                                                     "transition_date" => date('Y-m-d H:i:s'),
-                                                     "transition_justification" => "Αλλαγή Κατάστασης με βάση των συγχρονισμό σχολικών μονάδων",
-                                                     "transition_source" => "mmsch"
-                                                     );
+                                     $params_transitions = array("lab_id" => $fLabId,
+                                                                "state" => 3,//$fSchoolUnitStateId 
+                                                                "transition_date" => date('Y-m-d H:i:s'),
+                                                                "transition_justification" => "Αλλαγή Κατάστασης με βάση των συγχρονισμό σχολικών μονάδων",
+                                                                "transition_source" => "mmsch"
+                                                                );
 
                                      //make the http request to mmsch with cURL 
-                                     $curl = curl_init($Options['ServerURL']."/lab_transitions");
-                                     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-                                     curl_setopt($curl, CURLOPT_USERPWD, $Options['Server_MyLab_username'] . ":" . $Options['Server_MyLab_password']);
-                                     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-                                     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode( $params ));
-                                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                                     $data_transitions = json_decode( curl_exec($curl), true );
+                                     $curl_transitions = curl_init($Options['ServerURL']."/lab_transitions");
+                                     curl_setopt($curl_transitions, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+                                     curl_setopt($curl_transitions, CURLOPT_USERPWD, $Options['Server_MyLab_username'] . ":" . $Options['Server_MyLab_password']);
+                                     curl_setopt($curl_transitions, CURLOPT_CUSTOMREQUEST, "POST");
+                                     curl_setopt($curl_transitions, CURLOPT_POSTFIELDS, json_encode( $params_transitions ));
+                                     curl_setopt($curl_transitions, CURLOPT_RETURNTRANSFER, true);
+                                     $data_transitions = json_decode( curl_exec($curl_transitions), true );
 
                                      if ($data_transitions["status"] != 200){
                                          $error_messages["errors"][] = $data_transitions["message"] . " Κωδικός Σχολικής Μονάδας : " . $fLabSchoolUnitId . " Κωδικός Εργαστηρίου : " . $fLabId; 
