@@ -137,7 +137,7 @@
                 kendo.bind($("#statistics-container"), StatisticsVM);
                 kendo.bind($("#info-container"), InfoVM);
                 
-                kendo.bind($("#annual_ypaith_report"), NavBarVM);
+                kendo.bind($("#mylab_navigation_bar"), NavBarVM);
                 
                 
                 //NOTIFICATIONS

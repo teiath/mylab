@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--navigation bar-->
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:#5E5E5E;">
+<nav id="mylab_navigation_bar" class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:#5E5E5E;">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header" style="width: 500px;">
+    <div class="navbar-header" style="width:500px;">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -17,11 +17,11 @@
         <!--<span class="label label-danger" style="position:absolute; margin-top:5px;">BETA</span>-->
     </div>
 
-    <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
             
-            <div id="user_menu" class="btn-group" style="margin: 8px 23px 0px 0px;">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <div id="user_menu" class="btn-group" style="margin: 14px 26px 0px 0px;">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-user"></i> <span id="user_button" style="font-size: 13px;"> </span> <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu" style="cursor:pointer; cursor:hand;">
@@ -57,6 +57,7 @@
 
     if(authorized_user === "ΚΕΠΛΗΝΕΤ"){
         $("#user_menu").find("ul li:eq(0)").before('<li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li><li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li><li class="divider"></li>');
+        $("#user_menu").find("ul li:eq(2)").after('<li><a id="user_guide" data-bind="events: {click : exportUserGuide}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>'); 
     }
 
     var g_casUrl = "<?php echo $casOptions['Url'] ?>";

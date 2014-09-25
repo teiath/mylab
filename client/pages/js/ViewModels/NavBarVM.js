@@ -45,6 +45,25 @@ var NavBarVM = kendo.observable({
                     file_download_error_dialog.center().open();
                 }
         });
+    },
+    
+    exportUserGuide: function(e){
+        e.preventDefault();
+        var url;
+
+        if(authorized_user === "ΚΕΠΛΗΝΕΤ" ){
+            url = config.url + "client/user_guides/keplinet.pdf";
+        }else if(authorized_user === "ΣΕΠΕΗΥ" ){
+            url = config.url + "client/user_guides/sepehy.pdf";
+        }else if(authorized_user === "ΠΣΔ" ){
+            url = config.url + "client/user_guides/psd.pdf";
+        }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ" ){
+            url = config.url + "client/user_guides/dieuthintis.pdf";
+        }else if(authorized_user === "ΥΠΕΠΘ" ){
+            url = config.url + "client/user_guides/upepth.pdf";
+        }
+        
+        window.open(url);
     }
             
 });
