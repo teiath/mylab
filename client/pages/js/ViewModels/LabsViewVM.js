@@ -836,6 +836,11 @@ var LabsViewVM = kendo.observable({
                     }
                 }
             }),
+            edit: function(event){
+                if(event.model.ellak === "1"){
+                    event.item.find("input:checkbox[id='isEllak']").prop("checked", "checked");
+                }
+            },
             save: function(event) {
                 if (this.editable.end()) {
                     data.splice(data.indexOf(codeDetailData), 1, event.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
