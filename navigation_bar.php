@@ -56,9 +56,10 @@
 <script>
 
     if(authorized_user === "ΚΕΠΛΗΝΕΤ"){
-        $("#user_menu").find("ul li:eq(0)").before('<li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li><li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li><li class="divider"></li>');
-        $("#user_menu").find("ul li:eq(2)").after('<li><a id="user_guide" data-bind="events: {click : exportUserGuide}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>'); 
+        $("#user_menu").find("ul li:eq(0)").before('<li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li><li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li><li class="divider"></li>'); 
     }
+
+    $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuide}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
 
     var g_casUrl = "<?php echo $casOptions['Url'] ?>";
 
