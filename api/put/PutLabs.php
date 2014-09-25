@@ -109,7 +109,13 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
          }; 
     
 //controls======================================================================  
-//var_dump( $Lab->getEllak());die();
+
+        //check if wrong lab type characterized as ellak 
+        $checkLabTypes = array(1,3); 
+        if ( !in_array($Lab->getLabType()->getLabTypeId(),$checkLabTypes) && ($Lab->getEllak()== '1')){
+           throw new Exception(ExceptionMessages::NotAllowedEllakValue, ExceptionCodes::NotAllowedEllakValue);  
+        }
+         
         //check duplicates======================================================           
         $checkDuplicate = $entityManager->getRepository('Labs')->findOneBy(array( 
                                                                                   'schoolUnit'  => $Lab->getSchoolUnit(),

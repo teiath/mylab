@@ -105,11 +105,13 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
                 throw new Exception(ExceptionMessages::InvalidLabEllakType." : ".$ellak, ExceptionCodes::InvalidLabEllakType); 
         }
 
+        
+        
 //$lab_type=====================================================================       
         CRUDUtils::entitySetAssociation($Lab, $lab_type, 'LabTypes', 'labType', 'LabType');
         $fLabTypeId = $Lab->getLabType()->getLabTypeId();
         $fLabTypeName = $Lab->getLabType()->getName();
-       
+
 //$school_unit_id=====================================================================       
         CRUDUtils::entitySetAssociation($Lab, $school_unit_id, 'SchoolUnits', 'schoolUnit', 'SchoolUnit');
         $findSchoolUnit = $entityManager->getRepository('SchoolUnits')->findOneBy(array ('schoolUnitId'=>$school_unit_id));
@@ -171,6 +173,13 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
          }; 
          
 //controls======================================================================
+         
+        //check if wrong lab type characterized as ellak
+        $checkLabTypes = array(1,3); 
+        if (!in_array($fLabTypeId,$checkLabTypes) && ($Lab->getEllak()== '1')){
+           throw new Exception(ExceptionMessages::NotAllowedEllakValue, ExceptionCodes::NotAllowedEllakValue);  
+        }
+            
         //$lab_name created auto with format : "lab_type_name.number_lab - school_unit_name"===
         if ($fSchoolUnitStateId == 1){ 
             if (Validator::IsNull($fSchoolUnitId) ) 
