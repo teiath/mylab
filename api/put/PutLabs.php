@@ -117,20 +117,20 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
         }
          
         //check duplicates======================================================           
-        $checkDuplicate = $entityManager->getRepository('Labs')->findOneBy(array( 
-                                                                                  'schoolUnit'  => $Lab->getSchoolUnit(),
-                                                                                  'name'        => $Lab->getName(),
-                                                                                  'specialName' => $Lab->getSpecialName(),
-                                                                                  'comments'    => $Lab->getComments(),
-                                                                                  'positioning' => $Lab->getPositioning(),
-                                                                                  'operationalRating'   => $Lab->getOperationalRating(),
-                                                                                  'technologicalRating' => $Lab->getTechnologicalRating(),
-                                                                                  'ellak'               => $Lab->getEllak()
-                                                                                 ));
-
-        if (!Validator::isNull($checkDuplicate)){
-            throw new Exception(ExceptionMessages::DuplicatedLabValue,ExceptionCodes::DuplicatedLabValue);
-        }   
+//        $checkDuplicate = $entityManager->getRepository('Labs')->findOneBy(array( 
+//                                                                                  'schoolUnit'  => $Lab->getSchoolUnit(),
+//                                                                                  'name'        => $Lab->getName(),
+//                                                                                  'specialName' => $Lab->getSpecialName(),
+//                                                                                  'comments'    => $Lab->getComments(),
+//                                                                                  'positioning' => $Lab->getPositioning(),
+//                                                                                  'operationalRating'   => $Lab->getOperationalRating(),
+//                                                                                  'technologicalRating' => $Lab->getTechnologicalRating(),
+//                                                                                  'ellak'               => $Lab->getEllak()
+//                                                                                 ));
+//
+//        if (!Validator::isNull($checkDuplicate)){
+//            throw new Exception(ExceptionMessages::DuplicatedLabValue,ExceptionCodes::DuplicatedLabValue);
+//        }   
         
     
 //update to db==================================================================
