@@ -24,7 +24,7 @@
     "category" => "ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
     "ordertype" => "ASC",
-    "pagesize" => "1",
+    "pagesize" => "500",
     "page" => "1"
     );
     
@@ -313,12 +313,12 @@ try{
                                      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
                                      curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode( $params ));
                                      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                                     $data = json_decode( curl_exec($curl), true );
+                                     $data_transitions = json_decode( curl_exec($curl), true );
 
-                                     if ($data["status"] != 200){
-                                         $error_messages["errors"][] = $data["message"] . " Κωδικός Σχολικής Μονάδας : " . $fLabSchoolUnitId . " Κωδικός Εργαστηρίου : " . $fLabId; 
+                                     if ($data_transitions["status"] != 200){
+                                         $error_messages["errors"][] = $data_transitions["message"] . " Κωδικός Σχολικής Μονάδας : " . $fLabSchoolUnitId . " Κωδικός Εργαστηρίου : " . $fLabId; 
                                      } else {
-                                         echo  "Αλλαξε η κατάσταση του εργαστηρίου με κωδικό " . $fLabId . " της σχολικής μονάδας με κωδικό " .$fLabSchoolUnitId . "\n";
+                                         echo  "Changed lab state of lab_id = " . $fLabId . " from school_unit_id " .$fLabSchoolUnitId . "\n";
                                      }
 
                                  }
