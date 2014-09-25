@@ -362,10 +362,12 @@ try{
                     $combinedData = array_merge($error_messages,$final_results); //$combinedData = array_merge($mmsch_data, $error_messages,$final_results); change with this if you want extra infos 
                     $result["block_results"][] = $combinedData; 
   
-                    echo "SchoolUnitID : " . $final_results["school_unit_id"] . " Action : " . $final_results["action"] . " Record : " . $check_total_download . " on page block " . $params["page"] . "\n";
+                    if ($final_results["action"]!=='ignore'){
+                        echo "SchoolUnitID : " . $final_results["school_unit_id"] . " Action : " . $final_results["action"] . " Record : " . $check_total_download . " on page block " . $params["page"] . "\n";
+                    }
                     
                     if ($error_messages){  
-                      $results["all_error_messages"][]=$error_messages;                  
+                        $results["all_error_messages"][]=$error_messages;                  
                     }
                     
                    
