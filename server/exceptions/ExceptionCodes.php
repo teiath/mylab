@@ -835,6 +835,8 @@ class ExceptionCodes
     const DuplicateLabUniqueValue = 500;
     /** {@see ExceptionMessages::NotAllowedLabNameValue} */
     const NotAllowedLabNameValue = 500;
+    /** {@see ExceptionMessages::NotAllowedEllakValue} */   
+    const NotAllowedEllakValue = 500;
     
     //extra
     /** {@see ExceptionMessages::InvalidLabSpecialNameType} */
