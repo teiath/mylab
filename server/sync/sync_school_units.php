@@ -20,11 +20,11 @@
     //"mm_id" => "1000044",
     //"mm_id" => "1020428,1007591",
     //"mm_id" => "1000002,1002233,1000002,1000003,1000019,1016506,1007591,1016502,1016503,1001982,1001023,1000006,1003605,1016505,1017701",
-    "legal_character" => "ΔΗΜΟΣΙΟ",
-    "category" => "ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
+    "legal_character" => 1, //"ΔΗΜΟΣΙΟ",
+    "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
     "ordertype" => "ASC",
-    "pagesize" => "500",
+    "pagesize" => "1",
     "page" => "1"
     );
     
@@ -214,27 +214,27 @@ try{
 
 //$fax_number===========================================================================
    $fFaxNumber = CRUDUtils::syncEntitySetParam($unit, $fax_number, 'SchoolUnitFaxNumber', 'fax_number');
-    if (!validator::IsNull($fState)) {$error_messages["errors"][] = $fFaxNumber; }    
+    if (!validator::IsNull($fFaxNumber)) {$error_messages["errors"][] = $fFaxNumber; }    
     
 //$phone_number===========================================================================
    $fPhoneNumber = CRUDUtils::syncEntitySetParam($unit, $phone_number, 'PhoneNumber', 'phoneNumber');
-    if (!validator::IsNull($fState)) {$error_messages["errors"][] = $fPhoneNumber; }    
+    if (!validator::IsNull($fPhoneNumber)) {$error_messages["errors"][] = $fPhoneNumber; }    
     
 //$email===========================================================================
    $fEmail = CRUDUtils::syncEntitySetParam($unit, $email, 'Email', 'email');
-    if (!validator::IsNull($fState)) {$error_messages["errors"][] = $fEmail; }      
+    if (!validator::IsNull($fEmail)) {$error_messages["errors"][] = $fEmail; }      
     
 //$street_address===========================================================================
    $fStreetAddress = CRUDUtils::syncEntitySetParam($unit, $street_address, 'StreetAddress', 'street_address');
-    if (!validator::IsNull($fState)) {$error_messages["errors"][] = $fStreetAddress; }                   
+    if (!validator::IsNull($fStreetAddress)) {$error_messages["errors"][] = $fStreetAddress; }                   
     
 //$postal_code===========================================================================
    $fPostalCode = CRUDUtils::syncEntitySetParam($unit, $postal_code, 'PostalCode', 'postal_code');
-   if (!validator::IsNull($fState)) {$error_messages["errors"][] = $fPostalCode; }                 
+   if (!validator::IsNull($fPostalCode)) {$error_messages["errors"][] = $fPostalCode; }                 
    
 //$special_name============================================================================
    $fSpecialType = CRUDUtils::syncEntitySetParam($unit, $special_name, 'SpecialName', 'specialName');
-   if (!validator::IsNull($fState)) {$error_messages["errors"][] = $fSpecialType; }
+   if (!validator::IsNull($fSpecialType)) {$error_messages["errors"][] = $fSpecialType; }
 
 //$name=========================================================================
 
