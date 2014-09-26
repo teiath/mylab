@@ -85,7 +85,7 @@
                              </div>                                    
 
                             <div class="col-md-11">
-                                <label for="operational_rating">λειτουργική βαθμολόγηση</label>
+                                <label for="operational_rating">λειτουργικός δείκτης</label>
                             </div>
                             <div class="col-md-11">
                                 <select id="st_operational_rating" 
@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="col-md-11">
-                                <label for="technological_rating">τεχνολογική βαθμολόγηση</label>
+                                <label for="technological_rating">τεχνολογικός δείκτης</label>
                              </div>
                             <div class="col-md-11">
                                 <select id="st_technological_rating" 

@@ -199,13 +199,13 @@ var SchoolUnitsViewVM = kendo.observable({
             pageable: false,
             editable: { mode : 'popup', template: $('#lab_create_template').html()},
             toolbar: [{ template : $('#lab_toolbar_template_school_unit_labs').html(), binded_data: e.data }],
-            columns: [{ field: 'lab_id', title:'κωδικός', width:'65px', hidden : true},
-                      { field: 'lab_name', title:'ονομασία', width:'440px'},
-                      { field: 'lab_type', title:'τύπος', width:'150px', hidden : true},
-                      { field: 'lab_state', title:'κατάσταση', width:'100px'},
+            columns: [{ field: 'lab_id', title:'Κωδικός', width:'65px', hidden : true},
+                      { field: 'lab_name', title:'Ονομασία', width:'440px'},
+                      { field: 'lab_type', title:'Τύπος', width:'150px', hidden : true},
+                      { field: 'lab_state', title:'Κατάσταση', width:'100px'},
                       {     
                             field:'rating',
-                            title:'βαθμολογία',
+                            title:'Αξιολογηση',
                             template: function(dataItem) { //το dataItem ειναι περιέχει όλα τα στοιχεια της Διάταξης Η/Υ έτσι όπως τα επεστρεψε η getLabs μεσα στο λεκτικό data +καποια επιπλεον!                            
 
                                 var oRating, tRating;

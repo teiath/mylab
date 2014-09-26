@@ -79,7 +79,7 @@
                                        { 'field': 'lab_name', 'title':'Ονομασία', 'width':'440px'},
                                        { 'field': 'lab_type', 'title':'Τύπος', 'width':'150px', 'hidden' : true},
                                        { 'field': 'lab_state', 'title':'Κατάσταση', 'width':'100px'},
-                                       { 'field': 'rating', 'title':'Βαθμολογία', 'template' : $('#labs_view_rating_column_template').html(), 'width':'85px'},
+                                       { 'field': 'rating', 'title':'Αξιολόγηση', 'template' : $('#labs_view_rating_column_template').html(), 'width':'85px'},
                                        { 'field': 'positioning', 'title':'Τοποθεσία', 'width':'180px', 'hidden' : true},
                                        { 'field': 'lab_special_name', 'title':'Ειδική Ονομασία', 'width':'180px', 'hidden' : true},
                                        { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'150px', 'hidden' : true},
