@@ -10,7 +10,11 @@ require_once('system/config.php');
 $server = $Options["ServerURL"]."/labs";
 $params = array(
     
-//    
+
+"ellak" => 'true',
+"lab_id" => 4763,
+"positioning" => "kiki!!",
+"special_name"=>"koko!!"
 // "lab_id" => "3413",
 //    "lab_aquisition_source_id" => "4851",
 //    "aquisition_year" => "2011",
@@ -40,15 +44,15 @@ $params = array(
 //    "circuit_id" =>"1"
 //  
 //    "lab_id" => "341332",
-    "special_name" => "test",
-    "comments" => "dsdsds",
-    "lab_type" => "2",
-    "school_unit_id" => "1012888",
-    "state" => "1",
-    "lab_source" => "1",
-    "transition_date" => "2014-08-01",
-    "transition_justification" => "tesdt",
-    "transition_source" => "mylab"
+//    "special_name" => "test",
+//    "comments" => "dsdsds",
+//    "lab_type" => "2",
+//    "school_unit_id" => "1012888",
+//    "state" => "1",
+//    "lab_source" => "1",
+//    "transition_date" => "2014-08-01",
+//    "transition_justification" => "tesdt",
+//    "transition_source" => "mylab"
   
     
     
@@ -57,9 +61,9 @@ $params = array(
 
 $curl = curl_init($server);
 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-//curl_setopt($curl, CURLOPT_USERPWD, $Options["Server_MyLab_username"] . ":" . $Options["Server_MyLab_password"]);
-curl_setopt($curl, CURLOPT_USERPWD, ":" );
-curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($curl, CURLOPT_USERPWD, $Options["Server_MyLab_username"] . ":" . $Options["Server_MyLab_password"]);
+//curl_setopt($curl, CURLOPT_USERPWD, ":" );
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
 curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
