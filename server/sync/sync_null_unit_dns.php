@@ -16,7 +16,7 @@
     global $entityManager;
     
     //check for null unit_dns
-    $params = array("unit_dns" => "null");
+    $params = array("unit_dns" => "null","page"=>"1","pagesize"=>"500");
     
     
     $all_logs = array();
@@ -31,11 +31,11 @@ try{
  
     do{ 
         
-        $updates=$errors=$unexpected_errors=0;
+        $updates=$errors=$unexpected_errors=$previous_data_total=0;
         $result = array();
         
         //make the http request to mmsch with cURL 
-        $curl = curl_init($Options['ServerURL']."school_units");
+       $curl = curl_init($Options['ServerURL']."school_units");
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curl, CURLOPT_USERPWD, $Options['Server_MyLab_username'] . ":" . $Options['Server_MyLab_password']);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
@@ -48,7 +48,7 @@ try{
         $results["total"] = (int)$data["total"];
         
         //$result["data_mmsch"] = $data["data"];//show all mmsch data from get_function of curl  
-        $result["block_general"][] = array( "page" => (int)$params["page"],
+        $result["block_general"][] = array( "page" => $params["page"],
                                             "count"      => $data["count"],
                                             "status"     => $data["status"],
                                             "message"    => $data["message"]
@@ -62,13 +62,13 @@ try{
             $result["block_error_sync"] = false;
         }
 
+        if (Validator::IsEmptyArray($data["data"])){echo 'No data to sync at school_units table';die();}
         //get each school_unit data record 
         foreach($data["data"] as $school_unit)
         {    
        
             //get records
             $school_unit_id = $school_unit["school_unit_id"];
-            $units_dns = $school_unit["unit_dns"];
             
             $check_total_download++;
             
@@ -119,7 +119,8 @@ try{
                             //$unit_dns=================================================                 
                             $fUnitDns = CRUDUtils::syncEntitySetParam($unit, $data_unit_dns["data"][0]["unit_dns"], 'UnitDns', 'unitDns'); 
                             if (!validator::IsNull($fUnitDns)) {$error_messages["errors"][] = $fUnitDns; }    
-                            
+             
+                             
                          }
         //counter
         if (!$error_messages && ($status == ('UPDATE') ) ){                        
@@ -173,15 +174,24 @@ try{
                                 );
         $all_logs["block_logs"][] = $block_log["block_log"];
       
-         
+
         //merge block results and go to next block 
         $result_block[] = array_merge($result,$block_log); 
-        $params["page"]++;
-        //echo 'Results ' . $params["page"] . ' block';
-    }while( ($params["page"]-1) * $params["pagesize"] < $data["total"]);
 
-  
-    
+        echo ' Results ' . $params["page"] . ' page block of ' . $params["pagesize"];
+        echo ' Pagination ' . ($params["page"]-1) * $params["pagesize"] ;
+        echo ' Total Data ' .  $data["total"];
+        
+       //stop sync if found all unit dns (0) or mmsch not returned another unit dns   
+       if ($previous_data_total !== $data["total"]) {      
+           $previous_data_total = $data["total"];
+           $continue = 'yes';
+       } else {
+           $continue = 'no';
+       }
+        
+    } while($continue == 'yes'); 
+   
     //count log time,errors and success statistics
     foreach ($all_logs["block_logs"] as $option) {
       $all_updates += $option['updates'];
