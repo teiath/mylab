@@ -52,7 +52,7 @@ var NavBarVM = kendo.observable({
         var url;
     
         if(authorized_user === "ΚΕΠΛΗΝΕΤ" ){
-            url = "http://myfiles.sch.gr/server/get/de38fbe04825f4465b0c75a389690a7b7"; //config.url + "client/user_guides/keplinet.pdf";
+            url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/keplinet.pdf";
         }//else if(authorized_user === "ΣΕΠΕΗΥ" ){
 //            url = config.url + "client/user_guides/sepehy.pdf";
 //        }else if(authorized_user === "ΠΣΔ" ){
