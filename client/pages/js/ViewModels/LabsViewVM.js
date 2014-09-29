@@ -203,7 +203,7 @@ var LabsViewVM = kendo.observable({
     
     createLab:  function(e){
 
-        console.log("labsview create lab: ", e);
+        //console.log("labsview create lab: ", e);
         e.preventDefault(); //?
         
         if (e.model.isNew()) {
@@ -218,7 +218,7 @@ var LabsViewVM = kendo.observable({
         //$("#cl_ellak").attr("visible", LabsViewVM.ellakVisible);
         
         function changeEllak(e){
-            console.log("changeEllak e: ", e);
+            //console.log("changeEllak e: ", e);
             var value = this.value();
             if (value==1 || value==3){ // σεπεηυ = 1, ετπ = 3
                 $("#cl_ellak").closest("div.form-group").show();
@@ -370,7 +370,7 @@ var LabsViewVM = kendo.observable({
                             }
                         });
                         
-                        console.log("equipment_details options.field: ", options.field);
+                        //console.log("equipment_details options.field: ", options.field);
                         //options.field = "equipment_type"
                         $('<input id="equipment_type_column_editor" name="' + options.field + '" data-bind="value:' + options.field + '" data-text-field="name" data-value-field="name" required data-required-msg="Ξέχασες τον τύπο εξοπλισμού!" />')
                         .appendTo(container)
@@ -814,7 +814,7 @@ var LabsViewVM = kendo.observable({
         var data = this.dataSource.data(); //ta data items tou labs grid
         var codeDetailData = e.data;    //ta data tou expanded row
         
-        console.log("codeDetailData: ", codeDetailData);
+        //console.log("codeDetailData: ", codeDetailData);
         
         var lab_general_info_details = e.detailRow.find("#lab_general_info_details").kendoListView({
             //dataSource: [e.data], //newLabGeneralInfoDS(e.data.lab_id, e.detailRow),

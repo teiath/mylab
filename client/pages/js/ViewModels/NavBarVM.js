@@ -50,18 +50,18 @@ var NavBarVM = kendo.observable({
     exportUserGuide: function(e){
         e.preventDefault();
         var url;
-
+    
         if(authorized_user === "ΚΕΠΛΗΝΕΤ" ){
-            url = config.url + "client/user_guides/keplinet.pdf";
-        }else if(authorized_user === "ΣΕΠΕΗΥ" ){
-            url = config.url + "client/user_guides/sepehy.pdf";
-        }else if(authorized_user === "ΠΣΔ" ){
-            url = config.url + "client/user_guides/psd.pdf";
-        }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ" ){
-            url = config.url + "client/user_guides/dieuthintis.pdf";
-        }else if(authorized_user === "ΥΠΕΠΘ" ){
-            url = config.url + "client/user_guides/upepth.pdf";
-        }
+            url = "http://myfiles.sch.gr/server/get/de38fbe04825f4465b0c75a389690a7b7"; //config.url + "client/user_guides/keplinet.pdf";
+        }//else if(authorized_user === "ΣΕΠΕΗΥ" ){
+//            url = config.url + "client/user_guides/sepehy.pdf";
+//        }else if(authorized_user === "ΠΣΔ" ){
+//            url = config.url + "client/user_guides/psd.pdf";
+//        }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ" ){
+//            url = config.url + "client/user_guides/dieuthintis.pdf";
+//        }else if(authorized_user === "ΥΠΕΠΘ" ){
+//            url = config.url + "client/user_guides/upepth.pdf";
+//        }
         
         window.open(url);
     }

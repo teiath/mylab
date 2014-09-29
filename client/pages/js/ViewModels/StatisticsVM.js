@@ -181,14 +181,14 @@ var StatisticsVM = kendo.observable({
                                 if(axis_y[k] === axisY){
                                     row = k;
                                     jQuery("#statistics-table tbody").find("tr:eq(" + row + ")>td:eq(" + column + ")").text(value);
-                                    console.log("column: " + column + ", row: " + row + ", value: " + value);
+                                    //console.log("column: " + column + ", row: " + row + ", value: " + value);
                                 }
                             }
                             
                         }
                                                
-                        console.log("axis_x: ", axis_x);
-                        console.log("axis_y: ", axis_y);
+                        //console.log("axis_x: ", axis_x);
+                        //console.log("axis_y: ", axis_y);
                         
                         //scroll to the beginning of the statistic table
                         $('html, body').animate({
@@ -209,7 +209,7 @@ var StatisticsVM = kendo.observable({
         if ( StatisticsVM.x_axis !== "" && StatisticsVM.y_axis !== "" && (StatisticsVM.x_axis !== StatisticsVM.y_axis) ){
             StatisticsVM.set("statisticExportEnabled", true);
             $('#statistic_export_btn').removeClass('k-state-disabled');
-            console.log(StatisticsVM.statisticExportEnabled);
+            //console.log(StatisticsVM.statisticExportEnabled);
 
             StatisticsVM.set("cascadeValidationVisible", false);
 
@@ -225,7 +225,7 @@ var StatisticsVM = kendo.observable({
             if ( !$('#statistic_export_btn').hasClass('k-state-disabled') ){
                 $('#statistic_export_btn').addClass('k-state-disabled');
             }
-            console.log(StatisticsVM.statisticExportEnabled);
+            //console.log(StatisticsVM.statisticExportEnabled);
         }
     },
     toggleFilters: function(e){
