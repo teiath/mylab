@@ -16,11 +16,11 @@
     global $entityManager;
     
     //check for null unit_dns
-    $params = array("unit_dns" => "null","page"=>"1","pagesize"=>"500");
+    $params = array("page"=>"1","pagesize"=>"500");
     
     
     $all_logs = array();
-    $check_total_download = 0;
+    $check_total_download = $previous_data_total = 0;
 
     //init and start timer
     $timer=new Timing;
@@ -31,7 +31,7 @@ try{
  
     do{ 
         
-        $updates=$errors=$unexpected_errors=$previous_data_total=0;
+        $updates=$errors=$unexpected_errors=0;
         $result = array();
         
         //make the http request to mmsch with cURL 
@@ -63,7 +63,9 @@ try{
         }
 
         if (Validator::IsEmptyArray($data["data"])){echo 'No data to sync at school_units table';die();}
-        //get each school_unit data record 
+        
+ 	echo '-----------------------' . count($data["data"]) . '---------';
+	//get each school_unit data record 
         foreach($data["data"] as $school_unit)
         {    
        
@@ -178,20 +180,23 @@ try{
         //merge block results and go to next block 
         $result_block[] = array_merge($result,$block_log); 
 
-        echo ' Results ' . $params["page"] . ' page block of ' . $params["pagesize"];
-        echo ' Pagination ' . ($params["page"]-1) * $params["pagesize"] ;
-        echo ' Total Data ' .  $data["total"];
+        echo ' Results ' . $params["page"] . ' page block of ' . $params["pagesize"]."\n";
+        echo ' Pagination ' . ($params["page"]-1) * $params["pagesize"]."\n" ;
+        echo ' Total Data ' .  $data["total"]."\n";
         
        //stop sync if found all unit dns (0) or mmsch not returned another unit dns   
-       if ($previous_data_total !== $data["total"]) {      
-           $previous_data_total = $data["total"];
-           $continue = 'yes';
-       } else {
-           $continue = 'no';
-       }
-        
-    } while($continue == 'yes'); 
-   
+      // $continue = 'no';
+     //  echo '---- PREVIOUS DATA----' . $previous_data_total .' ---total data ---' . $data["total"] . "\n";
+     //  if ($previous_data_total != $data["total"]) {      
+     //      $previous_data_total = $data["total"];
+     //      $continue = 'yes';
+     //  } 
+     //   
+    //} while($continue == 'yes'); 
+    	
+	$params["page"]++;
+    }while( ($params["page"]-1) * $params["pagesize"] < $data["total"]);
+
     //count log time,errors and success statistics
     foreach ($all_logs["block_logs"] as $option) {
       $all_updates += $option['updates'];
