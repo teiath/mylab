@@ -24,7 +24,7 @@
     "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
     "ordertype" => "ASC",
-    "pagesize" => "1",
+    "pagesize" => "500",
     "page" => "1"
     );
     
