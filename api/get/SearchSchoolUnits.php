@@ -494,9 +494,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                 school_unit_types.school_unit_type_id, 
                                 school_unit_types.name as school_unit_type,
                                 school_unit_states.state_id as school_unit_state_id, 
-                                school_unit_states.name as school_unit_state,
-                                lab_states.state_id as lab_state_id, 
-                                lab_states.name as lab_state
+                                school_unit_states.name as school_unit_state
                        ";
 
         $sqlFrom = "FROM school_units
@@ -558,7 +556,10 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         } else {
             $school_unit_ids = "0";
         }
-                
+        
+        //added to improve code 
+        //$school_unit_ids = implode(', ',array_unique(explode(', ', $school_unit_ids)));
+        
         //find lab types per school unit       
         $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions);
     
@@ -687,8 +688,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         $stmt = $db->query( $sql );
         $array_labs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $array_labs=  Validator::ToUniqueObject($array_labs);
-                
+    
+        $array_labs=  Validator::ToUniqueObject($array_labs);   //additional you can added distinct lab_id to previous sql query
+        
         foreach ($array_labs as $lab)
         {
             $labs[ $lab["school_unit_id"] ][ $lab["lab_id"] ] = $lab;
@@ -706,7 +708,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         } else {
             $lab_ids = "0";
         }
-            
+         
 //======================================================================================================================
 //= $array_lab_aquisition_sources
 //======================================================================================================================
@@ -819,7 +821,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 //======================================================================================================================
 //= R E S U L T S
 //======================================================================================================================
-//       $array_school_units=  Validator::ToUniqueObject($array_school_units);
+       //$array_school_units=  Validator::ToUniqueObject($array_school_units);
         
         //find count of lab_types per school_units
         $sqlFromLabs = ' FROM `labs`';
@@ -827,6 +829,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         $array_count_labs = Filters::LabsCounter($sqlFromLabs,$sqlWhereLabs);
         $sql_array = Filters::AllLabTypes();
         
+        //echo count($array_school_units);die();
         
         foreach ($array_school_units as $school_unit)
         {
