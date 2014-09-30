@@ -41,7 +41,8 @@
             
             var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
             var user_url = encodeURIComponent(JSON.stringify(user));
-                       
+            console.log("user: ", user);
+            
         </script>
             
         <?php require_once('includes.html'); ?> 
@@ -163,6 +164,28 @@
 
                 }).data("kendoNotification");
                 
+                pinned_notification = $("#notification").kendoNotification({
+                    position: {
+                        pinned: true,
+                        top: 70,
+                        right: 30
+                    },
+                    //allowHideAfter: 2000,
+                    autoHideAfter: 0,
+                    hideOnClick: true,
+                    stacking: "down",
+                    //button: true, //??? γιατι δεν παίζει?
+                    templates: [{
+                        type: "error",
+                        template: $("#errorTemplate").html()
+                    }, {
+                        //type: "upload-success",
+                        type: "success",
+                        template: $("#successTemplate").html()
+                    }]
+
+                }).data("kendoNotification");                
+                
                 //SCROLL-TOP
                 //depending on the .scrollTop() value fade in or out the scroll-to-top img
                 $(window).scroll(function(){
@@ -189,11 +212,21 @@
                         url: baseURL + 'user_permits',
                         dataType: "json",
                         success: function(data){
-
-                            if (data.user_role === "noAccess"){
-                                notification.show({
+                            //έλεγχος αν ο χρήστης ανήκει σε κάποια από τις ομάδες χρηστών (ΔΙΕΥΘΥΝΤΗΣ, ΣΕΠΕΗΥ, ΚΕΠΛΗΝΕΤ, ΠΣΔ, ΥΠΑΙΘ)
+                            if (data.status === 200 && data.user_role === "noAccess"){
+                                pinned_notification.show({
                                     title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
-                                    message: "Δεν πληρούνται τα απαραίτητα δικαιώματα πρόσβασης"
+                                    message: "Δεν πληρούνται τα απαραίτητα δικαιώματα πρόσβασης στην υπηρεσία."
+                                }, "error");
+                            }else if(data.user_role === "ΣΕΠΕΗΥ" && data.user_permissions.permit_labs.length === 0 ){
+                                pinned_notification.show({
+                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
+                                    message: "Ο Διευθυντής της Σχολικής σας Μονάδας δεν σας έχει ορίσει ως Υπεύθυνο στην Υπηρεσία myLab"
+                                }, "error");
+                            }else if(data.status === 500){
+                                pinned_notification.show({
+                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
+                                    message: data.message
                                 }, "error");
                             }else{
                                 InfoVM.set("all_info", data);
