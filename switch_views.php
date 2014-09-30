@@ -36,16 +36,16 @@
                 bootstrap_class = "col-md-3";
                 break;
             case  'ΣΕΠΕΗΥ' :
-                views = [view_1, view_2];
-                bootstrap_class = "col-md-6";
+                views = [view_1, view_2, view_3];
+                bootstrap_class = "col-md-4";
                 break;
             case  'ΠΣΔ' :
                 views = [view_1, view_2, view_3, view_4];
                 bootstrap_class = "col-md-3";
                 break;
             case  'ΔΙΕΥΘΥΝΤΗΣ' :
-                views = [view_1, view_2, view_4];
-                bootstrap_class = "col-md-4";
+                views = [view_1, view_4];
+                bootstrap_class = "col-md-6";
                 break;
             case  'ΥΠΕΠΘ' :
                 views = [view_1, view_2, view_3, view_4];
