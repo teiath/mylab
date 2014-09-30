@@ -16,17 +16,17 @@
     global $entityManager;
     
     //check for null unit_dns
-    $params = array("page"=>"1","pagesize"=>"500");
-    
+    $params = array("page"=>"1","pagesize"=>"500","unit_dns"=>"null");
+        
     $all_logs = array();
-    $check_total_download = 0;
+    $check_total_download = $previous_data_total = 0;
 
     //init and start timer
     $timer=new Timing;
     $timer->start();
     
 try{ 
-    echo "Starting Sync Unit Dns field of ALL School_Units table \n\n";   
+    echo "Starting Sync ONLY NULL Unit Dns field of School_Units table \n\n";   
  
     do{ 
         
@@ -182,8 +182,21 @@ try{
         echo ' Results ' . $params["page"] . ' page block of ' . $params["pagesize"]."\n";
         echo ' Pagination ' . ($params["page"]-1) * $params["pagesize"]."\n" ;
         echo ' Total Data ' .  $data["total"]."\n";
-    	
-	$params["page"]++;
+        
+        echo $params["page"];
+        
+        echo "Data blog has " . $updates . " updates and has page number = " . $params["page"] ."/n";        
+    	if ($params["page"]==1 && $updates!=0){
+            $params["page"] = 1;
+        } else if ($updates!=0){
+            $params["page"] = $params["page"] - 1;
+        } else {
+            $params["page"]++;
+        }
+        
+        echo "Goto page number=". $params["page"] ."/n";  
+        
+	
     }while( ($params["page"]-1) * $params["pagesize"] < $data["total"]);
 
     //count log time,errors and success statistics
@@ -211,7 +224,7 @@ try{
 
     
     $filepath = realpath(basename(getenv("SCRIPT_NAME")));
-    $filename = $timer->getTimeFileName('school_units_dns');
+    $filename = $timer->getTimeFileName('null_school_units_dns');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
