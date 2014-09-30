@@ -54,7 +54,7 @@ var NavBarVM = kendo.observable({
         if(authorized_user === "ΚΕΠΛΗΝΕΤ" ){
             url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/keplinet.pdf";
         }else if(authorized_user === "ΣΕΠΕΗΥ" ){
-            //url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/sepehy.pdf";
+            url = "http://myfiles.sch.gr/server/get/db7f79cee7992489c8c5460dee4d50b25"; //config.url + "client/user_guides/sepehy.pdf";
         }else if(authorized_user === "ΠΣΔ" ){
             //url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/psd.pdf";
         }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ" ){
