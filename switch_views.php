@@ -36,7 +36,7 @@
                 bootstrap_class = "col-md-3";
                 break;
             case  'ΣΕΠΕΗΥ' :
-                views = [view_1, view_2, view_3];
+                views = [view_1, view_2, view_4];
                 bootstrap_class = "col-md-4";
                 break;
             case  'ΠΣΔ' :
