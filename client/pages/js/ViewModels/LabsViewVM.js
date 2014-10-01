@@ -1,6 +1,4 @@
 var LabsViewVM = kendo.observable({
-
-    isCore:true, 
     
     isVisible: true,
 
