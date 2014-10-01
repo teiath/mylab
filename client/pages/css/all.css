@@ -33,10 +33,11 @@ table, td, k-toolbar, k-pager-wrap
     margin-top: 0;
 }
 
-.k-grid tbody > tr:not(.k-detail-row) > td{
+/*wrap grid's td columns text*/
+/*.k-grid tbody > tr:not(.k-detail-row) > td{
     white-space: nowrap;
     text-overflow: ellipsis;
-}
+}*/
 
 .k-grid table {
     table-layout: fixed;
