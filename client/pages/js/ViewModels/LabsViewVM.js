@@ -1,5 +1,7 @@
 var LabsViewVM = kendo.observable({
 
+    isCore:true, 
+    
     isVisible: true,
 
     labs:  new kendo.data.DataSource({
