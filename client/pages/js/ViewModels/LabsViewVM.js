@@ -393,7 +393,7 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '30%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? false : true;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id === 1) ? false : true;
                       return hide;
                   }()
                 }
@@ -464,7 +464,7 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '30%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? false : true;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id === 1) ? false : true;
                       return hide;
                   }()
                 }
@@ -633,7 +633,7 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '25%',
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1) ? false : true;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1 && e.data.lab_state_id === 1) ? false : true;
                       return hide;
                   }()
                 }
@@ -792,7 +792,7 @@ var LabsViewVM = kendo.observable({
                   title: 'ενέργειες', 
                   width: '20%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1) ? false : true;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id === 1) ? false : true;
                       return hide;
                   }()
                 }
