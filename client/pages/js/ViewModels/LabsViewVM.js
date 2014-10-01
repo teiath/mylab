@@ -398,6 +398,7 @@ var LabsViewVM = kendo.observable({
                   }()
                 }
             ],
+            //messages: {commands : [{edit: "επεξεργασία", canceledit: "άκυρο", update: "επεξεργασία", destroy: "διαγραφή"}]},
             edit: function(e){
                 if (!e.model.isNew()) {
                     //on update, make equipment_type not editable
@@ -1105,18 +1106,6 @@ var LabsViewVM = kendo.observable({
         });
 
     },
-  
-    
-//    hideLabsGrid: function(e) {
-//        //console.log("im inside hideLabsGrid", e);
-//        this.set("isVisible", false);
-//        SchoolUnitsViewVM.set("isVisible", true);
-//    },
-//    showLabsGrid: function(e) {
-//        //console.log("im inside showLabsGrid", e);
-//        this.set("isVisible", true);
-//        SchoolUnitsViewVM.set("isVisible", false);
-//    },
     openColumnSelection: function(e){
         var column_selection_dialog = $("#labs_column_selection_dialog").kendoWindow({
                     modal: true,
