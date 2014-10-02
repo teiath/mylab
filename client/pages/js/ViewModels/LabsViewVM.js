@@ -207,7 +207,7 @@ var LabsViewVM = kendo.observable({
         e.preventDefault(); //?
         
         if (e.model.isNew()) {
-            e.container.prev().find(".k-window-title").text("Προσθήκη νέας Διάταξης Η/Υ");
+            e.container.prev().find(".k-window-title").text("Προσθήκη Νέας Διάταξης Η/Υ");
             e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-update").text("Προσθήκη");
             e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-cancel").text("Άκυρο");
         }
@@ -358,7 +358,7 @@ var LabsViewVM = kendo.observable({
                      }(),
             columns: [
                 { field: "equipment_type_name", 
-                  title: "εξοπλισμός",
+                  title: "τύπος εξοπλισμού",
                   editor: function (container, options){
                       
                         var data = equipment_details.dataSource.data();
@@ -524,7 +524,7 @@ var LabsViewVM = kendo.observable({
                 },
                 {
                   field: "worker_start_service", 
-                  title: "ανάληψη ευθύνης",
+                  title: "ημ/νια ανάληψης ευθύνης",
                   editor: function (container, options){
                         //options.field: The name of the field to which the column is bound.
                         //options.field= worker_start_service
@@ -539,7 +539,7 @@ var LabsViewVM = kendo.observable({
                         tooltipElement.appendTo(container);                        
                         
                   }, 
-                  width: '15%' 
+                  width: '20%' 
                 },
                 {
                   field: "worker_status",
@@ -631,7 +631,7 @@ var LabsViewVM = kendo.observable({
                              }
                            ],
                   title: 'ενέργειες', 
-                  width: '25%',
+                  width: '20%',
                   hidden: function(){
                       var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1 && e.data.lab_state_id === 1) ? false : true;
                       return hide;
@@ -671,12 +671,12 @@ var LabsViewVM = kendo.observable({
             editable: "inline",
             toolbar: function(){
                         if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id !== 2 && e.data.lab_state_id !== 3){
-                            return [{ name: "create", text: "Προσθήκη νέας συσχέτισης" }];
+                            return [{ name: "create", text: "Προσθήκη Συσχέτισης" }];
                         }
                     }(),
             columns: [
                 { field: "relation_type_name",
-                  title: "συσχέτιση",
+                  title: "τύπος συσχέτισης",
                   editor: function (container, options){
                         
                         //check if there's already a 'served online' relation and hide the corresponding option
@@ -1172,7 +1172,7 @@ var LabsViewVM = kendo.observable({
         var show= [1,3,4,8]; //default columns
         
         if( jQuery.inArray( authorized_user , transit_lab ) !== -1 && jQuery.inArray(11 , show) === -1 ){
-            show.push(11);
+            show.push(10);
         }
         
         $.each(grid.columns, function(index, value){

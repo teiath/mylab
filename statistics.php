@@ -51,7 +51,7 @@
                         <div class="col-md-4">
 
                             <div class="col-md-11">
-                                <label for="lab_type">τύπος Διάταξης Η/Υ</label>
+                                <label for="lab_type">Τύπος Διάταξης Η/Υ</label>
                             </div>
                             <div class="col-md-11">
                                 <select id="st_lab_types"  
@@ -68,7 +68,7 @@
                             </div>
 
                             <div class="col-md-11">
-                                <label for="lab_state">λειτουργική κατάσταση Διάταξης Η/Υ</label>
+                                <label for="lab_state">Λειτουργική Κατάσταση Διάταξης Η/Υ</label>
                              </div>
                             <div class="col-md-11">
                                 <select id="st_lab_state" 
@@ -85,7 +85,7 @@
                              </div>                                    
 
                             <div class="col-md-11">
-                                <label for="operational_rating">λειτουργικός δείκτης</label>
+                                <label for="operational_rating">Λειτουργικός Δείκτης</label>
                             </div>
                             <div class="col-md-11">
                                 <select id="st_operational_rating" 
@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="col-md-11">
-                                <label for="technological_rating">τεχνολογικός δείκτης</label>
+                                <label for="technological_rating">Τεχνολογικός Δείκτης</label>
                              </div>
                             <div class="col-md-11">
                                 <select id="st_technological_rating" 
@@ -140,7 +140,7 @@
                             </div>
 
                             <div class="col-md-11">
-                                <label for="school_unit_type">τύπος Σχολικής Μονάδας</label>                                    
+                                <label for="school_unit_type">Τύπος Σχολικής Μονάδας</label>                                    
                             </div>
                             <div class="col-md-11">
                                 <select id="sl_school_unit_type" 
@@ -157,7 +157,7 @@
                             </div>                                
 
                             <div class="col-md-11">
-                                <label for="school_unit_state">λειτουργική κατάσταση Σχολικής Μονάδας</label>
+                                <label for="school_unit_state">Λειτουργική Κατάσταση Σχολικής Μονάδας</label>
                             </div>
                             <div class="col-md-11">
                                 <select id="sl_school_unit_state" 

@@ -202,10 +202,10 @@ var SchoolUnitsViewVM = kendo.observable({
             columns: [{ field: 'lab_id', title:'Κωδικός', width:'65px', hidden : true},
                       { field: 'lab_name', title:'Ονομασία', width:'440px'},
                       { field: 'lab_type', title:'Τύπος', width:'150px', hidden : true},
-                      { field: 'lab_state', title:'Κατάσταση', width:'100px'},
+                      { field: 'lab_state', title:'Λειτουργική Κατάσταση', width:'150px'},
                       {     
                             field:'rating',
-                            title:'Αξιολογηση',
+                            title:'Αξιολόγηση',
                             template: function(dataItem) { //το dataItem ειναι περιέχει όλα τα στοιχεια της Διάταξης Η/Υ έτσι όπως τα επεστρεψε η getLabs μεσα στο λεκτικό data +καποια επιπλεον!                            
 
                                 var oRating, tRating;
@@ -222,7 +222,6 @@ var SchoolUnitsViewVM = kendo.observable({
                       { field: 'creation_date', title:'Ημερομηνία Δημιουργίας', width:'150px', hidden : true},
                       { field: 'last_updated', title:'Τελευταία Ενημέρωση', width:'150px'},
                       { field: 'created_by', title:'Δημιουργία από', width:'130px', hidden : true},
-                      { field: 'lab_source', title:'Πηγή', width:'130px', hidden : true},   
                       { command: [{text:'Ενεργοποίηση', click:LabsViewVM.transitLab, name:'activate'}, 
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend'},
                                   {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn()}],

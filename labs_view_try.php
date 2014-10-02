@@ -67,26 +67,25 @@
                         data-resizable= "true"
                         data-sortable= "{'allowUnsort': false}"
                         data-pageable="{ 'pageSizes': [5, 10, 15, 20, 25, 30, 50], 
-                                         'messages':  { 'display': '{0}-{1} από {2} διατάξεις Η/Υ', 
-                                                        'empty': 'Δεν βρέθηκαν διατάξεις Η/Υ',
-                                                        'itemsPerPage': 'διατάξεις Η/Υ ανά σελίδα', 
+                                         'messages':  { 'display': '{0}-{1} από {2} Διατάξεις Η/Υ', 
+                                                        'empty': 'Δεν βρέθηκαν Διατάξεις Η/Υ',
+                                                        'itemsPerPage': 'Διατάξεις Η/Υ ανά σελίδα', 
                                                         'first': 'μετάβαση στην πρώτη σελίδα',
                                                         'previous': 'μετάβαση στην προηγούμενη σελίδα',
                                                         'next': 'μετάβαση στην επόμενη σελίδα',
                                                         'last': 'μετάβαση στην τελευταία σελίδα' }}"
                         data-editable="{ 'mode' : 'popup', 'template': $('#lab_create_template').html()}"
                         data-toolbar="[{ 'template' : $('#lab_toolbar_template_labs_view').html()  }]"
-                        data-columns="[{ 'field': 'lab_id', 'title':'Κωδικός', 'width':'65px', 'hidden' : true},
+                        data-columns="[{ 'field': 'lab_id', 'title':'Κωδικός Διάταξης Η/Υ', 'width':'65px', 'hidden' : true},
                                        { 'field': 'lab_name', 'title':'Ονομασία', 'width':'440px'},
                                        { 'field': 'lab_type', 'title':'Τύπος', 'width':'150px', 'hidden' : true},
-                                       { 'field': 'lab_state', 'title':'Κατάσταση', 'width':'100px'},
+                                       { 'field': 'lab_state', 'title':'Λειτουργική Κατάσταση', 'width':'150px'},
                                        { 'field': 'rating', 'title':'Αξιολόγηση', 'template' : $('#labs_view_rating_column_template').html(), 'width':'85px'},
                                        { 'field': 'positioning', 'title':'Τοποθεσία', 'width':'180px', 'hidden' : true},
                                        { 'field': 'lab_special_name', 'title':'Ειδική Ονομασία', 'width':'180px', 'hidden' : true},
                                        { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'150px', 'hidden' : true},
                                        { 'field': 'last_updated', 'title':'Τελευταία Ενημέρωση', 'width':'150px'},
                                        { 'field': 'created_by', 'title':'Δημιουργία από', 'width':'130px', 'hidden' : true},
-                                       { 'field': 'lab_source', 'title':'Πηγή', 'width':'130px', 'hidden' : true},
                                        { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
                                                      {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},
                                                      {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'Ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn() }
