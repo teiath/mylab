@@ -19,6 +19,7 @@
         require_once('client/pages/js/Templates/successNotificationTemplate.html');
         require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
         require_once('client/pages/js/Templates/disableLabWorkerTemplate.html');
+        require_once('client/pages/js/Templates/labsViewLabStateColumnTemplate.html');
         
     ?>
 
@@ -96,3 +97,6 @@
     </div>
 
 </div>
+
+
+<!--'template' : $('#labs_view_lab_state_column_template').html(),-->

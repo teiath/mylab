@@ -76,3 +76,15 @@ table, td, k-toolbar, k-pager-wrap
     padding-left: 3px;
     padding-top: 4px;
 }
+
+.state_green{
+    color:#55B262;
+}
+
+.state_orange{
+    color: #F9AB52;
+}
+
+.state_red{
+    color:#DD3346;
+}

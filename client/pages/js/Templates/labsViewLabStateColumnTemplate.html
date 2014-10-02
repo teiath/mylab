@@ -1,0 +1,16 @@
+<script type="text/x-kendo-template" id="labs_view_lab_state_column_template">
+
+#if(lab_state === "ΕΝΕΡΓΗ"){ console.log("lab_state: ", lab_state ); #
+
+    <i class="fa fa-circle state_green"></i> #:lab_state #
+
+# }else if(lab_state === "ΣΕ ΑΝΑΣΤΟΛΗ") { #
+
+    <i class="fa fa-circle state_orange"></i> #:lab_state # 
+    
+# }else if(lab_state === "ΚΑΤΑΡΓΗΜΕΝΗ") { #
+
+   <i class="fa fa-circle state_red"></i> #:lab_state # 
+
+# } #
+</script>
