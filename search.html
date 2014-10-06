@@ -1,23 +1,35 @@
 <script>
-    $(document).ready(function() {
-        $('body').find("#sl_lab_worker").prev().focusin(function() {
+$(document).ready(function() {
 
-            var tooltip = $('body').find("#sl_lab_worker").prev().kendoTooltip({
-                autoHide: true,
-                content:"για να φιλτράρετε από τη λίστα εισάγετε minimum 3 χαρακτήρες",
-                width:185,
-                height:35,
-                position: "left",
-                animation: {
-                    close: {effects: "fade:out",  duration: 1000},
-                    open: {effects: "fade:in",  duration: 1000}
-                }
-            }).data("kendoTooltip");
+    $('body').find("#sl_lab_worker").prev().focusin(function() {
 
-            tooltip.show($('body').find("#sl_lab_worker").prev());
+        var tooltip = $('body').find("#sl_lab_worker").prev().kendoTooltip({
+            autoHide: true,
+            content:"για να φιλτράρετε από τη λίστα εισάγετε minimum 3 χαρακτήρες",
+            width:185,
+            height:35,
+            position: "left",
+            animation: {
+                close: {effects: "fade:out",  duration: 1000},
+                open: {effects: "fade:in",  duration: 1000}
+            }
+        }).data("kendoTooltip");
 
-        });
+        tooltip.show($('body').find("#sl_lab_worker").prev());
+
     });
+
+
+    $("form input").on("keypress", function(e){
+        //if current key is Enter
+        console.log(e);
+        if (e.keyCode == 13) {
+            //prevent default behavior
+            e.preventDefault();
+        }
+    });
+    
+});
 </script>
 
 <!DOCTYPE html>
@@ -50,7 +62,7 @@
                                     <label for="lab_name">Ονομασία Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_lab_name" name="lab_name" class="k-textbox" data-bind="value: lab_name, events: {input : filterChanged }"/> 
+                                    <input id="sl_lab_name" name="lab_name" class="k-textbox" data-bind="value: lab_name, events: {input : filterChanged}"/> 
                                 </div>
                                 
                                 <div class="col-md-11">
