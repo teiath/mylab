@@ -66,7 +66,7 @@ var LabsViewVM = kendo.observable({
                     //normalize transition_date parameter
                     data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
                     data["ellak"] = (data["ellak"])? true : false; 
-
+                    data["positioning"] = data["building"] + ", " + data["floor"] + ", " + data["classroom"];
                     //standar parameters in lab creation
                     data["state"] = "1";
                     data["lab_source"] = "1";
@@ -199,7 +199,6 @@ var LabsViewVM = kendo.observable({
     ds_school_units: newSchoolUnitsDS(1), //used inside labCreateTemplate.html
     
     refresh_btn: false,
-//    ellakVisible: true,
     
     createLab:  function(e){
 
@@ -221,16 +220,14 @@ var LabsViewVM = kendo.observable({
             //console.log("changeEllak e: ", e);
             var value = this.value();
             if (value==1 || value==3){ // σεπεηυ = 1, ετπ = 3
-                $("#cl_ellak").closest("div.form-group").show();
-                //LabsViewVM.ellakVisible = true;
+                $("#cl_ellak").closest("div").show();
             }else{
-                $("#cl_ellak").closest("div.form-group").hide();
-                //LabsViewVM.ellakVisible = false;
+                $("#cl_ellak").closest("div").hide();
             }
-        }
+        }  
         
         var lab_type = $("#cl_lab_type").data("kendoComboBox");
-        lab_type.bind("change", changeEllak);
+        lab_type.bind("change", changeEllak);        
         
         //Αυτή η συνθήκη παίζει να μην χρειάζεται και απλά το πεδίο της σχ. μονάδας να γίνεται hide
         if (e.sender.element.closest("tr").hasClass("k-detail-row")){ //έλεγξε αν βρισκόμαστε σε school units view

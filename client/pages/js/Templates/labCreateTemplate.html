@@ -1,12 +1,10 @@
 <script id="lab_create_template" type="text/x-kendo-template">
-    <div style="width: 600px;">
+    <div style="width:400px;">
         <div id="cl" class="form-horizontal form-widgets col-md-11">
 
-            <div class='form-group'>
-                <div class="col-md-3 k-edit-label">
+            <div class='form-group'>          
+                <div class="col-md-11">
                     <label for="school_unit">Σχολική Μονάδα<span style="color:red">*</span></label>
-                </div>
-                <div class="col-md-7">
                     <input  id="cl_school_unit"
                             name="school_unit"
                             data-role="combobox"
@@ -21,11 +19,9 @@
                 </div>
             </div>
 
-            <div class='form-group'>
-                <div class="col-md-3 k-edit-label">
-                    <label for="lab_type">Τυπος<span style="color:red">*</span></label>
-                </div>       
+            <div class='form-group'>                
                 <div class="col-md-7">
+                    <label for="lab_type">Τυπος<span style="color:red">*</span></label>
                     <input  id="cl_lab_type" 
                             name="lab_type"
                             data-bind="source: ds_lab_types, value: lab_type"
@@ -36,57 +32,62 @@
                             style="width: 100%"
                     />
                 </div>
-            </div>
-
-
-            <div class='form-group' style="display: none">
-                <div class="col-md-3 k-edit-label">
-                    
-                </div>       
-                <div class="col-md-7">
-                    <label>
-                        <input  id="cl_ellak" 
-                                name="ellak"
-                                type="checkbox"
-                        /> ΕΛΛΑΚ
-                    </label>
+                <div class="col-md-3" style="display:none; margin-top:27px;">
+                    <input id="cl_ellak" name="ellak" type="checkbox" />
+                    <label> ΕΛΛΑΚ </label>
                 </div>
             </div>
-    
+
 
             <div class='form-group'>
-                <div class="col-md-3 k-edit-label">
-                    <label for="positioning">Τοποθεσία</label>
+                 <div class="col-md-3">
+                    <label for="building">Κτήριο</label>
+                    <input  id="cl_building"
+                            name="building"
+                            class="k-input k-textbox"
+                            data-bind="value: building"
+                            style="width: 100%"
+                            placeholder="πχ Κτήριο Α"
+                    />
                 </div>
-                <div class="col-md-7">
-                    <textarea id="cl_positioning"
-                            name="positioning"
-                            class="k-textbox"
-                            data-bind="value: positioning"
-                            style="width: 100%; max-width: 338px;">
-                    </textarea>
+                <div class="col-md-3">
+                    <label for="floor">Όροφος</label>
+                    <input  id="cl_floor"
+                            name="special_name"
+                            class="k-input k-textbox"
+                            data-bind="value: floor"
+                            style="width: 100%"
+                            placeholder="πχ 2ος Όροφος"
+                    />
+                </div>
+                <div class="col-md-3">
+                    <label for="classroom">Αίθουσα</label>
+                    <input  id="cl_classroom"
+                            name="classroom"
+                            class="k-input k-textbox"
+                            data-bind="value: classroom"
+                            style="width: 100%"
+                            placeholder="πχ Αίθουσα Β5"
+                    />
                 </div>
             </div>
 
-            <div class='form-group'>
-                <div class="col-md-3 k-edit-label">
+            <div class='form-group'>            
+                <div class="col-md-11">
                     <label for="special_name">Ειδική Ονομασία</label>
-                </div>
-                <div class="col-md-7">
                     <input  id="cl_special_name"
                             name="special_name"
                             class="k-input k-textbox"
                             data-bind="value: special_name"
-                            style="width: 100%"
+                            style="width: 100%",
+                            placeholder="πχ Εργαστήριο Πληροφορικής Γυμνασίου"
                     />
                 </div>
             </div>
 
             <div class='form-group'>
-                <div class="col-md-3 k-edit-label">
-                    <label for="transition_date">Ημερομηνία Ενεργοποίησης<span style="color:red">*</span></label>
-                </div>
                 <div class="col-md-7">
+                    <label for="transition_date">Ημερομηνία Ενεργοποίησης<span style="color:red">*</span></label>
                     <input  id="cl_transition_date"
                             name="transition_date"
                             data-bind="value: transition_date" 
@@ -98,6 +99,5 @@
             </div>             
             
         </div>
-
     </div>
 </script>
