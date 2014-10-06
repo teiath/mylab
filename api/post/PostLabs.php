@@ -189,13 +189,14 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
             else {
                 //find count lab types of school unit===========================
                 $checkCountLabs = $entityManager->getRepository('Labs')->findBy(array( 'schoolUnit'    => $Lab->getSchoolUnit(),
-                                                                                       'labType'       => $Lab->getLabType()
-                                                                                     ));
+                                                                                       'labType'       => $Lab->getLabType()   
+                                                                                     )); 
 
+               
                 //create lab name 
-                $num_of_lab = count($checkCountLabs) > 0 ? count($checkCountLabs) : 1;
+                $num_of_lab = count($checkCountLabs); 
                 $lab_name = $fLabTypeName. '.' . ++$num_of_lab . ' - ' . $fSchoolUnitName;
-                
+
                 if (Validator::isNull($lab_name))
                     throw new Exception(ExceptionMessages::MissingLabNameValue." : ".$lab_name, ExceptionCodes::MissingLabNameValue); 
                 else if (Validator::IsArray($lab_name))
@@ -211,15 +212,16 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
                 $checkCountLabsName = $entityManager->getRepository('Labs')->findOneBy(array( 'name'        => Validator::toValue($lab_name),
                                                                                               'schoolUnit'  => $Lab->getSchoolUnit()
                                                                                               //'specialName' => $Lab->getSpecialName()
-                                                                                          ));
-                           
-                if (count($checkCountLabsName) !== 0)
+                                                                                            ));
+                
+  
+                if (!Validator::isNull($checkCountLabsName) || count($checkCountLabsName) !== 0)   
                     throw new Exception(ExceptionMessages::DuplicatedLabNameValue." : ".$lab_name, ExceptionCodes::DuplicatedLabNameValue);
                 
         } else {
             throw new Exception(ExceptionMessages::NotAllowedLabNameValue." : ".$fSchoolUnitStateId, ExceptionCodes::NotAllowedLabNameValue); 
         }
-                            
+                       
  //insert to db=================================================================
          
          $entityManager->persist($Lab);
