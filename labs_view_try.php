@@ -99,3 +99,10 @@
 
 
 <!--'template' : $('#labs_view_lab_state_column_template').html(),-->
+
+<!--{ 'command': [{'text':'Οριστική Υποβολή', 'click':LabsViewVM.submitDraftLab, 'name':'submit'}, 
+              {'text':'Διαγραφή', 'click':LabsViewVM.removeDraftLab, 'name':'remove'}], 
+              'title': 'Ενέργειες', 
+              'width':'270px', 
+              'hidden': LabsViewVM.hideLabEditColumn() 
+}-->

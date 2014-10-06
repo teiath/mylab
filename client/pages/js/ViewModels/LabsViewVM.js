@@ -14,11 +14,16 @@ var LabsViewVM = kendo.observable({
                 type: "POST",
                 dataType: "json"
             },
-//            update: {
-//                url: "api/labs",
-//                type: "POST",
-//                dataType: "json"
-//            },
+            update: {
+                url: "api/labs?user=" + user_url,
+                type: "PUT",
+                dataType: "json"
+            },
+            destroy: {
+                url: "api/labs?user=" + user_url,
+                type: "DELETE",
+                dataType: "json"
+            },
             parameterMap: function(data, type) {
                 if (type === 'read') {
                     
@@ -69,6 +74,7 @@ var LabsViewVM = kendo.observable({
 
                     //standar parameters in lab creation
                     data["state"] = "1";
+                    data["submitted"] = 0;
                     data["lab_source"] = "1";
                     data["transition_source"] = "mylab";
                     data["transition_justification"] = "δημιουργία Διάταξης Η/Υ";
@@ -93,6 +99,7 @@ var LabsViewVM = kendo.observable({
                     lab_name:{},
                     lab_type:{},
                     ellak:{},
+                    submitted:{},
                     lab_worker:{},
                     worker_start_service:{},
                     relation_served_service:{},
@@ -183,7 +190,18 @@ var LabsViewVM = kendo.observable({
              *  e.items Array                     The array of data items that were affected (or read).
              */
     
-            //console.log("labs datasource change e:", e);
+            console.log("labs datasource change e:", e);
+            
+            $.each(e.items, function(index, value){
+                value.submitted= 1;
+                console.log("value.submitted: ", value.submitted);
+                if(index==2){
+                    value.submitted= 0;
+                    console.log("value.submitted: ", value.submitted);
+                }
+            });
+            
+            
             //console.log("einai to 1o lab new?:", e.items[0].isNew());
             //console.log("einai to 1o lab dirty?:", e.items[0].dirty);
         }
@@ -1263,5 +1281,11 @@ var LabsViewVM = kendo.observable({
     hideLabTransitColumn: function(e){
         var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
         return hide;
+    },
+            
+    hideLabEditColumn: function(e){
+        console.log("hideLabEditColumn e: ", e);
+        //var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
+        //return hide;
     }
 });
