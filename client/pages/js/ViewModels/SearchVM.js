@@ -75,6 +75,10 @@ var SearchVM = kendo.observable({
         var formData = $("#search-form").serializeArray();
         SchoolUnitsViewVM.school_units.filter(normalizeParams(formData));
         LabsViewVM.labs.filter(normalizeParams(formData));
+        
+        //fix kendo bug: button remains blurred after being pressed
+        e.currentTarget.blur();
+        
         //repopulate multi select boxes with default datasource values
 //        $("#regionEduAdmins").data("kendoMultiSelect").setDataSource(regionEduAdminsDS);
 //        $("#eduAdmins").data("kendoMultiSelect").setDataSource(eduAdminsDS);
