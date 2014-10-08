@@ -269,7 +269,7 @@ var LabsViewVM = kendo.observable({
          
     },
     transitLab: function(e){
-        //console.log("transitLab e:", e);
+        console.log("transitLab e:", e);
         e.preventDefault();
         //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         //var toState = dataItem.state_id;
@@ -1287,5 +1287,13 @@ var LabsViewVM = kendo.observable({
         console.log("hideLabEditColumn e: ", e);
         //var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
         //return hide;
-    }
+    },
+            
+    submitLab: function(e){
+        alert("Im inside submitLab");
+    },
+    removeLab: function(e){
+        alert("Im inside removeLab");
+    }    
+    
 });

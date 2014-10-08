@@ -20,6 +20,7 @@
         require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
         require_once('client/pages/js/Templates/disableLabWorkerTemplate.html');
         require_once('client/pages/js/Templates/labsViewLabStateColumnTemplate.html');
+        require_once('client/pages/js/Templates/labsGridCommandColumnTemplate.html');
         
     ?>
 
@@ -86,9 +87,11 @@
                                        { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'150px', 'hidden' : true},
                                        { 'field': 'last_updated', 'title':'Τελευταία Ενημέρωση', 'width':'150px'},
                                        { 'field': 'created_by', 'title':'Δημιουργία από', 'width':'130px', 'hidden' : true},
-                                       { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
-                                                     {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},
-                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'Ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+                                    { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'},
+                                                    {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', },
+                                                    {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'},
+                                                    {'text':'Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit'},
+                                                    {'text':'Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove'}], 'title': 'Ενέργειες', 'width':'500px', 'hidden': LabsViewVM.hideLabTransitColumn() }
                                       ]">
                 </div>
             </div>
@@ -105,4 +108,21 @@
               'title': 'Ενέργειες', 
               'width':'270px', 
               'hidden': LabsViewVM.hideLabEditColumn() 
-}-->
+} 
+
+{ 'command': [{'name':'commands', 'template': $('#labs_grid_command_column_template').html()}], 'title': 'Ενέργειες', 'width':'270px' }
+
+-->
+
+
+<!--
+
+{ 'command': [{'name':'commands', 'template': $('#labs_grid_command_column_template').html()}], 'title': 'Ενέργειες', 'width':'270px' }
+
+    { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'},
+                  {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', },
+                  {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'},
+                  {'text':'Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit'},
+                  {'text':'Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove'}], 'title': 'Ενέργειες', 'width':'500px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+
+-->
