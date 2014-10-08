@@ -53,11 +53,11 @@ var NavBarVM = kendo.observable({
     
         if(authorized_user === "ΚΕΠΛΗΝΕΤ" ){
             url = "http://myfiles.sch.gr/server/get/d6231bc417d1641948eb66244a0f6c691"; //config.url + "client/user_guides/keplinet.pdf";
-        }else if(authorized_user === "ΣΕΠΕΗΥ" ){
+        }else if(authorized_user === "ΣΕΠΕΗΥ" || authorized_user === "ΕΤΠ"){
             url = "http://myfiles.sch.gr/server/get/d0ef8c3cb8ab04656a5e4d5f658bab219"; //config.url + "client/user_guides/sepehy.pdf";
         }else if(authorized_user === "ΠΣΔ" ){
             //url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/psd.pdf";
-        }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ" ){
+        }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ" || authorized_user === "ΤΟΜΕΑΡΧΗΣ" ){
             url = "http://myfiles.sch.gr/server/get/d2db1b8b798fc4413b6f3b40e79d036eb"; //config.url + "client/user_guides/dieuthintis.pdf";
         }else if(authorized_user === "ΥΠΕΠΘ" ){
             //url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/upepth.pdf";

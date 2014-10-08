@@ -54,7 +54,9 @@
     </div>
     
 <script>
-
+    
+    //console.log("authorized_user [navigation_bar]: ", authorized_user);
+    
     if(authorized_user === "ΚΕΠΛΗΝΕΤ"){
         $("#user_menu").find("ul li:eq(0)").before('<li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li><li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li><li class="divider"></li>');
     }

@@ -20,7 +20,7 @@
 <script>
     $(document).ready(function() {
         
-//        console.log("authorized_user: ", authorized_user);
+//        console.log("authorized_user [switch views]: ", authorized_user);
 
         var view_1 = { id: 1, name: "Προβολή Διατάξεων Η/Υ", logo: "fa fa-search fa-lg"};
         var view_2 = { id: 2, name: "Προβολή Σχολικών Μονάδων", logo: "fa fa-search fa-lg"};
@@ -39,11 +39,19 @@
                 views = [view_1, view_2, view_4];
                 bootstrap_class = "col-md-4";
                 break;
+            case  'ΕΤΠ' :
+                views = [view_1, view_2, view_4];
+                bootstrap_class = "col-md-4";
+                break;
             case  'ΠΣΔ' :
                 views = [view_1, view_2, view_3, view_4];
                 bootstrap_class = "col-md-3";
                 break;
             case  'ΔΙΕΥΘΥΝΤΗΣ' :
+                views = [view_1, view_4];
+                bootstrap_class = "col-md-6";
+                break;
+            case  'ΤΟΜΕΑΡΧΗΣ' :
                 views = [view_1, view_4];
                 bootstrap_class = "col-md-6";
                 break;

@@ -41,7 +41,7 @@
             
             var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
             var user_url = encodeURIComponent(JSON.stringify(user));
-            console.log("user: ", user);
+            //console.log("LDAP user: ", user);
             
         </script>
             
@@ -49,11 +49,20 @@
         
         <script>
             
+            /* 
+             * Ο χρήστης, στα στοιχεία που επιστρέφονται από τον ldap (var user), μπορεί να έχει έναν 
+             * ή περισσότερους από τους ρόλους ('title' attribute) που διακρίνονται παρακάτω (εντός switch).  
+             * Στην authorized_user, θα αποδοθεί στον χρήστη ο ρόλος που έχει το μεγαλύτερο ranking σε σχέση 
+             * με τους υπόλοιπους ρόλους του. Κάθε ένα από τα arrays search_xls, edit_lab_details, edit_lab_worker, 
+             * transit_lab, create_lab περιέχει τους ρόλους χρηστών που έχουν δικαιώματα στη λειτουργία του myLab
+             * που εκφράζει το όνομά του πχ δυνατότητα αναζήτησης έχουν όσοι χρήστες έχουν κάποιο ρόλο απ' αυτούς
+             * που βρίσκονται εντός του search_xls.
+            */
             var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ", "ΠΣΔ"];
-            var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ"];
-            var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ"];
-            var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
-            var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ"];
+            var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ", "ΕΤΠ"];
+            var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
+            var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
+            var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
 
             var value_ranks=[], authorized_user;
             if(typeof user.title != 'object' && typeof user.title != 'array') {
@@ -73,11 +82,17 @@
                     case  'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ' :
                         value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ', ranking : 20, role: 'ΣΕΠΕΗΥ'});
                         break;
+                    case  'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
+                        value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ', ranking : 20, role: 'ΕΤΠ'});
+                        break;
                     case  'ΠΡΟΣΩΠΙΚΟ ΠΣΔ' :
                         value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΠΣΔ', ranking : 25, role: 'ΠΣΔ'});
                         break;
                     case  'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ' :
                         value_ranks.push({ldap_title: 'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ', ranking : 15, role: 'ΔΙΕΥΘΥΝΤΗΣ'});
+                        break;
+                    case 'ΤΟΜΕΑΡΧΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
+                        value_ranks.push({ldap_title: 'ΤΟΜΕΑΡΧΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ', ranking : 15, role: 'ΤΟΜΕΑΡΧΗΣ'});
                         break;
                     case  'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
                         value_ranks.push({ldap_title: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ', ranking : 35, role: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ'});
@@ -201,18 +216,19 @@
                     return false;
                 });
                 
-                //reset radio btn to labs view
-                //$('#switch_to_labs_view_btn').attr('checked',true);
-                //$('#switch_to_school_units_view_btn').attr('checked',false);
                 
-                //get user role
-                    
+                /*
+                 * H user_permits καλείται με παράμετρο τη user και επιστρέφει
+                 * 1)user_role
+                 * 2)user_permissions(permit_labs, permit_school_units)
+                 * 3)user_infos (με τα οποία πληθυσμώνεται η καρτέλα 'Σχετικά')
+                 */
                 $.ajax({
                         type: 'GET',
                         url: baseURL + 'user_permits',
                         dataType: "json",
                         success: function(data){
-                            //έλεγχος αν ο χρήστης ανήκει σε κάποια από τις ομάδες χρηστών (ΔΙΕΥΘΥΝΤΗΣ, ΣΕΠΕΗΥ, ΚΕΠΛΗΝΕΤ, ΠΣΔ, ΥΠΑΙΘ)
+                            //έλεγχος αν ο χρήστης ανήκει σε κάποια από τις ομάδες χρηστών (ΔΙΕΥΘΥΝΤΗΣ, ΣΕΠΕΗΥ, ΚΕΠΛΗΝΕΤ, ΠΣΔ, ΥΠΑΙΘ, ΤΟΜΕΑΡΧΗΣ, ΕΤΠ)
                             if (data.status === 200 && data.user_role === "noAccess"){
                                 pinned_notification.show({
                                     title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
@@ -268,17 +284,6 @@
                    in_array("ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ") ){ 
                     require_once('search.html');  //search
                 }
-                /*if(in_array("ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ", $user['title'])){
-        ?>
-                <script> $("#tzoker").remove(); </script>
-                <div style="height:55px"> </div>
-        <?php
-                    require_once('school_unit_info.html'); //info
-        ?>
-                <div style="height:55px"> </div>
-        <?php
-                }*/
-
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view
                 require_once('statistics.php'); //statistics
