@@ -60,13 +60,31 @@ var LabsViewVM = kendo.observable({
                     return data;
                     
                 }else if(type === 'create'){
-                    
-                    
-                    
+                                       
                     //normalize transition_date parameter
                     data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
                     data["ellak"] = (data["ellak"])? true : false; 
-                    data["positioning"] = data["building"] + ", " + data["floor"] + ", " + data["classroom"];
+                    
+//                    console.log(data["positioning"]);
+//                    data["positioning"] = "";
+//                    if( typeof data["building"] !== 'undefined' && data["building"] !== null){
+//                        data["positioning"] = data["positioning"].concat("Κτήριο " + data["building"] + ", ");
+//                    }else{
+//                        data["positioning"] = data["positioning"].concat("Κτήριο - , ");
+//                    }
+//                    
+//                    if( typeof data["floor"] !== 'undefined' && data["floor"] !== null){
+//                        data["positioning"] = data["positioning"].concat("Όροφος " + data["floor"] + ", ");
+//                    }else{
+//                        data["positioning"] = data["positioning"].concat("Όροφος - , ");
+//                    }
+//                    
+//                    if( typeof data["classroom"] !== 'undefined' && data["classroom"] !== null){
+//                        data["positioning"] = data["positioning"].concat("Αίθουσα " + data["classroom"]);
+//                    }else{
+//                        data["positioning"] = data["positioning"].concat("Αίθουσα - , ");
+//                    }
+                    
                     //standar parameters in lab creation
                     data["state"] = "1";
                     data["lab_source"] = "1";

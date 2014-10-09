@@ -38,37 +38,17 @@
                 </div>
             </div>
 
-
+                        
             <div class='form-group'>
-                 <div class="col-md-3">
-                    <label for="building">Κτήριο</label>
-                    <input  id="cl_building"
-                            name="building"
-                            class="k-input k-textbox"
-                            data-bind="value: building"
-                            style="width: 100%"
-                            placeholder="πχ Κτήριο Α"
-                    />
-                </div>
-                <div class="col-md-3">
-                    <label for="floor">Όροφος</label>
-                    <input  id="cl_floor"
-                            name="special_name"
-                            class="k-input k-textbox"
-                            data-bind="value: floor"
-                            style="width: 100%"
-                            placeholder="πχ 2ος Όροφος"
-                    />
-                </div>
-                <div class="col-md-3">
-                    <label for="classroom">Αίθουσα</label>
-                    <input  id="cl_classroom"
-                            name="classroom"
-                            class="k-input k-textbox"
-                            data-bind="value: classroom"
-                            style="width: 100%"
-                            placeholder="πχ Αίθουσα Β5"
-                    />
+                <div class="col-md-11">
+                    <label for="positioning">Τοποθεσία</label>
+                    <input  id="cl_positioning"
+                            data-bind="value: positioning"
+                            name="positioning"
+                            data-role="maskedtextbox"
+                            data-prompt-char=" "
+                            data-mask="Κτήριο: CCCCCCCCCCCC , Όροφος: CCCCCCCCCCCC , Αίθουσα: CCCCCCCCCCCC "
+                            style="width: 100%"/>
                 </div>
             </div>
 
@@ -101,3 +81,34 @@
         </div>
     </div>
 </script>
+
+
+<!--
+                 <div class="col-md-3" >
+                    <input  id="cl_building"
+                            name="building"
+                            class="k-input k-textbox"
+                            data-bind="value: building"
+                            style="width: 100%"
+                            placeholder="Κτήριο, πχ Α'"
+                    />
+                </div>
+                <div class="col-md-3" >
+                    <input  id="cl_floor"
+                            name="special_name"
+                            class="k-input k-textbox"
+                            data-bind="value: floor"
+                            style="width: 100%"
+                            placeholder="Όροφος, πχ 1ος"
+                    />
+                </div>
+                <div class="col-md-3" >
+                    <input  id="cl_classroom"
+                            name="classroom"
+                            class="k-input k-textbox"
+                            data-bind="value: classroom"
+                            style="width: 100%"
+                            placeholder="Αίθουσα, πχ Β5"
+                    />
+                </div>
+-->

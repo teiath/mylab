@@ -7,14 +7,14 @@
         #}#
         <dl style="margin:10px">
             <dt><i class="fa fa-tag" style="padding-right:5px"></i>Ειδική Ονομασία</dt>
-            #if(lab_special_name !== null){# 
+            #if(lab_special_name !== null && lab_special_name !== ""){# 
                 <dd>#:lab_special_name#</dd>
             #}else{#
                 <dd> --δεν έχει οριστεί-- </dd>
             #}#
         
             <dt><i class="fa fa-map-marker" style="padding-right:5px"></i>Τοποθεσία</dt>
-            #if(positioning !== null){# 
+            #if(positioning !== null && positioning !== ""){# 
                 <dd>#:positioning#</dd>
             #}else{#
                 <dd> --δεν έχει οριστεί-- </dd>
