@@ -64,6 +64,48 @@ var NavBarVM = kendo.observable({
         }
         
         window.open(url);
+    },
+
+    exportUserGuideSepehy: function(e){
+        e.preventDefault();
+        var url = "http://myfiles.sch.gr/server/get/dcaae3ba61d5845fcac9aedeb983caedb";
+        window.open(url);
+    },
+
+    exportUserGuideEtp: function(e){
+        e.preventDefault();
+        var url = "http://myfiles.sch.gr/server/get/dcaae3ba61d5845fcac9aedeb983caedb"; //ίδιο link με ΣΕΠΕΗΥ
+        window.open(url);
+    },
+
+    exportUserGuideKeplinet: function(e){
+        e.preventDefault();
+        var url = "http://myfiles.sch.gr/server/get/d6231bc417d1641948eb66244a0f6c691";
+        window.open(url);
+    },
+
+    exportUserGuideDieuthyntis: function(e){
+        e.preventDefault();
+        var url = "http://myfiles.sch.gr/server/get/d2db1b8b798fc4413b6f3b40e79d036eb";
+        window.open(url);
+    },
+
+    exportUserGuideTomearxis: function(e){
+        e.preventDefault();
+        var url = "http://myfiles.sch.gr/server/get/d2db1b8b798fc4413b6f3b40e79d036eb"; //ίδιο link με ΔΙΕΥΘΥΝΤΗ
+        window.open(url);
+    },
+
+    exportUserGuidePSD: function(e){
+        e.preventDefault();
+        var url = "";
+        window.open(url);
+    },
+
+    exportUserGuideYpaith: function(e){
+        e.preventDefault();
+        var url = "";
+        window.open(url);
     }
-            
+    
 });

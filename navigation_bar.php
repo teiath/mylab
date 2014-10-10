@@ -57,12 +57,33 @@
     
     //console.log("authorized_user [navigation_bar]: ", authorized_user);
     
-    if(authorized_user === "ΚΕΠΛΗΝΕΤ"){
-        $("#user_menu").find("ul li:eq(0)").before('<li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li><li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li><li class="divider"></li>');
-    }
-
-    $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuide}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
+    var psd_user_guides_snippet = '<li role="presentation" class="dropdown-header">Εγχειρίδια Χρήσης</li>\
+                                   <li><a id="user_guide_sepehy" data-bind="events: {click : exportUserGuideSepehy}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Υπεύθυνος Διαταξης Η/Υ (ΣΕΠΕΗΥ)</a></li>\
+                                   <li><a id="user_guide_etp" data-bind="events: {click : exportUserGuideSepehy}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Υπεύθυνος Διαταξης Η/Υ (ΕΚ)</a></li>\
+                                   <li><a id="user_guide_dieythuntis" data-bind="events: {click : exportUserGuideDieuthyntis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Διευθυντής Σχολικής Μονάδας</a></li>\
+                                   <li><a id="user_guide_tomearxis" data-bind="events: {click : exportUserGuideTomearxis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Υπεύθυνος Τομέα (ΕΚ)</a></li>\
+                                   <li><a id="user_guide_keplinet" data-bind="events: {click : exportUserGuideKeplinet}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Κεπληνετ</a></li>\
+                                   <li><a id="user_guide_psd" data-bind="events: {click : exportUserGuidePSD}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης ΦΥ (ΠΣΔ)</a></li>\
+                                   <li><a id="user_guide_ypaith" data-bind="events: {click : exportUserGuideYpaith}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης ΥΠΑΙΘ</a></li>\
+                                   <li class="divider"></li>';
     
+    if(authorized_user === "ΣΕΠΕΗΥ"){
+        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideSepehy}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
+    }else if(authorized_user === "ΕΤΠ"){
+        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideEtp}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
+    }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ"){
+        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideDieuthyntis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
+    }else if(authorized_user === "ΤΟΜΕΑΡΧΗΣ"){
+        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideTomearxis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
+    }else if(authorized_user === "ΚΕΠΛΗΝΕΤ"){    
+        $("#user_menu").find("ul li:eq(0)").before('<li role="presentation" class="dropdown-header">Έκδοση Αναφορών</li><li><a id="annual_ypaith_report" data-bind="events: {click : exportReport}"><i class="fa fa-file-pdf-o"></i> Ετήσια Αναφορά ΥΠΑΙΘ</a></li><li class="divider"></li>');
+        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideKeplinet}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
+    }else if(authorized_user === "ΠΣΔ"){
+        $("#user_menu").find("ul li:eq(0)").before(psd_user_guides_snippet);
+    }else if(authorized_user === "ΥΠΕΠΘ"){
+        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideYpaith}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
+    }
+     
     var g_casUrl = "<?php echo $casOptions['Url'] ?>";
 
     // Build logout link
