@@ -15,6 +15,8 @@
         require_once('client/pages/js/Templates/labToolbarTemplate_labs_view.html');
         require_once('client/pages/js/Templates/labDetailsTemplate.html');
         require_once('client/pages/js/Templates/labTransitTemplate.html');
+        require_once('client/pages/js/Templates/labSubmitTemplate.html');
+        require_once('client/pages/js/Templates/labRemoveTemplate.html');
         require_once('client/pages/js/Templates/errorNotificationTemplate.html');
         require_once('client/pages/js/Templates/successNotificationTemplate.html');
         require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
@@ -43,6 +45,12 @@
     
     <!--transition dialog-->
     <div id="transition_dialog"></div>
+    
+    <!--submit dialog-->
+    <div id="submit_dialog"></div>
+
+    <!--remove dialog-->
+    <div id="remove_dialog"></div>
     
     <!--disable lab worker dialog-->
     <div id="disable_lab_worker_dialog"></div>
@@ -86,10 +94,12 @@
                                        { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'150px', 'hidden' : true},
                                        { 'field': 'last_updated', 'title':'Τελευταία Ενημέρωση', 'width':'150px'},
                                        { 'field': 'created_by', 'title':'Δημιουργία από', 'width':'130px', 'hidden' : true},
-                                       { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'}, 
-                                                     {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend'},
-                                                     {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'}], 'title': 'Ενέργειες', 'width':'270px', 'hidden': LabsViewVM.hideLabTransitColumn() }
-                                      ]">
+                                       { 'command': [ {'text':' Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate', 'imageClass': 'fa fa-check'},
+                                                      {'text':' Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', 'imageClass': 'fa fa-clock-o'},
+                                                      {'text':' Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish', 'imageClass': 'fa fa-ban'},
+                                                      {'text':' Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit', 'imageClass': 'fa fa-floppy-o'},
+                                                      {'text':' Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove', 'imageClass': 'fa fa-times'}], 'title': 'Ενέργειες', 'width':'500px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+                                        ]">
                 </div>
             </div>
         </div>
@@ -99,3 +109,27 @@
 
 
 <!--'template' : $('#labs_view_lab_state_column_template').html(),-->
+
+<!--{ 'command': [{'text':'Οριστική Υποβολή', 'click':LabsViewVM.submitDraftLab, 'name':'submit'}, 
+              {'text':'Διαγραφή', 'click':LabsViewVM.removeDraftLab, 'name':'remove'}], 
+              'title': 'Ενέργειες', 
+              'width':'270px', 
+              'hidden': LabsViewVM.hideLabEditColumn() 
+} 
+
+{ 'command': [{'name':'commands', 'template': $('#labs_grid_command_column_template').html()}], 'title': 'Ενέργειες', 'width':'270px' }
+
+-->
+
+
+<!--
+
+{ 'command': [{'name':'commands', 'template': $('#labs_grid_command_column_template').html()}], 'title': 'Ενέργειες', 'width':'270px' }
+
+    { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'},
+                  {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', },
+                  {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'},
+                  {'text':'Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit'},
+                  {'text':'Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove'}], 'title': 'Ενέργειες', 'width':'500px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+
+-->
