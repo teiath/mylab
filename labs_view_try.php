@@ -98,7 +98,7 @@
                                                       {'text':' Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', 'imageClass': 'fa fa-clock-o'},
                                                       {'text':' Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish', 'imageClass': 'fa fa-ban'},
                                                       {'text':' Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit', 'imageClass': 'fa fa-floppy-o'},
-                                                      {'text':' Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove', 'imageClass': 'fa fa-times'}], 'title': 'Ενέργειες', 'width':'500px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+                                                      {'text':' Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove', 'imageClass': 'fa fa-times'}], 'title': 'Ενέργειες', 'width':'240px', 'hidden': LabsViewVM.hideLabTransitColumn() }
                                         ]">
                 </div>
             </div>
