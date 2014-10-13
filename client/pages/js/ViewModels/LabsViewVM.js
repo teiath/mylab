@@ -1072,64 +1072,73 @@ var LabsViewVM = kendo.observable({
         var data_items = e.sender.dataSource.data();
         //console.log("data_items: ", data_items);
         $.each(data_items, function(index, value){
-                var currentRow = $(e.sender.tbody).children("tr.k-master-row").eq(index);
-                if(currentRow.hasClass("k-master-row")){
-                    //console.log("index: ", index);
-                    //console.log("currentRow: ", currentRow);
-                    var activateButton = $(currentRow).children('td:last').find(".k-grid-activate");
-                    var suspendButton = $(currentRow).children('td:last').find(".k-grid-suspend");
-                    var abolishButton = $(currentRow).children('td:last').find(".k-grid-abolish");
-                    var submitButton = $(currentRow).children('td:last').find(".k-grid-submit");
-                    var removeButton = $(currentRow).children('td:last').find(".k-grid-remove");
+            var currentRow = $(e.sender.tbody).children("tr.k-master-row").eq(index);
+            console.log("value: ", value);
+            if(currentRow.hasClass("k-master-row")){
+                //console.log("index: ", index);
+                //console.log("currentRow: ", currentRow);
+                var activateButton = $(currentRow).children('td:last').find(".k-grid-activate");
+                var suspendButton = $(currentRow).children('td:last').find(".k-grid-suspend");
+                var abolishButton = $(currentRow).children('td:last').find(".k-grid-abolish");
+                var submitButton = $(currentRow).children('td:last').find(".k-grid-submit");
+                var removeButton = $(currentRow).children('td:last').find(".k-grid-remove");
 
-                    if(value.submitted === 1){
-                        submitButton.hide();
-                        removeButton.hide();
-                    }else if(value.submitted === 0){
-                        activateButton.hide();
-                        suspendButton.hide();
-                        abolishButton.hide();
-                    }
+                //check whether databound gets triggered from school units view (get labs api function) or labs view (search labs api function)
+                if(typeof data_items[index].lab_state_id !== 'undefined'){
+                    var state = data_items[index].lab_state_id; //get labs api function
+                    console.log("state: ", state);
+                }else{
+                    var state = data_items[index].state_id; //search labs api function
+                }
 
-                    //check whether databound gets triggered from school units view (get labs api function) or labs view (search labs api function)
-                    if(typeof data_items[index].lab_state_id !== 'undefined'){
-                        var state = data_items[index].lab_state_id; //get labs api function
-                    }else{
-                        var state = data_items[index].state_id; //search labs api function
-                    }
+                if(value.submitted === 1){
+                    
+                    submitButton.hide();
+                    removeButton.hide();
 
                     if(state == "1"){
-                    //console.log("state 1");
-                    activateButton.addClass('k-state-disabled');
-                    activateButton.click(function() { return false; });
+                        //console.log("state 1");
+                        activateButton.addClass('k-state-disabled');
+                        activateButton.hide();
+                        activateButton.click(function() { return false; });
 
-                    suspendButton.removeClass('k-state-disabled');
-                    //suspendButton.on('transitLab');
+                        suspendButton.removeClass('k-state-disabled');
+                        suspendButton.show();
 
-                    abolishButton.removeClass('k-state-disabled');
-                    //abolishButton.on('transitLab');
+                        abolishButton.removeClass('k-state-disabled');
+                        abolishButton.show();
 
-                }else if(state == "2"){
-                    //console.log("state 2");
-                    activateButton.removeClass('k-state-disabled');
-                    //activateButton.removeAttr('disabled');
+                    }else if(state == "2"){
+                        //console.log("state 2");
+                        activateButton.removeClass('k-state-disabled');
+                        activateButton.show();
 
-                    suspendButton.addClass('k-state-disabled');
-                    suspendButton.click(function() { return false; });
+                        suspendButton.addClass('k-state-disabled');
+                        suspendButton.hide();
+                        suspendButton.click(function() { return false; });
 
-                    abolishButton.removeClass('k-state-disabled');
-                    //abolishButton.removeAttr('disabled');         
+                        abolishButton.removeClass('k-state-disabled');
+                        abolishButton.show();         
 
-                }else if(state == "3"){
-                    //console.log("state 3");
-                    activateButton.addClass('k-state-disabled');
-                    activateButton.click(function() { return false; });
+                    }else if(state == "3"){
+                        //console.log("state 3");
+                        activateButton.addClass('k-state-disabled');
+                        activateButton.hide();
+                        activateButton.click(function() { return false; });
 
-                    suspendButton.addClass('k-state-disabled');
-                    suspendButton.click(function() { return false; });
+                        suspendButton.addClass('k-state-disabled');
+                        suspendButton.hide();
+                        suspendButton.click(function() { return false; });
 
-                    abolishButton.addClass('k-state-disabled');
-                    abolishButton.click(function() { return false; });
+                        abolishButton.addClass('k-state-disabled');
+                        abolishButton.hide();
+                        abolishButton.click(function() { return false; });
+                    }
+                
+                }else if(value.submitted === 0){
+                    activateButton.hide();
+                    suspendButton.hide();
+                    abolishButton.hide();
                 }
             }
             

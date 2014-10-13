@@ -22,7 +22,6 @@
         require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
         require_once('client/pages/js/Templates/disableLabWorkerTemplate.html');
         require_once('client/pages/js/Templates/labsViewLabStateColumnTemplate.html');
-        require_once('client/pages/js/Templates/labsGridCommandColumnTemplate.html');
         
     ?>
 
@@ -95,11 +94,11 @@
                                        { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'150px', 'hidden' : true},
                                        { 'field': 'last_updated', 'title':'Τελευταία Ενημέρωση', 'width':'150px'},
                                        { 'field': 'created_by', 'title':'Δημιουργία από', 'width':'130px', 'hidden' : true},
-                                       { 'command': [{'text':'Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate'},
-                                                      {'text':'Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', },
-                                                      {'text':'Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish'},
-                                                      {'text':'Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit'},
-                                                      {'text':'Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove'}], 'title': 'Ενέργειες', 'width':'500px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+                                       { 'command': [ {'text':' Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate', 'imageClass': 'fa fa-check'},
+                                                      {'text':' Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', 'imageClass': 'fa fa-clock-o'},
+                                                      {'text':' Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish', 'imageClass': 'fa fa-ban'},
+                                                      {'text':' Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit', 'imageClass': 'fa fa-floppy-o'},
+                                                      {'text':' Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove', 'imageClass': 'fa fa-times'}], 'title': 'Ενέργειες', 'width':'500px', 'hidden': LabsViewVM.hideLabTransitColumn() }
                                         ]">
                 </div>
             </div>
