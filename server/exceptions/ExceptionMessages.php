@@ -692,6 +692,18 @@ class ExceptionMessages
     const InvalidLabUpdatedByType = 'Το Ονοματεπώνυμο του Τελευταίου που Ενημέρωσε την Εγγραφής του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabPositioningType = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
     const InvalidLabCommentsType = 'Τα Σχόλια για το Εργαστήριο πρέπει να αλφαριθμητικά ή αλφαριθμητικά';
+    
+    //delete
+    const DuplicateDelLabValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+    const NotFoundDelLabValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+    const NoDemoDelLabValue = 'Η εγγραφή δεν είναι δοκιμαστική και δεν επιτεπεται η διαγραφή της.';
+    
+    //references
+    const ReferencesLabAquisitionSources = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabAquisitionSources.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabAquisitionSources ';
+    const ReferencesLabEquipmentTypes = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabEquipmentTypes. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabEquipmentTypes ';
+    const ReferencesLabWorkers = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabWorkers. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabWorkers ';
+    const ReferencesLabRelations = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabRelations. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabRelations ';
+    const ReferencesLabTransitions = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabTransitions. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabTransitions ';
 
 //LabEquipmentTypes
         

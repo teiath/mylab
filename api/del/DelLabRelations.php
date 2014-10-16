@@ -43,7 +43,7 @@ function DelLabRelations($lab_id, $lab_relation_id) {
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($fLabID, $permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+             throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
          };  
 
 //controls======================================================================  

@@ -862,7 +862,27 @@ class ExceptionCodes
     const InvalidLabPositioningType = 500;
     /** {@see ExceptionMessages::InvalidLabCommentsType} */
     const InvalidLabCommentsType = 500;
-   
+ 
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabValue} */  
+    const DuplicateDelLabValue = 500;
+    /** {@see ExceptionMessages::NotFoundDelLabValue} */  
+    const NotFoundDelLabValue = 500;
+    /** {@see ExceptionMessages::NoDemoDelLabValue} */ 
+    const NoDemoDelLabValue = 500;
+      
+    //references
+    /** {@see ExceptionMessages::ReferencesLabAquisitionSources} */ 
+    const ReferencesLabAquisitionSources = 500;
+    /** {@see ExceptionMessages::ReferencesLabEquipmentTypes} */ 
+    const ReferencesLabEquipmentTypes = 500;
+    /** {@see ExceptionMessages::ReferencesLabWorkers} */ 
+    const ReferencesLabWorkers = 500;
+    /** {@see ExceptionMessages::ReferencesLabRelations} */ 
+    const ReferencesLabRelations = 500;
+    /** {@see ExceptionMessages::ReferencesLabTransitions} */ 
+    const ReferencesLabTransitions = 500;
+    
 //LabEquipmentTypes
         
     /** {@see ExceptionMessages::MissingLabEquipmentTypeIDParam} */
