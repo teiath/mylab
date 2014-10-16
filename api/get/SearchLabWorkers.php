@@ -11,7 +11,7 @@
 header("Content-Type: text/html; charset=utf-8");
 
 function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
-                            $lab_id, $lab_name, $worker_position, $worker, $worker_registry_no,
+                            $lab_id, $lab_name, $submitted, $worker_position, $worker, $worker_registry_no,
                             $lab_type, $school_unit_id, $school_unit_name, $lab_state,                      
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
@@ -166,6 +166,22 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
         }
  
+//======================================================================================================================
+//= $submitted
+//======================================================================================================================
+
+        if ( Validator::Exists('submitted', $params) )
+        {
+            $table_name = "labs";
+            $table_column_id = "submitted";
+            $table_column_name = "submitted";
+            $filter_validators = 'boolean';
+
+            $filter[] = Filters::BasicFilter( $submitted, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+                                            ExceptionMessages::InvalidLabSubmittedType, ExceptionCodes::InvalidLabSubmittedType);
+
+        }
+        
 //======================================================================================================================
 //= $lab_type
 //======================================================================================================================
@@ -435,7 +451,6 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                         worker_specializations.name as worker_specialization,
                         worker_positions.worker_position_id,
                         worker_positions.name as worker_position,     
-                        
                         labs.lab_id,
                         labs.name as lab,
                         labs.special_name,
@@ -448,6 +463,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                         labs.operational_rating,
                         labs.technological_rating,
                         labs.ellak,
+                        labs.submitted,
                         lab_types.lab_type_id, 
                         lab_types.name as lab_type, 
                         lab_states.state_id as lab_state_id, 
@@ -579,6 +595,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                     "operational_rating"        => $lab_worker["operational_rating"],
                     "technological_rating"      => $lab_worker["technological_rating"],
                     "ellak"                     => $lab_worker["ellak"] ,
+                    "submitted"                 => $lab_worker["submitted"] ,
                     "lab_type_id"               => $lab_worker["lab_type_id"],
                     "lab_type"                  => $lab_worker["lab_type"] ,
                     "lab_state_id"              => $lab_worker["lab_state_id"]? (int)$lab_worker["lab_state_id"] : null,

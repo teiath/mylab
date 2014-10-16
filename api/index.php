@@ -1745,6 +1745,7 @@ function SearchLabWorkersController()
                 $params["worker_start_service"],
                 $params["lab_id"],
                 $params["lab_name"],
+                $params["submitted"],
                 $params["worker_position"],
                 $params["worker"],
                 $params["worker_registry_no"],
