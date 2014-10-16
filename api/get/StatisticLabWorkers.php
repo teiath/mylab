@@ -11,7 +11,7 @@
 header("Content-Type: text/html; charset=utf-8");
 
 function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_service,
-                                $lab_id, $lab_name, $worker_position, $worker, $worker_registry_no,
+                                $lab_id, $lab_name, $submitted, $worker_position, $worker, $worker_registry_no,
                                 $lab_type, $school_unit_id, $school_unit_name, $lab_state,                      
                                 $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                                 $education_level, $school_unit_type, $school_unit_state, 
@@ -163,6 +163,22 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
             
         }
  
+//======================================================================================================================
+//= $submitted
+//======================================================================================================================
+
+        if ( Validator::Exists('submitted', $params) )
+        {
+            $table_name = "labs";
+            $table_column_id = "submitted";
+            $table_column_name = "submitted";
+            $filter_validators = 'boolean';
+
+            $filter[] = Filters::BasicFilter( $submitted, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+                                            ExceptionMessages::InvalidLabSubmittedType, ExceptionCodes::InvalidLabSubmittedType);
+
+        }
+        
 //======================================================================================================================
 //= $lab_type
 //======================================================================================================================
@@ -381,7 +397,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
                $sqlPermissions = null;
            } else {
                $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
-                $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
+               $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
            }
         
         $sqlSelect = "SELECT count(lab_workers.lab_worker_id) as total_lab_workers ";

@@ -16,7 +16,7 @@ header("Content-Type: text/html; charset=utf-8");
 function StatisticSchoolUnits ( $school_unit_id, $school_unit_name, $school_unit_special_name, 
                                 $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                                 $education_level, $school_unit_type, $school_unit_state, 
-                                $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $lab_type, $lab_state, $lab_source, 
+                                $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $submitted, $lab_type, $lab_state, $lab_source, 
                                 $aquisition_source, $equipment_type, $lab_worker, 
                                 $searchtype) {
 
@@ -301,6 +301,23 @@ function StatisticSchoolUnits ( $school_unit_id, $school_unit_name, $school_unit
                                                                ExceptionMessages::InvalidLabTechnologicalRatingType, ExceptionCodes::InvalidLabTechnologicalRatingType);
 
         }
+        
+//======================================================================================================================
+//= $submitted
+//======================================================================================================================
+
+        if ( Validator::Exists('submitted', $params) )
+        {
+            $table_name = "labs";
+            $table_column_id = "submitted";
+            $table_column_name = "submitted";
+            $filter_validators = 'boolean';
+
+            $filter[] = Filters::BasicFilter( $submitted, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+                                                            ExceptionMessages::InvalidLabSubmittedType, ExceptionCodes::InvalidLabSubmittedType);
+
+        }
+        
 //======================================================================================================================
 //= $lab_type
 //======================================================================================================================
