@@ -36,7 +36,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 
     try
     {
-        
+                
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params);     
@@ -460,6 +460,18 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= E X E C U T E
 //======================================================================================================================
        
+//Registered Labs and User permissions==========================================
+        
+        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+            if ( Validator::Missing('submitted', $params) ){            
+                $user_role= UserRoles::getRole($app->request->user);
+                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
+                    $filter[] = 'labs.submitted = 1 OR labs.submitted = 0';
+                } else {
+                    $filter[] = 'labs.submitted = 1';
+                }
+            }
+            
        //set user permissions
        $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
        
@@ -480,7 +492,9 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
            $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
            $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
        }
-            
+
+//Start SQL Queries=============================================================
+       
        $sqlSelect = "SELECT 
                      DISTINCT   labs.lab_id,
                                 labs.name as lab_name,

@@ -35,11 +35,6 @@ function StatisticSchoolUnits ( $school_unit_id, $school_unit_name, $school_unit
     try
     {
         
-//used only for submitted labs  
-       if ( Validator::Missing('submitted', $params) ){
-            $filter[] = $filter_labs[] = 'labs.submitted=1';
-       }
-        
 //$searchtype===================================================================     
        $searchtype = Filters::getSearchType($searchtype, $params);
         
@@ -423,6 +418,18 @@ function StatisticSchoolUnits ( $school_unit_id, $school_unit_name, $school_unit
 //= E X E C U T E
 //======================================================================================================================
 
+//Registered Labs and User permissions==========================================
+//
+        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+            if ( Validator::Missing('submitted', $params) ){            
+                $user_role= UserRoles::getRole($app->request->user);
+                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
+                    $filter[] = $filter_labs[] = 'labs.submitted = 1 OR labs.submitted = 0';
+                } else {
+                    $filter[] = $filter_labs[] = 'labs.submitted = 1';
+                }
+            }
+            
             //set user permissions
            $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
 

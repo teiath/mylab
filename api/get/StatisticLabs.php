@@ -31,11 +31,6 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 
     try
     {
-      
-//used only for submitted labs  
-       if ( Validator::Missing('submitted', $params) ){
-            $filter[] = 'labs.submitted=1';
-       }
         
 //$searchtype===================================================================     
        $searchtype = Filters::getSearchType($searchtype, $params);
@@ -424,6 +419,18 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= E X E C U T E
 //======================================================================================================================
 
+//Registered Labs and User permissions==========================================
+//
+        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+            if ( Validator::Missing('submitted', $params) ){            
+                $user_role= UserRoles::getRole($app->request->user);
+                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
+                    $filter[] = 'labs.submitted = 1 OR labs.submitted = 0';
+                } else {
+                    $filter[] = 'labs.submitted = 1';
+                }
+            }
+            
             //set user permissions
            $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
 
