@@ -1659,6 +1659,7 @@ function SearchSchoolUnitsController()
                 $params["creation_date"],
                 $params["operational_rating"],
                 $params["technological_rating"],
+                $params["submitted"],
                 $params["lab_type"],
                 $params["lab_state"],
                 $params["lab_source"],
