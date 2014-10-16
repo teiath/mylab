@@ -387,6 +387,8 @@ class Filters {
                         $paramFilters[] = "$table_name.$table_column_name = ". $db->quote( Validator::toValue($values) );
                 } elseif (in_array('numeric', $validators, true) && Validator::IsNumeric($values)) { 
                         $paramFilters[] = "$table_name.$table_column_name = ". $db->quote( Validator::ToNumeric($values) );
+                } elseif (in_array('boolean', $validators, true) && Validator::IsBoolean($values)) { 
+                        $paramFilters[] = "$table_name.$table_column_name = ". $db->quote( Validator::ToBoolean($values) );
                 } else {
                     throw new Exception($ex_message . " : " . $values, $ex_code);
                 }
