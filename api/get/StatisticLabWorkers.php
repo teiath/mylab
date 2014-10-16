@@ -32,6 +32,11 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
     try
     {
 
+//used only for submitted labs  
+       if ( Validator::Missing('submitted', $params) ){
+            $filter[] = 'labs.submitted=1';
+       }
+       
 //$searchtype===================================================================     
        $searchtype = Filters::getSearchType($searchtype, $params);
 

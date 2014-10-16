@@ -31,6 +31,11 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 
     try
     {
+      
+//used only for submitted labs  
+       if ( Validator::Missing('submitted', $params) ){
+            $filter[] = 'labs.submitted=1';
+       }
         
 //$searchtype===================================================================     
        $searchtype = Filters::getSearchType($searchtype, $params);
