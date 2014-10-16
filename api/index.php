@@ -1696,6 +1696,7 @@ function SearchLabsController()
                 $params["creation_date"],
                 $params["operational_rating"],
                 $params["technological_rating"],
+                $params["submitted"],
                 $params["lab_type"],
                 $params["school_unit_id"],
                 $params["school_unit_name"],

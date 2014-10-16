@@ -826,6 +826,15 @@ class ExceptionCodes
     const InvalidLabEllakType = 500;
     /** {@see ExceptionMessages::InvalidLabEllakArray} */
     const InvalidLabEllakArray = 500;
+  
+    /** {@see ExceptionMessages::MissingLabSubmittedParam} */
+    const MissingLabSubmittedParam = 500;
+    /** {@see ExceptionMessages::MissingLabSubmittedValue} */
+    const MissingLabSubmittedValue = 500;
+    /** {@see ExceptionMessages::InvalidLabSubmittedType} */
+    const InvalidLabSubmittedType = 500;
+    /** {@see ExceptionMessages::InvalidLabSubmittedArray} */
+    const InvalidLabSubmittedArray = 500;
     
     /** {@see ExceptionMessages::DuplicatedLabValue} */
     const DuplicatedLabValue = 500;

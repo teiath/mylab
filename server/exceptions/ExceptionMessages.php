@@ -673,6 +673,11 @@ class ExceptionMessages
     const InvalidLabEllakType = 'Ο χαρακτηρισμός ΕΛΛΑΚ του Εργαστηρίου πρέπει να είναι της μορφής true/false';
     const InvalidLabEllakArray = 'Ο χαρακτηρισμός ΕΛΛΑΚ Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingLabSubmittedParam = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabSubmittedValue = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabSubmittedType = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) του Εργαστηρίου πρέπει να είναι της μορφής true/false';
+    const InvalidLabSubmittedArray = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';    
+
     const DuplicatedLabValue = 'Το Εργαστήριο υπάρχει ήδη';
     const DuplicatedLabNameValue = 'Το Όνομα του Εργαστηρίου υπάρχει ήδη';
     const DuplicateLabUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Lab';
