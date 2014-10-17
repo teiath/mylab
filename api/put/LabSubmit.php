@@ -111,21 +111,76 @@ function LabSubmit($lab_id, $submitted, $transition_date, $transition_justificat
     
 //controls======================================================================  
 
-            //check if table transition has the initial transition
-            $foundLabTransition = $entityManager->getRepository('LabTransitions')->findBy(array('lab'=> $fLabID));
-        
-            $hasInitTransition=count($foundLabTransition);
-            if ($hasInitTransition >= 1){
-               throw new Exception(ExceptionMessages::AlreadyLabSubmittedInitialValue, ExceptionCodes::AlreadyLabSubmittedInitialValue);  
-            }
+        //check if table transition has the initial transition
+        $foundLabTransition = $entityManager->getRepository('LabTransitions')->findBy(array('lab'=> $fLabID));
+
+        $hasInitTransition=count($foundLabTransition);
+        if ($hasInitTransition >= 1){
+           throw new Exception(ExceptionMessages::AlreadyLabSubmittedInitialValue, ExceptionCodes::AlreadyLabSubmittedInitialValue);  
+        }
     
+        //found lab and school_unit data for name creation
+         $school_unit_id = $Lab->getSchoolUnit()->getSchoolUnitId();
+         $fLabTypeId = $Lab->getLabType()->getLabTypeId(); 
+         $fLabTypeName = $Lab->getLabType()->getName();
+          
+        $findSchoolUnit = $entityManager->getRepository('SchoolUnits')->findOneBy(array ('schoolUnitId'=>$school_unit_id));
+        $fSchoolUnitId = $findSchoolUnit->getSchoolUnitId();
+        $fSchoolUnitName = $findSchoolUnit->getName();
+        $fSchoolUnitStateId = $findSchoolUnit->getState()->getStateId();
+                        
+        //$lab_name created auto with format : "lab_type_name.number_lab - school_unit_name"===
+        if ($fSchoolUnitStateId == 1){ 
+            if (Validator::IsNull($fSchoolUnitId) ) 
+                throw new Exception(ExceptionMessages::MissingSchoolUnitIDValue." : ".$fSchoolUnitId, ExceptionCodes::MissingSchoolUnitIDValue);
+            else if (Validator::IsNull($fLabTypeId))
+                throw new Exception(ExceptionMessages::MissingLabTypeIDValue." : ".$fLabTypeId, ExceptionCodes::MissingLabTypeIDValue);
+            else {
+                //find count lab types of school unit===========================
+                $checkCountLabs = $entityManager->getRepository('Labs')->findBy(array( 'schoolUnit'    => $Lab->getSchoolUnit(),
+                                                                                       'labType'       => $Lab->getLabType(),
+                                                                                       'submitted'     => 1
+                                                                                     )); 
+
+               
+                //create lab name 
+                $num_of_lab = count($checkCountLabs); 
+                $lab_name = $fLabTypeName. '.' . ++$num_of_lab . ' - ' . $fSchoolUnitName;
+
+                if (Validator::isNull($lab_name))
+                    throw new Exception(ExceptionMessages::MissingLabNameValue." : ".$lab_name, ExceptionCodes::MissingLabNameValue); 
+                else if (Validator::IsArray($lab_name))
+                    throw new Exception(ExceptionMessages::InvalidLabNameArray." : ".$lab_name, ExceptionCodes::InvalidLabNameArray);    
+                else if (Validator::IsValue($lab_name)) 
+                     $Lab->setName(Validator::ToValue($lab_name));              
+                else
+                    throw new Exception(ExceptionMessages::InvalidLabNameType." : ".$lab_name, ExceptionCodes::InvalidLabNameType);  
+                
+            }
+                
+            //check if auto-created lab_name is duplicated to db================
+                $checkCountLabsName = $entityManager->getRepository('Labs')->findOneBy(array( 'name'        => Validator::toValue($lab_name),
+                                                                                              'schoolUnit'  => $Lab->getSchoolUnit()
+                                                                                              //'specialName' => $Lab->getSpecialName()
+                                                                                            ));
+                
+  
+                if (!Validator::isNull($checkCountLabsName) || count($checkCountLabsName) !== 0)   
+                    throw new Exception(ExceptionMessages::DuplicatedLabNameValue." : ".$lab_name, ExceptionCodes::DuplicatedLabNameValue);
+                
+        } else {
+            throw new Exception(ExceptionMessages::NotAllowedLabNameValue." : ".$fSchoolUnitStateId, ExceptionCodes::NotAllowedLabNameValue); 
+        }
+            
+            
 //update to db==================================================================
 
            $entityManager->persist($Lab);
            $entityManager->flush($Lab);
        
            $result["lab_id"] = $Lab->getLabId();
-
+           $result["lab_name"] = $Lab->getName();
+           
             //create lab_transition=============================================
             CRUDUtils::entitySetAssociation($LabTransition, $fLabID, 'Labs', 'lab', 'Lab');      
             CRUDUtils::entitySetAssociation($LabTransition, 1, 'States', 'toState', 'State');

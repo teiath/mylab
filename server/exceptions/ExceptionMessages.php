@@ -815,6 +815,7 @@ class ExceptionMessages
 
     //extra
     const InvalidLabTransitionValidType = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
+    const InvalidLabTransitionDemoValue = 'Το εργαστήριο δεν έχει υποβληθεί οριστικά, και είναι αδύνατη η αλλαγή μεταβάσεων';
     
     //delete
     const DuplicateDelLabTransitionValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 

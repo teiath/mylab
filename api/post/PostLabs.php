@@ -152,7 +152,7 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
                
                 //create lab name 
                 $num_of_lab = count($checkCountLabs); 
-                $lab_name = $fLabTypeName. '.' . ++$num_of_lab . ' - ' . $fSchoolUnitName;
+                $lab_name = 'ΑΡΧΙΚΟ - ' . $fLabTypeName. '.' . ++$num_of_lab . ' - ' . $fSchoolUnitName;
 
                 if (Validator::isNull($lab_name))
                     throw new Exception(ExceptionMessages::MissingLabNameValue." : ".$lab_name, ExceptionCodes::MissingLabNameValue); 

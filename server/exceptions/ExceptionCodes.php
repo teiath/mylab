@@ -1072,6 +1072,8 @@ class ExceptionCodes
     //extra
     /** {@see ExceptionMessages::InvalidLabTransitionValidType} */
     const InvalidLabTransitionValidType = 500;
+    /** {@see ExceptionMessages::InvalidLabTransitionDemoValue} */
+    const InvalidLabTransitionDemoValue = 500;
      
     //delete
     /** {@see ExceptionMessages::DuplicateDelLabTransitionValue} */
