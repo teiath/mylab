@@ -90,7 +90,12 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
                     throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
                 }; 
          }
- 
+       
+        //check if lab has submitted value = 0 and restrict insert
+        $Labs = $entityManager->find('Labs', Validator::ToID($lab_id));
+        if (Validator::IsNull($Labs->getState())){
+            throw new Exception(ExceptionMessages::InvalidLabTransitionDemoValue." : ".$lab_id ,ExceptionCodes::InvalidLabTransitionDemoValue);
+        }
 //controls======================================================================  
 
         //find last state of lab from labs table================================ 
