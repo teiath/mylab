@@ -116,7 +116,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
         $new_date = strtotime(Validator::ToDate($worker_start_service, 'Y-m-d'));
         
         if (Validator::isLowerThan($new_date, $previous_date, true)) {   
-            throw new Exception(ExceptionMessages::NotAllowedLabTransitionDate, ExceptionCodes::NotAllowedLabTransitionDate);  
+            throw new Exception(ExceptionMessages::NotAllowedLabWorkerStartService, ExceptionCodes::NotAllowedLabWorkerStartService);  
         }
             
         //check for previous active lab worker  and set status->3===============
@@ -124,16 +124,19 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
                                                                                         'workerPosition'    => $LabWorker->getWorkerPosition(),
                                                                                         'workerStatus'      => Validator::ToWorkerState(1)
                                                                                        ));
-        
-            if (!Validator::isNull($findActiveWorkers)){
-               $toFlush = array();
-                  foreach($findActiveWorkers as $findActiveWorker) {
-                      $findActiveWorker->setWorkerStatus(3);
-                      $toFlush[] = $findActiveWorker;
-                  }
-                  $entityManager->flush($toFlush);
+        $countFindActiveWorkers = count($findActiveWorkers);
+       
+            if ($countFindActiveWorkers >= 1){
+            //AUTO change labworker state
+            //               $toFlush = array();
+            //                  foreach($findActiveWorkers as $findActiveWorker) {
+            //                      $findActiveWorker->setWorkerStatus(3);
+            //                      $toFlush[] = $findActiveWorker;
+            //                  }
+            //                  $entityManager->flush($toFlush);             
+                throw new Exception(ExceptionMessages::InvalidLabWorkerNewWorkerStatus,ExceptionCodes::InvalidLabWorkerNewWorkerStatus);              
             }
-  
+
 //insert to db================================================================== 
         $entityManager->persist($LabWorker);
         $entityManager->flush($LabWorker);
