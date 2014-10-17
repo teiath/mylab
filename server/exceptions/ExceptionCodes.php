@@ -707,6 +707,8 @@ class ExceptionCodes
     const InvalidLabWorkerActiveStatus = 500;
     /** {@see ExceptionMessages::InvalidLabWorkerNewWorkerStatus} */  
     const InvalidLabWorkerNewWorkerStatus = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerSetStatus} */  
+    const InvalidLabWorkerSetStatus = 500;  
     
     //delete
     /** {@see ExceptionMessages::DuplicateDelLabWorkerValue} */

@@ -137,6 +137,12 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
                 throw new Exception(ExceptionMessages::InvalidLabWorkerNewWorkerStatus,ExceptionCodes::InvalidLabWorkerNewWorkerStatus);              
             }
 
+        //check if lab has submitted value = 0 and restrict insert
+        $Labs = $entityManager->find('Labs', Validator::ToID($lab_id));
+        if ($Labs->getSubmitted() == false){
+            throw new Exception(ExceptionMessages::InvalidLabWorkerSetStatus." : ".$lab_id ,ExceptionCodes::InvalidLabWorkerSetStatus);
+        }
+
 //insert to db================================================================== 
         $entityManager->persist($LabWorker);
         $entityManager->flush($LabWorker);

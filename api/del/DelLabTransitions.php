@@ -65,7 +65,7 @@ function DelLabTransitions($lab_id, $lab_transition_id) {
       
         //check if lab has submitted value = 1 and restrict deletion
        $Labs = $entityManager->find('Labs', $fLabID);
-        if ($Labs->getSubmitted() == 'true'){
+        if ($Labs->getSubmitted() == true){
             throw new Exception(ExceptionMessages::NoDemoDelLabValue." : ".$fLabID ,ExceptionCodes::NoDemoDelLabValue);
         }
         

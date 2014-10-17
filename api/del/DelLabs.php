@@ -56,9 +56,9 @@ function DelLabs($lab_id) {
             throw new Exception(ExceptionMessages::NotFoundDelLabValue." : ".$fLabID ,ExceptionCodes::NotFoundDelLabValue);
         else 
             throw new Exception(ExceptionMessages::NotFoundDelLabValue." : ".$fLabID ,ExceptionCodes::NotFoundDelLabValue);
-      
+  
         //check if lab has submitted value = 1 and restrict deletion
-        if ($Labs->getSubmitted() == 'true'){
+        if ($Labs->getSubmitted() == true){
             throw new Exception(ExceptionMessages::NoDemoDelLabValue." : ".$fLabID ,ExceptionCodes::NoDemoDelLabValue);
         }
         

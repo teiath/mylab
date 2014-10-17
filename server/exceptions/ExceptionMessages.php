@@ -604,7 +604,8 @@ class ExceptionMessages
     const InvalidLabWorkerStartServiceValidType = 'Η Ημερομηνία Έναρξης του Εργαζομένου Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
     const InvalidLabWorkerActiveStatus = 'Βρέθηκαν παραπάνω από 1 Ενεργός Eργαζόμενος για το συγκεκριμένο Εργαστήριο';
     const InvalidLabWorkerNewWorkerStatus = 'Δεν είναι δυνατή η προσθήκη νέου Ενεργού Εργαζόμενου, επειδή υπάρχει ήδη Ενεργός Εργαζόμενος';
-    
+    const InvalidLabWorkerSetStatus = 'Δεν είναι δυνατή η προσθήκη νέου Ενεργού Εργαζόμενου, επειδή δεν έχει γίνει οριστική υποβολή Εργαστηρίου';
+     
     //delete
     const DuplicateDelLabWorkerValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
     const NotFoundDelLabWorkerValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
