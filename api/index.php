@@ -1079,10 +1079,7 @@ function LabsController()
                 $params["lab_type"],
                 $params["school_unit_id"],
                 $params["state"],
-                $params["lab_source"],
-                $params["transition_date"], 
-                $params["transition_justification"], 
-                $params["transition_source"]
+                $params["lab_source"]
             );      
             break;
       case MethodTypes::PUT :
