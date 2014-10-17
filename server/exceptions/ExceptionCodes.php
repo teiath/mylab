@@ -876,7 +876,11 @@ class ExceptionCodes
     const InvalidLabPositioningType = 500;
     /** {@see ExceptionMessages::InvalidLabCommentsType} */
     const InvalidLabCommentsType = 500;
- 
+    /** {@see ExceptionMessages::AlreadyLabSubmittedActiveValue} */  
+    const AlreadyLabSubmittedActiveValue = 500;
+    /** {@see ExceptionMessages::AlreadyLabSubmittedInitialValue} */  
+    const AlreadyLabSubmittedInitialValue = 500;
+     
     //delete
     /** {@see ExceptionMessages::DuplicateDelLabValue} */  
     const DuplicateDelLabValue = 500;

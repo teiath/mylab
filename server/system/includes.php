@@ -146,7 +146,7 @@ require_once('../api/put/PutLabAquisitionSources.php');
 require_once('../api/put/PutLabEquipmentTypes.php');
 require_once('../api/put/PutLabTransitions.php');
 require_once('../api/put/PutLabRelations.php');
-
+require_once('../api/put/LabSubmit.php');
 //---del from mm
 
 //---del from mylab

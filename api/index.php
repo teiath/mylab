@@ -85,6 +85,8 @@ $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsC
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 $app->map('/stat_labs', Authentication, UserRolesPermission, StatLabsController)->via(MethodTypes::GET);
 
+$app->map('/lab_submit', Authentication, UserRolesPermission, LabSubmitController)->via(MethodTypes::PUT);
+
 $app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
 
 $app->map('/user_permits', Authentication, UserRolesPermission, UserPermitsController)->via(MethodTypes::GET);
@@ -1931,6 +1933,30 @@ function StatLabsController()
                 $params["education_level"],
                 $params["school_unit_type"],
                 $params["school_unit_state"],
+                $params["debug"]
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function LabSubmitController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::PUT : 
+            $result = LabSubmit(
+                $params["lab_id"],
+                $params["submitted"],                
+                $params["transition_date"],
+                $params["transition_justification"],
+                $params["transition_source"],
                 $params["debug"]
             );      
             break;
