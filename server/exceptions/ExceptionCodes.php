@@ -703,7 +703,19 @@ class ExceptionCodes
     const InvalidLabWorkerEmailType = 500;
     /** {@see ExceptionMessages::InvalidLabWorkerStartServiceValidType} */    
     const InvalidLabWorkerStartServiceValidType = 500;
-
+    /** {@see ExceptionMessages::InvalidLabWorkerActiveStatus} */    
+    const InvalidLabWorkerActiveStatus = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerNewWorkerStatus} */  
+    const InvalidLabWorkerNewWorkerStatus = 500;
+    
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabWorkerValue} */
+    const DuplicateDelLabWorkerValue = 500;
+    /** {@see ExceptionMessages::NotFoundDelLabWorkerValue} */    
+    const NotFoundDelLabWorkerValue = 500;
+     /** {@see ExceptionMessages::NoPermissionDelLabWorkerValue} */    
+    const NoPermissionDelLabWorkerValue = 500;
+    
     //= MylabWorkers
 
     /** {@see ExceptionMessages::MissingMylabWorkerIDParam} */
@@ -1055,6 +1067,12 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabTransitionValidType} */
     const InvalidLabTransitionValidType = 500;
      
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabTransitionValue} */
+    const DuplicateDelLabTransitionValue = 500; 
+    /** {@see ExceptionMessages::NotFoundDelLabTransitionValue} */
+    const NotFoundDelLabTransitionValue = 500;
+    
 //LabRelations
     
     /** {@see ExceptionMessages::MissingLabRelationIDParam} */    

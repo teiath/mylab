@@ -47,47 +47,46 @@ function DelLabs($lab_id) {
 
         //check duplicates and unique row=======================================        
         $check = $entityManager->getRepository('Labs')->findBy(array( 'labId' => $fLabID ));
-
         $countLabRelations = count($check);
 
         if ($countLabRelations == 1)
             //set entity for delete row
             $Labs = $entityManager->find('Labs', $fLabID);
-          else if ($countLabRelations == 0)
+        else if ($countLabRelations == 0)
             throw new Exception(ExceptionMessages::NotFoundDelLabValue." : ".$fLabID ,ExceptionCodes::NotFoundDelLabValue);
         else 
             throw new Exception(ExceptionMessages::NotFoundDelLabValue." : ".$fLabID ,ExceptionCodes::NotFoundDelLabValue);
       
         //check if lab has submitted value = 1 and restrict deletion
-           if ($Labs->getSubmitted() == 'true'){
-               throw new Exception(ExceptionMessages::NoDemoDelLabValue." : ".$fLabID ,ExceptionCodes::NoDemoDelLabValue);
-           }
+        if ($Labs->getSubmitted() == 'true'){
+            throw new Exception(ExceptionMessages::NoDemoDelLabValue." : ".$fLabID ,ExceptionCodes::NoDemoDelLabValue);
+        }
         
        //check for lab references
-           $checkLabAquisitionSources = $entityManager->getRepository('LabAquisitionSources')->findBy(array( 'lab' => $fLabID ));
-           if (count($checkLabAquisitionSources)!== 0){
-               throw new Exception(ExceptionMessages::ReferencesLabAquisitionSources." : ".$fLabID ,ExceptionCodes::ReferencesLabAquisitionSources);
-           }
-           
-           $checkLabEquipmentTypes = $entityManager->getRepository('LabEquipmentTypes')->findBy(array( 'lab' => $fLabID ));
-           if (count($checkLabEquipmentTypes) !== 0){
-                  throw new Exception(ExceptionMessages::ReferencesLabEquipmentTypes." : ".$fLabID ,ExceptionCodes::ReferencesLabEquipmentTypes);
-           }
-           
-           $checkLabWorkers = $entityManager->getRepository('LabWorkers')->findBy(array( 'lab' => $fLabID ));
-           if (count($checkLabWorkers) !== 0){
-                  throw new Exception(ExceptionMessages::ReferencesLabWorkers." : ".$fLabID ,ExceptionCodes::ReferencesLabWorkers);
-           }
-        
-           $checkLabRelations = $entityManager->getRepository('LabRelations')->findBy(array( 'lab' => $fLabID ));
-           if (count($checkLabRelations) !== 0){
-                  throw new Exception(ExceptionMessages::ReferencesLabRelations." : ".$fLabID ,ExceptionCodes::ReferencesLabRelations);
-           }
-           
-           $checkLabTransitions = $entityManager->getRepository('LabTransitions')->findBy(array( 'lab' => $fLabID ));
-           if (count($checkLabTransitions) !== 0){
-                  throw new Exception(ExceptionMessages::ReferencesLabTransitions." : ".$fLabID ,ExceptionCodes::ReferencesLabTransitions);
-           }
+        $checkLabAquisitionSources = $entityManager->getRepository('LabAquisitionSources')->findBy(array( 'lab' => $fLabID ));
+        if (count($checkLabAquisitionSources)!== 0){
+            throw new Exception(ExceptionMessages::ReferencesLabAquisitionSources." : ".$fLabID ,ExceptionCodes::ReferencesLabAquisitionSources);
+        }
+
+        $checkLabEquipmentTypes = $entityManager->getRepository('LabEquipmentTypes')->findBy(array( 'lab' => $fLabID ));
+        if (count($checkLabEquipmentTypes) !== 0){
+               throw new Exception(ExceptionMessages::ReferencesLabEquipmentTypes." : ".$fLabID ,ExceptionCodes::ReferencesLabEquipmentTypes);
+        }
+
+        $checkLabWorkers = $entityManager->getRepository('LabWorkers')->findBy(array( 'lab' => $fLabID ));
+        if (count($checkLabWorkers) !== 0){
+               throw new Exception(ExceptionMessages::ReferencesLabWorkers." : ".$fLabID ,ExceptionCodes::ReferencesLabWorkers);
+        }
+
+        $checkLabRelations = $entityManager->getRepository('LabRelations')->findBy(array( 'lab' => $fLabID ));
+        if (count($checkLabRelations) !== 0){
+               throw new Exception(ExceptionMessages::ReferencesLabRelations." : ".$fLabID ,ExceptionCodes::ReferencesLabRelations);
+        }
+
+        $checkLabTransitions = $entityManager->getRepository('LabTransitions')->findBy(array( 'lab' => $fLabID ));
+        if (count($checkLabTransitions) !== 0){
+               throw new Exception(ExceptionMessages::ReferencesLabTransitions." : ".$fLabID ,ExceptionCodes::ReferencesLabTransitions);
+        }
 
 //delete from db================================================================
    

@@ -1513,6 +1513,7 @@ function LabTransitionsController()
             break;
        case MethodTypes::DELETE :
             $result = DelLabTransitions(
+                $params["lab_id"],
                 $params["lab_transition_id"]
             );      
             break;  
@@ -1563,6 +1564,7 @@ function LabWorkersController()
             break;
        case MethodTypes::DELETE :
             $result = DelLabWorkers(
+                    $params["lab_id"],
                     $params["lab_worker_id"]
             );      
             break;  

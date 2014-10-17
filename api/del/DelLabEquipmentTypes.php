@@ -42,8 +42,8 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
              
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
-         if (!in_array(validator::ToID($lab_id),$permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+         if (!in_array($fLabID, $permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
          };  
 
 //controls======================================================================  
@@ -65,7 +65,7 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
         else 
             throw new Exception(ExceptionMessages::DuplicateDelLabEquipmentTypeValue." : ".$fLabID." - ".$fEquipmentTypeID,ExceptionCodes::DuplicateDelLabEquipmentTypeValue);
       
-//insert to db==================================================================
+//delete from db================================================================
          
         $entityManager->remove($LabEquipmentTypes);
         $entityManager->flush($LabEquipmentTypes);

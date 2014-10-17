@@ -302,7 +302,7 @@ class Labs
         return $this->state;
     }
 
-    public function setState(\States $state) {
+    public function setState(\States $state=null) {
         $this->state = $state;
     }
 

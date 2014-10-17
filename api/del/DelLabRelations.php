@@ -63,7 +63,7 @@ function DelLabRelations($lab_id, $lab_relation_id) {
         else 
             throw new Exception(ExceptionMessages::DuplicateDelLabRelationValue." : ".$fLabID." - ".$fLabRelationID,ExceptionCodes::DuplicateDelLabRelationValue);
       
-//insert to db==================================================================
+//delete from db================================================================
          
         $entityManager->remove($LabRelations);
         $entityManager->flush($LabRelations);
