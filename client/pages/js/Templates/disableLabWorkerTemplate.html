@@ -1,24 +1,46 @@
 <!-- disable lab worker template -->
 
 <script id="disable_lab_worker_template" type="text/x-kendo-template">
+    <div class="k-edit-form-container">
     
-<div id="dlw" class="form-horizontal form-widgets col-md-11">
+        <div id="dlw" class="form-horizontal col-md-11">
 
-    <div class='form-group'>
-        <div class="col-md-9" style="margin:10px 15px;">
-            Είστε βέβαιος ότι επιθυμείτε να απενεργοποιήσετε τον παρόντα Υπεύθυνο Εργαστηρίου;
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <span>
+                        <b>ΠΡΟΣΟΧΗ</b>: 
+                        Αν επιθυμείτε να <b>διαγράψετε</b> τον Υπεύθυνο από τη Διάταξη Η/Υ 
+                        λόγω πχ λανθασμένης επιλογής Υπευθύνου, <u>επιλέξτε <b>Διαγραφή</b> και 
+                        <b>ΟΧΙ Απενεργοποίηση</b></u>. 
+                    </span>
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    Στην περίπτωση που επιλέξετε Απενεργοποίηση, ο Υπεύθυνος θα παραμείνει 
+                    καταγεγραμμένος στο ιστορικό Υπευθύνων της Διάταξης Η/Υ (κατάσταση Ανενεργός).
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    Είστε βέβαιος ότι επιθυμείτε να απενεργοποιήσετε τον Υπεύθυνο 
+                    <b> #= firstname # #= lastname # ( ΑΜ #= worker_registry_no # )</b> 
+                    της Διάταξης Η/Υ <b> #=lab_name# </b>;
+                </div>
+            </div>
+            
         </div>
+        
+        <div class="k-edit-buttons k-state-default">
+            <a class="k-button k-button-icontext k-grid-disable" href="\#">
+                <span class="k-icon k-update"></span>Απενεργοποίηση
+            </a>
+            <a class="k-button k-button-icontext k-grid-cancel-disabling" href="\#">
+                <span class="k-icon k-cancel"></span>Ακύρωση
+            </a>
+        </div>         
+        
     </div>
-
-    <div class="k-edit-buttons k-state-default">
-        <a class="k-button k-button-icontext k-grid-disable" href="\#">
-            <span class="k-icon k-update"></span>Απενεργοποίηση
-        </a>
-        <a class="k-button k-button-icontext k-grid-cancel-disabling" href="\#">
-            <span class="k-icon k-cancel"></span>Άκυρο
-        </a>
-    </div>    
-    
-</div>
-
 </script>
