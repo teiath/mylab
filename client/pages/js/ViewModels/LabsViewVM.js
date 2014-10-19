@@ -755,11 +755,11 @@ var LabsViewVM = kendo.observable({
                         var tooltipElement = $('<span class="k-invalid-msg" data-for="' + options.field + '"></span>');
                         tooltipElement.appendTo(container);
                   }, 
-                  width: '40%'
+                  width: '36%'
                 },
                 { field: "worker_registry_no", 
                   title: "ΑΜ", 
-                  width: '7%' 
+                  width: '9%' 
                 },
                 { field: "specialization_code_name", 
                   title: "Κλάδος", 
@@ -792,8 +792,9 @@ var LabsViewVM = kendo.observable({
                   width: '8%' 
                 },
                 { command: [ { name: 'edit'},
-                             { text: "Απενεργοποίηση",
+                             { text: " Απενεργοποίηση",
                                name: "disable-lab-worker",
+                               imageClass: 'fa fa-chain-broken',
                                click: function(e) {
                                     e.preventDefault();                                    
 
@@ -878,6 +879,7 @@ var LabsViewVM = kendo.observable({
                              }, 
                              {  text: "Διαγραφή",
                                 name: "remove-lab-worker",
+                                imageClass: 'k-icon k-delete',
                                 click: function(e) {
                                     e.preventDefault();
 
@@ -962,7 +964,7 @@ var LabsViewVM = kendo.observable({
                              }
                            ],
                   title: 'Ενέργειες', 
-                  width: '20%',
+                  width: '22%',
                   hidden: function(){
                       var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1 && e.data.lab_state_id === 1) ? false : true;
                       return hide;
