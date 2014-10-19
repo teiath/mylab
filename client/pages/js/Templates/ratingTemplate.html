@@ -1,6 +1,6 @@
 <script type="text/x-kendo-tmpl" id="rating_template">
     <div>
-        #if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && lab_state_id === 1){ #
+        #if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && lab_state_id !== 2 && lab_state_id !== 3){ #
             <div style="margin:10px">
                 <a class="k-button k-edit-button" href="\\#"><span class="k-icon k-edit"></span> Επεξεργασία</a>
             </div>
