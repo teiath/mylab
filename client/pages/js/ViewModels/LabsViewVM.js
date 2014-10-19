@@ -254,8 +254,8 @@ var LabsViewVM = kendo.observable({
 
 
             createDialogTitle.text("Προσθήκη Νέας Διάταξης Η/Υ");
-            createDialogUpdateButton.text("Προσθήκη");
-            createDialogCancelButton.text("Ακύρωση");
+            createDialogUpdateButton.html('<span class="k-icon k-update"></span> Προσθήκη');
+            createDialogCancelButton.html('<span class="k-icon k-cancel"></span> Ακύρωση');
 
             createDialogTransitionDatePicker.data("kendoDatePicker").max(new Date());
 
