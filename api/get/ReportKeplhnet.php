@@ -345,30 +345,30 @@ $result["method"] = $app->request()->getMethod();
 
          $keplhnet = array("edu_admin" => $edu_admins->secondary.','.$edu_admins->primary);
 
-        $sum_kindergarten = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "school_unit_type"=>"1") );
-        $sum_primary_school =  Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" ,"school_unit_type"=>"2") );
-        $sum_secondary_education_units = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "education_level"=>"2") );
+        $sum_kindergarten = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "school_unit_type"=>"1") );
+        $sum_primary_school =  Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" ,"school_unit_type"=>"2") );
+        $sum_secondary_education_units = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "education_level"=>"2") );
         
-        $sum_primary_education_labs = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1") );
-        $sum_secondary_education_labs = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2") );
+        $sum_primary_education_labs = Reports::Statistics('statistic_labs', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1") );
+        $sum_secondary_education_labs = Reports::Statistics('statistic_labs', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2") );
         
-        $sum_primary_education_troxilata = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "lab_type" => "2" ) );
-        $sum_secondary_education_troxilata = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "lab_type" => "2") );
+        $sum_primary_education_troxilata = Reports::Statistics('statistic_labs', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "lab_type" => "2" ) );
+        $sum_secondary_education_troxilata = Reports::Statistics('statistic_labs', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "lab_type" => "2") );
         
-        $sum_primary_education_ellak_labs = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "equipment_type" => "48" ) );;
-        $sum_secondary_education_ellak_labs = Reports::Statistics('statistic_labs', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "equipment_type" => "48" ) );;
+        $sum_primary_education_ellak_labs = Reports::Statistics('statistic_labs', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "equipment_type" => "48" ) );;
+        $sum_secondary_education_ellak_labs = Reports::Statistics('statistic_labs', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "equipment_type" => "48" ) );;
         
-        $sum_primary_education_excellent_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "operational_rating" => "4,5" ) );
-        $sum_secondary_education_excellent_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "operational_rating" => "4,5") );
+        $sum_primary_education_excellent_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "operational_rating" => "4,5" ) );
+        $sum_secondary_education_excellent_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "operational_rating" => "4,5") );
 
-        $sum_primary_education_good_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "operational_rating" => "3" ) );
-        $sum_secondary_educatio_good_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "operational_rating" => "3") );
+        $sum_primary_education_good_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "operational_rating" => "3" ) );
+        $sum_secondary_educatio_good_operational_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "operational_rating" => "3") );
         
-        $sum_primary_education_poor_technological_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "technological_rating" => "1,2" ) );
-        $sum_secondary_education_poor_technological_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "technological_rating" => "1,2") );
+        $sum_primary_education_poor_technological_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"1" , "technological_rating" => "1,2" ) );
+        $sum_secondary_education_poor_technological_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "lab_state"=>"1" , "education_level"=>"2" , "technological_rating" => "1,2") );
    
-        $sum_primary_education_null_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "education_level"=>"1" , "lab_id" => "null" ) );
-        $sum_secondary_education_null_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("school_unit_state"=>"1" , "education_level"=>"2" , "lab_id" => "null") );
+        $sum_primary_education_null_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "education_level"=>"1" , "lab_id" => "null" ) );
+        $sum_secondary_education_null_labs = Reports::Statistics('statistic_school_units', $keplhnet, array("submitted"=>"1", "school_unit_state"=>"1" , "education_level"=>"2" , "lab_id" => "null") );
 
         //TODO
         $infos = NULL;

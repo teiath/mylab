@@ -10,7 +10,7 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
-function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating,
+function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $submitted,
                       $lab_type, $school_unit_id, $school_unit_name, $school_unit_special_name, $lab_state, $lab_source,
                       $aquisition_source, $equipment_type, $lab_worker,
                       $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
@@ -36,7 +36,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 
     try
     {
-        
+                
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params);     
@@ -130,6 +130,22 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 
             $filter[] = Filters::BasicFilter( $technological_rating, $table_name, $table_column_id, $table_column_name, $filter_validators, 
                                                                ExceptionMessages::InvalidLabTechnologicalRatingType, ExceptionCodes::InvalidLabTechnologicalRatingType);
+
+        }
+        
+//======================================================================================================================
+//= $submitted
+//======================================================================================================================
+
+        if ( Validator::Exists('submitted', $params) )
+        {
+            $table_name = "labs";
+            $table_column_id = "submitted";
+            $table_column_name = "submitted";
+            $filter_validators = 'boolean';
+
+            $filter[] = Filters::BasicFilter( $submitted, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+                                                               ExceptionMessages::InvalidLabSubmittedType, ExceptionCodes::InvalidLabSubmittedType);
 
         }
         
@@ -444,6 +460,18 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 //= E X E C U T E
 //======================================================================================================================
        
+//Registered Labs and User permissions==========================================
+        
+        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+            if ( Validator::Missing('submitted', $params) ){            
+                $user_role= UserRoles::getRole($app->request->user);
+                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
+                    $filter[] = 'labs.submitted = 1 OR labs.submitted = 0';
+                } else {
+                    $filter[] = 'labs.submitted = 1';
+                }
+            }
+            
        //set user permissions
        $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
        
@@ -464,7 +492,9 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
            $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
            $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
        }
-            
+
+//Start SQL Queries=============================================================
+       
        $sqlSelect = "SELECT 
                      DISTINCT   labs.lab_id,
                                 labs.name as lab_name,
@@ -478,6 +508,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
                                 labs.operational_rating,
                                 labs.technological_rating,
                                 labs.ellak,
+                                labs.submitted,
                                 lab_types.lab_type_id, 
                                 lab_types.name as lab_type, 
                                 school_units.school_unit_id, 
@@ -850,6 +881,7 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
                 "operational_rating"        => $lab["operational_rating"],
                 "technological_rating"      => $lab["technological_rating"],
                 "ellak"                     => $lab["ellak"] ,
+                "submitted"                 => $lab["submitted"] ,
                 "lab_type_id"               => $lab["lab_type_id"],
                 "lab_type"                  => $lab["lab_type"] ,
                 "school_unit_id"            => $lab["school_unit_id"]? (int)$lab["school_unit_id"] : null,

@@ -602,7 +602,15 @@ class ExceptionMessages
     //extra
     const InvalidLabWorkerEmailType = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
     const InvalidLabWorkerStartServiceValidType = 'Η Ημερομηνία Έναρξης του Εργαζομένου Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
-
+    const InvalidLabWorkerActiveStatus = 'Βρέθηκαν παραπάνω από 1 Ενεργός Eργαζόμενος για το συγκεκριμένο Εργαστήριο';
+    const InvalidLabWorkerNewWorkerStatus = 'Δεν είναι δυνατή η προσθήκη νέου Ενεργού Εργαζόμενου, επειδή υπάρχει ήδη Ενεργός Εργαζόμενος';
+    const InvalidLabWorkerSetStatus = 'Δεν είναι δυνατή η προσθήκη νέου Ενεργού Εργαζόμενου, επειδή δεν έχει γίνει οριστική υποβολή Εργαστηρίου';
+     
+    //delete
+    const DuplicateDelLabWorkerValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+    const NotFoundDelLabWorkerValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+    const NoPermissionDelLabWorkerValue = 'Δεν είναι δυνατή η διαγραφή ενός μή ενεργού Εργαζόμενου.';
+    
     //= MylabWorkers
 
     const MissingMylabWorkerIDParam = 'Ο Κωδικός του Εργαζομένου είναι υποχρεωτικό πεδίο';
@@ -673,6 +681,11 @@ class ExceptionMessages
     const InvalidLabEllakType = 'Ο χαρακτηρισμός ΕΛΛΑΚ του Εργαστηρίου πρέπει να είναι της μορφής true/false';
     const InvalidLabEllakArray = 'Ο χαρακτηρισμός ΕΛΛΑΚ Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingLabSubmittedParam = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabSubmittedValue = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabSubmittedType = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) του Εργαστηρίου πρέπει να είναι της μορφής true/false';
+    const InvalidLabSubmittedArray = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';    
+
     const DuplicatedLabValue = 'Το Εργαστήριο υπάρχει ήδη';
     const DuplicatedLabNameValue = 'Το Όνομα του Εργαστηρίου υπάρχει ήδη';
     const DuplicateLabUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Lab';
@@ -687,6 +700,20 @@ class ExceptionMessages
     const InvalidLabUpdatedByType = 'Το Ονοματεπώνυμο του Τελευταίου που Ενημέρωσε την Εγγραφής του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabPositioningType = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
     const InvalidLabCommentsType = 'Τα Σχόλια για το Εργαστήριο πρέπει να αλφαριθμητικά ή αλφαριθμητικά';
+    const AlreadyLabSubmittedActiveValue = 'Εχει πραγματοποιηθέι ήδη οριστική υποβολή Εργαστηρίου';    
+    const AlreadyLabSubmittedInitialValue = 'Εχει οριστεί ήδη ή αρχική λειτουργική κατάσταση στον πίνακα μεταβάσεων';   
+    
+    //delete
+    const DuplicateDelLabValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+    const NotFoundDelLabValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+    const NoDemoDelLabValue = 'Η εγγραφή δεν είναι δοκιμαστική και δεν επιτεπεται η διαγραφή της.';
+    
+    //references
+    const ReferencesLabAquisitionSources = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabAquisitionSources.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabAquisitionSources ';
+    const ReferencesLabEquipmentTypes = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabEquipmentTypes. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabEquipmentTypes ';
+    const ReferencesLabWorkers = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabWorkers. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabWorkers ';
+    const ReferencesLabRelations = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabRelations. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabRelations ';
+    const ReferencesLabTransitions = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabTransitions. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabTransitions ';
 
 //LabEquipmentTypes
         
@@ -788,6 +815,11 @@ class ExceptionMessages
 
     //extra
     const InvalidLabTransitionValidType = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
+    const InvalidLabTransitionDemoValue = 'Το εργαστήριο δεν έχει υποβληθεί οριστικά, και είναι αδύνατη η αλλαγή μεταβάσεων';
+    
+    //delete
+    const DuplicateDelLabTransitionValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+    const NotFoundDelLabTransitionValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
     
 //LabRelations
         

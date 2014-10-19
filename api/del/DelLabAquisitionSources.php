@@ -41,7 +41,7 @@ function DelLabAquisitionSources($lab_id, $lab_aquisition_source_id) {
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($fLabID, $permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+             throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
          }; 
         
 //controls======================================================================  
@@ -61,7 +61,7 @@ function DelLabAquisitionSources($lab_id, $lab_aquisition_source_id) {
         else 
             throw new Exception(ExceptionMessages::DuplicateDelLabAquisitionSourceValue." : ".$fLabID." - ".$fLabAquisitionSourceID,ExceptionCodes::DuplicateDelLabAquisitionSourceValue);
       
-//insert to db==================================================================
+//delete from db================================================================
          
         $entityManager->remove($LabAquisitionSources);
         $entityManager->flush($LabAquisitionSources);

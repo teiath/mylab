@@ -14,7 +14,7 @@ function StatLabs(
     $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture, $education_level, $school_unit_type, $school_unit_state
     )
 {
-    global $db;
+    global $db,$app;
     
     $filter = array();
     $result = array();
@@ -41,10 +41,12 @@ function StatLabs(
     try
     {
 
+//statLabs function must used only for submitted labs 
+       $filter[] = 'labs.submitted=1';
+        
 //default_joins=================================================================
        $join_filter[] = ' JOIN school_units ON school_units.school_unit_id = labs.school_unit_id ';
-       
-       
+
 //==============================================================================
 //= $x_axis
 //==============================================================================

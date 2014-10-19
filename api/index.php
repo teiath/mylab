@@ -85,6 +85,8 @@ $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsC
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 $app->map('/stat_labs', Authentication, UserRolesPermission, StatLabsController)->via(MethodTypes::GET);
 
+$app->map('/lab_submit', Authentication, UserRolesPermission, LabSubmitController)->via(MethodTypes::PUT);
+
 $app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
 
 $app->map('/user_permits', Authentication, UserRolesPermission, UserPermitsController)->via(MethodTypes::GET);
@@ -1077,10 +1079,7 @@ function LabsController()
                 $params["lab_type"],
                 $params["school_unit_id"],
                 $params["state"],
-                $params["lab_source"],
-                $params["transition_date"], 
-                $params["transition_justification"], 
-                $params["transition_source"]
+                $params["lab_source"]
             );      
             break;
       case MethodTypes::PUT :
@@ -1513,6 +1512,7 @@ function LabTransitionsController()
             break;
        case MethodTypes::DELETE :
             $result = DelLabTransitions(
+                $params["lab_id"],
                 $params["lab_transition_id"]
             );      
             break;  
@@ -1563,6 +1563,7 @@ function LabWorkersController()
             break;
        case MethodTypes::DELETE :
             $result = DelLabWorkers(
+                    $params["lab_id"],
                     $params["lab_worker_id"]
             );      
             break;  
@@ -1659,6 +1660,7 @@ function SearchSchoolUnitsController()
                 $params["creation_date"],
                 $params["operational_rating"],
                 $params["technological_rating"],
+                $params["submitted"],
                 $params["lab_type"],
                 $params["lab_state"],
                 $params["lab_source"],
@@ -1696,6 +1698,7 @@ function SearchLabsController()
                 $params["creation_date"],
                 $params["operational_rating"],
                 $params["technological_rating"],
+                $params["submitted"],
                 $params["lab_type"],
                 $params["school_unit_id"],
                 $params["school_unit_name"],
@@ -1743,6 +1746,7 @@ function SearchLabWorkersController()
                 $params["worker_start_service"],
                 $params["lab_id"],
                 $params["lab_name"],
+                $params["submitted"],
                 $params["worker_position"],
                 $params["worker"],
                 $params["worker_registry_no"],
@@ -1800,6 +1804,7 @@ function StatisticSchoolUnitsController()
                 $params["creation_date"],
                 $params["operational_rating"],
                 $params["technological_rating"],
+                $params["submitted"],
                 $params["lab_type"],
                 $params["lab_state"],
                 $params["lab_source"],
@@ -1832,6 +1837,7 @@ function StatisticLabsController()
                 $params["creation_date"],
                 $params["operational_rating"],
                 $params["technological_rating"],
+                $params["submitted"],
                 $params["lab_type"],
                 $params["school_unit_id"],
                 $params["school_unit_name"],
@@ -1874,6 +1880,7 @@ function StatisticLabWorkersController()
                 $params["worker_start_service"],
                 $params["lab_id"],
                 $params["lab_name"],
+                $params["submitted"],
                 $params["worker_position"],
                 $params["worker"],
                 $params["worker_registry_no"],
@@ -1923,6 +1930,30 @@ function StatLabsController()
                 $params["education_level"],
                 $params["school_unit_type"],
                 $params["school_unit_state"],
+                $params["debug"]
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
+function LabSubmitController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::PUT : 
+            $result = LabSubmit(
+                $params["lab_id"],
+                $params["submitted"],                
+                $params["transition_date"],
+                $params["transition_justification"],
+                $params["transition_source"],
                 $params["debug"]
             );      
             break;

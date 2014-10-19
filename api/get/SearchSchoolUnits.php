@@ -16,7 +16,7 @@ header("Content-Type: text/html; charset=utf-8");
 function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_special_name,
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
-                            $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $lab_type, $lab_state, $lab_source, 
+                            $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $submitted, $lab_type, $lab_state, $lab_source, 
                             $aquisition_source, $equipment_type, $lab_worker, 
                             $pagesize, $page, $orderby, $ordertype, $searchtype , $export ) {
 
@@ -309,6 +309,23 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                                                ExceptionMessages::InvalidLabTechnologicalRatingType, ExceptionCodes::InvalidLabTechnologicalRatingType);
 
         }
+        
+//======================================================================================================================
+//= $submitted
+//======================================================================================================================
+
+        if ( Validator::Exists('submitted', $params) )
+        {
+            $table_name = "labs";
+            $table_column_id = "submitted";
+            $table_column_name = "submitted";
+            $filter_validators = 'boolean';
+
+            $filter[] = $filter_labs[] = Filters::BasicFilter( $submitted, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+                                                               ExceptionMessages::InvalidLabSubmittedType, ExceptionCodes::InvalidLabSubmittedType);
+
+        }
+        
 //======================================================================================================================
 //= $lab_type
 //======================================================================================================================
@@ -448,6 +465,18 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 //= E X E C U T E
 //======================================================================================================================
 
+//Registered Labs and User permissions==========================================
+        
+        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+            if ( Validator::Missing('submitted', $params) ){            
+                $user_role= UserRoles::getRole($app->request->user);
+                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
+                    $filter[] = $filter_labs[] = 'labs.submitted = 1 OR labs.submitted = 0';
+                } else {
+                    $filter[] = $filter_labs[] = 'labs.submitted = 1';
+                }
+            }
+            
        //set user permissions
        $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
        
@@ -653,6 +682,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                         labs.operational_rating,
                         labs.technological_rating,
                         labs.ellak,
+                        labs.submitted,
                         labs.school_unit_id,
                         lab_types.lab_type_id,
                         lab_types.name as lab_type,
@@ -940,6 +970,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                 "operational_rating"        => $lab["operational_rating"],
                                 "technological_rating"      => $lab["technological_rating"],
                                 "ellak"                     => $lab["ellak"] ,
+                                "submitted"                 => $lab["submitted"] ,
                                 "school_unit_id"            => $lab["school_unit_id"] ,
                                 "lab_type_id"               => $lab["lab_type_id"],
                                 "lab_type"                  => $lab["lab_type"] ,

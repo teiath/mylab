@@ -703,7 +703,21 @@ class ExceptionCodes
     const InvalidLabWorkerEmailType = 500;
     /** {@see ExceptionMessages::InvalidLabWorkerStartServiceValidType} */    
     const InvalidLabWorkerStartServiceValidType = 500;
-
+    /** {@see ExceptionMessages::InvalidLabWorkerActiveStatus} */    
+    const InvalidLabWorkerActiveStatus = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerNewWorkerStatus} */  
+    const InvalidLabWorkerNewWorkerStatus = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerSetStatus} */  
+    const InvalidLabWorkerSetStatus = 500;  
+    
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabWorkerValue} */
+    const DuplicateDelLabWorkerValue = 500;
+    /** {@see ExceptionMessages::NotFoundDelLabWorkerValue} */    
+    const NotFoundDelLabWorkerValue = 500;
+     /** {@see ExceptionMessages::NoPermissionDelLabWorkerValue} */    
+    const NoPermissionDelLabWorkerValue = 500;
+    
     //= MylabWorkers
 
     /** {@see ExceptionMessages::MissingMylabWorkerIDParam} */
@@ -826,6 +840,15 @@ class ExceptionCodes
     const InvalidLabEllakType = 500;
     /** {@see ExceptionMessages::InvalidLabEllakArray} */
     const InvalidLabEllakArray = 500;
+  
+    /** {@see ExceptionMessages::MissingLabSubmittedParam} */
+    const MissingLabSubmittedParam = 500;
+    /** {@see ExceptionMessages::MissingLabSubmittedValue} */
+    const MissingLabSubmittedValue = 500;
+    /** {@see ExceptionMessages::InvalidLabSubmittedType} */
+    const InvalidLabSubmittedType = 500;
+    /** {@see ExceptionMessages::InvalidLabSubmittedArray} */
+    const InvalidLabSubmittedArray = 500;
     
     /** {@see ExceptionMessages::DuplicatedLabValue} */
     const DuplicatedLabValue = 500;
@@ -853,7 +876,31 @@ class ExceptionCodes
     const InvalidLabPositioningType = 500;
     /** {@see ExceptionMessages::InvalidLabCommentsType} */
     const InvalidLabCommentsType = 500;
-   
+    /** {@see ExceptionMessages::AlreadyLabSubmittedActiveValue} */  
+    const AlreadyLabSubmittedActiveValue = 500;
+    /** {@see ExceptionMessages::AlreadyLabSubmittedInitialValue} */  
+    const AlreadyLabSubmittedInitialValue = 500;
+     
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabValue} */  
+    const DuplicateDelLabValue = 500;
+    /** {@see ExceptionMessages::NotFoundDelLabValue} */  
+    const NotFoundDelLabValue = 500;
+    /** {@see ExceptionMessages::NoDemoDelLabValue} */ 
+    const NoDemoDelLabValue = 500;
+      
+    //references
+    /** {@see ExceptionMessages::ReferencesLabAquisitionSources} */ 
+    const ReferencesLabAquisitionSources = 500;
+    /** {@see ExceptionMessages::ReferencesLabEquipmentTypes} */ 
+    const ReferencesLabEquipmentTypes = 500;
+    /** {@see ExceptionMessages::ReferencesLabWorkers} */ 
+    const ReferencesLabWorkers = 500;
+    /** {@see ExceptionMessages::ReferencesLabRelations} */ 
+    const ReferencesLabRelations = 500;
+    /** {@see ExceptionMessages::ReferencesLabTransitions} */ 
+    const ReferencesLabTransitions = 500;
+    
 //LabEquipmentTypes
         
     /** {@see ExceptionMessages::MissingLabEquipmentTypeIDParam} */
@@ -1025,7 +1072,15 @@ class ExceptionCodes
     //extra
     /** {@see ExceptionMessages::InvalidLabTransitionValidType} */
     const InvalidLabTransitionValidType = 500;
+    /** {@see ExceptionMessages::InvalidLabTransitionDemoValue} */
+    const InvalidLabTransitionDemoValue = 500;
      
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabTransitionValue} */
+    const DuplicateDelLabTransitionValue = 500; 
+    /** {@see ExceptionMessages::NotFoundDelLabTransitionValue} */
+    const NotFoundDelLabTransitionValue = 500;
+    
 //LabRelations
     
     /** {@see ExceptionMessages::MissingLabRelationIDParam} */    

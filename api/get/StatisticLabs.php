@@ -10,7 +10,7 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
-function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating,
+function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $submitted,
                         $lab_type, $school_unit_id, $school_unit_name, $school_unit_special_name, $lab_state, $lab_source,
                         $aquisition_source, $equipment_type, $lab_worker,
                         $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
@@ -122,6 +122,22 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 
             $filter[] = Filters::BasicFilter( $technological_rating, $table_name, $table_column_id, $table_column_name, $filter_validators, 
                                                                ExceptionMessages::InvalidLabTechnologicalRatingType, ExceptionCodes::InvalidLabTechnologicalRatingType);
+
+        }
+        
+ //======================================================================================================================
+//= $submitted
+//======================================================================================================================
+
+        if ( Validator::Exists('submitted', $params) )
+        {
+            $table_name = "labs";
+            $table_column_id = "submitted";
+            $table_column_name = "submitted";
+            $filter_validators = 'boolean';
+
+            $filter[] = Filters::BasicFilter( $submitted, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+                                                            ExceptionMessages::InvalidLabSubmittedType, ExceptionCodes::InvalidLabSubmittedType);
 
         }
         
@@ -403,6 +419,18 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //= E X E C U T E
 //======================================================================================================================
 
+//Registered Labs and User permissions==========================================
+//
+        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+            if ( Validator::Missing('submitted', $params) ){            
+                $user_role= UserRoles::getRole($app->request->user);
+                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
+                    $filter[] = 'labs.submitted = 1 OR labs.submitted = 0';
+                } else {
+                    $filter[] = 'labs.submitted = 1';
+                }
+            }
+            
             //set user permissions
            $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
 
