@@ -83,8 +83,10 @@ class Filters {
       
         $sql = "SELECT lab_workers.lab_id
                 FROM lab_workers
-                LEFT JOIN mylab_workers ON mylab_workers.worker_id = lab_workers.worker_id 
-                WHERE  lab_workers.worker_position_id = 2
+                LEFT JOIN mylab_workers ON mylab_workers.worker_id = lab_workers.worker_id
+                LEFT JOIN labs ON labs.lab_id = lab_workers.lab_id
+                WHERE labs.submitted = 1  
+                AND lab_workers.worker_position_id = 2
                 AND lab_workers.worker_status = 1
                 AND mylab_workers.registry_no='".$registry_no."'";
         $stmt = $db->query( $sql );
@@ -115,7 +117,8 @@ class Filters {
                 LEFT JOIN labs ON school_units.school_unit_id = labs.school_unit_id
                 LEFT JOIN lab_workers ON labs.lab_id = lab_workers.lab_id 
                 LEFT JOIN mylab_workers ON lab_workers.worker_id = mylab_workers.worker_id 
-                WHERE  lab_workers.worker_position_id = 2
+                WHERE labs.submitted = 1 
+                AND lab_workers.worker_position_id = 2
                 AND lab_workers.worker_status = 1
                 AND mylab_workers.registry_no='".$registry_no."'";
         $stmt = $db->query( $sql );
@@ -146,7 +149,8 @@ class Filters {
                 FROM labs
                 LEFT JOIN school_units ON school_units.school_unit_id = labs.school_unit_id
                 LEFT JOIN edu_admins ON edu_admins.edu_admin_id = school_units.edu_admin_id
-                WHERE edu_admins.edu_admin_code='".$edu_admin_code."'";
+                WHERE labs.submitted = 1 
+                AND edu_admins.edu_admin_code='".$edu_admin_code."'";
         $stmt = $db->query( $sql );
         $lab_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
@@ -171,8 +175,10 @@ class Filters {
       
         $sql = "SELECT school_units.school_unit_id
                 FROM school_units
+                LEFT JOIN labs ON labs.school_unit_id = school_units.school_unit_id
                 LEFT JOIN edu_admins ON edu_admins.edu_admin_id = school_units.edu_admin_id
-                WHERE edu_admins.edu_admin_code='".$edu_admin_code."'";
+                WHERE labs.submitted = 1 
+                AND edu_admins.edu_admin_code='".$edu_admin_code."'";
         $stmt = $db->query( $sql );
         $school_unit_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
