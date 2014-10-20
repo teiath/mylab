@@ -88,21 +88,21 @@
                                                         'last': 'μετάβαση στην τελευταία σελίδα' }}"
                         data-editable="{ 'mode' : 'popup', 'template': $('#lab_create_template').html()}"
                         data-toolbar="[{ 'template' : $('#lab_toolbar_template_labs_view').html()  }]"
-                        data-columns="[{ 'field': 'lab_id', 'title':'Κωδικός Διάταξης Η/Υ', 'width':'65px', 'hidden' : true},
-                                       { 'field': 'lab_name', 'title':'Ονομασία', 'width':'440px'},
+                        data-columns="[{ 'field': 'lab_id', 'title':'Κωδικός Διάταξης Η/Υ', 'width':'140px', 'hidden' : true},
+                                       { 'field': 'lab_name', 'title':'Ονομασία', 'width':'405px'},
                                        { 'field': 'lab_type', 'title':'Τύπος', 'width':'150px', 'hidden' : true},
                                        { 'field': 'lab_state', 'title':'Λειτουργική Κατάσταση', 'width':'150px'},
-                                       { 'field': 'rating', 'title':'Αξιολόγηση', 'template' : $('#labs_view_rating_column_template').html(), 'width':'85px'},
+                                       { 'field': 'rating', 'title':'Αξιολόγηση', 'template' : $('#labs_view_rating_column_template').html(), 'width':'95px'},
                                        { 'field': 'positioning', 'title':'Τοποθεσία', 'width':'180px', 'hidden' : true},
                                        { 'field': 'lab_special_name', 'title':'Ειδική Ονομασία', 'width':'180px', 'hidden' : true},
-                                       { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'150px', 'hidden' : true},
-                                       { 'field': 'last_updated', 'title':'Τελευταία Ενημέρωση', 'width':'150px'},
-                                       { 'field': 'created_by', 'title':'Δημιουργία από', 'width':'130px', 'hidden' : true},
+                                       { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'160px', 'hidden' : true},
+                                       { 'field': 'last_updated', 'title':'Τελευταία Ενημέρωση', 'width':'145px'},
+                                       { 'field': 'created_by', 'title':'Δημιουργία από', 'width':'150px', 'hidden' : true},
                                        { 'command': [ {'text':' Ενεργοποίηση', 'click':LabsViewVM.transitLab, 'name':'activate', 'imageClass': 'fa fa-check'},
                                                       {'text':' Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', 'imageClass': 'fa fa-clock-o'},
                                                       {'text':' Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish', 'imageClass': 'fa fa-ban'},
                                                       {'text':' Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit', 'imageClass': 'fa fa-floppy-o'},
-                                                      {'text':' Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove', 'imageClass': 'fa fa-times'}], 'title': 'Ενέργειες', 'width':'240px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+                                                      {'text':' Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove', 'imageClass': 'fa fa-times'}], 'title': 'Ενέργειες', 'width':'315px', 'hidden': LabsViewVM.hideLabTransitColumn() }
                                         ]">
                 </div>
             </div>

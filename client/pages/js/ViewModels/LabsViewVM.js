@@ -212,17 +212,6 @@ var LabsViewVM = kendo.observable({
     
 //            console.log("labs datasource change e:", e);
             
-            //PROSORINA MEXRI NA BEI TO SUBMITTED STO API//
-//            $.each(e.items, function(index, value){
-//                value.submitted= 1;
-//                //console.log("value.submitted: ", value.submitted);
-//                if(index==2){
-//                    value.submitted= 0;
-//                    //console.log("value.submitted: ", value.submitted);
-//                }
-//            });
-            ////////////////////////////////////////////////
-            
             //console.log("einai to 1o lab new?:", e.items[0].isNew());
             //console.log("einai to 1o lab dirty?:", e.items[0].dirty);
         }
@@ -420,7 +409,7 @@ var LabsViewVM = kendo.observable({
 
                             $.ajax({
                                     type: "PUT",
-                                    url: baseURL + "lab_submit" + "?user=" + user_url,
+                                    url: baseURL + "initial_labs" + "?user=" + user_url,
                                     dataType: "json",
                                     data: JSON.stringify(parameters),
                                     success: function(data){
@@ -503,7 +492,7 @@ var LabsViewVM = kendo.observable({
 
                             $.ajax({
                                     type: "DELETE",
-                                    url: baseURL + "labs" + "?user=" + user_url,
+                                    url: baseURL + "initial_labs" + "?user=" + user_url,
                                     dataType: "json",
                                     data: JSON.stringify(parameters),
                                     success: function(data){
@@ -1405,7 +1394,7 @@ var LabsViewVM = kendo.observable({
             //console.log("i set refresh_btn to false after refresh: ", LabsViewVM.get("refresh_btn"));
         }
     
-        //disable transit buttons according to lab state
+        // show/hide action buttons according to lab state
         var data_items = e.sender.dataSource.data();
         //console.log("data_items: ", data_items);
         $.each(data_items, function(index, value){
