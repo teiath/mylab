@@ -259,7 +259,7 @@ var LabsViewVM = kendo.observable({
     saveLab: function(e){
         //console.log("saveLab e: ", e);
         var createDialogUpdateButton = e.container.find("div.k-edit-form-container>div.k-edit-buttons>a.k-grid-update");
-        createDialogUpdateButton.addClass('k-state-disabled').text('Παρακαλώ περιμένετε...');
+        createDialogUpdateButton.addClass('k-state-disabled').html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
         createDialogUpdateButton.click(function() { return false; });
     },
     transitLab: function(e){
@@ -273,7 +273,7 @@ var LabsViewVM = kendo.observable({
                     modal: true,
                     visible: false,
                     resizable: false,
-                    //width: 430,
+                    width: 430,
                     pinned:true,
                     open: function(ev){
                         //console.log("open ev:", ev);
@@ -320,7 +320,7 @@ var LabsViewVM = kendo.observable({
                         transitDialogUpdateButton.on("click", function(e){
                             e.preventDefault(); //?
 
-                            transitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                            transitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                             var parameters = {
                                       lab_id: dataItem.lab_id,
@@ -370,7 +370,7 @@ var LabsViewVM = kendo.observable({
                         submitDialogUpdateButton.on("click", function(e){
                             e.preventDefault();
 
-                            submitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                            submitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                             var parameters = {
                                       lab_id: dataItem.lab_id,
@@ -457,7 +457,7 @@ var LabsViewVM = kendo.observable({
                         removeDialogUpdateButton.on("click", function(e){
                             e.preventDefault();
                             
-                            removeDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                            removeDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                             var parameters = {
                                       lab_id: dataItem.lab_id
@@ -781,7 +781,7 @@ var LabsViewVM = kendo.observable({
                                                     disableLabWorkerDialogUpdateButton.on("click", function(e){
                                                         e.preventDefault(); //?
 
-                                                        disableLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                                                        disableLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                                                         var parameters = {
                                                           lab_worker_id: dataItem.lab_worker_id,
@@ -866,7 +866,7 @@ var LabsViewVM = kendo.observable({
                                                     removeLabWorkerDialogUpdateButton.on("click", function(e){
                                                         e.preventDefault(); //?
 
-                                                        removeLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                                                        removeLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                                                         var parameters = {
                                                             lab_id: dataItem.lab_id,
