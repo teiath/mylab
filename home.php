@@ -147,7 +147,6 @@
                 kendo.bind($("#search-container"), SearchVM);
                 kendo.bind($("#switch_views"), LabsViewVM);
                 kendo.bind($("#school_unit_info_pane").find("#details-container"), SchoolUnitsViewVM);
-                kendo.bind($("#school_unit_info_dialog"), SchoolUnitsViewVM);
                 
                 
                 kendo.bind($("#statistics-container"), StatisticsVM);

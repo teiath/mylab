@@ -14,16 +14,16 @@ var LabsViewVM = kendo.observable({
                 type: "POST",
                 dataType: "json"
             },
-            update: {
-                url: "api/labs?user=" + user_url,
-                type: "PUT",
-                dataType: "json"
-            },
-            destroy: {
-                url: "api/labs?user=" + user_url,
-                type: "DELETE",
-                dataType: "json"
-            },
+//            update: {
+//                url: "api/labs?user=" + user_url,
+//                type: "PUT",
+//                dataType: "json"
+//            },
+//            destroy: {
+//                url: "api/labs?user=" + user_url,
+//                type: "DELETE",
+//                dataType: "json"
+//            },
             parameterMap: function(data, type) {
                 if (type === 'read') {
                     
@@ -66,38 +66,11 @@ var LabsViewVM = kendo.observable({
                     
                 }else if(type === 'create'){
                                        
-                    //normalize transition_date parameter
-                    //data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
-                    data["ellak"] = (data["ellak"])? true : false; 
-                    
-                    /* Positioning LAST VERSION
-                    console.log(data["positioning"]);
-                    data["positioning"] = "";
-                    if( typeof data["building"] !== 'undefined' && data["building"] !== null){
-                        data["positioning"] = data["positioning"].concat("Κτήριο " + data["building"] + ", ");
-                    }else{
-                        data["positioning"] = data["positioning"].concat("Κτήριο - , ");
-                    }
-                    
-                    if( typeof data["floor"] !== 'undefined' && data["floor"] !== null){
-                        data["positioning"] = data["positioning"].concat("Όροφος " + data["floor"] + ", ");
-                    }else{
-                        data["positioning"] = data["positioning"].concat("Όροφος - , ");
-                    }
-                    
-                    if( typeof data["classroom"] !== 'undefined' && data["classroom"] !== null){
-                        data["positioning"] = data["positioning"].concat("Αίθουσα " + data["classroom"]);
-                    }else{
-                        data["positioning"] = data["positioning"].concat("Αίθουσα - , ");
-                    }
-                    */
+                    //normalize ellak parameter
+                    data["ellak"] = (data["ellak"])? true : false;
                     
                     //standar parameters in lab creation
-                    data["state"] = "1";
-                    //data["submitted"] = 0;
                     data["lab_source"] = "1";
-                    //data["transition_source"] = "mylab";
-                    //data["transition_justification"] = "δημιουργία Διάταξης Η/Υ";
                     
                     //υποβάλλονται κενά, λόγω του ότι βρίσκονται στο schema, παρότι στη δημιουργία εργαστηρίου δεν εισάγονται
                     delete data.operational_rating;
@@ -131,7 +104,7 @@ var LabsViewVM = kendo.observable({
                     transition_date:{},
                     aquisition_sources:{},
                     equipment_types:{},
-                    state:{},
+                    lab_state:{},
                     lab_source:{},
                     transition_source:{},                    
                     transition_justification:{},
@@ -169,7 +142,7 @@ var LabsViewVM = kendo.observable({
                     LabsViewVM.set("diadrastiko", 0);
                     LabsViewVM.set("troxilato", 0);                    
                 }
-            }else if (e.type=="create" || e.type=="destroy"){
+            }else if (e.type=="create"){
                 
                 var message;
                 if (typeof e.response.message !== 'undefined'){
@@ -286,7 +259,7 @@ var LabsViewVM = kendo.observable({
     saveLab: function(e){
         //console.log("saveLab e: ", e);
         var createDialogUpdateButton = e.container.find("div.k-edit-form-container>div.k-edit-buttons>a.k-grid-update");
-        createDialogUpdateButton.addClass('k-state-disabled').text('Παρακαλώ περιμένετε...');
+        createDialogUpdateButton.addClass('k-state-disabled').html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
         createDialogUpdateButton.click(function() { return false; });
     },
     transitLab: function(e){
@@ -300,7 +273,7 @@ var LabsViewVM = kendo.observable({
                     modal: true,
                     visible: false,
                     resizable: false,
-                    //width: 430,
+                    width: 430,
                     pinned:true,
                     open: function(ev){
                         //console.log("open ev:", ev);
@@ -347,7 +320,7 @@ var LabsViewVM = kendo.observable({
                         transitDialogUpdateButton.on("click", function(e){
                             e.preventDefault(); //?
 
-                            transitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                            transitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                             var parameters = {
                                       lab_id: dataItem.lab_id,
@@ -397,7 +370,7 @@ var LabsViewVM = kendo.observable({
                         submitDialogUpdateButton.on("click", function(e){
                             e.preventDefault();
 
-                            submitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                            submitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                             var parameters = {
                                       lab_id: dataItem.lab_id,
@@ -484,7 +457,7 @@ var LabsViewVM = kendo.observable({
                         removeDialogUpdateButton.on("click", function(e){
                             e.preventDefault();
                             
-                            removeDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                            removeDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                             var parameters = {
                                       lab_id: dataItem.lab_id
@@ -808,7 +781,7 @@ var LabsViewVM = kendo.observable({
                                                     disableLabWorkerDialogUpdateButton.on("click", function(e){
                                                         e.preventDefault(); //?
 
-                                                        disableLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                                                        disableLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                                                         var parameters = {
                                                           lab_worker_id: dataItem.lab_worker_id,
@@ -893,7 +866,7 @@ var LabsViewVM = kendo.observable({
                                                     removeLabWorkerDialogUpdateButton.on("click", function(e){
                                                         e.preventDefault(); //?
 
-                                                        removeLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+                                                        removeLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
 
                                                         var parameters = {
                                                             lab_id: dataItem.lab_id,
@@ -1396,7 +1369,7 @@ var LabsViewVM = kendo.observable({
     
         // show/hide action buttons according to lab state
         var data_items = e.sender.dataSource.data();
-        //console.log("data_items: ", data_items);
+        console.log("data_items: ", data_items);
         $.each(data_items, function(index, value){
             var currentRow = $(e.sender.tbody).children("tr.k-master-row").eq(index);
             if(currentRow.hasClass("k-master-row")){
@@ -1408,19 +1381,25 @@ var LabsViewVM = kendo.observable({
                 var submitButton = $(currentRow).children('td:last').find(".k-grid-submit");
                 var removeButton = $(currentRow).children('td:last').find(".k-grid-remove");
 
-                //check whether databound gets triggered from school units view (get labs api function) or labs view (search labs api function)
                 if(typeof data_items[index].lab_state_id !== 'undefined'){
-                    var state = data_items[index].lab_state_id; //get labs api function
-                }else{
-                    var state = data_items[index].state_id; //search labs api function
+                    var state = data_items[index].lab_state_id;
+                    console.log("typeof state: ", typeof state);
                 }
 
                 if(value.submitted === "1"){
                     
+//                    submitButton.hide();
+//                    removeButton.hide();
+                        
+                    submitButton.addClass('k-state-disabled');
                     submitButton.hide();
-                    removeButton.hide();
+                    submitButton.click(function() { return false; });
 
-                    if(state == "1"){
+                    removeButton.addClass('k-state-disabled');
+                    removeButton.hide();
+                    removeButton.click(function() { return false; });
+
+                    if(state === 1){
                         //console.log("state 1");
                         activateButton.addClass('k-state-disabled');
                         activateButton.hide();
@@ -1432,7 +1411,7 @@ var LabsViewVM = kendo.observable({
                         abolishButton.removeClass('k-state-disabled');
                         abolishButton.show();
 
-                    }else if(state == "2"){
+                    }else if(state === 2){
                         //console.log("state 2");
                         activateButton.removeClass('k-state-disabled');
                         activateButton.show();
@@ -1444,7 +1423,7 @@ var LabsViewVM = kendo.observable({
                         abolishButton.removeClass('k-state-disabled');
                         abolishButton.show();         
 
-                    }else if(state == "3"){
+                    }else if(state === 3){
                         //console.log("state 3");
                         activateButton.addClass('k-state-disabled');
                         activateButton.hide();
@@ -1460,15 +1439,34 @@ var LabsViewVM = kendo.observable({
                     }
                 
                 }else if(value.submitted === "0"){
-                    activateButton.hide();
-                    suspendButton.hide();
-                    abolishButton.hide();
+                    
+//                        activateButton.hide();
+//                        suspendButton.hide();
+//                        abolishButton.hide();
+
+                        activateButton.addClass('k-state-disabled');
+                        activateButton.hide();
+                        activateButton.click(function() { return false; });
+
+                        suspendButton.addClass('k-state-disabled');
+                        suspendButton.hide();
+                        suspendButton.click(function() { return false; });
+
+                        abolishButton.addClass('k-state-disabled');
+                        abolishButton.hide();
+                        abolishButton.click(function() { return false; });
                 }
             }
             
         });
 
     },
+    
+    
+    
+    
+    
+    
     openColumnSelection: function(e){
         var column_selection_dialog = $("#labs_column_selection_dialog").kendoWindow({
                     modal: true,
@@ -1480,8 +1478,8 @@ var LabsViewVM = kendo.observable({
                     open: function(e){
 
                         e.sender.element.append('<div class="k-edit-buttons k-state-default" style="margin-top:10px; text-align:center">\
-                                                    <button class="k-button k-button-icontext k-grid-transit" onclick="LabsViewVM.restoreDefaultColumns()">\
-                                                        Επαναφορά Προεπιλεγμένων\
+                                                    <button class="k-button k-button-icontext" onclick="LabsViewVM.restoreDefaultColumns()">\
+                                                        <i class="fa fa-undo"></i> Επαναφορά Προεπιλεγμένων\
                                                     </button>\
                                                 </div>');
                     }
