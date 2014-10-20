@@ -45,6 +45,8 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
         $username =  $app->request->user['uid'];
         $Lab->setCreationDate(new \DateTime (date('Y-m-d H:i:s')));  
         $Lab->setCreatedBy($username[0]);  
+        $Lab->setLastUpdated(new \DateTime (date('Y-m-d H:i:s')));  
+        $Lab->setUpdatedBy($username[0]); 
         $Lab->setSubmitted(0);
         $Lab->setState(null);
         
