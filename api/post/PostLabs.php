@@ -148,11 +148,17 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
                 $checkCountLabs = $entityManager->getRepository('Labs')->findBy(array( 'schoolUnit'    => $Lab->getSchoolUnit(),
                                                                                        'labType'       => $Lab->getLabType()   
                                                                                      )); 
-
+                //get the last num of lab
+                $all_nums = array();
+                foreach ($checkCountLabs as $checkCountLab){
+                    $lab_num = explode(".",$checkCountLab->getName());
+                    $matches = explode(" -",$lab_num[1]);
+                    $all_nums[] = $matches[0];
+                }  
                
                 //create lab name 
-                $num_of_lab = count($checkCountLabs); 
-                $lab_name = 'ΑΡΧΙΚΟ - ' . $fLabTypeName. '.' . ++$num_of_lab . ' - ' . $fSchoolUnitName;
+                $max_lab= max($all_nums);
+                $lab_name = 'ΑΡΧΙΚΟ - ' . $fLabTypeName. '.' . ++$max_lab . ' - ' . $fSchoolUnitName;
 
                 if (Validator::isNull($lab_name))
                     throw new Exception(ExceptionMessages::MissingLabNameValue." : ".$lab_name, ExceptionCodes::MissingLabNameValue); 
