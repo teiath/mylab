@@ -36,7 +36,10 @@ class CRUDUtils {
         if ( $param === _MISSED_ )
         { } //throw new Exception(ExceptionMessages::MissingNameParam, ExceptionCodes::MissingNameParam);
         else if ( Validator::IsNull($param) )
-        { } //throw new Exception(ExceptionMessages::MissingNameValue, ExceptionCodes::MissingNameValue);}
+        { 
+            $method = 'set'.self::to_camel_case($field, true);
+            $entity->$method(Validator::ToNull($param));
+        } 
         else if ( Validator::IsValue($param) )
         {
             
