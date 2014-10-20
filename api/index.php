@@ -1078,7 +1078,6 @@ function LabsController()
                 $params["ellak"],
                 $params["lab_type"],
                 $params["school_unit_id"],
-                $params["state"],
                 $params["lab_source"]
             );      
             break;
