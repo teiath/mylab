@@ -138,27 +138,12 @@ var SchoolUnitsViewVM = kendo.observable({
     principal_email: null,
     principal_street_address: null,
     principal_school_unit_worker: null,
-    showPrincipalSchoolUnitInfo: function(e){
-       
-        var school_unit_info_dialog = $("#school_unit_info_dialog").kendoWindow({
-            title: SchoolUnitsViewVM.principal_school_unit_name,
-            modal: true,
-            visible: false,
-            resizable: false,
-            width: 400,
-            pinned: true
-        }).data("kendoWindow");
-        
-        school_unit_info_dialog.content();
-        school_unit_info_dialog.center().open();
-        
-    },
         
     showContactDetails: function(e){
         //console.log("showContactDetails e: ", e);
 
         var contact_details_dialog = $("#contact_details_dialog").kendoWindow({
-                    title: "Στοιχεία Επικοινωνίας",
+                    title: "Στοιχεία Επικοινωνίας Σχολικής Μονάδας",
                     modal: true,
                     visible: false,
                     resizable: false,
@@ -266,8 +251,8 @@ var SchoolUnitsViewVM = kendo.observable({
                     open: function(e){
 
                         e.sender.element.append('<div class="k-edit-buttons k-state-default" style="margin-top:10px; text-align:center">\
-                                                    <button class="k-button k-button-icontext k-grid-transit" onclick="SchoolUnitsViewVM.restoreDefaultColumns()">\
-                                                        Επαναφορά Προεπιλεγμένων\
+                                                    <button class="k-button k-button-icontext" onclick="SchoolUnitsViewVM.restoreDefaultColumns()">\
+                                                        <i class="fa fa-undo"></i> Επαναφορά Προεπιλεγμένων\
                                                     </button>\
                                                 </div>');
                     }

@@ -25,25 +25,7 @@
         require_once('client/pages/js/Templates/labsViewLabStateColumnTemplate.html');
         
     ?>
-
-    <!--school_unit_info_dialog-->
-    <div id="school_unit_info_dialog" style="display:none; color: #5E5E5E">
-        
-        <ul style="margin: 10px; list-style: none;">
-            <li style="margin: 5px 10px; display: inline; font-size: 13px; font-weight: bold"> Διεύθυνση </li>
-            <li style="margin: 5px 25px; "> <i class="fa fa-user"></i> <span data-bind="text: principal_school_unit_worker" ></span> </li>
-        </ul>                                        
-
-        <ul style="margin: 10px; list-style: none;">
-            <li style="margin: 5px 10px; display: inline; font-size: 13px; font-weight: bold"> Στοιχεία Επικοινωνίας </li>
-            <li style="margin: 5px 25px; "> <i class="fa fa-phone"></i> <span data-bind="text: principal_phone_number" ></span> </li>
-            <li style="margin: 5px 25px; "> <i class="fa fa-fax"></i>  <span data-bind="text: principal_fax_number" ></span> </li>
-            <li style="margin: 5px 25px; "> <i class="fa fa-envelope"></i>  <span data-bind="text: principal_email" ></span> </li>
-            <li style="margin: 5px 25px; "> <i class="fa fa-home"></i>  <span data-bind="text: principal_street_address" ></span> </li>
-        </ul>        
-        
-    </div>
-    
+   
     <!--transition dialog-->
     <div id="transition_dialog"></div>
     
@@ -89,7 +71,7 @@
                         data-editable="{ 'mode' : 'popup', 'template': $('#lab_create_template').html()}"
                         data-toolbar="[{ 'template' : $('#lab_toolbar_template_labs_view').html()  }]"
                         data-columns="[{ 'field': 'lab_id', 'title':'Κωδικός Διάταξης Η/Υ', 'width':'140px', 'hidden' : true},
-                                       { 'field': 'lab_name', 'title':'Ονομασία', 'width':'405px'},
+                                       { 'field': 'lab_name', 'title':'Ονομασία', 'width':'460px'},
                                        { 'field': 'lab_type', 'title':'Τύπος', 'width':'150px', 'hidden' : true},
                                        { 'field': 'lab_state', 'title':'Λειτουργική Κατάσταση', 'width':'150px'},
                                        { 'field': 'rating', 'title':'Αξιολόγηση', 'template' : $('#labs_view_rating_column_template').html(), 'width':'95px'},
@@ -102,7 +84,7 @@
                                                       {'text':' Αναστολή', 'click':LabsViewVM.transitLab, 'name':'suspend', 'imageClass': 'fa fa-clock-o'},
                                                       {'text':' Κατάργηση', 'click':LabsViewVM.transitLab, 'name':'abolish', 'imageClass': 'fa fa-ban'},
                                                       {'text':' Οριστική Υποβολή', 'click':LabsViewVM.submitLab, 'name':'submit', 'imageClass': 'fa fa-floppy-o'},
-                                                      {'text':' Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove', 'imageClass': 'fa fa-times'}], 'title': 'Ενέργειες', 'width':'315px', 'hidden': LabsViewVM.hideLabTransitColumn() }
+                                                      {'text':' Διαγραφή', 'click':LabsViewVM.removeLab, 'name':'remove', 'imageClass': 'fa fa-times'}], 'title': 'Ενέργειες', 'width':'240px', 'hidden': LabsViewVM.hideLabTransitColumn() }
                                         ]">
                 </div>
             </div>
