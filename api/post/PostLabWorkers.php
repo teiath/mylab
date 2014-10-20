@@ -38,6 +38,11 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
     try
     { 
         
+//$creation infos================================================================
+        $username =  $app->request->user['uid'];
+        $LabWorker->setInsertLabWorkerBy(new \DateTime (date('Y-m-d')));  
+        $LabWorker->setInsertBy($username[0]);  
+        
 //$lab_id=======================================================================
     CRUDUtils::entitySetAssociation($LabWorker, $lab_id, 'Labs', 'lab', 'Lab');
     

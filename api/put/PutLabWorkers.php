@@ -37,6 +37,11 @@ function PutLabWorkers($lab_worker_id,$worker_status) {
        
 //init entity for update row====================================================
         $LabWorker = CRUDUtils::findIDParam($fLabWorkerId, 'LabWorkers', 'LabWorker');
+      
+//$updated infos================================================================
+        $username =  $app->request->user['uid'];
+        $LabWorker->setDeleteLabWorkerBy(new \DateTime (date('Y-m-d')));  
+        $LabWorker->setDeleteBy($username[0]);   
         
 //$worker_status=============================================================   
         if (Validator::IsExists('worker_status')){
