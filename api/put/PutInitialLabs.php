@@ -50,7 +50,9 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
 //$updated infos================================================================
         $username =  $app->request->user['uid'];
         $Lab->setLastUpdated(new \DateTime (date('Y-m-d H:i:s')));  
-        $Lab->setUpdatedBy($username[0]);  
+        $Lab->setUpdatedBy($username[0]);      
+        //$state========================================================================       
+        CRUDUtils::entitySetAssociation($Lab, 1, 'States', 'state', 'State');
         
 //$submitted====================================================================   
             if (Validator::Missing('submitted', $params))
@@ -60,9 +62,7 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
             else if (Validator::IsArray($submitted))
                 throw new Exception(ExceptionMessages::InvalidLabSubmittedArray." : ".$submitted, ExceptionCodes::InvalidLabSubmittedArray);
             else if (Validator::IsTrue($submitted)) 
-                 $Lab->setSubmitted(1);    
-//            else if (Validator::IsFalse($submitted)) 
-//                 $Lab->setEllak(Validator::ToFalse($submitted));       
+                 $Lab->setSubmitted(1);        
             else
                 throw new Exception(ExceptionMessages::InvalidLabSubmittedType." : ".$submitted, ExceptionCodes::InvalidLabSubmittedType); 
         
