@@ -85,7 +85,7 @@ $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsC
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 $app->map('/stat_labs', Authentication, UserRolesPermission, StatLabsController)->via(MethodTypes::GET);
 
-$app->map('/lab_submit', Authentication, UserRolesPermission, LabSubmitController)->via(MethodTypes::PUT);
+$app->map('/initial_labs', Authentication, UserRolesPermission, InitialLabsController)->via(MethodTypes::PUT,MethodTypes::DELETE);
 
 $app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
 
@@ -1940,7 +1940,7 @@ function StatLabsController()
 
 }
 
-function LabSubmitController()
+function InitialLabsController()
 {
     global $app;
     $params = loadParameters();
@@ -1948,13 +1948,18 @@ function LabSubmitController()
     switch ( strtoupper( $app->request()->getMethod() ) )
     {
         case MethodTypes::PUT : 
-            $result = LabSubmit(
+            $result = PutInitialLabs(
                 $params["lab_id"],
                 $params["submitted"],                
                 $params["transition_date"],
                 $params["transition_justification"],
                 $params["transition_source"],
                 $params["debug"]
+            );      
+            break;
+        case MethodTypes::DELETE : 
+            $result = DelInitialLabs(
+                $params["lab_id"]
             );      
             break;
     }

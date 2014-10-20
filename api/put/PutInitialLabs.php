@@ -21,7 +21,7 @@ header("Content-Type: text/html; charset=utf-8");
  * @throws Exception
  */
 
-function LabSubmit($lab_id, $submitted, $transition_date, $transition_justification, $transition_source ) {
+function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justification, $transition_source ) {
     
     global $app,$entityManager;
 

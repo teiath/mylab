@@ -146,7 +146,7 @@ require_once('../api/put/PutLabAquisitionSources.php');
 require_once('../api/put/PutLabEquipmentTypes.php');
 require_once('../api/put/PutLabTransitions.php');
 require_once('../api/put/PutLabRelations.php');
-require_once('../api/put/LabSubmit.php');
+require_once('../api/put/PutInitialLabs.php');
 //---del from mm
 
 //---del from mylab
@@ -156,5 +156,5 @@ require_once('../api/put/LabSubmit.php');
  require_once('../api/del/DelLabWorkers.php');
  require_once('../api/del/DelLabRelations.php');
  require_once('../api/del/DelLabTransitions.php');
-  
+ require_once('../api/del/DelInitialLabs.php'); 
 ?>
