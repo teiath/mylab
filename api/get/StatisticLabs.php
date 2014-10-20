@@ -420,15 +420,10 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
 //======================================================================================================================
 
 //Registered Labs and User permissions==========================================
-//
-        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+
+        //set registered labs if submitted is missing
             if ( Validator::Missing('submitted', $params) ){            
-                $user_role= UserRoles::getRole($app->request->user);
-                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
-                    $filter[] = 'labs.submitted = 1 OR labs.submitted = 0';
-                } else {
                     $filter[] = 'labs.submitted = 1';
-                }
             }
             
             //set user permissions

@@ -419,15 +419,10 @@ function StatisticSchoolUnits ( $school_unit_id, $school_unit_name, $school_unit
 //======================================================================================================================
 
 //Registered Labs and User permissions==========================================
-//
-        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+
+        //set registered labs if submitted is missing
             if ( Validator::Missing('submitted', $params) ){            
-                $user_role= UserRoles::getRole($app->request->user);
-                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
-                    $filter[] = $filter_labs[] = 'labs.submitted = 1 OR labs.submitted = 0';
-                } else {
                     $filter[] = $filter_labs[] = 'labs.submitted = 1';
-                }
             }
             
             //set user permissions

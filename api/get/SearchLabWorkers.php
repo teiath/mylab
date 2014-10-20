@@ -420,7 +420,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             if ( Validator::Missing('submitted', $params) ){            
                 $user_role= UserRoles::getRole($app->request->user);
                 if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
-                    $filter[] = 'labs.submitted = 1 OR labs.submitted = 0';
+                    $filter[] = '(labs.submitted = 1 OR labs.submitted = 0)';
                 } else {
                     $filter[] = 'labs.submitted = 1';
                 }
