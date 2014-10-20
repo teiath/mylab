@@ -88,3 +88,9 @@ table, td, k-toolbar, k-pager-wrap
 .state_red{
     color:#DD3346;
 }
+
+
+.k-grid-header .k-header {
+    text-align: center;
+    font-weight: bold;
+}

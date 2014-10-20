@@ -1,114 +1,92 @@
+<!-- OLD VERSION had a <div style="width:400px;"></div> -------(back to old version for now)wrapper-->
+
 <script id="lab_create_template" type="text/x-kendo-template">
-    <div style="width:400px;">
-        <div id="cl" class="form-horizontal form-widgets col-md-11">
+<div style="width:400px;">
+    <div id="cl" class="form-horizontal col-md-11">
 
-            <div class='form-group'>          
-                <div class="col-md-11">
-                    <label for="school_unit">Σχολική Μονάδα<span style="color:red">*</span></label>
-                    <input  id="cl_school_unit"
-                            name="school_unit"
-                            data-role="combobox"
-                            data-auto-bind="false"
-                            data-bind="source: ds_school_units, value: school_unit_id"
-                            data-value-field="school_unit_id"
-                            data-min-length="3"
-                            data-text-field="text_field_template"
-                            data-filter="contains"
-                            style="width: 100%"
-                    />
-                </div>
+        <div class='form-group'>          
+            <div class="col-md-11">
+                <label for="school_unit">Σχολική Μονάδα<span style="color:red">*</span></label>
+                <input  id="cl_school_unit"
+                        name="school_unit"
+                        data-role="combobox"
+                        data-auto-bind="false"
+                        data-bind="source: ds_school_units, value: school_unit_id"
+                        data-value-field="school_unit_id"
+                        data-min-length="3"
+                        data-text-field="text_field_template"
+                        data-filter="contains"
+                        style="width: 100%",
+                        placeholder="επιλέξτε από τη λίστα"
+                />
             </div>
-
-            <div class='form-group'>                
-                <div class="col-md-7">
-                    <label for="lab_type">Τυπος<span style="color:red">*</span></label>
-                    <input  id="cl_lab_type" 
-                            name="lab_type"
-                            data-bind="source: ds_lab_types, value: lab_type"
-                            data-auto-bind="false"
-                            data-value-field="lab_type_id"
-                            data-text-field="name"
-                            data-role="combobox"
-                            style="width: 100%"
-                    />
-                </div>
-                <div class="col-md-3" style="display:none; margin-top:27px;">
-                    <input id="cl_ellak" name="ellak" type="checkbox" />
-                    <label> ΕΛΛΑΚ </label>
-                </div>
-            </div>
-
-                        
-            <div class='form-group'>
-                <div class="col-md-11">
-                    <label for="positioning">Τοποθεσία</label>
-                    <input  id="cl_positioning"
-                            data-bind="value: positioning"
-                            name="positioning"
-                            data-role="maskedtextbox"
-                            data-prompt-char=" "
-                            data-mask="Κτήριο: CCCCCCCCCCCC , Όροφος: CCCCCCCCCCCC , Αίθουσα: CCCCCCCCCCCC "
-                            style="width: 100%"/>
-                </div>
-            </div>
-
-            <div class='form-group'>            
-                <div class="col-md-11">
-                    <label for="special_name">Ειδική Ονομασία</label>
-                    <input  id="cl_special_name"
-                            name="special_name"
-                            class="k-input k-textbox"
-                            data-bind="value: special_name"
-                            style="width: 100%",
-                            placeholder="πχ Εργαστήριο Πληροφορικής Γυμνασίου"
-                    />
-                </div>
-            </div>
-
-            <div class='form-group'>
-                <div class="col-md-7">
-                    <label for="transition_date">Ημερομηνία Ενεργοποίησης<span style="color:red">*</span></label>
-                    <input  id="cl_transition_date"
-                            name="transition_date"
-                            data-bind="value: transition_date" 
-                            data-role="datepicker"
-                            data-format="yyyy-MM-dd"
-                            style="width: 100%"
-                    />
-                </div>
-            </div>             
-            
         </div>
+
+        <div class='form-group'>                
+            <div class="col-md-8">
+                <label for="lab_type">Τυπος<span style="color:red">*</span></label>
+                <input  id="cl_lab_type" 
+                        name="lab_type"
+                        data-bind="source: ds_lab_types, value: lab_type"
+                        data-auto-bind="false"
+                        data-value-field="lab_type_id"
+                        data-text-field="name"
+                        data-role="combobox"
+                        style="width: 100%",
+                        placeholder="επιλέξτε από τη λίστα"
+                />
+            </div>
+            <div class="col-md-2" style="display:none; margin-top:27px;">
+                <input id="cl_ellak" name="ellak" type="checkbox" />
+                <label> ΕΛΛΑΚ </label>
+            </div>
+        </div>
+
+
+        <div class='form-group'>
+            <div class="col-md-11">
+                <label for="positioning">Τοποθεσία</label>
+                <input  id="cl_positioning"
+                        data-bind="value: positioning"
+                        name="positioning"
+                        data-role="maskedtextbox"
+                        data-prompt-char=" "
+                        data-mask="Κτήριο: CCCCCCCCCCCC , Όροφος: CCCCCCCCCCCC , Αίθουσα: CCCCCCCCCCCC "
+                        style="width: 100%",
+                        placeholder="συμπληρώστε με βάση το πρότυπο"
+                />
+            </div>
+        </div>
+
+        <div class='form-group'>            
+            <div class="col-md-11">
+                <label for="special_name">Ειδική Ονομασία</label>
+                <input  id="cl_special_name"
+                        name="special_name"
+                        class="k-input k-textbox"
+                        data-bind="value: special_name"
+                        style="width: 100%",
+                        placeholder="πχ Εργαστήριο Πληροφορικής Γυμνασίου"
+                />
+            </div>
+        </div>
+
     </div>
+</div>
 </script>
 
 
 <!--
-                 <div class="col-md-3" >
-                    <input  id="cl_building"
-                            name="building"
-                            class="k-input k-textbox"
-                            data-bind="value: building"
-                            style="width: 100%"
-                            placeholder="Κτήριο, πχ Α'"
-                    />
-                </div>
-                <div class="col-md-3" >
-                    <input  id="cl_floor"
-                            name="special_name"
-                            class="k-input k-textbox"
-                            data-bind="value: floor"
-                            style="width: 100%"
-                            placeholder="Όροφος, πχ 1ος"
-                    />
-                </div>
-                <div class="col-md-3" >
-                    <input  id="cl_classroom"
-                            name="classroom"
-                            class="k-input k-textbox"
-                            data-bind="value: classroom"
-                            style="width: 100%"
-                            placeholder="Αίθουσα, πχ Β5"
-                    />
-                </div>
+        <div class='form-group'>
+            <div class="col-md-8">
+                <label for="transition_date">Ημερομηνία Ενεργοποίησης<span style="color:red">*</span></label>
+                <input  id="cl_transition_date"
+                        name="transition_date"
+                        data-bind="value: transition_date" 
+                        data-role="datepicker"
+                        data-format="yyyy-MM-dd"
+                        style="width: 100%"
+                />
+            </div>
+        </div>
 -->

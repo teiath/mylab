@@ -67,35 +67,37 @@ var LabsViewVM = kendo.observable({
                 }else if(type === 'create'){
                                        
                     //normalize transition_date parameter
-                    data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
+                    //data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
                     data["ellak"] = (data["ellak"])? true : false; 
                     
-//                    console.log(data["positioning"]);
-//                    data["positioning"] = "";
-//                    if( typeof data["building"] !== 'undefined' && data["building"] !== null){
-//                        data["positioning"] = data["positioning"].concat("Κτήριο " + data["building"] + ", ");
-//                    }else{
-//                        data["positioning"] = data["positioning"].concat("Κτήριο - , ");
-//                    }
-//                    
-//                    if( typeof data["floor"] !== 'undefined' && data["floor"] !== null){
-//                        data["positioning"] = data["positioning"].concat("Όροφος " + data["floor"] + ", ");
-//                    }else{
-//                        data["positioning"] = data["positioning"].concat("Όροφος - , ");
-//                    }
-//                    
-//                    if( typeof data["classroom"] !== 'undefined' && data["classroom"] !== null){
-//                        data["positioning"] = data["positioning"].concat("Αίθουσα " + data["classroom"]);
-//                    }else{
-//                        data["positioning"] = data["positioning"].concat("Αίθουσα - , ");
-//                    }
+                    /* Positioning LAST VERSION
+                    console.log(data["positioning"]);
+                    data["positioning"] = "";
+                    if( typeof data["building"] !== 'undefined' && data["building"] !== null){
+                        data["positioning"] = data["positioning"].concat("Κτήριο " + data["building"] + ", ");
+                    }else{
+                        data["positioning"] = data["positioning"].concat("Κτήριο - , ");
+                    }
+                    
+                    if( typeof data["floor"] !== 'undefined' && data["floor"] !== null){
+                        data["positioning"] = data["positioning"].concat("Όροφος " + data["floor"] + ", ");
+                    }else{
+                        data["positioning"] = data["positioning"].concat("Όροφος - , ");
+                    }
+                    
+                    if( typeof data["classroom"] !== 'undefined' && data["classroom"] !== null){
+                        data["positioning"] = data["positioning"].concat("Αίθουσα " + data["classroom"]);
+                    }else{
+                        data["positioning"] = data["positioning"].concat("Αίθουσα - , ");
+                    }
+                    */
                     
                     //standar parameters in lab creation
                     data["state"] = "1";
-                    data["submitted"] = 0;
+                    //data["submitted"] = 0;
                     data["lab_source"] = "1";
-                    data["transition_source"] = "mylab";
-                    data["transition_justification"] = "δημιουργία Διάταξης Η/Υ";
+                    //data["transition_source"] = "mylab";
+                    //data["transition_justification"] = "δημιουργία Διάταξης Η/Υ";
                     
                     //υποβάλλονται κενά, λόγω του ότι βρίσκονται στο schema, παρότι στη δημιουργία εργαστηρίου δεν εισάγονται
                     delete data.operational_rating;
@@ -211,14 +213,14 @@ var LabsViewVM = kendo.observable({
 //            console.log("labs datasource change e:", e);
             
             //PROSORINA MEXRI NA BEI TO SUBMITTED STO API//
-            $.each(e.items, function(index, value){
-                value.submitted= 1;
-                //console.log("value.submitted: ", value.submitted);
-                if(index==2){
-                    value.submitted= 0;
-                    //console.log("value.submitted: ", value.submitted);
-                }
-            });
+//            $.each(e.items, function(index, value){
+//                value.submitted= 1;
+//                //console.log("value.submitted: ", value.submitted);
+//                if(index==2){
+//                    value.submitted= 0;
+//                    //console.log("value.submitted: ", value.submitted);
+//                }
+//            });
             ////////////////////////////////////////////////
             
             //console.log("einai to 1o lab new?:", e.items[0].isNew());
@@ -237,112 +239,131 @@ var LabsViewVM = kendo.observable({
     
     refresh_btn: false,
     
+    //διορθωμένα
     createLab:  function(e){
-
-        //console.log("labsview create lab: ", e);
+        console.log("labsview createLab: ", e);
         e.preventDefault(); //?
         
+        //e.container.closest("div.k-window").css("width", "450px").center();
+        
         if (e.model.isNew()) {
-            e.container.prev().find(".k-window-title").text("Προσθήκη Νέας Διάταξης Η/Υ");
-            e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-update").text("Προσθήκη");
-            e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-cancel").text("Άκυρο");
-        }
-        
-        $("#cl_transition_date").data("kendoDatePicker").max(new Date());
-        
-        //kendo.bind($("#cl_ellak"), LabsViewVM);
-        //$("#cl_ellak").attr("visible", LabsViewVM.ellakVisible);
-        
-        function changeEllak(e){
-            //console.log("changeEllak e: ", e);
-            var value = this.value();
-            if (value==1 || value==3){ // σεπεηυ = 1, ετπ = 3
-                $("#cl_ellak").closest("div").show();
-            }else{
-                $("#cl_ellak").closest("div").hide();
-            }
-        }  
-        
-        var lab_type = $("#cl_lab_type").data("kendoComboBox");
-        lab_type.bind("change", changeEllak);        
-        
-        //Αυτή η συνθήκη παίζει να μην χρειάζεται και απλά το πεδίο της σχ. μονάδας να γίνεται hide
-        if (e.sender.element.closest("tr").hasClass("k-detail-row")){ //έλεγξε αν βρισκόμαστε σε school units view
-            var tr = e.sender.element.closest("tr").prev();
-            var grid = tr.closest("div#school_units_view").data("kendoGrid");
-            var item = grid.dataItem(tr);
-            var school_unit = item.school_unit_name; //item.school_unit_id;
             
-            $("#cl_school_unit").data("kendoComboBox").readonly(true);
-            $("#cl_school_unit").prev().find("input").prop('disabled', true);
-            $("#cl_school_unit").data("kendoComboBox").value(school_unit);
+            var createDialogTitle = e.container.prev().find(".k-window-title");
+            var createDialogUpdateButton = e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-update");
+            var createDialogCancelButton = e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-cancel");
+            var createDialogSchoolUnitComboBox = e.container.find("#cl_school_unit");
+            var createDialogLabTypeComboBox = e.container.find("#cl_lab_type");
+            //var createDialogTransitionDatePicker = e.container.find("#cl_transition_date");
+            var createDialogEllakInput = e.container.find("#cl_ellak");
+
+
+            createDialogTitle.text("Προσθήκη Νέας Διάταξης Η/Υ");
+            createDialogUpdateButton.html('<span class="k-icon k-update"></span> Προσθήκη');
+            createDialogCancelButton.html('<span class="k-icon k-cancel"></span> Ακύρωση');
+
+            //createDialogTransitionDatePicker.data("kendoDatePicker").max(new Date());
+
+            function changeEllak(e){
+                //console.log("changeEllak e: ", e);
+                var value = this.value();
+                if (value==1 || value==3){ // σεπεηυ = 1, ετπ = 3
+                    createDialogEllakInput.closest("div").show();
+                }else{
+                    createDialogEllakInput.removeAttr('checked');
+                    createDialogEllakInput.closest("div").hide();
+                }
+            }  
+            var lab_type = createDialogLabTypeComboBox.data("kendoComboBox");
+            lab_type.bind("change", changeEllak);        
+
+            /*
+             * 1. Η παρακάτω συνθήκη παίζει να μην χρειάζεται και απλά το πεδίο της σχ. μονάδας να γίνεται hide
+             * 2. Η παρακάτω συνθήκη ΔΕΝ χρησιμοποιείται πλέον, δεδομένου ότι το school units view δεν είναι διαθέσιμο 
+             *    στους Διευθυντές/Τομεάρχες που έχουν το δικαίωμα να δημιουργούν νέες Διατάξεις Η/Υ 
+             */
+            if (e.sender.element.closest("tr").hasClass("k-detail-row")){ //έλεγξε αν βρισκόμαστε σε school units view, οπότε και το grid θα βρίσκεται σε detail row
+                var tr = e.sender.element.closest("tr").prev();
+                var grid = tr.closest("div#school_units_view").data("kendoGrid");
+                var item = grid.dataItem(tr);
+                var school_unit = item.school_unit_name; //item.school_unit_id;
+
+                createDialogSchoolUnitComboBox.data("kendoComboBox").readonly(true);
+                createDialogSchoolUnitComboBox.prev().find("input").prop('disabled', true);
+                createDialogSchoolUnitComboBox.data("kendoComboBox").value(school_unit);
+            }
+            
         }
-         
-        
-        //e.container.closest(".k-window").attr('pinned', true);
-        //editWindow.center().pin();
-        //console.log("editWindow: ", editWindow);
-         
+    },
+    saveLab: function(e){
+        //console.log("saveLab e: ", e);
+        var createDialogUpdateButton = e.container.find("div.k-edit-form-container>div.k-edit-buttons>a.k-grid-update");
+        createDialogUpdateButton.addClass('k-state-disabled').text('Παρακαλώ περιμένετε...');
+        createDialogUpdateButton.click(function() { return false; });
     },
     transitLab: function(e){
-        console.log("transitLab e:", e);
+        //console.log("transitLab e:", e);
         e.preventDefault();
-        //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        //var toState = dataItem.state_id;
-        //var command = e.data.commandName;
+        
         var parent_grid = $(e.delegateTarget).data("kendoGrid");
+        var command = e.data.commandName;
         
         var transition_dialog = $("#transition_dialog").kendoWindow({
                     modal: true,
                     visible: false,
                     resizable: false,
-                    width: 500,
+                    //width: 430,
                     pinned:true,
-                    open: function(){
-                
-                        var toState = "";
+                    open: function(ev){
+                        //console.log("open ev:", ev);
+                        ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
                         
-                        if(e.data.commandName === "activate"){
+                        var toState = "";
+                        var transitDialogUpdateButton = transition_dialog.element.find("div.k-edit-buttons>button.k-grid-transit");
+                        var transitDialogCancelButton = transition_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel-transition");
+                        var transitDialogTransitDateLabel = transition_dialog.element.find("#tl>div.form-group>div>label#tl_transition_date_label");
+                        var transitDialogTransitDatePicker = transition_dialog.element.find("#tl>div.form-group>div>input#tl_transition_date");
+                        var transitDialogTransitJustificationLabel = transition_dialog.element.find("#tl>div.form-group>div>label#tl_transition_justification_label");
+                        var transitDialogTransitJustificationInput = transition_dialog.element.find("#tl>div.form-group>div>textarea#tl_transition_justification");
+                        
+                        if(command === "activate"){
                             transition_dialog.title("Ενεργοποίηση Διάταξης Η/Υ");
-                            $("#transition_dialog").find("#tl>div.k-edit-buttons>button.k-grid-transit").html('<span class="k-icon k-update"></span> Ενεργοποίηση');
-                            $("#transition_dialog").find("#tl>div.form-group>div>label#TransitDate").text('Ημερομηνία Ενεργοποίησης');
-                            $("#transition_dialog").find("#tl>div.form-group>div>label#TransitJustification").text('Αιτιολογία Ενεργοποίησης');
+                            transitDialogUpdateButton.html('<span class="k-icon k-update"></span> Ενεργοποίηση');
+                            transitDialogTransitDateLabel.html('Ημερομηνία Ενεργοποίησης <span style="color:red">*</span>');
+                            transitDialogTransitJustificationLabel.html('Αιτιολογία Ενεργοποίησης  <span style="color:red">*</span>');
                             toState = 1;
-                        }else if(e.data.commandName === "suspend"){
+                        }else if(command === "suspend"){
                             transition_dialog.title("Αναστολή Διάταξης Η/Υ");
-                            $("#transition_dialog").find("#tl>div.k-edit-buttons>button.k-grid-transit").html('<span class="k-icon k-update"></span> Αναστολή');
-                            $("#transition_dialog").find("#tl>div.form-group>div>label#TransitDate").text('Ημερομηνία Αναστολής');
-                            $("#transition_dialog").find("#tl>div.form-group>div>label#TransitJustification").text('Αιτιολογία Αναστολής');
+                            transitDialogUpdateButton.html('<span class="k-icon k-update"></span> Αναστολή');
+                            transitDialogTransitDateLabel.html('Ημερομηνία Αναστολής <span style="color:red">*</span>');
+                            transitDialogTransitJustificationLabel.html('Αιτιολογία Αναστολής <span style="color:red">*</span>');
                             toState = 2;
-                        }else if(e.data.commandName === "abolish"){
+                        }else if(command === "abolish"){
                             transition_dialog.title("Κατάργηση Διάταξης Η/Υ");
-                            $("#transition_dialog").find("#tl>div.k-edit-buttons>button.k-grid-transit").html('<span class="k-icon k-update"></span> Κατάργηση');
-                            $("#transition_dialog").find("#tl>div.form-group>div>label#TransitDate").text('Ημερομηνία Κατάργησης');
-                            $("#transition_dialog").find("#tl>div.form-group>div>label#TransitJustification").text('Αιτιολογία Κατάργησης');
+                            transitDialogUpdateButton.html('<span class="k-icon k-update"></span> Κατάργηση');
+                            transitDialogTransitDateLabel.html('Ημερομηνία Κατάργησης <span style="color:red">*</span>');
+                            transitDialogTransitJustificationLabel.html('Αιτιολογία Κατάργησης <span style="color:red">*</span>');
                             toState = 3;
                         }                    
                         
-                        $("#cl_transit_date").kendoDatePicker({
+                        transitDialogTransitDatePicker.kendoDatePicker({
                             format: "yyyy-MM-dd",
                             max: new Date(Date.now())
                         });
                 
-                        $(".k-grid-cancel-transition").on("click", function(e){
+                        transitDialogCancelButton.on("click", function(e){
                             e.preventDefault(); //?
                             transition_dialog.close();
                         });
                         
-                        $(".k-grid-transit").on("click", function(e){
+                        transitDialogUpdateButton.on("click", function(e){
                             e.preventDefault(); //?
 
-                            var suspend_window_element = transition_dialog.element;
-                            var suspension_date = suspend_window_element.find("#cl_transit_date").val();
-                            var suspension_justification = suspend_window_element.find("#cl_justification").val();
+                            transitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
 
                             var parameters = {
                                       lab_id: dataItem.lab_id,
-                                      transition_date: suspension_date,
-                                      transition_justification: suspension_justification,
+                                      transition_date: transitDialogTransitDatePicker.val(),
+                                      transition_justification: transitDialogTransitJustificationInput.val(),
                                       transition_source: 'mylab',
                                       state: toState
                                     };
@@ -355,24 +376,199 @@ var LabsViewVM = kendo.observable({
         
         var transitTemplate = kendo.template($("#lab_transit_template").html());
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        dataItem.set("toState", command);//! για να περάσω τον τύπο μετάβασης στο template 'lab_transit_template'
         transition_dialog.content(transitTemplate(dataItem));
         transition_dialog.center().open();
     },
-    detailInit: function(e){
-                
-        //console.log("labs view detailInit", e);
+    submitLab: function(e){
+        //console.log("submitLab e:", e);
         e.preventDefault();
-        //kendo.bind($("#lab_details_tabstrip"), LabsViewVM); //δεν καταλαβαίνω γιατι αλλά without this line, detail template EVENT bindings  will not work!!
-        kendo.bind(e.detailRow, e.data); //SOS: without this line, detail template bindings will not work!!
         
+        var parent_grid = $(e.delegateTarget).data("kendoGrid");
+        
+        var submit_dialog = $("#submit_dialog").kendoWindow({
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    width: 450,
+                    title:"Οριστική Υποβολή Διάταξης Η/Υ",
+                    pinned:true,
+                    open: function(ev){
+                        ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
+                        
+                        var submitDialogUpdateButton = submit_dialog.element.find("div.k-edit-buttons>button.k-grid-submit-lab");
+                        var submitDialogCancelButton = submit_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel-submit-lab");
+                        var submitDialogTransitDatePicker = submit_dialog.element.find("#sl>div.form-group>div>input#sl_transition_date");                 
+                        
+                        submitDialogTransitDatePicker.kendoDatePicker({
+                            format: "yyyy-MM-dd",
+                            max: new Date(Date.now())
+                        });
+                        
+                        submitDialogUpdateButton.on("click", function(e){
+                            e.preventDefault();
+
+                            submitDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+
+                            var parameters = {
+                                      lab_id: dataItem.lab_id,
+                                      submitted: "true",
+                                      transition_date: submitDialogTransitDatePicker.val(),
+                                      transition_justification: "δημιουργία Διάταξης Η/Υ",
+                                      transition_source: "mylab"
+                                    };
+
+                            $.ajax({
+                                    type: "PUT",
+                                    url: baseURL + "lab_submit" + "?user=" + user_url,
+                                    dataType: "json",
+                                    data: JSON.stringify(parameters),
+                                    success: function(data){
+
+                                        var message;
+                                        if (typeof data.message !== 'undefined'){
+                                            message= data.message;
+                                        }else if (typeof data.message_internal !== 'undefined'){
+                                            message= data.message_internal;
+                                        }else if (typeof data.message_external !== 'undefined'){
+                                            message= data.message_external;
+                                        }
+
+                                        if(data.status == 200){
+
+                                            submit_dialog.close();
+
+                                            notification.show({
+                                                title: "Επιτυχής Υποβολή Διάταξης Η/Υ",
+                                                message: message
+                                            }, "success");
+                                            
+                                            parent_grid.dataSource.read(); //school units view or labs view depending on the current view
+
+                                        }else if(data.status == 500){
+
+                                            submitDialogUpdateButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Οριστική Υποβολή');
+
+                                            notification.show({
+                                                title: "Η Υποβολή της Διάταξης Η/Υ απέτυχε",
+                                                message: message
+                                            }, "error");
+                                        }
+
+                                    }//,
+                                    //error: function (data){ console.log("ΛΑΘΟΣ AJAX REQUEST: ", data);}
+                            });
+                        });
+                        
+                        submitDialogCancelButton.on("click", function(e){
+                            e.preventDefault();
+                            submit_dialog.close();
+                        });
+                    }
+        }).data("kendoWindow");
+        
+        var submitTemplate = kendo.template($("#lab_submit_template").html());
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        submit_dialog.content(submitTemplate(dataItem));
+        submit_dialog.center().open();
+ 
+    },
+    removeLab: function(e){
+        //console.log("removeLab e:", e);
+        e.preventDefault();
+        
+        var parent_grid = $(e.delegateTarget).data("kendoGrid");
+        
+        var remove_dialog = $("#remove_dialog").kendoWindow({
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    width: 450,
+                    title:"Διαγραφή Διάταξης Η/Υ",
+                    pinned:true,
+                    open: function(ev){
+                        ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
+
+                        var removeDialogUpdateButton = remove_dialog.element.find("div.k-edit-buttons>button.k-grid-remove-lab");
+                        var removeDialogCancelButton = remove_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel-remove-lab");                 
+                        
+                        removeDialogUpdateButton.on("click", function(e){
+                            e.preventDefault();
+                            
+                            removeDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+
+                            var parameters = {
+                                      lab_id: dataItem.lab_id
+                                    };
+
+                            $.ajax({
+                                    type: "DELETE",
+                                    url: baseURL + "labs" + "?user=" + user_url,
+                                    dataType: "json",
+                                    data: JSON.stringify(parameters),
+                                    success: function(data){
+
+                                        var message;
+                                        if (typeof data.message !== 'undefined'){
+                                            message= data.message;
+                                        }else if (typeof data.message_internal !== 'undefined'){
+                                            message= data.message_internal;
+                                        }else if (typeof data.message_external !== 'undefined'){
+                                            message= data.message_external;
+                                        }
+
+                                        if(data.status == 200){
+
+                                            remove_dialog.close();
+
+                                            notification.show({
+                                                title: "Επιτυχής Διαγραφή Διάταξης Η/Υ",
+                                                message: message
+                                            }, "success");                                            
+
+                                            parent_grid.dataSource.read(); //school units view or labs view depending on the current view
+
+                                        }else if(data.status == 500){
+
+                                            removeDialogUpdateButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Διαγραφή');
+
+                                            notification.show({
+                                                title: "Η Διαγραφή της Διάταξης Η/Υ απέτυχε",
+                                                message: message
+                                            }, "error");
+                                        }
+
+                                    }//,
+                                    //error: function (data){ console.log("ΛΑΘΟΣ AJAX REQUEST: ", data);}
+                            });
+                            
+                        });
+                        
+                        removeDialogCancelButton.on("click", function(e){
+                            e.preventDefault();
+                            remove_dialog.close();
+                        });
+                    }
+        }).data("kendoWindow");
+        
+        var removeTemplate = kendo.template($("#lab_remove_template").html());
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        remove_dialog.content(removeTemplate(dataItem));
+        remove_dialog.center().open();
+ 
+    },
+    detailInit: function(e){
+        //console.log("labsview detailInit", e);
         //console.log("e.detailRow: ", e.detailRow);
         //console.log("e.data: ", e.data);
+        e.preventDefault();
+        kendo.bind(e.detailRow, e.data); //SOS: without this line, detail template bindings will not work!!
         
         var scroll;
         e.detailRow.find("#lab_details_tabstrip").kendoTabStrip({
             animation: { open: { effects: "fadeIn" } },
             select: function(e){
-                scroll = $(document).scrollTop();
+                scroll = $(document).scrollTop();               
             },
             activate: function(e){
                 $(document).scrollTop(scroll);
@@ -386,13 +582,13 @@ var LabsViewVM = kendo.observable({
             selectable: false,
             editable: "inline",
             toolbar: function(){
-                        if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id === 1){
+                        if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1 &&  e.data.lab_state_id !== 2 && e.data.lab_state_id !== 3){
                             return [{ name: "create", text: "Προσθήκη Εξοπλισμού" }];
                         }
                      }(),
             columns: [
                 { field: "equipment_type_name", 
-                  title: "τύπος εξοπλισμού",
+                  title: "Τύπος Εξοπλισμού",
                   editor: function (container, options){
                       
                         var data = equipment_details.dataSource.data();
@@ -409,7 +605,8 @@ var LabsViewVM = kendo.observable({
                         $('<input id="equipment_type_column_editor" name="' + options.field + '" data-bind="value:' + options.field + '" data-text-field="name" data-value-field="name" required data-required-msg="Ξέχασες τον τύπο εξοπλισμού!" />')
                         .appendTo(container)
                         .kendoComboBox({
-                            dataSource: newEquipmentTypesDS(usedEquipment)
+                            dataSource: newEquipmentTypesDS(usedEquipment),
+                            placeholder: "επιλέξτε από τη λίστα"
                         });
                         
                         var tooltipElement = $('<span class="k-invalid-msg" data-for="' + options.field + '"></span>');
@@ -419,21 +616,25 @@ var LabsViewVM = kendo.observable({
                   width: '50%' 
                 },
                 { field: "items", 
-                  title:"πλήθος", 
+                  title:"Πλήθος", 
                   format: "{0:n0}",
                   width: '20%' 
                 },
-                { command: [{ name: 'edit'}, {name: 'destroy'}], 
-                  title: 'ενέργειες', 
+                { command: [{ name: 'edit', text: "Επεξεργασία"}, {name: 'destroy', text: "Διαγραφή"}], 
+                  title: 'Ενέργειες', 
                   width: '30%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id === 1) ? false : true;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 &&  e.data.lab_state_id !== 2 && e.data.lab_state_id !== 3) ? false : true;
                       return hide;
                   }()
                 }
             ],
-            //messages: {commands : [{edit: "επεξεργασία", canceledit: "άκυρο", update: "επεξεργασία", destroy: "διαγραφή"}]},
             edit: function(e){
+                
+                //localization
+                e.container.find("td:eq(2)>a.k-grid-update").html('<span class="k-icon k-update"></span>Ενημέρωση');
+                e.container.find("td:eq(2)>a.k-grid-cancel").html('<span class="k-icon k-cancel"></span>Ακύρωση');
+                
                 if (!e.model.isNew()) {
                     //on update, make equipment_type not editable
                     e.container.find("td:eq(0)").text(e.model.equipment_type_name);
@@ -454,14 +655,15 @@ var LabsViewVM = kendo.observable({
                     }(),
             columns: [
                 { field: "aquisition_source", 
-                  title: "πηγή χρηματοδότησης",
+                  title: "Πηγή Χρηματοδότησης",
                   editor: function (container, options){
                       
                         //options.field = aquisition_source
                         $('<input name="' + options.field + '" data-bind="value:' + options.field + '" data-text-field="name" data-value-field="name" required data-required-msg="Ξέχασες την πηγή χρηματοδότησης!"/>')
                         .appendTo(container)
                         .kendoComboBox({
-                            dataSource: newAquisitionSourcesDS()
+                            dataSource: newAquisitionSourcesDS(),
+                            placeholder: "επιλέξτε από τη λίστα"
                         });
                         
                         var tooltipElement = $('<span class="k-invalid-msg" data-for="' + options.field + '"></span>');
@@ -470,16 +672,17 @@ var LabsViewVM = kendo.observable({
                   width: '20%' 
                 },
                 { field: "aquisition_year",
-                  title:"έτος",
+                  title:"Έτος",
                   editor: function (container, options){
+              
                         //options.field =  aquisition_year
-                        //console.log("options.field: ", options.field);
                         $('<input name="' + options.field + '" data-bind="value:' + options.field + '" required data-required-msg="Ξέχασες το έτος χρηματοδότησης!"/>')
                         .appendTo(container)
                         .kendoComboBox({                    
                             dataTextField: "year",
                             dataValueField: "year",
-                            dataSource: newAquisitionYearsDS(1975)
+                            dataSource: newAquisitionYearsDS(1975),
+                            placeholder: "επιλέξτε από τη λίστα"
                         });    
                                                 
                         var tooltipElement = $('<span class="k-invalid-msg" data-for="' + options.field + '"></span>');
@@ -488,22 +691,27 @@ var LabsViewVM = kendo.observable({
                   width: '20%' 
                 },
                 { field: "aquisition_comments", 
-                  title: "σχόλια",
+                  title: "Σχόλια",
                   editor: function (container, options){
                       $('<textarea class="k-textbox" data-bind="value: ' + options.field + '"></textarea>').appendTo(container);
                   }, 
                   width: '30%' 
                 },
-                { command: [{ name: 'edit'}, {name: 'destroy'}], 
-                  title: 'ενέργειες', 
+                { command: [{ name: 'edit', text: "Επεξεργασία"}, {name: 'destroy', text: "Διαγραφή"}], 
+                  title: 'Ενέργειες', 
                   width: '30%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id === 1) ? false : true;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 &&  e.data.lab_state_id !== 2 && e.data.lab_state_id !== 3) ? false : true;
                       return hide;
                   }()
                 }
             ],
             edit: function(e){
+                
+                //localization
+                e.container.find("td:eq(3)>a.k-grid-update").html('<span class="k-icon k-update"></span>Ενημέρωση');
+                e.container.find("td:eq(3)>a.k-grid-cancel").html('<span class="k-icon k-cancel"></span>Ακύρωση');
+                
                 if (!e.model.isNew()) {
                     //on update, make aquisition_source not editable
                     e.container.find("td:eq(0)").text(e.model.aquisition_source);
@@ -520,7 +728,7 @@ var LabsViewVM = kendo.observable({
             toolbar: [{ template: kendo.template($("#lab_details_lab_workers_toolbar_template").html()), binded_data: e.data }], //binded_data is custom
             columns: [
                 { field: "fullname", 
-                  title: "ονοματεπώνυμο",
+                  title: "Ονοματεπώνυμο",
                   template: "#= lastname + ' ' + firstname #",
                   editor: function (container, options){
                         //options.field = fullname
@@ -530,6 +738,7 @@ var LabsViewVM = kendo.observable({
                             dataSource: newWorkersDS(),
                             autoBind: false,
                             filter: "contains",
+                            placeholder: "επιλέξτε από τη λίστα",
                             //dataValueField: "worker_id",
                             //dataTextField: "fullname",
                             //minLength: 1,
@@ -546,22 +755,21 @@ var LabsViewVM = kendo.observable({
                         var tooltipElement = $('<span class="k-invalid-msg" data-for="' + options.field + '"></span>');
                         tooltipElement.appendTo(container);
                   }, 
-                  width: '30%'
+                  width: '36%'
                 },
                 { field: "worker_registry_no", 
                   title: "ΑΜ", 
-                  width: '10%' 
+                  width: '9%' 
                 },
                 { field: "specialization_code_name", 
-                  title: "κλάδος", 
-                  width: '10%' 
+                  title: "Κλάδος", 
+                  width: '6%' 
                 },
                 {
                   field: "worker_start_service", 
-                  title: "ημ/νια ανάληψης ευθύνης",
+                  title: "Ημ/νια Ανάληψης Ευθύνης",
                   editor: function (container, options){
-                        //options.field: The name of the field to which the column is bound.
-                        //options.field= worker_start_service
+                        //options.field: The name of the field to which the column is bound. Here, worker_start_service
                         $('<input name="' + options.field + '" data-bind="value:' + options.field + '"  required data-required-msg="Ξέχασες την ημερομηνία!" />')
                         .appendTo(container)
                         .kendoDatePicker({
@@ -573,29 +781,22 @@ var LabsViewVM = kendo.observable({
                         tooltipElement.appendTo(container);                        
                         
                   }, 
-                  width: '20%' 
+                  width: '17%' 
                 },
                 {
                   field: "worker_status",
                   template: function(dataItem) {
                       if(dataItem.worker_status == 1) return "ΕΝΕΡΓΟΣ"; else if (dataItem.worker_status == 3) return "ΑΝΕΝΕΡΓΟΣ";
                   },
-                  title: "κατάσταση", 
-                  width: '10%' 
+                  title: "Κατάσταση", 
+                  width: '8%' 
                 },
-                { command: [ { name: 'edit'}, 
-                             { name: "Απενεργοποίηση Υπευθύνου",
-                                click: function(e) {
-
-                                    e.preventDefault();
-
-                                    var tr = $(e.target).closest("tr");
-                                    var data = this.dataItem(tr);
-
-                                    var parameters = {
-                                      lab_worker_id: data.lab_worker_id,
-                                      worker_status: 3
-                                    };
+                { command: [ { name: 'edit'},
+                             { text: " Απενεργοποίηση",
+                               name: "disable-lab-worker",
+                               imageClass: 'fa fa-chain-broken',
+                               click: function(e) {
+                                    e.preventDefault();                                    
 
                                     var disable_lab_worker_dialog = $("#disable_lab_worker_dialog").kendoWindow({
                                                 modal: true,
@@ -603,17 +804,28 @@ var LabsViewVM = kendo.observable({
                                                 resizable: false,
                                                 width: 400,
                                                 pinned:true,
-                                                title:"Απενεργοποίηση Υπεύθυνου Εργαστηρίου",
-                                                open: function(){
+                                                title:"Απενεργοποίηση Υπεύθυνου Διάταξης Η/Υ",
+                                                open: function(ev){
+                                                    ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
+                                                    
+                                                    var disableLabWorkerDialogUpdateButton = disable_lab_worker_dialog.element.find("div.k-edit-buttons>a.k-grid-disable");
+                                                    var disableLabWorkerDialogCancelButton = disable_lab_worker_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel-disabling");
 
-                                                    $(".k-grid-cancel-disabling").on("click", function(e){
+                                                    disableLabWorkerDialogCancelButton.on("click", function(e){
                                                         e.preventDefault(); //?
                                                         disable_lab_worker_dialog.close();
                                                     });
 
-                                                    $(".k-grid-disable").on("click", function(e){
+                                                    disableLabWorkerDialogUpdateButton.on("click", function(e){
                                                         e.preventDefault(); //?
 
+                                                        disableLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+
+                                                        var parameters = {
+                                                          lab_worker_id: dataItem.lab_worker_id,
+                                                          worker_status: 3
+                                                        };
+                                                        
                                                         $.ajax({
                                                                 type: 'PUT',
                                                                 url: baseURL + 'lab_workers?user=' + user_url,
@@ -634,24 +846,26 @@ var LabsViewVM = kendo.observable({
                                                                         notification.show({
                                                                             title: "Η απενεργοποίηση πραγματοποιήθηκε",
                                                                             message: message
-                                                                        }, "success");                                            
+                                                                        }, "success");                        
 
-                                                                        //detailRow.find("#lab_workers_details").data("kendoGrid").dataSource.read();
+                                                                        disable_lab_worker_dialog.close();
                                                                         lab_workers_details.dataSource.read();
 
                                                                     }else if(data.status == 500){
 
+                                                                        disableLabWorkerDialogUpdateButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Απενεργοποίηση');
+
                                                                         notification.show({
                                                                             title: "Η απενεργοποίηση απέτυχε",
                                                                             message: message
-                                                                        }, "error");
+                                                                        }, "error");                        
 
+                                                                        disable_lab_worker_dialog.close();
                                                                     }
 
-                                                                },
-                                                                error: function (data){ console.log("PUT lab_workers error data: ", data);}
+                                                                }//,
+                                                                //error: function (data){ console.log("PUT error data: ", data);}
                                                         });
-                                                        disable_lab_worker_dialog.close();
 
                                                     });
                                                 }
@@ -662,10 +876,95 @@ var LabsViewVM = kendo.observable({
                                     disable_lab_worker_dialog.content(disableTemplate(dataItem));
                                     disable_lab_worker_dialog.center().open();                                    
                                 }
+                             }, 
+                             {  text: "Διαγραφή",
+                                name: "remove-lab-worker",
+                                imageClass: 'k-icon k-delete',
+                                click: function(e) {
+                                    e.preventDefault();
+
+                                    var remove_lab_worker_dialog = $("#remove_lab_worker_dialog").kendoWindow({
+                                                modal: true,
+                                                visible: false,
+                                                resizable: false,
+                                                width: 400,
+                                                pinned:true,
+                                                title:"Διαγραφή Υπεύθυνου Διάταξης Η/Υ",
+                                                open: function(ev){
+                                                    ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
+                                                    
+                                                    var removeLabWorkerDialogUpdateButton = remove_lab_worker_dialog.element.find("div.k-edit-buttons>a.k-grid-remove");
+                                                    var removeLabWorkerDialogCancelButton = remove_lab_worker_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel-remove");
+
+                                                    removeLabWorkerDialogCancelButton.on("click", function(e){
+                                                        e.preventDefault(); //?
+                                                        remove_lab_worker_dialog.close();
+                                                    });
+
+                                                    removeLabWorkerDialogUpdateButton.on("click", function(e){
+                                                        e.preventDefault(); //?
+
+                                                        removeLabWorkerDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).text('Παρακαλώ περιμένετε...');
+
+                                                        var parameters = {
+                                                            lab_id: dataItem.lab_id,
+                                                            lab_worker_id: dataItem.lab_worker_id
+                                                        };
+
+                                                        $.ajax({
+                                                                type: 'DELETE',
+                                                                url: baseURL + 'lab_workers?user=' + user_url,
+                                                                dataType: "json",
+                                                                data: JSON.stringify(parameters),
+                                                                success: function(data){
+
+                                                                    var message;
+                                                                    if (typeof data.message !== 'undefined'){
+                                                                        message= data.message;
+                                                                    }else if (typeof data.message_internal !== 'undefined'){
+                                                                        message= data.message_internal;
+                                                                    }else if (typeof data.message_external !== 'undefined'){
+                                                                        message= data.message_external;
+                                                                    }
+
+                                                                    if(data.status == 200){
+                                                                        notification.show({
+                                                                            title: "Η διαγραφή πραγματοποιήθηκε",
+                                                                            message: message
+                                                                        }, "success");                                            
+
+                                                                        remove_lab_worker_dialog.close();
+                                                                        lab_workers_details.dataSource.read();
+
+                                                                    }else if(data.status == 500){
+
+                                                                        removeLabWorkerDialogUpdateButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Διαγραφή');
+
+                                                                        notification.show({
+                                                                            title: "Η διαγραφή απέτυχε",
+                                                                            message: message
+                                                                        }, "error");
+                                                                        
+                                                                        remove_lab_worker_dialog.close();
+                                                                    }
+
+                                                                }//,
+                                                                //error: function (data){ console.log("DEL lab_workers error data: ", data);}
+                                                        });
+
+                                                    });
+                                                }
+                                    }).data("kendoWindow");
+
+                                    var removeTemplate = kendo.template($("#remove_lab_worker_template").html());
+                                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                                    remove_lab_worker_dialog.content(removeTemplate(dataItem));
+                                    remove_lab_worker_dialog.center().open();                                    
+                                }
                              }
                            ],
-                  title: 'ενέργειες', 
-                  width: '20%',
+                  title: 'Ενέργειες', 
+                  width: '22%',
                   hidden: function(){
                       var hide = (jQuery.inArray( authorized_user , edit_lab_worker ) !== -1 && e.data.lab_state_id === 1) ? false : true;
                       return hide;
@@ -673,29 +972,65 @@ var LabsViewVM = kendo.observable({
                 }
             ],
             edit: function(e){
-                //if (!e.model.isNew()) {
-                    //on update, make lab_worker not editable
-                    e.container.find("td:eq(1)").text(e.model.worker_registry_no); //registry_no
-                    e.container.find("td:eq(2)").text(e.model.specialization_code_name); //specialization_code
-                    e.container.find("td:eq(4)").text("ΕΝΕΡΓΟΣ");
-                //}
+                
+                //localization
+                e.container.find("td:eq(5)>a.k-grid-update").html('<span class="k-icon k-update"></span>Ενημέρωση');
+                e.container.find("td:eq(5)>a.k-grid-cancel").html('<span class="k-icon k-cancel"></span>Ακύρωση');
+                
+                //on create+update, make lab_worker not editable
+                e.container.find("td:eq(1)").text(e.model.worker_registry_no); //registry_no
+                e.container.find("td:eq(2)").text(e.model.specialization_code_name); //specialization_code
+                e.container.find("td:eq(4)").text("ΕΝΕΡΓΟΣ");
             },
             dataBound: function(e){
                 //console.log("lab workers databound: ", e);
+                
+                /*if there is some active Lab Responsible DO NOT SHOW the 'create responisble' button*/
+                var someActive = false;
                 $.each(e.sender.dataSource.data(), function(index, value){
                     var tr= e.sender.tbody.find("tr:eq(" + index + ")");
                     var dataitem= e.sender.dataItem(tr);
-                    // if worker is not active 1)remove its row's "disable responsible" functionality and 2) hide its row from grid if grid is not in the "show logs" mode
+                    
+                    if(dataitem.worker_status === 1){
+                        someActive = true;
+                        return false; //exit 'each' loop
+                    }
+                });
+                (someActive) ? e.sender.element.find(".k-toolbar>a.k-button").hide() : e.sender.element.find(".k-toolbar>a.k-button").show();
+                
+                /*if worker is not active 
+                    1) remove its row's "disable+delete" functionalities and 
+                    2) hide its row from grid if grid is not in the "show logs" mode
+                */
+                $.each(e.sender.dataSource.data(), function(index, value){
+                    var tr= e.sender.tbody.find("tr:eq(" + index + ")");
+                    var dataitem= e.sender.dataItem(tr);
                     if (dataitem.worker_status !== 1 && dataitem.worker_status !== ""){
-                        tr.find("td:last-child>a.k-grid-ΑπενεργοποίησηΥπευθύνου").remove(); 
-                        if(lab_workers_details.element.find(".k-toolbar>button#show_lab_worker_logs_btn").html() === '<span class="fa fa-history"></span> προβολή ιστορικού'){
+                        tr.find("td:last-child>a.k-grid-disable-lab-worker").remove(); 
+                        tr.find("td:last-child>a.k-grid-remove-lab-worker").remove(); 
+                        if(lab_workers_details.element.find(".k-toolbar>button#show_lab_worker_logs_btn").html() === '<span class="fa fa-history"></span> Προβολή Ιστορικού'){
                             tr.hide();
                         }
                     }
                 });
             }
         }).data("kendoGrid");
-        //kendo.bind($("#lab_details_lab_workers_toolbar_template"), e.data);
+        //toggle lab workers logs
+        lab_workers_details.element.find(".k-toolbar").on("click", "button#show_lab_worker_logs_btn", function(e){
+            
+            $.each(lab_workers_details.dataSource.data(), function(index, value){
+                var tr= lab_workers_details.tbody.find("tr:eq(" + index + ")");
+                var dataitem= lab_workers_details.dataItem(tr);
+                if (dataitem.worker_status !== 1 && dataitem.worker_status !== ""){
+                    tr.toggle();
+                }
+            });            
+                        
+            $(this).html(function(i, html){
+                return (html === '<span class="fa fa-history"></span> Προβολή Ιστορικού') ? '<span class="fa fa-history"></span> Απόκρυψη Ιστορικού' : '<span class="fa fa-history"></span> Προβολή Ιστορικού';
+            });
+            
+        });
 
         var lab_relations_details = e.detailRow.find("#lab_relations_details").kendoGrid({
             //dataSource: e.data.lab_relations,
@@ -710,7 +1045,7 @@ var LabsViewVM = kendo.observable({
                     }(),
             columns: [
                 { field: "relation_type_name",
-                  title: "τύπος συσχέτισης",
+                  title: "Τύπος Συσχέτισης",
                   editor: function (container, options){
                         
                         //check if there's already a 'served online' relation and hide the corresponding option
@@ -765,7 +1100,7 @@ var LabsViewVM = kendo.observable({
                   width: '20%'
                 },
                 { field: "school_unit_name", 
-                  title:"σχολική μονάδα",
+                  title:"Σχολική Μονάδα",
                   editor: function (container, options){
                         
                         //console.log("options.field", options.field);
@@ -775,6 +1110,7 @@ var LabsViewVM = kendo.observable({
                             autoBind: false,
                             dataSource: newSchoolUnitsDS(), //εδω μπορεί να μπεί και παράμετρος edu_admin
                             filter: "contains",
+                            placeholder: "επιλέξτε από τη λίστα",
                             change: function(e){
                                                                
                                 var relation_type_parent = $('#relation_type_parent').data("kendoDropDownList");
@@ -794,7 +1130,7 @@ var LabsViewVM = kendo.observable({
                   width: '35%'        
                 },
                 { field: "circuit_phone_number", 
-                  title: "αριθμός κυκλώματος",
+                  title: "Αριθμός Κυκλώματος",
                   editor: function (container, options){
               
                         //console.log("options.field", options.field); // =circuit_phone_number
@@ -822,15 +1158,22 @@ var LabsViewVM = kendo.observable({
                   }, 
                   width: '25%'
                 },
-                { command: [{ name: 'edit'}, {name: 'destroy'}], 
-                  title: 'ενέργειες', 
+                { command: [{ name: 'edit', text: "Επεξεργασία"}, {name: 'destroy', text: "Διαγραφή"}], 
+                  title: 'Ενέργειες', 
                   width: '20%', 
                   hidden: function(){
-                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id === 1) ? false : true;
+                      var hide = (jQuery.inArray( authorized_user , edit_lab_details ) !== -1 &&  e.data.lab_state_id !== 2 && e.data.lab_state_id !== 3) ? false : true;
                       return hide;
                   }()
                 }
-            ]           
+            ],
+            edit: function(e){
+                
+                //localization
+                e.container.find("td:eq(3)>a.k-grid-update").html('<span class="k-icon k-update"></span>Ενημέρωση');
+                e.container.find("td:eq(3)>a.k-grid-cancel").html('<span class="k-icon k-cancel"></span>Ακύρωση');
+
+            }         
         }).data("kendoGrid");
         
         var lab_transitions_details = e.detailRow.find("#lab_transitions_details").kendoGrid({
@@ -838,21 +1181,19 @@ var LabsViewVM = kendo.observable({
             scrollable: false,
             selectable: false,
             columns: [
-                { field: "from_state_name", title: "προηγούμενη κατάσταση"},
-                { field: "to_state_name", title:"παρούσα κατάσταση"},
-                { field: "transition_date", title: "ημερομηνία μετάβασης"},
-                { field: "transition_justification", title: "αιτιολογία μετάβασης"},
-                { field: "transition_source", title: "πηγή μετάβασης"}
+                { field: "from_state_name", title: "Προηγούμενη Κατάσταση"},
+                { field: "to_state_name", title:"Παρούσα Κατάσταση"},
+                { field: "transition_date", title: "Ημερομηνία Μετάβασης"},
+                { field: "transition_justification", title: "Αιτιολογία Μετάβασης"},
+                { field: "transition_source", title: "Πηγή Μετάβασης"}
             ]           
         }).data("kendoGrid");
         
         var data = this.dataSource.data(); //ta data items tou labs grid
         var codeDetailData = e.data;    //ta data tou expanded row
         
-        //console.log("codeDetailData: ", codeDetailData);
-        
         var lab_general_info_details = e.detailRow.find("#lab_general_info_details").kendoListView({
-            //dataSource: [e.data], //newLabGeneralInfoDS(e.data.lab_id, e.detailRow),
+            //dataSource: [e.data],
             //dataSource: newLabGeneralInfoDS(e.data.lab_id, e.detailRow),
             dataSource : new kendo.data.DataSource({
                 data: [codeDetailData.toJSON()],
@@ -878,9 +1219,7 @@ var LabsViewVM = kendo.observable({
             },
             save: function(event) {
                 if (this.editable.end()) {
-                    data.splice(data.indexOf(codeDetailData), 1, event.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
-                               
-                    //console.log("event.model: ", event.model);                  
+                    data.splice(data.indexOf(codeDetailData), 1, event.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)                 
                     
                     var parameters = {
                               lab_id: event.model.lab_id,
@@ -914,9 +1253,7 @@ var LabsViewVM = kendo.observable({
                                     notification.show({
                                         title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
                                         message: message
-                                    }, "success");                                            
-
-                                    //lab_workers_details.dataSource.read();
+                                    }, "success");
 
                                 }else if(data.status == 500 || data.status_external == 500){
 
@@ -927,8 +1264,8 @@ var LabsViewVM = kendo.observable({
 
                                 }
 
-                            },
-                            error: function (data){ console.log("PUT labs (lab_general_info_details) error data: ", data);}
+                            }//,
+                            //error: function (data){ console.log("PUT labs (lab_general_info_details) error data: ", data);}
                     });
                 }
             },
@@ -1010,25 +1347,10 @@ var LabsViewVM = kendo.observable({
             e.detailRow.find("#aquisition_sources_details>.k-grid-toolbar").hide();
             e.detailRow.find("#lab_relations_details>.k-grid-toolbar").hide();
         }
-        
-        //toggle lab workers logs
-        lab_workers_details.element.find(".k-toolbar").on("click", "button#show_lab_worker_logs_btn", function(e){
-            
-            $.each(lab_workers_details.dataSource.data(), function(index, value){
-                var tr= lab_workers_details.tbody.find("tr:eq(" + index + ")");
-                var dataitem= lab_workers_details.dataItem(tr);
-                if (dataitem.worker_status !== 1 && dataitem.worker_status !== ""){
-                    tr.toggle();
-                }
-            });            
-                        
-            $(this).html(function(i, html){
-                return (html === '<span class="fa fa-history"></span> προβολή ιστορικού') ? '<span class="fa fa-history"></span> απόκρυψη ιστορικού' : '<span class="fa fa-history"></span> προβολή ιστορικού';
-            });
-            
-        });
-         
+                
     },
+     
+    //αδιόρθωτα
     dataBinding: function(e){
         //console.log("LabsViewVM: labs grid DATABINDING event: ", e);
         
@@ -1104,7 +1426,7 @@ var LabsViewVM = kendo.observable({
                     var state = data_items[index].state_id; //search labs api function
                 }
 
-                if(value.submitted === 1){
+                if(value.submitted === "1"){
                     
                     submitButton.hide();
                     removeButton.hide();
@@ -1148,7 +1470,7 @@ var LabsViewVM = kendo.observable({
                         abolishButton.click(function() { return false; });
                     }
                 
-                }else if(value.submitted === 0){
+                }else if(value.submitted === "0"){
                     activateButton.hide();
                     suspendButton.hide();
                     abolishButton.hide();
@@ -1314,166 +1636,5 @@ var LabsViewVM = kendo.observable({
     hideLabTransitColumn: function(e){
         var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
         return hide;
-    },
-    submitLab: function(e){
-        console.log("submitLab e:", e);
-        
-        e.preventDefault();
-        var parent_grid = $(e.delegateTarget).data("kendoGrid");
-        
-        var submit_dialog = $("#submit_dialog").kendoWindow({
-                    modal: true,
-                    visible: false,
-                    resizable: false,
-                    width: 500,
-                    pinned:true,
-                    open: function(){
-                        submit_dialog.title("Οριστική Υποβολή Διάταξης Η/Υ");                   
-                        
-                        $("#submit_dialog").find("#sl>div.k-edit-buttons>button.k-grid-submit-lab").html('<span class="k-icon k-update"></span> Οριστική Υποβολή');
-                
-                        $(".k-grid-cancel-submit-lab").on("click", function(e){
-                            e.preventDefault();
-                            submit_dialog.close();
-                        });
-                        
-                        $(".k-grid-submit-lab").on("click", function(e){
-                            e.preventDefault();
-
-                            var parameters = {
-                                      lab_id: dataItem.lab_id,
-                                      submitted: "1"
-                                    };
-
-                            $.ajax({
-                                    type: "PUT",
-                                    url: baseURL + "labs" + "?user=" + user_url,
-                                    dataType: "json",
-                                    data: JSON.stringify(parameters),
-                                    success: function(data){
-
-                                        var message;
-                                        if (typeof data.message !== 'undefined'){
-                                            message= data.message;
-                                        }else if (typeof data.message_internal !== 'undefined'){
-                                            message= data.message_internal;
-                                        }else if (typeof data.message_external !== 'undefined'){
-                                            message= data.message_external;
-                                        }
-
-                                        if(data.status == 200){
-
-                                                submit_dialog.close();
-
-                                                notification.show({
-                                                    title: "Επιτυχής Υποβολή Διάταξης Η/Υ",
-                                                    message: message
-                                                }, "success");                                            
-
-
-                                            parent_grid.dataSource.read(); //school units view or labs view depending on the current view
-
-                                        }else if(data.status == 500){
-
-                                                notification.show({
-                                                    title: "Η Υποβολή της Διάταξης Η/Υ απέτυχε",
-                                                    message: message
-                                                }, "error");
-                                        }
-
-                                    }//,
-                                    //error: function (data){ console.log("ΛΑΘΟΣ AJAX REQUEST: ", data);}
-                            });
-                            
-                        });
-                    }
-        }).data("kendoWindow");
-        
-        var submitTemplate = kendo.template($("#lab_submit_template").html());
-        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        console.log("dataItem: ", dataItem);
-        submit_dialog.content(submitTemplate(dataItem));
-        submit_dialog.center().open();
- 
-    },
-    removeLab: function(e){
-        console.log("removeLab e:", e);
-        
-        e.preventDefault();
-        var parent_grid = $(e.delegateTarget).data("kendoGrid");
-        
-        var remove_dialog = $("#remove_dialog").kendoWindow({
-                    modal: true,
-                    visible: false,
-                    resizable: false,
-                    width: 500,
-                    pinned:true,
-                    open: function(){
-                        remove_dialog.title("Διαγραφή Διάταξης Η/Υ");                   
-                        
-                
-                        $(".k-grid-cancel-remove-lab").on("click", function(e){
-                            e.preventDefault();
-                            remove_dialog.close();
-                        });
-                        
-                        $(".k-grid-remove-lab").on("click", function(e){
-                            e.preventDefault();
-
-                            var parameters = {
-                                      lab_id: dataItem.lab_id
-                                    };
-
-                            $.ajax({
-                                    type: "DELETE",
-                                    url: baseURL + "labs" + "?user=" + user_url,
-                                    dataType: "json",
-                                    data: JSON.stringify(parameters),
-                                    success: function(data){
-
-                                        var message;
-                                        if (typeof data.message !== 'undefined'){
-                                            message= data.message;
-                                        }else if (typeof data.message_internal !== 'undefined'){
-                                            message= data.message_internal;
-                                        }else if (typeof data.message_external !== 'undefined'){
-                                            message= data.message_external;
-                                        }
-
-                                        if(data.status == 200){
-
-                                                submit_dialog.close();
-
-                                                notification.show({
-                                                    title: "Επιτυχής Διαγραφή Διάταξης Η/Υ",
-                                                    message: message
-                                                }, "success");                                            
-
-
-                                            parent_grid.dataSource.read(); //school units view or labs view depending on the current view
-
-                                        }else if(data.status == 500){
-
-                                                notification.show({
-                                                    title: "Η Διαγραφή της Διάταξης Η/Υ απέτυχε",
-                                                    message: message
-                                                }, "error");
-                                        }
-
-                                    }//,
-                                    //error: function (data){ console.log("ΛΑΘΟΣ AJAX REQUEST: ", data);}
-                            });
-                            
-                        });
-                    }
-        }).data("kendoWindow");
-        
-        var removeTemplate = kendo.template($("#lab_remove_template").html());
-        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        console.log("dataItem: ", dataItem);
-        remove_dialog.content(removeTemplate(dataItem));
-        remove_dialog.center().open();
- 
     }
-    
 });

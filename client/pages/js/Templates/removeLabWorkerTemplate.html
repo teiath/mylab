@@ -1,0 +1,46 @@
+<!-- remove lab worker template -->
+
+<script id="remove_lab_worker_template" type="text/x-kendo-template">
+    <div class="k-edit-form-container">
+
+        <div id="rlw" class="form-horizontal col-md-11">
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <span>
+                        <b>ΠΡΟΣΟΧΗ</b>:
+                        Αν επιθυμείτε να διατηρήσετε τον Υπεύθυνο στο Ιστορικό Υπευθύνων της
+                        Διάταξης Η/Υ ως Ανενεργό, <u>επιλέξτε <b>Απενεργοποίηση</b> και 
+                        <b>ΟΧΙ Διαγραφή</b></u>. 
+                    </span>
+                </div>
+            </div>
+            
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <u>Στην περίπτωση που επιλέξετε Διαγραφή, ο Υπεύθυνος θα διαγραφεί
+                    οριστικά από τη Διάταξης Η/Υ.</u>
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    Είστε βέβαιος ότι επιθυμείτε να διαγράψετε τον Υπεύθυνο 
+                    <b> #= firstname # #= lastname # ( ΑΜ #= worker_registry_no # )</b> 
+                    της Διάταξης Η/Υ <b> #=lab_name# </b>;
+                </div>
+            </div>
+
+        </div>
+
+        <div class="k-edit-buttons k-state-default">
+            <a class="k-button k-button-icontext k-grid-remove" href="\#">
+                <span class="k-icon k-update"></span>Διαγραφή
+            </a>
+            <a class="k-button k-button-icontext k-grid-cancel-remove" href="\#">
+                <span class="k-icon k-cancel"></span>Ακύρωση
+            </a>
+        </div>
+        
+    </div>
+</script>

@@ -1,40 +1,55 @@
 <!-- transit lab template -->
 
 <script id="lab_transit_template" type="text/x-kendo-template">
-<div id="tl" class="form-horizontal form-widgets col-md-11">
-    <div class='form-group'>
-        <div class="col-md-4">
-            <label id="TransitDate" for="TransitDate">Ημερομηνία<span style="color:red">*</span></label>
+    <div class="k-edit-form-container">
+
+        <div id="tl" class="form-horizontal col-md-11">
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <div style="width:100%;">
+                        Αν είστε βέβαιος ότι θέλετε να 
+                        # if(toState === "activate"){ # 
+                            <b>ενεργοποιήσετε</b> 
+                        # }else if(toState === "suspend"){ # 
+                            <b>αναστείλετε</b>
+                        # }else if(toState === "abolish"){ #
+                            <b>καταργήσετε</b> 
+                        # }# τη Διάταξη Η/Υ <br>
+                        <b>#= lab_name #</b>,<br>
+                        συμπληρώστε τα παρακάτω υποχρεωτικά πεδία.
+                    </div>
+                </div>    
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <label id="tl_transition_date_label" for="transition_date"></label>
+                    <input  id="tl_transition_date"
+                            name="transition_date"
+                            style="width: 100%"
+                    />
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <label id="tl_transition_justification_label" for="transition_justification"></label>
+                    <textarea id="tl_transition_justification"
+                            name="transition_justification"
+                            class="k-textbox"
+                            style="width: 100%;"></textarea>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <input  id="cl_transit_date"
-                    name="TransitDate"
-                    style="width: 100%"
-            />
+        
+        <div class="k-edit-buttons k-state-default">
+            <button class="k-button k-button-icontext k-grid-transit">
+                <span class="k-icon k-update"></span>
+            </button>
+            <button class="k-button k-button-icontext k-grid-cancel-transition">
+                <span class="k-icon k-cancel"></span> Ακύρωση
+            </button>
         </div>
+
     </div>
-
-    <div class='form-group'>
-        <div class="col-md-4">
-            <label id="TransitJustification" for="TransitJustification">Αιτιολογία<span style="color:red">*</span></label>
-        </div>
-        <div class="col-md-11">
-            <textarea id="cl_justification"
-                    name="TransitJustification"
-                    class="k-textbox"
-                    style="width: 100%; max-width: 431px;"></textarea>
-        </div>
-    </div>
-
-    <div class="k-edit-buttons k-state-default">
-        <button class="k-button k-button-icontext k-grid-transit">
-            <span class="k-icon k-update"></span>Μετάβαση
-        </button>
-        <button class="k-button k-button-icontext k-grid-cancel-transition">
-            <span class="k-icon k-cancel"></span>Άκυρο
-        </button>
-    </div>    
-    
-</div>
-
 </script>

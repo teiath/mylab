@@ -20,6 +20,7 @@
         require_once('client/pages/js/Templates/errorNotificationTemplate.html');
         require_once('client/pages/js/Templates/successNotificationTemplate.html');
         require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
+        require_once('client/pages/js/Templates/removeLabWorkerTemplate.html');
         require_once('client/pages/js/Templates/disableLabWorkerTemplate.html');
         require_once('client/pages/js/Templates/labsViewLabStateColumnTemplate.html');
         
@@ -54,6 +55,9 @@
     
     <!--disable lab worker dialog-->
     <div id="disable_lab_worker_dialog"></div>
+
+    <!--delete lab worker dialog-->
+    <div id="remove_lab_worker_dialog"></div>    
     
     <!--column selection dialog-->
     <div id="labs_column_selection_dialog"></div>
@@ -67,7 +71,7 @@
             <div class="col-md-12">        
                 <div    id="labs_view"
                         data-role="grid"
-                        data-bind="source: labs, visible: isVisible, events: {edit: createLab, dataBound: dataBound, dataBinding: dataBinding}"
+                        data-bind="source: labs, visible: isVisible, events: {edit: createLab, dataBound: dataBound, dataBinding: dataBinding, save: saveLab}"
                         data-detail-init="LabsViewVM.detailInit"
                         data-detail-template= 'lab_details_template'
                         data-selectable="row"
