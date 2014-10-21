@@ -1420,8 +1420,6 @@ var LabsViewVM = kendo.observable({
     
     openColumnSelection: function(e){
         
-        console.log("openColumnSelection e: ", e);
-        
         var column_selection_dialog = $("#labs_column_selection_dialog").kendoWindow({
                     modal: true,
                     visible: false,

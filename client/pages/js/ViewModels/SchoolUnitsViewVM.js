@@ -239,6 +239,9 @@ var SchoolUnitsViewVM = kendo.observable({
         //kendo.bind(e.detailRow.find(".k-grid-toolbar>.toolbar_filter>span"), LabsSearchVM); //φίλτρο τύπων εργαστηρίου
         
     },
+    
+    
+    
     openColumnSelection: function(e){
                
         var column_selection_dialog = $("#school_units_column_selection_dialog").kendoWindow({
@@ -257,19 +260,24 @@ var SchoolUnitsViewVM = kendo.observable({
                                                 </div>');
                     }
         }).data("kendoWindow");
-
         var template = kendo.template($("#school_units_column_selection_template").html());
-        var toolbar = "";
-        var grid = $("#school_units_view").data("kendoGrid");
+        var content = "";
+        var grid = $(e.target).closest(".k-grid").data("kendoGrid");
+        
         $.each(grid.columns, function (idx, item) {
-            toolbar += template({ idx: idx, item: item });
+            content += template({ idx: idx, item: item });
         });
 
-        column_selection_dialog.content(toolbar);
+        column_selection_dialog.content(content);
         column_selection_dialog.center().open();
+    },
+    refresh: function(e){
+        var grid = $(e.target).closest(".k-grid").data("kendoGrid");
+        grid.dataSource.read();
     },
     toggleColumn: function(col) {
         var grid = $("#school_units_view").data("kendoGrid");
+        
         if (grid.columns[col].hidden) {
             grid.showColumn(+col);
         } else {
@@ -292,10 +300,9 @@ var SchoolUnitsViewVM = kendo.observable({
             }
         });
     },
-    refresh: function(){
-        var grid = $("#school_units_view").data("kendoGrid");
-        grid.refresh();
-    },
+            
+            
+            
     refreshTooltip: function(e){
 
         var tooltip = $(".school_unit_refresh_btn").kendoTooltip({
