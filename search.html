@@ -1,6 +1,7 @@
 <script>
 $(document).ready(function() {
 
+    // this tooltip could not be binded through kendo 'data-bind' attr, so it was implemented here
     $('body').find("#sl_lab_worker").prev().focusin(function() {
 
         var tooltip = $('body').find("#sl_lab_worker").prev().kendoTooltip({
@@ -20,9 +21,8 @@ $(document).ready(function() {
     });
 
 
-    $("form input").on("keypress", function(e){
+    $("form#search-form input").on("keypress", function(e){
         //if current key is Enter
-        console.log(e);
         if (e.keyCode == 13) {
             //prevent default behavior
             e.preventDefault();

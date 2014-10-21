@@ -143,8 +143,11 @@ var SearchVM = kendo.observable({
                 }
         });
     },
+    
     labIDInfoTooltip: function(e){
-        var tooltip = $("#sl_lab_id").kendoTooltip({
+        
+        //var tooltip = $("#sl_lab_id").kendoTooltip({
+        var tooltip = $(e.target).kendoTooltip({
             autoHide: true,
             content:"για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα",
             width:185,
@@ -156,10 +159,13 @@ var SearchVM = kendo.observable({
             }
         }).data("kendoTooltip");
 
-        tooltip.show($("#sl_lab_id"));
+        //tooltip.show($("#sl_lab_id"));
+        tooltip.show($(e.target));
     },
     schoolUnitIDInfoTooltip: function(e){
-        var tooltip = $("#sl_school_unit_id").kendoTooltip({
+
+        //var tooltip = $("#sl_school_unit_id").kendoTooltip({
+        var tooltip = $(e.target).kendoTooltip({
             autoHide: true,
             content:"για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα",
             width:185,
@@ -170,11 +176,13 @@ var SearchVM = kendo.observable({
                 open: {effects: "fade:in",  duration: 1000}
             }
         }).data("kendoTooltip");
-        tooltip.show($("#sl_school_unit_id"));
+        
+        //tooltip.show($("#sl_school_unit_id"));
+        tooltip.show($(e.target));
     },
     xlsTooltip: function(e){
-
-        var tooltip = $(".export_to_xlsx").kendoTooltip({
+        
+        var tooltip = $(e.target).kendoTooltip({
             autoHide: true,
             content:"εξαγωγή σε .xlsx",
             width:95,
@@ -185,7 +193,8 @@ var SearchVM = kendo.observable({
                 open: {effects: "fade:in",  duration: 500}
             }
         }).data("kendoTooltip");
-        tooltip.show($(".export_to_xlsx"));
+        
+        tooltip.show($(e.target));
     },
     
     panelBarCollapse:function(e){

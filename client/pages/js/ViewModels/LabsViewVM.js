@@ -1414,10 +1414,6 @@ var LabsViewVM = kendo.observable({
         });
     },
     
-
-    
-    
-    
     openColumnSelection: function(e){
         
         var column_selection_dialog = $("#labs_column_selection_dialog").kendoWindow({
@@ -1489,38 +1485,37 @@ var LabsViewVM = kendo.observable({
             
             
     refreshTooltip: function(e){
-
-        if(LabsViewVM.isVisible){
-            var tooltip = $(".lab_refresh_btn").kendoTooltip({
-                autoHide: true,
-                content:"ανανέωση",
-                width:55,
-                height:20,
-                position: "top",
-                animation: {
-                    close: {effects: "fade:out",  duration: 500},
-                    open: {effects: "fade:in",  duration: 500}
-                }
-            }).data("kendoTooltip");
-            tooltip.show($(".lab_refresh_btn"));
-        }else{
-            var tooltip = $(".school_unit_labs_refresh_btn").kendoTooltip({
-                autoHide: true,
-                content:"ανανέωση",
-                width:55,
-                height:20,
-                position: "top",
-                animation: {
-                    close: {effects: "fade:out",  duration: 500},
-                    open: {effects: "fade:in",  duration: 500}
-                }
-            }).data("kendoTooltip");
-            tooltip.show($(".school_unit_labs_refresh_btn"));
-        }
+//        if(LabsViewVM.isVisible){
+        var tooltip = $(e.target).kendoTooltip({
+            autoHide: true,
+            content:"ανανέωση",
+            width:55,
+            height:20,
+            position: "top",
+            animation: {
+                close: {effects: "fade:out",  duration: 500},
+                open: {effects: "fade:in",  duration: 500}
+            }
+        }).data("kendoTooltip");
+        tooltip.show($(e.target));
+//        }else{
+//            var tooltip = $(".school_unit_labs_refresh_btn").kendoTooltip({
+//                autoHide: true,
+//                content:"ανανέωση",
+//                width:55,
+//                height:20,
+//                position: "top",
+//                animation: {
+//                    close: {effects: "fade:out",  duration: 500},
+//                    open: {effects: "fade:in",  duration: 500}
+//                }
+//            }).data("kendoTooltip");
+//            tooltip.show($(".school_unit_labs_refresh_btn"));
+//        }
     },
     columnsTooltip: function(e){
-        if(LabsViewVM.isVisible){
-            var tooltip = $(".lab_grid_columns_btn").kendoTooltip({
+//        if(LabsViewVM.isVisible){
+            var tooltip = $(e.target).kendoTooltip({
                 autoHide: true,
                 content:"επιλογή στηλών",
                 width:100,
@@ -1531,22 +1526,22 @@ var LabsViewVM = kendo.observable({
                     open: {effects: "fade:in",  duration: 500}
                 }
             }).data("kendoTooltip");
-            tooltip.show($(".lab_grid_columns_btn"));
-        }else{
-            var tooltip = $(".school_unit_labs_grid_columns_btn").kendoTooltip({
-                autoHide: true,
-                content:"επιλογή στηλών",
-                width:100,
-                height:20,
-                position: "top",
-                animation: {
-                    close: {effects: "fade:out",  duration: 500},
-                    open: {effects: "fade:in",  duration: 500}
-                }
-            }).data("kendoTooltip");
-            tooltip.show($(".school_unit_labs_grid_columns_btn"));
-            
-        }
+            tooltip.show($(e.target));
+//        }else{
+//            var tooltip = $(".school_unit_labs_grid_columns_btn").kendoTooltip({
+//                autoHide: true,
+//                content:"επιλογή στηλών",
+//                width:100,
+//                height:20,
+//                position: "top",
+//                animation: {
+//                    close: {effects: "fade:out",  duration: 500},
+//                    open: {effects: "fade:in",  duration: 500}
+//                }
+//            }).data("kendoTooltip");
+//            tooltip.show($(".school_unit_labs_grid_columns_btn"));
+//            
+//        }
     },
     
 });
