@@ -209,7 +209,7 @@ var SchoolUnitsViewVM = kendo.observable({
                       { field: 'created_by', title:'Δημιουργία από', width:'130px', hidden : true},
                       { command: [{text:'Ενεργοποίηση', click:LabsViewVM.transitLab, name:'activate'}, 
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend'},
-                                  {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.hideLabTransitColumn()}],
+                                  {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish'}], title: 'ενέργειες', width:'270px', hidden: LabsViewVM.actionsColumnVisible()}],
             edit: function(event){
                 //console.log("SchoolUnitsViewVM: nested labs grid EDIT event: ", event);
                 kendo.bind(event.container, LabsViewVM);
