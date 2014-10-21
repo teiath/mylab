@@ -713,7 +713,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         
         $sqlOrder = " ORDER BY labs.school_unit_id ASC";
 
-        $sql = $sqlSelect . $sqlFrom . $sqlWhere .$sqlWhereFilterLabs . $sqlWhereFilterLabWorkers . $sqlWhereFilterLabAquisitions . $sqlWhereFilterLabEquipments . $sqlOrder;
+        $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlWhereFilterLabs . $sqlWhereFilterLabWorkers . $sqlWhereFilterLabAquisitions . $sqlWhereFilterLabEquipments . $permit_labs. $sqlOrder;
         //echo "<br><br>".$sql."<br><br>";
 
         $stmt = $db->query( $sql );
