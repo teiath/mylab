@@ -1437,7 +1437,6 @@ var LabsViewVM = kendo.observable({
         
         var grid;
         if(LabsViewVM.isVisible){
-        //if($('#switch_to_labs_view_btn').is(':checked')){
             grid = $("#labs_view").data("kendoGrid");
         }else{
             grid = $("#school_unit_labs").data("kendoGrid");
@@ -1450,11 +1449,10 @@ var LabsViewVM = kendo.observable({
         column_selection_dialog.content(toolbar);
         column_selection_dialog.center().open();
     },
-    hideColumn: function(col) {
+    toggleColumn: function(col) {
 
         var grid;
         if(LabsViewVM.isVisible){
-        //if($('#switch_to_labs_view_btn').is(':checked')){
             grid = $("#labs_view").data("kendoGrid");
         }else{
             grid = $("#school_unit_labs").data("kendoGrid");
@@ -1496,7 +1494,6 @@ var LabsViewVM = kendo.observable({
     refresh: function(){
         var grid;
         if(LabsViewVM.isVisible){
-        //if($('#switch_to_labs_view_btn').is(':checked')){
             grid = $("#labs_view").data("kendoGrid");
         }else{
             grid = $("#school_unit_labs").data("kendoGrid");
@@ -1507,7 +1504,6 @@ var LabsViewVM = kendo.observable({
     refreshTooltip: function(e){
 
         if(LabsViewVM.isVisible){
-        //if($('#switch_to_labs_view_btn').is(':checked')){
             var tooltip = $(".lab_refresh_btn").kendoTooltip({
                 autoHide: true,
                 content:"ανανέωση",
@@ -1537,7 +1533,6 @@ var LabsViewVM = kendo.observable({
     },
     columnsTooltip: function(e){
         if(LabsViewVM.isVisible){
-        //if($('#switch_to_labs_view_btn').is(':checked')){
             var tooltip = $(".lab_grid_columns_btn").kendoTooltip({
                 autoHide: true,
                 content:"επιλογή στηλών",

@@ -268,7 +268,7 @@ var SchoolUnitsViewVM = kendo.observable({
         column_selection_dialog.content(toolbar);
         column_selection_dialog.center().open();
     },
-    hideColumn: function(col) {
+    toggleColumn: function(col) {
         var grid = $("#school_units_view").data("kendoGrid");
         if (grid.columns[col].hidden) {
             grid.showColumn(+col);

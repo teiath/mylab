@@ -3,9 +3,9 @@
         #if(typeof item.command === 'undefined') {#
             <label for='field-#= item.field #'>
                 #if(typeof item.hidden === 'undefined' || item.hidden === false) {#
-                    <input type='checkbox' id='field-#= item.field #' checked onclick='SchoolUnitsViewVM.hideColumn("#=idx#")'>
+                    <input type='checkbox' id='field-#= item.field #' checked onclick='SchoolUnitsViewVM.toggleColumn("#=idx#")'>
                 #}else{#
-                    <input type='checkbox' id='field-#= item.field #' onclick='SchoolUnitsViewVM.hideColumn("#=idx#")'>
+                    <input type='checkbox' id='field-#= item.field #' onclick='SchoolUnitsViewVM.toggleColumn("#=idx#")'>
                 #}#
                 #= item.title ? item.title : item.field #
             </label>
