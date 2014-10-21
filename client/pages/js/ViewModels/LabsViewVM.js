@@ -105,6 +105,7 @@ var LabsViewVM = kendo.observable({
                     aquisition_sources:{},
                     equipment_types:{},
                     lab_state:{},
+                    lab_state_id:{},
                     lab_source:{},
                     transition_source:{},                    
                     transition_justification:{},
@@ -198,9 +199,7 @@ var LabsViewVM = kendo.observable({
     
     ds_lab_types: newLabTypesDS(),
     ds_school_units: newSchoolUnitsDS(1), //used inside labCreateTemplate.html
-    
-    refresh_btn: false,
-    
+        
     //διορθωμένα
     createLab:  function(e){
         console.log("labsview createLab: ", e);
@@ -209,7 +208,7 @@ var LabsViewVM = kendo.observable({
         //e.container.closest("div.k-window").css("width", "450px").center();
         
         if (e.model.isNew()) {
-            
+                       
             var createDialogTitle = e.container.prev().find(".k-window-title");
             var createDialogUpdateButton = e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-update");
             var createDialogCancelButton = e.container.find(".k-edit-form-container>.k-edit-buttons>.k-grid-cancel");
@@ -1150,17 +1149,11 @@ var LabsViewVM = kendo.observable({
                 { field: "transition_source", title: "Πηγή Μετάβασης"}
             ]           
         }).data("kendoGrid");
-        
-        var data = this.dataSource.data(); //ta data items tou labs grid
-        var codeDetailData = e.data;    //ta data tou expanded row
-        
+                
         var lab_general_info_details = e.detailRow.find("#lab_general_info_details").kendoListView({
-            //dataSource: [e.data],
-            //dataSource: newLabGeneralInfoDS(e.data.lab_id, e.detailRow),
             dataSource : new kendo.data.DataSource({
-                data: [codeDetailData.toJSON()],
+                data: [e.data.toJSON()],
                 schema : {
-                    //data: "data",
                     model: {
                         id: "lab_id",
                         fields:{
@@ -1180,8 +1173,8 @@ var LabsViewVM = kendo.observable({
                 }
             },
             save: function(event) {
-                if (this.editable.end()) {
-                    data.splice(data.indexOf(codeDetailData), 1, event.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)                 
+                if (this.editable.end()) { //? δεν ειμαι σίγουρη οτι χρειάζεται αυτό...
+                    //data.splice(data.indexOf(codeDetailData), 1, event.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)                 
                     
                     var parameters = {
                               lab_id: event.model.lab_id,
@@ -1237,7 +1230,7 @@ var LabsViewVM = kendo.observable({
 
         var lab_rating_details = e.detailRow.find("#lab_rating_details").kendoListView({
             dataSource : new kendo.data.DataSource({
-                data: [codeDetailData.toJSON()],
+                data: [e.data.toJSON()],
                 schema : {
                     model: {
                         id: "lab_id",
@@ -1251,7 +1244,7 @@ var LabsViewVM = kendo.observable({
             }),
             save: function(e) {
                 if (this.editable.end()) {
-                    data.splice(data.indexOf(codeDetailData), 1, e.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
+                    //data.splice(data.indexOf(codeDetailData), 1, e.model); //αντικατέστησε στο datasource του grid, το item το οποιο επεξεργάστηκες (e.model)
                                         
                     var parameters = {
                               lab_id: e.model.lab_id,
@@ -1283,8 +1276,6 @@ var LabsViewVM = kendo.observable({
                                         message: message
                                     }, "success");                                            
 
-                                    //lab_workers_details.dataSource.read();
-
                                 }else if(data.status == 500 || data.status_external == 500){
 
                                     notification.show({
@@ -1311,70 +1302,30 @@ var LabsViewVM = kendo.observable({
         }
                 
     },
-     
-    //αδιόρθωτα
     dataBinding: function(e){
-        //console.log("LabsViewVM: labs grid DATABINDING event: ", e);
+        console.log("LabsViewVM: labs grid DATABINDING event: ", e);
         
-        /* create "expandedRows" array as data attribute to labs view grid.
-         * "expandedRows" will contain info for the currently expanded rows
-         * in order to maintain their status (expanded, tabstrip index, scroll position)
-         * after lab general info or rating update (inside dataBound event)
-        */
-        
-        if(e.action !== "add" && LabsViewVM.get("refresh_btn") === false){ //αυτη η συνθήκη παίζει να πρέπει να εμπλουτιστεί γιατί ισως πετάει bugακια σε κάποια σενάρια
-            
-            var expandedRows = e.sender.element.data("kendoGrid").table.find("tr.k-master-row a.k-minus").closest("tr");
+//        if(e.action === "add"){
+//            setTimeout(function() {
+//                var currentRow = $(e.sender.tbody).children("tr.k-master-row").eq("0");
+//                var activateButton = currentRow.children('td:last').find(".k-grid-activate");
+//                var suspendButton = currentRow.children('td:last').find(".k-grid-suspend");
+//                var abolishButton = currentRow.children('td:last').find(".k-grid-abolish");
+//                activateButton.hide();
+//                suspendButton.hide();
+//                abolishButton.hide();
+//            }, 100);
+//        }
 
-            //εδω θα μπεί μόνο αν υπάρχουν expanded rows
-            e.sender.element.data('expandedRows', []);
-            $.each(expandedRows, function(index,value){
-
-                var detailRowTabstrip = $(this).next().find("div#lab_details_tabstrip").data("kendoTabStrip");
-                var tabstrip_index = detailRowTabstrip.select().index();
-
-                e.sender.element.data('expandedRows').push( {row_index: $(this).index(), tabstrip_index: tabstrip_index, scroll_position: $(document).scrollTop()} );
-            });
-
-            //εδω θα μπεί μόνο αν υπάρχουν expanded rows
-            $.each(e.sender.element.data('expandedRows'), function(index,value){
-                e.sender.element.data('expandedRows')[index]['row_index'] = e.sender.element.data('expandedRows')[index]['row_index'] - index;
-                index++;
-            });
-        }else{
-            //console.log("im inside dataBinding after i pressed refresh", LabsViewVM.get("refresh_btn"));
-        }
-        
     },
     dataBound: function(e){
-        //console.log("LabsViewVM: labs grid DATABOUND event: ", e);
-          
-        if(LabsViewVM.get("refresh_btn") === false){
-            var grid = e.sender.element.data("kendoGrid");
-            //εδω θα μπεί μόνο αν υπάρχουν expanded rows
-            $.each(e.sender.element.data('expandedRows'), function(index,value){
-                // get current row and expand it
-                var tr = grid.table.find("tr.k-master-row:eq("+ value['row_index'] + ")");//.closest("tr");
-                grid.expandRow( tr );
-                // preserving scroll position
-                $(document).scrollTop(value['scroll_position']);
-                // and selected tab
-                var tabstrip = tr.next().find("div#lab_details_tabstrip").data("kendoTabStrip");
-                tabstrip.select(value['tabstrip_index']);
-            });
-        }else{
-            LabsViewVM.set("refresh_btn", false);
-            //console.log("i set refresh_btn to false after refresh: ", LabsViewVM.get("refresh_btn"));
-        }
+        console.log("LabsViewVM: labs grid DATABOUND event: ", e);
     
         // show/hide action buttons according to lab state
         var data_items = e.sender.dataSource.data();
-        console.log("data_items: ", data_items);
         $.each(data_items, function(index, value){
             var currentRow = $(e.sender.tbody).children("tr.k-master-row").eq(index);
             if(currentRow.hasClass("k-master-row")){
-                //console.log("index: ", index);
-                //console.log("currentRow: ", currentRow);
                 var activateButton = $(currentRow).children('td:last').find(".k-grid-activate");
                 var suspendButton = $(currentRow).children('td:last').find(".k-grid-suspend");
                 var abolishButton = $(currentRow).children('td:last').find(".k-grid-abolish");
@@ -1383,7 +1334,6 @@ var LabsViewVM = kendo.observable({
 
                 if(typeof data_items[index].lab_state_id !== 'undefined'){
                     var state = data_items[index].lab_state_id;
-                    console.log("typeof state: ", typeof state);
                 }
 
                 if(value.submitted === "1"){
@@ -1457,13 +1407,10 @@ var LabsViewVM = kendo.observable({
                         abolishButton.click(function() { return false; });
                 }
             }
-            
         });
-
     },
     
-    
-    
+
     
     
     
@@ -1554,8 +1501,7 @@ var LabsViewVM = kendo.observable({
         }else{
             grid = $("#school_unit_labs").data("kendoGrid");
         }
-        //grid.refresh();
-        LabsViewVM.set("refresh_btn", true);
+        
         grid.dataSource.read();
     },
     refreshTooltip: function(e){
