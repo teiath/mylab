@@ -73,7 +73,7 @@
                         data-columns="[{ 'field': 'lab_id', 'title':'Κωδικός Διάταξης Η/Υ', 'width':'140px', 'hidden' : true},
                                        { 'field': 'lab_name', 'title':'Ονομασία', 'width':'460px'},
                                        { 'field': 'lab_type', 'title':'Τύπος', 'width':'150px', 'hidden' : true},
-                                       { 'field': 'lab_state', 'title':'Λειτουργική Κατάσταση', 'width':'150px'},
+                                       { 'field': 'lab_state', 'title':'Λειτουργική Κατάσταση', 'template' : $('#labs_view_lab_state_column_template').html(), 'width':'150px'},
                                        { 'field': 'rating', 'title':'Αξιολόγηση', 'template' : $('#labs_view_rating_column_template').html(), 'width':'95px'},
                                        { 'field': 'positioning', 'title':'Τοποθεσία', 'width':'180px', 'hidden' : true},
                                        { 'field': 'lab_special_name', 'title':'Ειδική Ονομασία', 'width':'180px', 'hidden' : true},
