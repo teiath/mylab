@@ -9,10 +9,8 @@ function newWorkersDS(){
                                 dataType: "json"
                             },
                             parameterMap: function(data, type) {
-
-                                //console.log("newWorkersDS parametermap data", data);
                                 if (type === 'read') {
-                                    if (typeof data.filter !== 'undefined' && typeof data.filter.filters !== 'undefined') {
+                                    if (typeof data.filter !== 'undefined' && typeof data.filter.filters !== 'undefined' && typeof data.filter.filters[0] !== 'undefined') {
                                         data["worker"] = data.filter.filters[0].value;
                                         delete data.filter;
                                     }
