@@ -1,7 +1,6 @@
 var SchoolUnitsViewVM = kendo.observable({
 
     isVisible: false,
-    school_unit_parameters: null,
 
     school_units:  new kendo.data.DataSource({
         transport: {
@@ -41,8 +40,6 @@ var SchoolUnitsViewVM = kendo.observable({
                     
                     // for  multiple partial string search in school_unit_name, school_unit_special_name, lab_name, lab_special_name inputs
                     data['searchtype'] = "containall";
-                    
-                    SchoolUnitsViewVM.set("school_unit_parameters",  data);
                     
                     return data;
                     
@@ -245,9 +242,6 @@ var SchoolUnitsViewVM = kendo.observable({
             }
         });
     },
-            
-            
-            
     refreshTooltip: function(e){
         
         var tooltip = $(e.target).kendoTooltip({
