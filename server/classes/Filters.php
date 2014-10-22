@@ -263,7 +263,7 @@ class Filters {
        . $sqlWhere
        . $sqlPermissions
        .' ) AS tb1 GROUP BY tb1.school_unit_id';
-var_dump($sql);die();
+
             $stmt = $db->query( $sql );
             $lab_types_per_schools = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                
