@@ -1,5 +1,77 @@
 <script type="text/x-kendo-template" id="school_unit_contact_details_template">
     <div id="details-container">
+    
+    <div class="form-horizontal col-md-11">
+    
+            <div class='form-group'>
+                <div class="col-md-11">
+                        <h4 style="text-align: center"> #= school_unit_name # </h4>
+                        #if(school_unit_special_name !== null){#
+                            <h6 style="text-align: center"> #= school_unit_special_name # </h6>
+                        #}#
+                </div>    
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    #if(phone_number !== null){#
+                        <span> <i class="fa fa-phone"></i> <b>Τηλέφωνο</b>: #: phone_number #  </span>
+                    #}else{#
+                        <span> <i class="fa fa-phone"></i> <b>Τηλέφωνο</b>: </span>
+                    #}#
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    #if(fax_number !== null){#
+                        <span> <i class="fa fa-fax"></i> <b>Fax</b>: #: fax_number #  </span>
+                    #}else{#
+                        <span> <i class="fa fa-fax"></i> <b>Fax</b>: </span>
+                    #}#
+                </div>
+            </div>
+        
+            <div class='form-group'>
+                <div class="col-md-11">
+                    #if(email !== null){#
+                        <span> <i class="fa fa-envelope"></i> <b>E-mail</b>: #: email #  </span>
+                    #}else{#
+                        <span> <i class="fa fa-envelope"></i> <b>E-mail</b>: </span>
+                    #}#
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    #if(street_address !== null && postal_code !== null){#
+                        <span> <i class="fa fa-home"></i> <b>Ταχυδρομική Διεύθυνση</b>: #= street_address + ", TK: " + postal_code #  </span>
+                    #}else if (street_address !== null && postal_code === null) {#
+                        <span> <i class="fa fa-home"></i> <b>Ταχυδρομική Διεύθυνση</b>: #= street_address # </span>
+                    #}else{#
+                        <span> <i class="fa fa-home"></i> <b>Ταχυδρομική Διεύθυνση</b>: </span>
+                    #}#
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    #if(school_unit_worker !== null){#
+                        <span> <i class="fa fa-user"></i> <b>Διευθυντής</b>:  #= school_unit_worker[0].firstname + " " + school_unit_worker[0].lastname #  </span>
+                    #}else{#
+                        <span> <i class="fa fa-user"></i> <b>Διευθυντής</b>: </span>
+                    #}#
+                </div>
+            </div>
+        
+    </div>    
+
+</script>
+
+
+<!--
+
+    <div id="details-container">
         <h4 style="text-align: center"> #= school_unit_name # </h4>
         
         #if(school_unit_special_name !== null){#
@@ -44,4 +116,5 @@
             
         </dl>
     </div>
-</script>
+
+-->
