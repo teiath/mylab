@@ -43,7 +43,7 @@ var StatisticsVM = kendo.observable({
     municipality: "",           //πολλαπλό
     prefecture:"",
     
-    resetForm: function(e) {
+    resetFiltersPane: function(e) {
 
         e.preventDefault();
 
@@ -203,7 +203,7 @@ var StatisticsVM = kendo.observable({
         });
 
     },
-    cascade: function(e){
+    cascadeAxis: function(e){
         
         //if x_axis and y_axis have both values, and are different from each other
         if ( StatisticsVM.x_axis !== "" && StatisticsVM.y_axis !== "" && (StatisticsVM.x_axis !== StatisticsVM.y_axis) ){
@@ -228,7 +228,7 @@ var StatisticsVM = kendo.observable({
             //console.log(StatisticsVM.statisticExportEnabled);
         }
     },
-    toggleFilters: function(e){
+    toggleFiltersPane: function(e){
 
         if($('#show_statistic_filters_btn').find('span').hasClass("k-i-arrow-e")){
             $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-e");

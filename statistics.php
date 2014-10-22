@@ -8,8 +8,8 @@
                 <form id="statistics-form">
 
                     <div class="col-md-12" style="margin:20px 0px 25px 0px;">
-                        <button id="clear" class="k-button" data-bind="click: resetForm">καθαρισμός</button>
-                        <button id="statistic_export_btn" class="k-button k-state-disabled" data-bind="click: getStatistic, enabled: statisticExportEnabled" >Προβολή Στατιστικού</button>
+                        <button id="clear" class="k-button" data-bind="click: resetFiltersPane"><i class="fa fa-eraser"></i> Καθαρισμός</button>
+                        <button id="statistic_export_btn" class="k-button k-state-disabled" data-bind="click: getStatistic, enabled: statisticExportEnabled" > <i class="fa fa-bar-chart-o"></i> Προβολή Στατιστικού</button>
                         <div class="col-md-12" style="padding:0px; margin-top:5px;"> <span data-bind="visible: cascadeValidationVisible" style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
                     </div>
                     
@@ -23,7 +23,7 @@
                                 data-auto-bind="true"
                                 data-text-field="name"
                                 data-value-field="axis_name"
-                                data-bind="source: axis_x_ds, value: x_axis , events: {change : cascade }"
+                                data-bind="source: axis_x_ds, value: x_axis , events: {change : cascadeAxis }"
                                 data-filter="contains"/>
                     </div>
                     
@@ -37,13 +37,13 @@
                                 data-ignore-case= "false"
                                 data-text-field="name"
                                 data-value-field="axis_name"
-                                data-bind="source: axis_y_ds, value: y_axis, events: {change : cascade }"
+                                data-bind="source: axis_y_ds, value: y_axis, events: {change : cascadeAxis }"
                                 data-filter="contains"/>
                     </div>
                     
                     <div class="col-md-12" style="margin:10px 0px 20px 0px;">
                         <label style="font-size:13px;"> Φίλτρα : Επιλέξτε ένα ή περισσότερα φίλτρα για την αποτελεσματικότερη εξαγωγή στατιστικών </label>
-                        <a id="show_statistic_filters_btn" class="k-button" data-bind="click: toggleFilters"><span class="k-icon k-i-arrow-e"></span></a>
+                        <a id="show_statistic_filters_btn" class="k-button" data-bind="click: toggleFiltersPane"><span class="k-icon k-i-arrow-e"></span></a>
                     </div>
                     
                     <!--<div class="row" style="padding:20px;">-->
