@@ -854,9 +854,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
        //$array_school_units=  Validator::ToUniqueObject($array_school_units);
         
         //find count of lab_types per school_units
-        $sqlFromLabs = ' FROM `labs`';
+        $sqlFromLabs = ' FROM `labs` LEFT JOIN school_units using (school_unit_id) ';
         $sqlWhereLabs = ' WHERE labs.school_unit_id IN ('. $school_unit_ids .') ';
-        $array_count_labs = Filters::LabsCounter($sqlFromLabs,$sqlWhereLabs);
+        $array_count_labs = Filters::LabsCounter($sqlFromLabs,$sqlWhereLabs,$sqlPermissions);
         $sql_array = Filters::AllLabTypes();
         
         //echo count($array_school_units);die();
