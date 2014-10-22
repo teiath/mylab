@@ -8,15 +8,10 @@ function newLabsDS(school_unit_id, detailInitEvent){
                 dataType: "json"
             },
             create: {
-                url: "api/labs?user=" + user_url,//"api/labs",
+                url: "api/labs?user=" + user_url,
                 type: "POST",
                 dataType: "json"
             },
-            update: {
-                url: "api/labs?user=" + user_url,//"api/labs",
-                type: "POST",
-                dataType: "json"
-            }, // το update γιατι υπάρχει ;;
             parameterMap: function(data, type) {
                 if (type === 'read') {
 
@@ -53,9 +48,7 @@ function newLabsDS(school_unit_id, detailInitEvent){
                     
                     data['pagesize'] = data.pageSize;
                     delete data.pageSize;
-                    
-                    data['user'] = user;
-                                        
+                                                            
                     return data;
                     
                 }else if(type === 'create'){
@@ -64,19 +57,16 @@ function newLabsDS(school_unit_id, detailInitEvent){
                         data["school_unit_id"] = school_unit_id;
                     }
 
-                    //normalize transition_date parameter
-                    data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
+                    //normalize ellak parameter
+                    //data["transition_date"] = kendo.toString(data["transition_date"], "yyyy/MM/dd");
                     data["ellak"] = (data["ellak"])? true : false; 
                    
                     //standar parameters in lab creation
-                    data["state"] = "1";
                     data["lab_source"] = "1";
-                    data["transition_source"] = "mylab";
-                    data["transition_justification"] = "δημιουργία Διάταξης Η/Υ";
                     
                     //υποβάλλονται κενά, λόγω του ότι βρίσκονται στο schema, παρότι στη δημιουργία εργαστηρίου δεν εισάγονται
                     delete data.operational_rating;
-                    delete data.technological_rating;                
+                    delete data.technological_rating;           
                     //return JSON.stringify(data);                                        
                     return data;
 
@@ -93,6 +83,7 @@ function newLabsDS(school_unit_id, detailInitEvent){
                     lab_name:{},
                     lab_type:{},
                     ellak:{},
+                    submitted:{},
                     lab_worker:{},
                     worker_start_service:{},
                     relation_served_service:{},
@@ -104,6 +95,8 @@ function newLabsDS(school_unit_id, detailInitEvent){
                     transition_date:{},
                     aquisition_sources:{},
                     equipment_types:{},
+                    lab_state:{},
+                    lab_state_id:{},
                     state:{}, //{defaultValue: 1},
                     lab_source:{}, //{defaultValue: 1},
                     transition_source:{}, //{defaultValue: "mylab"},            
@@ -129,7 +122,7 @@ function newLabsDS(school_unit_id, detailInitEvent){
         //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {
             //console.log("newLabsDS - labs datasource requestEnd e:", e);
-            if (e.type=="create" || e.type=="destroy"){
+            if (e.type=="create"){
                 
                 var grid = detailInitEvent.detailRow.find("#school_unit_labs").data("kendoGrid");
                 

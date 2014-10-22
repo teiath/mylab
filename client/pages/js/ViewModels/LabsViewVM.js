@@ -18,16 +18,6 @@ var LabsViewVM = kendo.observable({
                 type: "POST",
                 dataType: "json"
             },
-//            update: {
-//                url: "api/labs?user=" + user_url,
-//                type: "PUT",
-//                dataType: "json"
-//            },
-//            destroy: {
-//                url: "api/labs?user=" + user_url,
-//                type: "DELETE",
-//                dataType: "json"
-//            },
             parameterMap: function(data, type) {
                 if (type === 'read') {
                     
@@ -63,8 +53,6 @@ var LabsViewVM = kendo.observable({
                     
                     // for  multiple partial string search in school_unit_name, school_unit_special_name, lab_name, lab_special_name inputs
                     data['searchtype'] = "containall";
-                    //user authorization
-                    //data['user'] = user;
                     
                     return data;
                     
