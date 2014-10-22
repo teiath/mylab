@@ -47,7 +47,7 @@
                     </div>
                     
                     <!--<div class="row" style="padding:20px;">-->
-                    <div id="statistic_filters" class="col-md-12" data-bind="visible: filtersVisible">
+                    <div id="statistic_filters" class="col-md-12" data-bind="visible: filtersPaneVisible">
                         <div class="col-md-4">
 
                             <div class="col-md-11">

@@ -3,7 +3,7 @@ var StatisticsVM = kendo.observable({
     isVisible: false,
     statisticExportEnabled: false,
     cascadeValidationVisible: false,
-    filtersVisible: false,
+    filtersPaneVisible: false,
 
     axis_x_ds: newAxisXDS(),
     axis_y_ds: newAxisYDS(),
@@ -238,6 +238,6 @@ var StatisticsVM = kendo.observable({
             $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-s");
         }
         
-        StatisticsVM.filtersVisible ? StatisticsVM.set("filtersVisible", false) : StatisticsVM.set("filtersVisible", true);
+        StatisticsVM.filtersPaneVisible ? StatisticsVM.set("filtersPaneVisible", false) : StatisticsVM.set("filtersPaneVisible", true);
     }    
 });
