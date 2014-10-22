@@ -11,7 +11,7 @@
     <button class="school_unit_labs_grid_columns_btn k-button" data-bind="click: openColumnSelection, events: { mouseover: columnsTooltip }" style="float:right;"> <span class="k-icon k-sprite k-i-columns"></span></button>
 
     #if(jQuery.inArray( authorized_user , search_xls ) !== -1){ #
-        <div class="results_info">
+        <div class="col-md-6">
             <ul class="list-inline lab_types_count">
                 <li><label>ΣεπεΗΥ: <span data-bind="text: total_labs_by_type['ΣΕΠΕΗΥ']"></span></label></li>
                 <li><label>ΕΤΠ: <span data-bind="text: total_labs_by_type['ΕΤΠ']"></span></label></li>
