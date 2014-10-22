@@ -1,0 +1,16 @@
+<script type="text/x-kendo-template" id="school_units_view_school_unit_state_column_template">
+
+#if(school_unit_state === "ΕΝΕΡΓΗ"){ #
+
+    <i class="fa fa-circle state_green"></i> <span style="margin-left:4px;"> #:school_unit_state # </span>
+
+# }else if(school_unit_state === "ΣΕ ΑΝΑΣΤΟΛΗ") { #
+
+    <i class="fa fa-circle state_orange"></i> <span style="margin-left:4px;"> #:school_unit_state # </span>
+    
+# }else if(school_unit_state === "ΚΑΤΑΡΓΗΜΕΝΗ") { #
+
+   <i class="fa fa-circle state_red"></i> <span style="margin-left:4px;"> #:school_unit_state # </span>
+
+# } #
+</script>

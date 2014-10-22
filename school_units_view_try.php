@@ -20,7 +20,9 @@
         require_once('client/pages/js/Templates/schoolUnitDetailsTemplate.html');
 
         require_once('client/pages/js/Templates/errorNotificationTemplate.html');
-        require_once('client/pages/js/Templates/successNotificationTemplate.html');        
+        require_once('client/pages/js/Templates/successNotificationTemplate.html');
+        require_once('client/pages/js/Templates/schoolUnitsViewSchoolUnitStateColumnTemplate.html');
+        
     ?> 
 
     <!--contact details dialog-->
@@ -62,7 +64,7 @@
                                        { 'field': 'school_unit_special_name', 'title':'Ειδική Ονομασία', 'width':'250px', 'hidden': true},
                                        { 'field': 'school_unit_type', 'title':'Τύπος', 'width':'115px', 'hidden': true},
                                        { 'field': 'education_level', 'title':'Βαθμίδα', 'width':'115px', 'hidden': true},
-                                       { 'field': 'school_unit_state', 'title':'Λειτουργική Κατάσταση', 'width':'150px'},
+                                       { 'field': 'school_unit_state', 'title':'Λειτουργική Κατάσταση', 'template' : $('#school_units_view_school_unit_state_column_template').html(), 'width':'150px'},
                                        { 'field': 'region_edu_admin', 'title':'Περιφερειακή Διεύθυνση Εκπαίδευσης', 'width':'250px', 'hidden': true},
                                        { 'field': 'edu_admin', 'title':'Διεύθυνση Εκπαίδευσης', 'width':'250px'},
                                        { 'field': 'transfer_area', 'title':'Περιοχή Μετάθεσης', 'width':'200px', 'hidden': true},

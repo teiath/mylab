@@ -115,7 +115,25 @@ var SchoolUnitsViewVM = kendo.observable({
             columns: [{ field: 'lab_id', title:'Κωδικός Διάταξης Η/Υ', width:'140px', hidden : true},
                       { field: 'lab_name', title:'Ονομασία', width:'460px'},
                       { field: 'lab_type', title:'Τύπος', width:'150px', hidden : true},
-                      { field: 'lab_state', title:'Λειτουργική Κατάσταση', width:'150px'},
+                      { field: 'lab_state', 
+                        title:'Λειτουργική Κατάσταση',
+                        template: function(dataItem) {
+                            
+                            var state= dataItem.lab_state;
+                            var itemReturned;
+                            
+                            if(state === "ΕΝΕΡΓΗ"){
+                                itemReturned = '<i class="fa fa-circle state_green"></i> <span style="margin-left:4px;">' + state + '</span>';
+                            }else if(state === "ΣΕ ΑΝΑΣΤΟΛΗ"){
+                                itemReturned = '<i class="fa fa-circle state_orange"></i> <span style="margin-left:4px;">' + state + '</span>';
+                            }else if(state === "ΚΑΤΑΡΓΗΜΕΝΗ"){
+                                itemReturned = '<i class="fa fa-circle state_red"></i> <span style="margin-left:4px;">' + state + '</span>';
+                            }
+                            
+                            return itemReturned;
+                        },
+                        width:'150px'
+                      },
                       {     
                             field:'rating',
                             title:'Αξιολόγηση',
