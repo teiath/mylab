@@ -261,6 +261,7 @@
                 
                 //index holds thr grid's row index in school units view, in order to expand it after lab creation
                 index= null;
+                //searchParameters holds search form filters in order to be used inside SearchVM's exportToXLSX
                 searchParameters = [];
                                                
             });

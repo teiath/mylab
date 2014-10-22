@@ -1414,6 +1414,7 @@ var LabsViewVM = kendo.observable({
         });
     },
     
+    
     openColumnSelection: function(e){
         
         var column_selection_dialog = $("#labs_column_selection_dialog").kendoWindow({
@@ -1481,7 +1482,6 @@ var LabsViewVM = kendo.observable({
             }
         });
     },
-            
             
             
     refreshTooltip: function(e){
