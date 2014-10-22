@@ -243,7 +243,7 @@ class Filters {
         return $all_labs_counts;
     }
    
-    public static function LabsCounter($sqlFrom,$sqlWhere){
+    public static function LabsCounter($sqlFrom,$sqlWhere,$sqlPermissions){
         global $db;
         
         $sql = "SELECT lab_type_id,name FROM lab_types";
@@ -261,8 +261,9 @@ class Filters {
        .' FROM ( SELECT DISTINCT labs.lab_id, labs.lab_type_id, labs.school_unit_id  '
        . $sqlFrom
        . $sqlWhere
+       . $sqlPermissions
        .' ) AS tb1 GROUP BY tb1.school_unit_id';
-
+var_dump($sql);die();
             $stmt = $db->query( $sql );
             $lab_types_per_schools = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                
