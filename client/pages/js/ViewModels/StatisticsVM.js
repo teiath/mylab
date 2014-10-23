@@ -92,8 +92,8 @@ var StatisticsVM = kendo.observable({
         jQuery("#statistics-table thead tr").empty();
         jQuery("#statistics-table thead tr").append("<th></th>");
         
-        var formData = $("#statistics-form").serializeArray();
-        var parameters = normalizeParams(formData);
+        var filters = $("#statistics-form").serializeArray();
+        var parameters = normalizeParams(filters);
         
         var normalizedFilter = {};
         $.each(parameters, function(index, value){
