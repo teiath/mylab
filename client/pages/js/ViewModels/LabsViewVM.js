@@ -6,7 +6,7 @@ var LabsViewVM = kendo.observable({
             return hide;
     },
 
-    labs:  new kendo.data.DataSource({
+    labs: new kendo.data.DataSource({
         transport: {
             read: {
                 url: "api/search_labs",
@@ -191,8 +191,7 @@ var LabsViewVM = kendo.observable({
     
     ds_lab_types: newLabTypesDS(),
     ds_school_units: newSchoolUnitsDS(1), //used inside labCreateTemplate.html
-        
-    //διορθωμένα
+    
     createLab:  function(e){
         console.log("labsview createLab: ", e);
         e.preventDefault(); //?
@@ -533,7 +532,7 @@ var LabsViewVM = kendo.observable({
             dataSource: newLabEquipmentTypesDS(e.data.lab_id, e.detailRow),
             scrollable: false,
             selectable: false,
-            editable: "inline",
+            editable: { mode: "inline", confirmation: false},
             toolbar: function(){
                         if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1 &&  e.data.lab_state_id !== 2 && e.data.lab_state_id !== 3){
                             return [{ name: "create", text: "Προσθήκη Εξοπλισμού" }];
@@ -573,7 +572,52 @@ var LabsViewVM = kendo.observable({
                   format: "{0:n0}",
                   width: '20%' 
                 },
-                { command: [{ name: 'edit', text: "Επεξεργασία"}, {name: 'destroy', text: "Διαγραφή"}], 
+                { command: [{ name: 'edit', 
+                              text: "Επεξεργασία"
+                            }, 
+                            { name: 'delete-details', 
+                              text: "Διαγραφή",
+                              imageClass: 'k-icon k-delete',
+                              click: function(e) {
+                                    e.preventDefault();                                    
+                                    
+                                    var delete_lab_equipment_dialog = $("#delete_lab_details_dialog").kendoWindow({
+                                                modal: true,
+                                                visible: false,
+                                                resizable: false,
+                                                width: 370,
+                                                pinned:true,
+                                                //title:"Διαγραφή Εξοπλισμού Διάταξης Η/Υ",
+                                                open: function(ev){
+                                                    ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
+                                                    
+                                                    var deleteLabEquipmentDialogTitle = delete_lab_equipment_dialog.wrapper.find("div.k-window-titlebar>span").text("Διαγραφή Εξοπλισμού Διάταξης Η/Υ");
+                                                    var deleteLabEquipmentDialogUpdateButton = delete_lab_equipment_dialog.element.find("div.k-edit-buttons>a.k-grid-delete");
+                                                    var deleteLabEquipmentDialogCancelButton = delete_lab_equipment_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel");
+
+                                                    deleteLabEquipmentDialogCancelButton.on("click", function(e){
+                                                        e.preventDefault(); //?
+                                                        delete_lab_equipment_dialog.close();
+                                                    });
+
+                                                    deleteLabEquipmentDialogUpdateButton.on("click", function(e){
+                                                        e.preventDefault(); //?
+
+                                                        deleteLabEquipmentDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
+                                                        equipment_details.removeRow(row);
+                                                        delete_lab_equipment_dialog.close();
+
+                                                    });
+                                                }
+                                    }).data("kendoWindow");
+
+                                    var row = $(e.currentTarget).closest("tr");
+                                    var deleteTemplate = kendo.template($("#delete_lab_details_template").html());
+                                    var dataItem = this.dataItem(row);
+                                    delete_lab_equipment_dialog.content(deleteTemplate(dataItem));
+                                    delete_lab_equipment_dialog.center().open();                                    
+                                }
+                            }], 
                   title: 'Ενέργειες', 
                   width: '30%', 
                   hidden: function(){
@@ -600,7 +644,7 @@ var LabsViewVM = kendo.observable({
             dataSource: newLabAquisitionSourcesDS(e.data.lab_id, e.detailRow),
             scrollable: false,
             selectable: false,
-            editable: "inline",
+            editable: { mode: "inline", confirmation: false},
             toolbar: function(){
                         if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id !== 2 && e.data.lab_state_id !== 3){
                             return [{ name: "create", text: "Προσθήκη Πηγής Χρηματοδότησης" }];
@@ -650,7 +694,52 @@ var LabsViewVM = kendo.observable({
                   }, 
                   width: '30%' 
                 },
-                { command: [{ name: 'edit', text: "Επεξεργασία"}, {name: 'destroy', text: "Διαγραφή"}], 
+                { command: [{ name: 'edit', 
+                              text: "Επεξεργασία"
+                            },
+                            { name: 'delete-details', 
+                              text: "Διαγραφή",
+                              imageClass: 'k-icon k-delete',
+                              click: function(e) {
+                                    e.preventDefault();                                    
+                                                                        
+                                    var delete_lab_aquisition_source_dialog = $("#delete_lab_details_dialog").kendoWindow({
+                                                modal: true,
+                                                visible: false,
+                                                resizable: false,
+                                                width: 370,
+                                                pinned:true,
+                                                //title:"Διαγραφή Πηγής Χρηματοδότησης Διάταξης Η/Υ",
+                                                open: function(ev){
+                                                    ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
+                                                    
+                                                    var deleteLabAquisitionSourceDialogTitle = delete_lab_aquisition_source_dialog.wrapper.find("div.k-window-titlebar>span").text("Διαγραφή Πηγής Χρηματοδότησης Διάταξης Η/Υ");
+                                                    var deleteLabAquisitionSourceDialogUpdateButton = delete_lab_aquisition_source_dialog.element.find("div.k-edit-buttons>a.k-grid-delete");
+                                                    var deleteLabAquisitionSourceDialogCancelButton = delete_lab_aquisition_source_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel");
+
+                                                    deleteLabAquisitionSourceDialogCancelButton.on("click", function(e){
+                                                        e.preventDefault(); //?
+                                                        delete_lab_aquisition_source_dialog.close();
+                                                    });
+
+                                                    deleteLabAquisitionSourceDialogUpdateButton.on("click", function(e){
+                                                        e.preventDefault(); //?
+
+                                                        deleteLabAquisitionSourceDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
+                                                        aquisition_sources_details.removeRow(row);
+                                                        delete_lab_aquisition_source_dialog.close();
+
+                                                    });
+                                                }
+                                    }).data("kendoWindow");
+
+                                    var row = $(e.currentTarget).closest("tr");
+                                    var deleteTemplate = kendo.template($("#delete_lab_details_template").html());
+                                    var dataItem = this.dataItem(row);
+                                    delete_lab_aquisition_source_dialog.content(deleteTemplate(dataItem));
+                                    delete_lab_aquisition_source_dialog.center().open();                                    
+                                }
+                            }], 
                   title: 'Ενέργειες', 
                   width: '30%', 
                   hidden: function(){
@@ -990,7 +1079,7 @@ var LabsViewVM = kendo.observable({
             dataSource: newLabRelationsDS(e.data.lab_id, e.detailRow),
             scrollable: false,
             selectable: false,
-            editable: "inline",
+            editable: { mode: "inline", confirmation: false},
             toolbar: function(){
                         if(jQuery.inArray( authorized_user , edit_lab_details ) !== -1 && e.data.lab_state_id !== 2 && e.data.lab_state_id !== 3){
                             return [{ name: "create", text: "Προσθήκη Συσχέτισης" }];
@@ -1111,7 +1200,52 @@ var LabsViewVM = kendo.observable({
                   }, 
                   width: '25%'
                 },
-                { command: [{ name: 'edit', text: "Επεξεργασία"}, {name: 'destroy', text: "Διαγραφή"}], 
+                { command: [{ name: 'edit', 
+                              text: "Επεξεργασία"
+                            }, 
+                            { name: 'delete-details', 
+                              text: "Διαγραφή",
+                              imageClass: 'k-icon k-delete',
+                              click: function(e) {
+                                    e.preventDefault();                                    
+                                                                       
+                                    var delete_lab_transition_dialog = $("#delete_lab_details_dialog").kendoWindow({
+                                                modal: true,
+                                                visible: false,
+                                                resizable: false,
+                                                width: 370,
+                                                pinned:true,
+                                                //title:"Διαγραφή Συσχέτισης Διάταξης Η/Υ",
+                                                open: function(ev){
+                                                    ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
+                                                    
+                                                    var deleteLabRelationDialogTitle = delete_lab_transition_dialog.wrapper.find("div.k-window-titlebar>span").text("Διαγραφή Συσχέτισης Διάταξης Η/Υ");
+                                                    var deleteLabRelationDialogUpdateButton = delete_lab_transition_dialog.element.find("div.k-edit-buttons>a.k-grid-delete");
+                                                    var deleteLabRelationDialogCancelButton = delete_lab_transition_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel");
+
+                                                    deleteLabRelationDialogCancelButton.on("click", function(e){
+                                                        e.preventDefault(); //?
+                                                        delete_lab_transition_dialog.close();
+                                                    });
+
+                                                    deleteLabRelationDialogUpdateButton.on("click", function(e){
+                                                        e.preventDefault(); //?
+
+                                                        deleteLabRelationDialogUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner"></i> Παρακαλώ περιμένετε...');
+                                                        lab_relations_details.removeRow(row);
+                                                        delete_lab_transition_dialog.close();
+
+                                                    });
+                                                }
+                                    }).data("kendoWindow");
+
+                                    var row = $(e.currentTarget).closest("tr");
+                                    var deleteTemplate = kendo.template($("#delete_lab_details_template").html());
+                                    var dataItem = this.dataItem(row);
+                                    delete_lab_transition_dialog.content(deleteTemplate(dataItem));
+                                    delete_lab_transition_dialog.center().open();                                    
+                                }
+                            }], 
                   title: 'Ενέργειες', 
                   width: '20%', 
                   hidden: function(){

@@ -20,6 +20,7 @@
         require_once('client/pages/js/Templates/grid_toolbar_command_popup_dialog_template/labCreateTemplate.html');
         require_once('client/pages/js/Templates/grid_toolbar_command_popup_dialog_template/labsColumnSelectionTemplate.html');
         /* grid column command popup dialog templates */
+        require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/deleteLabDetailsTemplate.html');
         require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/labTransitTemplate.html');
         require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/labSubmitTemplate.html');
         require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/labRemoveTemplate.html');
@@ -49,6 +50,9 @@
     <!--column selection dialog-->
     <div id="labs_column_selection_dialog"></div>
     
+    <!--delete lab equipment dialog-->
+    <div id="delete_lab_details_dialog"></div>
+
     <!--transition notification-->
     <span id="notification" style="display:none;"></span>
 
