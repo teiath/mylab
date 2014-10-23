@@ -3,26 +3,31 @@
 
     <?php
         
-        require_once('client/pages/js/Templates/labsViewRatingColumnTemplate.html');
-        require_once('client/pages/js/Templates/generalInfoTemplate.html');
-        require_once('client/pages/js/Templates/editGeneralInfoTemplate.html');
-        require_once('client/pages/js/Templates/ratingTemplate.html');
-        require_once('client/pages/js/Templates/editRatingTemplate.html');
-        //require_once('client/pages/js/Templates/createLabServedOnlineTemplate.html');
-        require_once('client/pages/js/Templates/labCreateTemplate.html');
-        //require_once('client/pages/js/Templates/labToolbarTemplate.html');
-        require_once('client/pages/js/Templates/labsColumnSelectionTemplate.html');
-        require_once('client/pages/js/Templates/labToolbarTemplate_labs_view.html');
-        require_once('client/pages/js/Templates/labDetailsTemplate.html');
-        require_once('client/pages/js/Templates/labTransitTemplate.html');
-        require_once('client/pages/js/Templates/labSubmitTemplate.html');
-        require_once('client/pages/js/Templates/labRemoveTemplate.html');
-        require_once('client/pages/js/Templates/errorNotificationTemplate.html');
-        require_once('client/pages/js/Templates/successNotificationTemplate.html');
-        require_once('client/pages/js/Templates/labDetailsLabWorkersToolbarTemplate.html');
-        require_once('client/pages/js/Templates/removeLabWorkerTemplate.html');
-        require_once('client/pages/js/Templates/disableLabWorkerTemplate.html');
-        require_once('client/pages/js/Templates/labsViewLabStateColumnTemplate.html');
+        /* grid column templates */
+        require_once('client/pages/js/Templates/grid_column_template/labsViewRatingColumnTemplate.html');
+        require_once('client/pages/js/Templates/grid_column_template/labsViewLabStateColumnTemplate.html');
+        /* list view templates */
+        require_once('client/pages/js/Templates/list_view_template/generalInfoTemplate.html');
+        require_once('client/pages/js/Templates/list_view_template/editGeneralInfoTemplate.html');
+        require_once('client/pages/js/Templates/list_view_template/ratingTemplate.html');
+        require_once('client/pages/js/Templates/list_view_template/editRatingTemplate.html');
+        /* grid toolbar templates */
+        require_once('client/pages/js/Templates/grid_toolbar_template/labToolbarTemplate_labs_view.html');
+        require_once('client/pages/js/Templates/grid_toolbar_template/labDetailsLabWorkersToolbarTemplate.html');
+        /* grid detail templates */
+        require_once('client/pages/js/Templates/grid_detail_template/labDetailsTemplate.html');
+        /* grid toolbar command popup dialog templates */
+        require_once('client/pages/js/Templates/grid_toolbar_command_popup_dialog_template/labCreateTemplate.html');
+        require_once('client/pages/js/Templates/grid_toolbar_command_popup_dialog_template/labsColumnSelectionTemplate.html');
+        /* grid column command popup dialog templates */
+        require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/labTransitTemplate.html');
+        require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/labSubmitTemplate.html');
+        require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/labRemoveTemplate.html');
+        require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/removeLabWorkerTemplate.html');
+        require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/disableLabWorkerTemplate.html');
+        /* notification templates */
+        require_once('client/pages/js/Templates/notification_template/errorNotificationTemplate.html');
+        require_once('client/pages/js/Templates/notification_template/successNotificationTemplate.html');
         
     ?>
    

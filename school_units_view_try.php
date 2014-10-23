@@ -2,28 +2,30 @@
 <div id="school_units_container" >
 
     <?php
+    
+        /* grid column templates */
+        require_once('client/pages/js/Templates/grid_column_template/schoolUnitsViewSchoolUnitStateColumnTemplate.html');
+        /* grid toolbar templates */
+        require_once('client/pages/js/Templates/grid_toolbar_template/labToolbarTemplate_school_units_view.html');
+        require_once('client/pages/js/Templates/grid_toolbar_template/labToolbarTemplate_school_unit_labs.html');
+        /* grid detail templates */
+        require_once('client/pages/js/Templates/grid_detail_template/schoolUnitDetailsTemplate.html');
+        /* grid toolbar command popup dialog templates */
+        require_once('client/pages/js/Templates/grid_toolbar_command_popup_dialog_template/schoolUnitsColumnSelectionTemplate.html');
+        /* grid column command popup dialog templates */
+        require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/schoolUnitContactDetailsTemplate.html');
         
-        require_once('client/pages/js/Templates/generalInfoTemplate.html');
-        require_once('client/pages/js/Templates/editGeneralInfoTemplate.html');
-        require_once('client/pages/js/Templates/ratingTemplate.html');
-        require_once('client/pages/js/Templates/editRatingTemplate.html');
-
-        require_once('client/pages/js/Templates/schoolUnitsColumnSelectionTemplate.html');
-        require_once('client/pages/js/Templates/labToolbarTemplate_school_units_view.html');
+//        require_once('client/pages/js/Templates/list_view_template/generalInfoTemplate.html');
+//        require_once('client/pages/js/Templates/list_view_template/ratingTemplate.html');
+//        require_once('client/pages/js/Templates/list_view_template/editGeneralInfoTemplate.html');
+//        require_once('client/pages/js/Templates/list_view_template/editRatingTemplate.html');
+//        require_once('client/pages/js/Templates/grid_toolbar_command_popup_dialog_template/labCreateTemplate.html');
+//        require_once('client/pages/js/Templates/grid_detail_template/labDetailsTemplate.html');
+//        require_once('client/pages/js/Templates/grid_column_command_popup_dialog_template/labTransitTemplate.html');
+//        require_once('client/pages/js/Templates/notification_template/errorNotificationTemplate.html');
+//        require_once('client/pages/js/Templates/notification_template/successNotificationTemplate.html');
         
-        require_once('client/pages/js/Templates/labCreateTemplate.html');
-        require_once('client/pages/js/Templates/labToolbarTemplate_school_unit_labs.html');
-        require_once('client/pages/js/Templates/labDetailsTemplate.html');
-        require_once('client/pages/js/Templates/labTransitTemplate.html');
-
-        require_once('client/pages/js/Templates/schoolUnitContactDetailsTemplate.html');
-        require_once('client/pages/js/Templates/schoolUnitDetailsTemplate.html');
-
-        require_once('client/pages/js/Templates/errorNotificationTemplate.html');
-        require_once('client/pages/js/Templates/successNotificationTemplate.html');
-        require_once('client/pages/js/Templates/schoolUnitsViewSchoolUnitStateColumnTemplate.html');
-        
-    ?> 
+?> 
 
     <!--contact details dialog-->
     <div id="contact_details_dialog"></div>
