@@ -34,10 +34,10 @@
     <div id="school_units_column_selection_dialog"></div>
 
     <!--transition dialog-->
-    <div id="transition_dialog"></div>    
+    <!--<div id="transition_dialog"></div>-->    
     
     <!--transition notification-->
-    <span id="notification" style="display:none;"></span>
+    <!--<span id="notification" style="display:none;"></span>-->
     
     <!-- grid element -->
     <div class="container">        
@@ -78,7 +78,7 @@
                                        { 'field': 'street_address', 'title':'Διεύθυνση', 'width':'350px', 'hidden': true},
                                        { 'field': 'postal_code', 'title':'ΤΚ', 'width':'100px', 'hidden': true},
                                        { 'field': 'last_update', 'title':'Τελευταία Ανανέωση', 'width':'150px'},
-                                       { 'command': [{'text':'', 'className': 'fa fa-info', 'click':SchoolUnitsViewVM.showContactDetails, 'name':'contactDetails'}],'width':'35px'}]">
+                                       { 'command': [{'text':'', 'className': 'fa fa-info', 'click':SchoolUnitsViewVM.showContactDetails, 'name':'contactDetails'}],'width':'40px'}]">
                 </div>
             </div>
         </div>
