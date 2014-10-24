@@ -2,13 +2,15 @@
 
 <script id="school_unit_details_template" type="text/x-kendo-template">
 
-    <div style="text-align: center; font-size: 15px; margin-top:10px; font-weight:600;"> Διατάξεις Η/Υ της σχολικής μονάδας #=school_unit_name# </div>
+    <div style="text-align: right; font-size: 13px; margin-top:5px; font-weight:600;"> Διατάξεις Η/Υ: #=labs.length# </div>
     <div id="school_unit_labs" style="margin:10px 0px;"> </div>    
 
 </script>
 
 <!--
-   <span data-bind="text: name"/>   
+<div style="text-align: center; font-size: 15px; margin-top:10px; font-weight:600;"> Διατάξεις Η/Υ της Σχολικής Μονάδας #=school_unit_name# </div>
+
+<span data-bind="text: name"/>   
 
     <div    data-role="grid"
             data-bind="source: labs, events: {edit: LabsViewVM.createLab}"
