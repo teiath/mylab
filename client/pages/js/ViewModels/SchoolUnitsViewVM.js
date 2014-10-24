@@ -73,14 +73,12 @@ var SchoolUnitsViewVM = kendo.observable({
                     labs:{},
                     total_labs_by_type:{}
                 }
-            }//,
-            //errors: "message" !!!Πρέπει να υπάρχει στον server παράμετρος ΑΠΟΚΛΕΙΣΤΙΚΑ για errors που να μην επιστρέφεται σε άλλη περίπτωση
+            }
         },
         pageSize: 20, //κάθε φορά που ο χρήστης επιλέγει άλλο pagesize από το Grid, γίνεται request στον server με παράμετρο την 1η σελίδα (page=1) και το επιλεχθέν pagesize
         serverPaging: true, //κάθε φορά που ο χρήστης επιλέγει άλλη σελίδα, γίνεται request στον server με παράμετρο τη συγκεκριμένη σελίδα (page) και το pagesize
         serverFiltering: true,
         serverSorting: true,
-        //error: function(e) { console.log("error e:", e);},
         requestEnd: function(e) {/*console.log("school units datasource requestEnd e:", e);*/},
         change: function(e) { /*console.log("school units datasource change e:", e); */}
     }),
@@ -176,7 +174,7 @@ var SchoolUnitsViewVM = kendo.observable({
             }
             
         }).data("kendoGrid");
-                
+            
         e.data.total_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟΣΥΣΤΗΜΑ'] = e.data.total_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ']; //workaround on total_labs_by_type['ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ'] which won't make the binding
 
         kendo.bind(e.detailRow.find('#school_unit_labs'), LabsViewVM);
