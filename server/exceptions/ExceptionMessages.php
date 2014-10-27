@@ -501,6 +501,7 @@ class ExceptionMessages
     
     const DuplicatedCircuitValue = 'Το Τηλεπικοινωνιακό Κύκλωμα υπάρχει ήδη';
     const DuplicatedCircuitPhoneNumberValue = 'Ο Τηλεφωνικός Αριθμός του Τηλεπικοινωνιακού Κυκλώματος υπάρχει ήδη';
+    const DuplicateCircuitUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Circuit';
     const UsedCircuitBySchoolUnits = 'Ο Κωδικός του Τηλεπικοινωνιακού Κυκλώματος χρησιμοποιείται από Σχολικές Μονάδες';
     
     const MissingCircuitPhoneNumberParam = 'Ο Αριθμός του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
@@ -532,6 +533,7 @@ class ExceptionMessages
     const InvalidSchoolUnitWorkerArray = 'Ο Εργαζόμενος Σχολικής Μονάδας δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedSchoolUnitWorkerValue = 'Ο Εργαζόμενος Σχολικής Μονάδας υπάρχει ήδη';
+    const DuplicateSchoolWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
     const UsedSchoolUnitWorkerBySchoolUnits = 'Ο Κωδικός του Εργαζόμενου Σχολικής Μονάδας χρησιμοποιείται από Σχολικές Μονάδες';
     
 //= Workers
@@ -557,20 +559,33 @@ class ExceptionMessages
     const InvalidWorkerRegistryNoType = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να είναι αριθμητικός';
     const InvalidWorkerRegistryNoArray = 'Ο Αριθμός Μητρώου του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingWorkerTaxNumberParam = 'Το ΑΦΜ του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerTaxNumberValue = 'Το ΑΦΜ του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidWorkerTaxNumberType = 'Το ΑΦΜ του Εργαζομένου πρέπει να είναι αριθμητικός';
+    const InvalidWorkerTaxNumberArray = 'Το ΑΦΜ του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
     const MissingWorkerLastnameParam = 'Το Επώνυμο του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingWorkerLastnameValue = 'Το Επώνυμο του Εργαζομένου πρέπει να έχει τιμή';
-    const InvalidWorkerLastnameType = 'Το Επώνυμο του Εργαζομένου πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidWorkerLastnameType = 'Το Επώνυμο του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
     const InvalidWorkerLastnameArray = 'Το Επώνυμο του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
 
     const MissingWorkerFirstnameParam = 'Το Όνομα του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingWorkerFirstnameValue = 'Το Όνομα του Εργαζομένου πρέπει να έχει τιμή';
-    const InvalidWorkerFirstnameType = 'Το Όνομα του Εργαζομένου πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
+    const InvalidWorkerFirstnameType = 'Το Όνομα του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
     const InvalidWorkerFirstnameArray = 'Το Όνομα του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const InvalidWorkerTaxNumberType = 'Το ΑΦΜ του Εργαζομένου πρέπει να είναι αριθμητικό';
-    const InvalidWorkerFatherNameType = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να είναι αλφαριθμητικός';
-    const InvalidWorkerSexType = 'Το Φύλο του Εργαζομένου πρέπει να είναι αλφαριθμητική : Α (Άντρας) ή Γ (Γυναικα)';
+    const MissingWorkerFatherNameParam = 'Το Όνομα Πατρός του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerFatherNameValue = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidWorkerFatherNameType = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
+    const InvalidWorkerFatherNameArray = 'Το Όνομα Πατρός του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingWorkerSexTypeParam = 'Το Φύλο του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerSexTypeValue = 'Το Φύλο του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidWorkerSexTypeType = 'Το Φύλο του Εργαζομένου πρέπει να είναι αλφαριθμητική : Α (Άντρας) ή Γ (Γυναικα';
+    const InvalidWorkerSexTypeArray = 'Το Φύλο του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const DuplicateWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
+  
    //= LabWorkers
     
     const MissingLabWorkerIDParam = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου είναι υποχρεωτικό πεδίο';
@@ -596,7 +611,7 @@ class ExceptionMessages
     
     const DuplicatedLabWorkerValue = 'Ο Εργαζόμενος Εργαστηρίου υπάρχει ήδη';
     const UsedLabWorkerByLabs = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
-    const DuplicateWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
+    const DuplicateLabWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
     const NotAllowedLabWorkerStartService = 'Δεν είναι δυνατή η εισαγωγή ημερομηνίας προγενέστερη από την ημερομηνία εισαγωγής του προηγούμενου υπεύθυνου';
     
     //extra
@@ -1047,6 +1062,7 @@ class ExceptionMessages
     const InvalidCircuitTypeNameArray = 'Το Όνομα του Τύπου Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedCircuitTypeValue = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος υπάρχει ήδη';
+    const DuplicateCircuitTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
     const UsedCircuitTypeByCircuits = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος χρησιμοποιείται από Τηλεπικοινωνιακά Κυκλώματα';
 
     //= RelationTypes

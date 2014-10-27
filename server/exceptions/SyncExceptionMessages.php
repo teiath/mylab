@@ -237,7 +237,7 @@ class SyncExceptionMessages
     const RollBackSyncCircuits = 'Ο συγχρονισμός του λεξικού Circuits και η ενημέρωση της βάσης απέτυχαν. ';
     
     const IdenticalSyncCircuitsPhoneValue = 'Είναι αδύνατη η εισαγωγή. Ενημερώστε το διαχειριστη διότι στο λεξικό Circuits υπάρχουν πολλαπλές εγγραφές με την τιμή της παραμέτρου $phone  . Τιμή $phone =  ';
-    const DuplicateSyncCircuitsPhoneValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Circuits υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $phone σε διαφορετικό ID . Τιμή $phone =  ';
+    const DuplicateSyncCircuitsPhoneValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Circuits υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $phone_number σε διαφορετικό ID . Τιμή $phone =  ';
     const DuplicateSyncCircuitIdValue = ' To id της υπάρχουσας εγγραφής είναι circuit_id = ';
     
     const DuplicateVocabularySyncCircuitTypeIdValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο primary key,στο λεξικό CircuitType με τιμή $circuit_type_id = ';
@@ -275,10 +275,14 @@ class SyncExceptionMessages
     
     const GarbageRowSchoolUnitNameValue = 'Η εγγραφή ειναι καταργημένη και πιθανόν χρησιμοποιήθηκε για δοκιμαστικούς λόγους . Τιμή  id και name : '; 
     
+    const IgnoreSyncSchoolUnitWorkersRecord = 'Η εγγραφή αγνοήθηκε, λόγω υπάρχουσας ενημερωμένης έκδοσης';
+    const SuccessSyncInsertSchoolUnitWorkersRecord = 'Επιτυχής εισαγωγή εγγραφής στο λεξικού SchoolUnitWorkers';
+    const SuccessSyncUpdateSchoolUnitWorkersRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού SchoolUnitWorkers';
     
     //sync circuit_type table
     const SyncCircuitTypes = 'Συγχρονισμός με τον πίνακα CircuitTypes';
     const SuccessSyncCircuitTypesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού CircuitTypes ';
+    const SuccessSyncUpdateCircuitTypesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού CircuitTypes ';
     const FailureSyncCircuitTypesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού CircuitTypes ';
     const CommitSyncCircuitTypes = 'Ο συγχρονισμός του λεξικού CircuitTypes και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncCircuitTypes = 'Ο συγχρονισμός του λεξικού CircuitTypes και η ενημέρωση της βάσης απέτυχαν. ';
@@ -329,6 +333,9 @@ class SyncExceptionMessages
     const DuplicateVocabularySyncWorkerTaxNumberValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο primary key,στο λεξικό Workers με τιμή $tax_number = ';
     const NotFoundVocabularySyncWorkerTaxNumberValue = 'Η τιμή της παραμέτρου $tax_number δεν υπάρχει στο λεξικό. Τιμή $tax_number = '; 
 
+    const IgnoreSyncWorkersRecord = 'Η εγγραφή αγνοήθηκε, λόγω υπάρχουσας ενημερωμένης έκδοσης';
+    const SuccessSyncInsertWorkersRecord = 'Επιτυχής εισαγωγή εγγραφής στο λεξικού Circuits';
+    const SuccessSyncUpdateWorkersRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Circuits';
     
   
 }

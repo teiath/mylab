@@ -61,9 +61,9 @@ try{
             $result["block_error_sync"] = false;
         }
 
-        if (Validator::IsEmptyArray($data["data"])){echo 'No data to sync at school_units table';die();}
-        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync at school_units table';die();}     
  	echo '---Count of returned Data ' . count($data["data"]) . ' :--------';
+        
 	//get each school_unit data record 
         foreach($data["data"] as $school_unit)
         {    

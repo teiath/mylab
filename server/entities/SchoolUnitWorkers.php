@@ -17,7 +17,7 @@ class SchoolUnitWorkers
      *
      * @ORM\Column(name="school_unit_worker_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $schoolUnitWorkerId;
 

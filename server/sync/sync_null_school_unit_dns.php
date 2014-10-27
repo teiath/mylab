@@ -61,9 +61,9 @@ try{
             $result["block_error_sync"] = false;
         }
 
-        if (Validator::IsEmptyArray($data["data"])){echo 'No data to sync at school_units table';die();}
-        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync school_units table';die();}      
  	echo '---Count of returned Data ' . count($data["data"]) . ' :--------';
+        
 	//get each school_unit data record 
         foreach($data["data"] as $school_unit)
         {    
@@ -231,7 +231,7 @@ try{
     $href = $Options["SyncFolder"].$filename;
   
     echo $timer->printFullStats();
-    echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;
+    echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;//todo must change, because shown the last total results
     echo "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch [UPDATE] \n\n" ;
     echo "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch [ERRORS] \n" ;
     echo "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch [CRITICAL ERRORS] \n" ;

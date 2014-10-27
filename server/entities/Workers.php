@@ -17,7 +17,7 @@ class Workers
      *
      * @ORM\Column(name="worker_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $workerId;
 

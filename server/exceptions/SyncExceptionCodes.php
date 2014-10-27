@@ -274,9 +274,14 @@ class SyncExceptionCodes
     
    const GarbageRowSchoolUnitNameValue = '5555'; 
     
+    const IgnoreSyncSchoolUnitWorkersRecord = '5060';
+    const SuccessSyncInsertSchoolUnitWorkersRecord = '5060';
+    const SuccessSyncUpdateSchoolUnitWorkersRecord = '5060';
+   
     //sync circuit_type table
     const SyncCircuitTypes = '1034';
     const SuccessSyncCircuitTypesRecord = '1034';
+    const SuccessSyncUpdateCircuitTypesRecord = '1034';
     const FailureSyncCircuitTypesRecord = '1034';
     const CommitSyncCircuitTypes = '1034';
     const RollBackSyncCircuitTypes = '1034';
@@ -327,6 +332,9 @@ class SyncExceptionCodes
     const DuplicateVocabularySyncWorkerTaxNumberValue = '1055';
     const NotFoundVocabularySyncWorkerTaxNumberValue = '1055'; 
    
+    const IgnoreSyncWorkersRecord = '1060';
+    const SuccessSyncInsertWorkersRecord = '1060';
+    const SuccessSyncUpdateWorkersRecord = '1060';
     
 }
 ?>

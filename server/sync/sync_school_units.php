@@ -72,7 +72,9 @@ try{
             $result["block_error_sync"] = false;
         }
    
-
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync at school_units table';die();}     
+ 	echo '---Count of returned Data ' . $data["count"] . ' :--------';
+        
         //get each school_unit data record 
         foreach($data["data"] as $school_unit)
         {    
@@ -179,7 +181,10 @@ try{
 
         //SET last_update to CREATE
         $unit->setLastUpdate($dateTime);
-        
+
+        //for below variables if syncEntitySetAssociation or syncEntitySetParam
+        //return null then all is ok
+        //else return error
 //$region_edu_admin_id===========================================================================                  
     $fRegionEduAdmin = CRUDUtils::syncEntitySetAssociation($unit, $region_edu_admin, 'RegionEduAdmins', 'regionEduAdmin', 'RegionEduAdmin', false); 
     if (!validator::IsNull($fRegionEduAdmin)) {$error_messages["errors"][] = $fRegionEduAdmin; }

@@ -527,6 +527,8 @@ class ExceptionCodes
     const DuplicatedCircuitValue = 500;
     /** {@see ExceptionMessages::DuplicatedCircuitPhoneNumberValue} */
     const DuplicatedCircuitPhoneNumberValue = 500;
+    /** {@see ExceptionMessages::DuplicateCircuitUniqueValue} */
+    const DuplicateCircuitUniqueValue = 500;
     /** {@see ExceptionMessages::UsedCircuitBySchoolUnits} */
     const UsedCircuitBySchoolUnits = 500;
 
@@ -581,6 +583,8 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedSchoolUnitWorkerValue} */
     const DuplicatedSchoolUnitWorkerValue = 500;
+    /** {@see ExceptionMessages::DuplicateSchoolWorkerUniqueValue} */
+    const DuplicateSchoolWorkerUniqueValue = 500;
     /** {@see ExceptionMessages::UsedSchoolUnitWorkerBySchoolUnits} */
     const UsedSchoolUnitWorkerBySchoolUnits = 500;
     
@@ -624,6 +628,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidWorkerRegistryNoArray} */
     const InvalidWorkerRegistryNoArray = 500;
     
+    /** {@see ExceptionMessages::MissingWorkerTaxNumberParam} */
+    const MissingWorkerTaxNumberParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerTaxNumberValue} */
+    const MissingWorkerTaxNumberValue = 500;
+    /** {@see ExceptionMessages::InvalidWorkerTaxNumberType} */
+    const InvalidWorkerTaxNumberType = 500;
+    /** {@see ExceptionMessages::InvalidWorkerTaxNumberArray} */
+    const InvalidWorkerTaxNumberArray = 500;
+    
     /** {@see ExceptionMessages::MissingWorkerLastnameParam} */
     const MissingWorkerLastnameParam = 500;
     /** {@see ExceptionMessages::MissingWorkerLastnameValue} */
@@ -642,13 +655,28 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidWorkerFirstnameArray} */
     const InvalidWorkerFirstnameArray = 500;
     
-    /** {@see ExceptionMessages::InvalidWorkerTaxNumberType} */
-    const InvalidWorkerTaxNumberType = 500;
+    /** {@see ExceptionMessages::MissingWorkerFatherNameParam} */
+    const MissingWorkerFatherNameParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerFatherNameValue} */
+    const MissingWorkerFatherNameValue = 500;
     /** {@see ExceptionMessages::InvalidWorkerFatherNameType} */
     const InvalidWorkerFatherNameType = 500;
-    /** {@see ExceptionMessages::InvalidWorkerSexType} */
-    const InvalidWorkerSexType = 500;
+    /** {@see ExceptionMessages::InvalidWorkerFatherNameArray} */
+    const InvalidWorkerFatherNameArray = 500;
+    
+    /** {@see ExceptionMessages::MissingWorkerSexTypeParam} */
+    const MissingWorkerSexTypeParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerSexTypeValue} */    
+    const MissingWorkerSexTypeValue = 500;
+    /** {@see ExceptionMessages::InvalidWorkerSexTypeType} */    
+    const InvalidWorkerSexTypeType = 500;
+        /** {@see ExceptionMessages::InvalidWorkerSexTypeArray} */
+    const InvalidWorkerSexTypeArray = 500;
 
+    /** {@see ExceptionMessages::DuplicateWorkerUniqueValue} */
+    const DuplicateWorkerUniqueValue = 500;
+
+    
 //= LabWorkers
     
     /** {@see ExceptionMessages::MissingLabWorkerIDParam} */
@@ -693,8 +721,8 @@ class ExceptionCodes
     const DuplicatedLabWorkerValue = 500;
     /** {@see ExceptionMessages::UsedLabWorkerByLabs} */
     const UsedLabWorkerByLabs = 500;
-    /** {@see ExceptionMessages::DuplicateWorkerUniqueValue} */
-    const DuplicateWorkerUniqueValue = 500;
+    /** {@see ExceptionMessages::DuplicateLabWorkerUniqueValue} */
+    const DuplicateLabWorkerUniqueValue = 500;
     /** {@see ExceptionMessages::NotAllowedLabWorkerStartService} */
     const NotAllowedLabWorkerStartService = 500;
     
@@ -1479,10 +1507,12 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidCircuitTypeNameType} */  
     const InvalidCircuitTypeNameType = 500; 
     /** {@see ExceptionMessages::InvalidCircuitTypeNameArray} */  
-    const InvalidCircuitTypeNameArray = 500; 
+    const InvalidCircuitTypeNameArray = 500;
     
     /** {@see ExceptionMessages::DuplicatedCircuitTypeValue} */  
     const DuplicatedCircuitTypeValue = 500;
+    /** {@see ExceptionMessages::DuplicateCircuitTypeUniqueValue} */    
+    const DuplicateCircuitTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedCircuitTypeByCircuits} */  
     const UsedCircuitTypeByCircuits = 500;
 
