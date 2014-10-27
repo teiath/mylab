@@ -235,6 +235,23 @@ class CRUDUtils {
         return $results=array('id' => $id, 'error_message' => $error_message);
     }
     
+    public static function syncCheckValueParam(&$entity, $param, $exceptionType, $field ){
+
+        $missingValue = 'Missing'.$exceptionType.'Value';
+        $invalidArray = 'Invalid'.$exceptionType.'Array';
+        $invalidType = 'Invalid'.$exceptionType.'Type';
+        
+        if (Validator::IsNull($param))
+            $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);
+        else if (Validator::IsArray($param))
+            $error_message = constant('ExceptionMessages::'.$invalidArray). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidArray);
+        else if (Validator::IsValue($param)){
+            $method = 'set'.self::to_camel_case($field, true);
+            $entity->$method(Validator::ToValue($param));
+        } else
+            $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);      
+    }  
+    
     public static function syncFindIDParam (&$entity, $param, $repo, $field, $exceptionType){        
 
         global $entityManager;
@@ -292,21 +309,26 @@ class CRUDUtils {
             
     }
     
-        public static function syncEntitySetParam(&$entity, $param, $exceptionType, $field) {
-            
-        $invalidType = 'Invalid'.$exceptionType.'Type';  
+        public static function syncEntitySetParam(&$entity, $param, $exceptionType, $field, $required = false, $is_nullable = true ) {
         
-        if ( $param === _MISSED_ )
-        { } //throw new Exception(ExceptionMessages::MissingNameParam, ExceptionCodes::MissingNameParam);
-        else if ( Validator::IsNull($param) )
-        { } //throw new Exception(ExceptionMessages::MissingNameValue, ExceptionCodes::MissingNameValue);}
-        else if ( Validator::IsValue($param) )
-        {
-            
+        $missingParam = 'Missing'.$exceptionType.'Param';
+        $missingValue = 'Missing'.$exceptionType.'Value';
+        $invalidType = 'Invalid'.$exceptionType.'Type';  
+
+        if ( $param === _MISSED_ ){
+            if(!$required) { return; }
+            $error_message = constant('ExceptionMessages::'.$missingParam). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingParam);    
+        } else if ( Validator::IsNull($param) ) { 
+            if(!$is_nullable) { 
+                $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);
+            }else{
+                $method = 'set'.self::to_camel_case($field, true);
+                $entity->$method(Validator::ToNull($param));
+            }
+        } else if ( Validator::IsValue($param) ) {
             $method = 'set'.self::to_camel_case($field, true);
             $entity->$method(Validator::ToValue($param));
-        }
-        else
+        } else
             $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);
     
         return $error_message;
