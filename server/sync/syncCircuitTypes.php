@@ -6,11 +6,8 @@
  * @package SYNC
  * 
  */
-
+function syncCircuitTypes(){
     header("Content-Type: text/html; charset=utf-8");
-    
-    chdir("../");
-    require_once('/system/includes.php');
     
     global $Options; 
     global $entityManager;
@@ -20,7 +17,7 @@
                     "page"=>"1",
                     "pagesize"=>"500");
     
-    $all_logs = array();
+    $sync_results = $all_logs = array();
     $check_total_download = 0;
 
     //init and start timer
@@ -28,7 +25,7 @@
     $timer->start();
     
 try{ 
-    echo 'Starting Sync Circuit Types table';
+    $sync_results['syncTable'] = 'circuit_types';
 
     do{ 
         
@@ -51,10 +48,10 @@ try{
                                         ); 
 
         //check if sync with mmsch return error code
-       $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
-   
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync at CircuitTypes table ';die();}        
- 	echo '---Count of returned Data ' . $data["count"] . ' :--------';
+        $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
+
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at CircuitTypes table ';return $sync_results;}        
+ 	$sync_results['countData'] =  'Count of returned Data ' . $data["count"] ;
 
 //get each record of block data ================================================
 //==============================================================================
@@ -95,7 +92,7 @@ try{
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($circuitTypeEntity, $name, 'CircuitTypeName', 'name', true, true);
+                $fName = CRUDUtils::syncEntitySetParam($circuitTypeEntity, $name, 'CircuitTypeName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
                 
                 //check unique circuit_types====================================
@@ -173,9 +170,9 @@ try{
         //merge block results and go to next block 
         $result_block[] = array_merge($result,$block_log); 
         
-        echo ' Results ' . $params["page"] . ' page block of ' . $params["pagesize"]."\n";
-        echo ' Pagination ' . ($params["page"]-1) * $params["pagesize"]."\n" ;
-        echo ' Total Data ' .  $data["total"]."\n";
+         $sync_results['resultsData'] = ' Results ' . $params["page"] . ' page block of ' . $params["pagesize"];
+         $sync_results['paginationData']  = ' Pagination ' . ($params["page"]-1) * $params["pagesize"];
+         $sync_results['totalData'] = ' Total Data ' .  $data["total"];
         
         $params["page"]++;
     }while( ($params["page"]-1) * $params["pagesize"] < $data["total"]);
@@ -204,23 +201,24 @@ try{
     
     $print_results = array_merge($result_block,$results);
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = JsonFunctions::truepath();
     $filename = $timer->getTimeFileName('circuit_types');
 
-    $cachePath = $filepath.$filename; 
-    file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
+    $cachePath = $filepath.$filename;
+    file_put_contents($cachePath, JsonFunctions::toGreek(json_encode($print_results), TRUE));
     $href = $Options["SyncFolder"].$filename;
-   
-    echo $timer->printFullStats();
-    echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch </br>" ;
-    echo "Εισαγωγή " . $results["all_logs"]["all_inserts"] . " στοιχεία από το mmsch </br>" ;
-    echo "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch </br>" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch </br>" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch </br>" ;
-    echo '</br> Finished Sync CircuitTypes table. </br> View results at <a href='.$href.'>CircuitTypesLog.json</a>  ' ;
+
+    $sync_results['executeTime'] = $timer->getFullStats();
+    $sync_results['returnedData'] =  "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch" ;
+    $sync_results['insertData'] =  "Εισαγωγή " . $results["all_logs"]["all_inserts"] . " στοιχεία από το mmsch" ;
+    $sync_results['updateData'] =  "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch" ;
+    $sync_results['errorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch" ;
+    $sync_results['unexpectedErrorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch" ;
+    $sync_results['hrefLog'] =  'Finished Sync CircuitTypes table.View results at '. $href ;
     
+    return $sync_results;
 } catch (Exception $e) {
     throw $e;
 }
-    
+}    
 ?>

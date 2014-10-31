@@ -1187,6 +1187,8 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedRegionEduAdminValue} */
     const DuplicatedRegionEduAdminValue = 500;
+    /** {@see ExceptionMessages::DuplicateRegionEduAdminUniqueValue} */   
+    const DuplicateRegionEduAdminUniqueValue = 500;
     /** {@see ExceptionMessages::UsedRegionEduAdminBySchoolUnits} */
     const UsedRegionEduAdminBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedRegionEduAdminByEduAdmins} */   
@@ -1234,6 +1236,8 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedEduAdminValue} */   
     const DuplicatedEduAdminValue = 500;
+    /** {@see ExceptionMessages::DuplicateEduAdminUniqueValue} */   
+   const DuplicateEduAdminUniqueValue = 500;
     /** {@see ExceptionMessages::UsedEduAdminBySchoolUnits} */   
     const UsedEduAdminBySchoolUnits =500;
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   

@@ -106,6 +106,7 @@ class SyncExceptionMessages
     //sync region_edu_admins table
     const SyncRegionEduAdmins = 'Συγχρονισμός με τον πίνακα Region_Edu_Admins';
     const SuccessSyncRegionEduAdminsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Region_Edu_Admins ';
+    const SuccessSyncUpdateRegionEduAdminsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Region_Edu_Admins ';
     const FailureSyncRegionEduAdminsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Region_Edu_Admins ';
     const CommitSyncRegionEduAdmins = 'Ο συγχρονισμός του λεξικού Region_Edu_Admins και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncRegionEduAdmins = 'Ο συγχρονισμός του λεξικού Region_Edu_Admins και η ενημέρωση της βάσης απέτυχαν. ';
@@ -117,12 +118,14 @@ class SyncExceptionMessages
     //sync edu_admins table
     const SyncEduAdmins = 'Συγχρονισμός με τον πίνακα Edu_Admins';
     const SuccessSyncEduAdminsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Edu_Admins ';
+    const SuccessSyncUpdateEduAdminsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Edu_Admins ';
     const FailureSyncEduAdminsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Edu_Admins ';
     const CommitSyncEduAdmins = 'Ο συγχρονισμός του λεξικού Edu_Admins και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncEduAdmins = 'Ο συγχρονισμός του λεξικού Edu_Admins και η ενημέρωση της βάσης απέτυχαν. ';
   
     const IdenticalSyncEduAdminNameValue = 'Είναι αδύνατη η εισαγωγή. Ενημερώστε το διαχειριστη διότι στο λεξικό Edu_Admin υπάρχουν πολλαπλές εγγραφές με την τιμή της παραμέτρου $name  . Τιμή $name =  ';
     const DuplicateSyncEduAdminNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Edu_Admin υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+    const DuplicateSyncEduAdminCodeValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Edu_Admin υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $edu_admin_code σε διαφορετικό ID . Τιμή $edu_admin_code =  ';
     const DuplicateSyncEduAdminNameIdValue = ' To id της υπάρχουσας εγγραφής είναι edu_admin_id = ';   
     
     const DuplicateVocabularySyncRegionEduAdminIdValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο primary key,στο λεξικό Region_Edu_Admins με τιμή $region_edu_admin_id = ';
@@ -334,8 +337,8 @@ class SyncExceptionMessages
     const NotFoundVocabularySyncWorkerTaxNumberValue = 'Η τιμή της παραμέτρου $tax_number δεν υπάρχει στο λεξικό. Τιμή $tax_number = '; 
 
     const IgnoreSyncWorkersRecord = 'Η εγγραφή αγνοήθηκε, λόγω υπάρχουσας ενημερωμένης έκδοσης';
-    const SuccessSyncInsertWorkersRecord = 'Επιτυχής εισαγωγή εγγραφής στο λεξικού Circuits';
-    const SuccessSyncUpdateWorkersRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Circuits';
+    const SuccessSyncInsertWorkersRecord = 'Επιτυχής εισαγωγή εγγραφής στο λεξικού Workers';
+    const SuccessSyncUpdateWorkersRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Workers';
     
   
 }
