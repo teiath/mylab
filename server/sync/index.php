@@ -11,27 +11,36 @@ require_once('libs/Slim/Slim.php');
 $app = new \Slim\Slim();
 $app->config('debug', true);
 
-$app->get('/circuit_types',Authentication, function () use ($app) {  
-    $result = syncCircuitTypes();
-    print_r($result);
+//circuit_types=================================================================
+        $app->get('/circuit_types',Authentication, function() use ($app) {  
+            $result = syncCircuitTypes();
+            print_r($result);
 
-//uncomment if want return json results   
-//    JsonFunctions::PrepareResponse();    
-//    $app->response()->setBody( JsonFunctions::toGreek( json_encode( $result ) ) );
-             
-});
+        //uncomment if want return json results   
+        //    JsonFunctions::PrepareResponse();    
+        //    $app->response()->setBody( JsonFunctions::toGreek( json_encode( $result ) ) );
 
-$app->get('/edu_admins',Authentication, function () use ($app) {  
-    $result = syncEduAdmins();
-    print_r($result);             
-});
+        });
+        
+//edu_admins====================================================================
+        $app->get('/edu_admins',Authentication, function() use ($app) {  
+            $result = syncEduAdmins();
+            print_r($result);             
+        });
 
-$app->get('/region_edu_admins/:test',Authentication, function($test) {  
-    $result = syncRegionEduAdmins($test);
-    print_r($result);             
-});
+//region_edu_admins=============================================================
+        $app->get('/region_edu_admins',Authentication, function() use ($app) {  
+            $result = syncRegionEduAdmins();
+//            print_r($result);             
+            JsonFunctions::PrepareResponse();    
+            $app->response()->setBody( JsonFunctions::toGreek( json_encode( $result ) ) );
+        });
 
+        
+        
 $app->run();
+
+
 
 //Authentication Function=======================================================
 function Authentication()

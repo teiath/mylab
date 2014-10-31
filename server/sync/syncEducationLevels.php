@@ -6,7 +6,7 @@
  * @package SYNC
  * 
  */
-function syncRegionEduAdmins(){
+function syncEducationLevels(){
     header("Content-Type: text/html; charset=utf-8");
     
     global $Options; 
@@ -24,7 +24,7 @@ function syncRegionEduAdmins(){
     $timer->start();
 
 try{ 
-    $sync_results['syncTable'] = 'region_edu_admins';
+    $sync_results['syncTable'] = 'education_levels';
 
     do{ 
         
@@ -34,10 +34,10 @@ try{
 //start api request and return a block of data==================================
 //==============================================================================
         
-        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'region_edu_admins', 'GET', $params);
+        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'education_levels', 'GET', $params);
 
         //log general infos from received data of the mmsch
-        $results["sync_table"] = "RegionEduAdmins";
+        $results["sync_table"] = "EducationLevels";
         $results["total"] = (int)$data["total"];
    
         $result["block_general"][] = array( "count_page"    => (int)$params["page"],
@@ -49,45 +49,45 @@ try{
         //check if sync with mmsch return error code
         $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
 
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at RegionEduAdmins table ';return $sync_results;}        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at EducationLevels table ';return $sync_results;}        
  	$sync_results['countData'] =  'Count of returned Data ' . $data["count"] ;
 
 //get each record of block data ================================================
 //==============================================================================
-        foreach($data["data"] as $region_edu_admin)
+        foreach($data["data"] as $education_level)
         {    
           
-            $region_edu_admin_id = $region_edu_admin["region_edu_admin_id"];
-            $name = $region_edu_admin["region_edu_admin"];
+            $education_level_id = $education_level["education_level_id"];
+            $name = $education_level["education_level"];
             
             $check_total_download++;
            
                 try {
                     $error_messages = array();
                                    
-                    //$region_edu_admin_id check value and get status(create,update,delete)
+                    //$education_level_id check value and get status(create,update,delete)
                     //==========================================================
-                    $fRegionEduAdmin = CRUDUtils::syncCheckIdParam($region_edu_admin_id, 'RegionEduAdminID');
-                    if (!validator::IsNull($fRegionEduAdmin['id'])) {
+                    $fEducationLevel = CRUDUtils::syncCheckIdParam($education_level_id, 'EducationLevelID');
+                    if (!validator::IsNull($fEducationLevel['id'])) {
 
-                        $retrievedObject= $entityManager->find('RegionEduAdmins', $fRegionEduAdmin['id']);
-                        $duplicateValue = 'DuplicateRegionEduAdminUniqueValue';
+                        $retrievedObject= $entityManager->find('EducationLevels', $fEducationLevel['id']);
+                        $duplicateValue = 'DuplicateEducationLevelUniqueValue';
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
                             $regionEduAdminEntity = new RegionEduAdmins(); 
-                            $regionEduAdminEntity->setRegionEduAdminId($fRegionEduAdmin['id']);
+                            $regionEduAdminEntity->setRegionEduAdminId($fEducationLevel['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
                             $regionEduAdminEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $region_edu_admin_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $education_level_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
                     } else {
-                        $error_messages["errors"][] = $fRegionEduAdmin['error_message']; 
+                        $error_messages["errors"][] = $fEducationLevel['error_message']; 
                     } 
                       
                 //$name=========================================================
