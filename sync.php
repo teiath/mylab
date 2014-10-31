@@ -48,10 +48,18 @@
                         dataType: "json",
                         data: JSON.stringify(parameters),
                         success: function(data){
-                            
+                            var row;
                             $.each(data, function(index, value){
-                                var row = "<tr><td>" + index + "</td><td>" + value + "</td></tr>";
-                                $("#result>table>tbody").append(row);
+                                if(typeof value == "object"){
+                                    $.each(value, function(index2, value2){
+                                        row =  "<tr><td>" + index +"."+ index2 + "</td><td>" + value2 + "</td></tr>";
+                                        $("#result>table>tbody").append(row);
+                                    });
+                                }else{
+                                    row = "<tr><td>" + index + "</td><td>" + value + "</td></tr>";
+                                    $("#result>table>tbody").append(row);
+                                }
+                                
                             });
                         }
                     });
