@@ -262,6 +262,12 @@ private static $Permissions = array(
                                              "role"=> "ΣΕΠΕΗΥ"  
                                           );
                     break;
+                case 'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΠΡΩΤΟΒΑΘΜΙΑΣ' :
+                    $value_ranks[] = array (  "ldap_title"=>"ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΠΡΩΤΟΒΑΘΜΙΑΣ",
+                                             "ranking"=>20,
+                                             "role"=> "ΣΕΠΕΗΥ"
+                                          );
+                    break;
                 case 'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
                     $value_ranks[] = array (  "ldap_title"=>"ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ",
                                              "ranking"=>20,
@@ -280,8 +286,8 @@ private static $Permissions = array(
                                              "role"=> "ΔΙΕΥΘΥΝΤΗΣ"  
                                           );
                     break;
-                case 'ΤΟΜΕΑΡΧΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
-                    $value_ranks[] = array (  "ldap_title"=>"ΤΟΜΕΑΡΧΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ",
+                case 'ΥΠΕΥΘΥΝΟΣ ΤΟΜΕΑ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
+                    $value_ranks[] = array (  "ldap_title"=>"ΥΠΕΥΘΥΝΟΣ ΤΟΜΕΑ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ",
                                              "ranking"=>15,
                                              "role"=> "ΤΟΜΕΑΡΧΗΣ"  
                                           );
