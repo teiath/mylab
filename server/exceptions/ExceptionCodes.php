@@ -754,8 +754,6 @@ class ExceptionCodes
     const DuplicatedLabRelationValue = 500;
     /** {@see ExceptionMessages::UsedLabRelationByLabs} */
     const UsedLabRelationByLabs = 500;
-    /** {@see ExceptionMessages::DuplicateRelationTypeUniqueValue} */
-    const DuplicateRelationTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedLabRelationServerOnline} */   
     const UsedLabRelationServerOnline = 500;
     
