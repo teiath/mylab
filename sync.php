@@ -36,6 +36,8 @@
             
             $("#sync").on("click", function(e){
                 
+                $("#result>table>tbody").empty();
+                
                 var parameters = {
                           pagesize: 100
                         };
@@ -46,15 +48,11 @@
                         dataType: "json",
                         data: JSON.stringify(parameters),
                         success: function(data){
-
-                          //  if(data.status == 200){
-
-                                $("#result").text(data.countData);
-
-//                            }else if(data.status == 500){
-//
-//                                alert("error!!!");
-//                            }
+                            
+                            $.each(data, function(index, value){
+                                var row = "<tr><td>" + index + "</td><td>" + value + "</td></tr>";
+                                $("#result>table>tbody").append(row);
+                            });
                         }
                     });
             });
@@ -73,8 +71,17 @@
                     <button id="sync" type="button" class="btn btn-primary">Primary</button>
                 </div>
 
-                <div class="col-md-12">
-                    <div id="result" class="highlight"></div>
+                <div id="result" class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>index</th>
+                                <th>content</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>    
                 </div>
 
             </div>
