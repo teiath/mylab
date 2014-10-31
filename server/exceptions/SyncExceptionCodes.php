@@ -105,6 +105,7 @@ class SyncExceptionCodes
     //sync region_edu_admins table
     const SyncRegionEduAdmins = '800';
     const SuccessSyncRegionEduAdminsRecord = '801';
+    const SuccessSyncUpdateRegionEduAdminsRecord = '810';
     const FailureSyncRegionEduAdminsRecord = '802';
     const CommitSyncRegionEduAdmins = '803';
     const RollBackSyncRegionEduAdmins = '804';
@@ -116,12 +117,14 @@ class SyncExceptionCodes
     //sync edu_admins table
     const SyncEduAdmins = '820';
     const SuccessSyncEduAdminsRecord = '821';
+    const SuccessSyncUpdateEduAdminsRecord = '831';
     const FailureSyncEduAdminsRecord = '822';
     const CommitSyncEduAdmins = '823';
     const RollBackSyncEduAdmins = '824';
   
     const IdenticalSyncEduAdminNameValue = '825';
     const DuplicateSyncEduAdminNameValue = '826';
+    const DuplicateSyncEduAdminCodeValue = '830';
     const DuplicateSyncEduAdminNameIdValue = '827';   
     
     const DuplicateVocabularySyncRegionEduAdminIdValue = '828';

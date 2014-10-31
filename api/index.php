@@ -240,7 +240,7 @@ function PrepareResponse()
 
     $app->contentType('application/json');
     $app->response()->headers()->set('Content-Type', 'application/json; charset=utf-8');
-    $app->response()->headers()->set('X-Powered-By', 'ΤΕΙ Αθήνας');
+    $app->response()->headers()->set('X-Powered-By', 'TEI of Athens');
     $app->response()->setStatus(200);
 }
 

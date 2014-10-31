@@ -121,9 +121,8 @@
                     if (!$sync_table_name) {
 				return null;
 			}
-                    //$path = $_SERVER['DOCUMENT_ROOT'].'/mylab_ver4/sync_logs/';
+                        
                     $filename = date('mdY_hias').'_sync_'.$sync_table_name.'.json';
-                    //$filename = $filename;
                     
                     return $Options["LogFolder"].$filename;
                 }

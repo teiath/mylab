@@ -36,6 +36,14 @@ require_once('exceptions/ExceptionManager.php');
 require_once('exceptions/SyncExceptionMessages.php');
 require_once('exceptions/SyncExceptionCodes.php');
 
+//sync
+require_once('sync/addCircuit.php');
+require_once('sync/addWorker.php');
+require_once('sync/addSchoolUnitWorker.php');
+require_once('sync/syncCircuitTypes.php');
+require_once('sync/syncEduAdmins.php');
+require_once('sync/syncRegionEduAdmins.php');
+
 ////----classes ext from mm
 //require_once('classes/extends/RegionEduAdminsExt.class.php');
 //require_once('classes/extends/EduAdminsExt.class.php');
