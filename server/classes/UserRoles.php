@@ -200,8 +200,8 @@ private static $Permissions = array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
     'initial_labs'          => array(
-                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ'),
-                                        'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ')
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
+                                        'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ')
                                         ) ,
     'report_keplhnet'       => array(
                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
