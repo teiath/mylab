@@ -91,8 +91,8 @@
                     case  'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ' :
                         value_ranks.push({ldap_title: 'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ', ranking : 15, role: 'ΔΙΕΥΘΥΝΤΗΣ'});
                         break;
-                    case 'ΤΟΜΕΑΡΧΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
-                        value_ranks.push({ldap_title: 'ΤΟΜΕΑΡΧΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ', ranking : 15, role: 'ΤΟΜΕΑΡΧΗΣ'});
+                    case 'ΥΠΕΥΘΥΝΟΣ ΤΟΜΕΑ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
+                        value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΤΟΜΕΑ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ', ranking : 15, role: 'ΤΟΜΕΑΡΧΗΣ'});
                         break;
                     case  'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
                         value_ranks.push({ldap_title: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ', ranking : 35, role: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ'});
