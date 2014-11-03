@@ -17,7 +17,7 @@ class Prefectures
      *
      * @ORM\Column(name="prefecture_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $prefectureId;
 

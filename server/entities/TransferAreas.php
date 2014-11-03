@@ -17,7 +17,7 @@ class TransferAreas
      *
      * @ORM\Column(name="transfer_area_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $transferAreaId;
 
