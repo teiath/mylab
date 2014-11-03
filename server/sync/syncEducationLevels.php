@@ -75,11 +75,11 @@ try{
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
-                            $regionEduAdminEntity = new RegionEduAdmins(); 
-                            $regionEduAdminEntity->setRegionEduAdminId($fEducationLevel['id']);
+                            $educationLevelEntity = new EducationLevels(); 
+                            $educationLevelEntity->setEducationLevelId($fEducationLevel['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
-                            $regionEduAdminEntity = $retrievedObject;
+                            $educationLevelEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
                             $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $education_level_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
@@ -91,14 +91,14 @@ try{
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($regionEduAdminEntity, $name, 'RegionEduAdminName', 'name', true, false);
+                $fName = CRUDUtils::syncEntitySetParam($educationLevelEntity, $name, 'EducationLevelName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
                    
                 //check unique region_edu_admin name===================================
-                $checkDuplicate = $entityManager->getRepository('RegionEduAdmins')->findOneBy(array('name' => $regionEduAdminEntity->getName() ));
+                $checkDuplicate = $entityManager->getRepository('EducationLevels')->findOneBy(array('name' => $educationLevelEntity->getName() ));
 
-                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($regionEduAdminEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncRegionEduAdminNameValue. ':' . $regionEduAdminEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncRegionEduAdminNameValue;                 
+                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($educationLevelEntity->getName() != $checkDuplicate->getName() ))){
+                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncEducationLevelsNameValue. ':' . $educationLevelEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncEducationLevelsNameValue;                 
 
                 }
                 
@@ -106,35 +106,35 @@ try{
         
                     if (!$error_messages && $action === 'CREATE'){    
                         
-                                    $entityManager->persist($regionEduAdminEntity);
-                                    $entityManager->flush($regionEduAdminEntity);
+                                    $entityManager->persist($educationLevelEntity);
+                                    $entityManager->flush($educationLevelEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncRegionEduAdminsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncRegionEduAdminsRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncEducationLevelsRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncEducationLevelsRecord;
                         $final_results["action"] = 'insert';
-                        $final_results["region_edu_admin_id"] = $regionEduAdminEntity->getRegionEduAdminId();
+                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
                         $results["all_inserts"][]=$final_results;
                         
                     } elseif (!$error_messages && $action === 'UPDATE'){
                         
-                                    $entityManager->persist($regionEduAdminEntity);
-                                    $entityManager->flush($regionEduAdminEntity);
+                                    $entityManager->persist($educationLevelEntity);
+                                    $entityManager->flush($educationLevelEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateRegionEduAdminsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateRegionEduAdminsRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateEducationLevelsRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateEducationLevelsRecord;
                         $final_results["action"] = 'update';
-                        $final_results["region_edu_admin_id"] = $regionEduAdminEntity->getRegionEduAdminId();
+                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
                         $results["all_updates"][]=$final_results;
                                 
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncRegionEduAdminsRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncRegionEduAdminsRecord;
+                        $final_results["status"] = SyncExceptionCodes::FailureSyncEducationLevelsRecord;
+                        $final_results["message"] = SyncExceptionMessages::FailureSyncEducationLevelsRecord;
                         $final_results["action"] = 'error';
-                        $final_results["region_edu_admin_id"] = $regionEduAdminEntity->getRegionEduAdminId();
+                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
                             
                     }
                        
@@ -201,7 +201,7 @@ try{
     $print_results = array_merge($result_block,$results);
     
     $filepath = JsonFunctions::truepath();
-    $filename = $timer->getTimeFileName('region_edu_admins');
+    $filename = $timer->getTimeFileName('education_levels');
 
     $cachePath = $filepath.$filename;
     file_put_contents($cachePath, JsonFunctions::toGreek(json_encode($print_results), TRUE));
@@ -213,7 +213,7 @@ try{
     $sync_results['updateData'] =  "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch" ;
     $sync_results['errorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch" ;
     $sync_results['unexpectedErrorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch" ;
-    $sync_results['hrefLog'] =  'Finished Sync RegionEduAdmins table.View results at '. $href ;
+    $sync_results['hrefLog'] =  'Finished Sync EducationLevels table.View results at <a href='.$href.' target="_blank" >EducationLevelsLog.json</a>  ' ;
     
     return $sync_results;
 } catch (Exception $e) {

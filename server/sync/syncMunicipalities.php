@@ -6,15 +6,14 @@
  * @package SYNC
  * 
  */
-function syncCircuitTypes(){
+function syncMunicipalities(){
     header("Content-Type: text/html; charset=utf-8");
     
     global $Options; 
     global $entityManager;
-    
+        
     //check with params
-    $params = array("circuit_type" => "aDSLoPSTN,aDSLoISDN,ISDN,PSTN",
-                    "page"=>"1",
+    $params = array("page"=>"1",
                     "pagesize"=>"500");
     
     $sync_results = $all_logs = array();
@@ -23,9 +22,9 @@ function syncCircuitTypes(){
     //init and start timer
     $timer=new Timing;
     $timer->start();
-    
+
 try{ 
-    $sync_results['syncTable'] = 'circuit_types';
+    $sync_results['syncTable'] = 'municipalities';
 
     do{ 
         
@@ -35,10 +34,10 @@ try{
 //start api request and return a block of data==================================
 //==============================================================================
         
-        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'circuit_types', 'GET', $params);
+        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'municipalities', 'GET', $params);
 
         //log general infos from received data of the mmsch
-        $results["sync_table"] = "CircuitTypes";
+        $results["sync_table"] = "Municipalities";
         $results["total"] = (int)$data["total"];
    
         $result["block_general"][] = array( "count_page"    => (int)$params["page"],
@@ -50,92 +49,97 @@ try{
         //check if sync with mmsch return error code
         $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
 
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at CircuitTypes table ';return $sync_results;}        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at Municipalities table ';return $sync_results;}        
  	$sync_results['countData'] =  'Count of returned Data ' . $data["count"] ;
 
 //get each record of block data ================================================
 //==============================================================================
-        foreach($data["data"] as $circuit_type)
+        foreach($data["data"] as $municipality)
         {    
           
-            $circuit_type_id = $circuit_type["circuit_type_id"];
-            $name = $circuit_type["circuit_type"];
+            $municipality_id = $municipality["municipality_id"];
+            $name = $municipality["municipality"];
+            $prefecture_id = $municipality["prefecture_id"];
             
             $check_total_download++;
            
                 try {
                     $error_messages = array();
                                    
-                    //$circuit_type_id check value and get status(create,update,delete)
+                    //$municipality_id check value and get status(create,update,delete)
                     //==========================================================
-                    $fCircuitType = CRUDUtils::syncCheckIdParam($circuit_type_id, 'CircuitTypeID');
-                    if (!validator::IsNull($fCircuitType['id'])) {
+                    $fMunicipality= CRUDUtils::syncCheckIdParam($municipality_id, 'MunicipalityID');
+                    if (!validator::IsNull($fMunicipality['id'])) {
 
-                        $retrievedObject= $entityManager->find('CircuitTypes', $fCircuitType['id']);
-                        $duplicateValue = 'DuplicateCircuitTypeUniqueValue';
+                        $retrievedObject= $entityManager->find('Municipalities', $fMunicipality['id']);
+                        $duplicateValue = 'DuplicateMunicipalityUniqueValue';
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
-                            $circuitTypeEntity = new CircuitTypes(); 
-                            $circuitTypeEntity->setCircuitTypeId($fCircuitType['id']);
+                            $municipalityEntity = new Municipalities(); 
+                            $municipalityEntity->setMunicipalityId($fMunicipality['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
-                            $circuitTypeEntity = $retrievedObject;
+                            $municipalityEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $circuit_type_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $municipality_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
                     } else {
-                        $error_messages["errors"][] = $fCircuitType['error_message']; 
+                        $error_messages["errors"][] = $fMunicipality['error_message']; 
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($circuitTypeEntity, $name, 'CircuitTypeName', 'name', true, false);
+                $fName = CRUDUtils::syncEntitySetParam($municipalityEntity, $name, 'MunicipalityName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
+                   
+                //$prefecture_id================================================                  
+                $fPrefecture = CRUDUtils::syncEntitySetAssociation($municipalityEntity, $prefecture_id, 'Prefectures', 'prefecture', 'Prefecture', false); 
+                if (!validator::IsNull($fPrefecture)) {$error_messages["errors"][] = $fPrefecture; }
                 
-                //check unique circuit_types====================================
-                $checkDuplicate = $entityManager->getRepository('CircuitTypes')->findOneBy(array('name' => $circuitTypeEntity->getName() ));
+                //check unique municipality name================================
+                $checkDuplicate = $entityManager->getRepository('Municipalities')->findOneBy(array('name' => $municipalityEntity->getName() ));
 
-                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($circuitTypeEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncCircuitTypesNameValue. ':' . $circuitTypeEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncCircuitTypesNameValue;                 
+                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($municipalityEntity->getName() != $checkDuplicate->getName() ))){
+                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncMunicipalitiesNameValue. ':' . $municipalityEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncMunicipalitiesNameValue;                 
 
                 }
-
+                
                 //==============================================================
         
                     if (!$error_messages && $action === 'CREATE'){    
                         
-                                    $entityManager->persist($circuitTypeEntity);
-                                    $entityManager->flush($circuitTypeEntity);
+                                    $entityManager->persist($municipalityEntity);
+                                    $entityManager->flush($municipalityEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncCircuitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncCircuitTypesRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncMunicipalitiesRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncMunicipalitiesRecord;
                         $final_results["action"] = 'insert';
-                        $final_results["circuit_type_id"] = $circuitTypeEntity->getCircuitTypeId();
+                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
                         $results["all_inserts"][]=$final_results;
                         
                     } elseif (!$error_messages && $action === 'UPDATE'){
                         
-                                    $entityManager->persist($circuitTypeEntity);
-                                    $entityManager->flush($circuitTypeEntity);
+                                    $entityManager->persist($municipalityEntity);
+                                    $entityManager->flush($municipalityEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateCircuitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateCircuitTypesRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateMunicipalitiesRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateMunicipalitiesRecord;
                         $final_results["action"] = 'update';
-                        $final_results["circuit_type_id"] = $circuitTypeEntity->getCircuitTypeId();
+                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
                         $results["all_updates"][]=$final_results;
                                 
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncCircuitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncCircuitTypesRecord;
+                        $final_results["status"] = SyncExceptionCodes::FailureSyncMunicipalitiesRecord;
+                        $final_results["message"] = SyncExceptionMessages::FailureSyncMunicipalitiesRecord;
                         $final_results["action"] = 'error';
-                        $final_results["circuit_type_id"] = $circuitTypeEntity->getCircuitTypeId();
+                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
                             
                     }
                        
@@ -202,7 +206,7 @@ try{
     $print_results = array_merge($result_block,$results);
     
     $filepath = JsonFunctions::truepath();
-    $filename = $timer->getTimeFileName('circuit_types');
+    $filename = $timer->getTimeFileName('municipalities');
 
     $cachePath = $filepath.$filename;
     file_put_contents($cachePath, JsonFunctions::toGreek(json_encode($print_results), TRUE));
@@ -214,7 +218,7 @@ try{
     $sync_results['updateData'] =  "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch" ;
     $sync_results['errorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch" ;
     $sync_results['unexpectedErrorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch" ;
-    $sync_results['hrefLog'] =  'Finished Sync CircuitTypes table.View results at <a href='.$href.' target="_blank" >CircuitTypesLog.json</a>  ' ;
+    $sync_results['hrefLog'] =  'Finished Sync Municipalities table.View results at <a href='.$href.' target="_blank" >MunicipalitiesLog.json</a>  ' ;
     
     return $sync_results;
 } catch (Exception $e) {

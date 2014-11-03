@@ -133,6 +133,7 @@ class SyncExceptionCodes
     //sync transfer_areas table
     const SyncTransferAreas = '840';
     const SuccessSyncTransferAreasRecord = '841';
+    const SuccessSyncUpdateTransferAreasRecord = '850';
     const FailureSyncTransferAreasRecord = '842';
     const CommitSyncTransferAreas = '843';
     const RollBackSyncTransferAreas = '844';
@@ -147,6 +148,7 @@ class SyncExceptionCodes
     //sync prefectures table
     const SyncPrefectures = '860';
     const SuccessSyncPrefecturesRecord = '861';
+    const SuccessSyncUpdatePrefecturesRecord = '868';
     const FailureSyncPrefecturesRecord = '862';
     const CommitSyncPrefectures = '863';
     const RollBackSyncPrefectures = '864';
@@ -158,6 +160,7 @@ class SyncExceptionCodes
     //sync municipalities table
     const SyncMunicipalities = '880';
     const SuccessSyncMunicipalitiesRecord = '881';
+    const SuccessSyncUpdateMunicipalitiesRecord = '892';
     const FailureSyncMunicipalitiesRecord = '882';
     const CommitSyncMunicipalities = '883';
     const RollBackSyncMunicipalities = '884';
@@ -198,6 +201,7 @@ class SyncExceptionCodes
     //sync school_unit_types table
     const SyncSchoolUnitTypes = '940';
     const SuccessSyncSchoolUnitTypesRecord = '941';
+    const SuccessSyncUpdateSchoolUnitTypesRecord = '950';
     const FailureSyncSchoolUnitTypesRecord = '942';
     const CommitSyncSchoolUnitTypesUnits = '943';
     const RollBackSyncSchoolUnitTypesUnits = '944';
@@ -212,6 +216,7 @@ class SyncExceptionCodes
     //sync education_levels table
     const SyncEducationLevels = '960';
     const SuccessSyncEducationLevelsRecord = '961';
+    const SuccessSyncUpdateEducationLevelsRecord = '968';
     const FailureSyncEducationLevelsRecord = '962';
     const CommitSyncEducationLevels = '963';
     const RollBackSyncEducationLevels = '964';
@@ -223,6 +228,7 @@ class SyncExceptionCodes
     //sync states table
     const SyncStates = '980';
     const SuccessSyncStatesRecord = '981';
+    const SuccessSyncUpdateStatesRecord = '988';
     const FailureSyncStatesRecord = '982';
     const CommitSyncStates = '983';
     const RollBackSyncStates = '984';
@@ -296,6 +302,7 @@ class SyncExceptionCodes
     //sync worker_position table
     const SyncWorkerPositions = '1034';
     const SuccessSyncWorkerPositionsRecord = '1034';
+    const SuccessSyncUpdateWorkerPositionsRecord = '1034';
     const FailureSyncWorkerPositionsRecord = '1034';
     const CommitSyncWorkerPositions = '1034';
     const RollBackSyncWorkerPositions = '1034';
@@ -307,6 +314,7 @@ class SyncExceptionCodes
     //sync worker_specialization table
     const SyncWorkerSpecializations = '1034';
     const SuccessSyncWorkerSpecializationsRecord = '1034';
+    const SuccessSyncUpdateWorkerSpecializationsRecord = '1034';
     const FailureSyncWorkerSpecializationsRecord = '1034';
     const CommitSyncWorkerSpecializations = '1034';
     const RollBackSyncWorkerSpecializations = '1034';

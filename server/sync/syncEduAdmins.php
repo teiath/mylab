@@ -231,7 +231,7 @@ try{
     $sync_results['updateData'] =  "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch" ;
     $sync_results['errorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch" ;
     $sync_results['unexpectedErrorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch" ;
-    $sync_results['hrefLog'] =  'Finished Sync EduAdmins table.View results at '. $href ;
+    $sync_results['hrefLog'] =  'Finished Sync EduAdmins table.View results at <a href='.$href.' target="_blank" >EduAdminsLog.json</a>  ' ;
     
     return $sync_results;
 } catch (Exception $e) {
