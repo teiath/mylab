@@ -134,6 +134,7 @@ class SyncExceptionMessages
     //sync transfer_areas table
     const SyncTransferAreas = 'Συγχρονισμός με τον πίνακα TransferAreas';
     const SuccessSyncTransferAreasRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού TransferAreas ';
+    const SuccessSyncUpdateTransferAreasRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού TransferAreas ';
     const FailureSyncTransferAreasRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού TransferAreas ';
     const CommitSyncTransferAreas = 'Ο συγχρονισμός του λεξικού TransferAreas και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncTransferAreas = 'Ο συγχρονισμός του λεξικού TransferAreas και η ενημέρωση της βάσης απέτυχαν. ';
@@ -148,6 +149,7 @@ class SyncExceptionMessages
     //sync prefectures table
     const SyncPrefectures = 'Συγχρονισμός με τον πίνακα Prefectures';
     const SuccessSyncPrefecturesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Prefectures ';
+    const SuccessSyncUpdatePrefecturesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Prefectures ';
     const FailureSyncPrefecturesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Prefectures ';
     const CommitSyncPrefectures = 'Ο συγχρονισμός του λεξικού Prefectures και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncPrefectures = 'Ο συγχρονισμός του λεξικού Prefectures και η ενημέρωση της βάσης απέτυχαν. ';
@@ -159,6 +161,7 @@ class SyncExceptionMessages
     //sync municipalities table
     const SyncMunicipalities = 'Συγχρονισμός με τον πίνακα Municipality';
     const SuccessSyncMunicipalitiesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Municipality ';
+    const SuccessSyncUpdateMunicipalitiesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Municipality ';
     const FailureSyncMunicipalitiesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Municipality ';
     const CommitSyncMunicipalities = 'Ο συγχρονισμός του λεξικού Municipality και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncMunicipalities = 'Ο συγχρονισμός του λεξικού Municipality και η ενημέρωση της βάσης απέτυχαν. ';
@@ -199,6 +202,7 @@ class SyncExceptionMessages
     //sync school_unit_types table
     const SyncSchoolUnitTypes = 'Συγχρονισμός με τον πίνακα SchoolUnitTypes';
     const SuccessSyncSchoolUnitTypesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού SchoolUnitTypes ';
+    const SuccessSyncUpdateSchoolUnitTypesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού SchoolUnitTypes ';
     const FailureSyncSchoolUnitTypesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού SchoolUnitTypes ';
     const CommitSyncSchoolUnitTypesUnits = 'Ο συγχρονισμός του λεξικού SchoolUnitTypes και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncSchoolUnitTypesUnits = 'Ο συγχρονισμός του λεξικού SchoolUnitTypes και η ενημέρωση της βάσης απέτυχαν. ';
@@ -213,6 +217,7 @@ class SyncExceptionMessages
     //sync education_levels table
     const SyncEducationLevels = 'Συγχρονισμός με τον πίνακα EducationLevels';
     const SuccessSyncEducationLevelsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού EducationLevels ';
+    const SuccessSyncUpdateEducationLevelsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού EducationLevels ';
     const FailureSyncEducationLevelsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού EducationLevels ';
     const CommitSyncEducationLevels = 'Ο συγχρονισμός του λεξικού EducationLevels και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncEducationLevels = 'Ο συγχρονισμός του λεξικού EducationLevels και η ενημέρωση της βάσης απέτυχαν. ';
@@ -224,6 +229,7 @@ class SyncExceptionMessages
     //sync states table
     const SyncStates = 'Συγχρονισμός με τον πίνακα States';
     const SuccessSyncStatesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού States ';
+    const SuccessSyncUpdateStatesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού States ';
     const FailureSyncStatesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού States ';
     const CommitSyncStates = 'Ο συγχρονισμός του λεξικού States και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncStates = 'Ο συγχρονισμός του λεξικού States και η ενημέρωση της βάσης απέτυχαν. ';
@@ -297,6 +303,7 @@ class SyncExceptionMessages
     //sync worker_position table
     const SyncWorkerPositions = 'Συγχρονισμός με τον πίνακα WorkerPositions';
     const SuccessSyncWorkerPositionsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού WorkerPositions ';
+    const SuccessSyncUpdateWorkerPositionsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού WorkerPositions ';
     const FailureSyncWorkerPositionsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού WorkerPositions ';
     const CommitSyncWorkerPositions = 'Ο συγχρονισμός του λεξικού WorkerPositions και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncWorkerPositions = 'Ο συγχρονισμός του λεξικού WorkerPositions και η ενημέρωση της βάσης απέτυχαν. ';
@@ -308,6 +315,7 @@ class SyncExceptionMessages
     //sync worker_specialization table
     const SyncWorkerSpecializations = 'Συγχρονισμός με τον πίνακα WorkerSpecializations';
     const SuccessSyncWorkerSpecializationsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού WorkerSpecializations ';
+    const SuccessSyncUpdateWorkerSpecializationsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού WorkerSpecializations ';
     const FailureSyncWorkerSpecializationsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού WorkerSpecializations ';
     const CommitSyncWorkerSpecializations = 'Ο συγχρονισμός του λεξικού WorkerSpecializations και η ενημέρωση της βάσης είναι επιτυχής. ';
     const RollBackSyncWorkerSpecializations = 'Ο συγχρονισμός του λεξικού WorkerSpecializations και η ενημέρωση της βάσης απέτυχαν. ';

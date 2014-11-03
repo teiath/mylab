@@ -43,6 +43,9 @@ require_once('sync/addSchoolUnitWorker.php');
 require_once('sync/syncCircuitTypes.php');
 require_once('sync/syncEduAdmins.php');
 require_once('sync/syncRegionEduAdmins.php');
+require_once('sync/syncEducationLevels.php');
+require_once('sync/syncMunicipalities.php');
+require_once('sync/syncPrefectures.php');
 
 ////----classes ext from mm
 //require_once('classes/extends/RegionEduAdminsExt.class.php');

@@ -14,29 +14,61 @@ $app->config('debug', true);
 //circuit_types=================================================================
         $app->get('/circuit_types',Authentication, function() use ($app) {  
             $result = syncCircuitTypes();
-            print_r($result);
-
-        //uncomment if want return json results   
-        //    JsonFunctions::PrepareResponse();    
-        //    $app->response()->setBody( JsonFunctions::toGreek( json_encode( $result ) ) );
-
+            ExportDataType($result);
         });
         
 //edu_admins====================================================================
         $app->get('/edu_admins',Authentication, function() use ($app) {  
             $result = syncEduAdmins();
-            print_r($result);             
+            ExportDataType($result);
         });
 
 //region_edu_admins=============================================================
-        $app->get('/region_edu_admins',Authentication, function() use ($app) {  
+        $app->get('/region_edu_admins',Authentication, function() use ($app) {          
             $result = syncRegionEduAdmins();
-//            print_r($result);             
-            JsonFunctions::PrepareResponse();    
-            $app->response()->setBody( JsonFunctions::toGreek( json_encode( $result ) ) );
+            ExportDataType($result);  
         });
-
+   
+//education_levels=============================================================
+        $app->get('/education_levels',Authentication, function() use ($app) {          
+            $result = syncEducationLevels();
+            ExportDataType($result);  
+        });
         
+//municipalities=============================================================
+        $app->get('/municipalities',Authentication, function() use ($app) {          
+            $result = syncMunicipalities();
+            ExportDataType($result);  
+        });
+        
+//prefectures=============================================================
+        $app->get('/prefectures',Authentication, function() use ($app) {          
+            $result = syncPrefectures();
+            ExportDataType($result);  
+        });
+        
+//function not found============================================================
+$app->notFound(function () use ($app) 
+{
+    $controller = $app->environment();
+    $controller = substr($controller["PATH_INFO"], 1);
+    
+    try
+    {
+       if ( strtoupper($app->request()->getMethod()) != 'GET' )
+            throw new Exception(ExceptionMessages::MethodNotFound, ExceptionCodes::MethodNotFound);
+        else
+            throw new Exception(ExceptionMessages::FunctionNotFound, ExceptionCodes::FunctionNotFound);
+    } 
+    catch (Exception $e) 
+    {
+        $result["status"] = $e->getCode();
+        $result["message"] = "[".$app->request()->getMethod()."][".$controller."]:".$e->getMessage();
+    }
+
+    ExportDataType($result); 
+
+});
         
 $app->run();
 
@@ -59,6 +91,17 @@ function Authentication()
         $app->response()->setBody( JsonFunctions::toGreek( json_encode( $result ) ) );
         $app->stop();
     }
+}
+
+function ExportDataType($result){
+    global $app;
+    
+    if ($app->request()->get('type') == 'json' ) {
+        JsonFunctions::PrepareResponse();    
+        return $app->response()->setBody( JsonFunctions::toGreek( json_encode( $result ) ) );
+    } else {
+        return print_r($result); 
+    } 
 }
 
 ?>

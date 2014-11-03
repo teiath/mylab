@@ -106,7 +106,7 @@ $app->notFound(function () use ($app)
        if ( !in_array( strtoupper($app->request()->getMethod()), array(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE)))
             throw new Exception(ExceptionMessages::MethodNotFound, ExceptionCodes::MethodNotFound);
         else
-            throw new Exception(ExceptionMessages::MethodNotFound, ExceptionCodes::MethodNotFound);
+            throw new Exception(ExceptionMessages::FunctionNotFound, ExceptionCodes::FunctionNotFound);
     } 
     catch (Exception $e) 
     {
@@ -151,7 +151,7 @@ function Authentication()
         if(isset($app->request->headers['Php-Auth-User']) && isset($app->request->headers['Php-Auth-Pw'])) {
             $apcKey = 'mm_auth_'.md5($app->request->headers['Php-Auth-User'].$app->request->headers['Php-Auth-Pw']);
             if(!($userObj = apc_fetch($apcKey))) {
-                $ldap = new \Zend\Ldap\Ldap($ldapOptions); 
+                $ldap = new \Zend\Ldap\Ldap($ldapOptions);// print_r($ldap);die();
                 $ldap->bind('uid='.$app->request->headers['Php-Auth-User'].',ou=people,dc=sch,dc=gr', $app->request->headers['Php-Auth-Pw']);
                 $result = $ldap->search('(&(objectClass=*)(uid='.$app->request->headers['Php-Auth-User'].'))', null, \Zend\Ldap\Ldap::SEARCH_SCOPE_ONE);
             
@@ -179,7 +179,7 @@ function Authentication()
             }else { 
                 $app->request->user = $userObj;
             }
-        
+
         } else {
             throw new Exception(ExceptionMessages::UserAccesEmptyDenied, ExceptionCodes::UserAccesEmptyDenied); // Empty username/pass - Maybe guest access?
         }
@@ -187,7 +187,7 @@ function Authentication()
     catch (Exception $e)
     {
         if($e instanceof \Zend\Ldap\Exception\LdapException) {
-            $result["message"] = "[".$app->request()->getMethod()."][".__FUNCTION__."]:Invalid credentials";
+            $result["message"] = "[".$app->request()->getMethod()."][".__FUNCTION__."]:Invalid credentials. Zend Ldap Exception : ".$e->getMessage();
         } else {
             $result["message"] = "[".$app->request()->getMethod()."][".__FUNCTION__."]:".$e->getMessage();
         }
