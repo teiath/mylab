@@ -47,6 +47,29 @@ $app->config('debug', true);
             ExportDataType($result);  
         });
         
+//function not found============================================================
+$app->notFound(function () use ($app) 
+{
+    $controller = $app->environment();
+    $controller = substr($controller["PATH_INFO"], 1);
+    
+    try
+    {
+       if ( strtoupper($app->request()->getMethod()) != 'GET' )
+            throw new Exception(ExceptionMessages::MethodNotFound, ExceptionCodes::MethodNotFound);
+        else
+            throw new Exception(ExceptionMessages::FunctionNotFound, ExceptionCodes::FunctionNotFound);
+    } 
+    catch (Exception $e) 
+    {
+        $result["status"] = $e->getCode();
+        $result["message"] = "[".$app->request()->getMethod()."][".$controller."]:".$e->getMessage();
+    }
+
+    ExportDataType($result); 
+
+});
+        
 $app->run();
 
 
