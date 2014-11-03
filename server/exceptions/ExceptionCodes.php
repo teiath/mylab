@@ -27,6 +27,7 @@ class ExceptionCodes
         const UserAccesEmptyDenied = 500;
         const UserNoRolePermissions = 500;
         const MethodNotFound = 500;
+        const FunctionNotFound = 500;
 
         const Unauthorized = 500;
         

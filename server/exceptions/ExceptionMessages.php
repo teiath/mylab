@@ -26,7 +26,8 @@ class ExceptionMessages
         const UserAccesFrontDenied = 'Δεν σταλθηκα δεδομένα του χρήστη.Ο χρήστης δεν έχει πρόσβαση';
         const UserAccesEmptyDenied = 'Ονομα χρήστη κενό. Ο χρήστης δεν έχει πρόσβαση';
         const UserNoRolePermissions = 'Ο χρήστης δεν έχει συγκεριμενα δικαιώματα πρόσβασης';
-        const MethodNotFound = 'H μέθοδος δεν βρέθηκε';
+        const MethodNotFound = 'H μέθοδος δεν βρέθηκε (GET/POST/PUT/DELETE)';
+        const FunctionNotFound = 'H function δεν βρέθηκε (Api Function Name)';
         
         const Unauthorized = 'Unauthorized';
         

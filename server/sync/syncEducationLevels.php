@@ -18,13 +18,14 @@ function syncEducationLevels(){
     
     $sync_results = $all_logs = array();
     $check_total_download = 0;
+    $syncTable = 'education_levels';
 
     //init and start timer
     $timer=new Timing;
     $timer->start();
 
 try{ 
-    $sync_results['syncTable'] = 'education_levels';
+    $sync_results['syncTable'] = $syncTable;
 
     do{ 
         
@@ -34,10 +35,10 @@ try{
 //start api request and return a block of data==================================
 //==============================================================================
         
-        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'education_levels', 'GET', $params);
+        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], $syncTable, 'GET', $params);
 
         //log general infos from received data of the mmsch
-        $results["sync_table"] = "EducationLevels";
+        $results["syncTable"] = $syncTable;
         $results["total"] = (int)$data["total"];
    
         $result["block_general"][] = array( "count_page"    => (int)$params["page"],
@@ -49,7 +50,7 @@ try{
         //check if sync with mmsch return error code
         $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
 
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at EducationLevels table ';return $sync_results;}        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable . ' table ';return $sync_results;}        
  	$sync_results['countData'] =  'Count of returned Data ' . $data["count"] ;
 
 //get each record of block data ================================================
@@ -201,7 +202,7 @@ try{
     $print_results = array_merge($result_block,$results);
     
     $filepath = JsonFunctions::truepath();
-    $filename = $timer->getTimeFileName('education_levels');
+    $filename = $timer->getTimeFileName($syncTable);
 
     $cachePath = $filepath.$filename;
     file_put_contents($cachePath, JsonFunctions::toGreek(json_encode($print_results), TRUE));
@@ -213,7 +214,7 @@ try{
     $sync_results['updateData'] =  "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch" ;
     $sync_results['errorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch" ;
     $sync_results['unexpectedErrorData'] =  "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch" ;
-    $sync_results['hrefLog'] =  'Finished Sync EducationLevels table.View results at <a href='.$href.' target="_blank" >EducationLevelsLog.json</a>  ' ;
+    $sync_results['hrefLog'] =  'Finished Sync ' . $syncTable . ' table.View results at <a href='.$href.' target="_blank" >' . $syncTable . 'Log.json</a>  ' ;
     
     return $sync_results;
 } catch (Exception $e) {
