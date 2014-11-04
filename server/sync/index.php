@@ -22,31 +22,67 @@ $app->config('debug', true);
             $result = syncEduAdmins();
             ExportDataType($result);
         });
-
-//region_edu_admins=============================================================
-        $app->get('/region_edu_admins',Authentication, function() use ($app) {          
-            $result = syncRegionEduAdmins();
-            ExportDataType($result);  
-        });
    
-//education_levels=============================================================
+//education_levels==============================================================
         $app->get('/education_levels',Authentication, function() use ($app) {          
             $result = syncEducationLevels();
             ExportDataType($result);  
         });
         
-//municipalities=============================================================
+//municipalities================================================================
         $app->get('/municipalities',Authentication, function() use ($app) {          
             $result = syncMunicipalities();
             ExportDataType($result);  
         });
         
-//prefectures=============================================================
+//prefectures===================================================================
         $app->get('/prefectures',Authentication, function() use ($app) {          
             $result = syncPrefectures();
             ExportDataType($result);  
         });
         
+//region_edu_admins=============================================================
+        $app->get('/region_edu_admins',Authentication, function() use ($app) {          
+            $result = syncRegionEduAdmins();
+            ExportDataType($result);  
+        });
+        
+//school_unit_types=============================================================
+        $app->get('/school_unit_types',Authentication, function() use ($app) {          
+            $result = syncSchoolUnitTypes();
+            ExportDataType($result);  
+        });
+        
+//sources=======================================================================
+        $app->get('/sources',Authentication, function() use ($app) {          
+            $result = syncSources();
+            ExportDataType($result);  
+        });
+        
+//states========================================================================
+    $app->get('/states',Authentication, function() use ($app) {          
+        $result = syncStates();
+        ExportDataType($result);  
+    });
+    
+//transfer_areas================================================================
+    $app->get('/transfer_areas',Authentication, function() use ($app) {          
+        $result = syncTransferAreas();
+        ExportDataType($result);  
+    });
+
+//worker_positions==============================================================
+$app->get('/worker_positions',Authentication, function() use ($app) {          
+    $result = syncWorkerPositions();
+    ExportDataType($result);  
+});
+
+//worker_specializations========================================================
+$app->get('/worker_specializations',Authentication, function() use ($app) {          
+    $result = syncWorkerSpecializations();
+    ExportDataType($result);  
+});
+    
 //function not found============================================================
 $app->notFound(function () use ($app) 
 {
@@ -93,6 +129,7 @@ function Authentication()
     }
 }
 
+//Export result data to php or json=============================================
 function ExportDataType($result){
     global $app;
     

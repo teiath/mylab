@@ -6,24 +6,24 @@
  * @package SYNC
  * 
  */
-function syncMunicipalities(){
+function syncTransferAreas(){
     header("Content-Type: text/html; charset=utf-8");
     
     global $Options; 
     global $entityManager;
-        
+    
     //check with params
     $params = array("page"=>"1",
                     "pagesize"=>"500");
     
     $sync_results = $all_logs = array();
     $check_total_download = 0;
-    $syncTable = 'municipalities';
+    $syncTable = 'transfer_areas';
 
     //init and start timer
     $timer=new Timing;
     $timer->start();
-
+    
 try{ 
     $sync_results['syncTable'] = $syncTable;
 
@@ -55,56 +55,56 @@ try{
 
 //get each record of block data ================================================
 //==============================================================================
-        foreach($data["data"] as $municipality)
+        foreach($data["data"] as $transfer_area)
         {    
           
-            $municipality_id = $municipality["municipality_id"];
-            $name = $municipality["municipality"];
-            $prefecture_id = $municipality["prefecture_id"];
+            $transfer_area_id = $transfer_area["transfer_area_id"];
+            $name = $transfer_area["transfer_area"];
+            $edu_admin_id = $transfer_area["edu_admin_id"];
             
             $check_total_download++;
            
                 try {
                     $error_messages = array();
                                    
-                    //$municipality_id check value and get status(create,update,delete)
+                    //$transfer_area_id check value and get status(create,update,delete)
                     //==========================================================
-                    $fMunicipality= CRUDUtils::syncCheckIdParam($municipality_id, 'MunicipalityID');
-                    if (!validator::IsNull($fMunicipality['id'])) {
+                    $fTransferArea = CRUDUtils::syncCheckIdParam($transfer_area_id, 'TransferAreaID');
+                    if (!validator::IsNull($fTransferArea['id'])) {
 
-                        $retrievedObject= $entityManager->find('Municipalities', $fMunicipality['id']);
-                        $duplicateValue = 'DuplicateMunicipalityUniqueValue';
+                        $retrievedObject= $entityManager->find('TransferAreas', $fTransferArea['id']);
+                        $duplicateValue = 'DuplicateTransferAreaUniqueValue';
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
-                            $municipalityEntity = new Municipalities(); 
-                            $municipalityEntity->setMunicipalityId($fMunicipality['id']);
+                            $transferAreaEntity = new TransferAreas(); 
+                            $transferAreaEntity->setTransferAreaId($fTransferArea['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
-                            $municipalityEntity = $retrievedObject;
+                            $transferAreaEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $municipality_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $transfer_area_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
                     } else {
-                        $error_messages["errors"][] = $fMunicipality['error_message']; 
+                        $error_messages["errors"][] = $fTransferArea['error_message']; 
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($municipalityEntity, $name, 'MunicipalityName', 'name', true, false);
+                $fName = CRUDUtils::syncEntitySetParam($transferAreaEntity, $name, 'TransferAreaName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
-                   
-                //$prefecture_id================================================                  
-                $fPrefecture = CRUDUtils::syncEntitySetAssociation($municipalityEntity, $prefecture_id, 'Prefectures', 'prefecture', 'Prefecture', true); 
-                if (!validator::IsNull($fPrefecture)) {$error_messages["errors"][] = $fPrefecture; }
-                
-                //check unique municipality name================================
-                $checkDuplicate = $entityManager->getRepository('Municipalities')->findOneBy(array('name' => $municipalityEntity->getName() ));
 
-                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($municipalityEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncMunicipalitiesNameValue. ':' . $municipalityEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncMunicipalitiesNameValue;                 
+                //$edu_admin_id===========================================================================                  
+                $fEduAdmin = CRUDUtils::syncEntitySetAssociation($transferAreaEntity, $edu_admin_id, 'EduAdmins', 'eduAdmin', 'EduAdmin', true); 
+                if (!validator::IsNull($fEduAdmin)) {$error_messages["errors"][] = $fEduAdmin; }
+                
+                //check unique transfer_area name===================================
+                $checkNameDuplicate = $entityManager->getRepository('TransferAreas')->findOneBy(array('name' => $transferAreaEntity->getName() ));
+
+                if ((count($checkNameDuplicate) > 1) || (count($checkNameDuplicate)==1 && ($transferAreaEntity->getName() != $checkNameDuplicate->getName() ))){
+                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncTransferAreaNameValue. ':' . $transferAreaEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncTransferAreaNameValue;                 
 
                 }
                 
@@ -112,35 +112,35 @@ try{
         
                     if (!$error_messages && $action === 'CREATE'){    
                         
-                                    $entityManager->persist($municipalityEntity);
-                                    $entityManager->flush($municipalityEntity);
+                                    $entityManager->persist($transferAreaEntity);
+                                    $entityManager->flush($transferAreaEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncTransferAreasRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncTransferAreasRecord;
                         $final_results["action"] = 'insert';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                         $results["all_inserts"][]=$final_results;
                         
                     } elseif (!$error_messages && $action === 'UPDATE'){
                         
-                                    $entityManager->persist($municipalityEntity);
-                                    $entityManager->flush($municipalityEntity);
+                                    $entityManager->persist($transferAreaEntity);
+                                    $entityManager->flush($transferAreaEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateTransferAreasRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateTransferAreasRecord;
                         $final_results["action"] = 'update';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                         $results["all_updates"][]=$final_results;
                                 
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::FailureSyncTransferAreasRecord;
+                        $final_results["message"] = SyncExceptionMessages::FailureSyncTransferAreasRecord;
                         $final_results["action"] = 'error';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                             
                     }
                        

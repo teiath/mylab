@@ -6,20 +6,22 @@
  * @package SYNC
  * 
  */
-function syncMunicipalities(){
+function syncSchoolUnitTypes(){
     header("Content-Type: text/html; charset=utf-8");
     
     global $Options; 
     global $entityManager;
         
     //check with params
-    $params = array("page"=>"1",
+    $params = array("category"=>"1",
+                    "education_level"=>"1,2",
+                    "page"=>"1",
                     "pagesize"=>"500");
     
     $sync_results = $all_logs = array();
     $check_total_download = 0;
-    $syncTable = 'municipalities';
-
+    $syncTable = 'unit_types';
+            
     //init and start timer
     $timer=new Timing;
     $timer->start();
@@ -50,61 +52,74 @@ try{
         //check if sync with mmsch return error code
         $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
 
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable . ' table ';return $sync_results;}        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable .' table ';return $sync_results;}        
  	$sync_results['countData'] =  'Count of returned Data ' . $data["count"] ;
 
 //get each record of block data ================================================
 //==============================================================================
-        foreach($data["data"] as $municipality)
+        foreach($data["data"] as $school_unit_type)
         {    
           
-            $municipality_id = $municipality["municipality_id"];
-            $name = $municipality["municipality"];
-            $prefecture_id = $municipality["prefecture_id"];
-            
+            $school_unit_type_id = $school_unit_type["unit_type_id"];
+            $name = $school_unit_type["unit_type"];
+            $initials = $school_unit_type["initials"];
+            $education_level_id = $school_unit_type["education_level_id"];
+
             $check_total_download++;
            
                 try {
                     $error_messages = array();
                                    
-                    //$municipality_id check value and get status(create,update,delete)
+                    //$school_unit_type_id check value and get status(create,update,delete)
                     //==========================================================
-                    $fMunicipality= CRUDUtils::syncCheckIdParam($municipality_id, 'MunicipalityID');
-                    if (!validator::IsNull($fMunicipality['id'])) {
+                    $fSchoolUnitType= CRUDUtils::syncCheckIdParam($school_unit_type_id, 'SchoolUnitTypeID');
+                    if (!validator::IsNull($fSchoolUnitType['id'])) {
 
-                        $retrievedObject= $entityManager->find('Municipalities', $fMunicipality['id']);
-                        $duplicateValue = 'DuplicateMunicipalityUniqueValue';
+                        $retrievedObject= $entityManager->find('SchoolUnitTypes', $fSchoolUnitType['id']);
+                        $duplicateValue = 'DuplicateSchoolUnitTypeUniqueValue';
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
-                            $municipalityEntity = new Municipalities(); 
-                            $municipalityEntity->setMunicipalityId($fMunicipality['id']);
+                            $schoolUnitTypeEntity = new SchoolUnitTypes(); 
+                            $schoolUnitTypeEntity->setSchoolUnitTypeId($fSchoolUnitType['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
-                            $municipalityEntity = $retrievedObject;
+                            $schoolUnitTypeEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $municipality_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_type_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
                     } else {
-                        $error_messages["errors"][] = $fMunicipality['error_message']; 
+                        $error_messages["errors"][] = $fSchoolUnitType['error_message']; 
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($municipalityEntity, $name, 'MunicipalityName', 'name', true, false);
+                $fName = CRUDUtils::syncEntitySetParam($schoolUnitTypeEntity, $name, 'SchoolUnitTypeName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
-                   
-                //$prefecture_id================================================                  
-                $fPrefecture = CRUDUtils::syncEntitySetAssociation($municipalityEntity, $prefecture_id, 'Prefectures', 'prefecture', 'Prefecture', true); 
-                if (!validator::IsNull($fPrefecture)) {$error_messages["errors"][] = $fPrefecture; }
+                          
+                //$initials=====================================================
+                $fInitials = CRUDUtils::syncEntitySetParam($schoolUnitTypeEntity, $initials, 'SchoolUnitTypeInitial', 'initials', true, false);
+                if (!validator::IsNull($fInitials)) {$error_messages["errors"][] = $fInitials; }
                 
-                //check unique municipality name================================
-                $checkDuplicate = $entityManager->getRepository('Municipalities')->findOneBy(array('name' => $municipalityEntity->getName() ));
+                //$education_level_id===========================================                  
+                $fEducationLevel = CRUDUtils::syncEntitySetAssociation($schoolUnitTypeEntity, $education_level_id, 'EducationLevels', 'educationLevel', 'EducationLevel', true); 
+                if (!validator::IsNull($fEducationLevel)) {$error_messages["errors"][] = $fEducationLevel; }
+                
+                //check unique source name======================================
+                $checkDuplicate = $entityManager->getRepository('SchoolUnitTypes')->findOneBy(array('name' => $schoolUnitTypeEntity->getName() ));
 
-                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($municipalityEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncMunicipalitiesNameValue. ':' . $municipalityEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncMunicipalitiesNameValue;                 
+                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($schoolUnitTypeEntity->getName() != $checkDuplicate->getName() ))){
+                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncSchoolUnitTypesNameValue. ':' . $schoolUnitTypeEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncSchoolUnitTypesNameValue;                 
+
+                }
+                
+                //check initials================================================
+                $checkInitialsDuplicate = $entityManager->getRepository('SchoolUnitTypes')->findOneBy(array('initials' => $schoolUnitTypeEntity->getInitials() ));
+
+                if ((count($checkInitialsDuplicate) > 1) || (count($checkInitialsDuplicate)==1 && ($schoolUnitTypeEntity->getInitials() != $checkInitialsDuplicate->getInitials() ))){
+                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncSchoolUnitTypesInitialsValue. ':' . $schoolUnitTypeEntity->getInitials() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncSchoolUnitTypesInitialsValue;                 
 
                 }
                 
@@ -112,35 +127,35 @@ try{
         
                     if (!$error_messages && $action === 'CREATE'){    
                         
-                                    $entityManager->persist($municipalityEntity);
-                                    $entityManager->flush($municipalityEntity);
+                                    $entityManager->persist($schoolUnitTypeEntity);
+                                    $entityManager->flush($schoolUnitTypeEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncSchoolUnitTypesRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncSchoolUnitTypesRecord;
                         $final_results["action"] = 'insert';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["school_unit_type_id"] = $schoolUnitTypeEntity->getSchoolUnitTypeId();
                         $results["all_inserts"][]=$final_results;
                         
                     } elseif (!$error_messages && $action === 'UPDATE'){
                         
-                                    $entityManager->persist($municipalityEntity);
-                                    $entityManager->flush($municipalityEntity);
+                                    $entityManager->persist($schoolUnitTypeEntity);
+                                    $entityManager->flush($schoolUnitTypeEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateSchoolUnitTypesRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateSchoolUnitTypesRecord;
                         $final_results["action"] = 'update';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["school_unit_type_id"] = $schoolUnitTypeEntity->getSchoolUnitTypeId();
                         $results["all_updates"][]=$final_results;
                                 
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::FailureSyncSchoolUnitTypesRecord;
+                        $final_results["message"] = SyncExceptionMessages::FailureSyncSchoolUnitTypesRecord;
                         $final_results["action"] = 'error';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["school_unit_type_id"] = $schoolUnitTypeEntity->getSchoolUnitTypeId();
                             
                     }
                        

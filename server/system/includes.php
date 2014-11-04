@@ -40,12 +40,19 @@ require_once('exceptions/SyncExceptionCodes.php');
 require_once('sync/addCircuit.php');
 require_once('sync/addWorker.php');
 require_once('sync/addSchoolUnitWorker.php');
+
 require_once('sync/syncCircuitTypes.php');
 require_once('sync/syncEduAdmins.php');
-require_once('sync/syncRegionEduAdmins.php');
 require_once('sync/syncEducationLevels.php');
 require_once('sync/syncMunicipalities.php');
 require_once('sync/syncPrefectures.php');
+require_once('sync/syncRegionEduAdmins.php');
+require_once('sync/syncSchoolUnitTypes.php');
+require_once('sync/syncSources.php');
+require_once('sync/syncStates.php');
+require_once('sync/syncTransferAreas.php');
+require_once('sync/syncWorkerPositions.php');
+require_once('sync/syncWorkerSpecializations.php');
 
 ////----classes ext from mm
 //require_once('classes/extends/RegionEduAdminsExt.class.php');

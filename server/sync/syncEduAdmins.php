@@ -102,7 +102,7 @@ try{
                 if (!validator::IsNull($fEduAdminCode)) {$error_messages["errors"][] = $fEduAdminCode; }
 
                 //$region_edu_admin_id===========================================================================                  
-                $fRegionEduAdmin = CRUDUtils::syncEntitySetAssociation($eduAdminEntity, $region_edu_admin_id, 'RegionEduAdmins', 'regionEduAdmin', 'RegionEduAdmin', false); 
+                $fRegionEduAdmin = CRUDUtils::syncEntitySetAssociation($eduAdminEntity, $region_edu_admin_id, 'RegionEduAdmins', 'regionEduAdmin', 'RegionEduAdmin', true); 
                 if (!validator::IsNull($fRegionEduAdmin)) {$error_messages["errors"][] = $fRegionEduAdmin; }
                 
                 //check unique edu_admin name===================================

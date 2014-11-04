@@ -6,7 +6,7 @@
  * @package SYNC
  * 
  */
-function syncMunicipalities(){
+function syncWorkerSpecializations(){
     header("Content-Type: text/html; charset=utf-8");
     
     global $Options; 
@@ -18,8 +18,8 @@ function syncMunicipalities(){
     
     $sync_results = $all_logs = array();
     $check_total_download = 0;
-    $syncTable = 'municipalities';
-
+    $syncTable = 'worker_specializations';
+            
     //init and start timer
     $timer=new Timing;
     $timer->start();
@@ -50,61 +50,56 @@ try{
         //check if sync with mmsch return error code
         $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
 
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable . ' table ';return $sync_results;}        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable .' table ';return $sync_results;}        
  	$sync_results['countData'] =  'Count of returned Data ' . $data["count"] ;
 
 //get each record of block data ================================================
 //==============================================================================
-        foreach($data["data"] as $municipality)
+        foreach($data["data"] as $worker_specialization)
         {    
           
-            $municipality_id = $municipality["municipality_id"];
-            $name = $municipality["municipality"];
-            $prefecture_id = $municipality["prefecture_id"];
-            
+            $worker_specialization_id = $worker_specialization["worker_specialization_id"];
+            $name = $worker_specialization["worker_specialization"];
+
             $check_total_download++;
            
                 try {
                     $error_messages = array();
                                    
-                    //$municipality_id check value and get status(create,update,delete)
+                    //$worker_specialization_id check value and get status(create,update,delete)
                     //==========================================================
-                    $fMunicipality= CRUDUtils::syncCheckIdParam($municipality_id, 'MunicipalityID');
-                    if (!validator::IsNull($fMunicipality['id'])) {
+                    $fWorkerSpecialization= CRUDUtils::syncCheckIdParam($worker_specialization_id, 'WorkerSpecializationID');
+                    if (!validator::IsNull($fWorkerSpecialization['id'])) {
 
-                        $retrievedObject= $entityManager->find('Municipalities', $fMunicipality['id']);
-                        $duplicateValue = 'DuplicateMunicipalityUniqueValue';
+                        $retrievedObject= $entityManager->find('WorkerSpecializations', $fWorkerSpecialization['id']);
+                        $duplicateValue = 'DuplicateWorkerSpecializationUniqueValue';
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
-                            $municipalityEntity = new Municipalities(); 
-                            $municipalityEntity->setMunicipalityId($fMunicipality['id']);
+                            $workerSpecializationEntity = new WorkerSpecializations(); 
+                            $workerSpecializationEntity->setWorkerSpecializationId($fWorkerSpecialization['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
-                            $municipalityEntity = $retrievedObject;
+                            $workerSpecializationEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $municipality_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $worker_specialization_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
                     } else {
-                        $error_messages["errors"][] = $fMunicipality['error_message']; 
+                        $error_messages["errors"][] = $fWorkerSpecialization['error_message']; 
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($municipalityEntity, $name, 'MunicipalityName', 'name', true, false);
+                $fName = CRUDUtils::syncEntitySetParam($workerSpecializationEntity, $name, 'WorkerSpecializationName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
-                   
-                //$prefecture_id================================================                  
-                $fPrefecture = CRUDUtils::syncEntitySetAssociation($municipalityEntity, $prefecture_id, 'Prefectures', 'prefecture', 'Prefecture', true); 
-                if (!validator::IsNull($fPrefecture)) {$error_messages["errors"][] = $fPrefecture; }
-                
-                //check unique municipality name================================
-                $checkDuplicate = $entityManager->getRepository('Municipalities')->findOneBy(array('name' => $municipalityEntity->getName() ));
+                                         
+                //check unique worker specialization name=======================
+                $checkDuplicate = $entityManager->getRepository('WorkerSpecializations')->findOneBy(array('name' => $workerSpecializationEntity->getName() ));
 
-                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($municipalityEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncMunicipalitiesNameValue. ':' . $municipalityEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncMunicipalitiesNameValue;                 
+                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($workerSpecializationEntity->getName() != $checkDuplicate->getName() ))){
+                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncWorkerSpecializationsNameValue. ':' . $workerSpecializationEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncWorkerSpecializationsNameValue;                 
 
                 }
                 
@@ -112,35 +107,35 @@ try{
         
                     if (!$error_messages && $action === 'CREATE'){    
                         
-                                    $entityManager->persist($municipalityEntity);
-                                    $entityManager->flush($municipalityEntity);
+                                    $entityManager->persist($workerSpecializationEntity);
+                                    $entityManager->flush($workerSpecializationEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncWorkerSpecializationsRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncWorkerSpecializationsRecord;
                         $final_results["action"] = 'insert';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["worker_specialization_id"] = $workerSpecializationEntity->getWorkerSpecializationId();
                         $results["all_inserts"][]=$final_results;
                         
                     } elseif (!$error_messages && $action === 'UPDATE'){
                         
-                                    $entityManager->persist($municipalityEntity);
-                                    $entityManager->flush($municipalityEntity);
+                                    $entityManager->persist($workerSpecializationEntity);
+                                    $entityManager->flush($workerSpecializationEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateWorkerSpecializationsRecord;
+                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateWorkerSpecializationsRecord;
                         $final_results["action"] = 'update';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["worker_specialization_id"] = $workerSpecializationEntity->getWorkerSpecializationId();
                         $results["all_updates"][]=$final_results;
                                 
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncMunicipalitiesRecord;
+                        $final_results["status"] = SyncExceptionCodes::FailureSyncWorkerSpecializationsRecord;
+                        $final_results["message"] = SyncExceptionMessages::FailureSyncWorkerSpecializationsRecord;
                         $final_results["action"] = 'error';
-                        $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
+                        $final_results["worker_specialization_id"] = $workerSpecializationEntity->getWorkerSpecializationId();
                             
                     }
                        
