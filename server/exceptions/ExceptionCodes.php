@@ -56,7 +56,6 @@ class ExceptionCodes
         /** {@see ExceptionMessages::DuplicateXYAxisParam} */
         const DuplicateXYAxisParam = 500;
 
-        
     //########################################
     //Search Functions
     //######################################## 
@@ -110,8 +109,8 @@ class ExceptionCodes
     const InvalidSchoolUnitStreetAddressType = 500;
     /** {@see ExceptionMessages::InvalidSchoolUnitPostalCodeType} */
     const InvalidSchoolUnitPostalCodeType = 500;
-    /** {@see ExceptionMessages::InvalidSchoolUnitUnitDns} */  
-    const InvalidSchoolUnitUnitDns = 500;
+    /** {@see ExceptionMessages::InvalidSchoolUnitUnitDnsType} */  
+    const InvalidSchoolUnitUnitDnsType = 500;
     
     /** {@see ExceptionMessages::DuplicatedSchoolUnitValue} */
     const DuplicatedSchoolUnitValue = 500;

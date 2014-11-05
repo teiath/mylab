@@ -44,7 +44,7 @@ class ExceptionMessages
         const InvalidYAxis = 'Ο Άξονας y πρέπεινα πρέπει να είναι κάποιο από τα πεδία που επιστρέφει η συνάρτηση';
         
         const DuplicateXYAxisParam = 'Ο Άξονας x και y δεν μπορούν να έχουν την ίδια τιμή.';
-  
+
     //########################################
     //Search Functions
     //######################################## 
@@ -78,7 +78,7 @@ class ExceptionMessages
     const InvalidSchoolUnitEmailType = 'Το Email της Μονάδας πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
     const InvalidSchoolUnitStreetAddressType = 'Η Διεύθυνση της Μονάδας πρέπει να είναι αλφαριθμητική';
     const InvalidSchoolUnitPostalCodeType = 'Ο Ταχυδρομικός Κώδικας της Μονάδας πρέπει να είναι αριθμητικός';
-    const InvalidSchoolUnitUnitDns = 'Ο Κωδικός DNS της Μονάδας πρέπει να είναι αλφαριθμητικός';
+    const InvalidSchoolUnitUnitDnsType = 'Ο Κωδικός DNS της Μονάδας πρέπει να είναι αλφαριθμητικός';
      
     const DuplicatedSchoolUnitValue = 'H Μονάδα υπάρχει ήδη';
     const DuplicateSchoolUnitUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key SchoolUnit';

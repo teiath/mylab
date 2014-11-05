@@ -17,10 +17,7 @@
     
     //mmsch parameters
     $params = array(
-    //"edu_admin" =>1,
-    "mm_id" => "1014486",
-    //"mm_id" => "1020428,1007591",
-    //"mm_id" => "1000002,1002233,1000002,1000003,1000019,1016506,1007591,1016502,1016503,1001982,1001023,1000006,1003605,1016505,1017701",
+    //"mm_id" => "1016860",
     "legal_character" => 1, //"ΔΗΜΟΣΙΟ",
     "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
@@ -68,7 +65,7 @@ try{
             $result["block_error_sync"] = false;
         }
    
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync at school_units table';die();}     
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync at units table';die();}     
  	echo '---Count of returned Data ' . $data["count"] . ' :--------';
         
         //get each school_unit data record 
@@ -92,7 +89,8 @@ try{
             $education_level = $school_unit["education_level_id"];
             $school_unit_type = $school_unit["unit_type_id"];
             $state = $school_unit["state_id"];
-            
+            $unit_dns = $school_unit["unit_dns"][0]["unit_dns"];
+          
             $check_total_download++;
             
             $mmsch_data["mmsch_data"] = array( "school_unit_id" => $school_unit_id,
@@ -111,7 +109,8 @@ try{
                                                "prefecture_id"=> $prefecture,                                            
                                                "education_level_id"=> $education_level,
                                                "school_unit_type_id"=> $school_unit_type,
-                                               "state_id"=> $state             
+                                               "state_id"=> $state,
+                                               "unit_dns"=> $unit_dns
                                                 );
                               
                 try {
@@ -147,8 +146,7 @@ try{
                     } 
                                 
 //$last_update============================================================================
-          
-            
+                       
        if (Validator::IsNull($last_update))
             $error_messages["errors"][] = constant('ExceptionMessages::MissingLabTransitionDateValue') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::MissingLabTransitionDateValue');
        else if (Validator::IsArray($last_update))
@@ -212,6 +210,10 @@ try{
     $fState = CRUDUtils::syncEntitySetAssociation($unit, $state, 'States', 'state', 'State');
     if (!validator::IsNull($fState)) {$error_messages["errors"][] = $fState; }
 
+//$unit_dns===========================================================================
+   $fUnitDns = CRUDUtils::syncEntitySetParam($unit, $unit_dns, 'SchoolUnitUnitDns', 'unit_dns');
+    if (!validator::IsNull($fUnitDns)) {$error_messages["errors"][] = $fUnitDns; }    
+    
 //$fax_number===========================================================================
    $fFaxNumber = CRUDUtils::syncEntitySetParam($unit, $fax_number, 'SchoolUnitFaxNumber', 'fax_number');
     if (!validator::IsNull($fFaxNumber)) {$error_messages["errors"][] = $fFaxNumber; }    
