@@ -96,6 +96,7 @@ try{
             $education_level = $school_unit["education_level_id"];
             $school_unit_type = $school_unit["unit_type_id"];
             $state = $school_unit["state_id"];
+            $unit_dns = $school_unit["unit_dns"][0]["unit_dns"];
             
             $check_total_download++;
             
@@ -115,7 +116,8 @@ try{
                                                "prefecture_id"=> $prefecture,                                            
                                                "education_level_id"=> $education_level,
                                                "school_unit_type_id"=> $school_unit_type,
-                                               "state_id"=> $state             
+                                               "state_id"=> $state,
+                                               "unit_dns"=> $unit_dns
                                                 );
             
 
@@ -212,6 +214,10 @@ try{
 //$school_unit_type_id===========================================================================
     $fSchoolUnitType = CRUDUtils::syncEntitySetAssociation($unit, $school_unit_type, 'SchoolUnitTypes', 'schoolUnitType', 'SchoolUnitType');
     if (!validator::IsNull($fSchoolUnitType)) {$error_messages["errors"][] = $fSchoolUnitType; }
+    
+//$unit_dns===========================================================================
+   $fUnitDns = CRUDUtils::syncEntitySetParam($unit, $unit_dns, 'SchoolUnitUnitDns', 'unit_dns');
+    if (!validator::IsNull($fUnitDns)) {$error_messages["errors"][] = $fUnitDns; }  
     
 //$state_id===========================================================================
     $fState = CRUDUtils::syncEntitySetAssociation($unit, $state, 'States', 'state', 'State');
