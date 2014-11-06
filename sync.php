@@ -15,6 +15,7 @@
         <link href="client/libs/frameworks/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
         <link href="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/styles/kendo.common.min.css" rel="stylesheet"/>
         <link href="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/styles/kendo.metro.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" media="screen" href="client/libs/fonts/font-awesome-4.1.0/css/font-awesome.min.css" >
         
         <script>
             
@@ -54,33 +55,68 @@
             
             $("#sync").on("click", function(e){
                 
-                $("#result>table>tbody").empty();
-                
-                var parameters = {
-                          type: "json"
-                        };
+                var sync_dialog = $("#sync_dialog").kendoWindow({
+                    modal: true,
+                    visible: false,
+                    resizable: false,
+                    width: 400,
+                    pinned:true,
+                    open: function(ev){
+                        ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
+                        sync_dialog.title("Συγχρονισμός " + selection);
+                                                
+                        var syncButton = sync_dialog.element.find("div.k-edit-buttons>a.k-grid-sync");
+                        var cancelSyncButton = sync_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel-sync");
+                                                
+                        cancelSyncButton.on("click", function(e){
+                            e.preventDefault();
+                            sync_dialog.close();
+                        });
+                        
+                        syncButton.on("click", function(e){
+                            e.preventDefault();
+                            sync_dialog.close();
+                            kendo.ui.progress($(document.body), true);
 
-                $.ajax({
-                        type: "GET",
-                        url: baseURL + selection,
-                        dataType: "json",
-                        data: parameters,
-                        success: function(data){
-                            var row;
-                            $.each(data, function(index, value){
-                                if(typeof value == "object"){
-                                    $.each(value, function(index2, value2){
-                                        row =  "<tr><td>" + index +"."+ index2 + "</td><td>" + value2 + "</td></tr>";
-                                        $("#result>table>tbody").append(row);
-                                    });
-                                }else{
-                                    row = "<tr><td>" + index + "</td><td>" + value + "</td></tr>";
-                                    $("#result>table>tbody").append(row);
-                                }
-                                
+                            $("#result>table>tbody").empty();
+
+                            var parameters = {
+                                      type: "json"
+                                    };
+
+                            $.ajax({
+                                    type: "GET",
+                                    url: baseURL + selection,
+                                    dataType: "json",
+                                    data: parameters,
+                                    success: function(data){
+                                        var row;
+                                        $.each(data, function(index, value){
+                                            if(typeof value == "object"){
+                                                $.each(value, function(index2, value2){
+                                                    row =  "<tr><td>" + index +"."+ index2 + "</td><td>" + value2 + "</td></tr>";
+                                                    $("#result>table>tbody").append(row);
+                                                });
+                                            }else{
+                                                row = "<tr><td>" + index + "</td><td>" + value + "</td></tr>";
+                                                $("#result>table>tbody").append(row);
+                                            }
+
+                                        });
+                                        
+                                        kendo.ui.progress($(document.body), false);
+                                    }
                             });
-                        }
-                    });
+                        });
+                        
+                        
+                    }
+                }).data("kendoWindow");
+                
+                var syncTemplate = kendo.template($("#sync_template").html());
+                sync_dialog.content(syncTemplate(e));
+                sync_dialog.center().open();
+                
             });
             
          });
@@ -94,7 +130,7 @@
             <div class="row">
 
                 <div class="col-md-12">
-                    <button id="sync" type="button" class="btn btn-primary">Primary</button>
+                    <button id="sync" type="button" class="btn btn-primary">Συγχρονισμός</button>
                     <input id="dropdownlist" />
                 </div>
 
@@ -113,7 +149,34 @@
 
             </div>
         </div>
-        
+        <div id="sync_dialog"></div>
+                
     </body>
 
 </html>
+
+
+<script id="sync_template" type="text/x-kendo-template">
+
+    <div class="k-edit-form-container">
+
+        <div class="form-horizontal col-md-11">
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <span> Είστε βέβαιος οτι θέλετε να συγχρονίσετε; </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="k-edit-buttons k-state-default">
+            <a class="k-button k-button-icontext k-grid-sync" href="\#">
+                <span class="k-icon k-update"></span>Συγχρονισμός
+            </a>
+            <a class="k-button k-button-icontext k-grid-cancel-sync" href="\#">
+                <span class="k-icon k-cancel"></span>Ακύρωση
+            </a>
+        </div>
+
+    </div>
+
+</script>
