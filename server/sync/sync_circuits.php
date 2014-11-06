@@ -39,18 +39,9 @@ try{
 
 //start api request and return a block of data==================================
 //==============================================================================
-        
-        // $result = SYNCUtils::apiRequest($Options['Server_Mmsch'], $Options['Server_Mmsch_username'], $Options['Server_Mmsch_password'], 'circuits', 'GET', $params);
 
         //make the http request to mmsch with cURL 
-        $curl = curl_init($Options['Server_Mm']."circuits");
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, $Options['Server_Mm_username'] . ":" . $Options['Server_Mm_password']);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode( $params ));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        $data = json_decode( curl_exec($curl), true );
+        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'circuits', 'GET', $params);
 
         //log general infos from received data of the mmsch
         $results["sync_table"] = "Circuits";

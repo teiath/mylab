@@ -126,7 +126,7 @@ class ExceptionCodes
         const SuccessSyncSchoolUnitsRecord = 500;
         const SuccessSyncUpdateSchoolUnitsRecord = 500;
         const FailureSyncSchoolUnitsRecord = 500;
-        const IgnoreSyncSchoolUnitWorkersRecord = 500;
+        const IgnoreSyncSchoolUnitsRecord = 500;
         const GarbageSyncSchoolUnitsRecord = 500;
     
 //= Circuits
