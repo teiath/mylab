@@ -34,7 +34,7 @@ try{
         $result = array();
         
         //make the http request to mmsch with cURL 
-        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_MyLab_username'], $Options['Server_MyLab_password'], 'school_units', 'GET', $params);
+        $data = SYNCUtils::apiRequest($Options['Server_MyLab'], $Options['Server_MyLab_username'], $Options['Server_MyLab_password'], 'school_units', 'GET', $params);
         
         //log general infos from received data of the mmsch
         $results["sync_table"] = "School_Units";
