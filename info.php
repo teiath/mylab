@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<div id="info-container" class="container" style="font-size: 13px; color: #787878" data-bind="visible: isVisible">
+<div id="info-container" class="container" style="font-size: 13px; color: #787878; background:white; padding-top:20px; padding-bottom:20px;" data-bind="visible: isVisible">
     <div class="row">
         <div class="col-md-12" style="font-size: 13px; color: #787878; text-align: center;">
                 <div class="col-md-12" >

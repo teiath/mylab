@@ -4,6 +4,7 @@ var StatisticsVM = kendo.observable({
     statisticExportEnabled: false,
     cascadeValidationVisible: false,
     filtersPaneVisible: false,
+    statisticTableVisible: false,
 
     axis_x_ds: newAxisXDS(),
     axis_y_ds: newAxisYDS(),
@@ -201,7 +202,8 @@ var StatisticsVM = kendo.observable({
                 console.log("GET statistic_units error data: ", data); 
             }
         });
-
+        
+        StatisticsVM.set("statisticTableVisible", true);
     },
     cascadeAxis: function(e){
         
