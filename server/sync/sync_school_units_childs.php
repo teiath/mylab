@@ -309,7 +309,7 @@ try{
                                                                 );
 
                                      //make the http request to MYLAB with cURL                             
-                                     $data_transitions = SYNCUtils::apiRequest($Options['ServerURL'], $Options['Server_MyLab_username'], $Options['Server_MyLab_password'], 'lab_transitions', 'POST', $params_transitions);
+                                     $data_transitions = SYNCUtils::apiRequest($Options['Server_MyLab'], $Options['Server_MyLab_username'], $Options['Server_MyLab_password'], 'lab_transitions', 'POST', $params_transitions);
 
                                      if ($data_transitions["status"] != 200){
                                          $error_messages["errors"][] = $data_transitions["message"] . " Κωδικός Σχολικής Μονάδας : " . $fLabSchoolUnitId . " Κωδικός Εργαστηρίου : " . $fLabId; 

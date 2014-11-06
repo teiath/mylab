@@ -34,14 +34,8 @@ try{
         $result = array();
         
         //make the http request to mmsch with cURL 
-        $curl = curl_init($Options['ServerURL']."school_units");
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, $Options['Server_MyLab_username'] . ":" . $Options['Server_MyLab_password']);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode( $params ));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $data = json_decode( curl_exec($curl), true );
-
+        $data = SYNCUtils::apiRequest($Options['Server_MyLab'], $Options['Server_MyLab_username'], $Options['Server_MyLab_password'], 'school_units', 'GET', $params);
+        
         //log general infos from received data of the mmsch
         $results["sync_table"] = "School_Units";
         $results["total"] = (int)$data["total"];
@@ -80,13 +74,7 @@ try{
                     $params_unit_dns = array("unit" => $school_unit_id);
 
                     //make the http request to mmsch with cURL 
-                    $curl_unit_dns = curl_init($Options['Server_Mmsch']."/unit_dns");
-                    curl_setopt($curl_unit_dns, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-                    curl_setopt($curl_unit_dns, CURLOPT_USERPWD, $Options['Server_Mmsch_username'] . ":" . $Options['Server_Mmsch_password']);
-                    curl_setopt($curl_unit_dns, CURLOPT_CUSTOMREQUEST, "GET");
-                    curl_setopt($curl_unit_dns, CURLOPT_POSTFIELDS, json_encode( $params_unit_dns ));
-                    curl_setopt($curl_unit_dns, CURLOPT_RETURNTRANSFER, true);
-                    $data_unit_dns = json_decode( curl_exec($curl_unit_dns), true );
+                    $data_unit_dns = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'unit_dns', 'GET', $params_unit_dns);
 
                          if ($data_unit_dns["status"] != 200){
                             $error_messages["errors"][] = $data_unit_dns["message"] . " Κωδικός Σχολικής Μονάδας : " . $school_unit_id ; 

@@ -45,13 +45,7 @@ try{
         $result = array();
         
         //make the http request to mmsch with cURL 
-        $curl = curl_init($Options['Server_Mmsch']."units");
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, $Options['Server_Mmsch_username'] . ":" . $Options['Server_Mmsch_password']);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode( $params ));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $data = json_decode( curl_exec($curl), true );
+        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'units', 'GET', $params);
 
         //log general infos from received data of the mmsch
         $results["sync_table"] = "School_Units";
@@ -318,13 +312,7 @@ try{
                                                                 );
 
                                      //make the http request to mmsch with cURL 
-                                     $curl_transitions = curl_init($Options['ServerURL']."/lab_transitions");
-                                     curl_setopt($curl_transitions, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-                                     curl_setopt($curl_transitions, CURLOPT_USERPWD, $Options['Server_MyLab_username'] . ":" . $Options['Server_MyLab_password']);
-                                     curl_setopt($curl_transitions, CURLOPT_CUSTOMREQUEST, "POST");
-                                     curl_setopt($curl_transitions, CURLOPT_POSTFIELDS, json_encode( $params_transitions ));
-                                     curl_setopt($curl_transitions, CURLOPT_RETURNTRANSFER, true);
-                                     $data_transitions = json_decode( curl_exec($curl_transitions), true );
+                                     $data_transitions = SYNCUtils::apiRequest($Options['Server_MyLab'], $Options['Server_MyLab_username'], $Options['Server_MyLab_password'], 'lab_transitions', 'POST', $params_transitions);
 
                                      if ($data_transitions["status"] != 200){
                                          $error_messages["errors"][] = $data_transitions["message"] . " Κωδικός Σχολικής Μονάδας : " . $fLabSchoolUnitId . " Κωδικός Εργαστηρίου : " . $fLabId; 
