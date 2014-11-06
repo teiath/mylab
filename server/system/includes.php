@@ -33,8 +33,6 @@ require_once('libs/db2php/DSC.class.php');
 require_once('exceptions/ExceptionCodes.php');
 require_once('exceptions/ExceptionMessages.php');
 require_once('exceptions/ExceptionManager.php');
-require_once('exceptions/SyncExceptionMessages.php');
-require_once('exceptions/SyncExceptionCodes.php');
 
 //sync
 require_once('sync/addCircuit.php');

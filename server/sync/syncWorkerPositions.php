@@ -83,7 +83,7 @@ try{
                             $workerPositionEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $worker_position_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $worker_position_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -99,7 +99,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('WorkerPositions')->findOneBy(array('name' => $workerPositionEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($workerPositionEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncWorkerPositionsNameValue. ':' . $workerPositionEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncWorkerPositionsNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncWorkerPositionsNameValue. ':' . $workerPositionEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncWorkerPositionsNameValue;                 
 
                 }
                 
@@ -111,8 +111,8 @@ try{
                                     $entityManager->flush($workerPositionEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncWorkerPositionsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncWorkerPositionsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncWorkerPositionsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncWorkerPositionsRecord;
                         $final_results["action"] = 'insert';
                         $final_results["worker_position_id"] = $workerPositionEntity->getWorkerPositionId();
                         $results["all_inserts"][]=$final_results;
@@ -123,8 +123,8 @@ try{
                                     $entityManager->flush($workerPositionEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateWorkerPositionsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateWorkerPositionsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateWorkerPositionsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateWorkerPositionsRecord;
                         $final_results["action"] = 'update';
                         $final_results["worker_position_id"] = $workerPositionEntity->getWorkerPositionId();
                         $results["all_updates"][]=$final_results;
@@ -132,8 +132,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncWorkerPositionsRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncWorkerPositionsRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncWorkerPositionsRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncWorkerPositionsRecord;
                         $final_results["action"] = 'error';
                         $final_results["worker_position_id"] = $workerPositionEntity->getWorkerPositionId();
                             

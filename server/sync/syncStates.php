@@ -83,7 +83,7 @@ try{
                             $stateEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $state_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $state_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -99,7 +99,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('States')->findOneBy(array('name' => $stateEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($stateEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncStatesNameValue. ':' . $stateEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncStatesNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncStatesNameValue. ':' . $stateEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncStatesNameValue;                 
 
                 }
                 
@@ -111,8 +111,8 @@ try{
                                     $entityManager->flush($stateEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncStatesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncStatesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncStatesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncStatesRecord;
                         $final_results["action"] = 'insert';
                         $final_results["state_id"] = $stateEntity->getStateId();
                         $results["all_inserts"][]=$final_results;
@@ -123,8 +123,8 @@ try{
                                     $entityManager->flush($stateEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateStatesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateStatesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateStatesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateStatesRecord;
                         $final_results["action"] = 'update';
                         $final_results["state_id"] = $stateEntity->getStateId();
                         $results["all_updates"][]=$final_results;
@@ -132,8 +132,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncStatesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncStatesRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncStatesRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncStatesRecord;
                         $final_results["action"] = 'error';
                         $final_results["state_id"] = $stateEntity->getStateId();
                             

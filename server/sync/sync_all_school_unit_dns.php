@@ -109,7 +109,7 @@ try{
                                     $unit = $retrievedObject;
                                 } else {
                                     $status = 'DUPLICATE';  
-                                    $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                                    $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                                 }
 
@@ -132,8 +132,8 @@ try{
 
             //various messages======================================================                         
             $updates++;
-            $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateSchoolUnitsRecord;
-            $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateSchoolUnitsRecord;
+            $final_results["status"] = ExceptionCodes::SuccessSyncUpdateSchoolUnitsRecord;
+            $final_results["message"] = ExceptionMessages::SuccessSyncUpdateSchoolUnitsRecord;
             $final_results["action"] = 'update';
             $final_results["school_unit_id"] = $unit->getSchoolUnitId();
             $results["all_updates"][]=$final_results;
@@ -141,8 +141,8 @@ try{
         } else {
 
                 $final_results["school_unit_id"] = $school_unit_id;
-                $final_results["status"] = SyncExceptionCodes::FailureSyncSchoolUnitsRecord;
-                $final_results["message"] = SyncExceptionMessages::FailureSyncSchoolUnitsRecord;
+                $final_results["status"] = ExceptionCodes::FailureSyncSchoolUnitsRecord;
+                $final_results["message"] = ExceptionMessages::FailureSyncSchoolUnitsRecord;
                 $final_results["action"] = 'error';
                 $errors++;
 

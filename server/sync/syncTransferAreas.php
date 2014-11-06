@@ -84,7 +84,7 @@ try{
                             $transferAreaEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $transfer_area_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $transfer_area_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -104,7 +104,7 @@ try{
                 $checkNameDuplicate = $entityManager->getRepository('TransferAreas')->findOneBy(array('name' => $transferAreaEntity->getName() ));
 
                 if ((count($checkNameDuplicate) > 1) || (count($checkNameDuplicate)==1 && ($transferAreaEntity->getName() != $checkNameDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncTransferAreaNameValue. ':' . $transferAreaEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncTransferAreaNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncTransferAreaNameValue. ':' . $transferAreaEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncTransferAreaNameValue;                 
 
                 }
                 
@@ -116,8 +116,8 @@ try{
                                     $entityManager->flush($transferAreaEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncTransferAreasRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncTransferAreasRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncTransferAreasRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncTransferAreasRecord;
                         $final_results["action"] = 'insert';
                         $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                         $results["all_inserts"][]=$final_results;
@@ -128,8 +128,8 @@ try{
                                     $entityManager->flush($transferAreaEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateTransferAreasRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateTransferAreasRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateTransferAreasRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateTransferAreasRecord;
                         $final_results["action"] = 'update';
                         $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                         $results["all_updates"][]=$final_results;
@@ -137,8 +137,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncTransferAreasRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncTransferAreasRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncTransferAreasRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncTransferAreasRecord;
                         $final_results["action"] = 'error';
                         $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                             

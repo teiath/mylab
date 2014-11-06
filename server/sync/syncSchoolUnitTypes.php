@@ -87,7 +87,7 @@ try{
                             $schoolUnitTypeEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_type_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_type_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -111,7 +111,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('SchoolUnitTypes')->findOneBy(array('name' => $schoolUnitTypeEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($schoolUnitTypeEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncSchoolUnitTypesNameValue. ':' . $schoolUnitTypeEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncSchoolUnitTypesNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncSchoolUnitTypesNameValue. ':' . $schoolUnitTypeEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncSchoolUnitTypesNameValue;                 
 
                 }
                 
@@ -119,7 +119,7 @@ try{
                 $checkInitialsDuplicate = $entityManager->getRepository('SchoolUnitTypes')->findOneBy(array('initials' => $schoolUnitTypeEntity->getInitials() ));
 
                 if ((count($checkInitialsDuplicate) > 1) || (count($checkInitialsDuplicate)==1 && ($schoolUnitTypeEntity->getInitials() != $checkInitialsDuplicate->getInitials() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncSchoolUnitTypesInitialsValue. ':' . $schoolUnitTypeEntity->getInitials() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncSchoolUnitTypesInitialsValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncSchoolUnitTypesInitialsValue. ':' . $schoolUnitTypeEntity->getInitials() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncSchoolUnitTypesInitialsValue;                 
 
                 }
                 
@@ -131,8 +131,8 @@ try{
                                     $entityManager->flush($schoolUnitTypeEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncSchoolUnitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncSchoolUnitTypesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncSchoolUnitTypesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncSchoolUnitTypesRecord;
                         $final_results["action"] = 'insert';
                         $final_results["school_unit_type_id"] = $schoolUnitTypeEntity->getSchoolUnitTypeId();
                         $results["all_inserts"][]=$final_results;
@@ -143,8 +143,8 @@ try{
                                     $entityManager->flush($schoolUnitTypeEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateSchoolUnitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateSchoolUnitTypesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateSchoolUnitTypesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateSchoolUnitTypesRecord;
                         $final_results["action"] = 'update';
                         $final_results["school_unit_type_id"] = $schoolUnitTypeEntity->getSchoolUnitTypeId();
                         $results["all_updates"][]=$final_results;
@@ -152,8 +152,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncSchoolUnitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncSchoolUnitTypesRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncSchoolUnitTypesRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncSchoolUnitTypesRecord;
                         $final_results["action"] = 'error';
                         $final_results["school_unit_type_id"] = $schoolUnitTypeEntity->getSchoolUnitTypeId();
                             

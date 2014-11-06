@@ -44,6 +44,8 @@ class ExceptionMessages
         const InvalidYAxis = 'Ο Άξονας y πρέπεινα πρέπει να είναι κάποιο από τα πεδία που επιστρέφει η συνάρτηση';
         
         const DuplicateXYAxisParam = 'Ο Άξονας x και y δεν μπορούν να έχουν την ίδια τιμή.';
+        
+        const SyncExceptionCodePreMessage = ' [Sync Exception Code] : ';
 
     //########################################
     //Search Functions
@@ -81,7 +83,15 @@ class ExceptionMessages
     const InvalidSchoolUnitUnitDnsType = 'Ο Κωδικός DNS της Μονάδας πρέπει να είναι αλφαριθμητικός';
      
     const DuplicatedSchoolUnitValue = 'H Μονάδα υπάρχει ήδη';
-    const DuplicateSchoolUnitUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key SchoolUnit';
+    
+        //sync
+        const DuplicateSchoolUnitUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key SchoolUnit';
+        const GarbageRowSchoolUnitNameValue = 'Η εγγραφή ειναι καταργημένη και πιθανόν χρησιμοποιήθηκε για δοκιμαστικούς λόγους . Τιμή  id και name : '; 
+        const SuccessSyncSchoolUnitsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού SchoolUnits ';
+        const SuccessSyncUpdateSchoolUnitsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού SchoolUnits';
+        const FailureSyncSchoolUnitsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού SchoolUnits ';
+        const IgnoreSyncSchoolUnitsRecord = 'Η εγγραφή αγνοήθηκε, λόγω υπάρχουσας ενημερωμένης έκδοσης εγγραφής του λεξικού SchoolUnits';
+        const GarbageSyncSchoolUnitsRecord = 'Η εγγραφή αγνοήθηκε, λόγω δοκιμαστικής εγγραφής του λεξικού SchoolUnits';
     
 //= Circuits
     
@@ -98,7 +108,6 @@ class ExceptionMessages
     
     const DuplicatedCircuitValue = 'Το Τηλεπικοινωνιακό Κύκλωμα υπάρχει ήδη';
     const DuplicatedCircuitPhoneNumberValue = 'Ο Τηλεφωνικός Αριθμός του Τηλεπικοινωνιακού Κυκλώματος υπάρχει ήδη';
-    const DuplicateCircuitUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Circuit';
     const UsedCircuitBySchoolUnits = 'Ο Κωδικός του Τηλεπικοινωνιακού Κυκλώματος χρησιμοποιείται από Σχολικές Μονάδες';
     
     const MissingCircuitPhoneNumberParam = 'Ο Αριθμός του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
@@ -108,7 +117,7 @@ class ExceptionMessages
 
     const MissingCircuitStatusParam = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
     const MissingCircuitStatusValue = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος πρέπει να έχει τιμή';
-    const InvalidCircuitStatusType = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι Ενεργή ή Ανενεργή';
+    const InvalidCircuitStatusType = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι Ενεργή ή Ανενεργή(0 ή 1)';
     const InvalidCircuitStatusArray = 'Η Κατάσταση του Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
      
     const MissingCircuitUpdatedDateParam = 'Η Ημερομηνία Ενημέρωσης του Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
@@ -116,6 +125,15 @@ class ExceptionMessages
     const InvalidCircuitUpdatedDateType = 'Η Ημερομηνία Ενημέρωσης του Τηλεπικοινωνιακού Κυκλώματος πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
     const InvalidCircuitUpdatedDateArray = 'Η Ημερομηνία Ενημέρωσης του Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
 
+        //sync
+        const DuplicateCircuitUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Circuit';
+        const InvalidSyncCircuitPhoneNumberValue  = 'Η παράμετρος $phone_number πρέπει να είναι αριθμητική και >0. Τιμή $phone_number = ';
+        const UnknownSyncCircuitPhoneNumberType  = 'Άγνωστος τύπος παραμέτρου $phone_number ';
+        const DuplicateSyncCircuitsPhoneValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Circuits υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $phone_number σε διαφορετικό ID . Τιμή $phone =  ';
+        const SuccessSyncCircuitsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Circuits';
+        const SuccessSyncUpdateCircuitsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Circuits';
+        const FailureSyncCircuitsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Circuits ';
+    
 //= SchoolUnitWorkers
     
     const MissingSchoolUnitWorkerIDParam = 'Ο Κωδικός του Εργαζόμενου Σχολικής Μονάδας είναι υποχρεωτικό πεδίο';
@@ -130,8 +148,14 @@ class ExceptionMessages
     const InvalidSchoolUnitWorkerArray = 'Ο Εργαζόμενος Σχολικής Μονάδας δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedSchoolUnitWorkerValue = 'Ο Εργαζόμενος Σχολικής Μονάδας υπάρχει ήδη';
-    const DuplicateSchoolWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
     const UsedSchoolUnitWorkerBySchoolUnits = 'Ο Κωδικός του Εργαζόμενου Σχολικής Μονάδας χρησιμοποιείται από Σχολικές Μονάδες';
+    
+        //sync
+        const DuplicateSchoolWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
+        const DuplicateSyncSchoolUnitWorkerValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό School_Unit_Workers υπάρχει ήδη η εγγραφή με την τιμή των παραμέτρων σε διαφορετικό ID . Τιμές παραμέτρων ';
+        const SuccessSyncSchoolUnitWorkersRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού School_Unit_Workers ';
+        const SuccessSyncUpdateSchoolUnitWorkersRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού SchoolUnitWorkers';
+        const FailureSyncSchoolUnitWorkersRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού School_Unit_Workers ';
     
 //= Workers
 
@@ -181,8 +205,13 @@ class ExceptionMessages
     const InvalidWorkerSexTypeType = 'Το Φύλο του Εργαζομένου πρέπει να είναι αλφαριθμητική : Α (Άντρας) ή Γ (Γυναικα';
     const InvalidWorkerSexTypeArray = 'Το Φύλο του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const DuplicateWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
-  
+        //sync
+        const DuplicateWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
+        const DuplicateSyncWorkerValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Workers υπάρχει ήδη η εγγραφή με την τιμή των παραμέτρων σε διαφορετικό ID . Τιμές παραμέτρων ';
+        const SuccessSyncWorkersRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Workers ';
+        const SuccessSyncUpdateWorkersRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Workers';
+        const FailureSyncWorkersRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Workers ';
+
    //= LabWorkers
     
     const MissingLabWorkerIDParam = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου είναι υποχρεωτικό πεδίο';
@@ -480,9 +509,15 @@ class ExceptionMessages
     const InvalidRegionEduAdminNameArray = 'Το Όνομα της Περιφέρειας δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedRegionEduAdminValue = 'Η Περιφέρεια υπάρχει ήδη';
-    const DuplicateRegionEduAdminUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key RegionEduAdmin';
     const UsedRegionEduAdminBySchoolUnits = 'Ο Κωδικός Περιφέρειας χρησιμοποιείται από Σχολικές Μονάδες';
     const UsedRegionEduAdminByEduAdmins = 'Ο Κωδικός Περιφέρειας χρησιμοποιείται από Διευθύνσεις Εκπαίδευσης';
+    
+        //sync
+        const DuplicateRegionEduAdminUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key RegionEduAdmin';
+        const DuplicateSyncRegionEduAdminNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Region_Edu_Admin υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncRegionEduAdminsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Region_Edu_Admins ';
+        const SuccessSyncUpdateRegionEduAdminsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Region_Edu_Admins ';
+        const FailureSyncRegionEduAdminsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Region_Edu_Admins ';
     
     //= EduAdmins
     const MissingEduAdminIDParam = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης είναι υποχρεωτικό πεδίο';
@@ -507,10 +542,17 @@ class ExceptionMessages
     const InvalidEduAdminNameArray = 'Το Όνομα της Διεύθυνσης Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedEduAdminValue = 'Η Διεύθυνση Εκπαίδευσης υπάρχει ήδη';
-    const DuplicateEduAdminUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key EduAdmin';
     const UsedEduAdminBySchoolUnits = 'Ο Κωδικός Διεύθυνσης Εκπαίδευσης χρησιμοποιείται από Σχολικές Μονάδες';
     const UsedEduAdminByTransferAreas = 'Ο Κωδικός Διεύθυνσης Εκπαίδευσης χρησιμοποιείται από Περιοχές Μετάθεσης ';
-  
+   
+        //sync
+        const DuplicateEduAdminUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key EduAdmin';
+        const DuplicateSyncEduAdminNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Edu_Admin υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const DuplicateSyncEduAdminCodeValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Edu_Admin υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $edu_admin_code σε διαφορετικό ID . Τιμή $edu_admin_code =  ';
+        const SuccessSyncEduAdminsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Edu_Admins ';
+        const SuccessSyncUpdateEduAdminsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Edu_Admins ';
+        const FailureSyncEduAdminsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Edu_Admins ';
+    
     //= TransferAreas
     const MissingTransferAreaIDParam = 'Ο Κωδικός της Περιοχής Μετάθεσης είναι υποχρεωτικό πεδίο';
     const MissingTransferAreaIDValue = 'Ο Κωδικός της Περιοχής Μετάθεσης πρέπει να έχει τιμή';
@@ -529,10 +571,16 @@ class ExceptionMessages
     const InvalidTransferAreaNameArray = 'Το Όνομα της Περιοχής Μετάθεσης δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedTransferAreaValue = 'Η Περιοχή Μετάθεσης υπάρχει ήδη';
-    const DuplicateTransferAreaUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key TransferArea';
     const UsedTransferAreaBySchoolUnits = 'Ο Κωδικός Περιοχής Μετάθεσης χρησιμοποιείται από Σχολικές Μονάδες';
     const UsedTransferAreaByMunicipalities = 'Ο Κωδικός Περιοχής Μετάθεσης χρησιμοποιείται από Δήμους ';
 
+        //sync
+        const DuplicateTransferAreaUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key TransferArea';
+        const DuplicateSyncTransferAreaNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό TransferAreas υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncTransferAreasRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού TransferAreas ';
+        const SuccessSyncUpdateTransferAreasRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού TransferAreas ';
+        const FailureSyncTransferAreasRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού TransferAreas ';
+      
     //= Municipalities
     const MissingMunicipalityIDParam = 'Ο Κωδικός του Δήμου είναι υποχρεωτικό πεδίο';
     const MissingMunicipalityIDValue = 'Ο Κωδικός του Δήμου πρέπει να έχει τιμή';
@@ -551,10 +599,16 @@ class ExceptionMessages
     const InvalidMunicipalityNameArray = 'Το Όνομα του Δήμου δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedMunicipalityValue = 'Ο Δήμος υπάρχει ήδη';
-    const DuplicateMunicipalityUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Municipality';
     const UsedMunicipalityBySchoolUnits = 'Ο Κωδικός Δήμου χρησιμοποιείται από Σχολικές Μονάδες';
     const UsedMunicipalityByPrefectures = 'Ο Κωδικός Δήμου χρησιμοποιείται από Περιφερειακές Ενότητες'; 
     
+        //sync
+        const DuplicateMunicipalityUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Municipality';
+        const DuplicateSyncMunicipalitiesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Municipality υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncMunicipalitiesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Municipality ';
+        const SuccessSyncUpdateMunicipalitiesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Municipality ';
+        const FailureSyncMunicipalitiesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Municipality ';
+     
     //= Prefectures
     const MissingPrefectureIDParam = 'Ο Κωδικός της Περιφερειακής Ενότητας είναι υποχρεωτικό πεδίο';
     const MissingPrefectureIDValue = 'Ο Κωδικός της Περιφερειακής Ενότητας πρέπει να έχει τιμή';
@@ -573,9 +627,15 @@ class ExceptionMessages
     const InvalidPrefectureNameArray = 'Το Όνομα της Περιφερειακής Ενότητας δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedPrefectureValue = 'Η Περιφερειακή Ενότητα υπάρχει ήδη';
-    const DuplicatePrefectureUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Prefecture';
     const UsedPrefectureBySchoolUnits = 'Ο Κωδικός Περιφερειακής Ενότητας χρησιμοποιείται από Σχολικές Μονάδες';
 
+        //sync
+        const DuplicatePrefectureUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Prefecture';
+        const DuplicateSyncPrefecturesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Prefectures υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncPrefecturesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Prefectures ';
+        const SuccessSyncUpdatePrefecturesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Prefectures ';
+        const FailureSyncPrefecturesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Prefectures ';
+    
     //= EducationLevels
     const MissingEducationLevelIDParam = 'Ο Κωδικός του Επιπέδου Εκπαίδευσης είναι υποχρεωτικό πεδίο';
     const MissingEducationLevelIDValue = 'Ο Κωδικός του Επιπέδου Εκπαίδευσης πρέπει να έχει τιμή';
@@ -594,9 +654,15 @@ class ExceptionMessages
     const InvalidEducationLevelNameArray = 'Το Όνομα του Επιπέδου Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';    
 
     const DuplicatedEducationLevelValue = 'Το Επίπεδο Εκπαίδευσης υπάρχει ήδη';
-    const DuplicateEducationLevelUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key EducationLevel';
     const UsedEducationLevelBySchoolUnits = 'Ο Κωδικός Επίπεδου Εκπαίδευσης χρησιμοποιείται από Σχολικές Μονάδες';
     const UsedEducationLevelBySchoolUnitTYpes = 'Ο Κωδικός Επίπεδου Εκπαίδευσης χρησιμοποιείται από Τύπους Σχολικών Μονάδων';
+    
+        //sync
+        const DuplicateEducationLevelUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key EducationLevel';
+        const DuplicateSyncEducationLevelsNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό EducationLevels υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncEducationLevelsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού EducationLevels ';
+        const SuccessSyncUpdateEducationLevelsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού EducationLevels ';
+        const FailureSyncEducationLevelsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού EducationLevels ';
     
     //= SchoolUnitTypes
     const MissingSchoolUnitTypeIDParam = 'Ο Κωδικός του Τύπου Σχολικής Μονάδας είναι υποχρεωτικό πεδίο';
@@ -623,9 +689,16 @@ class ExceptionMessages
     const DuplicatedSchoolUnitTypeValue = 'Ο Τύπος Σχολικής Μονάδας υπάρχει ήδη';
     const DuplicatedSchoolUnitTypeNameValue = 'Το Όνομα του Τύπου Σχολικής Μονάδας υπάρχει ήδη';
     const DuplicatedSchoolUnitTypeInitialValue = 'Η Συντομογραφία Ονόματος του Τύπου Σχολικής Μονάδας υπάρχει ήδη';
-    const DuplicateSchoolUnitTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key SchoolUnitType';
     const UsedSchoolUnitTypeBySchoolUnits = 'Ο Κωδικός του Τύπου Σχολικής Μονάδας χρησιμοποιείται από Σχολικές Μονάδες';
 
+        //sync
+        const DuplicateSchoolUnitTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key SchoolUnitType';
+        const DuplicateSyncSchoolUnitTypesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό SchoolUnitTypes υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const DuplicateSyncSchoolUnitTypesInitialsValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό SchoolUnitTypes υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $initials σε διαφορετικό ID . Τιμή $initials =  ';
+        const SuccessSyncSchoolUnitTypesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού SchoolUnitTypes ';
+        const SuccessSyncUpdateSchoolUnitTypesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού SchoolUnitTypes ';
+        const FailureSyncSchoolUnitTypesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού SchoolUnitTypes ';
+    
     //= States
     const MissingStateIDParam = 'Ο Κωδικός της Κατάστασης είναι υποχρεωτικό πεδίο';
     const MissingStateIDValue = 'Ο Κωδικός της Κατάστασης πρέπει να έχει τιμή';
@@ -644,9 +717,15 @@ class ExceptionMessages
     const InvalidStateNameArray = 'Το Όνομα της Κατάστασης δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedStateValue = 'Η Κατάσταση υπάρχει ήδη';
-    const DuplicateStateUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key State';    
     const UsedStateBySchoolUnits = 'Ο Κωδικός της Κατάστασης χρησιμοποιείται από Σχολικές Μονάδες';
     const UsedStateBySchoolUnitTYpes = 'Ο Κωδικός της Κατάστασης χρησιμοποιείται από Τύπους Σχολικών Μονάδων';
+    
+        //sync
+        const DuplicateStateUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key State';    
+        const DuplicateSyncStatesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό States υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncStatesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού States ';
+        const SuccessSyncUpdateStatesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού States ';
+        const FailureSyncStatesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού States ';
     
     //= CircuitTypes
     const MissingCircuitTypeIDParam = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος είναι υποχρεωτικό πεδίο';
@@ -666,9 +745,15 @@ class ExceptionMessages
     const InvalidCircuitTypeNameArray = 'Το Όνομα του Τύπου Τηλεπικοινωνιακού Κυκλώματος δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedCircuitTypeValue = 'Ο Τύπος Τηλεπικοινωνιακού Κυκλώματος υπάρχει ήδη';
-    const DuplicateCircuitTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
     const UsedCircuitTypeByCircuits = 'Ο Κωδικός του Τυπου Τηλεπικοινωνιακού Κυκλώματος χρησιμοποιείται από Τηλεπικοινωνιακά Κυκλώματα';
 
+        //sync
+        const DuplicateCircuitTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
+        const DuplicateSyncCircuitTypesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό CircuitTypes υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncCircuitTypesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού CircuitTypes ';
+        const SuccessSyncUpdateCircuitTypesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού CircuitTypes ';
+        const FailureSyncCircuitTypesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού CircuitTypes ';
+    
     //= RelationTypes
     const MissingRelationTypeIDParam = 'Ο Κωδικός του Τυπου Συσχέτισης είναι υποχρεωτικό πεδίο';
     const MissingRelationTypeIDValue = 'Ο Κωδικός του Τυπου Συσχέτισης πρέπει να έχει τιμή';
@@ -709,9 +794,15 @@ class ExceptionMessages
     const InvalidWorkerPositionNameArray = 'Το Όνομα της Θέσης Εργασίας δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedWorkerPositionValue = 'Η Θέση Εργασίας υπάρχει ήδη';
-    const DuplicateWorkerPositionUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key WorkerPosition';
     const UsedWorkerPositionBySchoolUnitWorkers = 'Ο Κωδικός της Θέσης Εργασίας χρησιμοποιείται από Εργαζόμενους Σχολικών Μοναδων';
     const UsedWorkerPositionByLabWorkers = 'Ο Κωδικός της Θέσης Εργασίας χρησιμοποιείται από Εργαζόμενους Εργαστηρίων';
+    
+        //sync
+        const DuplicateWorkerPositionUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key WorkerPosition';
+        const DuplicateSyncWorkerPositionsNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό WorkerPositions υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncWorkerPositionsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού WorkerPositions ';
+        const SuccessSyncUpdateWorkerPositionsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού WorkerPositions ';
+        const FailureSyncWorkerPositionsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού WorkerPositions ';
     
     //= WorkerSpecializations
     const MissingWorkerSpecializationIDParam = 'Ο Κωδικός του Κλάδου Εργαζόμενου είναι υποχρεωτικό πεδίο';
@@ -731,9 +822,15 @@ class ExceptionMessages
     const InvalidWorkerSpecializationNameArray = 'Το Όνομα του Κλάδου Εργαζόμενου δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedWorkerSpecializationValue = 'Ο Κλάδος Εργαζόμενου υπάρχει ήδη';
-    const DuplicateWorkerSpecializationUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key WorkerSpecialization';
     const UsedWorkerSpecializationBySchoolUnitWorkers = 'Ο Κωδικός του Κλάδου Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Σχολικών Μοναδων';
     const UsedWorkerSpecializationByLabWorkers = 'Ο Κωδικός του Κλάδου Εργαζόμενου χρησιμοποιείται από Εργαζόμενους Εργαστηρίων';
+    
+        //sync
+        const DuplicateWorkerSpecializationUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key WorkerSpecialization';
+        const DuplicateSyncWorkerSpecializationsNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό WorkerSpecializations υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncWorkerSpecializationsRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού WorkerSpecializations ';
+        const SuccessSyncUpdateWorkerSpecializationsRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού WorkerSpecializations ';
+        const FailureSyncWorkerSpecializationsRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού WorkerSpecializations ';
     
     //= Sources
     const MissingSourceIDParam = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων είναι υποχρεωτικό πεδίο';
@@ -753,8 +850,14 @@ class ExceptionMessages
     const InvalidSourceNameArray = 'Το Όνομα της Πρωτογενής Πηγής Δεδομένων δεν μπορεί να έχει πολλαπλές τιμές';
     
     const DuplicatedSourceValue = 'Η Πρωτογενής Πηγή Δεδομένων υπάρχει ήδη';
-    const DuplicateSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Source';
     const UsedSourceByWorkers = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων χρησιμοποιείται από Εργαζόμενο';
+    
+        //sync
+        const DuplicateSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Source';
+        const DuplicateSyncSourcesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Sources υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+        const SuccessSyncSourcesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Sources ';
+        const SuccessSyncUpdateSourcesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Sources ';
+        const FailureSyncSourcesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Sources ';
     
     //= LabTypes
     const MissingLabTypeIDParam = 'Ο Κωδικός του Τύπου Εργαστηρίου είναι υποχρεωτικό πεδίο';

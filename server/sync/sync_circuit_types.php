@@ -86,7 +86,7 @@ try{
                             $circuitTypeEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $circuit_type_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $circuit_type_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -102,7 +102,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('CircuitTypes')->findOneBy(array('name' => $circuitTypeEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($circuitTypeEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncCircuitTypesNameValue. ':' . $circuitTypeEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncCircuitTypesNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncCircuitTypesNameValue. ':' . $circuitTypeEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncCircuitTypesNameValue;                 
 
                 }
 
@@ -114,8 +114,8 @@ try{
                                     $entityManager->flush($circuitTypeEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncCircuitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncCircuitTypesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncCircuitTypesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncCircuitTypesRecord;
                         $final_results["action"] = 'insert';
                         $final_results["circuit_type_id"] = $circuitTypeEntity->getCircuitTypeId();
                         $results["all_inserts"][]=$final_results;
@@ -126,8 +126,8 @@ try{
                                     $entityManager->flush($circuitTypeEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateCircuitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateCircuitTypesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateCircuitTypesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateCircuitTypesRecord;
                         $final_results["action"] = 'update';
                         $final_results["circuit_type_id"] = $circuitTypeEntity->getCircuitTypeId();
                         $results["all_updates"][]=$final_results;
@@ -135,8 +135,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncCircuitTypesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncCircuitTypesRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncCircuitTypesRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncCircuitTypesRecord;
                         $final_results["action"] = 'error';
                         $final_results["circuit_type_id"] = $circuitTypeEntity->getCircuitTypeId();
                             

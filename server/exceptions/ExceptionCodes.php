@@ -56,6 +56,9 @@ class ExceptionCodes
         /** {@see ExceptionMessages::DuplicateXYAxisParam} */
         const DuplicateXYAxisParam = 500;
 
+        /** {@see ExceptionMessages::SyncExceptionCodePreMessage} */
+        const SyncExceptionCodePreMessage = 555;
+        
     //########################################
     //Search Functions
     //######################################## 
@@ -116,9 +119,16 @@ class ExceptionCodes
     const DuplicatedSchoolUnitValue = 500;
     /** {@see ExceptionMessages::DuplicatedSchoolUnitNameValue} */
     const DuplicatedSchoolUnitNameValue = 500;
-    /** {@see ExceptionMessages::DuplicateSchoolUnitUniqueValue} */
-    const DuplicateSchoolUnitUniqueValue = 500;
  
+        //sync
+        const DuplicateSchoolUnitUniqueValue = 500;
+        const GarbageRowSchoolUnitNameValue = 500;
+        const SuccessSyncSchoolUnitsRecord = 500;
+        const SuccessSyncUpdateSchoolUnitsRecord = 500;
+        const FailureSyncSchoolUnitsRecord = 500;
+        const IgnoreSyncSchoolUnitWorkersRecord = 500;
+        const GarbageSyncSchoolUnitsRecord = 500;
+    
 //= Circuits
     
     /** {@see ExceptionMessages::MissingCircuitIDParam} */
@@ -146,8 +156,6 @@ class ExceptionCodes
     const DuplicatedCircuitValue = 500;
     /** {@see ExceptionMessages::DuplicatedCircuitPhoneNumberValue} */
     const DuplicatedCircuitPhoneNumberValue = 500;
-    /** {@see ExceptionMessages::DuplicateCircuitUniqueValue} */
-    const DuplicateCircuitUniqueValue = 500;
     /** {@see ExceptionMessages::UsedCircuitBySchoolUnits} */
     const UsedCircuitBySchoolUnits = 500;
 
@@ -178,6 +186,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidCircuitUpdatedDateArray} */
     const InvalidCircuitUpdatedDateArray = 500;
   
+        //sync
+        const DuplicateCircuitUniqueValue = 500;
+        const InvalidSyncCircuitPhoneNumberValue  = 500;
+        const UnknownSyncCircuitPhoneNumberType  = 500;
+        const DuplicateSyncCircuitsPhoneValue = 500;
+        const SuccessSyncCircuitsRecord = 500;
+        const SuccessSyncUpdateCircuitsRecord = 500;
+        const FailureSyncCircuitsRecord = 500;
+    
 //= SchoolUnitWorkers
     
     /** {@see ExceptionMessages::MissingSchoolUnitWorkerIDParam} */
@@ -202,10 +219,16 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedSchoolUnitWorkerValue} */
     const DuplicatedSchoolUnitWorkerValue = 500;
-    /** {@see ExceptionMessages::DuplicateSchoolWorkerUniqueValue} */
-    const DuplicateSchoolWorkerUniqueValue = 500;
     /** {@see ExceptionMessages::UsedSchoolUnitWorkerBySchoolUnits} */
     const UsedSchoolUnitWorkerBySchoolUnits = 500;
+
+        //sync
+        const DuplicateSchoolWorkerUniqueValue = 500;
+        const DuplicateSyncSchoolUnitWorkerValue = 500;
+        const SuccessSyncSchoolUnitWorkersRecord = 500;
+        const SuccessSyncUpdateSchoolUnitWorkersRecord = 500;
+        const FailureSyncSchoolUnitWorkersRecord = 500;
+    
     
 //= Workers
 
@@ -292,9 +315,12 @@ class ExceptionCodes
         /** {@see ExceptionMessages::InvalidWorkerSexTypeArray} */
     const InvalidWorkerSexTypeArray = 500;
 
-    /** {@see ExceptionMessages::DuplicateWorkerUniqueValue} */
-    const DuplicateWorkerUniqueValue = 500;
-
+        //sync
+        const DuplicateWorkerUniqueValue = 500;
+        const DuplicateSyncWorkerValue = 500;
+        const SuccessSyncWorkersRecord = 500;
+        const SuccessSyncUpdateWorkersRecord = 500;
+        const FailureSyncWorkersRecord = 500;
     
 //= LabWorkers
     
@@ -804,12 +830,17 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedRegionEduAdminValue} */
     const DuplicatedRegionEduAdminValue = 500;
-    /** {@see ExceptionMessages::DuplicateRegionEduAdminUniqueValue} */   
-    const DuplicateRegionEduAdminUniqueValue = 500;
     /** {@see ExceptionMessages::UsedRegionEduAdminBySchoolUnits} */
     const UsedRegionEduAdminBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedRegionEduAdminByEduAdmins} */   
     const UsedRegionEduAdminByEduAdmins = 500;
+    
+        //sync
+        const DuplicateRegionEduAdminUniqueValue = 500;
+        const DuplicateSyncRegionEduAdminNameValue = 500;
+        const SuccessSyncRegionEduAdminsRecord = 500;
+        const SuccessSyncUpdateRegionEduAdminsRecord = 500;
+        const FailureSyncRegionEduAdminsRecord = 500;
     
 //= EduAdmins
     
@@ -853,13 +884,19 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedEduAdminValue} */   
     const DuplicatedEduAdminValue = 500;
-    /** {@see ExceptionMessages::DuplicateEduAdminUniqueValue} */   
-   const DuplicateEduAdminUniqueValue = 500;
     /** {@see ExceptionMessages::UsedEduAdminBySchoolUnits} */   
     const UsedEduAdminBySchoolUnits =500;
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
     const UsedEduAdminByTransferAreas = 500;
   
+        //sync
+        const DuplicateEduAdminUniqueValue = 500;
+        const DuplicateSyncEduAdminNameValue = 500;
+        const DuplicateSyncEduAdminCodeValue = 500;
+        const SuccessSyncEduAdminsRecord = 500;
+        const SuccessSyncUpdateEduAdminsRecord = 500;
+        const FailureSyncEduAdminsRecord = 500;
+    
 //= TransferAreas
 
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
@@ -893,13 +930,18 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
     const DuplicatedTransferAreaValue = 500;
-    /** {@see ExceptionMessages::DuplicateTransferAreaUniqueValue} */   
-    const DuplicateTransferAreaUniqueValue = 500;
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
     const UsedTransferAreaBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
     const UsedTransferAreaByMunicipalities = 500;
 
+        //sync
+        const DuplicateTransferAreaUniqueValue = 500;
+        const DuplicateSyncTransferAreaNameValue = 500;
+        const SuccessSyncTransferAreasRecord = 500;
+        const SuccessSyncUpdateTransferAreasRecord = 500;
+        const FailureSyncTransferAreasRecord = 500;
+        
 //= Municipalities
 
     /** {@see ExceptionMessages::MissingMunicipalityIDParam} */   
@@ -933,12 +975,17 @@ class ExceptionCodes
 
     /** {@see ExceptionMessages::DuplicatedMunicipalityValue} */   
     const DuplicatedMunicipalityValue = 500;
-    /** {@see ExceptionMessages::DuplicateMunicipalityUniqueValue} */   
-    const DuplicateMunicipalityUniqueValue = 500;
     /** {@see ExceptionMessages::UsedMunicipalityBySchoolUnits} */   
     const UsedMunicipalityBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedMunicipalityByPrefectures} */   
     const UsedMunicipalityByPrefectures = 500;
+    
+        //sync
+        const DuplicateMunicipalityUniqueValue = 500;
+        const DuplicateSyncMunicipalitiesNameValue = 500;
+        const SuccessSyncMunicipalitiesRecord = 500;
+        const SuccessSyncUpdateMunicipalitiesRecord = 500;
+        const FailureSyncMunicipalitiesRecord = 500;
     
 //= Prefectures
     
@@ -978,6 +1025,13 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedPrefectureBySchoolUnits} */   
     const UsedPrefectureBySchoolUnits = 500;
 
+        //sync
+        const DuplicatePrefectureUniqueValue = 500;
+        const DuplicateSyncPrefecturesNameValue = 500;
+        const SuccessSyncPrefecturesRecord = 500;
+        const SuccessSyncUpdatePrefecturesRecord = 500;
+        const FailureSyncPrefecturesRecord = 500;
+    
 //= EducationLevels
     
     /** {@see ExceptionMessages::MissingEducationLevelIDParam} */   
@@ -1011,12 +1065,17 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedEducationLevelValue} */   
     const DuplicatedEducationLevelValue = 500;
-    /** {@see ExceptionMessages::DuplicateEducationLevelUniqueValue} */   
-    const DuplicateEducationLevelUniqueValue = 500;
     /** {@see ExceptionMessages::UsedEducationLevelBySchoolUnits} */   
     const UsedEducationLevelBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedEducationLevelBySchoolUnitTYpes} */   
     const UsedEducationLevelBySchoolUnitTYpes = 500;
+    
+        //sync
+        const DuplicateEducationLevelUniqueValue = 500;
+        const DuplicateSyncEducationLevelsNameValue = 500;
+        const SuccessSyncEducationLevelsRecord = 500;
+        const SuccessSyncUpdateEducationLevelsRecord = 500;
+        const FailureSyncEducationLevelsRecord = 500;
     
 //= SchoolUnitTypes
     
@@ -1064,11 +1123,17 @@ class ExceptionCodes
     const DuplicatedSchoolUnitTypeNameValue = 500;
     /** {@see ExceptionMessages::DuplicatedSchoolUnitTypeInitialValue} */   
     const DuplicatedSchoolUnitTypeInitialValue = 500;
-    /** {@see ExceptionMessages::DuplicateSchoolUnitTypeUniqueValue} */   
-    const DuplicateSchoolUnitTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedSchoolUnitTypeBySchoolUnits} */   
     const UsedSchoolUnitTypeBySchoolUnits = 500;
 
+        //sync
+        const DuplicateSchoolUnitTypeUniqueValue = 500;
+        const DuplicateSyncSchoolUnitTypesNameValue = 500;
+        const DuplicateSyncSchoolUnitTypesInitialsValue = 500;
+        const SuccessSyncSchoolUnitTypesRecord = 500;
+        const SuccessSyncUpdateSchoolUnitTypesRecord = 500;
+        const FailureSyncSchoolUnitTypesRecord = 500;
+    
 //= States
     
     /** {@see ExceptionMessages::MissingStateIDParam} */   
@@ -1102,12 +1167,17 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedStateValue} */   
     const DuplicatedStateValue = 500;
-    /** {@see ExceptionMessages::DuplicateStateUniqueValue} */      
-    const DuplicateStateUniqueValue = 500;
     /** {@see ExceptionMessages::UsedStateBySchoolUnits} */   
     const UsedStateBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedStateBySchoolUnitTYpes} */   
     const UsedStateBySchoolUnitTYpes = 500;
+    
+        //sync
+        const DuplicateStateUniqueValue = 500;   
+        const DuplicateSyncStatesNameValue = 500;
+        const SuccessSyncStatesRecord = 500;
+        const SuccessSyncUpdateStatesRecord = 500;
+        const FailureSyncStatesRecord = 500;
     
 //= CircuitTypes
     
@@ -1142,11 +1212,16 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedCircuitTypeValue} */  
     const DuplicatedCircuitTypeValue = 500;
-    /** {@see ExceptionMessages::DuplicateCircuitTypeUniqueValue} */    
-    const DuplicateCircuitTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedCircuitTypeByCircuits} */  
     const UsedCircuitTypeByCircuits = 500;
-
+    
+        //sync
+        const DuplicateCircuitTypeUniqueValue = 500;
+        const DuplicateSyncCircuitTypesNameValue = 500;
+        const SuccessSyncCircuitTypesRecord = 500;
+        const SuccessSyncUpdateCircuitTypesRecord = 500;
+        const FailureSyncCircuitTypesRecord = 500;
+    
 //= RelationTypes
     
     /** {@see ExceptionMessages::MissingRelationTypeIDParam} */  
@@ -1218,12 +1293,17 @@ class ExceptionCodes
 
     /** {@see ExceptionMessages::DuplicatedWorkerPositionValue} */  
     const DuplicatedWorkerPositionValue = 500;
-    /** {@see ExceptionMessages::DuplicateWorkerUniqueValue} */
-    const DuplicateWorkerPositionUniqueValue = 500;
     /** {@see ExceptionMessages::UsedWorkerPositionBySchoolUnitWorkers} */  
     const UsedWorkerPositionBySchoolUnitWorkers = 500;
     /** {@see ExceptionMessages::UsedWorkerPositionByLabWorkers} */  
     const UsedWorkerPositionByLabWorkers = 500;
+    
+        //sync
+        const DuplicateWorkerPositionUniqueValue = 500;
+        const DuplicateSyncWorkerPositionsNameValue = 500;
+        const SuccessSyncWorkerPositionsRecord = 500;
+        const SuccessSyncUpdateWorkerPositionsRecord = 500;
+        const FailureSyncWorkerPositionsRecord = 500;
     
 //= WorkerSpecializations
     
@@ -1258,12 +1338,17 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedWorkerSpecializationValue} */  
     const DuplicatedWorkerSpecializationValue = 500;
-    /** {@see ExceptionMessages::DuplicateWorkerSpecializationUniqueValue} */  
-    const DuplicateWorkerSpecializationUniqueValue = 500;
     /** {@see ExceptionMessages::UsedWorkerSpecializationBySchoolUnitWorkers} */  
     const UsedWorkerSpecializationBySchoolUnitWorkers = 500;
     /** {@see ExceptionMessages::UsedWorkerSpecializationByLabWorkers} */  
     const UsedWorkerSpecializationByLabWorkers = 500;
+    
+        //sync
+        const DuplicateWorkerSpecializationUniqueValue = 500;
+        const DuplicateSyncWorkerSpecializationsNameValue = 500;
+        const SuccessSyncWorkerSpecializationsRecord = 500;
+        const SuccessSyncUpdateWorkerSpecializationsRecord = 500;
+        const FailureSyncWorkerSpecializationsRecord = 500;
     
     //Sources
 
@@ -1298,10 +1383,15 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedSourceValue} */  
     const DuplicatedSourceValue = 500;
-    /** {@see ExceptionMessages::DuplicateSourceUniqueValue} */  
-    const DuplicateSourceUniqueValue = 500;
     /** {@see ExceptionMessages::UsedSourceByWorkers} */  
     const UsedSourceByWorkers = 500;
+    
+        //sync
+        const DuplicateSourceUniqueValue = 500;
+        const DuplicateSyncSourcesNameValue = 500;
+        const SuccessSyncSourcesRecord = 500;
+        const SuccessSyncUpdateSourcesRecord = 500;
+        const FailureSyncSourcesRecord = 500;   
     
 //= LabTypes
 

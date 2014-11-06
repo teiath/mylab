@@ -83,7 +83,7 @@ try{
                             $prefectureEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $prefecture_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $prefecture_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -99,7 +99,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('Prefectures')->findOneBy(array('name' => $prefectureEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($prefectureEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncPrefecturesNameValue. ':' . $prefectureEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncPrefecturesNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncPrefecturesNameValue. ':' . $prefectureEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncPrefecturesNameValue;                 
 
                 }
                 
@@ -111,8 +111,8 @@ try{
                                     $entityManager->flush($prefectureEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncPrefecturesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncPrefecturesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncPrefecturesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncPrefecturesRecord;
                         $final_results["action"] = 'insert';
                         $final_results["prefecture_id"] = $prefectureEntity->getPrefectureId();
                         $results["all_inserts"][]=$final_results;
@@ -123,8 +123,8 @@ try{
                                     $entityManager->flush($prefectureEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdatePrefecturesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdatePrefecturesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdatePrefecturesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdatePrefecturesRecord;
                         $final_results["action"] = 'update';
                         $final_results["prefecture_id"] = $prefectureEntity->getPrefectureId();
                         $results["all_updates"][]=$final_results;
@@ -132,8 +132,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncPrefecturesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncPrefecturesRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncPrefecturesRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncPrefecturesRecord;
                         $final_results["action"] = 'error';
                         $final_results["prefecture_id"] = $prefectureEntity->getPrefectureId();
                             

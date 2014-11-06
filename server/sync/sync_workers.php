@@ -92,7 +92,7 @@ try{
                             $workerEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $worker_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $worker_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -136,7 +136,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('Workers')->findOneBy(array('registryNo' => $workerEntity->getRegistryNo() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($workerEntity->getWorkerId() != $checkDuplicate->getWorkerId()))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncWorkerValue. ':' . $workerEntity->getWorkerId() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncWorkerValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncWorkerValue. ':' . $workerEntity->getWorkerId() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncWorkerValue;                 
 
                 }
 
@@ -148,8 +148,8 @@ try{
                                     $entityManager->flush($workerEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncInsertWorkersRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncInsertWorkersRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncWorkersRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncWorkersRecord;
                         $final_results["action"] = 'insert';
                         $final_results["worker_id"] = $workerEntity->getWorkerId();
                         $results["all_inserts"][]=$final_results;
@@ -160,8 +160,8 @@ try{
                                     $entityManager->flush($workerEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateWorkersRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateWorkersRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateWorkersRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateWorkersRecord;
                         $final_results["action"] = 'update';
                         $final_results["worker_id"] = $workerEntity->getWorkerId();
                         $results["all_updates"][]=$final_results;
@@ -169,8 +169,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncWorkersRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncWorkersRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncWorkersRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncWorkersRecord;
                         $final_results["action"] = 'error';
                         $final_results["worker_id"] = $workerEntity->getWorkerId();
                             

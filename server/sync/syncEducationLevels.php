@@ -83,7 +83,7 @@ try{
                             $educationLevelEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $education_level_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $education_level_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -99,7 +99,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('EducationLevels')->findOneBy(array('name' => $educationLevelEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($educationLevelEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncEducationLevelsNameValue. ':' . $educationLevelEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncEducationLevelsNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncEducationLevelsNameValue. ':' . $educationLevelEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncEducationLevelsNameValue;                 
 
                 }
                 
@@ -111,8 +111,8 @@ try{
                                     $entityManager->flush($educationLevelEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncEducationLevelsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncEducationLevelsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncEducationLevelsRecord;
                         $final_results["action"] = 'insert';
                         $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
                         $results["all_inserts"][]=$final_results;
@@ -123,8 +123,8 @@ try{
                                     $entityManager->flush($educationLevelEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateEducationLevelsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateEducationLevelsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateEducationLevelsRecord;
                         $final_results["action"] = 'update';
                         $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
                         $results["all_updates"][]=$final_results;
@@ -132,8 +132,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncEducationLevelsRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncEducationLevelsRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncEducationLevelsRecord;
                         $final_results["action"] = 'error';
                         $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
                             

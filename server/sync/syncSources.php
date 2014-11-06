@@ -83,7 +83,7 @@ try{
                             $sourceEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $source_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $source_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -99,7 +99,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('Sources')->findOneBy(array('name' => $sourceEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($sourceEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncSourcesNameValue. ':' . $sourceEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncSourcesNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncSourcesNameValue. ':' . $sourceEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncSourcesNameValue;                 
 
                 }
                 
@@ -111,8 +111,8 @@ try{
                                     $entityManager->flush($sourceEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncSourcesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncSourcesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncSourcesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncSourcesRecord;
                         $final_results["action"] = 'insert';
                         $final_results["source_id"] = $sourceEntity->getSourceId();
                         $results["all_inserts"][]=$final_results;
@@ -123,8 +123,8 @@ try{
                                     $entityManager->flush($sourceEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateSourcesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateSourcesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateSourcesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateSourcesRecord;
                         $final_results["action"] = 'update';
                         $final_results["source_id"] = $sourceEntity->getSourceId();
                         $results["all_updates"][]=$final_results;
@@ -132,8 +132,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncSourcesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncSourcesRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncSourcesRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncSourcesRecord;
                         $final_results["action"] = 'error';
                         $final_results["source_id"] = $sourceEntity->getSourceId();
                             

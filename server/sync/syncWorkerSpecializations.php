@@ -83,7 +83,7 @@ try{
                             $workerSpecializationEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $worker_specialization_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $worker_specialization_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -99,7 +99,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('WorkerSpecializations')->findOneBy(array('name' => $workerSpecializationEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($workerSpecializationEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncWorkerSpecializationsNameValue. ':' . $workerSpecializationEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncWorkerSpecializationsNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncWorkerSpecializationsNameValue. ':' . $workerSpecializationEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncWorkerSpecializationsNameValue;                 
 
                 }
                 
@@ -111,8 +111,8 @@ try{
                                     $entityManager->flush($workerSpecializationEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncWorkerSpecializationsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncWorkerSpecializationsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncWorkerSpecializationsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncWorkerSpecializationsRecord;
                         $final_results["action"] = 'insert';
                         $final_results["worker_specialization_id"] = $workerSpecializationEntity->getWorkerSpecializationId();
                         $results["all_inserts"][]=$final_results;
@@ -123,8 +123,8 @@ try{
                                     $entityManager->flush($workerSpecializationEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateWorkerSpecializationsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateWorkerSpecializationsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateWorkerSpecializationsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateWorkerSpecializationsRecord;
                         $final_results["action"] = 'update';
                         $final_results["worker_specialization_id"] = $workerSpecializationEntity->getWorkerSpecializationId();
                         $results["all_updates"][]=$final_results;
@@ -132,8 +132,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncWorkerSpecializationsRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncWorkerSpecializationsRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncWorkerSpecializationsRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncWorkerSpecializationsRecord;
                         $final_results["action"] = 'error';
                         $final_results["worker_specialization_id"] = $workerSpecializationEntity->getWorkerSpecializationId();
                             
