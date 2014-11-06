@@ -84,7 +84,7 @@ try{
                             $municipalityEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $municipality_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $municipality_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -97,14 +97,14 @@ try{
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
                    
                 //$prefecture_id================================================                  
-                $fPrefecture = CRUDUtils::syncEntitySetAssociation($municipalityEntity, $prefecture_id, 'Prefectures', 'prefecture', 'Prefecture', false); 
+                $fPrefecture = CRUDUtils::syncEntitySetAssociation($municipalityEntity, $prefecture_id, 'Prefectures', 'prefecture', 'Prefecture', true); 
                 if (!validator::IsNull($fPrefecture)) {$error_messages["errors"][] = $fPrefecture; }
                 
                 //check unique municipality name================================
                 $checkDuplicate = $entityManager->getRepository('Municipalities')->findOneBy(array('name' => $municipalityEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($municipalityEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncMunicipalitiesNameValue. ':' . $municipalityEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncMunicipalitiesNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncMunicipalitiesNameValue. ':' . $municipalityEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncMunicipalitiesNameValue;                 
 
                 }
                 
@@ -116,8 +116,8 @@ try{
                                     $entityManager->flush($municipalityEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncMunicipalitiesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncMunicipalitiesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncMunicipalitiesRecord;
                         $final_results["action"] = 'insert';
                         $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
                         $results["all_inserts"][]=$final_results;
@@ -128,8 +128,8 @@ try{
                                     $entityManager->flush($municipalityEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateMunicipalitiesRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateMunicipalitiesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateMunicipalitiesRecord;
                         $final_results["action"] = 'update';
                         $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
                         $results["all_updates"][]=$final_results;
@@ -137,8 +137,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncMunicipalitiesRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncMunicipalitiesRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncMunicipalitiesRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncMunicipalitiesRecord;
                         $final_results["action"] = 'error';
                         $final_results["municipality_id"] = $municipalityEntity->getMunicipalityId();
                             

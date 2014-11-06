@@ -6,24 +6,24 @@
  * @package SYNC
  * 
  */
-function syncEducationLevels(){
+function syncTransferAreas(){
     header("Content-Type: text/html; charset=utf-8");
     
     global $Options; 
     global $entityManager;
-        
+    
     //check with params
     $params = array("page"=>"1",
                     "pagesize"=>"500");
     
     $sync_results = $all_logs = array();
     $check_total_download = 0;
-    $syncTable = 'education_levels';
+    $syncTable = 'transfer_areas';
 
     //init and start timer
     $timer=new Timing;
     $timer->start();
-
+    
 try{ 
     $sync_results['syncTable'] = $syncTable;
 
@@ -55,51 +55,56 @@ try{
 
 //get each record of block data ================================================
 //==============================================================================
-        foreach($data["data"] as $education_level)
+        foreach($data["data"] as $transfer_area)
         {    
           
-            $education_level_id = $education_level["education_level_id"];
-            $name = $education_level["education_level"];
+            $transfer_area_id = $transfer_area["transfer_area_id"];
+            $name = $transfer_area["transfer_area"];
+            $edu_admin_id = $transfer_area["edu_admin_id"];
             
             $check_total_download++;
            
                 try {
                     $error_messages = array();
                                    
-                    //$education_level_id check value and get status(create,update,delete)
+                    //$transfer_area_id check value and get status(create,update,delete)
                     //==========================================================
-                    $fEducationLevel = CRUDUtils::syncCheckIdParam($education_level_id, 'EducationLevelID');
-                    if (!validator::IsNull($fEducationLevel['id'])) {
+                    $fTransferArea = CRUDUtils::syncCheckIdParam($transfer_area_id, 'TransferAreaID');
+                    if (!validator::IsNull($fTransferArea['id'])) {
 
-                        $retrievedObject= $entityManager->find('EducationLevels', $fEducationLevel['id']);
-                        $duplicateValue = 'DuplicateEducationLevelUniqueValue';
+                        $retrievedObject= $entityManager->find('TransferAreas', $fTransferArea['id']);
+                        $duplicateValue = 'DuplicateTransferAreaUniqueValue';
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
-                            $educationLevelEntity = new EducationLevels(); 
-                            $educationLevelEntity->setEducationLevelId($fEducationLevel['id']);
+                            $transferAreaEntity = new TransferAreas(); 
+                            $transferAreaEntity->setTransferAreaId($fTransferArea['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
-                            $educationLevelEntity = $retrievedObject;
+                            $transferAreaEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $education_level_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $transfer_area_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
                     } else {
-                        $error_messages["errors"][] = $fEducationLevel['error_message']; 
+                        $error_messages["errors"][] = $fTransferArea['error_message']; 
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($educationLevelEntity, $name, 'EducationLevelName', 'name', true, false);
+                $fName = CRUDUtils::syncEntitySetParam($transferAreaEntity, $name, 'TransferAreaName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
-                   
-                //check unique education_level name=============================
-                $checkDuplicate = $entityManager->getRepository('EducationLevels')->findOneBy(array('name' => $educationLevelEntity->getName() ));
 
-                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($educationLevelEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncEducationLevelsNameValue. ':' . $educationLevelEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncEducationLevelsNameValue;                 
+                //$edu_admin_id===========================================================================                  
+                $fEduAdmin = CRUDUtils::syncEntitySetAssociation($transferAreaEntity, $edu_admin_id, 'EduAdmins', 'eduAdmin', 'EduAdmin', true); 
+                if (!validator::IsNull($fEduAdmin)) {$error_messages["errors"][] = $fEduAdmin; }
+                
+                //check unique transfer_area name===================================
+                $checkNameDuplicate = $entityManager->getRepository('TransferAreas')->findOneBy(array('name' => $transferAreaEntity->getName() ));
+
+                if ((count($checkNameDuplicate) > 1) || (count($checkNameDuplicate)==1 && ($transferAreaEntity->getName() != $checkNameDuplicate->getName() ))){
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncTransferAreaNameValue. ':' . $transferAreaEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncTransferAreaNameValue;                 
 
                 }
                 
@@ -107,35 +112,35 @@ try{
         
                     if (!$error_messages && $action === 'CREATE'){    
                         
-                                    $entityManager->persist($educationLevelEntity);
-                                    $entityManager->flush($educationLevelEntity);
+                                    $entityManager->persist($transferAreaEntity);
+                                    $entityManager->flush($transferAreaEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = ExceptionCodes::SuccessSyncEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::SuccessSyncEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncTransferAreasRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncTransferAreasRecord;
                         $final_results["action"] = 'insert';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                         $results["all_inserts"][]=$final_results;
                         
                     } elseif (!$error_messages && $action === 'UPDATE'){
                         
-                                    $entityManager->persist($educationLevelEntity);
-                                    $entityManager->flush($educationLevelEntity);
+                                    $entityManager->persist($transferAreaEntity);
+                                    $entityManager->flush($transferAreaEntity);
                                     
                         $updates++;
-                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateTransferAreasRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateTransferAreasRecord;
                         $final_results["action"] = 'update';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                         $results["all_updates"][]=$final_results;
                                 
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = ExceptionCodes::FailureSyncEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::FailureSyncEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncTransferAreasRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncTransferAreasRecord;
                         $final_results["action"] = 'error';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["transfer_area_id"] = $transferAreaEntity->getTransferAreaId();
                             
                     }
                        

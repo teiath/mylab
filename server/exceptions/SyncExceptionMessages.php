@@ -209,6 +209,7 @@ class SyncExceptionMessages
     
     const IdenticalSyncSchoolUnitTypesNameValue = 'Είναι αδύνατη η εισαγωγή. Ενημερώστε το διαχειριστη διότι στο λεξικό SchoolUnitTypes υπάρχουν πολλαπλές εγγραφές με την τιμή της παραμέτρου $name  . Τιμή $name =  ';
     const DuplicateSyncSchoolUnitTypesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό SchoolUnitTypes υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+    const DuplicateSyncSchoolUnitTypesInitialsValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό SchoolUnitTypes υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $initials σε διαφορετικό ID . Τιμή $initials =  ';
     const DuplicateSyncSchoolUnitTypesNameIdValue = ' To id της υπάρχουσας εγγραφής είναι school_unit_types_id = ';
     
     const DuplicateVocabularySyncEducationLevelIdValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο primary key,στο λεξικό EducationLevel με τιμή $education_level_id = ';
@@ -237,6 +238,18 @@ class SyncExceptionMessages
     const IdenticalSyncStatesNameValue = 'Είναι αδύνατη η εισαγωγή. Ενημερώστε το διαχειριστη διότι στο λεξικό States υπάρχουν πολλαπλές εγγραφές με την τιμή της παραμέτρου $name  . Τιμή $name =  ';
     const DuplicateSyncStatesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό States υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
     const DuplicateSyncStatesNameIdValue = ' To id της υπάρχουσας εγγραφής είναι state_id = ';
+    
+    //sync sources table
+    const SyncSources = 'Συγχρονισμός με τον πίνακα Sources';
+    const SuccessSyncSourcesRecord = 'Επιτυχής καταχώρηση εγγραφής του λεξικού Sources ';
+    const SuccessSyncUpdateSourcesRecord = 'Επιτυχής ενημέρωση εγγραφής του λεξικού Sources ';
+    const FailureSyncSourcesRecord = 'Αποτυχία καταχώρησης εγγραφής του λεξικού Sources ';
+    const CommitSyncSources = 'Ο συγχρονισμός του λεξικού Sources και η ενημέρωση της βάσης είναι επιτυχής. ';
+    const RollBackSyncSources = 'Ο συγχρονισμός του λεξικού Sources και η ενημέρωση της βάσης απέτυχαν. ';
+    
+    const IdenticalSyncSourcesNameValue = 'Είναι αδύνατη η εισαγωγή. Ενημερώστε το διαχειριστη διότι στο λεξικό Sources υπάρχουν πολλαπλές εγγραφές με την τιμή της παραμέτρου $name  . Τιμή $name =  ';
+    const DuplicateSyncSourcesNameValue = 'Είναι αδύνατη η εισαγωγή, διότι στο λεξικό Sources υπάρχει ήδη η εγγραφή με την τιμή της παραμέτρου $name σε διαφορετικό ID . Τιμή $name =  ';
+    const DuplicateSyncSourcesNameIdValue = ' To id της υπάρχουσας εγγραφής είναι source_id = ';
     
     //sync circuits table
     const SyncCircuits = 'Συγχρονισμός με τον πίνακα Circuits';

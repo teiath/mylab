@@ -116,7 +116,7 @@ try{
                             $circuitEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $circuit_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $circuit_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -127,13 +127,13 @@ try{
                 //= $phone_number ==============================================
 
                 if (Validator::IsNull($phone_number) )
-                    $error_messages["errors"][] = SyncExceptionMessages::MissingSyncCircuitPhoneNumberValue.$phone_number.SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::MissingSyncCircuitPhoneNumberValue;
+                    $error_messages["errors"][] = ExceptionMessages::MissingCircuitPhoneNumberValue.$phone_number.ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::MissingCircuitPhoneNumberValue;
                 else if (!Validator::IsValue($phone_number) || Validator::IsNegative($phone_number))
-                    $error_messages["errors"][] =  SyncExceptionMessages::InvalidSyncCircuitPhoneNumberValue.$phone_number.SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::InvalidSyncCircuitPhoneNumberValue;
+                    $error_messages["errors"][] =  ExceptionMessages::InvalidSyncCircuitPhoneNumberValue.$phone_number.ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::InvalidSyncCircuitPhoneNumberValue;
                 else if (Validator::IsValue($phone_number))       
                     $circuitEntity->setPhoneNumber(Validator::ToValue($phone_number));
                 else
-                    $error_messages["errors"][] =  SyncExceptionMessages::UnknownSyncCircuitPhoneNumberType.$phone_number.SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::UnknownSyncCircuitPhoneNumberType;
+                    $error_messages["errors"][] =  ExceptionMessages::UnknownSyncCircuitPhoneNumberType.$phone_number.ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::UnknownSyncCircuitPhoneNumberType;
      
         
                 //$updated_date============================================================================
@@ -145,9 +145,9 @@ try{
            
                 //= $status ==================================================
                 if (Validator::IsNull($status) )
-                    $error_messages["errors"][] = SyncExceptionMessages::MissingSyncCircuitStatusValue.$status.SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::MissingSyncCircuitStatusValue;
+                    $error_messages["errors"][] = ExceptionMessages::MissingCircuitStatusValue.$status.ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::MissingCircuitStatusValue;
                 else if (!Validator::IsBoolean($status)) 
-                    $error_messages["errors"][] =  SyncExceptionMessages::InvalidSyncCircuitStatusValue.$status.SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::InvalidSyncCircuitStatusValue;
+                    $error_messages["errors"][] =  ExceptionMessages::InvalidCircuitStatusType.$status.ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::InvalidCircuitStatusType;
                 else { 
                     $circuitEntity->setStatus(Validator::ToBoolean($status));
                 }                      
@@ -164,7 +164,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('Circuits')->findOneBy(array('phoneNumber' => $circuitEntity->getPhoneNumber() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($circuitEntity->getCircuitId() != $checkDuplicate->getCircuitId()))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncCircuitsPhoneValue. ':' . $circuitEntity->getCircuitId() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncCircuitsPhoneValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncCircuitsPhoneValue. ':' . $circuitEntity->getCircuitId() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncCircuitsPhoneValue;                 
 
                 }
 
@@ -176,8 +176,8 @@ try{
                                     $entityManager->flush($circuitEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncInsertCircuitsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncInsertCircuitsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncCircuitsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncCircuitsRecord;
                         $final_results["action"] = 'insert';
                         $final_results["circuit_id"] = $circuitEntity->getCircuitId();
                         $results["all_inserts"][]=$final_results;
@@ -188,8 +188,8 @@ try{
                                     $entityManager->flush($circuitEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateCircuitsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateCircuitsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateCircuitsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateCircuitsRecord;
                         $final_results["action"] = 'update';
                         $final_results["circuit_id"] = $circuitEntity->getCircuitId();
                         $results["all_updates"][]=$final_results;
@@ -197,8 +197,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncCircuitsRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncCircuitsRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncCircuitsRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncCircuitsRecord;
                         $final_results["action"] = 'error';
                         $final_results["circuit_id"] = $circuitEntity->getCircuitId();
                             

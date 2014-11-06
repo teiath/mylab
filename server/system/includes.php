@@ -33,19 +33,24 @@ require_once('libs/db2php/DSC.class.php');
 require_once('exceptions/ExceptionCodes.php');
 require_once('exceptions/ExceptionMessages.php');
 require_once('exceptions/ExceptionManager.php');
-require_once('exceptions/SyncExceptionMessages.php');
-require_once('exceptions/SyncExceptionCodes.php');
 
 //sync
 require_once('sync/addCircuit.php');
 require_once('sync/addWorker.php');
 require_once('sync/addSchoolUnitWorker.php');
+
 require_once('sync/syncCircuitTypes.php');
 require_once('sync/syncEduAdmins.php');
-require_once('sync/syncRegionEduAdmins.php');
 require_once('sync/syncEducationLevels.php');
 require_once('sync/syncMunicipalities.php');
 require_once('sync/syncPrefectures.php');
+require_once('sync/syncRegionEduAdmins.php');
+require_once('sync/syncSchoolUnitTypes.php');
+require_once('sync/syncSources.php');
+require_once('sync/syncStates.php');
+require_once('sync/syncTransferAreas.php');
+require_once('sync/syncWorkerPositions.php');
+require_once('sync/syncWorkerSpecializations.php');
 
 ////----classes ext from mm
 //require_once('classes/extends/RegionEduAdminsExt.class.php');

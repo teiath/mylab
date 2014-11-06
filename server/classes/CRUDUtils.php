@@ -226,11 +226,11 @@ class CRUDUtils {
            if ($setnull)
                $id = Validator::ToNull($param);
             else   
-                $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);
+                $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);
        } else if (Validator::IsID($param))
             $id = Validator::ToID($param);
         else
-             $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);    
+             $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);    
         
         return $results=array('id' => $id, 'error_message' => $error_message);
     }
@@ -242,14 +242,14 @@ class CRUDUtils {
         $invalidType = 'Invalid'.$exceptionType.'Type';
         
         if (Validator::IsNull($param))
-            $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);
+            $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);
         else if (Validator::IsArray($param))
-            $error_message = constant('ExceptionMessages::'.$invalidArray). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidArray);
+            $error_message = constant('ExceptionMessages::'.$invalidArray). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidArray);
         else if (Validator::IsValue($param)){
             $method = 'set'.self::to_camel_case($field, true);
             $entity->$method(Validator::ToValue($param));
         } else
-            $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);      
+            $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);      
     }  
     
     public static function syncFindIDParam (&$entity, $param, $repo, $field, $exceptionType){        
@@ -262,9 +262,9 @@ class CRUDUtils {
         $retrievedObject = $entityManager->find($repo, $param);
 
         if(!isset($retrievedObject))
-            $error_message = constant('ExceptionMessages::'.$invalidValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidValue);    
+            $error_message = constant('ExceptionMessages::'.$invalidValue). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidValue);    
         else if (count($retrievedObject) > 1)
-            $error_message = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+            $error_message = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
         else   
             {
                 $method = 'set'.ucfirst($field);
@@ -285,17 +285,17 @@ class CRUDUtils {
 
             if ( $param === _MISSED_ ) {
                 if(!$required) { return; }
-                $error_message = constant('ExceptionMessages::'.$missingParam). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingParam);    
+                $error_message = constant('ExceptionMessages::'.$missingParam). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingParam);    
             } else if ( Validator::IsNull($param) ) {
                 if(!$required) { return; }
-                $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);    
+                $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);    
             } else if ( Validator::IsID($param) ) {
                 $retrievedObject = $entityManager->getRepository($repo)->find(Validator::ToID($param));
             
                     if ( !isset($retrievedObject) )
-                        $error_message = constant('ExceptionMessages::'.$invalidValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidValue);    
+                        $error_message = constant('ExceptionMessages::'.$invalidValue). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidValue);    
                     else if (count($retrievedObject)>1)
-                        $error_message = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                        $error_message = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
                     else
                     {
                         $method = 'set'.ucfirst($field);
@@ -303,7 +303,7 @@ class CRUDUtils {
                     }
       
             } else
-                $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);    
+                $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);    
     
             return $error_message;
             
@@ -317,10 +317,10 @@ class CRUDUtils {
 
         if ( $param === _MISSED_ ){
             if(!$required) { return; }
-            $error_message = constant('ExceptionMessages::'.$missingParam). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingParam);    
+            $error_message = constant('ExceptionMessages::'.$missingParam). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingParam);    
         } else if ( Validator::IsNull($param) ) { 
             if(!$is_nullable) { 
-                $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);
+                $error_message = constant('ExceptionMessages::'.$missingValue). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$missingValue);
             }else{
                 $method = 'set'.self::to_camel_case($field, true);
                 $entity->$method(Validator::ToNull($param));
@@ -329,7 +329,7 @@ class CRUDUtils {
             $method = 'set'.self::to_camel_case($field, true);
             $entity->$method(Validator::ToValue($param));
         } else
-            $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);
+            $error_message = constant('ExceptionMessages::'.$invalidType). ' : ' . $param . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$invalidType);
     
         return $error_message;
     }

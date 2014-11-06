@@ -17,10 +17,7 @@
     
     //mmsch parameters
     $params = array(
-    //"edu_admin" =>1,
-    "mm_id" => "1014486",
-    //"mm_id" => "1020428,1007591",
-    //"mm_id" => "1000002,1002233,1000002,1000003,1000019,1016506,1007591,1016502,1016503,1001982,1001023,1000006,1003605,1016505,1017701",
+    //"mm_id" => "1016860",
     "legal_character" => 1, //"ΔΗΜΟΣΙΟ",
     "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
@@ -68,7 +65,7 @@ try{
             $result["block_error_sync"] = false;
         }
    
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync at school_units table';die();}     
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync at units table';die();}     
  	echo '---Count of returned Data ' . $data["count"] . ' :--------';
         
         //get each school_unit data record 
@@ -92,7 +89,8 @@ try{
             $education_level = $school_unit["education_level_id"];
             $school_unit_type = $school_unit["unit_type_id"];
             $state = $school_unit["state_id"];
-            
+            $unit_dns = $school_unit["unit_dns"][0]["unit_dns"];
+          
             $check_total_download++;
             
             $mmsch_data["mmsch_data"] = array( "school_unit_id" => $school_unit_id,
@@ -111,7 +109,8 @@ try{
                                                "prefecture_id"=> $prefecture,                                            
                                                "education_level_id"=> $education_level,
                                                "school_unit_type_id"=> $school_unit_type,
-                                               "state_id"=> $state             
+                                               "state_id"=> $state,
+                                               "unit_dns"=> $unit_dns
                                                 );
                               
                 try {
@@ -138,7 +137,7 @@ try{
 
                         } else {
                             $status = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -147,18 +146,17 @@ try{
                     } 
                                 
 //$last_update============================================================================
-          
-            
+                       
        if (Validator::IsNull($last_update))
-            $error_messages["errors"][] = constant('ExceptionMessages::MissingLabTransitionDateValue') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::MissingLabTransitionDateValue');
+            $error_messages["errors"][] = constant('ExceptionMessages::MissingLabTransitionDateValue') . ':' . $last_update . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::MissingLabTransitionDateValue');
        else if (Validator::IsArray($last_update))
-            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionDateArray') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionDateArray');
+            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionDateArray') . ':' . $last_update . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionDateArray');
        else if (! Validator::IsValidDate($last_update) )
-            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionValidType') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionValidType'); 
+            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionValidType') . ':' . $last_update . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionValidType'); 
        else if (Validator::IsDate($last_update))
            $dateTime = new \DateTime($last_update);
        else
-            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionDateType') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionDateType');
+            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionDateType') . ':' . $last_update . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionDateType');
  
 // var_dump($lastUpdateTableRow->format('Y-m-d H:m:s'));     
 // var_dump($dateTime->format('Y-m-d H:m:s'));
@@ -212,6 +210,10 @@ try{
     $fState = CRUDUtils::syncEntitySetAssociation($unit, $state, 'States', 'state', 'State');
     if (!validator::IsNull($fState)) {$error_messages["errors"][] = $fState; }
 
+//$unit_dns===========================================================================
+   $fUnitDns = CRUDUtils::syncEntitySetParam($unit, $unit_dns, 'SchoolUnitUnitDns', 'unit_dns');
+    if (!validator::IsNull($fUnitDns)) {$error_messages["errors"][] = $fUnitDns; }    
+    
 //$fax_number===========================================================================
    $fFaxNumber = CRUDUtils::syncEntitySetParam($unit, $fax_number, 'SchoolUnitFaxNumber', 'fax_number');
     if (!validator::IsNull($fFaxNumber)) {$error_messages["errors"][] = $fFaxNumber; }    
@@ -247,9 +249,9 @@ try{
                        "ΔΗΜΟΤΙΚΟ ΣΧΟΛΕΙΟ Ο");
     
     if (! trim($name) )
-        $error_messages["errors"][] =  SyncExceptionMessages::MissingSyncSchoolUnitNameValue.$name.SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::MissingSyncSchoolUnitNameValue;
+        $error_messages["errors"][] =  ExceptionMessages::MissingSchoolUnitNameValue.$name.ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::MissingSchoolUnitNameValue;
     else if (in_array(trim($name), $checkVars)){
-        $error_messages["garbages"][] = SyncExceptionMessages::GarbageRowSchoolUnitNameValue .' name = ' . $name . ' id = '.$fSchoolUnit['id'].SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::GarbageRowSchoolUnitNameValue;
+        $error_messages["garbages"][] = ExceptionMessages::GarbageRowSchoolUnitNameValue .' name = ' . $name . ' id = '.$fSchoolUnit['id'].ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::GarbageRowSchoolUnitNameValue;
         $action='exit_garbage';
     } else {
         $unit->setName(Validator::ToValue($name));
@@ -263,7 +265,7 @@ try{
                                                                                    ));
     
         if (count($checkDuplicate) !== 0)
-            $error_messages["errors"][] = constant('ExceptionMessages::DuplicatedSchoolUnitValue') . ':' . $unit->getSchoolUnitId() . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::DuplicatedSchoolUnitValue');                 
+            $error_messages["errors"][] = constant('ExceptionMessages::DuplicatedSchoolUnitValue') . ':' . $unit->getSchoolUnitId() . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::DuplicatedSchoolUnitValue');                 
       }
       
 //print_r($error_messages);
@@ -280,8 +282,8 @@ try{
         if ($status === 'UPDATE' ){            
 
             $updates++;
-            $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateSchoolUnitsRecord;
-            $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateSchoolUnitsRecord;
+            $final_results["status"] = ExceptionCodes::SuccessSyncUpdateSchoolUnitsRecord;
+            $final_results["message"] = ExceptionMessages::SuccessSyncUpdateSchoolUnitsRecord;
             $final_results["action"] = 'update';
             $final_results["school_unit_id"] = $unit->getSchoolUnitId();
             $results["all_updates"][]=$final_results;
@@ -324,8 +326,8 @@ try{
         } else if ($status === 'CREATE'){
 
             $inserts++;
-            $final_results["status"] = SyncExceptionCodes::SuccessSyncInsertSchoolUnitsRecord;
-            $final_results["message"] = SyncExceptionMessages::SuccessSyncInsertSchoolUnitsRecord;
+            $final_results["status"] = ExceptionCodes::SuccessSyncSchoolUnitsRecord;
+            $final_results["message"] = ExceptionMessages::SuccessSyncSchoolUnitsRecord;
             $final_results["action"] = 'insert';
             $final_results["school_unit_id"] = $unit->getSchoolUnitId();
             $results["all_inserts"][]=$final_results;
@@ -387,18 +389,18 @@ try{
             $final_results["school_unit_id"] = $school_unit_id;
 
             if ($action === 'exit'){
-                $final_results["status"] = SyncExceptionCodes::IgnoreSyncSchoolUnitsRecord;
-                $final_results["message"] = SyncExceptionMessages::IgnoreSyncSchoolUnitsRecord;
+                $final_results["status"] = ExceptionCodes::IgnoreSyncSchoolUnitsRecord;
+                $final_results["message"] = ExceptionMessages::IgnoreSyncSchoolUnitsRecord;
                 $final_results["action"] = 'ignore';
                 $ignore_updates++;
             }else if ($action === 'exit_garbage'){
-                $final_results["status"] = SyncExceptionCodes::GarbageRowSchoolUnitNameValue;
-                $final_results["message"] = SyncExceptionMessages::GarbageRowSchoolUnitNameValue;
+                $final_results["status"] = ExceptionCodes::GarbageSyncSchoolUnitsRecord;
+                $final_results["message"] = ExceptionMessages::GarbageSyncSchoolUnitsRecord;
                 $final_results["action"] = 'garbage_ignore';
                 $garbages++;
             }else {
-                $final_results["status"] = SyncExceptionCodes::FailureSyncSchoolUnitsRecord;
-                $final_results["message"] = SyncExceptionMessages::FailureSyncSchoolUnitsRecord;
+                $final_results["status"] = ExceptionCodes::FailureSyncSchoolUnitsRecord;
+                $final_results["message"] = ExceptionMessages::FailureSyncSchoolUnitsRecord;
                 $final_results["action"] = 'error';
                 $errors++;
             }

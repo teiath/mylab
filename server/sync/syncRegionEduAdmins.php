@@ -83,7 +83,7 @@ try{
                             $regionEduAdminEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $region_edu_admin_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $region_edu_admin_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -99,7 +99,7 @@ try{
                 $checkDuplicate = $entityManager->getRepository('RegionEduAdmins')->findOneBy(array('name' => $regionEduAdminEntity->getName() ));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($regionEduAdminEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncRegionEduAdminNameValue. ':' . $regionEduAdminEntity->getName() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncRegionEduAdminNameValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncRegionEduAdminNameValue. ':' . $regionEduAdminEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncRegionEduAdminNameValue;                 
 
                 }
                 
@@ -111,8 +111,8 @@ try{
                                     $entityManager->flush($regionEduAdminEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncRegionEduAdminsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncRegionEduAdminsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncRegionEduAdminsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncRegionEduAdminsRecord;
                         $final_results["action"] = 'insert';
                         $final_results["region_edu_admin_id"] = $regionEduAdminEntity->getRegionEduAdminId();
                         $results["all_inserts"][]=$final_results;
@@ -123,8 +123,8 @@ try{
                                     $entityManager->flush($regionEduAdminEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateRegionEduAdminsRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateRegionEduAdminsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateRegionEduAdminsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateRegionEduAdminsRecord;
                         $final_results["action"] = 'update';
                         $final_results["region_edu_admin_id"] = $regionEduAdminEntity->getRegionEduAdminId();
                         $results["all_updates"][]=$final_results;
@@ -132,8 +132,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncRegionEduAdminsRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncRegionEduAdminsRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncRegionEduAdminsRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncRegionEduAdminsRecord;
                         $final_results["action"] = 'error';
                         $final_results["region_edu_admin_id"] = $regionEduAdminEntity->getRegionEduAdminId();
                             

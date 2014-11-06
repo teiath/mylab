@@ -6,7 +6,7 @@
  * @package SYNC
  * 
  */
-function syncEducationLevels(){
+function syncWorkerPositions(){
     header("Content-Type: text/html; charset=utf-8");
     
     global $Options; 
@@ -18,8 +18,8 @@ function syncEducationLevels(){
     
     $sync_results = $all_logs = array();
     $check_total_download = 0;
-    $syncTable = 'education_levels';
-
+    $syncTable = 'worker_positions';
+            
     //init and start timer
     $timer=new Timing;
     $timer->start();
@@ -50,56 +50,56 @@ try{
         //check if sync with mmsch return error code
         $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
 
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable . ' table ';return $sync_results;}        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable .' table ';return $sync_results;}        
  	$sync_results['countData'] =  'Count of returned Data ' . $data["count"] ;
 
 //get each record of block data ================================================
 //==============================================================================
-        foreach($data["data"] as $education_level)
+        foreach($data["data"] as $worker_position)
         {    
           
-            $education_level_id = $education_level["education_level_id"];
-            $name = $education_level["education_level"];
-            
+            $worker_position_id = $worker_position["worker_position_id"];
+            $name = $worker_position["worker_position"];
+
             $check_total_download++;
            
                 try {
                     $error_messages = array();
                                    
-                    //$education_level_id check value and get status(create,update,delete)
+                    //$worker_position_id check value and get status(create,update,delete)
                     //==========================================================
-                    $fEducationLevel = CRUDUtils::syncCheckIdParam($education_level_id, 'EducationLevelID');
-                    if (!validator::IsNull($fEducationLevel['id'])) {
+                    $fWorkerPosition = CRUDUtils::syncCheckIdParam($worker_position_id, 'WorkerPositionID');
+                    if (!validator::IsNull($fWorkerPosition['id'])) {
 
-                        $retrievedObject= $entityManager->find('EducationLevels', $fEducationLevel['id']);
-                        $duplicateValue = 'DuplicateEducationLevelUniqueValue';
+                        $retrievedObject= $entityManager->find('WorkerPositions', $fWorkerPosition['id']);
+                        $duplicateValue = 'DuplicateWorkerPositionUniqueValue';
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
-                            $educationLevelEntity = new EducationLevels(); 
-                            $educationLevelEntity->setEducationLevelId($fEducationLevel['id']);
+                            $workerPositionEntity = new WorkerPositions(); 
+                            $workerPositionEntity->setWorkerPositionId($fWorkerPosition['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
-                            $educationLevelEntity = $retrievedObject;
+                            $workerPositionEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $education_level_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $worker_position_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
                     } else {
-                        $error_messages["errors"][] = $fEducationLevel['error_message']; 
+                        $error_messages["errors"][] = $fWorkerPosition['error_message']; 
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($educationLevelEntity, $name, 'EducationLevelName', 'name', true, false);
+                $fName = CRUDUtils::syncEntitySetParam($workerPositionEntity, $name, 'WorkerPositionName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
-                   
-                //check unique education_level name=============================
-                $checkDuplicate = $entityManager->getRepository('EducationLevels')->findOneBy(array('name' => $educationLevelEntity->getName() ));
+                                         
+                //check unique worker position name======================================
+                $checkDuplicate = $entityManager->getRepository('WorkerPositions')->findOneBy(array('name' => $workerPositionEntity->getName() ));
 
-                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($educationLevelEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncEducationLevelsNameValue. ':' . $educationLevelEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncEducationLevelsNameValue;                 
+                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($workerPositionEntity->getName() != $checkDuplicate->getName() ))){
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncWorkerPositionsNameValue. ':' . $workerPositionEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncWorkerPositionsNameValue;                 
 
                 }
                 
@@ -107,35 +107,35 @@ try{
         
                     if (!$error_messages && $action === 'CREATE'){    
                         
-                                    $entityManager->persist($educationLevelEntity);
-                                    $entityManager->flush($educationLevelEntity);
+                                    $entityManager->persist($workerPositionEntity);
+                                    $entityManager->flush($workerPositionEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = ExceptionCodes::SuccessSyncEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::SuccessSyncEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncWorkerPositionsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncWorkerPositionsRecord;
                         $final_results["action"] = 'insert';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["worker_position_id"] = $workerPositionEntity->getWorkerPositionId();
                         $results["all_inserts"][]=$final_results;
                         
                     } elseif (!$error_messages && $action === 'UPDATE'){
                         
-                                    $entityManager->persist($educationLevelEntity);
-                                    $entityManager->flush($educationLevelEntity);
+                                    $entityManager->persist($workerPositionEntity);
+                                    $entityManager->flush($workerPositionEntity);
                                     
                         $updates++;
-                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateWorkerPositionsRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateWorkerPositionsRecord;
                         $final_results["action"] = 'update';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["worker_position_id"] = $workerPositionEntity->getWorkerPositionId();
                         $results["all_updates"][]=$final_results;
                                 
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = ExceptionCodes::FailureSyncEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::FailureSyncEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncWorkerPositionsRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncWorkerPositionsRecord;
                         $final_results["action"] = 'error';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["worker_position_id"] = $workerPositionEntity->getWorkerPositionId();
                             
                     }
                        

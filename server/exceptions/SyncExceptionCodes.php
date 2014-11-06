@@ -208,6 +208,7 @@ class SyncExceptionCodes
     
     const IdenticalSyncSchoolUnitTypesNameValue = '945';
     const DuplicateSyncSchoolUnitTypesNameValue = '946';
+    const DuplicateSyncSchoolUnitTypesInitialsValue = '950';
     const DuplicateSyncSchoolUnitTypesNameIdValue = '947';
     
     const DuplicateVocabularySyncEducationLevelIdValue = '948';
@@ -237,6 +238,18 @@ class SyncExceptionCodes
     const DuplicateSyncStatesNameValue = '986';
     const DuplicateSyncStatesNameIdValue = '987';
 
+    //sync sources table
+    const SyncSources = '1080';
+    const SuccessSyncSourcesRecord = '1080';
+    const SuccessSyncUpdateSourcesRecord = '1080';
+    const FailureSyncSourcesRecord = '1080';
+    const CommitSyncSources = '1080';
+    const RollBackSyncSources = '1080';
+    
+    const IdenticalSyncSourcesNameValue = '1080';
+    const DuplicateSyncSourcesNameValue = '1080';
+    const DuplicateSyncSourcesNameIdValue = '1080';
+    
     //sync circuits table
     const SyncCircuits = '1000';
     const SuccessSyncCircuitsRecord = '1001';

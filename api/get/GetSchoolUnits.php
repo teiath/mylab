@@ -155,7 +155,7 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
         
 //$unit_dns=====================================================================
         if (Validator::Exists('unit_dns', $params)){
-            CRUDUtils::setFilter($qb, $unit_dns, "su", "unitDns", "unitDns", "null,value", ExceptionMessages::InvalidSchoolUnitUnitDns, ExceptionCodes::InvalidSchoolUnitUnitDns);
+            CRUDUtils::setFilter($qb, $unit_dns, "su", "unitDns", "unitDns", "null,value", ExceptionMessages::InvalidSchoolUnitUnitDnsType, ExceptionCodes::InvalidSchoolUnitUnitDnsType);
         } 
                
 //$region_edu_admin=============================================================

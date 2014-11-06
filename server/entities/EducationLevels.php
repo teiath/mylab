@@ -17,7 +17,7 @@ class EducationLevels
      *
      * @ORM\Column(name="education_level_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $educationLevelId;
 

@@ -87,7 +87,7 @@ try{
                             $schoolUnitWorkerEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_worker_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_worker_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -113,7 +113,7 @@ try{
                                                                                                       'workerPosition' => $schoolUnitWorkerEntity->getWorkerPosition()));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($schoolUnitWorkerEntity->getSchoolUnitWorkerId() != $checkDuplicate->getSchoolUnitWorkerId()))){
-                   $error_messages["errors"][] = SyncExceptionMessages::DuplicateSyncSchoolUnitWorkerValue. ':' . $schoolUnitWorkerEntity->getSchoolUnitWorkerId() .SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::DuplicateSyncSchoolUnitWorkerValue;                 
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncSchoolUnitWorkerValue. ':' . $schoolUnitWorkerEntity->getSchoolUnitWorkerId() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncSchoolUnitWorkerValue;                 
 
                 }
  
@@ -125,8 +125,8 @@ try{
                                     $entityManager->flush($schoolUnitWorkerEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncSchoolUnitWorkersRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncSchoolUnitWorkersRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncSchoolUnitWorkersRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncSchoolUnitWorkersRecord;
                         $final_results["action"] = 'insert';
                         $final_results["school_unit_worker_id"] = $schoolUnitWorkerEntity->getSchoolUnitWorkerId();
                         $results["all_inserts"][]=$final_results;
@@ -137,8 +137,8 @@ try{
                                     $entityManager->flush($schoolUnitWorkerEntity);
                                     
                         $updates++;
-                        $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateSchoolUnitWorkersRecord;
-                        $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateSchoolUnitWorkersRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateSchoolUnitWorkersRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateSchoolUnitWorkersRecord;
                         $final_results["action"] = 'update';
                         $final_results["school_unit_worker_id"] = $schoolUnitWorkerEntity->getSchoolUnitWorkerId();
                         $results["all_updates"][]=$final_results;
@@ -146,8 +146,8 @@ try{
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = SyncExceptionCodes::FailureSyncSchoolUnitWorkersRecord;
-                        $final_results["message"] = SyncExceptionMessages::FailureSyncSchoolUnitWorkersRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncSchoolUnitWorkersRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncSchoolUnitWorkersRecord;
                         $final_results["action"] = 'error';
                         $final_results["school_unit_worker_id"] = $schoolUnitWorkerEntity->getSchoolUnitWorkerId();
                             

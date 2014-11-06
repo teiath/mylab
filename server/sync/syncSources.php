@@ -6,7 +6,7 @@
  * @package SYNC
  * 
  */
-function syncEducationLevels(){
+function syncSources(){
     header("Content-Type: text/html; charset=utf-8");
     
     global $Options; 
@@ -18,8 +18,8 @@ function syncEducationLevels(){
     
     $sync_results = $all_logs = array();
     $check_total_download = 0;
-    $syncTable = 'education_levels';
-
+    $syncTable = 'sources';
+            
     //init and start timer
     $timer=new Timing;
     $timer->start();
@@ -50,56 +50,56 @@ try{
         //check if sync with mmsch return error code
         $result["block_error_sync"] = ($data["status"] != 200) ?  true : false;
 
-        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable . ' table ';return $sync_results;}        
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){$sync_results['noData'] =  ' No data to sync at ' . $syncTable .' table ';return $sync_results;}        
  	$sync_results['countData'] =  'Count of returned Data ' . $data["count"] ;
 
 //get each record of block data ================================================
 //==============================================================================
-        foreach($data["data"] as $education_level)
+        foreach($data["data"] as $source)
         {    
           
-            $education_level_id = $education_level["education_level_id"];
-            $name = $education_level["education_level"];
-            
+            $source_id = $source["source_id"];
+            $name = $source["source"];
+
             $check_total_download++;
            
                 try {
                     $error_messages = array();
                                    
-                    //$education_level_id check value and get status(create,update,delete)
+                    //$source_id check value and get status(create,update,delete)
                     //==========================================================
-                    $fEducationLevel = CRUDUtils::syncCheckIdParam($education_level_id, 'EducationLevelID');
-                    if (!validator::IsNull($fEducationLevel['id'])) {
+                    $fSource= CRUDUtils::syncCheckIdParam($source_id, 'SourceID');
+                    if (!validator::IsNull($fSource['id'])) {
 
-                        $retrievedObject= $entityManager->find('EducationLevels', $fEducationLevel['id']);
-                        $duplicateValue = 'DuplicateEducationLevelUniqueValue';
+                        $retrievedObject= $entityManager->find('Sources', $fSource['id']);
+                        $duplicateValue = 'DuplicateSourceUniqueValue';
 
                         if(!isset($retrievedObject)) {
                             $action = 'CREATE';
-                            $educationLevelEntity = new EducationLevels(); 
-                            $educationLevelEntity->setEducationLevelId($fEducationLevel['id']);
+                            $sourceEntity = new Sources(); 
+                            $sourceEntity->setSourceId($fSource['id']);
                         } else if (count($retrievedObject) == 1) {
                             $action = 'UPDATE';
-                            $educationLevelEntity = $retrievedObject;
+                            $sourceEntity = $retrievedObject;
                         } else {
                             $action = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $education_level_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $source_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
                     } else {
-                        $error_messages["errors"][] = $fEducationLevel['error_message']; 
+                        $error_messages["errors"][] = $fSource['error_message']; 
                     } 
                       
                 //$name=========================================================
-                $fName = CRUDUtils::syncEntitySetParam($educationLevelEntity, $name, 'EducationLevelName', 'name', true, false);
+                $fName = CRUDUtils::syncEntitySetParam($sourceEntity, $name, 'SourceName', 'name', true, false);
                 if (!validator::IsNull($fName)) {$error_messages["errors"][] = $fName; }
-                   
-                //check unique education_level name=============================
-                $checkDuplicate = $entityManager->getRepository('EducationLevels')->findOneBy(array('name' => $educationLevelEntity->getName() ));
+                                   
+                //check unique source name================================
+                $checkDuplicate = $entityManager->getRepository('Sources')->findOneBy(array('name' => $sourceEntity->getName() ));
 
-                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($educationLevelEntity->getName() != $checkDuplicate->getName() ))){
-                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncEducationLevelsNameValue. ':' . $educationLevelEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncEducationLevelsNameValue;                 
+                if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($sourceEntity->getName() != $checkDuplicate->getName() ))){
+                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncSourcesNameValue. ':' . $sourceEntity->getName() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncSourcesNameValue;                 
 
                 }
                 
@@ -107,35 +107,35 @@ try{
         
                     if (!$error_messages && $action === 'CREATE'){    
                         
-                                    $entityManager->persist($educationLevelEntity);
-                                    $entityManager->flush($educationLevelEntity);
+                                    $entityManager->persist($sourceEntity);
+                                    $entityManager->flush($sourceEntity);
                                     
                         $inserts++;
-                        $final_results["status"] = ExceptionCodes::SuccessSyncEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::SuccessSyncEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncSourcesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncSourcesRecord;
                         $final_results["action"] = 'insert';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["source_id"] = $sourceEntity->getSourceId();
                         $results["all_inserts"][]=$final_results;
                         
                     } elseif (!$error_messages && $action === 'UPDATE'){
                         
-                                    $entityManager->persist($educationLevelEntity);
-                                    $entityManager->flush($educationLevelEntity);
+                                    $entityManager->persist($sourceEntity);
+                                    $entityManager->flush($sourceEntity);
                                     
                         $updates++;
-                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::SuccessSyncUpdateSourcesRecord;
+                        $final_results["message"] = ExceptionMessages::SuccessSyncUpdateSourcesRecord;
                         $final_results["action"] = 'update';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["source_id"] = $sourceEntity->getSourceId();
                         $results["all_updates"][]=$final_results;
                                 
                     } else {
                         
                         $errors++;
-                        $final_results["status"] = ExceptionCodes::FailureSyncEducationLevelsRecord;
-                        $final_results["message"] = ExceptionMessages::FailureSyncEducationLevelsRecord;
+                        $final_results["status"] = ExceptionCodes::FailureSyncSourcesRecord;
+                        $final_results["message"] = ExceptionMessages::FailureSyncSourcesRecord;
                         $final_results["action"] = 'error';
-                        $final_results["education_level_id"] = $educationLevelEntity->getEducationLevelId();
+                        $final_results["source_id"] = $sourceEntity->getSourceId();
                             
                     }
                        

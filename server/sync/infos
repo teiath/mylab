@@ -1,0 +1,37 @@
+Ο κατάλογος sync περιέχει τα script συγχρονισμού του mylab με το mmsch.
+
+Οι παρακάτω function συγχρονίζουν το mylab με τα δεδομένα από τα λεξικά του mmsch
+syncCircuitTypes.php
+syncEduAdmins.php
+syncEducationLevels.php
+syncMunicipalities.php
+syncPrefectures.php
+syncRegionEduAdmins.php
+syncSchoolUnitTypes.php
+syncSources.php
+syncStates.php
+syncTransferAreas.php
+syncWorkerPositions.php
+syncWorkerSpecializations.php
+
+Τα λεξικά που συγχρονίζουν είναι εμφανές από το όνομα της κάθε function.
+Ο συγχρονισμός των λεξικών είναι restfull και γίνεται χρήση του slim microframework.
+Αξιοποιείται η http method GET και το όνομα του πίνακα που θέλουμε να συγχρονίζουμε αποστολή αιτήματος GET στην διεύθυνση [API_BASE_URL] = /server/sync/'ονομα πίνακα'
+
+όπου 'όνομα πίνακα' αποδεκτές τιμές είναι
+circuit_types
+edu_admins
+education_levels
+municipalities
+prefectures
+region_edu_admins
+school_unit_types
+sources
+states
+transfer_areas
+worker_positions
+worker_specializations
+
+Η μόνη παράμετρο που μπορούν να αναγνωρίσουν οι παραπάνω functions είναι 'type=json'
+η οποία επιστρέφει τα αποτελέσματα στην οθόνη σε μορφή json, αλλιώς by default τα αποτελέσματα είναι σε μορφή php array.
+Στο φάκελο /server/logs δημιουργείται ένα json log αρχείο του συγχρονισμού που εκτελεί κάθε φορά ο χρήστης με πιο αναλυτικά αποτελέσματα.
