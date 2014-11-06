@@ -1020,8 +1020,6 @@ class ExceptionCodes
 
     /** {@see ExceptionMessages::DuplicatedPrefectureValue} */   
     const DuplicatedPrefectureValue = 500;
-    /** {@see ExceptionMessages::DuplicatePrefectureUniqueValue} */   
-    const DuplicatePrefectureUniqueValue = 500;
     /** {@see ExceptionMessages::UsedPrefectureBySchoolUnits} */   
     const UsedPrefectureBySchoolUnits = 500;
 
