@@ -11,7 +11,10 @@
         <script type="text/javascript" src="client/config.js"></script>
         <script src="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/js/jquery.js"></script>
         <script src="client/libs/frameworks/bootstrap-3.1.1-dist/js/bootstrap.min.js"></script>
+        <script src="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/src/js/kendo.web.js"></script>
         <link href="client/libs/frameworks/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/styles/kendo.common.min.css" rel="stylesheet"/>
+        <link href="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/styles/kendo.metro.min.css" rel="stylesheet" />
         
         <script>
             
@@ -33,20 +36,35 @@
             });
 
             baseURL = config.syncUrl;
+            var selection;
+            
+            $("#dropdownlist").kendoDropDownList({
+                dataSource: {
+                    data: ["edu_admins", "region_edu_admins"]
+                },
+                dataBound: function(e){
+                    var value = this.value();
+                    selection= value;
+                },
+                change: function(e){
+                    var value = this.value();
+                    selection= value;
+                }
+            });
             
             $("#sync").on("click", function(e){
                 
                 $("#result>table>tbody").empty();
                 
                 var parameters = {
-                          pagesize: 100
+                          type: "json"
                         };
 
                 $.ajax({
                         type: "GET",
-                        url: baseURL + "region_edu_admins",
+                        url: baseURL + selection,
                         dataType: "json",
-                        data: JSON.stringify(parameters),
+                        data: parameters,
                         success: function(data){
                             var row;
                             $.each(data, function(index, value){
@@ -77,6 +95,7 @@
 
                 <div class="col-md-12">
                     <button id="sync" type="button" class="btn btn-primary">Primary</button>
+                    <input id="dropdownlist" />
                 </div>
 
                 <div id="result" class="col-md-12">
