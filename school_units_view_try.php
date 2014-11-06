@@ -72,13 +72,13 @@
                                        { 'field': 'transfer_area', 'title':'Περιοχή Μετάθεσης', 'width':'200px', 'hidden': true},
                                        { 'field': 'prefecture', 'title':'Περιφερειακή Ενότητα', 'width':'200px', 'hidden': true},
                                        { 'field': 'municipality', 'title':'Δήμος', 'width':'200px', 'hidden': true},
-                                       { 'field': 'phone_number', 'title':'Τηλέφωνο', 'width':'150px', 'hidden': true},
-                                       { 'field': 'fax_number', 'title':'Φαξ', 'width':'150px', 'hidden': true},
-                                       { 'field': 'email', 'title':'E-mail', 'width':'250px', 'hidden': true},
-                                       { 'field': 'street_address', 'title':'Διεύθυνση', 'width':'350px', 'hidden': true},
-                                       { 'field': 'postal_code', 'title':'ΤΚ', 'width':'100px', 'hidden': true},
-                                       { 'field': 'last_update', 'title':'Τελευταία Ανανέωση', 'width':'150px'},
-                                       { 'command': [{'text':'', 'className': 'fa fa-info', 'click':SchoolUnitsViewVM.showContactDetails, 'name':'contactDetails'}],'width':'40px'}]">
+                                       { 'field': 'phone_number', 'title':'Τηλέφωνο', 'sortable': false, 'width':'150px', 'hidden': true},
+                                       { 'field': 'fax_number', 'title':'Φαξ', 'sortable': false, 'width':'150px', 'hidden': true},
+                                       { 'field': 'email', 'title':'E-mail', 'sortable': false, 'width':'250px', 'hidden': true},
+                                       { 'field': 'street_address', 'title':'Διεύθυνση', 'sortable': false, 'width':'350px', 'hidden': true},
+                                       { 'field': 'postal_code', 'title':'ΤΚ', 'sortable': false, 'width':'100px', 'hidden': true},
+                                       { 'field': 'last_update', 'title':'Τελευταία Ανανέωση', 'sortable': false, 'width':'150px'},
+                                       { 'command': [{'text':'', 'className': 'fa fa-info', 'click':SchoolUnitsViewVM.showContactDetails, 'name':'contactDetails'}],'title':'', 'width':'40px'}]">
                 </div>
             </div>
         </div>
