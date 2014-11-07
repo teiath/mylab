@@ -933,26 +933,31 @@ function WorkerPositionsController()
     {
         case MethodTypes::GET : 
             $result = GetWorkerPositions(    
-                $params["pagesize"], 
-                $params["page"]
+                $params["worker_position_id"],
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
-        case MethodTypes::POST :
-            $result = PostWorkerPositions(
-                $params["name"]
-            );      
-            break;
-      case MethodTypes::PUT :
-            $result = PutWorkerPositions(
-                $params["employment_relationship_id"],
-                $params["name"]
-            );      
-            break;
-       case MethodTypes::DELETE :
-            $result = DelWorkerPositions(
-                $params["name"]
-            );      
-            break;  
+//        case MethodTypes::POST :
+//            $result = PostWorkerPositions(
+//                $params["name"]
+//            );      
+//            break;
+//      case MethodTypes::PUT :
+//            $result = PutWorkerPositions(
+//                $params["employment_relationship_id"],
+//                $params["name"]
+//            );      
+//            break;
+//       case MethodTypes::DELETE :
+//            $result = DelWorkerPositions(
+//                $params["name"]
+//            );      
+//            break;  
     }   
     
     PrepareResponse();

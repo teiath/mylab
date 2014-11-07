@@ -8,6 +8,21 @@
 
 header("Content-Type: text/html; charset=utf-8");
 
+/**
+ * 
+ * @global type $entityManager
+ * @global type $app
+ * @param type $source_id
+ * @param type $name
+ * @param type $pagesize
+ * @param type $page
+ * @param type $searchtype
+ * @param type $ordertype
+ * @param type $orderby
+ * @return type
+ * @throws Exception
+ */
+
 function GetSources(  $source_id, $name,
                       $pagesize, $page, $searchtype, $ordertype, $orderby ) {
    
