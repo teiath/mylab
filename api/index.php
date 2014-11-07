@@ -693,9 +693,14 @@ function StatesController()
     switch ( strtoupper( $app->request()->getMethod() ) )
     {
         case MethodTypes::GET : 
-            $result = GetStates(    
-                $params["pagesize"], 
-                $params["page"]
+            $result = GetStates(
+                $params["state_id"],
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
 //        case MethodTypes::POST :
