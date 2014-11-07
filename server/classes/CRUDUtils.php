@@ -88,6 +88,8 @@ class CRUDUtils {
                    $orx->add($qb->expr()->like($table_name.".".$table_column_name, $db->quote(Validator::toValue($values).'%')));
               elseif (in_array('endWith', $validators, true) && Validator::IsValue($values))  
                    $orx->add($qb->expr()->like($table_name.".".$table_column_name, $db->quote('%'.Validator::toValue($values))));
+              elseif (in_array('boolean', $validators, true) && Validator::IsBoolean($values))
+                    $orx->add($qb->expr()->eq($table_name.".".$table_column_name, $db->quote(Validator::ToBoolean($values))));
               else
                   throw new Exception($ex_message . " : " . $values, $ex_code);
          }
