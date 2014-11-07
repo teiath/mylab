@@ -734,11 +734,16 @@ function SchoolUnitWorkersController()
     {
         case MethodTypes::GET : 
             $result = GetSchoolUnitWorkers(
-                $params["school_unit"], 
-                $params["worker"], 
+                $params["school_unit_worker_id"], 
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["worker_id"],
                 $params["worker_position"], 
-                $params["pagesize"], 
-                $params["page"]
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
 //        case MethodTypes::POST :
