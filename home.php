@@ -227,13 +227,14 @@
                         url: baseURL + 'user_permits',
                         dataType: "json",
                         success: function(data){
+                            console.log("data: ", data);
                             //έλεγχος αν ο χρήστης ανήκει σε κάποια από τις ομάδες χρηστών (ΔΙΕΥΘΥΝΤΗΣ, ΣΕΠΕΗΥ, ΚΕΠΛΗΝΕΤ, ΠΣΔ, ΥΠΑΙΘ, ΤΟΜΕΑΡΧΗΣ, ΕΤΠ)
-                            if (data.status === 200 && data.user_role === "noAccess"){
+                            if (data.status === 200 && data.data[0].user_role === "noAccess"){
                                 pinned_notification.show({
                                     title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
                                     message: "Δεν πληρούνται τα απαραίτητα δικαιώματα πρόσβασης στην υπηρεσία."
                                 }, "error");
-                            }else if(data.user_role === "ΣΕΠΕΗΥ" && data.user_permissions.permit_labs.length === 0 ){
+                            }else if(data.data[0].user_role === "ΣΕΠΕΗΥ" && data.data[0].user_permissions.permit_labs.length === 0 ){
                                 pinned_notification.show({
                                     title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
                                     message: "Ο Διευθυντής της Σχολικής σας Μονάδας δεν σας έχει ορίσει ως Υπεύθυνο στην Υπηρεσία myLab"
@@ -244,14 +245,13 @@
                                     message: data.message
                                 }, "error");
                             }else{
-                                InfoVM.set("all_info", data);
-                                InfoVM.set("user", data.user_infos.user_name);
-                                InfoVM.set("role", data.user_infos.ldap_role);
-                                InfoVM.set("unit", data.user_infos.user_unit);
-                                InfoVM.set("phone", data.user_infos.phone_number);
-                                InfoVM.set("fax", data.user_infos.fax_number);
-                                InfoVM.set("email", data.user_infos.email);
-                                InfoVM.set("address", data.user_infos.street_address);
+                                InfoVM.set("user", data.data[0].user_infos.user_name);
+                                InfoVM.set("role", data.data[0].user_infos.ldap_role);
+                                InfoVM.set("unit", data.data[0].user_infos.user_unit);
+                                InfoVM.set("phone", data.data[0].user_infos.phone_number);
+                                InfoVM.set("fax", data.data[0].user_infos.fax_number);
+                                InfoVM.set("email", data.data[0].user_infos.email);
+                                InfoVM.set("address", data.data[0].user_infos.street_address);
                             }
 
                         },

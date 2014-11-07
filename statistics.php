@@ -4,7 +4,7 @@
 
     <div id="statistics-parameters" class="container">
         <div class="row">
-            <div class="col-md-12" style="background:white;">
+            <div class="col-md-12" style="background:white;border-radius:10px;padding-bottom:20px;">
                 <form id="statistics-form">
 
                     <div class="col-md-12" style="margin:20px 0px 25px 0px; border-bottom: 1px dotted #DADADA; padding:3px;">
@@ -47,7 +47,7 @@
                     </div>
                     
                     <!--<div class="row" style="padding:20px;">-->
-                    <div id="statistic_filters" class="col-md-12" data-bind="visible: filtersPaneVisible" style="padding-bottom:20px;">
+                    <div id="statistic_filters" class="col-md-12" data-bind="visible: filtersPaneVisible">
                         <div class="col-md-4">
 
                             <div class="col-md-11">
@@ -274,9 +274,9 @@
 
     <div id="statistics-results" class="container" data-bind="visible: statisticTableVisible" style="margin-top: 50px;">
         <div class="row" style="position:relative;">
-            <div class="col-md-12"  style="overflow:auto; background: white;"  >
+            <div class="col-md-12"  style="overflow:auto; background: white; border-radius:10px;"  >
                 <h5 style="text-align: center;"><b>Στατιστικός Πίνακας</b></h5>
-                <table id="statistics-table" class="table table-bordered table-striped" style="width:100%; margin-top:25px; ">
+                <table id="statistics-table" class="table table-bordered table-striped" style="width:100%; margin-top:10px; ">
                     <thead>
                         <tr>
                             <th></th>
