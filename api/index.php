@@ -1328,26 +1328,31 @@ function WorkerSpecializationsController()
     {
         case MethodTypes::GET : 
             $result = GetWorkerSpecializations(    
-                $params["pagesize"], 
-                $params["page"]
+                $params["worker_specialization_id"],
+                $params["name"],
+                $params["pagesize"],
+                $params["page"],
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
-        case MethodTypes::POST :
-            $result = PostWorkerSpecializations(
-                $params["code"]
-            );      
-            break;
-      case MethodTypes::PUT :
-            $result = PutWorkerSpecializations(
-                $params["specialization_code_id"],
-                $params["code"]
-            );      
-            break;
-       case MethodTypes::DELETE :
-            $result = DelWorkerSpecializations(
-                $params["code"]
-            );      
-            break;  
+//        case MethodTypes::POST :
+//            $result = PostWorkerSpecializations(
+//                $params["code"]
+//            );      
+//            break;
+//      case MethodTypes::PUT :
+//            $result = PutWorkerSpecializations(
+//                $params["specialization_code_id"],
+//                $params["code"]
+//            );      
+//            break;
+//       case MethodTypes::DELETE :
+//            $result = DelWorkerSpecializations(
+//                $params["code"]
+//            );      
+//            break;  
     }   
     
     PrepareResponse();
