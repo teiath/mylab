@@ -130,5 +130,6 @@ require_once('../api/put/PutInitialLabs.php');
  require_once('../api/del/DelLabWorkers.php');
  require_once('../api/del/DelLabRelations.php');
  require_once('../api/del/DelLabTransitions.php');
- require_once('../api/del/DelInitialLabs.php'); 
+ require_once('../api/del/DelInitialLabs.php');
+ require_once('../api/del/DelLabTypes.php'); 
 ?>

@@ -87,7 +87,6 @@ $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsC
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 $app->map('/stat_labs', Authentication, UserRolesPermission, StatLabsController)->via(MethodTypes::GET);
 
-//extra PUT functions
 $app->map('/initial_labs', Authentication, UserRolesPermission, InitialLabsController)->via(MethodTypes::PUT,MethodTypes::DELETE);
 
 $app->get('/docs/*', function () use ($app) {
@@ -1196,7 +1195,7 @@ function LabTypesController()
             break;
        case MethodTypes::DELETE :
             $result = DelLabTypes(
-                $params["name"]
+                $params["lab_type_id"]
             );      
             break;  
     }   
@@ -1355,7 +1354,7 @@ function RelationTypesController()
     $app->response()->setBody( toGreek( json_encode( $result ) ) );
 }
 
-#======= extra GET function controllers ========================================
+#======= extra function controllers ============================================
 #===============================================================================
 
 function UserPermitsController()
@@ -1700,9 +1699,6 @@ function StatLabsController()
     $app->response()->setBody( toGreek( json_encode( $result ) ) );
 
 }
-
-#======= extra PUT function controllers ========================================
-#===============================================================================
 
 function InitialLabsController()
 {
