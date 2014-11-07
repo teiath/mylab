@@ -760,7 +760,7 @@ function AquisitionSourcesController()
             break;
        case MethodTypes::DELETE :
             $result = DelAquisitionSources(
-                $params["name"]
+                $params["aquisition_source_id"]
             );      
             break;  
     }
@@ -800,7 +800,7 @@ function EquipmentCategoriesController()
             break;
        case MethodTypes::DELETE :
             $result = DelEquipmentCategories(
-                $params["name"]
+                $params["equipment_category_id"]
             );      
             break;  
     }
@@ -845,7 +845,7 @@ function EquipmentTypesController()
             break;
        case MethodTypes::DELETE :
             $result = DelEquipmentTypes(
-                $params["name"]
+                $params["equipment_type_id"]
             );      
             break;  
     }
@@ -1100,10 +1100,11 @@ function LabSourcesController()
 //       
 //            );      
 //            break;
-//       case MethodTypes::DELETE :
-//            $result = DelLabSources(
-//            );      
-//            break;  
+       case MethodTypes::DELETE :
+            $result = DelLabSources(
+                $params["lab_source_id"]
+            );      
+            break;  
     }
     
     PrepareResponse();
@@ -1344,10 +1345,11 @@ function RelationTypesController()
 //       
 //            );      
 //            break;
-//       case MethodTypes::DELETE :
-//            $result = DelRelationTypes(
-//            );      
-//            break;  
+       case MethodTypes::DELETE :
+            $result = DelRelationTypes(
+                $params["relation_type_id"]
+            );      
+            break;  
     }
     
     PrepareResponse();

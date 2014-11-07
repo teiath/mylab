@@ -11,9 +11,8 @@ header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
  * @global type $app
+ * @global type $entityManager
  * @param type $lab_type_id
  * @return string
  * @throws Exception

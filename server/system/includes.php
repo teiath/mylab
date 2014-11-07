@@ -131,5 +131,12 @@ require_once('../api/put/PutInitialLabs.php');
  require_once('../api/del/DelLabRelations.php');
  require_once('../api/del/DelLabTransitions.php');
  require_once('../api/del/DelInitialLabs.php');
- require_once('../api/del/DelLabTypes.php'); 
+ 
+ require_once('../api/del/DelAquisitionSources.php');
+ require_once('../api/del/DelEquipmentCategories.php');
+ require_once('../api/del/DelEquipmentTypes.php');
+ require_once('../api/del/DelLabSources.php'); 
+ require_once('../api/del/DelLabTypes.php');
+ require_once('../api/del/DelMylabWorkers.php'); 
+ require_once('../api/del/DelRelationTypes.php'); 
 ?>

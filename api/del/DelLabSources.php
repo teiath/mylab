@@ -13,13 +13,13 @@ header("Content-Type: text/html; charset=utf-8");
  * 
  * @global type $app
  * @global type $entityManager
- * @param type $equipment_category_id
+ * @param type $lab_source_id
  * @return string
  * @throws Exception
  */
 
-function DelEquipmentCategories($equipment_category_id) {
-   
+function DelLabSources($lab_source_id) {
+  
     global $app,$entityManager;
 
     $result = array();
@@ -32,8 +32,8 @@ function DelEquipmentCategories($equipment_category_id) {
     
     try {
         
-//$equipment_category_id========================================================
-        $fEquipmentCategoryID = CRUDUtils::checkIDParam('equipment_category_id', $params, $equipment_category_id, 'EquipmentCategoryID');
+//$lab_source_id================================================================
+        $fLabSourceID = CRUDUtils::checkIDParam('lab_source_id', $params, $lab_source_id, 'LabSourceID');
         
 //user permisions===============================================================
 //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
@@ -42,25 +42,30 @@ function DelEquipmentCategories($equipment_category_id) {
 //controls======================================================================          
         
         //check duplicates and unique row=======================================        
-        $check = $entityManager->getRepository('EquipmentCategories')->findBy(array( 'equipmentCategoryId' => $fEquipmentCategoryID ));
+        $check = $entityManager->getRepository('LabSources')->findBy(array( 'labSourceId' => $fLabSourceID ));
         $count= count($check);
 
         if ($count == 1)
-            $EquipmentCategories = $entityManager->find('EquipmentCategories', $fEquipmentCategoryID);
+            $LabSources = $entityManager->find('LabSources', $fLabSourceID);
         else if ($count == 0)
-            throw new Exception(ExceptionMessages::NotFoundDelEquipmentCategoryValue." : ".$fEquipmentCategoryID ,ExceptionCodes::NotFoundDelEquipmentCategoryValue);
+            throw new Exception(ExceptionMessages::NotFoundDelLabSourceValue." : ".$fLabSourceID ,ExceptionCodes::NotFoundDelLabSourceValue);
         else 
-            throw new Exception(ExceptionMessages::DuplicateDelEquipmentCategoryValue." : ".$fEquipmentCategoryID ,ExceptionCodes::DuplicateDelEquipmentCategoryValue);
+            throw new Exception(ExceptionMessages::DuplicateDelLabSourceValue." : ".$fLabSourceID ,ExceptionCodes::DuplicateDelLabSourceValue);
         
         //check for references =================================================   
-        $checkReference = $entityManager->getRepository('EquipmentTypes')->findOneBy(array( 'equipmentCategory'  => $fEquipmentCategoryID ));
+        $checkReferenceLab = $entityManager->getRepository('Labs')->findOneBy(array( 'labSource'  => $fLabSourceID ));
 
-        if (count($checkReference) != 0)
-            throw new Exception(ExceptionMessages::ReferencesEquipmentCategoryEquipmentTypes. $fEquipmentCategoryID,ExceptionCodes::ReferencesEquipmentCategoryEquipmentTypes);  
+        if (count($checkReferenceLab) != 0)
+            throw new Exception(ExceptionMessages::ReferencesLabSourceLabs. $fLabSourceID,ExceptionCodes::ReferencesLabSourceLabs);  
+        
+        $checkReferenceMyLabWorker = $entityManager->getRepository('MylabWorkers')->findOneBy(array( 'labSource'  => $fLabSourceID ));
+
+        if (count($checkReferenceMyLabWorker) != 0)
+            throw new Exception(ExceptionMessages::ReferencesLabSourceMyLabWorkers. $fLabSourceID,ExceptionCodes::ReferencesLabSourceMyLabWorkers);  
         
 //delete from db================================================================
-        $entityManager->remove($EquipmentCategories);
-        $entityManager->flush($EquipmentCategories);
+        $entityManager->remove($LabSources);
+        $entityManager->flush($LabSources);
            
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
