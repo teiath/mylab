@@ -21,13 +21,13 @@ spl_autoload_register(function($class) {
 });
 
 //libs
-require_once('libs/db2php/Db2PhpEntity.class.php');
-require_once('libs/db2php/Db2PhpEntityBase.class.php');
-require_once('libs/db2php/Db2PhpEntityModificationTracking.class.php');
-require_once('libs/db2php/DFCInterface.class.php');
-require_once('libs/db2php/DFC.class.php');
-require_once('libs/db2php/DFCAggregate.class.php');
-require_once('libs/db2php/DSC.class.php');
+//require_once('libs/db2php/Db2PhpEntity.class.php');
+//require_once('libs/db2php/Db2PhpEntityBase.class.php');
+//require_once('libs/db2php/Db2PhpEntityModificationTracking.class.php');
+//require_once('libs/db2php/DFCInterface.class.php');
+//require_once('libs/db2php/DFC.class.php');
+//require_once('libs/db2php/DFCAggregate.class.php');
+//require_once('libs/db2php/DSC.class.php');
 
 ////exceptions
 require_once('exceptions/ExceptionCodes.php');

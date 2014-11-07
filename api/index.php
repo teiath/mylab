@@ -1053,19 +1053,22 @@ function LabsController()
                 $params["name"],
                 $params["special_name"],
                 $params["creation_date"],
+                $params["created_by"],
+                $params["last_updated"],
+                $params["updated_by"],
                 $params["operational_rating"],
                 $params["technological_rating"],
-                $params["lab_worker"],
+                $params["ellak"],
+                $params["submitted"],
                 $params["lab_type"],
                 $params["school_unit"],
                 $params["state"],
-                $params["source"],
-                $params["aquisition_source"],
-                $params["equipment_type"],
+                $params["lab_source"],
                 $params["pagesize"], 
                 $params["page"],
-                $params["sort_field"],
-                $params["sort_mode"]
+                $params["searchtype"],
+                $params["ordertype"],
+                $params["orderby"]
             );      
             break;
         case MethodTypes::POST :
