@@ -247,11 +247,11 @@ class ExceptionMessages
     const InvalidLabWorkerNewWorkerStatus = 'Δεν είναι δυνατή η προσθήκη νέου Ενεργού Εργαζόμενου, επειδή υπάρχει ήδη Ενεργός Εργαζόμενος';
     const InvalidLabWorkerSetStatus = 'Δεν είναι δυνατή η προσθήκη νέου Ενεργού Εργαζόμενου, επειδή δεν έχει γίνει οριστική υποβολή Εργαστηρίου';
      
-    //delete
-    const DuplicateDelLabWorkerValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
-    const NotFoundDelLabWorkerValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
-    const NoPermissionDelLabWorkerValue = 'Δεν είναι δυνατή η διαγραφή ενός μή ενεργού Εργαζόμενου.';
-    
+        //delete
+        const DuplicateDelLabWorkerValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+        const NotFoundDelLabWorkerValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+        const NoPermissionDelLabWorkerValue = 'Δεν είναι δυνατή η διαγραφή ενός μή ενεργού Εργαζόμενου.';
+
     //= MylabWorkers
 
     const MissingMylabWorkerIDParam = 'Ο Κωδικός του Εργαζομένου είναι υποχρεωτικό πεδίο';
@@ -289,6 +289,13 @@ class ExceptionMessages
     const InvalidMylabWorkerFatherNameType = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να είναι αλφαριθμητικός';
     const InvalidMylabWorkerSexType = 'Το Φύλο του Εργαζομένου πρέπει να είναι αλφαριθμητική : Α (Άντρας) ή Γ (Γυναικα)';
     
+        //delete
+        const DuplicateDelMyLabWorkerValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό του Εργαζομένου.'; 
+        const NotFoundDelMyLabWorkerValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+
+        //references
+        const ReferencesMyLabWorkerLabWorkers = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabWorkers .Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabWorkers ';
+       
 //Labs
         
     const MissingLabIDParam = 'Ο Κωδικός του Εργαστηρίου είναι υποχρεωτικό πεδίο';
@@ -344,17 +351,17 @@ class ExceptionMessages
     const AlreadyLabSubmittedActiveValue = 'Εχει πραγματοποιηθέι ήδη οριστική υποβολή Εργαστηρίου';    
     const AlreadyLabSubmittedInitialValue = 'Εχει οριστεί ήδη ή αρχική λειτουργική κατάσταση στον πίνακα μεταβάσεων';   
     
-    //delete
-    const DuplicateDelLabValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
-    const NotFoundDelLabValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
-    const NoDemoDelLabValue = 'Η εγγραφή δεν είναι δοκιμαστική και δεν επιτεπεται η διαγραφή της.';
-    
-    //references
-    const ReferencesLabAquisitionSources = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabAquisitionSources.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabAquisitionSources ';
-    const ReferencesLabEquipmentTypes = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabEquipmentTypes. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabEquipmentTypes ';
-    const ReferencesLabWorkers = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabWorkers. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabWorkers ';
-    const ReferencesLabRelations = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabRelations. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabRelations ';
-    const ReferencesLabTransitions = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabTransitions. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabTransitions ';
+        //delete
+        const DuplicateDelLabValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+        const NotFoundDelLabValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+        const NoDemoDelLabValue = 'Η εγγραφή δεν είναι δοκιμαστική και δεν επιτεπεται η διαγραφή της.';
+
+        //references
+        const ReferencesLabAquisitionSources = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabAquisitionSources.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabAquisitionSources ';
+        const ReferencesLabEquipmentTypes = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabEquipmentTypes. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabEquipmentTypes ';
+        const ReferencesLabWorkers = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabWorkers. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabWorkers ';
+        const ReferencesLabRelations = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabRelations. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabRelations ';
+        const ReferencesLabTransitions = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabTransitions. Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabTransitions ';
 
 //LabEquipmentTypes
         
@@ -381,9 +388,9 @@ class ExceptionMessages
     //extra
     const InvalidLabEquipmentTypeItemsValidType = 'Το Πλήθος του Εξοπλισμού του Εργαστηρίου πρέπει να είναι αριθμητική τιμή μεταξύ 1-10000';
     
-    //delete
-    const DuplicateDelLabEquipmentTypeValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εξοπλισμού.'; 
-    const NotFoundDelLabEquipmentTypeValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+        //delete
+        const DuplicateDelLabEquipmentTypeValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εξοπλισμού.'; 
+        const NotFoundDelLabEquipmentTypeValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
     
 //LabAquisitionSources
         
@@ -415,9 +422,9 @@ class ExceptionMessages
     //extra
     const InvalidLabAquisitionSourceYearValidType = 'Το Έτος Απόκτησης της Πηγής Χρηματοδότησης του Εργαστηρίου πρέπει να είναι μεταξύ των τιμών "1975 - τρέχων έτος" .';
    
-    //delete
-    const DuplicateDelLabAquisitionSourceValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
-    const NotFoundDelLabAquisitionSourceValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+        //delete
+        const DuplicateDelLabAquisitionSourceValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+        const NotFoundDelLabAquisitionSourceValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
     
 //LabTransitions
         
@@ -458,9 +465,9 @@ class ExceptionMessages
     const InvalidLabTransitionValidType = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
     const InvalidLabTransitionDemoValue = 'Το εργαστήριο δεν έχει υποβληθεί οριστικά, και είναι αδύνατη η αλλαγή μεταβάσεων';
     
-    //delete
-    const DuplicateDelLabTransitionValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
-    const NotFoundDelLabTransitionValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+        //delete
+        const DuplicateDelLabTransitionValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+        const NotFoundDelLabTransitionValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
     
 //LabRelations
         
@@ -482,9 +489,9 @@ class ExceptionMessages
     //extra
     const ErrorInputCircuitIdParam  = 'H εισαγωγή κυκλώματος δεν επιτρέπεται στην περίπτωση που το εχει γίνει επιλογή Κωδικού Συσχετισης 2=(ΕΞΥΠΗΡΕΤΕΙ ΥΠΗΡΕΣΙΑΚΑ)';
 
-    //delete
-    const DuplicateDelLabRelationValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
-    const NotFoundDelLabRelationValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+        //delete
+        const DuplicateDelLabRelationValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό εργαστηρίου και κωδικό εγγραφής.'; 
+        const NotFoundDelLabRelationValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
     
     
     //########################################
@@ -775,7 +782,13 @@ class ExceptionMessages
     const DuplicateRelationTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key RelationType';
     const UsedRelationTypeByLabRelations = 'Ο Κωδικός του Τυπου Συσχέτισης χρησιμοποιείται από Συσχέτισεις Εργαστηρίων';
 
-  
+        //delete
+        const DuplicateDelRelationTypeValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό του Τυπου Συσχέτισης.'; 
+        const NotFoundDelRelationTypeValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+
+        //references
+        const ReferencesRelationTypeLabRelationTypes = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabRelationTypes .Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabRelationTypes ';
+   
     //= WorkerPositions
     const MissingWorkerPositionIDParam = 'Ο Κωδικός της Θέσης Εργασίας είναι υποχρεωτικό πεδίο';
     const MissingWorkerPositionIDValue = 'Ο Κωδικός της Θέσης Εργασίας πρέπει να έχει τιμή';
@@ -884,7 +897,14 @@ class ExceptionMessages
     const DuplicatedLabTypeValue = 'Ο Τύπος Εργαστηρίου υπάρχει ήδη';
     const DuplicateLabTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabType';
     const UsedLabTypeByLabs = 'Ο Κωδικός του Τύπου Εργαστηρίου χρησιμοποιείται από Εργαστήρια';
+    
+        //delete
+        const DuplicateDelLabTypeValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό τύπου εργαστηρίου.'; 
+        const NotFoundDelLabTypeValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
 
+        //references
+        const ReferencesLabTypeLabs = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα Labs.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabs ';
+ 
     //= LabSources
     const MissingLabSourceIDParam = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου είναι υποχρεωτικό πεδίο';
     const MissingLabSourceIDValue = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου πρέπει να έχει τιμή';
@@ -911,6 +931,14 @@ class ExceptionMessages
     const DuplicateLabSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabSource';
     const UsedLabSourceByLabs = 'Ο Κωδικός της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου χρησιμοποιείται από Εργαστήρια';
     
+        //delete
+        const DuplicateDelLabSourceValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό της Πρωτογενής Πηγής Δεδομένων Εργαστηρίου.'; 
+        const NotFoundDelLabSourceValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+
+        //references
+        const ReferencesLabSourceLabs = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα Labs.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabs ';
+        const ReferencesLabSourceMyLabWorkers = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα MyLabWorkers.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelMyLabWorkes ';
+    
     //= EquipmentCategories
     const MissingEquipmentCategoryIDParam = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού είναι υποχρεωτικό πεδίο';
     const MissingEquipmentCategoryIDValue = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού πρέπει να έχει τιμή';
@@ -932,6 +960,13 @@ class ExceptionMessages
     const DuplicateEquipmentCategoryUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key EquipmentCategory';
     const UsedEquipmentCategoryByEquipmentTypes = 'Ο Κωδικός της Κατηγορίας Εξοπλισμού χρησιμοποιείται από Τύπους Εξοπλισμού Εργαστηρίων';
     
+        //delete
+        const DuplicateDelEquipmentCategoryValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό της Κατηγορίας Εξοπλισμού.'; 
+        const NotFoundDelEquipmentCategoryValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+
+        //references
+        const ReferencesEquipmentCategoryEquipmentTypes = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα EquipmentTypes.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelEquipmentTypes ';
+     
     //= EquipmentTypes
     const MissingEquipmentTypeIDParam = 'Ο Κωδικός του Τύπου Εξοπλισμού είναι υποχρεωτικό πεδίο';
     const MissingEquipmentTypeIDValue = 'Ο Κωδικός του Τύπου Εξοπλισμού πρέπει να έχει τιμή';
@@ -952,7 +987,14 @@ class ExceptionMessages
     const DuplicatedEquipmentTypeValue = 'Ο Τύπος Εξοπλισμού υπάρχει ήδη';
     const DuplicateEquipmentTypeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key EquipmentType';
     const UsedEquipmentTypeByLabEquipmentTypes = 'Ο Κωδικός του Τύπου Εξοπλισμού χρησιμοποιείται στον Εξοπλισμό Εργαστηρίων';
-    
+
+        //delete
+        const DuplicateDelEquipmentTypeValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό του Τύπου Εξοπλισμού.'; 
+        const NotFoundDelEquipmentTypeValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+
+        //references
+        const ReferencesEquipmentTypeLabEquipmentTypes = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabEquipmentTypes.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabEquipmentTypes ';
+        
     //= AquisitionSources
     const MissingAquisitionSourceIDParam = 'Ο Κωδικός της Πηγής Χρηματοδότησης είναι υποχρεωτικό πεδίο';
     const MissingAquisitionSourceIDValue = 'Ο Κωδικός της Πηγής Χρηματοδότησης πρέπει να έχει τιμή';
@@ -973,6 +1015,13 @@ class ExceptionMessages
     const DuplicatedAquisitionSourceValue = 'Η Πηγή Χρηματοδότησης υπάρχει ήδη';
     const DuplicateAquisitionSourceUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key AquisitionSource';
     const UsedAquisitionSourceByLabAquisitionSources = 'Ο Κωδικός της Πηγής Χρηματοδότησης χρησιμοποιείται στην Πηγή Χρηματοδότησης Εργαστήριων';
+    
+        //delete
+        const DuplicateDelAquisitionSourceValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό της Πηγής Χρηματοδότησης.'; 
+        const NotFoundDelAquisitionSourceValue = 'Δεν βρέθηκε η εγγραφή προς διαγραφή.';
+
+        //references
+        const ReferencesAquisitionSourceLabAquisitionSources = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabAquisitionSources.Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabAquisitionSources ';
     
     //page,pagesize,orderby,ordertype,searchtype
     const MissingPageValue = 'Ο Αριθμός Σελίδας πρέπει να έχει τιμή';

@@ -13,13 +13,13 @@ header("Content-Type: text/html; charset=utf-8");
  * 
  * @global type $app
  * @global type $entityManager
- * @param type $equipment_category_id
+ * @param type $relation_type_id
  * @return string
  * @throws Exception
  */
 
-function DelEquipmentCategories($equipment_category_id) {
-   
+function DelRelationTypes($relation_type_id) {
+  
     global $app,$entityManager;
 
     $result = array();
@@ -32,8 +32,8 @@ function DelEquipmentCategories($equipment_category_id) {
     
     try {
         
-//$equipment_category_id========================================================
-        $fEquipmentCategoryID = CRUDUtils::checkIDParam('equipment_category_id', $params, $equipment_category_id, 'EquipmentCategoryID');
+//$relation_type_id=============================================================
+        $fRelationTypeID = CRUDUtils::checkIDParam('relation_type_id', $params, $relation_type_id, 'RelationTypeID');
         
 //user permisions===============================================================
 //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
@@ -42,25 +42,25 @@ function DelEquipmentCategories($equipment_category_id) {
 //controls======================================================================          
         
         //check duplicates and unique row=======================================        
-        $check = $entityManager->getRepository('EquipmentCategories')->findBy(array( 'equipmentCategoryId' => $fEquipmentCategoryID ));
+        $check = $entityManager->getRepository('RelationTypes')->findBy(array( 'relationTypeId' => $fRelationTypeID ));
         $count= count($check);
 
         if ($count == 1)
-            $EquipmentCategories = $entityManager->find('EquipmentCategories', $fEquipmentCategoryID);
+            $RelationTypes = $entityManager->find('RelationTypes', $fRelationTypeID);
         else if ($count == 0)
-            throw new Exception(ExceptionMessages::NotFoundDelEquipmentCategoryValue." : ".$fEquipmentCategoryID ,ExceptionCodes::NotFoundDelEquipmentCategoryValue);
+            throw new Exception(ExceptionMessages::NotFoundDelRelationTypeValue." : ".$fRelationTypeID ,ExceptionCodes::NotFoundDelRelationTypeValue);
         else 
-            throw new Exception(ExceptionMessages::DuplicateDelEquipmentCategoryValue." : ".$fEquipmentCategoryID ,ExceptionCodes::DuplicateDelEquipmentCategoryValue);
+            throw new Exception(ExceptionMessages::DuplicateDelRelationTypeValue." : ".$fRelationTypeID ,ExceptionCodes::DuplicateDelRelationTypeValue);
         
         //check for references =================================================   
-        $checkReference = $entityManager->getRepository('EquipmentTypes')->findOneBy(array( 'equipmentCategory'  => $fEquipmentCategoryID ));
+        $checkReference = $entityManager->getRepository('LabRelations')->findOneBy(array( 'relationType'  => $fRelationTypeID ));
 
         if (count($checkReference) != 0)
-            throw new Exception(ExceptionMessages::ReferencesEquipmentCategoryEquipmentTypes. $fEquipmentCategoryID,ExceptionCodes::ReferencesEquipmentCategoryEquipmentTypes);  
+            throw new Exception(ExceptionMessages::ReferencesRelationTypeLabRelationTypes. $fRelationTypeID,ExceptionCodes::ReferencesRelationTypeLabRelationTypes);  
         
 //delete from db================================================================
-        $entityManager->remove($EquipmentCategories);
-        $entityManager->flush($EquipmentCategories);
+        $entityManager->remove($RelationTypes);
+        $entityManager->flush($RelationTypes);
            
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;

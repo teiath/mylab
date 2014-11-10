@@ -55,7 +55,7 @@ function DelLabs($lab_id) {
         else if ($countLabRelations == 0)
             throw new Exception(ExceptionMessages::NotFoundDelLabValue." : ".$fLabID ,ExceptionCodes::NotFoundDelLabValue);
         else 
-            throw new Exception(ExceptionMessages::NotFoundDelLabValue." : ".$fLabID ,ExceptionCodes::NotFoundDelLabValue);
+            throw new Exception(ExceptionMessages::DuplicateDelLabValue." : ".$fLabID ,ExceptionCodes::DuplicateDelLabValue);
   
         //check if lab has submitted value = 1 and restrict deletion
         if ($Labs->getSubmitted() == true){

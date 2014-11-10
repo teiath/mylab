@@ -456,6 +456,13 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidMylabWorkerSexType} */
     const InvalidMylabWorkerSexType = 500;
     
+       //delete
+        const DuplicateDelMyLabWorkerValue = 500;
+        const NotFoundDelMyLabWorkerValue = 500;
+
+        //references
+        const ReferencesMyLabWorkerLabWorkers = 500;
+    
 //Labs
         
     /** {@see ExceptionMessages::MissingLabIDParam} */
@@ -1257,7 +1264,14 @@ class ExceptionCodes
     const DuplicateRelationTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedRelationTypeByLabRelations} */  
     const UsedRelationTypeByLabRelations = 500;
-  
+    
+       //delete
+        const DuplicateDelRelationTypeValue = 500;
+        const NotFoundDelRelationTypeValue = 500;
+
+        //references
+        const ReferencesRelationTypeLabRelationTypes = 500;
+     
 //= WorkerPositions
     
     /** {@see ExceptionMessages::MissingWorkerPositionIDParam} */  
@@ -1438,6 +1452,14 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedLabTypeByLabs} */  
     const UsedLabTypeByLabs = 500;
 
+        //delete
+        const DuplicateDelLabTypeValue = 500;
+        const NotFoundDelLabTypeValue = 500;
+
+        //references
+        const ReferencesLabTypeLabs = 500;
+ 
+    
 //= LabSources
 
     /** {@see ExceptionMessages::MissingLabSourceIDParam} */  
@@ -1485,6 +1507,14 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedLabSourceByLabs} */  
     const UsedLabSourceByLabs = 500;
  
+        //delete
+        const DuplicateDelLabSourceValue = 500; 
+        const NotFoundDelLabSourceValue = 500;
+
+        //references
+        const ReferencesLabSourceLabs = 500;
+        const ReferencesLabSourceMyLabWorkers = 500;
+        
 //= EquipmentCategories
     
     /** {@see ExceptionMessages::MissingEquipmentCategoryIDParam} */  
@@ -1522,6 +1552,14 @@ class ExceptionCodes
     const DuplicateEquipmentCategoryUniqueValue = 500;
     /** {@see ExceptionMessages::UsedEquipmentCategoryByEquipmentTypes} */  
     const UsedEquipmentCategoryByEquipmentTypes = 500;
+    
+        //delete
+        const DuplicateDelEquipmentCategoryValue = 500;
+        const NotFoundDelEquipmentCategoryValue = 500;
+
+        //references
+        const ReferencesEquipmentCategoryEquipmentTypes = 500;
+    
     
 //= EquipmentTypes
     
@@ -1561,6 +1599,13 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedEquipmentTypeByLabEquipmentTypes} */  
     const UsedEquipmentTypeByLabEquipmentTypes = 500;
     
+        //delete
+        const DuplicateDelEquipmentTypeValue = 500;
+        const NotFoundDelEquipmentTypeValue = 500;
+
+        //references
+        const ReferencesEquipmentTypeLabEquipmentTypes = 500;
+    
 //= AquisitionSources
     
     /** {@see ExceptionMessages::MissingAquisitionSourceIDParam} */  
@@ -1598,6 +1643,13 @@ class ExceptionCodes
     const DuplicateAquisitionSourceUniqueValue = 500;
     /** {@see ExceptionMessages::UsedAquisitionSourceSourceByLabAquisitionSources} */  
     const UsedAquisitionSourceByLabAquisitionSources = 500;
+    
+        //delete
+        const DuplicateDelAquisitionSourceValue = 500; 
+        const NotFoundDelAquisitionSourceValue = 500;
+
+        //references
+        const ReferencesAquisitionSourceLabAquisitionSources = 500;
     
     //page,pagesize,orderby,ordertype,searchtype
     

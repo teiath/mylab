@@ -1,81 +1,76 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
- * @param type $name
+ * @global type $app
+ * @global type $entityManager
+ * @param type $aquisition_source_id
  * @return string
  * @throws Exception
  */
 
-function DelAquisitionSources($name) {
-    global $db;
-    global $Options;
-    global $app;
-    
-    $result = array();  
-    $result["data"] = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+function DelAquisitionSources($aquisition_source_id) {
+
+    global $app,$entityManager;
+
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["del_name"] = $name;
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
 
-    try {
-             
-        //$name===========================================================================   
-        if (! trim($name) ) {
-            throw new Exception(ExceptionMessages::DeleteAquisitionNameValue." : ".$name, ExceptionCodes::DeleteAquisitionNameValue);
-        } else {
-            $filter = array( new DFC(AquisitionSourcesExt::FIELD_NAME,$name, DFC::EXACT) );   
-            $oAquisitionSources = new AquisitionSourcesExt($db);
-            $arrayAquisitionSources = $oAquisitionSources->findByFilter($db, $filter, true);
-        }
-
-        if ( count($arrayAquisitionSources) < 1) {
-            throw new Exception(ExceptionMessages::DeleteNotFoundAquisitionSourceNameValue." : ".$name, ExceptionCodes::DeleteNotFoundAquisitionSourceNameValue);
-        } else if ( count($arrayAquisitionSources) == 1) {
-            $AquisitionSourceId = $arrayAquisitionSources[0]->getAquisitionSourceId();
-            $AquisitionSourceName = $arrayAquisitionSources[0]->getName();
-            $result["result_found"]="Aquisition_source_id = ".$AquisitionSourceId." // Name = ".$AquisitionSourceName;     
-        } else {
-            throw new Exception(ExceptionMessages::DuplicateDelAquisitionNameValue." : ".$name, ExceptionCodes::DuplicateDelAquisitionNameValue);
-        }
-
-        //check for references============================================================================== 
+ try {
         
-        $oLabsHaveAquisitionSources = new LabsHaveAquisitionSourcesExt($db);
-        $filter[] = new DFC(LabsHaveAquisitionSourcesExt::FIELD_AQUISITION_SOURCE_ID, $AquisitionSourceId, DFC::EXACT); 
-        $countRows = $oLabsHaveAquisitionSources->findByFilter($db, $filter, true);
-        $result["references_count"]=count( $countRows );
+//$aquisition_source_id================================================================
+        $fAquisitionSourceID = CRUDUtils::checkIDParam('aquisition_source_id', $params, $aquisition_source_id, 'AquisitionSourceID');
         
-        if ($result["references_count"]!=0){
-            $oAquisitionSources->getAll($db);
-            
-            foreach ($countRows as $row) {
-                    $result["data_references"][] = array("lab_id" => $row->getLabId(),
-                                                        "aquisition_source_id" => $row->getAquisitionSourceId(),                                    
-                                                        "aquisition_source_name"=>$oAquisitionSources->searchArrayForID( $row->getAquisitionSourceId() )->getName()                                                 
-                    );
-            }
-            throw new Exception(ExceptionMessages::ReferencesLabsHaveAquisitionSources, ExceptionCodes::ReferencesLabsHaveAquisitionSources);       
-        } else {
-            $arrayAquisitionSources[0]->deleteByFilter($db, $filter);  
-            $result["status"] = 200;
-            $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success";           
-        }
-    }
-    catch (Exception $e) 
-    {
+//user permisions===============================================================
+//TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
+//
+ 
+//controls======================================================================          
+        
+        //check duplicates and unique row=======================================        
+        $check = $entityManager->getRepository('AquisitionSources')->findBy(array( 'aquisitionSourceId' => $fAquisitionSourceID ));
+        $count= count($check);
+ 
+        if ($count == 1)
+            $AquisitionSources = $entityManager->find('AquisitionSources', $fAquisitionSourceID);
+        else if ($count == 0)
+            throw new Exception(ExceptionMessages::NotFoundDelAquisitionSourceValue." : ".$fAquisitionSourceID ,ExceptionCodes::NotFoundDelAquisitionSourceValue);
+        else 
+            throw new Exception(ExceptionMessages::DuplicateDelAquisitionSourceValue." : ".$fAquisitionSourceID ,ExceptionCodes::DuplicateDelAquisitionSourceValue);
+        
+        //check for references =================================================   
+        $checkReference = $entityManager->getRepository('LabAquisitionSources')->findOneBy(array( 'aquisitionSource'  => $fAquisitionSourceID ));
+
+        if (count($checkReference) != 0)
+            throw new Exception(ExceptionMessages::ReferencesAquisitionSourceLabAquisitionSources. $fAquisitionSourceID,ExceptionCodes::ReferencesAquisitionSourceLabAquisitionSources);  
+        
+//delete from db================================================================
+        $entityManager->remove($AquisitionSources);
+        $entityManager->flush($AquisitionSources);
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    } 
+    }                
+    
     return $result;
-}
+} 
 
 ?>
