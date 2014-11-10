@@ -146,6 +146,9 @@ function Authentication()
 
     try
     {
+        //stin periptwsh pou o xristis erxetai apo cas  ta headers['Php-Auth-User'],['Php-Auth-Pw'] exoun tin static timi tou mylab_server wste na ginei authentikopoisi ipiresias
+        //stin periptvsi pou o xristis erxetai apo curl  tote ta headers['Php-Auth-User'],['Php-Auth-Pw'] pernoun tin timi pou dinei o xristis sto basic auth
+        //
         if(isset($app->request->headers['Php-Auth-User']) && isset($app->request->headers['Php-Auth-Pw'])) {
             $apcKey = 'mm_auth_'.md5($app->request->headers['Php-Auth-User'].$app->request->headers['Php-Auth-Pw']);
             if(!($userObj = apc_fetch($apcKey))) {
@@ -161,7 +164,9 @@ function Authentication()
                 }
             }
             
-            // userObj has all the user attributes now - We can check roles
+
+            //$app->request->get('user') exei tin timi tou user pou stelnei o client kai exei timi mono otan erxetai apo browser
+            //APO CURL exei timi null 
             if ($app->request->get('user') != null) {  
                 
                 if ($app->request()->getMethod() == 'POST' || $app->request()->getMethod() == 'PUT' || $app->request()->getMethod() == 'DELETE' ){
@@ -171,7 +176,7 @@ function Authentication()
                 }else{                    
                     $app->request->user = array_map("convertCasTOLdap", $app->request->get('user'));              
                 }
-                    
+                //kovete to access apo to curl gia ton internal user tou mylab    
             } else if (($app->request->get('user') == null) && ($userObj['uid'][0] == $frontendOptions['frontendUsername'])){
                 throw new Exception(ExceptionMessages::UserAccesFrontDenied, ExceptionCodes::UserAccesFrontDenied); 
             }else { 
@@ -207,7 +212,7 @@ function UserRolesPermission(){
     $method = $app->request()->getMethod();
 
     try {
-           
+
         $check = UserRoles::checkUserRolePermissions($controller,$method,$app->request->user);
   
         if ($check!=true){
