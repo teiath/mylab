@@ -51,13 +51,13 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
         $Lab->setState(null);
         
 //$special_name==================================================================
-        CRUDUtils::entitySetParam($Lab, $special_name, ExceptionMessages::InvalidLabSpecialNameType, 'specialName');
+        CRUDUtils::entitySetParam($Lab, $special_name, 'LabSpecialName', 'special_name', $params, false, true );
         
 //$positioning==================================================================
-        CRUDUtils::entitySetParam($Lab, $positioning, ExceptionMessages::InvalidLabSpecialNameType, 'positioning');
+        CRUDUtils::entitySetParam($Lab, $positioning, 'LabPositioning', 'positioning', $params, false, true );
         
 //$comments=====================================================================
-        CRUDUtils::entitySetParam($Lab, $comments, ExceptionMessages::InvalidLabCommentsType, 'comments');
+        CRUDUtils::entitySetParam($Lab, $comments, 'LabComments', 'comments', $params, false, true );
          
 //$operational_rating===========================================================    
         if (Validator::Exists('operational_rating', $params)) { 

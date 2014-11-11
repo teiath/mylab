@@ -1,5 +1,23 @@
 <?php
 class CRUDUtils {
+    
+    
+    /**
+     * Set doctrine entity association parameter
+     * 
+     * @param DoctrineEntity $entity The doctrine entity.
+     * @param string $exceptionType Short name of input parameter used by ExceptionMessages and ExceptionCodes.
+     * @param boolean $required Set true if parameter must required or false if not. Default value is true.
+     * 
+     * @throws Exception ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
+     * @throws Exception ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
+     * @throws Exception ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
+     * @throws Exception ExceptionMessages::'Invalid'.$exceptionType.'Value' , ExceptionCodes::'Invalid'.$exceptionType.'Value'
+     * @throws Exception ExceptionMessages::'Duplicate'.$exceptionType.'UniqueValue' , ExceptionCodes::'Duplicate'.$exceptionType.'UniqueValue'
+     * 
+     * @return The doctrine entity with set.'$field' or throwException
+     * 
+     */
     public static function entitySetAssociation(&$entity, $param, $repo, $field, $exceptionType, $required = true) {
         global $entityManager;
         $missingParam = 'Missing'.$exceptionType.'Param';
@@ -32,14 +50,41 @@ class CRUDUtils {
         }
     }
 
-    public static function entitySetParam(&$entity, $param, $exceptionType, $field) {
-        if ( $param === _MISSED_ )
-        { } //throw new Exception(ExceptionMessages::MissingNameParam, ExceptionCodes::MissingNameParam);
-        else if ( Validator::IsNull($param) )
-        { 
-            $method = 'set'.self::to_camel_case($field, true);
-            $entity->$method(Validator::ToNull($param));
+    /**
+     * Set doctrine entity parameter
+     * 
+     * @param DoctrineEntity $entity The doctrine entity.
+     * @param mixed[string|integer] $param Value of input parameter by user.   
+     * @param string $exceptionType Short name of input parameter used by ExceptionMessages and ExceptionCodes.
+     * @param string $field Name of parameter used by doctrine Entity.It converted string like “to_camel_case” into Camel Case: “ToCamelCase”.
+     * @param array $params Contain all input parameter by user. Created by loadParameters() function.
+     * @param boolean $required Set true if parameter must required or false if not. Default value is true.
+     * @param boolean $is_nullable Set true if parameter can be null or false if not. Default value is false.
+     * 
+     * @throws Exception ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
+     * @throws Exception ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
+     * @throws Exception ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
+     * 
+     * @return The doctrine entity with set.'$field' or throwException
+     * 
+     */ 
+    public static function entitySetParam(&$entity, $param, $exceptionType, $field, $params, $required = true, $is_nullable = false ) {
+        
+        $missingParam = 'Missing'.$exceptionType.'Param';
+        $missingValue = 'Missing'.$exceptionType.'Value';
+        $invalidType = 'Invalid'.$exceptionType.'Type'; 
+      
+        if (Validator::Missing($field, $params) ){
+            if(!$required) { return; }
+            throw new Exception(constant('ExceptionMessages::'.$missingParam)." : ".$param, constant('ExceptionCodes::'.$missingParam));
         } 
+        else if ( Validator::IsNull($param) )
+            if(!$is_nullable) { 
+                throw new Exception(constant('ExceptionMessages::'.$missingValue)." : ".$param, constant('ExceptionCodes::'.$missingValue));
+            }else{
+                $method = 'set'.self::to_camel_case($field, true);
+                $entity->$method(Validator::ToNull($param));
+            }
         else if ( Validator::IsValue($param) )
         {
             
@@ -47,7 +92,7 @@ class CRUDUtils {
             $entity->$method(Validator::ToValue($param));
         }
         else
-            throw new Exception($exceptionType." : ".$param, $exceptionType);
+            throw new Exception(constant('ExceptionMessages::'.$invalidType)." : ".$param, constant('ExceptionCodes::'.$invalidType));
     }
 
     private static function to_camel_case($str, $capitalise_first_char = false) {

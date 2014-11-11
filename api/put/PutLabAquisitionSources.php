@@ -77,12 +77,8 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
         } 
 
 //$aquisition_comments==========================================================
-        if (Validator::IsExists('aquisition_comments')){
-            CRUDUtils::entitySetParam($LabAquisitionSources, $aquisition_comments, ExceptionMessages::InvalidLabAquisitionSourceCommentsType, 'aquisitionComments');  
-        } else {
-            $result["db_aquisition_comments"]= $aquisition_comments = $LabAquisitionSources->getAquisitionComments();
-        }
- 
+        CRUDUtils::entitySetParam($LabAquisitionSources, $aquisition_comments, 'LabAquisitionSourceComments', 'aquisition_comments', $params, false, true );
+
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($LabAquisitionSources->getLab()->getLabId(), $permissions['permit_labs'])) {

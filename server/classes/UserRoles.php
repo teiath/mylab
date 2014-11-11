@@ -6,7 +6,7 @@ private static $Permissions = array(
     
     'aquisition_sources'    => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
+                                        'POST' => array('ΠΣΔ'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
                                         ) ,

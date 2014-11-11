@@ -57,8 +57,8 @@ function PostLabAquisitionSources($lab_id, $aquisition_source, $aquisition_year,
         else 
             throw new Exception(ExceptionMessages::InvalidLabAquisitionSourceYearType." : ".$aquisition_year, ExceptionCodes::InvalidLabAquisitionSourceYearType);      
 //$aquisition_comments==========================================================
-        CRUDUtils::entitySetParam($LabAquisitionSources, $aquisition_comments, ExceptionMessages::InvalidLabAquisitionSourceCommentsType, 'aquisitionComments');  
-
+        CRUDUtils::entitySetParam($LabAquisitionSources, $aquisition_comments, 'LabAquisitionSourceComments', 'aquisition_comments', $params, false, true );
+        
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($LabAquisitionSources->getLab()->getLabId(), $permissions['permit_labs'])) {

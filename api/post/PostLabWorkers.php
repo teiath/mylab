@@ -81,7 +81,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
          throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceType." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceType);    
  
 //$worker_email=================================================================
-    CRUDUtils::entitySetParam($LabWorker, $worker_email, ExceptionCodes::InvalidLabWorkerEmailType, 'workerEmail');
+    CRUDUtils::entitySetParam($LabWorker, $worker_email, 'LabWorkerEmail', 'worker_email', $params, false, true );
     
 //user permisions=============================================================== 
      $permissions = UserRoles::getUserPermissions($app->request->user);
