@@ -39,10 +39,10 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
  
     
 //$lab_id=======================================================================       
-        CRUDUtils::entitySetAssociation($LabTransitions, $lab_id, 'Labs', 'lab', 'Lab');
+        CRUDUtils::entitySetAssociation($LabTransitions, $lab_id, 'Labs', 'lab', 'Lab', $params, 'lab_id');
         
 //$state========================================================================       
-       CRUDUtils::entitySetAssociation($LabTransitions, $state, 'States', 'toState', 'State');
+       CRUDUtils::entitySetAssociation($LabTransitions, $state, 'States', 'toState', 'State', $params, 'state');
         
 //$transition_date==============================================================      
         if (Validator::Missing('transition_date', $params))
@@ -93,9 +93,10 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
        
         //check if lab has submitted value = 0 and restrict insert
         $Labs = $entityManager->find('Labs', Validator::ToID($lab_id));
-        if (Validator::IsNull($Labs->getState())){
+        if ($Labs->getSubmitted() == false){
             throw new Exception(ExceptionMessages::InvalidLabTransitionDemoValue." : ".$lab_id ,ExceptionCodes::InvalidLabTransitionDemoValue);
         }
+        
 //controls======================================================================  
 
         //find last state of lab from labs table================================ 
@@ -154,12 +155,14 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
  
 //update lab status to labs table===============================================
         $updateLabState = $entityManager->find('Labs',$lab_id);
-        CRUDUtils::entitySetAssociation($updateLabState, $state, 'States', 'state', 'State');
+        CRUDUtils::entitySetAssociation($updateLabState, $state, 'States', 'state', 'State', $params, 'state');
         $entityManager->persist($updateLabState);
         $entityManager->flush($updateLabState);
         
  //insert to db=================================================================
-        CRUDUtils::entitySetAssociation($LabTransitions, $checkLabTransitionState, 'States', 'fromState', 'State');
+        //because of user cant set up 'from_state' parameter we use the required parameter 'lab_id' as paspartu to continue
+        //$checkLabTransitionState variable retrieved from mylab system 
+        CRUDUtils::entitySetAssociation($LabTransitions, $checkLabTransitionState, 'States', 'fromState', 'State', $params, 'lab_id');
 
         $entityManager->persist($LabTransitions);
         $entityManager->flush($LabTransitions);
