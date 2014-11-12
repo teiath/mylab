@@ -405,7 +405,7 @@ public static function getRole($user) {
     $dns = explode(',', $user['l'][0]);
 
     if (Validator::IsNull($dns[1])){
-        throw new Exception(ExceptionMessages::MissingLdapLattribute, ExceptionCodes::MissingLdApLattribute); 
+        throw new Exception(ExceptionMessages::MissingLdapLAttribute, ExceptionCodes::MissingLdapLAttribute); 
     }
 
     $edu_admin_code = explode('=', $dns[1]);  

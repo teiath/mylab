@@ -1723,7 +1723,7 @@ class ExceptionCodes
     const NotFoundFullSchoolUnitDnsName = 500;
     /** {@see ExceptionMessages::DuplicateFullSchoolUnitDnsName} */  
     const DuplicateFullSchoolUnitDnsName = 500;
-    /** {@see ExceptionMessages::MissingLdapLattribute} */  
+    /** {@see ExceptionMessages::MissingLdapLAttribute} */  
     const MissingLdapLAttribute = 500;
     /** {@see ExceptionMessages::MissingLdapEmployeeNumberAttribute} */   
     const MissingLdapEmployeeNumberAttribute = 500;

@@ -1063,7 +1063,7 @@ class ExceptionMessages
     const NotFoundUserPermissions = 'Δεν βρεθηκαν δικαιωματα για τον ρόλο του χρήστη.';
     const NotFoundFullSchoolUnitDnsName = 'Δεν βρέθηκε σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const DuplicateFullSchoolUnitDnsName = 'Βρέθηκαν παραπάνω από μία σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
-    const MissingLdapLattribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
+    const MissingLdapLAttribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
     const MissingLdapEmployeeNumberAttribute = 'Δεν βρέθηκε to "employeeNumber" attribute στον ldap λογαριασμό του χρήστη.';
     
     const NoPermissionToPostLab = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής στο συγκεκριμενο εργαστηριο';
