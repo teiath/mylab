@@ -37,11 +37,11 @@ function PostLabAquisitionSources($lab_id, $aquisition_source, $aquisition_year,
     {
     
 //$lab_id=======================================================================       
-        CRUDUtils::entitySetAssociation($LabAquisitionSources, $lab_id, 'Labs', 'lab', 'Lab');
+        CRUDUtils::entitySetAssociation($LabAquisitionSources, $lab_id, 'Labs', 'lab', 'Lab', $params, 'lab_id');
         
 //$aquisition_source============================================================       
-        CRUDUtils::entitySetAssociation($LabAquisitionSources, $aquisition_source, 'AquisitionSources', 'aquisitionSource', 'AquisitionSource');
-
+        CRUDUtils::entitySetAssociation($LabAquisitionSources, $aquisition_source, 'AquisitionSources', 'aquisitionSource', 'AquisitionSource', $params, 'aquisition_source');
+        
 //aquisition_year===============================================================
         if (Validator::Missing('aquisition_year', $params))
             throw new Exception(ExceptionMessages::MissingLabAquisitionSourceYearParam." : ".$aquisition_year, ExceptionCodes::MissingLabAquisitionSourceYearParam);          

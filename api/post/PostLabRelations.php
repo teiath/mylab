@@ -36,13 +36,13 @@ function PostLabRelations($lab_id, $school_unit_id, $relation_type, $circuit_id)
     try {
      
 //$lab_id=======================================================================       
-        CRUDUtils::entitySetAssociation($LabRelations, $lab_id, 'Labs', 'lab', 'Lab');
+        CRUDUtils::entitySetAssociation($LabRelations, $lab_id, 'Labs', 'lab', 'Lab', $params, 'lab_id');
  
 //$school_unit_id===============================================================         
-        CRUDUtils::entitySetAssociation($LabRelations, $school_unit_id, 'SchoolUnits', 'schoolUnit', 'SchoolUnit');
+        CRUDUtils::entitySetAssociation($LabRelations, $school_unit_id, 'SchoolUnits', 'schoolUnit', 'SchoolUnit', $params, 'school_unit_id');
        
 //$relation_type================================================================         
-        CRUDUtils::entitySetAssociation($LabRelations, $relation_type, 'RelationTypes', 'relationType', 'RelationType');
+        CRUDUtils::entitySetAssociation($LabRelations, $relation_type, 'RelationTypes', 'relationType', 'RelationType', $params, 'relation_type');
 
 //$circuit_id=================================================================== 
         
@@ -58,7 +58,7 @@ function PostLabRelations($lab_id, $school_unit_id, $relation_type, $circuit_id)
                 }   
                 
                 //find circuit_id and school_unit_id=============================
-                CRUDUtils::entitySetAssociation($LabRelations, $circuit_id, 'Circuits', 'circuit', 'Circuit');
+                CRUDUtils::entitySetAssociation($LabRelations, $circuit_id, 'Circuits', 'circuit', 'Circuit', $params, 'circuit_id');
              
             } else {            
                 if (Validator::Exists('circuit_id', $params))

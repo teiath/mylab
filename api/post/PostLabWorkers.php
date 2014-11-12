@@ -44,13 +44,13 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
         $LabWorker->setInsertBy($username[0]);  
         
 //$lab_id=======================================================================
-    CRUDUtils::entitySetAssociation($LabWorker, $lab_id, 'Labs', 'lab', 'Lab');
+    CRUDUtils::entitySetAssociation($LabWorker, $lab_id, 'Labs', 'lab', 'Lab', $params, 'lab_id');
     
 //$worker_id====================================================================
-    CRUDUtils::entitySetAssociation($LabWorker, $worker_id, 'MylabWorkers', 'worker', 'MylabWorker');
+    CRUDUtils::entitySetAssociation($LabWorker, $worker_id, 'MylabWorkers', 'worker', 'MylabWorker', $params, 'worker_id');
     
 //$worker_position==============================================================
-    CRUDUtils::entitySetAssociation($LabWorker, $worker_position, 'WorkerPositions', 'workerPosition', 'WorkerPosition');
+    CRUDUtils::entitySetAssociation($LabWorker, $worker_position, 'WorkerPositions', 'workerPosition', 'WorkerPosition', $params, 'worker_position');
         
 //$worker_status================================================================ 
     

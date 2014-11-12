@@ -106,19 +106,19 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
         
         
 //$lab_type=====================================================================       
-        CRUDUtils::entitySetAssociation($Lab, $lab_type, 'LabTypes', 'labType', 'LabType');
+        CRUDUtils::entitySetAssociation($Lab, $lab_type, 'LabTypes', 'labType', 'LabType', $params, 'lab_type');
         $fLabTypeId = $Lab->getLabType()->getLabTypeId();
         $fLabTypeName = $Lab->getLabType()->getName();
 
 //$school_unit_id=====================================================================       
-        CRUDUtils::entitySetAssociation($Lab, $school_unit_id, 'SchoolUnits', 'schoolUnit', 'SchoolUnit');
+        CRUDUtils::entitySetAssociation($Lab, $school_unit_id, 'SchoolUnits', 'schoolUnit', 'SchoolUnit', $params, 'school_unit_id');
         $findSchoolUnit = $entityManager->getRepository('SchoolUnits')->findOneBy(array ('schoolUnitId'=>$school_unit_id));
         $fSchoolUnitId = $findSchoolUnit->getSchoolUnitId();
         $fSchoolUnitName = $findSchoolUnit->getName();
         $fSchoolUnitStateId = $findSchoolUnit->getState()->getStateId();
 
 //$lab_source===================================================================      
-        CRUDUtils::entitySetAssociation($Lab, $lab_source, 'LabSources', 'labSource', 'LabSource');
+        CRUDUtils::entitySetAssociation($Lab, $lab_source, 'LabSources', 'labSource', 'LabSource', $params, 'lab_source');
 
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user, TRUE);
