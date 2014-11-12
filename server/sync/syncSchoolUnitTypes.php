@@ -221,7 +221,7 @@ try{
     
     $print_results = array_merge($result_block,$results);
     
-    $filepath = JsonFunctions::truepath();
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName($syncTable);
 
     $cachePath = $filepath.$filename;
