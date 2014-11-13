@@ -89,33 +89,33 @@
                 });
 
             switch(koko) {
-                case 1:
+                case 1: //καρτέλα 1
                     LabsViewVM.set("isVisible", true);
                     SchoolUnitsViewVM.set("isVisible", false);
                     StatisticsVM.set("isVisible", false);
-                    SearchVM.set("isVisible", true);
                     InfoVM.set("isVisible", false);
+                    ( jQuery.inArray( authorized_user , search_xls ) !== -1 ) ? SearchVM.set("isVisible", true) : SearchVM.set("isVisible", false);
                     break;
-                case 2:
+                case 2: //καρτέλα 2
                     LabsViewVM.set("isVisible", false);
                     SchoolUnitsViewVM.set("isVisible", true);
                     StatisticsVM.set("isVisible", false);
-                    SearchVM.set("isVisible", true);
                     InfoVM.set("isVisible", false);
+                    ( jQuery.inArray( authorized_user , search_xls ) !== -1 ) ? SearchVM.set("isVisible", true) : SearchVM.set("isVisible", false);
                     break;
-                case 3:
+                case 3: //καρτέλα 3
                     LabsViewVM.set("isVisible", false);
                     SchoolUnitsViewVM.set("isVisible", false);
                     StatisticsVM.set("isVisible", true);
-                    SearchVM.set("isVisible", false);
                     InfoVM.set("isVisible", false);
+                    SearchVM.set("isVisible", false);
                     break;
-                case 4:
+                case 4: //καρτέλα 4
                     LabsViewVM.set("isVisible", false);
                     SchoolUnitsViewVM.set("isVisible", false);
                     StatisticsVM.set("isVisible", false);
-                    SearchVM.set("isVisible", false);
                     InfoVM.set("isVisible", true);
+                    SearchVM.set("isVisible", false);
                     break;
             }
         }

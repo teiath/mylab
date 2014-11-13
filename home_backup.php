@@ -1,7 +1,4 @@
 <?php 
-
-    $authorized_user = $_GET['authorized_user']; //get authorized_user from toHome.php
-    
     //psd user authentication to front-end
 
     require_once ('server/system/config.php');
@@ -44,18 +41,83 @@
             
             var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
             var user_url = encodeURIComponent(JSON.stringify(user));
+            console.log("LDAP user: ", user);
             
+        </script>
+            
+        <?php require_once('includes.html'); ?> 
+        
+        <script>
+            
+            /* 
+             * Ο χρήστης, στα στοιχεία που επιστρέφονται από τον ldap (var user), μπορεί να έχει έναν 
+             * ή περισσότερους από τους ρόλους ('title' attribute) που διακρίνονται παρακάτω (εντός switch).  
+             * Στην authorized_user, θα αποδοθεί στον χρήστη ο ρόλος που έχει το μεγαλύτερο ranking σε σχέση 
+             * με τους υπόλοιπους ρόλους του. Κάθε ένα από τα arrays search_xls, edit_lab_details, edit_lab_worker, 
+             * transit_lab, create_lab περιέχει τους ρόλους χρηστών που έχουν δικαιώματα στη λειτουργία του myLab
+             * που εκφράζει το όνομά του πχ δυνατότητα αναζήτησης έχουν όσοι χρήστες έχουν κάποιο ρόλο απ' αυτούς
+             * που βρίσκονται εντός του search_xls.
+            */
             var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ", "ΠΣΔ"];
             var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ", "ΕΤΠ"];
             var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
             var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
             var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
 
-            var authorized_user= <?php echo json_encode($authorized_user); ?>;
+            var value_ranks=[], authorized_user;
+            if(typeof user.title != 'object' && typeof user.title != 'array') {
+                user.title = [user.title];
+            }
+            $.each(user.title, function(index, value){
+                switch(value) {
+                    case 'ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ':
+                        value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                        break;
+                    case 'ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ':
+                        value_ranks.push({ldap_title: 'ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                        break;
+                    case  'ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ' :
+                        value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ', ranking : 10, role: 'ΚΕΠΛΗΝΕΤ'});
+                        break;
+                    case  'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ' :
+                        value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ', ranking : 20, role: 'ΣΕΠΕΗΥ'});
+                        break;
+                    case  'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
+                        value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ', ranking : 20, role: 'ΕΤΠ'});
+                        break;
+                    case  'ΠΡΟΣΩΠΙΚΟ ΠΣΔ' :
+                        value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΠΣΔ', ranking : 25, role: 'ΠΣΔ'});
+                        break;
+                    case  'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ' :
+                        value_ranks.push({ldap_title: 'ΔΙΕΥΘΥΝΤΗΣ ΣΧΟΛΕΙΟΥ', ranking : 15, role: 'ΔΙΕΥΘΥΝΤΗΣ'});
+                        break;
+                    case 'ΥΠΕΥΘΥΝΟΣ ΤΟΜΕΑ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
+                        value_ranks.push({ldap_title: 'ΥΠΕΥΘΥΝΟΣ ΤΟΜΕΑ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ', ranking : 15, role: 'ΤΟΜΕΑΡΧΗΣ'});
+                        break;
+                    case  'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
+                        value_ranks.push({ldap_title: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ', ranking : 35, role: 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ'});
+                        break;
+                    case  'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ' :
+                        value_ranks.push({ldap_title: 'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ', ranking : 30, role: 'ΥΠΕΠΘ'});
+                        break;
+                    default:
+                        value_ranks.push({ldap_title: '', ranking : 50, role: 'noAccess'});
+                }
+            });
 
+            var maxRanking = 50;
+            var maxRole = "noAccess";
+            $.each(value_ranks, function(index, value){
+                if (value.ranking < maxRanking) {
+                    maxRanking = value.ranking;
+                    maxRole = value.role;
+                }
+            });
+
+            authorized_user = maxRole;
+            console.log("authorized_user: ", authorized_user);            
+ 
         </script>
-            
-        <?php require_once('includes.html'); ?> 
         
         <script>
                            
@@ -165,7 +227,24 @@
                         url: baseURL + 'user_permits',
                         dataType: "json",
                         success: function(data){
-                            if (data.status === 200){       
+                            console.log("data: ", data);
+                            //έλεγχος αν ο χρήστης ανήκει σε κάποια από τις ομάδες χρηστών (ΔΙΕΥΘΥΝΤΗΣ, ΣΕΠΕΗΥ, ΚΕΠΛΗΝΕΤ, ΠΣΔ, ΥΠΑΙΘ, ΤΟΜΕΑΡΧΗΣ, ΕΤΠ)
+                            if (data.status === 200 && data.data[0].user_role === "noAccess"){
+                                pinned_notification.show({
+                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
+                                    message: "Δεν πληρούνται τα απαραίτητα δικαιώματα πρόσβασης στην υπηρεσία."
+                                }, "error");
+                            }else if(data.data[0].user_role === "ΣΕΠΕΗΥ" && data.data[0].user_permissions.permit_labs.length === 0 ){
+                                pinned_notification.show({
+                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
+                                    message: "Ο Διευθυντής της Σχολικής σας Μονάδας δεν σας έχει ορίσει ως Υπεύθυνο στην Υπηρεσία myLab"
+                                }, "error");
+                            }else if(data.status === 500){
+                                pinned_notification.show({
+                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
+                                    message: data.message
+                                }, "error");
+                            }else{
                                 InfoVM.set("user", data.data[0].user_infos.user_name);
                                 InfoVM.set("role", data.data[0].user_infos.ldap_role);
                                 InfoVM.set("unit", data.data[0].user_infos.user_unit);
@@ -174,32 +253,6 @@
                                 InfoVM.set("email", data.data[0].user_infos.email);
                                 InfoVM.set("address", data.data[0].user_infos.street_address);
                             }
-//                            console.log("data: ", data);
-//                            //έλεγχος αν ο χρήστης ανήκει σε κάποια από τις ομάδες χρηστών (ΔΙΕΥΘΥΝΤΗΣ, ΣΕΠΕΗΥ, ΚΕΠΛΗΝΕΤ, ΠΣΔ, ΥΠΑΙΘ, ΤΟΜΕΑΡΧΗΣ, ΕΤΠ)
-//                            ΟΚ if (data.status === 200 && data.data[0].user_role === "noAccess"){
-//                                pinned_notification.show({
-//                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
-//                                    message: "Δεν πληρούνται τα απαραίτητα δικαιώματα πρόσβασης στην υπηρεσία."
-//                                }, "error");
-//                            ΟΚ }else if(data.data[0].user_role === "ΣΕΠΕΗΥ" && data.data[0].user_permissions.permit_labs.length === 0 ){
-//                                pinned_notification.show({
-//                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
-//                                    message: "Ο Διευθυντής της Σχολικής σας Μονάδας δεν σας έχει ορίσει ως Υπεύθυνο στην Υπηρεσία myLab"
-//                                }, "error");
-//                            }else if(data.status === 500){
-//                                pinned_notification.show({
-//                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
-//                                    message: data.message
-//                                }, "error");
-//                            }else{
-//                                InfoVM.set("user", data.data[0].user_infos.user_name);
-//                                InfoVM.set("role", data.data[0].user_infos.ldap_role);
-//                                InfoVM.set("unit", data.data[0].user_infos.user_unit);
-//                                InfoVM.set("phone", data.data[0].user_infos.phone_number);
-//                                InfoVM.set("fax", data.data[0].user_infos.fax_number);
-//                                InfoVM.set("email", data.data[0].user_infos.email);
-//                                InfoVM.set("address", data.data[0].user_infos.street_address);
-//                            }
 
                         },
                         error: function (data){ console.log("GET user_permits error data: ", data);}
@@ -224,7 +277,13 @@
         <?php require_once('switch_views.php'); //switch views?>
         <div style='height:50px'> </div>      
         <?php
-                require_once('search.html');  //search
+                if(in_array("ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ") ||
+                   in_array("ΠΡΟΣΩΠΙΚΟ ΠΣΔ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΠΣΔ") ||
+                   in_array("ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΠΡΟΣΩΠΙΚΟ ΚΕΠΛΗΝΕΤ") ||
+                   in_array("ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΤΕΧΝΙΚΟΣ ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ") ||
+                   in_array("ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ", $user['title']) || ($user['title'] === "ΥΠΕΥΘΥΝΟΣ ΚΕΠΛΗΝΕΤ") ){ 
+                    require_once('search.html');  //search
+                }
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view
                 require_once('statistics.php'); //statistics

@@ -111,7 +111,7 @@
                             <div class="row">&nbsp;</div>
                             <div class="row">
                                 <div class="col-md-12">						
-                                    <a role="button" class="btn btn-default btn-lg btn-block access_button" href="toHome.php" >Διαπιστευμένη Πρόσβαση</a>
+                                    <a role="button" class="btn btn-default btn-lg btn-block access_button" href="home.php" >Διαπιστευμένη Πρόσβαση</a>
                                 </div>
                             </div>
                             <div class="row">&nbsp;</div>
