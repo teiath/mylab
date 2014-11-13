@@ -41,7 +41,10 @@
             
             $("#dropdownlist").kendoDropDownList({
                 dataSource: {
-                    data: ["edu_admins", "region_edu_admins"]
+                    data: [ "circuit_types","edu_admins","education_levels",
+                            "municipalities","prefectures","region_edu_admins",
+                            "school_unit_types","sources","states","transfer_areas",
+                            "worker_positions","worker_specializations"]
                 },
                 dataBound: function(e){
                     var value = this.value();
