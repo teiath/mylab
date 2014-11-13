@@ -485,7 +485,7 @@ try{
 
     //echo JsonFunctions::toGreek(json_encode($print_results),TRUE);
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName('school_units');
 
     $cachePath = $filepath.$filename; 

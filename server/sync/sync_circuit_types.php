@@ -10,7 +10,7 @@
     header("Content-Type: text/html; charset=utf-8");
     
     chdir("../");
-    require_once('/system/includes.php');
+    require_once('system/includes.php');
     
     global $Options; 
     global $entityManager;
@@ -204,7 +204,7 @@ try{
     
     $print_results = array_merge($result_block,$results);
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName('circuit_types');
 
     $cachePath = $filepath.$filename; 

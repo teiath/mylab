@@ -211,7 +211,7 @@ try{
     $print_results = array_merge($result_block,$results);
 
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName('null_school_units_dns');
 
     $cachePath = $filepath.$filename; 

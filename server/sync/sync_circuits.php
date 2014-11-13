@@ -10,13 +10,14 @@
     header("Content-Type: text/html; charset=utf-8");
     
     chdir("../");
-    require_once('/system/includes.php');
+    require_once('system/includes.php');
     
     global $Options; 
     global $entityManager;
     
     //check with params
     $params = array("circuit_type" => "aDSLoPSTN,aDSLoISDN,ISDN,PSTN",
+        "circuit"=>"1",
                     "orderby" => "circuit_id",
                     "ordertype" => "ASC",
                     "page"=>"1",
@@ -257,7 +258,7 @@ try{
     
     $print_results = array_merge($result_block,$results);
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName('circuits');
 
     $cachePath = $filepath.$filename; 
