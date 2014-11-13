@@ -17,7 +17,6 @@
     
     //check with params
     $params = array("circuit_type" => "aDSLoPSTN,aDSLoISDN,ISDN,PSTN",
-        "circuit"=>"1",
                     "orderby" => "circuit_id",
                     "ordertype" => "ASC",
                     "page"=>"1",
