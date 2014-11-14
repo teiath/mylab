@@ -199,7 +199,7 @@ try{
 
     
     $filepath = $Options["SyncLogFolder"];
-    $filename = $timer->getTimeFileName('school_units_dns');
+    $filename = $timer->getTimeFileName('all_school_units_dns');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));

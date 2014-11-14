@@ -479,33 +479,48 @@ try{
     }
           
     $timer->stop();
-    $results["time_stats"] = $timer->getFullStats();  
+    $results["time_stats"] = $timer->getFullStats();
+    $results["infos"] = "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n".
+                        "Εισαγωγή " . $results["all_logs"]["all_inserts"] . " στοιχεία από το mmsch [INSERT] \n" .
+                        "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch [UPDATE] \n\n" .
+                        "Βρέθηκαν " . $results["all_logs"]["all_ignore_updates"] . " ενημερωμένες εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE UPDATES] \n\n" .
+                        "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch [ERRORS] \n" .
+                        "Βρέθηκαν " . $results["all_logs"]["all_garbages"] . " δοκιμαστικές εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE GARBAGES] \n" .
+                        "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch [CRITICAL ERRORS] \n" .
+                        "Βρέθηκαν " . $circuit_success . " δημιουργιες/ενημερωσεις κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT SUCCESS] \n" .
+                        "Βρέθηκαν " . $circuit_failure . " λαθη/μη αναμενομενα λαθη κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT FAILURE] \n" .
+                        "Βρέθηκαν " . $worker_success . " δημιουργιες/ενημερωσεις εργαζόμενων για το συγχρονισμό με το mmsch [WORKER SUCCESS] \n" .
+                        "Βρέθηκαν " . $worker_failure . " λαθη/μη αναμενομενα λαθη εργαζόμενων για το συγχρονισμό με το mmsch [WORKER FAILURE] \n" .
+                        "Βρέθηκαν " . $school_unit_worker_success . " δημιουργιες/ενημερωσεις συσχετισης εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER SUCCESS] \n" .
+                        "Βρέθηκαν " . $school_unit_worker_failure . " λαθη/μη αναμενομενα λαθη εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER FAILURE] \n" ;
+    
     
     $print_results = array_merge($result_block,$results);
 
     //echo JsonFunctions::toGreek(json_encode($print_results),TRUE);
     
     $filepath = $Options["SyncLogFolder"];
-    $filename = $timer->getTimeFileName('school_units');
+    $filename = $timer->getTimeFileName('school_units_complete');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
     $href = $Options["WebSyncFolder"].$filename;
 
     echo $timer->printFullStats();
-    echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;
-    echo "Εισαγωγή " . $results["all_logs"]["all_inserts"] . " στοιχεία από το mmsch [INSERT] \n" ;
-    echo "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch [UPDATE] \n\n" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_ignore_updates"] . " ενημερωμένες εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE UPDATES] \n\n" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch [ERRORS] \n" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_garbages"] . " δοκιμαστικές εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE GARBAGES] \n" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch [CRITICAL ERRORS] \n" ;
-        echo "Βρέθηκαν " . $circuit_success . " δημιουργιες/ενημερωσεις κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT SUCCESS] \n" ;
-        echo "Βρέθηκαν " . $circuit_failure . " λαθη/μη αναμενομενα λαθη κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT FAILURE] \n" ;
-        echo "Βρέθηκαν " . $worker_success . " δημιουργιες/ενημερωσεις εργαζόμενων για το συγχρονισμό με το mmsch [WORKER SUCCESS] \n" ;
-        echo "Βρέθηκαν " . $worker_failure . " λαθη/μη αναμενομενα λαθη εργαζόμενων για το συγχρονισμό με το mmsch [WORKER FAILURE] \n" ;
-        echo "Βρέθηκαν " . $school_unit_worker_success . " δημιουργιες/ενημερωσεις συσχετισης εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER SUCCESS] \n" ;
-        echo "Βρέθηκαν " . $school_unit_worker_failure . " λαθη/μη αναμενομενα λαθη εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER FAILURE] \n" ;
+    echo $results["infos"];
+//    echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;
+//    echo "Εισαγωγή " . $results["all_logs"]["all_inserts"] . " στοιχεία από το mmsch [INSERT] \n" ;
+//    echo "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch [UPDATE] \n\n" ;
+//    echo "Βρέθηκαν " . $results["all_logs"]["all_ignore_updates"] . " ενημερωμένες εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE UPDATES] \n\n" ;
+//    echo "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch [ERRORS] \n" ;
+//    echo "Βρέθηκαν " . $results["all_logs"]["all_garbages"] . " δοκιμαστικές εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE GARBAGES] \n" ;
+//    echo "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch [CRITICAL ERRORS] \n" ;
+//        echo "Βρέθηκαν " . $circuit_success . " δημιουργιες/ενημερωσεις κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT SUCCESS] \n" ;
+//        echo "Βρέθηκαν " . $circuit_failure . " λαθη/μη αναμενομενα λαθη κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT FAILURE] \n" ;
+//        echo "Βρέθηκαν " . $worker_success . " δημιουργιες/ενημερωσεις εργαζόμενων για το συγχρονισμό με το mmsch [WORKER SUCCESS] \n" ;
+//        echo "Βρέθηκαν " . $worker_failure . " λαθη/μη αναμενομενα λαθη εργαζόμενων για το συγχρονισμό με το mmsch [WORKER FAILURE] \n" ;
+//        echo "Βρέθηκαν " . $school_unit_worker_success . " δημιουργιες/ενημερωσεις συσχετισης εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER SUCCESS] \n" ;
+//        echo "Βρέθηκαν " . $school_unit_worker_failure . " λαθη/μη αναμενομενα λαθη εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER FAILURE] \n" ;
     echo "\n Finished Sync School_Units table. View results at " . $href . "\n";
     
 } catch (Exception $e) {

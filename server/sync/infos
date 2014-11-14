@@ -1,37 +1,90 @@
 Ο κατάλογος sync περιέχει τα script συγχρονισμού του mylab με το mmsch.
 
-Οι παρακάτω function συγχρονίζουν το mylab με τα δεδομένα από τα λεξικά του mmsch
-syncCircuitTypes.php
-syncEduAdmins.php
-syncEducationLevels.php
-syncMunicipalities.php
-syncPrefectures.php
-syncRegionEduAdmins.php
-syncSchoolUnitTypes.php
-syncSources.php
-syncStates.php
-syncTransferAreas.php
-syncWorkerPositions.php
-syncWorkerSpecializations.php
+.htaccess->χρησιμοποειται από το slim microframework
+index.php->περιέχει τα http routes,το authentication
 
-Τα λεξικά που συγχρονίζουν είναι εμφανές από το όνομα της κάθε function.
-Ο συγχρονισμός των λεξικών είναι restfull και γίνεται χρήση του slim microframework.
-Αξιοποιείται η http method GET και το όνομα του πίνακα που θέλουμε να συγχρονίζουμε αποστολή αιτήματος GET στην διεύθυνση [API_BASE_URL] = /server/sync/'ονομα πίνακα'
+1)  Οι παρακάτω function συγχρονίζουν το mylab με τα δεδομένα από τα λεξικά του mmsch
+        syncCircuitTypes.php        με παράμετρους ("circuit_type" => "aDSLoPSTN,aDSLoISDN,ISDN,PSTN")
+        syncEduAdmins.php
+        syncEducationLevels.php
+        syncMunicipalities.php
+        syncPrefectures.php
+        syncRegionEduAdmins.php
+        syncSchoolUnitTypes.php     με παράμετρους ("category"=>"1","education_level"=>"1,2")
+        syncSources.php
+        syncStates.php
+        syncTransferAreas.php
+        syncWorkerPositions.php
+        syncWorkerSpecializations.php
 
-όπου 'όνομα πίνακα' αποδεκτές τιμές είναι
-circuit_types
-edu_admins
-education_levels
-municipalities
-prefectures
-region_edu_admins
-school_unit_types
-sources
-states
-transfer_areas
-worker_positions
-worker_specializations
+    Τα λεξικά που συγχρονίζουν είναι εμφανές από το όνομα της κάθε function.
+    Ο συγχρονισμός των λεξικών είναι restfull και γίνεται χρήση του slim microframework.
+    Αξιοποιείται η http method GET και το όνομα του πίνακα που θέλουμε να συγχρονίζουμε αποστολή αιτήματος GET στην διεύθυνση [API_BASE_URL] = /server/sync/'ονομα πίνακα'
+    όπου 'όνομα πίνακα' αποδεκτές τιμές είναι
+        circuit_types
+        edu_admins
+        education_levels
+        municipalities
+        prefectures
+        region_edu_admins
+        school_unit_types
+        sources
+        states
+        transfer_areas
+        worker_positions
+        worker_specializations
 
-Η μόνη παράμετρο που μπορούν να αναγνωρίσουν οι παραπάνω functions είναι 'type=json'
-η οποία επιστρέφει τα αποτελέσματα στην οθόνη σε μορφή json, αλλιώς by default τα αποτελέσματα είναι σε μορφή php array.
-Στο φάκελο /server/logs δημιουργείται ένα json log αρχείο του συγχρονισμού που εκτελεί κάθε φορά ο χρήστης με πιο αναλυτικά αποτελέσματα.
+    Η μόνη παράμετρο που μπορούν να αναγνωρίσουν οι παραπάνω functions είναι 'type=json'
+    η οποία επιστρέφει τα αποτελέσματα στην οθόνη σε μορφή json, αλλιώς by default τα αποτελέσματα είναι σε μορφή php array.
+    Στο φάκελο /server/logs δημιουργείται ένα json log αρχείο του συγχρονισμού που εκτελεί κάθε φορά ο χρήστης με πιο αναλυτικά αποτελέσματα.
+
+2)  Οι παρακάτω function χρησιμοποιούνται κατά τον συγχρονισμό των σχολικών μονάδων.
+    addCircuit.php
+    addSchoolUnitWorker.php
+    addWorker.php
+
+    Στην ουσία για κάθε σχολική μονάδα που συγχρονίζουμε, στην συνέχεια καλουνται οι παραπάνω functions με τις υποχρεςτικές τους παραμέτρους
+    και συγχρονίζουμε τα κυκλωματα,τους υπεύθυνους σχολικων μονάδων και τα στοιχεία των υπευθύνων αντίστοιχα.
+    Μπορούν να χρησιμοποιηθούν και 'μόνες' τους για να εισάγουμε στοχευμένα δεδομένα στους αντίστοιχους πίνακες.
+    Τα λεξικά που συγχρονίζουν είναι εμφανές από το όνομα της κάθε function.
+    Ως επιστροφή δίνουνε ενα array_merge($error_messages, $final_results) όπου $error_messages περιέχει τυχόν exception messages/codes από τις παραμέτρους που εισηγαγε ο χρήστης
+    και $final_results τα messages για την ενέργεια(insert,update,failure,unexpected_error)
+
+3)  sync_circuit_types ->Είναι ο παλιος τρόπος που υλοποιούσαμε και μένει για λόγους ιστορικότητας.
+                         Ενημερώνει τον πίνακα circuit_types βάση παραμέτρων φιλτραρίσματος που έχουμε ορίσει.
+                         Έχουν οριστεί παράμετροι φιλτραρίσματος ("circuit_type" => "aDSLoPSTN,aDSLoISDN,ISDN,PSTN").
+                         Εκτελείται μόνο μεσω php κλήσης.
+                         Εκτελεί GET request στο MM server
+                         Στο φάκελο /server/logs δημιουργείται ένα json log αρχείο του συγχρονισμού που εκτελεί κάθε φορά ο χρήστης με πιο αναλυτικά αποτελέσματα.
+
+    sync_all_school_units_dns ->Ενημερώνει από ολοκληρο τον πίνακα school_units, μόνο το πεδίο unit_dns για όλες τις σχολικές μονάδες στο Mylab server.
+                                Δεν έχουν οριστεί παράμετροι φιλτραρίσματος.
+                                Εκτελείται μόνο μεσω php κλήσης.
+                                Εκτελεί GET request στο Mylab server και για κάθε σχολική μονάδα που επιστρέφεται εκτελεί GET request στο ΜΜ server.
+                                Στο φάκελο /server/logs δημιουργείται ένα json log αρχείο του συγχρονισμού που εκτελεί κάθε φορά ο χρήστης με πιο αναλυτικά αποτελέσματα.
+                                Το όνομα του log αρχείου έιναι 'datetime'.all_sync_school_units_dns
+                                Το script το εκτελουμε στην περίπτωση που θέλουμε να ενημερώσουμε όλα τα unit_dns των μονάδων, διότι λόγω του ότι στην β.δ. του ΜΜ δεν έιναι δυνατόν 
+                                   να γνωρίζουμε πότε έχει γίνει αλλαγή στο όνομα του unit_dns και να το συνδιασούμε με την ημερομηνία τελευταίου συγχρονισμού της σχολικής μονάδας.
+                                   Αυτό οφείλεται στο ότι η διαχείρηση των unit_dns είναι στην ευθύνη της ΚΕΔΟ LDAP.
+
+    sync_circuits ->Ενημερώνει όλα τα πεδία του πίνακα circuit_types βάση παραμέτρων φιλτραρίσματος που έχουμε ορίσει.
+                    Έχουν οριστεί παράμετροι φιλτραρίσματος ("circuit_type" => "aDSLoPSTN,aDSLoISDN,ISDN,PSTN").
+                    Εκτελείται μόνο μεσω php κλήσης.
+                    Εκτελεί GET request στο MM server
+                    Στο φάκελο /server/logs δημιουργείται ένα json log αρχείο του συγχρονισμού που εκτελεί κάθε φορά ο χρήστης με πιο αναλυτικά αποτελέσματα.
+                   
+
+    sync_null_school_units_dns ->Ενημερώνει από ολοκληρο τον πίνακα school_units, μόνο το πεδίο unit_dns για όλες τις σχολικές μονάδες στο Mylab server οι οποίες έχουν τιμή null στο πεδίο unit_dns.
+                                 Έχουν οριστεί παράμετροι φιλτραρίσματος ("unit_dns" => "null").
+                                 Εκτελείται μόνο μεσω php κλήσης.
+                                 Εκτελεί GET request στο Mylab server και για κάθε σχολική μονάδα που επιστρέφεται εκτελεί GET request στο ΜΜ server.
+                                 Στο φάκελο /server/logs δημιουργείται ένα json log αρχείο του συγχρονισμού που εκτελεί κάθε φορά ο χρήστης με πιο αναλυτικά αποτελέσματα.
+                                 Το όνομα του log αρχείου έιναι 'datetime'._sync_null_school_units_dns
+                                 Το script το εκτελουμε στην περίπτωση που θέλουμε να ενημερώσουμε τα null unit_dns των μονάδων, διότι λόγω του ότι στην β.δ. του ΜΜ δεν έιναι δυνατόν 
+                                    να γνωρίζουμε πότε έχει γίνει προστεθεί το όνομα unit_dns  της σχολικής μονάδας και να το συνδιασούμε με την ημερομηνία τελευταίου συγχρονισμού της σχολικής μονάδας.
+                                    Αυτό οφείλεται στο ότι η διαχείρηση των unit_dns είναι στην ευθύνη της ΚΕΔΟ LDAP.
+
+
+
+
+    
