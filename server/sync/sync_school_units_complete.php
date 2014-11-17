@@ -298,8 +298,15 @@ try{
                                  $fLabStateId = $findLab->getState()->getStateId();
 
                                  //check if updated school unit has different state value from lab state
-                                 if ( ($fLabStateId !== $fSchoolUnitStateId ) && ($fLabStateId != 3) )  {
-
+//                                   if (($fSchoolUnitStateId == 1) && ($fLabStateId==1)) {$toState = 1;}
+//                                   if (($fSchoolUnitStateId == 1) && ($fLabStateId==2)) {$toState = 2;}
+//                                   if (($fSchoolUnitStateId == 2) && ($fLabStateId==1)) {$toState = 3;}
+//                                   if (($fSchoolUnitStateId == 2) && ($fLabStateId==2)) {$toState = 3;}
+//                                   if (($fSchoolUnitStateId == 3) && ($fLabStateId==1)) {$toState = 3;}
+//                                   if (($fSchoolUnitStateId == 3) && ($fLabStateId==2)) {$toState = 3;}
+                                 //if ( ($fLabStateId !== $fSchoolUnitStateId ) && ($fLabStateId != 3) )  {
+                                   if ( ($fSchoolUnitStateId == 3 || $fSchoolUnitStateId == 2) && ($fLabStateId != 3) )  {
+                                                                
                                      //mmsch parameters
                                      $params_transitions = array("lab_id" => $fLabId,
                                                                 "state" => 3,//$fSchoolUnitStateId 
@@ -320,9 +327,7 @@ try{
                                  }
 
                              }
-            
-    
-                            
+                                     
         } else if ($status === 'CREATE'){
 
             $inserts++;
