@@ -28,7 +28,7 @@
     $timer->start();
     
 try{ 
-    echo 'Starting Sync Circuit Types table';
+    echo 'Starting Sync Circuit Types table.';
 
     do{ 
         
@@ -38,7 +38,7 @@ try{
 //start api request and return a block of data==================================
 //==============================================================================
         
-        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'circuit_types', 'GET', $params);
+        //$data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'circuit_types', 'GET', $params);
 
         //log general infos from received data of the mmsch
         $results["sync_table"] = "CircuitTypes";

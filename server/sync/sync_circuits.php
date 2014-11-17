@@ -30,7 +30,7 @@
     $timer->start();
     
 try{ 
-    echo 'Starting Sync Circuits table \n\n';
+    echo 'Starting Sync Circuits table.';
 
     do{ 
         
@@ -41,7 +41,7 @@ try{
 //==============================================================================
 
         //make the http request to mmsch with cURL 
-        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'circuits', 'GET', $params);
+        //$data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'circuits', 'GET', $params);
 
         //log general infos from received data of the mmsch
         $results["sync_table"] = "Circuits";

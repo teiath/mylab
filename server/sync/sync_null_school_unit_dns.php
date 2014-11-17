@@ -26,7 +26,7 @@
     $timer->start();
     
 try{ 
-    echo "Starting Sync ONLY NULL Unit Dns field of School_Units table \n\n";   
+    echo "Starting Sync ONLY NULL Unit Dns field of School_Units table.";   
  
     do{ 
         
