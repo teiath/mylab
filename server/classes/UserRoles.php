@@ -292,12 +292,12 @@ private static $Permissions = array(
                                              "role"=> "ΤΟΜΕΑΡΧΗΣ"  
                                           );
                     break;
-                case 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
-                    $value_ranks[] = array (  "ldap_title"=>"ΕΚΠΑΙΔΕΥΤΙΚΟΣ",
-                                             "ranking"=>35,
-                                             "role"=> "ΕΚΠΑΙΔΕΥΤΙΚΟΣ"  
-                                          );
-                    break;
+//                case 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
+//                    $value_ranks[] = array (  "ldap_title"=>"ΕΚΠΑΙΔΕΥΤΙΚΟΣ",
+//                                             "ranking"=>35,
+//                                             "role"=> "ΕΚΠΑΙΔΕΥΤΙΚΟΣ"  
+//                                          );
+//                    break;
                 case 'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ' :
                     $value_ranks[] = array (  "ldap_title"=>"ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ",
                                              "ranking"=>30,
