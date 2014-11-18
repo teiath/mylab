@@ -84,7 +84,7 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
          $permissions = UserRoles::getUserPermissions($app->request->user);
    
          if ( ($app->request->user['ou'][0] == 'ΤΕΙ ΑΘΗΝΑΣ') && ($app->request->user['uid'][0] ==  $Options['Server_MyLab_username'])){
-                $whatisthat = 'used for syncing with mmsch';
+                $whatisthat = 'used for syncing with mmsch.Only admin can sync lab_transitions';
          } else {
                 if (!in_array($LabTransitions->getLab()->getLabId(),$permissions['permit_labs'])) {
                     throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
@@ -101,9 +101,10 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
 
         //find last state of lab from labs table================================ 
         $checkLab = $entityManager->getRepository('Labs')->find((Validator::ToID($lab_id)));  
-        $fromLabState = $checkLab->getState()->getStateId();
-        
-       $toLabState = $LabTransitions->getToState()->getStateId();
+        //$fromLabState = $checkLab->getState()->getStateId();
+        $fromLabState = Validator::IsNull($checkLab->getState()) ? Validator::ToNull() : $checkLab->getState()->getStateId();
+
+        $toLabState = $LabTransitions->getToState()->getStateId();
        
         if ($fromLabState == 3)
             throw new Exception(ExceptionMessages::InvalidDiscontinuedStateValue, ExceptionCodes::InvalidDiscontinuedStateValue);
