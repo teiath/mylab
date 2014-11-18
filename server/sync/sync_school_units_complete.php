@@ -296,6 +296,7 @@ try{
                                  $fLabSchoolUnitId = $findLab->getSchoolUnit()->getSchoolUnitId();
                                  $fLabId = $findLab->getLabId(); 
                                  $fLabStateId = $findLab->getState()->getStateId();
+                                 $fLabSubmitted = $findLab->getSubmitted();
 
                                  //check if updated school unit has different state value from lab state
 //                                   if (($fSchoolUnitStateId == 1) && ($fLabStateId==1)) {$toState = 1;}
@@ -305,7 +306,7 @@ try{
 //                                   if (($fSchoolUnitStateId == 3) && ($fLabStateId==1)) {$toState = 3;}
 //                                   if (($fSchoolUnitStateId == 3) && ($fLabStateId==2)) {$toState = 3;}
                                  //if ( ($fLabStateId !== $fSchoolUnitStateId ) && ($fLabStateId != 3) )  {
-                                   if ( ($fSchoolUnitStateId == 3 || $fSchoolUnitStateId == 2) && ($fLabStateId != 3) )  {
+                                   if (($fLabSubmitted == true) && ($fSchoolUnitStateId == 3 || $fSchoolUnitStateId == 2) && ($fLabStateId != 3) )  {
                                                                 
                                      //mmsch parameters
                                      $params_transitions = array("lab_id" => $fLabId,
