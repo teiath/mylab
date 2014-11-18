@@ -17,7 +17,7 @@
     
     //mmsch parameters
     $params = array(
-    //"mm_id" => "1016860",
+    //"mm_id" => "1011695",
     "legal_character" => 1, //"ΔΗΜΟΣΙΟ",
     "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
@@ -295,7 +295,7 @@ try{
                              foreach ($findLabs as $findLab) {
                                  $fLabSchoolUnitId = $findLab->getSchoolUnit()->getSchoolUnitId();
                                  $fLabId = $findLab->getLabId(); 
-                                 $fLabStateId = $findLab->getState()->getStateId();
+                                 $fLabStateId = Validator::IsNull($findLab->getStateId()) ? Validator::ToNull() : $findLab->getState()->getStateId();
                                  $fLabSubmitted = $findLab->getSubmitted();
 
                                  //check if updated school unit has different state value from lab state
