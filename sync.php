@@ -1,6 +1,25 @@
 <?php 
     require_once ('server/system/config.php');
+    require_once ('server/libs/phpCAS/CAS.php');
+    
+    //php cas auth
+    phpCAS::client(SAML_VERSION_1_1,$casOptions["Url"],$casOptions["Port"],'', false);
+    phpCAS::setNoCasServerValidation();//must replaces with setCasServerCaCert
+    phpCAS::handleLogoutRequests(array($casOptions["Url"]));
+    if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
+        phpCAS::logoutWithRedirectService($casOptions["LogoutURL"]);
+        exit();
+    } else {
+        if (!phpCAS::checkAuthentication())
+        phpCAS::forceAuthentication();
+    }
+    $user = phpCAS::getAttributes();
     $user['syncAuthorizationHash'] = base64_encode($Options['ServerSyncUsername'].':'.$Options['ServerSyncPassword']);
+    
+    if ($user['uid']!==$Options["ServerSyncUsername"]){
+        phpCAS::logoutWithRedirectService($casOptions["LogoutURL"]);
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -16,11 +35,27 @@
         <link href="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/styles/kendo.common.min.css" rel="stylesheet"/>
         <link href="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/styles/kendo.metro.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" media="screen" href="client/libs/fonts/font-awesome-4.1.0/css/font-awesome.min.css" >
-        
-        <script>
-            
-            var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
+  
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
 
+                <div id="user_menu" class="btn-group" style="margin: 14px 26px 0px 0px;">
+                  <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-user"></i> <span id="user_button" style="font-size: 13px;"> </span> <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" style="cursor:pointer; cursor:hand;">
+                    <li><a href="#" id="lnkLogout"><i class="fa fa-sign-out"></i> Αποσύνδεση</a></li>
+                  </ul>
+                </div>
+            </ul>
+        </div>  
+    
+        <script>       
+            var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
+            
+            // Build logout link
+            $("#lnkLogout").attr("href", config.url + "home.php?logout=true");
+            $("#user_button").html(user.uid);
         </script>
         
     
@@ -41,7 +76,10 @@
             
             $("#dropdownlist").kendoDropDownList({
                 dataSource: {
-                    data: ["edu_admins", "region_edu_admins"]
+                    data: [ "circuit_types","edu_admins","education_levels",
+                            "municipalities","prefectures","region_edu_admins",
+                            "school_unit_types","sources","states","transfer_areas",
+                            "worker_positions","worker_specializations"]
                 },
                 dataBound: function(e){
                     var value = this.value();

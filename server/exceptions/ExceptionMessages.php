@@ -235,13 +235,17 @@ class ExceptionMessages
     const InvalidLabWorkerStartServiceType = 'Η Ημερομηνία Έναρξης  του Εργαζομένου Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
     const InvalidLabWorkerStartServiceArray = 'Η Ημερομηνία Έναρξης  του Εργαζομένου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingLabWorkerEmailParam = 'Το Email του Εργαζομένου Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabWorkerEmailValue = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabWorkerEmailType = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
+    const InvalidLabWorkerEmailArray = 'Το Email του Εργαζομένου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
+    
     const DuplicatedLabWorkerValue = 'Ο Εργαζόμενος Εργαστηρίου υπάρχει ήδη';
     const UsedLabWorkerByLabs = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
     const DuplicateLabWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
     const NotAllowedLabWorkerStartService = 'Δεν είναι δυνατή η εισαγωγή ημερομηνίας προγενέστερη από την ημερομηνία εισαγωγής του προηγούμενου υπεύθυνου';
     
     //extra
-    const InvalidLabWorkerEmailType = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
     const InvalidLabWorkerStartServiceValidType = 'Η Ημερομηνία Έναρξης του Εργαζομένου Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
     const InvalidLabWorkerActiveStatus = 'Βρέθηκαν παραπάνω από 1 Ενεργός Eργαζόμενος για το συγκεκριμένο Εργαστήριο';
     const InvalidLabWorkerNewWorkerStatus = 'Δεν είναι δυνατή η προσθήκη νέου Ενεργού Εργαζόμενου, επειδή υπάρχει ήδη Ενεργός Εργαζόμενος';
@@ -334,20 +338,32 @@ class ExceptionMessages
     const InvalidLabSubmittedType = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) του Εργαστηρίου πρέπει να είναι της μορφής true/false';
     const InvalidLabSubmittedArray = 'Ο χαρακτηρισμός κατάστασης εγγραφής (δοκιμαστική/οριστική υποβολή) Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';    
 
+    const MissingLabSpecialNameParam = 'Το Ειδικό Όνομα του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabSpecialNameValue = 'Το Ειδικό Όνομα του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabSpecialNameType = 'Το Ειδικό Όνομα του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLabSpecialNameArray = 'Το Ειδικό Όνομα του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingLabPositioningParam = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου είναι υποχρεωτικό πεδίο';
+    const MissingLabPositioningValue = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου πρέπει να έχει τιμή';
+    const InvalidLabPositioningType = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
+    const InvalidLabPositioningArray = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingLabCommentsParam = 'Τα Σχόλια για το Εργαστήριο είναι υποχρεωτικό πεδίο';
+    const MissingLabCommentsValue = 'Τα Σχόλια για το Εργαστήριο πρέπει να έχει τιμή';
+    const InvalidLabCommentsType = 'Τα Σχόλια για το Εργαστήριο πρέπει να αλφαριθμητικά ή αλφαριθμητικά';
+    const InvalidLabCommentsArray = 'Τα Σχόλια για το Εργαστήριο δεν μπορεί να έχει πολλαπλές τιμές';
+    
     const DuplicatedLabValue = 'Το Εργαστήριο υπάρχει ήδη';
     const DuplicatedLabNameValue = 'Το Όνομα του Εργαστηρίου υπάρχει ήδη';
     const DuplicateLabUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Lab';
     const NotAllowedLabNameValue = 'Δεν επιτρέπεται η δημιουργία εργαστηρίου σε σχολικές μονάδες που είναι σε αναστολή ή καταργημένες';
     const NotAllowedEllakValue = 'Δεν επιτρέπεται ο χαρακτηρισμός ΕΛΛΑΚ σε εργαστηρίου που ΔΕΝ είναι τύπου ΣΕΠΕΥΗ ή ΕΤΠ';
-    
+            
     //extra
-    const InvalidLabSpecialNameType = 'Το Ειδικό Όνομα του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabCreationDateType = 'Η Ημερομηνία Δημιουργίας του Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
     const InvalidLabCreatedByType = 'Το Ονοματεπώνυμο του Δημιουργού της Εγγραφής του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
     const InvalidLabLastUpdatedType = 'Η Ημερομηνία Τελευταίας Ενημερωσης του Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
     const InvalidLabUpdatedByType = 'Το Ονοματεπώνυμο του Τελευταίου που Ενημέρωσε την Εγγραφής του Εργαστηρίου πρέπει να είναι αλφαριθμητικό';
-    const InvalidLabPositioningType = 'Η Γεωγραφική/Χωροταξική Θέση του Εργαστηρίου πρέπει να είναι αλφαριθμητική';
-    const InvalidLabCommentsType = 'Τα Σχόλια για το Εργαστήριο πρέπει να αλφαριθμητικά ή αλφαριθμητικά';
     const AlreadyLabSubmittedActiveValue = 'Εχει πραγματοποιηθέι ήδη οριστική υποβολή Εργαστηρίου';    
     const AlreadyLabSubmittedInitialValue = 'Εχει οριστεί ήδη ή αρχική λειτουργική κατάσταση στον πίνακα μεταβάσεων';   
     
@@ -1047,7 +1063,7 @@ class ExceptionMessages
     const NotFoundUserPermissions = 'Δεν βρεθηκαν δικαιωματα για τον ρόλο του χρήστη.';
     const NotFoundFullSchoolUnitDnsName = 'Δεν βρέθηκε σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const DuplicateFullSchoolUnitDnsName = 'Βρέθηκαν παραπάνω από μία σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
-    const MissingLdapLattribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
+    const MissingLdapLAttribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
     const MissingLdapEmployeeNumberAttribute = 'Δεν βρέθηκε to "employeeNumber" attribute στον ldap λογαριασμό του χρήστη.';
     
     const NoPermissionToPostLab = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής στο συγκεκριμενο εργαστηριο';

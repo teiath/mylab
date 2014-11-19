@@ -17,9 +17,7 @@
     
     //mmsch parameters
     $params = array(
-    //"mm_id" => "1000044",
     //"mm_id" => "1020428,1007591",
-    //"mm_id" => "1000002,1002233,1000002,1000003,1000019,1016506,1007591,1016502,1016503,1001982,1001023,1000006,1003605,1016505,1017701",
     "legal_character" => 1, //"ΔΗΜΟΣΙΟ",
     "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
@@ -37,7 +35,7 @@
     $timer->start();
     
 try{ 
-    echo "Starting Sync School_Units table \n\n";   
+    echo 'Starting Sync School_Units table.';   
  
     do{ 
         
@@ -45,7 +43,7 @@ try{
         $result = array();
         
         //make the http request to mmsch with cURL 
-        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'units', 'GET', $params);
+        //$data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'units', 'GET', $params);
 
         //log general infos from received data of the mmsch
         $results["sync_table"] = "School_Units";
@@ -459,12 +457,12 @@ try{
     //echo JsonFunctions::toGreek(json_encode($print_results),TRUE);
     
     //$filepath = $timer->getTimeFilePath();
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName('school_units');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
-    $href = $Options["SyncFolder"].$filename;
+    $href = $Options["WebSyncFolder"].$filename;
   
     echo $timer->printFullStats();
     echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;

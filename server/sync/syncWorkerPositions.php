@@ -201,12 +201,12 @@ try{
     
     $print_results = array_merge($result_block,$results);
     
-    $filepath = JsonFunctions::truepath();
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName($syncTable);
 
     $cachePath = $filepath.$filename;
     file_put_contents($cachePath, JsonFunctions::toGreek(json_encode($print_results), TRUE));
-    $href = $Options["SyncFolder"].$filename;
+    $href = $Options["WebSyncFolder"].$filename;
 
     $sync_results['executeTime'] = $timer->getFullStats();
     $sync_results['returnedData'] =  "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch" ;

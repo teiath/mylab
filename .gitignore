@@ -4,6 +4,9 @@ api/.htaccess
 .buildpath
 .settings
 .project
+api/.htaccess
+server/sync/.htaccess
+
 
 #netbeans default :
 nbproject/private/

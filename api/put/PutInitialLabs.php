@@ -51,8 +51,9 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
         $username =  $app->request->user['uid'];
         $Lab->setLastUpdated(new \DateTime (date('Y-m-d H:i:s')));  
         $Lab->setUpdatedBy($username[0]);      
-        //$state========================================================================       
-        CRUDUtils::entitySetAssociation($Lab, 1, 'States', 'state', 'State');
+        //$state========================================================================
+        //because of user cant set up 'state' parameter we use the required parameter 'lab_id' as paspartu to continue 
+        CRUDUtils::entitySetAssociation($Lab, 1, 'States', 'state', 'State', $params, 'lab_id');
         
 //$submitted====================================================================   
             if (Validator::Missing('submitted', $params))
@@ -182,8 +183,10 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
            $result["lab_name"] = $Lab->getName();
            
             //create lab_transition=============================================
-            CRUDUtils::entitySetAssociation($LabTransition, $fLabID, 'Labs', 'lab', 'Lab');      
-            CRUDUtils::entitySetAssociation($LabTransition, 1, 'States', 'toState', 'State');
+            //because of user cant set up 'lab_id' parameter to entity $LabTransition we use the required parameter 'lab_id' as paspartu to continue 
+            CRUDUtils::entitySetAssociation($LabTransition, $fLabID, 'Labs', 'lab', 'Lab', $params, 'lab_id'); 
+            //because of user cant set up 'to_state' parameter to entity $LabTransition we use the required parameter 'lab_id' as paspartu to continue 
+            CRUDUtils::entitySetAssociation($LabTransition, 1, 'States', 'toState', 'State', $params, 'lab_id');
                 $entityManager->persist($LabTransition);
                 $entityManager->flush($LabTransition);
                 $result["lab_transition_id"] = $LabTransition->getLabTransitionId();

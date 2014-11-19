@@ -124,18 +124,7 @@
                         
                     $filename = date('mdY_hias').'_sync_'.$sync_table_name.'.json';
                     
-                    return $Options["LogFolder"].$filename;
-                }
-                
-                public function getTimeFilePath() {
-                    global $Options; 
-                    if ($_SERVER['DOCUMENT_ROOT'] == "")
-                        $path = $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__).$Options["SyncLogPath"];
-                       // echo $docroot = dirname(getcwd() . '/../').'\mylab_ver4\sync_logs/';
-                    else
-                        $path = $_SERVER['DOCUMENT_ROOT'].$Options["SyncLogPath"];
-                   
-                    return $path;
+                    return $filename;
                 }
                            
 	}

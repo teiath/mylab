@@ -1,4 +1,11 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
@@ -13,49 +20,49 @@ header("Content-Type: text/html; charset=utf-8");
  */
 
 function PostAquisitionSources($name) {
-    global $db;
-    global $Options;
-    global $app;
-    
-    $result = array();  
-    $result["data"] = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+
+    global $app,$entityManager;
+
+    $AquisitionSource = new AquisitionSources();
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["name"] = $name;
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
 
     try {
+ 
+    //$name=====================================================================
+     CRUDUtils::EntitySetParam($AquisitionSource, $name, 'AquisitionSourceName', 'name', $params, true, false);
         
+    //user permisions===============================================================
+    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
+    //
         
-        //$name===========================================================================
-        if (! trim($name) )
-            throw new Exception(ExceptionMessages::MissingNameValue." : ".$name, ExceptionCodes::MissingNameValue);
-        else
-             $filter[] = new DFC(AquisitionSourcesExt::FIELD_NAME, $name, DFC::EXACT);
-        //==============================================================================        
+//controls======================================================================   
 
-        $oAquisitionSources = new AquisitionSourcesExt($db);
-        $arrayAquisitionSources = $oAquisitionSources->findByFilter($db, $filter, true);
+        //check for duplicate =================================================   
+        $checkDuplicate = $entityManager->getRepository('AquisitionSources')->findOneBy(array( 'name'  => $AquisitionSource->getName() ));
 
-            if ( count( $arrayAquisitionSources ) > 0 ) { 
-                throw new Exception(ExceptionMessages::DuplicateAquisitionSourceValue." : ".$name, ExceptionCodes::DuplicateAquisitionSourceValue);
-            }
+        if (count($checkDuplicate) != 0)
+            throw new Exception(ExceptionMessages::DuplicatedAquisitionSourceValue,ExceptionCodes::DuplicatedAquisitionSourceValue);  
+        
+//insert to db================================================================== 
+        $entityManager->persist($AquisitionSource);
+        $entityManager->flush($AquisitionSource);
 
-        $oAquisitionSources->setName($name);
-        $oAquisitionSources->insertIntoDatabase($db);
-
-        $result["aquisition_source_id"] = $oAquisitionSources->getAquisitionSourceId();
-
-        $result["status"] = 200;
-        $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success";
-    } catch (Exception $e){ 
+        $result["aquisition_source_id"] = $AquisitionSource->getAquisitionSourceId();  
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    } 
+    }                
+        
     return $result;
 }
-
 ?>

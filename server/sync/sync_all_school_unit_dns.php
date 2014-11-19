@@ -26,7 +26,7 @@
     $timer->start();
     
 try{ 
-    echo "Starting Sync Unit Dns field of ALL School_Units table \n\n";   
+    echo "Starting Sync Unit Dns field of ALL School_Units table.";   
  
     do{ 
         
@@ -198,12 +198,12 @@ try{
     $print_results = array_merge($result_block,$results);
 
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
-    $filename = $timer->getTimeFileName('school_units_dns');
+    $filepath = $Options["SyncLogFolder"];
+    $filename = $timer->getTimeFileName('all_school_units_dns');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
-    $href = $Options["SyncFolder"].$filename;
+    $href = $Options["WebSyncFolder"].$filename;
   
     echo $timer->printFullStats();
     echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;

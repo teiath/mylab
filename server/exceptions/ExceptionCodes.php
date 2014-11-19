@@ -362,6 +362,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabWorkerStartServiceArray} */
     const InvalidLabWorkerStartServiceArray = 500;
     
+    /** {@see ExceptionMessages::MissingLabWorkerEmailParam} */
+    const MissingLabWorkerEmailParam = 500;
+    /** {@see ExceptionMessages::MissingLabWorkerEmailValue} */
+    const MissingLabWorkerEmailValue = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerEmailType} */
+    const InvalidLabWorkerEmailType = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerEmailArray} */
+    const InvalidLabWorkerEmailArray = 500;
+    
     /** {@see ExceptionMessages::DuplicatedLabWorkerValue} */
     const DuplicatedLabWorkerValue = 500;
     /** {@see ExceptionMessages::UsedLabWorkerByLabs} */
@@ -372,8 +381,6 @@ class ExceptionCodes
     const NotAllowedLabWorkerStartService = 500;
     
     //extra
-    /** {@see ExceptionMessages::InvalidLabWorkerEmailType} */
-    const InvalidLabWorkerEmailType = 500;
     /** {@see ExceptionMessages::InvalidLabWorkerStartServiceValidType} */    
     const InvalidLabWorkerStartServiceValidType = 500;
     /** {@see ExceptionMessages::InvalidLabWorkerActiveStatus} */    
@@ -529,7 +536,34 @@ class ExceptionCodes
     const InvalidLabSubmittedType = 500;
     /** {@see ExceptionMessages::InvalidLabSubmittedArray} */
     const InvalidLabSubmittedArray = 500;
+   
+    /** {@see ExceptionMessages::MissingLabSpecialNameParam} */  
+    const MissingLabSpecialNameParam = 500;
+    /** {@see ExceptionMessages::MissingLabSpecialNameValue} */  
+    const MissingLabSpecialNameValue = 500;
+    /** {@see ExceptionMessages::InvalidLabSpecialNameType} */  
+    const InvalidLabSpecialNameType = 500;
+    /** {@see ExceptionMessages::InvalidLabSpecialNameArray} */  
+    const InvalidLabSpecialNameArray = 500;
     
+    /** {@see ExceptionMessages::MissingLabPositioningParam} */  
+    const MissingLabPositioningParam = 500;
+    /** {@see ExceptionMessages::MissingLabPositioningValue} */  
+    const MissingLabPositioningValue = 500;
+    /** {@see ExceptionMessages::InvalidLabPositioningType} */  
+    const InvalidLabPositioningType = 500;
+    /** {@see ExceptionMessages::InvalidLabPositioningArray} */  
+    const InvalidLabPositioningArray = 500;
+    
+    /** {@see ExceptionMessages::MissingLabCommentsParam} */  
+    const MissingLabCommentsParam = 500;
+    /** {@see ExceptionMessages::MissingLabCommentsValue} */  
+    const MissingLabCommentsValue = 500;
+    /** {@see ExceptionMessages::InvalidLabCommentsType} */  
+    const InvalidLabCommentsType = 500;
+    /** {@see ExceptionMessages::InvalidLabCommentsArray} */  
+    const InvalidLabCommentsArray = 500;    
+
     /** {@see ExceptionMessages::DuplicatedLabValue} */
     const DuplicatedLabValue = 500;
     /** {@see ExceptionMessages::DuplicatedLabNameValue} */
@@ -540,10 +574,8 @@ class ExceptionCodes
     const NotAllowedLabNameValue = 500;
     /** {@see ExceptionMessages::NotAllowedEllakValue} */   
     const NotAllowedEllakValue = 500;
-    
+      
     //extra
-    /** {@see ExceptionMessages::InvalidLabSpecialNameType} */
-    const InvalidLabSpecialNameType = 500;
     /** {@see ExceptionMessages::InvalidLabCreationDateType} */
     const InvalidLabCreationDateType = 500;
     /** {@see ExceptionMessages::InvalidLabCreatedByType} */
@@ -552,10 +584,6 @@ class ExceptionCodes
     const InvalidLabLastUpdatedType = 500;
     /** {@see ExceptionMessages::InvalidLabUpdatedByType} */
     const InvalidLabUpdatedByType = 500;
-    /** {@see ExceptionMessages::InvalidLabPositioningType} */
-    const InvalidLabPositioningType = 500;
-    /** {@see ExceptionMessages::InvalidLabCommentsType} */
-    const InvalidLabCommentsType = 500;
     /** {@see ExceptionMessages::AlreadyLabSubmittedActiveValue} */  
     const AlreadyLabSubmittedActiveValue = 500;
     /** {@see ExceptionMessages::AlreadyLabSubmittedInitialValue} */  
@@ -1693,7 +1721,7 @@ class ExceptionCodes
     const NotFoundUserPermissions = 607;
     /** {@see ExceptionMessages::NotFoundFullSchoolUnitDnsName} */  
     const NotFoundFullSchoolUnitDnsName = 608;
-    /** {@see ExceptionMessages::DuplicateFullSchoolUnitDnsName} */  
+    /** {@see ExceptionMessages::DuplicateFullSchoolUnitDnsName} */ 
     const DuplicateFullSchoolUnitDnsName = 609;
     /** {@see ExceptionMessages::MissingLdapLattribute} */  
     const MissingLdapLAttribute = 610;

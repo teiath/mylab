@@ -17,7 +17,7 @@
     
     //mmsch parameters
     $params = array(
-    //"mm_id" => "1016860",
+    "mm_id" => "1011695",
     "legal_character" => 1, //"ΔΗΜΟΣΙΟ",
     "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
@@ -29,7 +29,7 @@
     
     $all_logs = array();
     $check_total_download = 0;
-    $circuit_success=$circuit_failure=$worker_failure=$worker_success=$school_unit_worker_success=$school_unit_worker_failure=0; 
+    $lab_transition_success=$lab_transition_failure=$circuit_success=$circuit_failure=$worker_failure=$worker_success=$school_unit_worker_success=$school_unit_worker_failure=0; 
     
     //init and start timer
     $timer=new Timing;
@@ -295,14 +295,22 @@ try{
                              foreach ($findLabs as $findLab) {
                                  $fLabSchoolUnitId = $findLab->getSchoolUnit()->getSchoolUnitId();
                                  $fLabId = $findLab->getLabId(); 
-                                 $fLabStateId = $findLab->getState()->getStateId();
-
+                                 $fLabStateId = Validator::IsNull($findLab->getState()) ? Validator::ToNull() : $findLab->getState()->getStateId();
+                                 $fLabSubmitted = $findLab->getSubmitted();
+                                 
                                  //check if updated school unit has different state value from lab state
-                                 if ( ($fLabStateId !== $fSchoolUnitStateId ) && ($fLabStateId != 3) )  {
-
+//                                   if (($fSchoolUnitStateId == 1) && ($fLabStateId==1)) {$toState = 1;}
+//                                   if (($fSchoolUnitStateId == 1) && ($fLabStateId==2)) {$toState = 2;}
+//                                   if (($fSchoolUnitStateId == 2) && ($fLabStateId==1)) {$toState = 3;}
+//                                   if (($fSchoolUnitStateId == 2) && ($fLabStateId==2)) {$toState = 3;}
+//                                   if (($fSchoolUnitStateId == 3) && ($fLabStateId==1)) {$toState = 3;}
+//                                   if (($fSchoolUnitStateId == 3) && ($fLabStateId==2)) {$toState = 3;}
+                                 //if ( ($fLabStateId !== $fSchoolUnitStateId ) && ($fLabStateId != 3) )  {
+                                   if (($fLabSubmitted == true) && ($fSchoolUnitStateId == 3 || $fSchoolUnitStateId == 2) && ($fLabStateId != 3) )  {
+                                                           
                                      //mmsch parameters
                                      $params_transitions = array("lab_id" => $fLabId,
-                                                                "state" => 3,//$fSchoolUnitStateId 
+                                                                "state" => "3",//$fSchoolUnitStateId 
                                                                 "transition_date" => date('Y-m-d H:i:s'),
                                                                 "transition_justification" => "Αλλαγή Κατάστασης με βάση των συγχρονισμό σχολικών μονάδων",
                                                                 "transition_source" => "mmsch"
@@ -313,16 +321,21 @@ try{
 
                                      if ($data_transitions["status"] != 200){
                                          $error_messages["errors"][] = $data_transitions["message"] . " Κωδικός Σχολικής Μονάδας : " . $fLabSchoolUnitId . " Κωδικός Εργαστηρίου : " . $fLabId; 
+                                                                          
+                                         if ($fLabStateId == null){
+                                           $error_messages["errors"][] =  "Δεν έχει δωθεί λειτουργική κατάσταση στο εργαστήριο παρόλο που έχει υποβληθεί οριστικά.Κωδικός Σχολικής Μονάδας : " . $fLabSchoolUnitId . " Κωδικός Εργαστηρίου : " . $fLabId; 
+                                         }
+                                         
+                                         $lab_transition_failure++;
                                      } else {
+                                         $lab_transition_success++;
                                          echo  "Changed lab state of lab_id = " . $fLabId . " from school_unit_id " .$fLabSchoolUnitId . "\n";
                                      }
 
                                  }
 
                              }
-            
-    
-                            
+                                     
         } else if ($status === 'CREATE'){
 
             $inserts++;
@@ -479,33 +492,50 @@ try{
     }
           
     $timer->stop();
-    $results["time_stats"] = $timer->getFullStats();  
+    $results["time_stats"] = $timer->getFullStats();
+    $results["infos"] = "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n".
+                        "Εισαγωγή " . $results["all_logs"]["all_inserts"] . " στοιχεία από το mmsch [INSERT] \n" .
+                        "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch [UPDATE] \n\n" .
+                        "Βρέθηκαν " . $results["all_logs"]["all_ignore_updates"] . " ενημερωμένες εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE UPDATES] \n\n" .
+                        "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch [ERRORS] \n" .
+                        "Βρέθηκαν " . $results["all_logs"]["all_garbages"] . " δοκιμαστικές εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE GARBAGES] \n" .
+                        "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch [CRITICAL ERRORS] \n" .
+                        "Πραγματοποιήθηκαν " . $lab_transition_success ." επιτυχής ενημερώσεις για τις μεταβάσεις λειτουργικών καταστάσεων ενός εργαστηρίου [LAB TRANSITIONS SUCCESS] \n" .
+                        "Πραγματοποιήθηκαν " . $lab_transition_failure ." ανεπιτυχής ενημερώσεις για τις μεταβάσεις λειτουργικών καταστάσεων ενός εργαστηρίου [LAB TRANSITIONS FAILURE] \n" .
+                        "Βρέθηκαν " . $circuit_success . " δημιουργιες/ενημερωσεις κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT SUCCESS] \n" .
+                        "Βρέθηκαν " . $circuit_failure . " λαθη/μη αναμενομενα λαθη κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT FAILURE] \n" .
+                        "Βρέθηκαν " . $worker_success . " δημιουργιες/ενημερωσεις εργαζόμενων για το συγχρονισμό με το mmsch [WORKER SUCCESS] \n" .
+                        "Βρέθηκαν " . $worker_failure . " λαθη/μη αναμενομενα λαθη εργαζόμενων για το συγχρονισμό με το mmsch [WORKER FAILURE] \n" .
+                        "Βρέθηκαν " . $school_unit_worker_success . " δημιουργιες/ενημερωσεις συσχετισης εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER SUCCESS] \n" .
+                        "Βρέθηκαν " . $school_unit_worker_failure . " λαθη/μη αναμενομενα λαθη εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER FAILURE] \n" ;
+    
     
     $print_results = array_merge($result_block,$results);
 
     //echo JsonFunctions::toGreek(json_encode($print_results),TRUE);
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
-    $filename = $timer->getTimeFileName('school_units');
+    $filepath = $Options["SyncLogFolder"];
+    $filename = $timer->getTimeFileName('school_units_complete');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
-    $href = $Options["SyncFolder"].$filename;
+    $href = $Options["WebSyncFolder"].$filename;
 
     echo $timer->printFullStats();
-    echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;
-    echo "Εισαγωγή " . $results["all_logs"]["all_inserts"] . " στοιχεία από το mmsch [INSERT] \n" ;
-    echo "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch [UPDATE] \n\n" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_ignore_updates"] . " ενημερωμένες εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE UPDATES] \n\n" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch [ERRORS] \n" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_garbages"] . " δοκιμαστικές εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE GARBAGES] \n" ;
-    echo "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch [CRITICAL ERRORS] \n" ;
-        echo "Βρέθηκαν " . $circuit_success . " δημιουργιες/ενημερωσεις κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT SUCCESS] \n" ;
-        echo "Βρέθηκαν " . $circuit_failure . " λαθη/μη αναμενομενα λαθη κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT FAILURE] \n" ;
-        echo "Βρέθηκαν " . $worker_success . " δημιουργιες/ενημερωσεις εργαζόμενων για το συγχρονισμό με το mmsch [WORKER SUCCESS] \n" ;
-        echo "Βρέθηκαν " . $worker_failure . " λαθη/μη αναμενομενα λαθη εργαζόμενων για το συγχρονισμό με το mmsch [WORKER FAILURE] \n" ;
-        echo "Βρέθηκαν " . $school_unit_worker_success . " δημιουργιες/ενημερωσεις συσχετισης εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER SUCCESS] \n" ;
-        echo "Βρέθηκαν " . $school_unit_worker_failure . " λαθη/μη αναμενομενα λαθη εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER FAILURE] \n" ;
+    echo $results["infos"];
+//    echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;
+//    echo "Εισαγωγή " . $results["all_logs"]["all_inserts"] . " στοιχεία από το mmsch [INSERT] \n" ;
+//    echo "Ενημερώθηκαν " . $results["all_logs"]["all_updates"] . " στοιχεία από το mmsch [UPDATE] \n\n" ;
+//    echo "Βρέθηκαν " . $results["all_logs"]["all_ignore_updates"] . " ενημερωμένες εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE UPDATES] \n\n" ;
+//    echo "Βρέθηκαν " . $results["all_logs"]["all_errors"] . " προειδοποιήσεις για το συγχρονισμό με το mmsch [ERRORS] \n" ;
+//    echo "Βρέθηκαν " . $results["all_logs"]["all_garbages"] . " δοκιμαστικές εγγραφές κατά το συγχρονισμό με το mmsch  και αγνοήθηκαν [IGNORE GARBAGES] \n" ;
+//    echo "Βρέθηκαν " . $results["all_logs"]["all_unexpected_errors"] . " κρίσιμα λάθη για το συγχρονισμό με το mmsch [CRITICAL ERRORS] \n" ;
+//        echo "Βρέθηκαν " . $circuit_success . " δημιουργιες/ενημερωσεις κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT SUCCESS] \n" ;
+//        echo "Βρέθηκαν " . $circuit_failure . " λαθη/μη αναμενομενα λαθη κυκλωματων για το συγχρονισμό με το mmsch [CΙRCUIT FAILURE] \n" ;
+//        echo "Βρέθηκαν " . $worker_success . " δημιουργιες/ενημερωσεις εργαζόμενων για το συγχρονισμό με το mmsch [WORKER SUCCESS] \n" ;
+//        echo "Βρέθηκαν " . $worker_failure . " λαθη/μη αναμενομενα λαθη εργαζόμενων για το συγχρονισμό με το mmsch [WORKER FAILURE] \n" ;
+//        echo "Βρέθηκαν " . $school_unit_worker_success . " δημιουργιες/ενημερωσεις συσχετισης εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER SUCCESS] \n" ;
+//        echo "Βρέθηκαν " . $school_unit_worker_failure . " λαθη/μη αναμενομενα λαθη εργαζομενων-μονάδας για το συγχρονισμό με το mmsch [SCHOOL UNIT WORKER FAILURE] \n" ;
     echo "\n Finished Sync School_Units table. View results at " . $href . "\n";
     
 } catch (Exception $e) {

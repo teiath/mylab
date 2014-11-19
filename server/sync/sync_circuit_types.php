@@ -10,7 +10,7 @@
     header("Content-Type: text/html; charset=utf-8");
     
     chdir("../");
-    require_once('/system/includes.php');
+    require_once('system/includes.php');
     
     global $Options; 
     global $entityManager;
@@ -28,7 +28,7 @@
     $timer->start();
     
 try{ 
-    echo 'Starting Sync Circuit Types table';
+    echo 'Starting Sync Circuit Types table.';
 
     do{ 
         
@@ -38,7 +38,7 @@ try{
 //start api request and return a block of data==================================
 //==============================================================================
         
-        $data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'circuit_types', 'GET', $params);
+        //$data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'circuit_types', 'GET', $params);
 
         //log general infos from received data of the mmsch
         $results["sync_table"] = "CircuitTypes";
@@ -204,12 +204,12 @@ try{
     
     $print_results = array_merge($result_block,$results);
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName('circuit_types');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
-    $href = $Options["SyncFolder"].$filename;
+    $href = $Options["WebSyncFolder"].$filename;
    
     echo $timer->printFullStats();
     echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch </br>" ;

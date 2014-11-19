@@ -26,7 +26,7 @@
     $timer->start();
     
 try{ 
-    echo "Starting Sync ONLY NULL Unit Dns field of School_Units table \n\n";   
+    echo "Starting Sync ONLY NULL Unit Dns field of School_Units table.";   
  
     do{ 
         
@@ -211,12 +211,12 @@ try{
     $print_results = array_merge($result_block,$results);
 
     
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName('null_school_units_dns');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
-    $href = $Options["SyncFolder"].$filename;
+    $href = $Options["WebSyncFolder"].$filename;
   
     echo $timer->printFullStats();
     echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;//todo must change, because shown the last total results
