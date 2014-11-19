@@ -30,7 +30,7 @@
     //$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
     $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
     
-    
+       
 ?>
 
 <!DOCTYPE html>
@@ -43,9 +43,8 @@
         <script>
             
             var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
-            var user_url = encodeURIComponent(JSON.stringify(user));
             var authorized_user;
-            
+                       
         </script>
             
         <?php require_once('includes.html'); ?> 
@@ -64,12 +63,7 @@
                 });
                 
                 
-                /*
-                 * H user_permits καλείται με παράμετρο τη user και επιστρέφει
-                 * 1)user_role
-                 * 2)user_permissions(permit_labs, permit_school_units)
-                 * 3)user_infos (με τα οποία πληθυσμώνεται η καρτέλα 'Σχετικά')
-                 */
+                /* H user_permits χρησιμοποιείται για να πάρουμε το user_role */
                 $.ajax({
                         type: 'GET',
                         url: baseURL + 'user_permits',
@@ -78,17 +72,46 @@
                             if(data.status === 200){
                                 
                                 authorized_user = data.data[0].user_role;
+                                $("#myformId>input#authorized_user").val(authorized_user); //initialize form's hidden field, which holds authorized_user value                             
                                 
-                                if(data.data[0].user_role === "ΣΕΠΕΗΥ" && data.data[0].user_permissions.permit_labs.length === 0 ){
-                                    $("#mylab_authentication_message_pane").html("Εχετε συνδεθεί επιτυχώς στην Υπηρεσία myLab. <br><br> <span style='color:red'>Προσοχή: Δεν έχετε οριστεί Υπεύθυνος σε καμία Διάταξη Η/Υ, από τον αρμόδιο Διευθυντή της Σχολικής σας Μονάδας (ή των Σχολικών σας Μονάδων). Ως εκ τούτου η Διάταξη (ή οι Διατάξεις) σας δεν θα εμφανίζονται στην Υπηρεσία myLab κάτω από το λογαριασμό σας.</span> <br><br> Αν δεν επιθυμείτε να παραμείνετε στην Υπηρεσία πατήστε Αποσύνδεση. Ανακατεύθυνση σε <span id='countdown'> </span>... <i class='fa fa-spinner fa-spin'></i>");
-                                    countDown(10); //in sec
+                                if((data.data[0].user_role === "ΣΕΠΕΗΥ" || data.data[0].user_role === "ΕΤΠ") && data.data[0].user_permissions.permit_labs.length === 0 ){
+                                    $("#mylab_authentication_message_pane").html("<div style='float:left; padding:0px 15px; margin-right:15px;'>\
+                                                                                    <i class='fa fa-lock fa-5x'></i>\
+                                                                                  </div>\
+                                                                                  <div>\
+                                                                                    <p style='font-size:17px;'>\
+                                                                                        Δεν υπάρχουν Διατάξεις Η/Υ μέσα στην Υπηρεσία myLab στις οποίες να \
+                                                                                        έχετε οριστεί ως Υπεύθυνος. Ως εκ τούτου, η πρόσβαση στην Υπηρεσία \
+                                                                                        δεν ειναι προς το παρόν εφικτή. Παρακαλώ επικοινωνείστε με τον αρμόδιο \
+                                                                                        Διευθυντή Σχολικής Μονάδας ή Υπεύθυνο Τομέα ΕΚ, για την πραγματοποίηση \
+                                                                                        του σχετικού ορισμού και ξαναπροσπαθήστε να συνδεθείτε.\
+                                                                                    </p>\
+                                                                                  </div>").css("padding", "20px");
                                 }else{
-                                    $("#mylab_authentication_message_pane").html("Εχετε συνδεθεί επιτυχώς στην Υπηρεσία myLab. Ανακατεύθυνση σε <span id='countdown'> </span>... <i class='fa fa-spinner fa-spin'></i>");
+                                    $("#mylab_authentication_message_pane").html("<div style='float:left; padding:0px 15px; margin-right:15px;'>\
+                                                                                    <i class='fa fa-unlock fa-5x'></i>\
+                                                                                  </div>\
+                                                                                  <div>\
+                                                                                    <p style='font-size:17px;'>\
+                                                                                        Εχετε συνδεθεί επιτυχώς στην Υπηρεσία myLab. Ανακατεύθυνση σε\
+                                                                                        <span id='countdown'> </span> ... <i class='fa fa-spinner fa-spin'></i>\
+                                                                                    </p>\
+                                                                                 </div>").css("padding", "20px");
                                     countDown(3); //in sec
                                 }
                                 
                             }else if(data.status === 601){
-                                $("#mylab_authentication_message_pane").html("[Σφάλμα " + data.status + "] Η Υπηρεσιακή Ιδιότητα του χρήστη δεν ικανοποιεί τα κριτήρια εισόδου στην Υπηρεσία myLab.");                                                               
+                                $("#mylab_authentication_message_pane").html("<div style='float:left; padding:0px 15px; margin-right:15px;'>\
+                                                                                <i class='fa fa-lock fa-5x'></i>\
+                                                                              </div>\
+                                                                              <div>\
+                                                                                <p style='font-size:17px;'>\
+                                                                                    Η Υπηρεσιακή σας Ιδιότητα δεν ικανοποιεί τα κριτήρια εισόδου \
+                                                                                    στην Υπηρεσία myLab. Αν θεωρείτε ότι αυτό ειναι λάθος, παρακαλώ \
+                                                                                    ελέγξτε αν η Υπηρεσιακή Ιδιότητα στο προφίλ σας στο www.sch.gr ειναι \
+                                                                                    ενημερωμένη.\
+                                                                                </p>\
+                                                                              </div>").css("padding", "20px");                                                              
                             }
                         },
                         error: function(data){ console.log("user_permits in toHome.php failed : ", data);}
@@ -101,12 +124,14 @@
                     $("#countdown").text(Math.floor(endTime));
                     setTimeout(function () { countDown(endTime - 1); }, 1000);
                 }else{
-                    window.open(config.url + "home.php?authorized_user=" + authorized_user , "_self");
-                    
+                    submitform();
                 }
-            } 
+            }
             
-            
+            function submitform(){
+                document.myform.submit();
+            }
+                       
         </script>
      
     </head>
@@ -144,10 +169,13 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p id="mylab_authentication_message_pane"></p>
-                                    <br>
+                                    <div id="mylab_authentication_message_pane"></div>
                                 </div>				
                             </div>
+                            
+                            <form id="myformId" name="myform" method="POST" action="home.php">
+                                <input id='authorized_user' type="hidden" name='authorized_user' />
+                            </form>
                             
                             <div class="row">
                                 <div class="col-md-12">
@@ -169,7 +197,6 @@
                                     
 
                         </div>
-
                     </div>
                 </div>
 

@@ -84,7 +84,7 @@
         $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideYpaith}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
     }
      
-    var g_casUrl = "<?php echo $casOptions['Url'] ?>";
+    //var g_casUrl = "<?php //echo $casOptions['Url'] ?>";
 
     // Build logout link
     $("#lnkLogout").attr("href", config.url + "home.php?logout=true");

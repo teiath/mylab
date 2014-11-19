@@ -1,7 +1,8 @@
 <?php 
 
-    $authorized_user = $_GET['authorized_user']; //get authorized_user from toHome.php
-    
+    $authorized_user = $_POST['authorized_user']; //get authorized_user from toHome.php
+    //$user = objectToArray(json_decode($_POST['user']));
+ 
     //psd user authentication to front-end
 
     require_once ('server/system/config.php');
@@ -32,6 +33,10 @@
 
     //$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
     $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
+        
+//    echo "<pre>";
+//    var_dump($user); exit();
+//    echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -44,14 +49,13 @@
             
             var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
             var user_url = encodeURIComponent(JSON.stringify(user));
-            
+            var authorized_user= <?php echo json_encode($authorized_user); ?>;
+                        
             var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ", "ΠΣΔ"];
             var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ", "ΕΤΠ"];
             var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
             var transit_lab = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
             var create_lab = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
-
-            var authorized_user= <?php echo json_encode($authorized_user); ?>;
 
         </script>
             
@@ -114,29 +118,7 @@
                         template: $("#successTemplate").html()
                     }]
 
-                }).data("kendoNotification");
-                
-                pinned_notification = $("#notification").kendoNotification({
-                    position: {
-                        pinned: true,
-                        top: 70,
-                        right: 30
-                    },
-                    //allowHideAfter: 2000,
-                    autoHideAfter: 0,
-                    hideOnClick: true,
-                    stacking: "down",
-                    //button: true, //??? γιατι δεν παίζει?
-                    templates: [{
-                        type: "error",
-                        template: $("#errorTemplate").html()
-                    }, {
-                        //type: "upload-success",
-                        type: "success",
-                        template: $("#successTemplate").html()
-                    }]
-
-                }).data("kendoNotification");                
+                }).data("kendoNotification");             
                 
                 //SCROLL-TOP
                 //depending on the .scrollTop() value fade in or out the scroll-to-top img
@@ -174,33 +156,6 @@
                                 InfoVM.set("email", data.data[0].user_infos.email);
                                 InfoVM.set("address", data.data[0].user_infos.street_address);
                             }
-//                            console.log("data: ", data);
-//                            //έλεγχος αν ο χρήστης ανήκει σε κάποια από τις ομάδες χρηστών (ΔΙΕΥΘΥΝΤΗΣ, ΣΕΠΕΗΥ, ΚΕΠΛΗΝΕΤ, ΠΣΔ, ΥΠΑΙΘ, ΤΟΜΕΑΡΧΗΣ, ΕΤΠ)
-//                            ΟΚ if (data.status === 200 && data.data[0].user_role === "noAccess"){
-//                                pinned_notification.show({
-//                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
-//                                    message: "Δεν πληρούνται τα απαραίτητα δικαιώματα πρόσβασης στην υπηρεσία."
-//                                }, "error");
-//                            ΟΚ }else if(data.data[0].user_role === "ΣΕΠΕΗΥ" && data.data[0].user_permissions.permit_labs.length === 0 ){
-//                                pinned_notification.show({
-//                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
-//                                    message: "Ο Διευθυντής της Σχολικής σας Μονάδας δεν σας έχει ορίσει ως Υπεύθυνο στην Υπηρεσία myLab"
-//                                }, "error");
-//                            }else if(data.status === 500){
-//                                pinned_notification.show({
-//                                    title: "Η λήψη δεδομένων από την υπηρεσία myLab δεν ειναι εφικτή",
-//                                    message: data.message
-//                                }, "error");
-//                            }else{
-//                                InfoVM.set("user", data.data[0].user_infos.user_name);
-//                                InfoVM.set("role", data.data[0].user_infos.ldap_role);
-//                                InfoVM.set("unit", data.data[0].user_infos.user_unit);
-//                                InfoVM.set("phone", data.data[0].user_infos.phone_number);
-//                                InfoVM.set("fax", data.data[0].user_infos.fax_number);
-//                                InfoVM.set("email", data.data[0].user_infos.email);
-//                                InfoVM.set("address", data.data[0].user_infos.street_address);
-//                            }
-
                         },
                         error: function (data){ console.log("GET user_permits error data: ", data);}
                 });
