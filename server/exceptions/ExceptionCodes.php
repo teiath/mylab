@@ -21,15 +21,15 @@ class ExceptionCodes
     //general messages 
     
         const NoErrors = 200;
-        const UserNoRoleAccess = 500;
-        const UserAccesDenied = 500;
-        const UserAccesFrontDenied = 500;
-        const UserAccesEmptyDenied = 500;
-        const UserNoRolePermissions = 500;
+        const UserNoRoleAccess = 601;
+        const UserAccesDenied = 602;
+        const UserAccesFrontDenied = 603;
+        const UserAccesEmptyDenied = 604;
+        const UserNoRolePermissions = 605;
         const MethodNotFound = 500;
         const FunctionNotFound = 500;
 
-        const Unauthorized = 500;
+        const Unauthorized = 600;
         
         /** {@see ExceptionMessages::MissingXAxisParam} */
         const MissingXAxisParam = 500;
@@ -1687,27 +1687,27 @@ class ExceptionCodes
     
      //authentication roles 
     /** {@see ExceptionMessages::NoPermissionsError} */  
-    const NoPermissionsError = 500;
+    const NoPermissionsError = 606;
     
     /** {@see ExceptionMessages::NotFoundUserPermissions} */      
-    const NotFoundUserPermissions = 500;
+    const NotFoundUserPermissions = 607;
     /** {@see ExceptionMessages::NotFoundFullSchoolUnitDnsName} */  
-    const NotFoundFullSchoolUnitDnsName = 500;
+    const NotFoundFullSchoolUnitDnsName = 608;
     /** {@see ExceptionMessages::DuplicateFullSchoolUnitDnsName} */  
-    const DuplicateFullSchoolUnitDnsName = 500;
+    const DuplicateFullSchoolUnitDnsName = 609;
     /** {@see ExceptionMessages::MissingLdapLattribute} */  
-    const MissingLdapLAttribute = 500;
+    const MissingLdapLAttribute = 610;
     /** {@see ExceptionMessages::MissingLdapEmployeeNumberAttribute} */   
-    const MissingLdapEmployeeNumberAttribute = 500;
+    const MissingLdapEmployeeNumberAttribute = 611;
     
     /** {@see ExceptionMessages::NoPermissionToPost} */   
-    const NoPermissionToPostLab = 500;
+    const NoPermissionToPostLab = 612;
     /** {@see ExceptionMessages::NoPermissionToPut} */   
-    const NoPermissionToPutLab = 500;
+    const NoPermissionToPutLab = 613;
     /** {@see ExceptionMessages::NoPermissionToDelete} */   
-    const NoPermissionToDeleteLab = 500;
+    const NoPermissionToDeleteLab = 614;
     /** {@see ExceptionMessages::NoPermissionToGet} */   
-    const NoPermissionToGetLab = 500;
+    const NoPermissionToGetLab = 615;
    
      //reports  
     /** {@see ExceptionMessages::ErrorEduAdminReportKeplhnet} */ 
