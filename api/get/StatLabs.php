@@ -273,9 +273,9 @@ function StatLabs(
                 if ( Validator::isNull($values) )
                     $paramFilters[] = "$table_name.$table_column_name is null";
                 else if ( $values==1 )
-                    $paramFilters[] = "$table_name.$table_column_name like '". $db->quote( Validator::toValue($values) )."'";
+                    $paramFilters[] = "$table_name.$table_column_name like ". $db->quote( Validator::toValue($values) );
                 else if ($values==3 )
-                    $paramFilters[] = "$table_name.$table_column_name like '". $db->quote( Validator::toValue($values) )."'";
+                    $paramFilters[] = "$table_name.$table_column_name like ". $db->quote( Validator::toValue($values) );
                 else
                     throw new Exception(ExceptionMessages::InvalidLabWorkerStatusType." : ".$values, ExceptionCodes::InvalidLabWorkerStatusType);
             }
