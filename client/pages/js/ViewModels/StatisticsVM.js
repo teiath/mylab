@@ -56,6 +56,7 @@ var StatisticsVM = kendo.observable({
         this.set("lab_state", "");
         this.set("operational_rating", "");
         this.set("technological_rating", "");
+        this.set("has_lab_worker", "");
         
         this.set("school_unit_type", "");
         this.set("education_level", "");
