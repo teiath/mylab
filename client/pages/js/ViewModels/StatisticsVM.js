@@ -24,6 +24,7 @@ var StatisticsVM = kendo.observable({
     lab_states_ds: newStatesDS(),
    
     lab_rating_ds: newRatingDS(),
+    has_lab_worker_ds: new kendo.data.DataSource({ data: [ {id: 1, name: "ναι" }, { id: 3, name: "όχι" }] }),
     
     x_axis: "",
     y_axis: "",
