@@ -156,12 +156,14 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
                     $lab_num = explode(".",$checkCountLab->getName());
                     $matches = explode(" -",$lab_num[1]);
                     $all_nums[] = $matches[0];
+                    
                 }  
-               
-                //create lab name 
+                            
+                //create lab name                
+                if (validator::IsEmptyArray($all_nums)){$all_nums[]=0;}
                 $max_lab= max($all_nums);
                 $lab_name = 'ΑΡΧΙΚΟ - ' . $fLabTypeName. '.' . ++$max_lab . ' - ' . $fSchoolUnitName;
-
+   
                 if (Validator::isNull($lab_name))
                     throw new Exception(ExceptionMessages::MissingLabNameValue." : ".$lab_name, ExceptionCodes::MissingLabNameValue); 
                 else if (Validator::IsArray($lab_name))
