@@ -17,7 +17,7 @@
     
     //mmsch parameters
     $params = array(
-    "mm_id" => "1011695",
+    //"mm_id" => "1011695",
     "legal_character" => 1, //"ΔΗΜΟΣΙΟ",
     "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
