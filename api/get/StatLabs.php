@@ -10,7 +10,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function StatLabs(
     $x_axis, $y_axis, $operational_rating, $technological_rating, 
-    $lab_type, $lab_state,
+    $lab_type, $lab_state, $has_lab_worker,
     $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture, $education_level, $school_unit_type, $school_unit_state
     )
 {
@@ -254,6 +254,32 @@ function StatLabs(
             $filter[] = "(" . implode(" OR ", $paramFilters) . ")";
             $join_filter[]  = " JOIN states $table_name ON labs.$table_column_id = $table_name.$table_column_id";
             
+        }
+//======================================================================================================================
+//= $has_lab_worker
+//======================================================================================================================
+        if ( Validator::Exists('has_lab_worker', $params) )
+        {
+            $table_name = "lab_workers";
+            $table_column_id = "lab_id";
+            $table_column_name = "worker_status";
+            
+            $param = Validator::toArray($has_lab_worker);
+
+            $paramFilters = array();
+
+            foreach ($param as $values)
+            {
+                if ( Validator::isNull($values) )
+                    $paramFilters[] = "$table_name.$table_column_name is null";
+                else if ( $values==1 ||  $values==3 )
+                    $paramFilters[] = "$table_name.$table_column_name = ". $db->quote( Validator::toValue($values) );
+                else
+                    throw new Exception(ExceptionMessages::InvalidLabWorkerStatusType." : ".$values, ExceptionCodes::InvalidLabWorkerStatusType);
+            }
+
+            $filter[] = "(" . implode(" OR ", $paramFilters) . ")";
+            $join_filter[]  = " JOIN $table_name ON labs.$table_column_id = $table_name.$table_column_id";       
         }
 
 //======================================================================================================================
@@ -512,7 +538,7 @@ function StatLabs(
         $join_filter = array_unique($join_filter);
         //var_dump($join_filter);die();
         
-        $sqlSelect = "SELECT  $field_x_axis as $name_x_axis, $field_y_axis as $name_y_axis, count(lab_id) as total_labs ";
+        $sqlSelect = "SELECT  $field_x_axis as $name_x_axis, $field_y_axis as $name_y_axis, count(labs.lab_id) as total_labs ";
            
         $sqlFrom = "FROM labs";
         $sqlFilter = (count($join_filter) > 0 ? implode("", $join_filter) : "" );

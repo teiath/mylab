@@ -78,6 +78,7 @@ $app->map('/relation_types', Authentication, UserRolesPermission, RelationTypesC
 
 //extra GET functions
 $app->map('/user_permits', Authentication, UserRolesPermission, UserPermitsController)->via(MethodTypes::GET);
+$app->map('/ldap_workers', Authentication, UserRolesPermission, LdapWorkerController)->via(MethodTypes::GET);
 $app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
 $app->map('/search_school_units', Authentication, UserRolesPermission, SearchSchoolUnitsController)->via(MethodTypes::GET);
 $app->map('/search_labs', Authentication, UserRolesPermission, SearchLabsController)->via(MethodTypes::GET);
@@ -155,7 +156,7 @@ function Authentication()
                 $ldap = new \Zend\Ldap\Ldap($ldapOptions);// print_r($ldap);die();
                 $ldap->bind('uid='.$app->request->headers['Php-Auth-User'].',ou=people,dc=sch,dc=gr', $app->request->headers['Php-Auth-Pw']);
                 $result = $ldap->search('(&(objectClass=*)(uid='.$app->request->headers['Php-Auth-User'].'))', null, \Zend\Ldap\Ldap::SEARCH_SCOPE_ONE);
-            
+ 
                 if($result->count() == 1) {
                     $userObj = $result->getFirst();
                     apc_store($apcKey, $userObj, 3600); // Cache for 1 hour to prevent requests on every call
@@ -1382,6 +1383,25 @@ function UserPermitsController()
 
 }
 
+function LdapWorkerController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = GetLdapWorkers(
+                $params["uid"]
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
 function ReportKeplhnetController()
 {
     global $app;
@@ -1689,6 +1709,7 @@ function StatLabsController()
                 $params["technological_rating"],
                 $params["lab_type"],
                 $params["lab_state"],
+                $params["has_lab_worker"],  
                 $params["region_edu_admin"],
                 $params["edu_admin"],
                 $params["transfer_area"],
