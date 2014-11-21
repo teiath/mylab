@@ -24,6 +24,7 @@ var StatisticsVM = kendo.observable({
     lab_states_ds: newStatesDS(),
    
     lab_rating_ds: newRatingDS(),
+    has_lab_worker_ds: new kendo.data.DataSource({ data: [ {id: 1, name: "ναι" }, { id: 3, name: "όχι" }] }),
     
     x_axis: "",
     y_axis: "",
@@ -55,6 +56,7 @@ var StatisticsVM = kendo.observable({
         this.set("lab_state", "");
         this.set("operational_rating", "");
         this.set("technological_rating", "");
+        this.set("has_lab_worker", "");
         
         this.set("school_unit_type", "");
         this.set("education_level", "");
