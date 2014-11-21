@@ -469,6 +469,17 @@ class ExceptionCodes
 
         //references
         const ReferencesMyLabWorkerLabWorkers = 500;
+ 
+//= LdapWorkers
+
+    const MissingLdapWorkerUidParam = 500;
+    const MissingLdapWorkerUidValue = 500;
+    const InvalidLdapWorkerUidValue = 500;
+    const InvalidLdapWorkerUidType = 500;
+    const InvalidLdapWorkerUidArray = 500;
+    
+    const MultipleLdapWorkerUidValue = 500;
+    const NotAcceptedLdapWorkerPosition = 500;
     
 //Labs
         

@@ -299,7 +299,18 @@ class ExceptionMessages
 
         //references
         const ReferencesMyLabWorkerLabWorkers = 'Δεν είναι δυνατή η διαγραφή της εγγραφής, λόγω συσχετισμού με τον πίνακα LabWorkers .Διαγραψτε τις αντίστοιχες εγγραφές με χρήση api request DelLabWorkers ';
-       
+      
+//= LdapWorkers
+
+    const MissingLdapWorkerUidParam = 'Το UID του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingLdapWorkerUidValue = 'Το UID του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidLdapWorkerUidValue = 'Το UID του Εργαζομένου δεν βρέθηκε';
+    const InvalidLdapWorkerUidType = 'Το UID του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
+    const InvalidLdapWorkerUidArray = 'Το UID του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MultipleLdapWorkerUidValue = 'Ενημερώστε τον διαχειριστή! Το UID του Εργαζομένου βρέθηκε περισσότερες από μια φορές!!';
+    const NotAcceptedLdapWorkerPosition = 'Ο χρήστης δεν έχει την ιδιότητα υπεύθυνος εργαστηρίου στο ldap title ';
+    
 //Labs
         
     const MissingLabIDParam = 'Ο Κωδικός του Εργαστηρίου είναι υποχρεωτικό πεδίο';
