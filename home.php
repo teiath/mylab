@@ -1,13 +1,14 @@
 <?php 
 
-    $authorized_user = $_POST['authorized_user']; //get authorized_user from toHome.php
-    //$user = objectToArray(json_decode($_POST['user']));
- 
-    //psd user authentication to front-end
-
+    if (isset($_POST['authorized_user'])) {
+        $authorized_user = $_POST['authorized_user']; //get authorized_user from toHome.php
+    }else{
+        $authorized_user = null; //page refreshed, so authorized_user is not taken from toHome.php
+    }
+    
+    //ΠΣΔ user authentication to front-end
     require_once ('server/system/config.php');
     require_once ('server/libs/phpCAS/CAS.php');
-
 
     if(!isset($casOptions["NoAuth"]) || $casOptions["NoAuth"] != true) {
         //echo("eimai mesa stou index to if");
@@ -27,11 +28,8 @@
         }
         // at this step, the user has been authenticated by the CAS server and the user's login name can be read with //phpCAS::getUser(). for this test, simply print who is the authenticated user and his attributes.
         $user = phpCAS::getAttributes();
-
         //var_dump($user['title']);//die();
     }
-
-    //$user['backendAuthorizationHash'] = base64_encode($frontendOptions['backendUsername'].':'.$frontendOptions['backendPassword']);
     $user['backendAuthorizationHash'] = base64_encode($frontendOptions['frontendUsername'].':'.$frontendOptions['frontendPassword']);
         
 //    echo "<pre>";
@@ -44,13 +42,39 @@
     <head>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="client/config.js"></script>
+        <script src="client/libs/frameworks/telerik.kendoui.web.2014.1.318.open-source/js/jquery.js"></script>
 
         <script>
             
+            baseURL = config.serverUrl;//"http://mmsch.teiath.gr/mylab/api/";
             var user = JSON.parse(atob("<?php echo base64_encode(json_encode($user));?>"));
             var user_url = encodeURIComponent(JSON.stringify(user));
-            var authorized_user= <?php echo json_encode($authorized_user); ?>;
-                        
+            var authorized_user= <?php 
+                                    if( isset($authorized_user) ){ 
+                                        echo json_encode($authorized_user); 
+                                    }else{
+                                        echo json_encode(null);
+                                    } 
+                                ?>;
+            if(authorized_user === null){ // if user refreshed page home.php, make an additional user_permits request in order to populate authorized_user
+                $.ajax({
+                        type: 'GET',
+                        url: baseURL + 'user_permits',
+                        data: { user: user },
+                        dataType: "json",
+                        beforeSend: function(req) {
+                            req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
+                        },
+                        success: function(data){
+                            if (data.status === 200){
+                                authorized_user = data.data[0].user_role;
+                            }
+                        },
+                        error: function (data){ console.log("GET user_permits error data: ", data);}
+                });
+            }
+                              
             var search_xls = ["ΚΕΠΛΗΝΕΤ", "ΥΠΕΠΘ", "ΠΣΔ"];
             var edit_lab_details = ["ΣΕΠΕΗΥ", "ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ", "ΕΤΠ"];
             var edit_lab_worker = ["ΔΙΕΥΘΥΝΤΗΣ", "ΤΟΜΕΑΡΧΗΣ"];
@@ -70,9 +94,7 @@
                         req.setRequestHeader('Authorization', "Basic " + user.backendAuthorizationHash);
                     }
                 });
-
-                baseURL = config.serverUrl;//"http://mmsch.teiath.gr/mylab/api/";
-
+                
                 //BINDINGS
                 kendo.bind($("#labs_container"), LabsViewVM);
                 kendo.bind($("#labs_container").find(".k-grid-toolbar"), LabsViewVM);
@@ -135,20 +157,15 @@
                     $("html, body").animate({ scrollTop: 0 }, 600);
                     return false;
                 });
+                                
                 
-                
-                /*
-                 * H user_permits καλείται με παράμετρο τη user και επιστρέφει
-                 * 1)user_role
-                 * 2)user_permissions(permit_labs, permit_school_units)
-                 * 3)user_infos (με τα οποία πληθυσμώνεται η καρτέλα 'Σχετικά')
-                 */
+                /* call user_permits in order to populate user info  */
                 $.ajax({
                         type: 'GET',
                         url: baseURL + 'user_permits',
                         dataType: "json",
                         success: function(data){
-                            if (data.status === 200){       
+                            if (data.status === 200){
                                 InfoVM.set("user", data.data[0].user_infos.user_name);
                                 InfoVM.set("role", data.data[0].user_infos.ldap_role);
                                 InfoVM.set("unit", data.data[0].user_infos.user_unit);

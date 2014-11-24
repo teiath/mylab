@@ -63,7 +63,7 @@
                 });
                 
                 
-                /* H user_permits χρησιμοποιείται για να πάρουμε το user_role */
+                /* make a user_permits request in order to get user_role */
                 $.ajax({
                         type: 'GET',
                         url: baseURL + 'user_permits',
