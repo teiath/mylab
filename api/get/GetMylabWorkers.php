@@ -31,7 +31,7 @@ header("Content-Type: text/html; charset=utf-8");
  * @throws Exception
  */
 
-function GetMylabWorkers( $worker_id, $registry_no, $tax_number, $firstname, $lastname, $fathername, $sex,
+function GetMylabWorkers( $worker_id, $registry_no, $uid, $firstname, $lastname, $fathername,
                           $worker_specialization, $lab_source,
                           $worker,
                           $pagesize, $page, $searchtype, $ordertype, $orderby ) {
@@ -59,11 +59,10 @@ function GetMylabWorkers( $worker_id, $registry_no, $tax_number, $firstname, $la
        $columns = array(
                             "mlw.workerId" => "worker_id",
                             "mlw.registryNo" => "registry_no",
-                            "mlw.taxNumber" => "tax_number" ,
+                            "mlw.uid" => "uid" ,
                             "mlw.firstname" => "firstname",
                             "mlw.lastname" => "lastname",
                             "mlw.fathername" => "fathername",
-                            "mlw.sex" => "sex",
                             "ws.workerSpecializationId" => "worker_specialization_id",
                             "ws.name" => "worker_specialization_name",
                             "ls.labSourceId" => "lab_source_id",
@@ -89,9 +88,9 @@ function GetMylabWorkers( $worker_id, $registry_no, $tax_number, $firstname, $la
             CRUDUtils::setFilter($qb, $registry_no, "mlw", "registryNo", "registryNo", "numeric", ExceptionMessages::InvalidWorkerRegistryNoType, ExceptionCodes::InvalidWorkerRegistryNoType);    
         }
         
-//$tax_number===================================================================
-        if (Validator::Exists('tax_number', $params)){
-            CRUDUtils::setFilter($qb, $tax_number, "mlw", "taxNumber", "taxNumber", "null,numeric", ExceptionMessages::InvalidWorkerTaxNumberType, ExceptionCodes::InvalidWorkerTaxNumberType);    
+//$uid===================================================================
+        if (Validator::Exists('uid', $params)){
+            CRUDUtils::setFilter($qb, $uid, "mlw", "uid", "uid", "numeric", ExceptionMessages::InvalidWorkerUidType, ExceptionCodes::InvalidWorkerUidType);    
         } 
 
 //$firstname====================================================================
@@ -107,11 +106,6 @@ function GetMylabWorkers( $worker_id, $registry_no, $tax_number, $firstname, $la
 //$fathername===================================================================
         if (Validator::Exists('fathername', $params)){
             CRUDUtils::setSearchFilter($qb, $fathername, "w", "fathername", $searchtype, ExceptionMessages::InvalidWorkerFatherNameType, ExceptionCodes::InvalidWorkerFatherNameType);    
-        } 
-
-//$sex==========================================================================
-        if (Validator::Exists('sex', $params)){
-            CRUDUtils::setFilter($qb, $sex, "mlw", "sex", "sex", "null,value", ExceptionMessages::InvalidWorkerSexType, ExceptionCodes::InvalidWorkerSexType);    
         } 
 
 //$worker_specialization========================================================
@@ -154,11 +148,10 @@ function GetMylabWorkers( $worker_id, $registry_no, $tax_number, $firstname, $la
             $result["data"][] = array(
                                         "worker_id"        => $worker->getWorkerId(),
                                         "registry_no"      => $worker->getRegistryNo(),
-                                        "tax_number"       => $worker->getTaxNumber(),
+                                        "uid"              => $worker->getUid(),
                                         "firstname"        => $worker->getFirstname(),
                                         "lastname"         => $worker->getLastname(),
                                         "fathername"       => $worker->getFathername(),
-                                        "sex"              => $worker->getSex(),
                                         "worker_specialization"      => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getWorkerSpecializationId(),
                                         "worker_specialization_name" => Validator::IsNull($worker->getWorkerSpecialization()) ? Validator::ToNull() : $worker->getWorkerSpecialization()->getName(),
                                         "lab_source"      => Validator::IsNull($worker->getLabSource()) ? Validator::ToNull() : $worker->getLabSource()->getLabSourceId(),

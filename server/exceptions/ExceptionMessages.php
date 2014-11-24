@@ -185,6 +185,11 @@ class ExceptionMessages
     const InvalidWorkerTaxNumberType = 'Το ΑΦΜ του Εργαζομένου πρέπει να είναι αριθμητικός';
     const InvalidWorkerTaxNumberArray = 'Το ΑΦΜ του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
+    const MissingWorkerUidParam = 'Το Uid του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingWorkerUidValue = 'Το Uid του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidWorkerUidType = 'Το Uid του Εργαζομένου πρέπει να είναι αριθμητικός';
+    const InvalidWorkerUidArray = 'Το Uid του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
     const MissingWorkerLastnameParam = 'Το Επώνυμο του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingWorkerLastnameValue = 'Το Επώνυμο του Εργαζομένου πρέπει να έχει τιμή';
     const InvalidWorkerLastnameType = 'Το Επώνυμο του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
