@@ -261,25 +261,21 @@ function StatLabs(
         if ( Validator::Exists('has_lab_worker', $params) )
         {
             $table_name = "lab_workers";
-            $table_column_id = "lab_id";
-            $table_column_name = "worker_status";
+            $table_column_id = "worker_id";
+            $table_join_column_id = "lab_id";
+            $table_join_column_name = "worker_status";
             
-            $param = Validator::toArray($has_lab_worker);
-
             $paramFilters = array();
 
-            foreach ($param as $values)
-            {
-                if ( Validator::isNull($values) )
-                    $paramFilters[] = "$table_name.$table_column_name is null";
-                else if ( $values==1 ||  $values==3 )
-                    $paramFilters[] = "$table_name.$table_column_name = ". $db->quote( Validator::toValue($values) );
+                if ( $has_lab_worker == 1 )
+                    $paramFilters[] = "$table_name.$table_column_id is NOT NULL ";
+                else if ( $has_lab_worker == 3 )
+                    $paramFilters[] = "$table_name.$table_column_id is NULL ";
                 else
-                    throw new Exception(ExceptionMessages::InvalidLabWorkerStatusType." : ".$values, ExceptionCodes::InvalidLabWorkerStatusType);
-            }
+                    throw new Exception(ExceptionMessages::InvalidLabWorkerStatusType." : ".$has_lab_worker, ExceptionCodes::InvalidLabWorkerStatusType);
 
             $filter[] = "(" . implode(" OR ", $paramFilters) . ")";
-            $join_filter[]  = " JOIN $table_name ON labs.$table_column_id = $table_name.$table_column_id";       
+            $join_filter[]  = " LEFT JOIN (SELECT * FROM $table_name WHERE $table_join_column_name = 1) $table_name ON labs.$table_join_column_id = $table_name.$table_join_column_id";       
         }
 
 //======================================================================================================================
