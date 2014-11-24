@@ -31,10 +31,10 @@ class MylabWorkers
     /**
      * @var string
      *
-     * @ORM\Column(name="tax_number", type="string", length=255, nullable=true)
+     * @ORM\Column(name="uid", type="string", length=45, nullable=true)
      */
-    private $taxNumber;
-
+    private $uid;
+    
     /**
      * @var string
      *
@@ -55,13 +55,6 @@ class MylabWorkers
      * @ORM\Column(name="fathername", type="string", length=255, nullable=true)
      */
     private $fathername;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sex", type="string", length=1, nullable=true)
-     */
-    private $sex;
 
     /**
      * @var \WorkerSpecializations
@@ -101,14 +94,14 @@ class MylabWorkers
         $this->registryNo = $registryNo;
     }
 
-    public function getTaxNumber() {
-        return $this->taxNumber;
+    public function getUid() {
+        return $this->uid;
     }
 
-    public function setTaxNumber($taxNumber) {
-        $this->taxNumber = $taxNumber;
+    public function setUid($uid) {
+        $this->uid = $uid;
     }
-
+    
     public function getLastname() {
         return $this->lastname;
     }
@@ -131,14 +124,6 @@ class MylabWorkers
 
     public function setFathername($fathername) {
         $this->fathername = $fathername;
-    }
-
-    public function getSex() {
-        return $this->sex;
-    }
-
-    public function setSex($sex) {
-        $this->sex = $sex;
     }
 
     public function getWorkerSpecialization() {

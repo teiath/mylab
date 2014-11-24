@@ -279,6 +279,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidWorkerTaxNumberArray} */
     const InvalidWorkerTaxNumberArray = 500;
     
+    /** {@see ExceptionMessages::MissingWorkerUidParam} */
+    const MissingWorkerUidParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerUidValue} */
+    const MissingWorkerUidValue = 500;
+    /** {@see ExceptionMessages::InvalidWorkerUidType} */
+    const InvalidWorkerUidType = 500;
+    /** {@see ExceptionMessages::InvalidWorkerUidArray} */
+    const InvalidWorkerUidArray = 500;
+    
     /** {@see ExceptionMessages::MissingWorkerLastnameParam} */
     const MissingWorkerLastnameParam = 500;
     /** {@see ExceptionMessages::MissingWorkerLastnameValue} */
