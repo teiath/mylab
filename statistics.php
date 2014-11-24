@@ -122,17 +122,15 @@
                                 <label for="has_lab_worker">η Διάταξη έχει Υπεύθυνο</label>
                             </div>
                             <div class="col-md-11">
-                                <select id="sl_has_lab_worker" 
+                                <input id="sl_has_lab_worker" 
                                         name="has_lab_worker"
-                                        data-role="multiselect"
+                                        data-role="combobox"
                                         data-auto-bind="false"
                                         data-text-field="name"
                                         data-value-field="id"
                                         data-filter="contains"
                                         data-bind="source: has_lab_worker_ds, value: has_lab_worker"
-                                        data-placeholder="επιλέξτε από τη λίστα"
-                                        multiple="multiple">
-                                </select>
+                                        data-placeholder="επιλέξτε από τη λίστα"/>
                             </div>                            
 
                         </div>
