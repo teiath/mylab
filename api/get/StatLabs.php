@@ -266,10 +266,10 @@ function StatLabs(
             $table_join_column_name = "worker_status";
             
             $paramFilters = array();
-
-                if ( $has_lab_worker == 1 )
+//var_dump($has_lab_worker);die();
+                if (Validator::IsWorkerState($has_lab_worker) && $has_lab_worker == 1 )
                     $paramFilters[] = "$table_name.$table_column_id is NOT NULL ";
-                else if ( $has_lab_worker == 3 )
+                else if (Validator::IsWorkerState($has_lab_worker) && $has_lab_worker == 3 )
                     $paramFilters[] = "$table_name.$table_column_id is NULL ";
                 else
                     throw new Exception(ExceptionMessages::InvalidLabWorkerStatusType." : ".$has_lab_worker, ExceptionCodes::InvalidLabWorkerStatusType);
