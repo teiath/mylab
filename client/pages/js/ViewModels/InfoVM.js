@@ -1,6 +1,6 @@
 var InfoVM = kendo.observable({
 
-    isVisible: true,
+    isVisible: false,
     all_info: null,
     
     user: null,

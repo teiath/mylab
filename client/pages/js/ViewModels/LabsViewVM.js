@@ -1,6 +1,6 @@
 var LabsViewVM = kendo.observable({
 
-    isVisible: true,
+    isVisible: false,
     actionsColumnVisible: function(e){
             var hide = (jQuery.inArray(authorized_user, transit_lab) !== - 1) ? false : true;
             return hide;

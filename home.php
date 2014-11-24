@@ -96,6 +96,7 @@
                 
                 kendo.bind($("#mylab_navigation_bar"), NavBarVM);
                 
+//                kendo.bind($("#lab_workers_container"), LabWorkersViewVM);
                 
                 //NOTIFICATIONS
                 notification = $("#notification").kendoNotification({
@@ -182,6 +183,7 @@
                 require_once('search.html');  //search
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view
+//                require_once('lab_workers_view.php'); //lab workers view
                 require_once('statistics.php'); //statistics
                 require_once('info.php'); //info
         ?>
