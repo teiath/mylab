@@ -14,11 +14,10 @@ header("Content-Type: text/html; charset=utf-8");
  * @global type $app
  * @param type $worker_id
  * @param type $registry_no
- * @param type $tax_number
+ * @param type $uid
  * @param type $firstname
  * @param type $lastname
  * @param type $fathername
- * @param type $sex
  * @param type $worker_specialization
  * @param type $lab_source
  * @param Doctrine\ORM\Tools\Pagination\Paginator $worker
