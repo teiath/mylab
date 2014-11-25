@@ -1290,24 +1290,24 @@ function MylabWorkersController()
             break;
         case MethodTypes::POST :
             $result = PostMylabWorkers(
-                $params["registry_number"],
+                $params["registry_no"],
                 $params["uid"],
                 $params["firstname"],
                 $params["lastname"], 
                 $params["fathername"],
-                $params["specialization_code"],
+                $params["worker_specialization"],
                 $params["lab_source"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutMylabWorkers(
                 $params["worker_id"],
-                $params["registry_number"],
+                $params["registry_no"],
                 $params["uid"],
                 $params["firstname"],
                 $params["lastname"], 
                 $params["fathername"],
-                $params["specialization_code"],
+                $params["worker_specialization"],
                 $params["lab_source"]    
             );      
             break;

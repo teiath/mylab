@@ -184,12 +184,7 @@ class ExceptionMessages
     const MissingWorkerTaxNumberValue = 'Το ΑΦΜ του Εργαζομένου πρέπει να έχει τιμή';
     const InvalidWorkerTaxNumberType = 'Το ΑΦΜ του Εργαζομένου πρέπει να είναι αριθμητικός';
     const InvalidWorkerTaxNumberArray = 'Το ΑΦΜ του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
-    
-    const MissingWorkerUidParam = 'Το Uid του Εργαζομένου είναι υποχρεωτικό πεδίο';
-    const MissingWorkerUidValue = 'Το Uid του Εργαζομένου πρέπει να έχει τιμή';
-    const InvalidWorkerUidType = 'Το Uid του Εργαζομένου πρέπει να είναι αριθμητικός';
-    const InvalidWorkerUidArray = 'Το Uid του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
-    
+        
     const MissingWorkerLastnameParam = 'Το Επώνυμο του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingWorkerLastnameValue = 'Το Επώνυμο του Εργαζομένου πρέπει να έχει τιμή';
     const InvalidWorkerLastnameType = 'Το Επώνυμο του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
@@ -276,13 +271,18 @@ class ExceptionMessages
     
     const DuplicatedMylabWorkerValue = 'Ο Εργαζόμενος υπάρχει ήδη';
     const DuplicatedMylabWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου υπάρχει ήδη';
-    const DuplicatedMylabWorkerTaxNumberValue = 'Το ΑΦΜ του Εργαζομένου υπάρχει ήδη';
+    const DuplicatedMylabWorkerUidValue = 'Το Uid του Εργαζομένου υπάρχει ήδη';
     const UsedMylabWorkerBySchoolUnitLabs = 'Ο Κωδικός του Εργαζόμενου χρησιμοποιείται από Σχολικά Εργαστήρια';
    
     const MissingMylabWorkerRegistryNoParam = 'Ο Αριθμός Μητρώου του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingMylabWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να έχει τιμή';
     const InvalidMylabWorkerRegistryNoType = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να είναι αριθμητικός';
     const InvalidMylabWorkerRegistryNoArray = 'Ο Αριθμός Μητρώου του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingMylabWorkerUidParam = 'Το Uid του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingMylabWorkerUidValue = 'Το Uid του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidMylabWorkerUidType = 'Το Uid του Εργαζομένου πρέπει να είναι αριθμητικός';
+    const InvalidMylabWorkerUidArray = 'Το Uid του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
     const MissingMylabWorkerLastnameParam = 'Το Επώνυμο του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingMylabWorkerLastnameValue = 'Το Επώνυμο του Εργαζομένου πρέπει να έχει τιμή';
@@ -294,9 +294,10 @@ class ExceptionMessages
     const InvalidMylabWorkerFirstnameType = 'Το Όνομα του Εργαζομένου πρέπει να είναι αριθμητικός ή αλφαριθμητικός';
     const InvalidMylabWorkerFirstnameArray = 'Το Όνομα του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const InvalidMylabWorkerTaxNumberType = 'Το ΑΦΜ του Εργαζομένου πρέπει να είναι αριθμητικό';
-    const InvalidMylabWorkerFatherNameType = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να είναι αλφαριθμητικός';
-    const InvalidMylabWorkerSexType = 'Το Φύλο του Εργαζομένου πρέπει να είναι αλφαριθμητική : Α (Άντρας) ή Γ (Γυναικα)';
+    const MissingMylabWorkerFathernameParam = 'Το Όνομα Πατρός του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingMylabWorkerFathernameValue = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidMylabWorkerFathernameType = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
+    const InvalidMylabWorkerFathernameArray = 'Το Όνομα Πατρός του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
         //delete
         const DuplicateDelMyLabWorkerValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό του Εργαζομένου.'; 

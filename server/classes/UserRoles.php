@@ -126,7 +126,7 @@ private static $Permissions = array(
                                         ) ,
     'mylab_workers'         => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
                                         ) ,

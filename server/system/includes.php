@@ -115,6 +115,7 @@ require_once('../api/post/PostLabAquisitionSources.php');
 require_once('../api/post/PostLabEquipmentTypes.php');
 require_once('../api/post/PostLabRelations.php');
 require_once('../api/post/PostAquisitionSources.php');
+require_once('../api/post/PostMylabWorkers.php');
 
 ////---put from mylab
 require_once('../api/put/PutLabs.php');
