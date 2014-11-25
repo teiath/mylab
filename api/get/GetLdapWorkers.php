@@ -61,15 +61,16 @@ function GetLdapWorkers( $uid ) {
  //data_results=================================================================     
         foreach ($rows as $item) {
             //print_r($item) . PHP_EOL;
-            echo 'common name :'.$item['cn'][0]. PHP_EOL;
-            echo 'UID : '.$item['uid'][0]. PHP_EOL;
-            echo 'registry_no : '.$item['employeenumber'][0]. PHP_EOL;
-            echo 'name : '.$item['givenname'][0]. PHP_EOL;
-            echo 'surname : '.$item['sn'][0]. PHP_EOL;
-            echo 'fathername : '.$item['gsnfathername'][0]. PHP_EOL;
-            echo 'mail : '.$item['mail'][0]. PHP_EOL;
-            echo 'worker_specialization : '.$item['gsnbranch'][0]. PHP_EOL;
-            echo 'title : ';print_r($item['title']);            
+            $result["data"][] = array ( 'common name' => $item['cn'][0],
+                                        'UID' => $item['uid'][0],
+                                        'registry_no' => $item['employeenumber'][0],
+                                        'name' => $item['givenname'][0],
+                                        'surname' => $item['sn'][0],
+                                        'fathername' => $item['gsnfathername'][0],
+                                        'mail' => $item['mail'][0],
+                                        'worker_specialization' => $item['gsnbranch'][0],
+                                        'title' => $item['title']
+                                      );            
         }
         
 //result_messages===============================================================      

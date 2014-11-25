@@ -14,11 +14,10 @@ header("Content-Type: text/html; charset=utf-8");
  * @global type $app
  * @param type $worker_id
  * @param type $registry_no
- * @param type $tax_number
+ * @param type $uid
  * @param type $firstname
  * @param type $lastname
  * @param type $fathername
- * @param type $sex
  * @param type $worker_specialization
  * @param type $lab_source
  * @param Doctrine\ORM\Tools\Pagination\Paginator $worker
@@ -80,32 +79,32 @@ function GetMylabWorkers( $worker_id, $registry_no, $uid, $firstname, $lastname,
                       
 //$worker_id====================================================================
         if (Validator::Exists('worker_id', $params)){
-            CRUDUtils::setFilter($qb, $worker_id, "mlw", "workerId", "workerId", "id", ExceptionMessages::InvalidWorkerIDType, ExceptionCodes::InvalidWorkerIDType);
+            CRUDUtils::setFilter($qb, $worker_id, "mlw", "workerId", "workerId", "id", ExceptionMessages::InvalidMylabWorkerIDType, ExceptionCodes::InvalidMylabWorkerIDType);
         } 
 
 //$registry_number==============================================================
         if (Validator::Exists('registry_no', $params)){
-            CRUDUtils::setFilter($qb, $registry_no, "mlw", "registryNo", "registryNo", "numeric", ExceptionMessages::InvalidWorkerRegistryNoType, ExceptionCodes::InvalidWorkerRegistryNoType);    
+            CRUDUtils::setFilter($qb, $registry_no, "mlw", "registryNo", "registryNo", "numeric", ExceptionMessages::InvalidMylabWorkerRegistryNoType, ExceptionCodes::InvalidMylabWorkerRegistryNoType);    
         }
         
 //$uid===================================================================
         if (Validator::Exists('uid', $params)){
-            CRUDUtils::setFilter($qb, $uid, "mlw", "uid", "uid", "value", ExceptionMessages::InvalidWorkerUidType, ExceptionCodes::InvalidWorkerUidType);    
+            CRUDUtils::setFilter($qb, $uid, "mlw", "uid", "uid", "value", ExceptionMessages::InvalidMylabWorkerUidType, ExceptionCodes::InvalidMylabWorkerUidType);    
         } 
 
 //$firstname====================================================================
         if (Validator::Exists('firstname', $params)){
-            CRUDUtils::setSearchFilter($qb, $firstname, "w", "firstname", $searchtype, ExceptionMessages::InvalidWorkerFirstnameType, ExceptionCodes::InvalidWorkerFirstnameType);    
+            CRUDUtils::setSearchFilter($qb, $firstname, "w", "firstname", $searchtype, ExceptionMessages::InvalidMylabWorkerFirstnameType, ExceptionCodes::InvalidMylabWorkerFirstnameType);    
         } 
 
 //$lastname=====================================================================
         if (Validator::Exists('lastname', $params)){
-            CRUDUtils::setSearchFilter ($qb, $lastname, "mlw", "lastname", $searchtype, ExceptionMessages::InvalidWorkerLastnameType, ExceptionCodes::InvalidWorkerLastnameType);
+            CRUDUtils::setSearchFilter ($qb, $lastname, "mlw", "lastname", $searchtype, ExceptionMessages::InvalidMylabWorkerLastnameType, ExceptionCodes::InvalidMylabWorkerLastnameType);
         }  
 
 //$fathername===================================================================
         if (Validator::Exists('fathername', $params)){
-            CRUDUtils::setSearchFilter($qb, $fathername, "w", "fathername", $searchtype, ExceptionMessages::InvalidWorkerFatherNameType, ExceptionCodes::InvalidWorkerFatherNameType);    
+            CRUDUtils::setSearchFilter($qb, $fathername, "w", "fathername", $searchtype, ExceptionMessages::InvalidMylabWorkerFatherNameType, ExceptionCodes::InvalidMylabWorkerFatherNameType);    
         } 
 
 //$worker_specialization========================================================
@@ -122,9 +121,9 @@ function GetMylabWorkers( $worker_id, $registry_no, $uid, $firstname, $lastname,
         if (Validator::Exists('worker', $params)){
 
             if (Validator::IsID($worker))
-                CRUDUtils::setFilter($qb, $worker, "mlw", "registryNo", "registryNo", "startWith", ExceptionMessages::InvalidWorkerRegistryNoType, ExceptionCodes::InvalidWorkerRegistryNoType);    
+                CRUDUtils::setFilter($qb, $worker, "mlw", "registryNo", "registryNo", "startWith", ExceptionMessages::InvalidMylabWorkerRegistryNoType, ExceptionCodes::InvalidMylabWorkerRegistryNoType);    
             else
-                CRUDUtils::setSearchFilter ($qb, $worker, "mlw", "lastname", $searchtype, ExceptionMessages::InvalidWorkerLastnameType, ExceptionCodes::InvalidWorkerLastnameType);
+                CRUDUtils::setSearchFilter ($qb, $worker, "mlw", "lastname", $searchtype, ExceptionMessages::InvalidMylabWorkerLastnameType, ExceptionCodes::InvalidMylabWorkerLastnameType);
         } 
 
 //execution=====================================================================

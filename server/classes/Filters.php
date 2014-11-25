@@ -191,9 +191,9 @@ class Filters {
     public static function AllLabTypes(){
          global $db;
         
-        $sql = "SELECT lab_type_id,name FROM lab_types";
-        $stmt = $db->query( $sql );
-        $lab_types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sqlType = "SELECT lab_type_id,name FROM lab_types ORDER BY lab_type_id ASC";
+        $stmtType = $db->query( $sqlType );
+        $lab_types = $stmtType->fetchAll(PDO::FETCH_ASSOC);
         
         foreach ($lab_types as $lab_type) {
             $lab_type_id=$lab_type['lab_type_id'];
@@ -208,9 +208,9 @@ class Filters {
      public static function AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions){
         global $db;
         
-        $sql = "SELECT lab_type_id,name FROM lab_types";
-        $stmt = $db->query( $sql );
-        $lab_types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sqlType = "SELECT lab_type_id,name FROM lab_types ORDER BY lab_type_id ASC";
+        $stmtType = $db->query( $sqlType );
+        $lab_types = $stmtType->fetchAll(PDO::FETCH_ASSOC);
         
         foreach ($lab_types as $lab_type) {
             $lab_type_id=$lab_type['lab_type_id'];
@@ -231,7 +231,7 @@ class Filters {
 
         $stmt = $db->query( $sql );
         $lab_types_per_schools = $stmt->fetch(PDO::FETCH_ASSOC);
-  
+ 
         $all_labs_counts=array();                            
 
         $i=1;
@@ -246,9 +246,9 @@ class Filters {
     public static function LabsCounter($sqlFrom,$sqlWhere,$sqlPermissions){
         global $db;
         
-        $sql = "SELECT lab_type_id,name FROM lab_types";
-        $stmt = $db->query( $sql );
-        $lab_types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sqlType = "SELECT lab_type_id,name FROM lab_types ORDER BY lab_type_id ASC";
+        $stmtType = $db->query( $sqlType );
+        $lab_types = $stmtType->fetchAll(PDO::FETCH_ASSOC);
         
             foreach ($lab_types as $lab_type) {
                 $lab_type_id=$lab_type['lab_type_id'];
