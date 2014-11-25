@@ -1,0 +1,14 @@
+<script type="text/x-kendo-template" id="lab_toolbar_template_lab_workers_view">
+    
+    
+    <button class="lab_worker_refresh_btn k-button" data-bind="click: refresh, events: { mouseover: refreshTooltip }" style="float:right;"><span class="k-icon k-i-refresh"></span></button>    
+    <button class="lab_worker_grid_columns_btn k-button" data-bind="click: openColumnSelection, events: { mouseover: columnsTooltip }" style="float:right;"> <span class="k-icon k-sprite k-i-columns"></span></button>
+   
+</script>
+
+
+<!--
+    #if(jQuery.inArray( authorized_user , search_xls ) !== -1){ #
+        <button class="export_to_xlsx k-button" data-bind="click: exportToXLSX, events: { mouseover: xlsTooltip }" style="float:right; "><i class="fa fa-file-excel-o"></i></button>
+    #}#
+-->
