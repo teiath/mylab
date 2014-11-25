@@ -207,6 +207,7 @@ class Filters {
     
      public static function AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions){
         global $db;
+        $sql_array=array();
         
         $sql = "SELECT lab_type_id,name FROM lab_types";
         $stmt = $db->query( $sql );
@@ -231,7 +232,7 @@ class Filters {
 
         $stmt = $db->query( $sql );
         $lab_types_per_schools = $stmt->fetch(PDO::FETCH_ASSOC);
-  
+ 
         $all_labs_counts=array();                            
 
         $i=1;
