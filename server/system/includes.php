@@ -125,6 +125,7 @@ require_once('../api/put/PutLabEquipmentTypes.php');
 require_once('../api/put/PutLabTransitions.php');
 require_once('../api/put/PutLabRelations.php');
 require_once('../api/put/PutInitialLabs.php');
+require_once('../api/put/PutMylabWorkers.php');
 
 //---del from mylab
  require_once('../api/del/DelLabs.php');

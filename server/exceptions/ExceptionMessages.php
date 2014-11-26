@@ -272,7 +272,9 @@ class ExceptionMessages
     const DuplicatedMylabWorkerValue = 'Ο Εργαζόμενος υπάρχει ήδη';
     const DuplicatedMylabWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου υπάρχει ήδη';
     const DuplicatedMylabWorkerUidValue = 'Το Uid του Εργαζομένου υπάρχει ήδη';
+    const DuplicatedMylabWorkerEmailValue = 'Το Email του Εργαζομένου υπάρχει ήδη';
     const UsedMylabWorkerBySchoolUnitLabs = 'Ο Κωδικός του Εργαζόμενου χρησιμοποιείται από Σχολικά Εργαστήρια';
+    const DuplicateMylabWorkeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key MylabWorker';
    
     const MissingMylabWorkerRegistryNoParam = 'Ο Αριθμός Μητρώου του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingMylabWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να έχει τιμή';
@@ -298,6 +300,11 @@ class ExceptionMessages
     const MissingMylabWorkerFathernameValue = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να έχει τιμή';
     const InvalidMylabWorkerFathernameType = 'Το Όνομα Πατρός του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
     const InvalidMylabWorkerFathernameArray = 'Το Όνομα Πατρός του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
+    
+    const MissingMylabWorkerEmailParam = 'Το Email του Εργαζομένου είναι υποχρεωτικό πεδίο';
+    const MissingMylabWorkerEmailValue = 'Το Email του Εργαζομένου πρέπει να έχει τιμή';
+    const InvalidMylabWorkerEmailType = 'Το Email του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
+    const InvalidMylabWorkerEmailArray = 'Το Email του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
         //delete
         const DuplicateDelMyLabWorkerValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή με ίδιο κωδικό του Εργαζομένου.'; 

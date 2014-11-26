@@ -142,7 +142,7 @@ function enableCORS() {
 function Authentication()
 {
     global $app;
-    global $ldapOptions;
+    global $ldapOptions,$casOptions;
     global $frontendOptions;
 
     try
@@ -1277,7 +1277,8 @@ function MylabWorkersController()
                 $params["uid"],          
                 $params["firstname"],
                 $params["lastname"],
-                $params["fathername"],   
+                $params["fathername"],
+                $params["email"],
                 $params["worker_specialization"],
                 $params["lab_source"],
                 $params["worker"],
@@ -1295,6 +1296,7 @@ function MylabWorkersController()
                 $params["firstname"],
                 $params["lastname"], 
                 $params["fathername"],
+                $params["email"],
                 $params["worker_specialization"],
                 $params["lab_source"]
             );      
@@ -1307,6 +1309,7 @@ function MylabWorkersController()
                 $params["firstname"],
                 $params["lastname"], 
                 $params["fathername"],
+                $params["email"],
                 $params["worker_specialization"],
                 $params["lab_source"]    
             );      

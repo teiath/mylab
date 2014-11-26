@@ -17,13 +17,14 @@ header("Content-Type: text/html; charset=utf-8");
  * @param type $firstname
  * @param type $lastname
  * @param type $fathername
+ * @param type $email
  * @param type $specialization_code
  * @param type $lab_source
  * @return string
  * @throws Exception
  */
 
-function PostMylabWorkers($registry_no, $uid, $firstname, $lastname, $fathername, $worker_specialization, $lab_source) {
+function PostMylabWorkers($registry_no, $uid, $firstname, $lastname, $fathername, $email, $worker_specialization, $lab_source) {
     
     global $app,$entityManager;
 
@@ -38,25 +39,28 @@ function PostMylabWorkers($registry_no, $uid, $firstname, $lastname, $fathername
 
     try {
    
-//$registry_number==================================================================
+//$registry_number==============================================================
         CRUDUtils::entitySetParam($MylabWorkers, $registry_no, 'MylabWorkerRegistryNo', 'registry_no', $params);
         
-//$uid==================================================================
+//$uid==========================================================================
         CRUDUtils::entitySetParam($MylabWorkers, $uid, 'MylabWorkerUid', 'uid', $params);
         
-//$lastname==================================================================
+//$lastname=====================================================================
        CRUDUtils::entitySetParam($MylabWorkers, $lastname, 'MylabWorkerLastname', 'lastname', $params);
        
-//$firstname==================================================================
+//$firstname====================================================================
         CRUDUtils::entitySetParam($MylabWorkers, $firstname, 'MylabWorkerFirstname', 'firstname', $params);
                 
-//$fathername=====================================================================
+//$fathername===================================================================
         CRUDUtils::entitySetParam($MylabWorkers, $fathername, 'MylabWorkerFathername', 'fathername', $params);
  
-//$worker_specialization===============================================================         
+//$email========================================================================
+        CRUDUtils::entitySetParam($MylabWorkers, $email, 'MylabWorkerEmail', 'email', $params);
+        
+//$worker_specialization========================================================         
         CRUDUtils::entitySetAssociation($MylabWorkers, $worker_specialization, 'WorkerSpecializations', 'workerSpecialization', 'WorkerSpecialization', $params, 'worker_specialization');
        
-//$lab_source================================================================         
+//$lab_source===================================================================         
         CRUDUtils::entitySetAssociation($MylabWorkers, $lab_source, 'LabSources', 'labSource', 'LabSource', $params, 'lab_source');
      
 //user permisions===============================================================
@@ -76,6 +80,12 @@ function PostMylabWorkers($registry_no, $uid, $firstname, $lastname, $fathername
 
         if (!Validator::isNull($checkDuplicateUid)){
             throw new Exception(ExceptionMessages::DuplicatedMylabWorkerUidValue ,ExceptionCodes::DuplicatedMylabWorkerUidValue);
+        } 
+        
+        $checkDuplicateEmail = $entityManager->getRepository('MylabWorkers')->findOneBy(array( 'email' => $MylabWorkers->getEmail() ));
+
+        if (!Validator::isNull($checkDuplicateEmail)){
+            throw new Exception(ExceptionMessages::DuplicatedMylabWorkerEmailValue ,ExceptionCodes::DuplicatedMylabWorkerEmailValue);
         } 
         
 //insert to db==================================================================

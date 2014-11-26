@@ -15,13 +15,13 @@ class CRUDUtils {
      * @param boolean $required Set true if parameter must required or false if not. Default value is true.
      * @param boolean $is_nullable Set true if parameter can be null or false if not. Default value is false.
      * 
-     * @throws Exception ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
-     * @throws Exception ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
-     * @throws Exception ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
-     * @throws Exception ExceptionMessages::'Invalid'.$exceptionType.'Value' , ExceptionCodes::'Invalid'.$exceptionType.'Value'
-     * @throws Exception ExceptionMessages::'Duplicate'.$exceptionType.'UniqueValue' , ExceptionCodes::'Duplicate'.$exceptionType.'UniqueValue'
+     * @throws ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
+     * @throws ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Value' , ExceptionCodes::'Invalid'.$exceptionType.'Value'
+     * @throws ExceptionMessages::'Duplicate'.$exceptionType.'UniqueValue' , ExceptionCodes::'Duplicate'.$exceptionType.'UniqueValue'
      * 
-     * @return The doctrine entity with set.'$field' or throwException
+     * @return mixed The doctrine entity with set.'$field' or throwException
      * 
      */
     public static function entitySetAssociation(&$entity, $param, $repo, $doctrineField, $exceptionType, $params, $userField, $required = true, $is_nullable = false ) {
@@ -67,11 +67,11 @@ class CRUDUtils {
      * @param boolean $required Set true if parameter must required or false if not. Default value is true.
      * @param boolean $is_nullable Set true if parameter can be null or false if not. Default value is false.
      * 
-     * @throws Exception ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
-     * @throws Exception ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
-     * @throws Exception ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
+     * @throws ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
+     * @throws ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
      * 
-     * @return The doctrine entity with set.'$field' or throwException
+     * @return mixed The doctrine entity with set.'$field' or throwException
      * 
      */ 
     public static function entitySetParam(&$entity, $param, $exceptionType, $field, $params, $required = true, $is_nullable = false ) {
@@ -101,6 +101,14 @@ class CRUDUtils {
             throw new Exception(constant('ExceptionMessages::'.$invalidType)." : ".$param, constant('ExceptionCodes::'.$invalidType));
     }
 
+    /**
+     * It converted string like “to_camel_case” into Camel Case: “ToCamelCase”.
+     * 
+     *  @param string String to converted
+     *  @param boolean True if want to capitalise first character or false if not
+     * 
+     *  @return string Camel Case string
+     */
     private static function to_camel_case($str, $capitalise_first_char = false) {
         if($capitalise_first_char) {
         $str[0] = strtoupper($str[0]);
@@ -208,7 +216,22 @@ class CRUDUtils {
         }
     } 
     
-    
+    /**
+     * Check ID (primary key)
+     * 
+     * @param string $field Name of input parameter by user.
+     * @param array $params Contain all input parameter by user. Created by loadParameters() function and use $userField param
+     * @param integer $param Value of input parameter by user.
+     * @param string $exceptionType Short name of input parameter used by ExceptionMessages and ExceptionCodes.
+     * 
+     * @throws ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
+     * @throws ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Value' , ExceptionCodes::'Invalid'.$exceptionType.'Value'
+     * 
+     * @return mixed ID integer format or throwException
+     * 
+     */
     public static function checkIDParam($field, $params, $param, $exceptionType ){
 
         $missingParam = 'Missing'.$exceptionType.'Param';
@@ -229,6 +252,22 @@ class CRUDUtils {
           
     }  
     
+    /**
+     * Check Name
+     * 
+     * @param string $field Name of input parameter by user.
+     * @param array $params Contain all input parameter by user. Created by loadParameters() function and use $userField param
+     * @param mixed[string|integer] $param Value of input parameter by user.
+     * @param string $exceptionType Short name of input parameter used by ExceptionMessages and ExceptionCodes.
+     * 
+     * @throws ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
+     * @throws ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Value' , ExceptionCodes::'Invalid'.$exceptionType.'Value'
+     * 
+     * @return mixed  Name at string format with trim property or throwException
+     * 
+     */
     public static function checkNameParam($field, $params, $param, $exceptionType ){
 
         $missingParam = 'Missing'.$exceptionType.'Param';
@@ -249,6 +288,19 @@ class CRUDUtils {
           
     }  
     
+    /**
+     * Find ID (primary key)
+     * 
+     * @param integer $param Value of input parameter by user.
+     * @param string $repo Dotrine Entity class.
+     * @param string $exceptionType Short name of input parameter used by ExceptionMessages and ExceptionCodes.
+     * 
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Value' , ExceptionCodes::'Invalid'.$exceptionType.'Value'
+     * @throws ExceptionMessages::'Duplicate'.$exceptionType.'UniqueValue' , ExceptionCodes::'Duplicate'.$exceptionType.'UniqueValue'
+     * 
+     * @return mixed The doctrine entity of ID or throwException
+     * 
+     */
     public static function findIDParam ($param, $repo, $exceptionType){        
         
         global $entityManager;

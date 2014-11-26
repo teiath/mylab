@@ -57,6 +57,13 @@ class MylabWorkers
     private $fathername;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=45, nullable=true)
+     */
+    private $email;
+    
+    /**
      * @var \WorkerSpecializations
      *
      * @ORM\ManyToOne(targetEntity="WorkerSpecializations")
@@ -126,6 +133,14 @@ class MylabWorkers
         $this->fathername = $fathername;
     }
 
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+    
     public function getWorkerSpecialization() {
         return $this->workerSpecialization;
     }
