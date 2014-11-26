@@ -127,7 +127,7 @@ private static $Permissions = array(
     'mylab_workers'         => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('ΔΙΕΥΘΥΝΤΗΣ'),
-                                        'PUT' => array('none'),
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ'),
                                         'DELETE' => array('none'),
                                         ) ,
     'lab_types'             => array(

@@ -142,7 +142,7 @@ function enableCORS() {
 function Authentication()
 {
     global $app;
-    global $ldapOptions;
+    global $ldapOptions,$casOptions;
     global $frontendOptions;
 
     try

@@ -273,6 +273,7 @@ class ExceptionMessages
     const DuplicatedMylabWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου υπάρχει ήδη';
     const DuplicatedMylabWorkerUidValue = 'Το Uid του Εργαζομένου υπάρχει ήδη';
     const UsedMylabWorkerBySchoolUnitLabs = 'Ο Κωδικός του Εργαζόμενου χρησιμοποιείται από Σχολικά Εργαστήρια';
+    const DuplicateMylabWorkeUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key MylabWorker';
    
     const MissingMylabWorkerRegistryNoParam = 'Ο Αριθμός Μητρώου του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingMylabWorkerRegistryNoValue = 'Ο Αριθμός Μητρώου του Εργαζομένου πρέπει να έχει τιμή';

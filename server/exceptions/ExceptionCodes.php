@@ -428,6 +428,8 @@ class ExceptionCodes
     const DuplicatedMylabWorkerUidValue = 500;
     /** {@see ExceptionMessages::UsedMylabWorkerBySchoolUnitLabs} */
     const UsedMylabWorkerBySchoolUnitLabs = 500;
+    /** {@see ExceptionMessages::DuplicateMylabWorkeUniqueValue} */   
+    const DuplicateMylabWorkeUniqueValue = 500;
    
     /** {@see ExceptionMessages::MissingMylabWorkerRegistryNoParam} */
     const MissingMylabWorkerRegistryNoParam = 500;
