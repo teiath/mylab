@@ -362,15 +362,6 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidLabWorkerStartServiceArray} */
     const InvalidLabWorkerStartServiceArray = 500;
     
-    /** {@see ExceptionMessages::MissingLabWorkerEmailParam} */
-    const MissingLabWorkerEmailParam = 500;
-    /** {@see ExceptionMessages::MissingLabWorkerEmailValue} */
-    const MissingLabWorkerEmailValue = 500;
-    /** {@see ExceptionMessages::InvalidLabWorkerEmailType} */
-    const InvalidLabWorkerEmailType = 500;
-    /** {@see ExceptionMessages::InvalidLabWorkerEmailArray} */
-    const InvalidLabWorkerEmailArray = 500;
-    
     /** {@see ExceptionMessages::DuplicatedLabWorkerValue} */
     const DuplicatedLabWorkerValue = 500;
     /** {@see ExceptionMessages::UsedLabWorkerByLabs} */

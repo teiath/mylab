@@ -1239,7 +1239,6 @@ function LabWorkersController()
                     $params["lab_id"],
                     $params["worker_id"],
                     $params["worker_position"],
-                    $params["worker_email"],
                     $params["worker_status"],
                     $params["worker_start_service"]
             );      

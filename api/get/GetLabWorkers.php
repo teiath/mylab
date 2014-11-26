@@ -144,7 +144,6 @@ function GetLabWorkers( $lab_worker_id, $worker_status, $worker_start_service,
 
             $result["data"][] = array(              
                                         "lab_worker_id"         => $labworker->getLabWorkerId(),
-                                        "worker_email"          => $labworker->getWorkerEmail(),
                                         "worker_status"         => $labworker->getWorkerStatus(),
                                         "worker_start_service"  => $labworker->getWorkerStartService()->format('Y-m-d'),
                                         "worker_id"             => $labworker->getWorker()->getWorkerId(),
