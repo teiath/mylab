@@ -426,6 +426,8 @@ class ExceptionCodes
     const DuplicatedMylabWorkerRegistryNoValue = 500;
     /** {@see ExceptionMessages::DuplicatedMylabWorkerUidValue} */
     const DuplicatedMylabWorkerUidValue = 500;
+    /** {@see ExceptionMessages::DuplicatedMylabWorkerEmailValue} */ 
+    const DuplicatedMylabWorkerEmailValue = 500;
     /** {@see ExceptionMessages::UsedMylabWorkerBySchoolUnitLabs} */
     const UsedMylabWorkerBySchoolUnitLabs = 500;
     /** {@see ExceptionMessages::DuplicateMylabWorkeUniqueValue} */   
@@ -476,6 +478,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidMylabWorkerFathernameArray} */
     const InvalidMylabWorkerFathernameArray = 500;
 
+    /** {@see ExceptionMessages::MissingMylabWorkerEmailParam} */
+    const MissingMylabWorkerEmailParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerEmailValue} */
+    const MissingMylabWorkerEmailValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerEmailType} */
+    const InvalidMylabWorkerEmailType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerEmailArray} */
+    const InvalidMylabWorkerEmailArray = 500;
+    
        //delete
         const DuplicateDelMyLabWorkerValue = 500;
         const NotFoundDelMyLabWorkerValue = 500;
