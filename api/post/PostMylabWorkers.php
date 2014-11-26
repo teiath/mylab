@@ -57,7 +57,9 @@ function PostMylabWorkers($registry_no, $uid, $firstname, $lastname, $fathername
 //$email========================================================================
         CRUDUtils::entitySetParam($MylabWorkers, $email, 'MylabWorkerEmail', 'email', $params);
         
-//$worker_specialization========================================================         
+//$worker_specialization========================================================  
+        if ($worker_specialization == "ΠΕ20-ΠΛΗΡΟΦΟΡΙΚΗΣ ΤΕΙ" ){$worker_specialization = 2;}
+        if ($worker_specialization == "ΠΕ19-ΠΛΗΡΟΦΟΡΙΚΗΣ ΑΕΙ" ){$worker_specialization = 1;}
         CRUDUtils::entitySetAssociation($MylabWorkers, $worker_specialization, 'WorkerSpecializations', 'workerSpecialization', 'WorkerSpecialization', $params, 'worker_specialization');
        
 //$lab_source===================================================================         
