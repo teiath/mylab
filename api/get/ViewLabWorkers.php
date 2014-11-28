@@ -71,7 +71,7 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
             CRUDUtils::setFilter($qb, $lab_id, "l", "labId", "labId", "id", ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
         } 
 
-//$lab_name=========================================================================
+//$lab_name=====================================================================
         if (Validator::Exists('lab_name', $params)){
             CRUDUtils::setSearchFilter($qb, $lab_name, "l", "name", $searchtype, ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType);    
         } 
@@ -86,33 +86,26 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
            ->leftjoin('su.eduAdmin', 'ea')->leftjoin('su.transferArea', 'ta')->leftjoin('su.municipality', 'm')->leftjoin('su.prefecture', 'p')
            ->leftjoin('su.educationLevel', 'el')->leftjoin('su.schoolUnitType', 'sut')->leftjoin('su.state', 'sus');     
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
-        
-        
-        $query = $qb->getQuery();
-      
-       
-        //pagination and results========================================================      
-       // $workerResults = new Doctrine\ORM\Tools\Pagination\Paginator($qb->getQuery());
-//        $result["total"] = count($workerResults);
-        $query->setFirstResult($pagesize * ($page-1));
-        $pagesize!==Parameters::AllPageSize ? $query->setMaxResults($pagesize) : null;
-        $workerResults = $query->getResult();
+           
+        //pagination and results================================================      
+        $qb->getQuery()->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $qb->getQuery()->setMaxResults($pagesize) : null;
+        $workerResults = $qb->getQuery()->getResult();
         $result["total"] = count($workerResults);
         
         //create array with lab_workers ids
-        if (count($result["total"])>0){
-            $prefix = '';
-            $worker_ids ='';
+        if ($result["total"]>0) {
+            $prefix = '';$worker_ids ='';
             foreach ($workerResults as $workerResult)
             {
                 $worker_ids .= $prefix . $workerResult['workerId'];
                 $prefix = ', ';
             }                       
         } else {
-            $worker_ids = "0";
+            throw new Exception(ExceptionMessages::InvalidLabWorkerValue,ExceptionCodes::ReferencesEquipmentTypeLabEquipmentTypes);  
         }
- 
-//==============================================================================
+        
+ //==============================================================================
         //======================================================================
         
         //print_r($worker_ids);
