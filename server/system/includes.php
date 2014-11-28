@@ -73,6 +73,7 @@ require_once('../api/get/ReportKeplhnet.php');
 require_once('../api/get/GetUserPermits.php');
 require_once('../api/get/StatLabs.php');
 require_once('../api/get/GetLdapWorkers.php');
+require_once('../api/get/ViewLabWorkers.php');
 
 ////----get from mm
 require_once('../api/get/GetRegionEduAdmins.php');
