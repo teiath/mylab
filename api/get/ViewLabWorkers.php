@@ -86,11 +86,12 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
            ->leftjoin('su.eduAdmin', 'ea')->leftjoin('su.transferArea', 'ta')->leftjoin('su.municipality', 'm')->leftjoin('su.prefecture', 'p')
            ->leftjoin('su.educationLevel', 'el')->leftjoin('su.schoolUnitType', 'sut')->leftjoin('su.state', 'sus');     
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
-           
-        //pagination and results================================================      
-        $qb->getQuery()->setFirstResult($pagesize * ($page-1));
-        $pagesize!==Parameters::AllPageSize ? $qb->getQuery()->setMaxResults($pagesize) : null;
-        $workerResults = $qb->getQuery()->getResult();
+        $query = $qb->getQuery();
+             
+        //pagination and results========================================================      
+        $query->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $query->setMaxResults($pagesize) : null;
+        $workerResults = $query->getResult();
         $result["total"] = count($workerResults);
         
         //create array with lab_workers ids
@@ -151,7 +152,7 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
         }
         $result["data"] = $test;
         
-        $result["count"] = $count;
+        $result["count_labs"] = $count;
          //print_r($result);
         
 
