@@ -89,7 +89,7 @@ var SchoolUnitsViewVM = kendo.observable({
         //nested labsGrid 
         var labsGrid = e.detailRow.find("#school_unit_labs").kendoGrid({
                        
-            dataSource: newLabsDS(e.data.school_unit_id, e),
+            dataSource: newLabsDS(e.data.school_unit_id, null, e),
             detailInit: LabsViewVM.detailInit,
             detailTemplate: $("#lab_details_template").html(),
             selectable:"row",
@@ -161,10 +161,6 @@ var SchoolUnitsViewVM = kendo.observable({
                 kendo.bind(event.container, LabsViewVM);
                 kendo.bind(event.container, event.model);
                 LabsViewVM.createLab(event);
-            },
-            dataBinding: function(event){
-                //console.log("SchoolUnitsViewVM: nested labs grid DATABINDING event: ", event);
-                LabsViewVM.dataBinding(event);
             },
             dataBound: function(event){
                 //console.log("SchoolUnitsViewVM: nested labs grid DATABOUND event: ", event);

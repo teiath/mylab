@@ -62,7 +62,7 @@
             <div class="col-md-12">        
                 <div    id="labs_view"
                         data-role="grid"
-                        data-bind="source: labs, visible: isVisible, events: {edit: createLab, save: saveLab, dataBound: dataBound, dataBinding: dataBinding}"
+                        data-bind="source: labs, visible: isVisible, events: {edit: createLab, save: saveLab, dataBound: dataBound}"
                         data-detail-init="LabsViewVM.detailInit"
                         data-detail-template= 'lab_details_template'
                         data-selectable="row"
