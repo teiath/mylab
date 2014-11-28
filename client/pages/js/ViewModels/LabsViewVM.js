@@ -149,10 +149,6 @@ var LabsViewVM = kendo.observable({
                 var message;
                 if (typeof e.response.message !== 'undefined'){
                     message= e.response.message;
-                }else if (typeof e.response.message_internal !== 'undefined'){
-                    message= e.response.message_internal;
-                }else if (typeof e.response.message_external !== 'undefined'){
-                    message= e.response.message_external;
                 }
                 
                 var title_success, title_fail;
@@ -558,8 +554,8 @@ var LabsViewVM = kendo.observable({
                                                     ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
                                                     
                                                     var deleteLabEquipmentDialogTitle = delete_lab_equipment_dialog.wrapper.find("div.k-window-titlebar>span").text("Διαγραφή Εξοπλισμού Διάταξης Η/Υ");
-                                                    var deleteLabEquipmentDialogUpdateButton = delete_lab_equipment_dialog.element.find("div.k-edit-buttons>a.k-grid-delete");
-                                                    var deleteLabEquipmentDialogCancelButton = delete_lab_equipment_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel");
+                                                    var deleteLabEquipmentDialogUpdateButton = delete_lab_equipment_dialog.element.find("div.k-edit-buttons>button.k-grid-delete");
+                                                    var deleteLabEquipmentDialogCancelButton = delete_lab_equipment_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel");
 
                                                     deleteLabEquipmentDialogCancelButton.on("click", function(e){
                                                         e.preventDefault(); //?
@@ -680,8 +676,8 @@ var LabsViewVM = kendo.observable({
                                                     ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
                                                     
                                                     var deleteLabAquisitionSourceDialogTitle = delete_lab_aquisition_source_dialog.wrapper.find("div.k-window-titlebar>span").text("Διαγραφή Πηγής Χρηματοδότησης Διάταξης Η/Υ");
-                                                    var deleteLabAquisitionSourceDialogUpdateButton = delete_lab_aquisition_source_dialog.element.find("div.k-edit-buttons>a.k-grid-delete");
-                                                    var deleteLabAquisitionSourceDialogCancelButton = delete_lab_aquisition_source_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel");
+                                                    var deleteLabAquisitionSourceDialogUpdateButton = delete_lab_aquisition_source_dialog.element.find("div.k-edit-buttons>button.k-grid-delete");
+                                                    var deleteLabAquisitionSourceDialogCancelButton = delete_lab_aquisition_source_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel");
 
                                                     deleteLabAquisitionSourceDialogCancelButton.on("click", function(e){
                                                         e.preventDefault(); //?
@@ -739,29 +735,194 @@ var LabsViewVM = kendo.observable({
                   title: "Ονοματεπώνυμο",
                   template: "#= lastname + ' ' + firstname #",
                   editor: function (container, options){
-                        //options.field = fullname
-                        $('<input name="' + options.field + '" data-bind="value:' + options.field + '" data-text-field="fullname" data-value-field="worker_id" required data-required-msg="Ξέχασες τον υπεύθυνο!" />')
-                        .appendTo(container)
-                        .kendoComboBox({
-                            dataSource: newWorkersDS(),
-                            autoBind: false,
-                            filter: "contains",
-                            placeholder: "επιλέξτε από τη λίστα",
-                            //dataValueField: "worker_id",
-                            //dataTextField: "fullname",
-                            //minLength: 1,
-                            change: function(e){
-                                //console.log("worker_id column editor on change e:", e);
-                                //var dataItem =  lab_workers_details.dataSource.at(0);
-                                //console.log("dataItem: ", dataItem);
-                                //dataItem.specialization_code_name = "ΠΕ70";
-                                //dataItem.worker_registry_no = "123146";
-                                        
+/*                      
+                        console.log("container: ", container);
+                        console.log("options: ", options);
+                        data-bind="value:' + options.field + ', visible:' + LabsViewVM.get("mylabSearchVisible") + '"
+*/                      
+                        var parameters;
+                        var ldap_user_matched = false;
+                        var mylab_screen= false;
+                        var new_lab_worker_tr = lab_workers_details.tbody.find("tr.k-grid-edit-row");
+                        function toggle_screen(){
+                            if(mylab_screen){
+                                //toggle to ldap screen
+                                mylab_input.wrapper.hide();
+                                btn_switch_to_ldap_screen.hide();
+                                ldap_input.wrapper.show();
+                                ldap_input.focus();
+                                btn_switch_to_mylab_screen.show();
+                                if(ldap_user_matched){
+                                    btn_submit_ldap_worker.show();
+                                }
+                                if(mylab_input.wrapper.next().hasClass("k-tooltip-validation")){
+                                    mylab_input.wrapper.next(".k-tooltip-validation").hide();
+                                }
+                                mylab_screen = false;
+                            }else{
+                                //toggle to mylab screen
+                                ldap_input.wrapper.hide();
+                                btn_switch_to_mylab_screen.hide();
+                                btn_submit_ldap_worker.hide();
+                                mylab_input.wrapper.show();
+                                btn_switch_to_ldap_screen.show();
+                                mylab_input.focus();
+                                mylab_screen = true;
+                            }
+                        }
+                        //EVENT: on update click, if user is on ldap screen, just switch them to mylab screen. DO NOT UPDATE the entry (stop propagation)
+                        container.siblings(":last").on("click", "a.k-grid-update", function(e){
+                            if(!mylab_screen){
+                                e.stopPropagation();
+                                toggle_screen();
                             }
                         });
+                        //var new_lab_worker_item = lab_workers_details.dataSource.get(""); //πάρε το item που έχει άδειο το πεδίο id (δηλ. το καινουριο item)
                         
-                        var tooltipElement = $('<span class="k-invalid-msg" data-for="' + options.field + '"></span>');
-                        tooltipElement.appendTo(container);
+                        /* SCREEN 1 - mylab screen */
+                        
+                        //mylab workers input field
+                        var mylab_input = $('<input id="mylab_input" name="mylab_input" data-bind="value:worker_id" data-text-field="fullname" data-value-field="worker_id" required data-required-msg="Ξέχασες τον υπεύθυνο!"/>')
+                        .appendTo(container)
+                        .width("80%").
+                        kendoComboBox({
+                            dataSource: newMyLabWorkersDS(),
+                            autoBind: false,
+                            filter: "contains",
+                            placeholder: "αναζήτηση στη λίστα με Επώνυμο ή ΑΜ",
+                            dataBound: function(e){                                
+                                //console.log("mylab_input dataBound e:", e);
+                                if(e.sender.dataSource.data().length > 0){
+                                    var bound_lab_worker_data = e.sender.dataSource.data();
+                                    new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text(bound_lab_worker_data[0].registry_no);
+                                    new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text(bound_lab_worker_data[0].worker_specialization_name);
+                                }else{
+                                    new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text("");
+                                    new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text("");                                    
+                                }
+                            },
+                            change: function(e){
+                                //console.log("mylab_input change e:", e);
+                                var worker_id = this.value();
+                                if(e.sender.dataSource.data().length > 0){
+                                    $.each(e.sender.dataSource.data(), function(index, value){
+                                        if(value.worker_id == worker_id){
+                                            new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text(value.registry_no);
+                                            new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text(value.worker_specialization_name);
+                                        }
+                                    });
+                                }
+                            }
+                        }).data("kendoComboBox");
+                        
+                        //mylab_input validation tooltip
+                        var mylab_input_validation_tooltip = $('<span class="k-invalid-msg" data-for="mylab_input"></span>').appendTo(container);  
+
+                        //switch to ldap screen
+                        var btn_switch_to_ldap_screen = $('<em><i class="fa fa-search"></i> LDAP</em>').appendTo(container).width("18%").kendoButton({
+                            click: function(){
+                                toggle_screen();
+                            }
+                        });
+
+
+                        /* SCREEN 2 - ldap screen */
+                        
+                        //switch to mylab screen
+                        var btn_switch_to_mylab_screen = $('<em><i class="fa fa-arrow-circle-o-left"></i> πίσω</em>').appendTo(container).width("16%").kendoButton({
+                            click: function(){
+                                toggle_screen();
+                            }
+                        });
+
+                        //ldap workers input field
+                        var ldap_input = $('<input id="ldap_input" data-text-field="UID" data-value-field="UID" />')
+                        .appendTo(container)
+                        .width("74%")
+                        .kendoAutoComplete({
+                            dataSource: newLdapWorkersDS(),
+                            autoBind: false,
+                            //filter: "contains",
+                            placeholder: "αναζήτηση με το LDAP UID",
+                            dataBound: function(e){
+                                //Fired when the widget is bound to data from its data source.
+                                //console.log("ldap_input dataBound e:", e);
+                                if(e.sender.dataSource.data().length < 1){ //if no worker uid matched
+                                    ldap_user_matched = false;
+                                    container.find("#submitLdapWorkerBtn").hide(); //hide submit ldap worker button
+                                    e.sender.element.next(".fa-check-square-o").hide(); //hide 'found check' icon
+                                    if(!e.sender.element.next().hasClass("fa-times")){ //show 'still searching' icon
+                                        e.sender.element.after('<span class="fa fa-times" style="display: block; color:red; position:absolute; bottom:5px; right:3px;"></span>');
+                                    }else{
+                                        e.sender.element.next(".fa-times").show();
+                                    }
+                                }else{ //if worker uid matched
+                                    ldap_user_matched = true;
+                                    var ldap_worker = e.sender.dataSource.at(0); //get ldap worker's data & populate post mylab_workers ajax request's parameters
+                                    parameters = {
+                                          uid: ldap_worker.UID,
+                                          firstname:  ldap_worker.name,
+                                          lastname:  ldap_worker.surname,
+                                          fathername: ldap_worker.fathername,
+                                          email: ldap_worker.mail,
+                                          registry_no: ldap_worker.registry_no,
+                                          worker_specialization: ldap_worker.worker_specialization,
+                                          lab_source: 5
+                                        };
+                                    container.find("#submitLdapWorkerBtn").show(); //show submit ldap worker button to permit saving to mylab_workers db table
+                                    e.sender.element.next(".fa-times").hide(); //hide 'still searching' icon             
+                                    if(!e.sender.element.next().hasClass("fa-check-square-o")){ //show 'found check' icon
+                                        e.sender.element.after('<span class="fa fa-check-square-o fa-lg" style="display: block; color:green; position:absolute; bottom:5px; right:3px;"></span>');
+                                    }else{
+                                        e.sender.element.next(".fa-check-square-o").show();
+                                    }
+                                }
+                            }
+                        }).data("kendoAutoComplete");
+
+                        //submit ldap worker functionality
+                        var btn_submit_ldap_worker = $('<em id="submitLdapWorkerBtn"><i class="fa fa-floppy-o"></i></em>').appendTo(container).width("7%").kendoButton({
+                            click: function(){
+                                                                
+                                container.find("#submitLdapWorkerBtn").hide(); //hide submit ldap worker button
+                                $('<span id="submitLdapWorkerSpinner" style="padding:3px 5px; margin:0px 7px;"><i class="fa fa-spinner fa-spin fa-lg"></i></span>').appendTo(container); //add spinner
+                                ldap_input.readonly(true); //make input field read-only
+                                
+                                $.ajax({
+                                    type: "POST",
+                                    url: baseURL + "mylab_workers" + "?user=" + user_url,
+                                    dataType: "json",
+                                    data: JSON.stringify(parameters),
+                                    success: function(data){
+                                        
+                                        container.find("#submitLdapWorkerSpinner").remove(); //remove spinner
+                                        ldap_input.element.next().hide(); //hide green check
+                                        ldap_input.readonly(false);
+                                        
+                                        if(data.status == "200"){
+                                            // !!! save 'worker_id', returned from the mylab_workers api function, to the dataitem's 'worker_id' attribute
+                                            //new_lab_worker_item.worker_id = data.worker_id;
+                                            ldap_input.value("");
+                                            notification.show({
+                                                title: "Επιτυχής ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ",
+                                                message: data.message
+                                            }, "success");               
+                                        }else{
+                                            notification.show({
+                                                title: "Η ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ απέτυχε",
+                                                message: data.message
+                                            }, "error");
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                             
+                        
+                        //initialization stuff
+                        toggle_screen(); //switch to initial mylab screen
+                        ldap_input.element.next("span.k-loading").remove(); //remove kendo ui autocomplete, default on search loading icon
+                        
                   }, 
                   width: '36%'
                 },
@@ -778,7 +939,7 @@ var LabsViewVM = kendo.observable({
                   title: "Ημ/νια Ανάληψης Ευθύνης",
                   editor: function (container, options){
                         //options.field: The name of the field to which the column is bound. Here, worker_start_service
-                        $('<input name="' + options.field + '" data-bind="value:' + options.field + '"  required data-required-msg="Ξέχασες την ημερομηνία!" />')
+                        $('<input name="' + options.field + '" data-bind="value:' + options.field + '" required data-required-msg="Ξέχασες την ημερομηνία!" novalidate="novalidate"/>')
                         .appendTo(container)
                         .kendoDatePicker({
                             max: new Date(),
@@ -816,8 +977,8 @@ var LabsViewVM = kendo.observable({
                                                 open: function(ev){
                                                     ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
                                                     
-                                                    var disableLabWorkerDialogUpdateButton = disable_lab_worker_dialog.element.find("div.k-edit-buttons>a.k-grid-disable");
-                                                    var disableLabWorkerDialogCancelButton = disable_lab_worker_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel-disabling");
+                                                    var disableLabWorkerDialogUpdateButton = disable_lab_worker_dialog.element.find("div.k-edit-buttons>button.k-grid-disable");
+                                                    var disableLabWorkerDialogCancelButton = disable_lab_worker_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel-disabling");
 
                                                     disableLabWorkerDialogCancelButton.on("click", function(e){
                                                         e.preventDefault(); //?
@@ -901,8 +1062,8 @@ var LabsViewVM = kendo.observable({
                                                 open: function(ev){
                                                     ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
                                                     
-                                                    var removeLabWorkerDialogUpdateButton = remove_lab_worker_dialog.element.find("div.k-edit-buttons>a.k-grid-remove");
-                                                    var removeLabWorkerDialogCancelButton = remove_lab_worker_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel-remove");
+                                                    var removeLabWorkerDialogUpdateButton = remove_lab_worker_dialog.element.find("div.k-edit-buttons>button.k-grid-remove");
+                                                    var removeLabWorkerDialogCancelButton = remove_lab_worker_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel-remove");
 
                                                     removeLabWorkerDialogCancelButton.on("click", function(e){
                                                         e.preventDefault(); //?
@@ -1039,7 +1200,7 @@ var LabsViewVM = kendo.observable({
             });
             
         });
-
+        
         var lab_relations_details = e.detailRow.find("#lab_relations_details").kendoGrid({
             //dataSource: e.data.lab_relations,
             dataSource: newLabRelationsDS(e.data.lab_id, e.detailRow),
@@ -1186,8 +1347,8 @@ var LabsViewVM = kendo.observable({
                                                     ev.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
                                                     
                                                     var deleteLabRelationDialogTitle = delete_lab_transition_dialog.wrapper.find("div.k-window-titlebar>span").text("Διαγραφή Συσχέτισης Διάταξης Η/Υ");
-                                                    var deleteLabRelationDialogUpdateButton = delete_lab_transition_dialog.element.find("div.k-edit-buttons>a.k-grid-delete");
-                                                    var deleteLabRelationDialogCancelButton = delete_lab_transition_dialog.element.find("div.k-edit-buttons>a.k-grid-cancel");
+                                                    var deleteLabRelationDialogUpdateButton = delete_lab_transition_dialog.element.find("div.k-edit-buttons>button.k-grid-delete");
+                                                    var deleteLabRelationDialogCancelButton = delete_lab_transition_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel");
 
                                                     deleteLabRelationDialogCancelButton.on("click", function(e){
                                                         e.preventDefault(); //?
@@ -1394,22 +1555,6 @@ var LabsViewVM = kendo.observable({
         }
                 
     },
-    dataBinding: function(e){
-//        console.log("LabsViewVM: labs grid DATABINDING event: ", e);
-        
-//        if(e.action === "add"){
-//            setTimeout(function() {
-//                var currentRow = $(e.sender.tbody).children("tr.k-master-row").eq("0");
-//                var activateButton = currentRow.children('td:last').find(".k-grid-activate");
-//                var suspendButton = currentRow.children('td:last').find(".k-grid-suspend");
-//                var abolishButton = currentRow.children('td:last').find(".k-grid-abolish");
-//                activateButton.hide();
-//                suspendButton.hide();
-//                abolishButton.hide();
-//            }, 100);
-//        }
-
-    },
     dataBound: function(e){
         //console.log("LabsViewVM: labs grid DATABOUND event: ", e);
     
@@ -1541,7 +1686,14 @@ var LabsViewVM = kendo.observable({
     },
     toggleColumn: function(col) {
 
-        var grid = (LabsViewVM.isVisible) ? $("#labs_view").data("kendoGrid") : $("#school_unit_labs").data("kendoGrid");
+        var grid;
+        if(LabsViewVM.isVisible){
+            grid= $("#labs_view").data("kendoGrid");
+        }else if(SchoolUnitsViewVM.isVisible){
+            grid= $("#school_unit_labs").data("kendoGrid");
+        }else if(LabWorkersViewVM.isVisible){
+            grid= $("#lab_worker_labs").data("kendoGrid");
+        }
 
         if (grid.columns[col].hidden) {
             grid.showColumn(+col);
@@ -1552,7 +1704,15 @@ var LabsViewVM = kendo.observable({
     },
     restoreDefaultColumns: function() {
 
-        var grid = (LabsViewVM.isVisible) ? $("#labs_view").data("kendoGrid") : $("#school_unit_labs").data("kendoGrid");        
+        var grid;
+        if(LabsViewVM.isVisible){
+            grid= $("#labs_view").data("kendoGrid");
+        }else if(SchoolUnitsViewVM.isVisible){
+            grid= $("#school_unit_labs").data("kendoGrid");
+        }else if(LabWorkersViewVM.isVisible){
+            grid= $("#lab_worker_labs").data("kendoGrid");
+        }
+        
         var columnSelectWnd = $("#labs_column_selection_dialog").data("kendoWindow");
         var show= [1,3,4,8]; //default columns
         
