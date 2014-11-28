@@ -86,11 +86,8 @@ function FindLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
            ->leftjoin('su.eduAdmin', 'ea')->leftjoin('su.transferArea', 'ta')->leftjoin('su.municipality', 'm')->leftjoin('su.prefecture', 'p')
            ->leftjoin('su.educationLevel', 'el')->leftjoin('su.schoolUnitType', 'sut')->leftjoin('su.state', 'sus');     
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
+
         $query = $qb->getQuery();
-             
-        //pagination and results========================================================      
-        $query->setFirstResult($pagesize * ($page-1));
-        $pagesize!==Parameters::AllPageSize ? $query->setMaxResults($pagesize) : null;
         $workerResults = $query->getResult();
         $result["total"] = count($workerResults);
         
@@ -121,16 +118,18 @@ function FindLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
         $iqb->where($iqb->expr()->in('mlw.workerId', $worker_ids));
         
         $iquery = $iqb->getQuery();
-        $iworkerResults = $iquery->getResult();
-
-            
+          
+        //pagination and results========================================================      
+        $iquery->setFirstResult($pagesize * ($page-1));
+        $pagesize!==Parameters::AllPageSize ? $iquery->setMaxResults($pagesize) : null;
+        $iworkerResults = $iquery->getResult();  
         
  ////data results==================================================================              
         $count = 0;
         foreach ($iworkerResults as $workerResult1) { 
            $test[] = array ('worker_id' => $workerResult1['workerId'],
                             'registry_no' => $workerResult1['registryNo'],
-                            'uid' => $workerResult1['uid'],
+                            'UID' => $workerResult1['uid'],
                             'firstname' => $workerResult1['firstname'],
                             'lastname' => $workerResult1['lastname'],
                             'fathername' => $workerResult1['fathername'],
