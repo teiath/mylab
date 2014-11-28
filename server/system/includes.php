@@ -74,6 +74,7 @@ require_once('../api/get/GetUserPermits.php');
 require_once('../api/get/StatLabs.php');
 require_once('../api/get/GetLdapWorkers.php');
 require_once('../api/get/ViewLabWorkers.php');
+require_once('../api/get/FindLabWorkers.php');
 
 ////----get from mm
 require_once('../api/get/GetRegionEduAdmins.php');

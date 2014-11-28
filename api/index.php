@@ -88,7 +88,7 @@ $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsC
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 $app->map('/stat_labs', Authentication, UserRolesPermission, StatLabsController)->via(MethodTypes::GET);
 $app->map('/view_lab_workers', Authentication, UserRolesPermission, ViewLabWorkersController)->via(MethodTypes::GET);
-
+$app->map('/find_lab_workers', Authentication, UserRolesPermission, FindLabWorkersController)->via(MethodTypes::GET);
 
 $app->map('/initial_labs', Authentication, UserRolesPermission, InitialLabsController)->via(MethodTypes::PUT,MethodTypes::DELETE);
 
@@ -1740,6 +1740,52 @@ function ViewLabWorkersController()
     {
         case MethodTypes::GET : 
             $result = ViewLabWorkers(
+                $params["lab_worker_id"],
+                $params["worker_status"],
+                $params["worker_start_service"],
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["submitted"],
+                $params["worker_position"],
+                $params["lab_worker"],
+                $params["lab_worker_uid"],
+                $params["lab_type"],
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["lab_state"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"],
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["school_unit_state"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["orderby"],
+                $params["ordertype"],
+                $params["searchtype"],
+                $params["export"],
+                $params["debug"]
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+    
+}
+
+function FindLabWorkersController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = FindLabWorkers(
                 $params["lab_worker_id"],
                 $params["worker_status"],
                 $params["worker_start_service"],
