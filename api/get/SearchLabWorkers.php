@@ -11,7 +11,7 @@
 header("Content-Type: text/html; charset=utf-8");
 
 function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
-                            $lab_id, $lab_name, $submitted, $worker_position, $worker, $worker_registry_no,
+                            $lab_id, $lab_name, $submitted, $worker_position, $lab_worker, $lab_worker_uid,
                             $lab_type, $school_unit_id, $school_unit_name, $lab_state,                      
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
@@ -87,36 +87,35 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         }
         
 //======================================================================================================================
-//= $worker
+//= $lab_worker
 //======================================================================================================================
 
-        if ( Validator::Exists('worker', $params) )
+        if ( Validator::Exists('lab_worker', $params) )
         {
-
-            $table_name = "workers";
-            $table_column_id = "worker_id";
+            $table_name = "mylab_workers";
+            $table_column_id = "registry_no";
             $table_column_name = "lastname";
             $filter_validators = 'null,id,value';
-            
-            $filter[] = Filters::BasicFilter( $worker, $table_name, $table_column_id, $table_column_name, $filter_validators,  
-                                              ExceptionMessages::InvalidWorkerType, ExceptionCodes::InvalidWorkerType);
-            
-    }  
+
+            $filter[] = $filter_lab_workers[] = Filters::BasicFilter( $lab_worker, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+                                                                      ExceptionMessages::InvalidMylabWorkerType, ExceptionCodes::InvalidMylabWorkerType);           
+
+        }  
  
 //======================================================================================================================
-//= $worker_registry_no
+//= $lab_worker_uid
 //======================================================================================================================
 
-        if ( Validator::Exists('registry_no', $params) )
+        if ( Validator::Exists('lab_worker_uid', $params) )
         {
 
-            $table_name = "workers";
-            $table_column_id = "registry_no";
-            $table_column_name = "registry_no";
-            $filter_validators = 'null,value';
+            $table_name = "mylab_workers";
+            $table_column_id = "uid";
+            $table_column_name = "uid";
+            $filter_validators = 'value';
             
-            $filter[] = Filters::BasicFilter( $worker_registry_no, $table_name, $table_column_id, $table_column_name, $filter_validators,  
-                                              ExceptionMessages::InvalidWorkerRegistryNoType, ExceptionCodes::InvalidWorkerRegistryNoType);
+            $filter[] = Filters::BasicFilter( $lab_worker_uid, $table_name, $table_column_id, $table_column_name, $filter_validators,  
+                                              ExceptionMessages::InvalidMylabWorkerUidType, ExceptionCodes::InvalidMylabWorkerUidType);
             
     } 
     
@@ -449,16 +448,15 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
        
        $sqlSelect = "SELECT 
                         lab_workers.lab_worker_id,
-                        lab_workers.worker_email,
                         lab_workers.worker_status,
                         lab_workers.worker_start_service,
-                        workers.worker_id,
-                        workers.registry_no,
-                        workers.tax_number,
-                        workers.firstname,
-                        workers.lastname,
-                        workers.fathername,
-                        workers.sex,
+                        mylab_workers.worker_id,
+                        mylab_workers.registry_no,
+                        mylab_workers.uid,
+                        mylab_workers.firstname,
+                        mylab_workers.lastname,
+                        mylab_workers.fathername,
+                        mylab_workers.email,
                         worker_specializations.worker_specialization_id,
                         worker_specializations.name as worker_specialization,
                         worker_positions.worker_position_id,
@@ -502,9 +500,9 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         $sqlFrom = "FROM lab_workers
                                 LEFT JOIN labs using (lab_id)
-                                LEFT JOIN workers using (worker_id)
+                                LEFT JOIN mylab_workers using (worker_id)
                                 LEFT JOIN worker_positions using (worker_position_id)
-                                LEFT JOIN worker_specializations ON workers.worker_specialization_id = worker_specializations.worker_specialization_id
+                                LEFT JOIN worker_specializations ON mylab_workers.worker_specialization_id = worker_specializations.worker_specialization_id
                                 LEFT JOIN lab_types ON labs.lab_type_id = lab_types.lab_type_id 
                                 LEFT JOIN states lab_states ON labs.state_id = lab_states.state_id                               
                                 LEFT JOIN school_units using (school_unit_id)
@@ -567,7 +565,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions);
 
         $school_unit_ids = Validator::ToUniqueString($school_unit_ids);
-          
+                  
 //======================================================================================================================
 //= R E S U L T S
 //======================================================================================================================
@@ -578,23 +576,22 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                 "lab_worker_id"             => $lab_worker["lab_worker_id"] ? (int)$lab_worker["lab_worker_id"] : null,                
                 "worker_status"             => $lab_worker["worker_status"] ? (int)$lab_worker["worker_status"] : null,
                 "worker_start_service"      => $lab_worker["worker_start_service"],
-                "email"                     => $lab_worker["worker_email"] ,
                 "worker_id"                 => $lab_worker["worker_id"] ? (int)$lab_worker["worker_id"] : null,
                 "registry_no"               => $lab_worker["registry_no"],
-                "tax_number"                => $lab_worker["tax_number"],
+                "uid"                       => $lab_worker["uid"],
                 "firstname"                 => $lab_worker["firstname"] ,
                 "lastname"                  => $lab_worker["lastname"] ,
                 "fathername"                => $lab_worker["fathername"] ,
-                "sex"                       => $lab_worker["sex"],
+                "email"                     => $lab_worker["email"],
                 "worker_specialization_id"  => $lab_worker["worker_specialization_id"],
                 "worker_specialization"     => $lab_worker["worker_specialization"] ,
                 "worker_position_id"        => $lab_worker["worker_position_id"] ,
                 "worker_position"           => $lab_worker["worker_position"],
                 
-//            );
-//            
-//                //$array_lab
-//                $data["lab"][] = array(
+            );
+            
+                //$array_lab
+                $data["lab"][] = array(
                     "lab_id"                    => $lab_worker["lab_id"] ? (int)$lab_worker["lab_id"] : null,
                     "lab"                       => $lab_worker["lab"],
                     "special_name"              => $lab_worker["special_name"],
@@ -612,10 +609,10 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                     "lab_type"                  => $lab_worker["lab_type"] ,
                     "lab_state_id"              => $lab_worker["lab_state_id"]? (int)$lab_worker["lab_state_id"] : null,
                     "lab_state"                 => $lab_worker["lab_state_name"],
-//                );
-//
-//                //$array_school_unit
-//                $data["school_unit"][] = array(
+                );
+
+                //$array_school_unit
+                $data["school_unit"][] = array(
                     "school_unit_id"            => $lab_worker["school_unit_id"]? (int)$lab_worker["school_unit_id"] : null,
                     "school_unit"               => $lab_worker["school_unit"] ,
                     "school_unit_state_id"      => $lab_worker["school_unit_state_id"]? (int)$lab_worker["school_unit_state_id"] : null,

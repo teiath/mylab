@@ -1239,7 +1239,6 @@ function LabWorkersController()
                     $params["lab_id"],
                     $params["worker_id"],
                     $params["worker_position"],
-                    $params["worker_email"],
                     $params["worker_status"],
                     $params["worker_start_service"]
             );      
@@ -1537,8 +1536,8 @@ function SearchLabWorkersController()
                 $params["lab_name"],
                 $params["submitted"],
                 $params["worker_position"],
-                $params["worker"],
-                $params["worker_registry_no"],
+                $params["lab_worker"],
+                $params["lab_worker_uid"],
                 $params["lab_type"],
                 $params["school_unit_id"],
                 $params["school_unit_name"],

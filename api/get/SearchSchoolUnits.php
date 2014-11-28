@@ -811,7 +811,6 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         $sqlSelect = "SELECT
                         lab_workers.lab_worker_id,
                         lab_workers.lab_id,
-                        lab_workers.worker_email,
                         lab_workers.worker_status,
                         lab_workers.worker_start_service,
                         mylab_workers.worker_id,
@@ -987,7 +986,6 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                         $summary_labs["lab_workers"][] = array(
                             "lab_worker_id"             => $lab_worker["lab_worker_id"] ? (int)$lab_worker["lab_worker_id"] : null,
                             "lab_id"                    => $lab_worker["lab_id"],
-                            "email"                     => $lab_worker["worker_email"] ,
                             "worker_status"             => $lab_worker["worker_status"] ? (int)$lab_worker["worker_status"] : null,
                             "worker_start_service"      => $lab_worker["worker_start_service"],
                             "worker_id"                 => $lab_worker["worker_id"] ? (int)$lab_worker["worker_id"] : null,

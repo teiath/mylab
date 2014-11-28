@@ -15,14 +15,13 @@ header("Content-Type: text/html; charset=utf-8");
  * @param type $lab_id
  * @param type $worker_id
  * @param type $worker_position
- * @param type $worker_email
  * @param type $worker_status
  * @param type $worker_start_service
  * @return string
  * @throws Exception
  */
 
-function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $worker_status, $worker_start_service) { 
+function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $worker_start_service) { 
     
     global $app,$entityManager;
     
@@ -79,9 +78,6 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
          $LabWorker->setWorkerStartService(new \DateTime($worker_start_service));
     else
          throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceType." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceType);    
- 
-//$worker_email=================================================================
-    CRUDUtils::entitySetParam($LabWorker, $worker_email, 'LabWorkerEmail', 'worker_email', $params, false, true );
     
 //user permisions=============================================================== 
      $permissions = UserRoles::getUserPermissions($app->request->user);

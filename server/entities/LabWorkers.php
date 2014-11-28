@@ -22,13 +22,6 @@ class LabWorkers
     private $labWorkerId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="worker_email", type="string", length=255, nullable=true)
-     */
-    private $workerEmail;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="worker_status", type="integer", nullable=false)
@@ -108,14 +101,6 @@ class LabWorkers
 
     public function setLabWorkerId($labWorkerId) {
         $this->labWorkerId = $labWorkerId;
-    }
-
-    public function getWorkerEmail() {
-        return $this->workerEmail;
-    }
-
-    public function setWorkerEmail($workerEmail) {
-        $this->workerEmail = $workerEmail;
     }
 
     public function getWorkerStatus() {

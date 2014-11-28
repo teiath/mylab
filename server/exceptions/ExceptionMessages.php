@@ -235,11 +235,6 @@ class ExceptionMessages
     const InvalidLabWorkerStartServiceType = 'Η Ημερομηνία Έναρξης  του Εργαζομένου Εργαστηρίου πρέπει να είναι Ημερομηνία (dd/mm/yyyy)';
     const InvalidLabWorkerStartServiceArray = 'Η Ημερομηνία Έναρξης  του Εργαζομένου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές';
     
-    const MissingLabWorkerEmailParam = 'Το Email του Εργαζομένου Εργαστηρίου είναι υποχρεωτικό πεδίο';
-    const MissingLabWorkerEmailValue = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει τιμή';
-    const InvalidLabWorkerEmailType = 'Το Email του Εργαζομένου Εργαστηρίου πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
-    const InvalidLabWorkerEmailArray = 'Το Email του Εργαζομένου Εργαστηρίου δεν μπορεί να έχει πολλαπλές τιμές'; 
-    
     const DuplicatedLabWorkerValue = 'Ο Εργαζόμενος Εργαστηρίου υπάρχει ήδη';
     const UsedLabWorkerByLabs = 'Ο Κωδικός του Εργαζόμενου Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
     const DuplicateLabWorkerUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key Worker';
@@ -303,7 +298,7 @@ class ExceptionMessages
     
     const MissingMylabWorkerEmailParam = 'Το Email του Εργαζομένου είναι υποχρεωτικό πεδίο';
     const MissingMylabWorkerEmailValue = 'Το Email του Εργαζομένου πρέπει να έχει τιμή';
-    const InvalidMylabWorkerEmailType = 'Το Email του Εργαζομένου πρέπει να είναι αλφαριθμητικό';
+    const InvalidMylabWorkerEmailType = 'Το Email του Εργαζομένου πρέπει να έχει την μορφή xxxxx@xxxxx.xx';
     const InvalidMylabWorkerEmailArray = 'Το Email του Εργαζομένου δεν μπορεί να έχει πολλαπλές τιμές';
     
         //delete
