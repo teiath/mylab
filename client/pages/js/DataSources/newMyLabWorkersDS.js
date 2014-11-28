@@ -1,10 +1,10 @@
-function newWorkersDS(){
+function newMyLabWorkersDS(){
     
     var workers_ds =  new kendo.data.DataSource({
                         serverFiltering: true,
                         transport: {
                             read: {
-                                url: "api/mylab_workers", //"api/workers",
+                                url: "api/mylab_workers",
                                 type: "GET",
                                 dataType: "json"
                             },
@@ -25,11 +25,11 @@ function newWorkersDS(){
                                 fields:{
                                       worker_id: {},
                                       registry_no: {},
-                                      tax_number: {},
+                                      uid:{},
                                       firstname: {},
                                       lastname: {},
                                       fathername: {},
-                                      sex: {},
+                                      email:{},
                                       worker_specialization: {},
                                       lab_source:{}, //source:{},
                                       worker:{},
@@ -38,12 +38,9 @@ function newWorkersDS(){
                             }
                         },
                         //filter: { field: "used", operator: "neq", value: true },
-                        change: function(e){ 
-                            //console.log("newWorkersDS change event:", e);
-                        },
+                        //change: function(e){ console.log("newMyLabWorkersDS change event:", e); },
                         requestEnd: function(e){
-                            //console.log("newWorkersDS requestEnd event:", e);
-
+                            //console.log("newMyLabWorkersDS requestEnd event:", e);
                             $.each(e.response.data, function(index, value){
                                 e.response.data[index].fullname = e.response.data[index].lastname + " " + e.response.data[index].firstname + " (ΑΜ: " + e.response.data[index].registry_no + ")";
                             });

@@ -13,7 +13,7 @@ var SearchVM = kendo.observable({
     
     lab_types_ds: newLabTypesDS(),
     aquisition_sources_ds : newAquisitionSourcesDS(),
-    lab_workers_ds : newWorkersDS(), // περιμένω του κώστα το newWorkersDS(position)
+    lab_workers_ds : newMyLabWorkersDS(), // περιμένω του κώστα το newMyLabWorkersDS(position)
     lab_states_ds: newStatesDS(),
     school_unit_states_ds: newStatesDS(),
     lab_rating_ds: newRatingDS(),
