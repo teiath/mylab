@@ -52,6 +52,7 @@ require_once('classes/ExportDataTypes.php');
 require_once('classes/ExportDataEnumTypes.php');
 require_once('classes/FormatCreator.php');
 require_once('classes/Filters.php');
+require_once('classes/FindLabWorkersExt.php');
 require_once('classes/FormatCreator.php');
 require_once('classes/SearchLabWorkersExt.php');
 require_once('classes/SearchLabsExt.php');
