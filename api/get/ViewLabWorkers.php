@@ -39,10 +39,10 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
  
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
-       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $pagesize = Pagination::getPagesize($pagesize, $params, true);     
        $searchtype = Filters::getSearchType($searchtype, $params);
        $ordertype =  Filters::getOrderType($ordertype, $params);
-   
+
 //$orderby======================================================================
        $columns = array(
                             "lw.labWorkerId"        => "lab_worker_id",
@@ -88,7 +88,10 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
         $qb->orderBy(array_search($orderby, $columns), $ordertype);
         $query = $qb->getQuery();
              
-        //pagination and results========================================================      
+        //pagination and results========================================================
+        //TODO not working pagination.Only can set limit of rows
+        //else return all rows. Returns only one (1) page
+        
         $query->setFirstResult($pagesize * ($page-1));
         $pagesize!==Parameters::AllPageSize ? $query->setMaxResults($pagesize) : null;
         $workerResults = $query->getResult();
@@ -135,7 +138,7 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
         foreach ($iworkerResults as $workerResult1) { 
            $test[$workerResult1['workerId']]['infos'] = array ( 'worker_id' => $workerResult1['workerId'],
                                                                                     'registry_no' => $workerResult1['registryNo'],
-                                                                                    'uid' => $workerResult1['uid'],
+                                                                                    'UID' => $workerResult1['uid'],
                                                                                     'firstname' => $workerResult1['firstname'],
                                                                                     'lastname' => $workerResult1['lastname'],
                                                                                     'fathername' => $workerResult1['fathername'],
