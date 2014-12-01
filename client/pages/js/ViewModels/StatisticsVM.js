@@ -74,11 +74,6 @@ var StatisticsVM = kendo.observable({
         if ( !$('#statistic_export_btn').hasClass('k-state-disabled') ){
             $('#statistic_export_btn').addClass('k-state-disabled');
         }
-        
-        if ( !$('#statistic_xls_export_btn').hasClass('k-state-disabled') ){
-            $('#statistic_xls_export_btn').addClass('k-state-disabled');
-        }
-        
     },
     getStatistic: function(e){
         
