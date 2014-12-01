@@ -1065,7 +1065,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         return $result;
     } else if ($export == 'XLSX') {
        $xlsx_filename = SearchSchoolUnitsExt::ExcelCreate($result);
-       return array("tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+       unset($result['data']);
+       return array("result"=>$result,"tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
        //exit;
     } else if ($export == 'PDF'){
        return $result;

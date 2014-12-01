@@ -664,7 +664,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         return $result;
     } else if ($export == 'XLSX') {
         $xlsx_filename = SearchLabWorkersExt::ExcelCreate($result);
-        return array("tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+        unset($result['data']);
+        return array("result"=>$result,"tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
         //exit;
     } else if ($export == 'PDF'){
        return $result;

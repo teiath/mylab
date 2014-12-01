@@ -1061,7 +1061,8 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
         return $result;
     } else if ($export == 'XLSX') {
        $xlsx_filename = SearchLabsExt::ExcelCreate($result);
-       return array("tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+       unset($result['data']);
+       return array("result"=>$result,"tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
        // exit;
     } else if ($export == 'PDF'){
        return $result;
