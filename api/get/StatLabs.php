@@ -11,10 +11,11 @@ header("Content-Type: text/html; charset=utf-8");
 function StatLabs(
     $x_axis, $y_axis, $operational_rating, $technological_rating, 
     $lab_type, $lab_state, $has_lab_worker,
-    $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture, $education_level, $school_unit_type, $school_unit_state
+    $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture, $education_level, $school_unit_type, $school_unit_state,
+    $export
     )
 {
-    global $db,$app;
+    global $db, $Options;
     
     $filter = array();
     $result = array();
@@ -565,7 +566,21 @@ function StatLabs(
         $result["sql"] =  trim(preg_replace('/\s\s+/', ' ', $sql));
     }
     
-    return $result;
+    if ($export == 'JSON'){
+        return $result;
+    } else if ($export == 'XLSX') {
+       $xlsx_filename = StatLabsExt::ExcelCreate($result, $x_axis, $y_axis);
+       unset($result['results']);
+       return array("result"=>$result,"tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+       // exit;
+    } else if ($export == 'PDF'){
+       $pdf_filename = StatLabsExt::PdfCreate($result, $x_axis, $y_axis);
+       unset($result['results']);
+       return array("result"=>$result,"tmp_pdf_filepath" => $Options["WebTmpFolder"].$pdf_filename);
+    } else {     
+       return $result;
+    }
+    
 }
 
 ?>

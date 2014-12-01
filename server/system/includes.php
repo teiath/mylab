@@ -57,6 +57,7 @@ require_once('classes/FormatCreator.php');
 require_once('classes/SearchLabWorkersExt.php');
 require_once('classes/SearchLabsExt.php');
 require_once('classes/SearchSchoolUnitsExt.php');
+require_once('classes/StatLabsExt.php');
 require_once('classes/Reports.php');
 require_once('classes/UserRoles.php');
 require_once('classes/CRUDUtils.php');

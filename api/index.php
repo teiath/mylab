@@ -1721,6 +1721,7 @@ function StatLabsController()
                 $params["education_level"],
                 $params["school_unit_type"],
                 $params["school_unit_state"],
+                $params["export"],
                 $params["debug"]
             );      
             break;
