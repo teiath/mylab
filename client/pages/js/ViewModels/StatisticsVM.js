@@ -2,6 +2,7 @@ var StatisticsVM = kendo.observable({
 
     isVisible: false,
     statisticExportEnabled: false,
+    xlsExportEnabled: false,
     cascadeValidationVisible: false,
     filtersPaneVisible: false,
     statisticTableVisible: false,
@@ -73,8 +74,15 @@ var StatisticsVM = kendo.observable({
         if ( !$('#statistic_export_btn').hasClass('k-state-disabled') ){
             $('#statistic_export_btn').addClass('k-state-disabled');
         }
+        
+        if ( !$('#statistic_xls_export_btn').hasClass('k-state-disabled') ){
+            $('#statistic_xls_export_btn').addClass('k-state-disabled');
+        }
+        
     },
     getStatistic: function(e){
+        
+        var filters = normalizeParams( $("#search-lab-workers-form").serializeArray() );
         
         e.preventDefault();
 
@@ -95,12 +103,12 @@ var StatisticsVM = kendo.observable({
         jQuery("#statistics-table thead tr").empty();
         jQuery("#statistics-table thead tr").append("<th></th>");
         
-        var filters = $("#statistics-form").serializeArray();
-        var parameters = normalizeParams(filters);
+        var filters = normalizeParams( $("#statistics-form").serializeArray() );
+        statisticParameters = filters;
         
         var normalizedFilter = {};
-        $.each(parameters, function(index, value){
-            var filter = parameters[index];
+        $.each(filters, function(index, value){
+            var filter = filters[index];
             var value = normalizedFilter[filter.field];
             value = (value ? value+"," : "")+ filter.value;
             normalizedFilter[filter.field] = value;                                   
@@ -206,6 +214,9 @@ var StatisticsVM = kendo.observable({
         });
         
         StatisticsVM.set("statisticTableVisible", true);
+        StatisticsVM.set("xlsExportEnabled", true);
+        $('#statistic_xls_export_btn').removeClass('k-state-disabled');
+        
     },
     cascadeAxis: function(e){
         
@@ -243,5 +254,42 @@ var StatisticsVM = kendo.observable({
         }
         
         StatisticsVM.filtersPaneVisible ? StatisticsVM.set("filtersPaneVisible", false) : StatisticsVM.set("filtersPaneVisible", true);
-    }    
+    },
+            
+    exportToXLSX: function(e){
+        e.preventDefault();
+        
+        var filters = statisticParameters;
+
+        var normalizedFilter = {};
+        $.each(filters, function(index, value){
+            var filter = filters[index];
+            var value = normalizedFilter[filter.field];
+            value = (value ? value+"," : "")+ filter.value;
+            normalizedFilter[filter.field] = value;                                   
+        });
+
+        $.ajax({
+                type: 'GET',
+                url: config.serverUrl + "stat_labs?export=XLSX&",
+                dataType: "json",
+                data: normalizedFilter,
+                success: function(data){
+                    window.location.href = data.tmp_xlsx_filepath;
+                },
+                error: function (data){
+                    var xls_download_error_dialog = $("#xls_download_error_dialog").kendoWindow({
+                        title: "Αποτυχία Έκδοσης .xls Αρχείου",
+                        modal: true,
+                        visible: false,
+                        resizable: false,
+                        width: 400,
+                        pinned: true
+                    }).data("kendoWindow");
+
+                    xls_download_error_dialog.content();
+                    xls_download_error_dialog.center().open();
+                }
+        });
+    }
 });

@@ -10,6 +10,7 @@
                     <div class="col-md-12" style="margin:20px 0px 25px 0px; border-bottom: 1px dotted #DADADA; padding:3px;">
                         <button id="clear" class="k-button" data-bind="click: resetFiltersPane"><i class="fa fa-eraser"></i> Καθαρισμός</button>
                         <button id="statistic_export_btn" class="k-button k-state-disabled" data-bind="click: getStatistic, enabled: statisticExportEnabled" > <i class="fa fa-bar-chart-o"></i> Προβολή Στατιστικού</button>
+                        <button id="statistic_xls_export_btn" class="k-button k-state-disabled k-state-border-down" data-bind="click: exportToXLSX, enabled: xlsExportEnabled" > <i class="fa fa-file-excel-o"></i> Εξαγωγή σε excel</button>
                         <div class="col-md-12" style="padding:0px; margin-top:5px;"> <span data-bind="visible: cascadeValidationVisible" style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
                     </div>
                     
