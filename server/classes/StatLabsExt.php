@@ -2,6 +2,21 @@
 
 class StatLabsExt {
     
+ public static function multiKeyExists( Array $array, $key ) {
+        if (array_key_exists($key, $array)) {
+            return true;
+        }
+        foreach ($array as $k=>$v) {
+            if (!is_array($v)) {
+                continue;
+            }
+            if (array_key_exists($key, $v)) {
+                return true;
+            }
+        }
+    return false;
+    } 
+    
  public static function ExcelCreate($data, $x_axis, $y_axis){
      
     global $Options;
@@ -30,9 +45,9 @@ class StatLabsExt {
     $xStartRow = 'B'; //B1->C1->D1....
     $yStartRow = 2;   //A2->A3->A4....
    
-    $create_x_axis = array();
-    $create_y_axis = array();
-    
+    $create_x_axis = $all_x_axis = array();
+    $create_y_axis = $all_y_axis = array();
+        
     foreach($data["results"] as $result)
     { 
 
@@ -40,23 +55,28 @@ class StatLabsExt {
         $yname = $result[$y_axis.'_name'];
         
        //array transformation
-        
             //create x axis row
-            if (!array_key_exists($xname, $create_x_axis)) {
+            if (!array_search($xname, $all_x_axis)) {
                 $xRow = $xStartRow++ ;
                 $xResult = $xRow. '1';
+                $all_x_axis[] = $xname;
                 $create_x_axis = array(  $xname => $xResult,
                                             'x_row' => $xRow
                                           );
+//                print_r($all_x_axis); 
+//                print_r($create_x_axis); 
             } else {
-                $xRow = $create_x_axis['x_row'];
-                $xResult = $create_x_axis[$xname];
+               $xRow = $create_x_axis['x_row'];
+               $xResult = $create_x_axis[$xname];
+//            die();
+               
             }
 
             //create y axis row
-            if (!array_key_exists($yname, $create_y_axis) ) {
+            if (!array_search($yname, $all_y_axis)) {
                 $yRow = $yStartRow++;
                 $yResult = 'A' . $yRow;
+                $all_y_axis[] = $yname;
                 $create_y_axis = array(  $yname => $yResult,
                                             'y_row' => $yRow
                                          );
@@ -72,6 +92,10 @@ class StatLabsExt {
         $objPHPExcel->getActiveSheet()->setCellValue($xyResult, $result["total_labs"]); 
 
     }
+
+//    var_dump($create_x_axis);
+//    var_dump($all_x_axis);
+//    die();
     
     // Set auto size column width
     foreach(range('A',$xRow) as $columnID) {
@@ -175,7 +199,7 @@ public static function PdfCreate($data, $x_axis, $y_axis){
                 $yRow = $create_y_axis['y_row'];
                 $yResult = $create_y_axis[$yname];
             }
-               
+            
         $xyResult = $xRow . $yRow;
 
         $objPHPExcel->getActiveSheet()->setCellValue($xResult, $result[$x_axis.'_name']);
@@ -183,7 +207,7 @@ public static function PdfCreate($data, $x_axis, $y_axis){
         $objPHPExcel->getActiveSheet()->setCellValue($xyResult, $result["total_labs"]); 
 
     }
-    
+                  
     // Set auto size column width
     foreach(range('A',$xRow) as $columnID) {
         $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)
