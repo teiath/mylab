@@ -60,14 +60,14 @@ class StatLabsExt {
                 $xRow = $xStartRow++ ;
                 $xResult = $xRow. '1';
                 $all_x_axis[] = $xname;
-                $create_x_axis = array(  $xname => $xResult,
+                $create_x_axis[$xname] = array(  $xname => $xResult,
                                             'x_row' => $xRow
                                           );
 //                print_r($all_x_axis); 
 //                print_r($create_x_axis); 
             } else {
-               $xRow = $create_x_axis['x_row'];
-               $xResult = $create_x_axis[$xname];
+               $xRow = $create_x_axis[$xname]['x_row'];
+               $xResult = $create_x_axis[$xname][$xname];
 //            die();
                
             }
@@ -77,12 +77,12 @@ class StatLabsExt {
                 $yRow = $yStartRow++;
                 $yResult = 'A' . $yRow;
                 $all_y_axis[] = $yname;
-                $create_y_axis = array(  $yname => $yResult,
+                $create_y_axis[$yname] = array(  $yname => $yResult,
                                             'y_row' => $yRow
                                          );
             } else {
-                $yRow = $create_y_axis['y_row'];
-                $yResult = $create_y_axis[$yname];
+                $yRow = $create_y_axis[$yname]['y_row'];
+                $yResult = $create_y_axis[$yname][$yname];
             }
                
         $xyResult = $xRow . $yRow;
