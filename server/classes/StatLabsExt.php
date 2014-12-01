@@ -56,24 +56,20 @@ class StatLabsExt {
         
        //array transformation
             //create x axis row
-            if (!array_search($xname, $all_x_axis)) {
+            if (!in_array($xname, $all_x_axis)) {
                 $xRow = $xStartRow++ ;
                 $xResult = $xRow. '1';
                 $all_x_axis[] = $xname;
                 $create_x_axis[$xname] = array(  $xname => $xResult,
                                             'x_row' => $xRow
                                           );
-//                print_r($all_x_axis); 
-//                print_r($create_x_axis); 
             } else {
                $xRow = $create_x_axis[$xname]['x_row'];
-               $xResult = $create_x_axis[$xname][$xname];
-//            die();
-               
+               $xResult = $create_x_axis[$xname][$xname];              
             }
 
             //create y axis row
-            if (!array_search($yname, $all_y_axis)) {
+            if (!in_array($yname, $all_y_axis)) {
                 $yRow = $yStartRow++;
                 $yResult = 'A' . $yRow;
                 $all_y_axis[] = $yname;
