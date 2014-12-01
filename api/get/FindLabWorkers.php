@@ -89,7 +89,7 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
         
 //$worker_uid===================================================================
         if (Validator::Exists('worker_uid', $params)){
-            CRUDUtils::setFilter($qb, $worker_uid, "mlw", "uid", "uid", "value", ExceptionMessages::InvalidMylabWorkerUidType, ExceptionCodes::InvalidMylabWorkerUidType);    
+            CRUDUtils::setSearchFilter($qb, $worker_uid, "mlw", "uid", $searchtype, ExceptionMessages::InvalidMylabWorkerUidType, ExceptionCodes::InvalidMylabWorkerUidType);    
         } 
    
 //$worker_firstname=============================================================

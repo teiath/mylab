@@ -91,7 +91,6 @@ function GetMylabWorkers( $worker_id, $registry_no, $uid, $firstname, $lastname,
         
 //$uid===================================================================
         if (Validator::Exists('uid', $params)){
-            //CRUDUtils::setFilter($qb, $uid, "mlw", "uid", "uid", "value", ExceptionMessages::InvalidMylabWorkerUidType, ExceptionCodes::InvalidMylabWorkerUidType);
             CRUDUtils::setSearchFilter($qb, $uid, "mlw", "uid", $searchtype, ExceptionMessages::InvalidMylabWorkerUidType, ExceptionCodes::InvalidMylabWorkerUidType);    
         } 
 
