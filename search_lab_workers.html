@@ -2,11 +2,11 @@
 $(document).ready(function() {
 
     // this tooltip could not be binded through kendo 'data-bind' attr, so it was implemented here
-    $('body').find("#slw_lab_worker").prev().focusin(function() {
+    $('body').find("#slw_worker_registry_no").prev().focusin(function() {
 
-        var tooltip = $('body').find("#sl_lab_worker").prev().kendoTooltip({
+        var tooltip = $('body').find("#slw_worker_registry_no").prev().kendoTooltip({
             autoHide: true,
-            content:"αναζητήστε με το επώνυμο ή τον αριθμό μητρωόυ του Υπεύθυνου Διάταξης Η/Υ",
+            content:"αναζητήστε με το Επώνυμο ή τον Αριθμό Μητρωόυ του Υπεύθυνου Διάταξης Η/Υ",
             width:185,
             height:50,
             position: "left",
@@ -16,12 +16,11 @@ $(document).ready(function() {
             }
         }).data("kendoTooltip");
 
-        tooltip.show($('body').find("#slw_lab_worker").prev());
+        tooltip.show($('body').find("#slw_worker_registry_no").prev());
 
     });
 
-
-    $("form#search-form input").on("keypress", function(e){
+    $("form#search-lab-workers-form input").on("keypress", function(e){
         //if current key is Enter
         if (e.keyCode == 13) {
             //prevent default behavior
@@ -46,76 +45,83 @@ $(document).ready(function() {
                                     <i>...φίλτρα Υπευθύνων Διάταξης Η/Υ</i>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                
+                            <div class="col-md-3">                                
                                 <div class="col-md-11">
                                     <label for="worker_registry_no">Υπεύθυνος Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">   
-                                    <select id="slw_lab_worker" 
+                                    <select id="slw_worker_registry_no" 
                                             name="worker_registry_no" 
                                             data-role="multiselect"
                                             data-auto-bind="false"
                                             data-text-field="fullname"
                                             data-value-field="registry_no"
                                             data-min-length="1"
-                                            data-bind="source: mylab_workers_ds, value: worker_registry_no, events: {change : filterGrids}"
+                                            data-bind="source: mylab_workers_ds, value: worker_registry_no, events: {change : filterLabWorkersGrid}"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>              
                                 </div>                                
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <div class="col-md-11">
                                     <label for="worker_uid">ΠΣΔ LDAP uid</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="slw_worker_uid" name="worker_uid" class="k-textbox" data-bind="value: worker_uid, events: {input : filterGrids, focus: infoTooltip }" />
+                                    <input id="slw_worker_uid" name="worker_uid" class="k-textbox" data-bind="value: worker_uid, events: {input : filterLabWorkersGrid, focus: infoTooltip }" />
                                 </div>
-                                
+                            </div>
+                            <div class="col-md-2">
+                                <div class="col-md-11">
+                                    <label for="lab_worker_status">Κατάσταση Υπευθύνου</label>
+                                </div>
+                                <div class="col-md-11">
+                                    <input id="slw_lab_worker_status" 
+                                            name="lab_worker_status"
+                                            data-role="combobox"
+                                            data-auto-bind="false"
+                                            data-text-field="name"
+                                            data-value-field="id"
+                                            data-filter="contains"
+                                            data-bind="source: lab_worker_status_ds, value: lab_worker_status, events: {change : filterLabWorkersGrid}"
+                                            data-placeholder="επιλέξτε από τη λίστα"/>
+                                </div>
                             </div>
                         </div>
                         <div class="row" style="padding:20px;">
                             <div class="col-md-2">
-                                <div  class="col-md-11">
-                                    <button class="k-button" data-bind="click: resetForm"> <i class="fa fa-eraser"></i> Καθαρισμός</button>
-                                </div>
                                 <div  class="col-md-11" style="margin:15px 0px;">
                                     <i>...φίλτρα Διατάξεων Η/Υ</i>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                
+                            <div class="col-md-4">                                
                                 <div class="col-md-11">
                                     <label for="lab_id">Κωδικός Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="slw_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterGrids, focus: infoTooltip }" />
+                                    <input id="slw_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterLabWorkersGrid, focus: infoTooltip }" />
                                 </div>
                                 
                                 <div class="col-md-11">
                                     <label for="lab_name">Ονομασία Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="slw_lab_name" name="lab_name" class="k-textbox" data-bind="value: lab_name, events: {input : filterGrids}"/> 
-                                </div>                              
-                                
-                                
+                                    <input id="slw_lab_name" name="lab_name" class="k-textbox" data-bind="value: lab_name, events: {input : filterLabWorkersGrid}"/> 
+                                </div>                                
                             </div>
                             <div class="col-md-4">
-
                                 <div class="col-md-11">
                                     <label for="lab_type">Τύπος Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <select id="slw_lab_types"  
+                                    <select id="slw_lab_type"  
                                             name="lab_type"
                                             data-role="multiselect"
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="name"
-                                            data-bind="source: lab_types_ds, value: lab_type, events: {change : filterGrids }"
+                                            data-bind="source: lab_types_ds, value: lab_type, events: {change : filterLabWorkersGrid }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -133,12 +139,11 @@ $(document).ready(function() {
                                            data-text-field="name"
                                            data-value-field="state_id"
                                            data-filter="contains"
-                                           data-bind="source: lab_states_ds, value: lab_state, events: {change : filterGrids }"
+                                           data-bind="source: lab_states_ds, value: lab_state, events: {change : filterLabWorkersGrid }"
                                            data-placeholder="επιλέξτε από τη λίστα"
                                            multiple="multiple">
                                     </select>
-                                 </div>
-                                
+                                 </div>                                
                             </div>
                         </div>
                         <div class="row" style="padding:20px;">
@@ -153,20 +158,19 @@ $(document).ready(function() {
                                     <label for="school_unit_id">Κωδικός Σχολικής Μονάδας</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="slw_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterGrids, focus: infoTooltip }"/>
+                                    <input id="slw_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterLabWorkersGrid, focus: infoTooltip }"/>
                                  </div>
                                 
                                 <div class="col-md-11">
                                     <label for="name">Ονομασία Σχολικής Μονάδας</label>
                                 </div>                                
                                 <div class="col-md-11">
-                                    <input id="slw_school_unit_name" name="school_unit_name" class="k-textbox" data-bind="value: school_unit_name, events: {input : filterGrids }"/>
+                                    <input id="slw_school_unit_name" name="school_unit_name" class="k-textbox" data-bind="value: school_unit_name, events: {input : filterLabWorkersGrid }"/>
                                 </div>
                                 
                                 <div class="col-md-11">
                                     <label for="education_level">Βαθμίδα Εκπαίδευσης</label>
                                 </div>
-                                
                                 <div class="col-md-11">
                                     <select id="slw_education_level" 
                                             name="education_level"
@@ -174,7 +178,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="education_level_id"
-                                            data-bind="source: education_levels_ds, value: education_level, events: {change : filterGrids }"
+                                            data-bind="source: education_levels_ds, value: education_level, events: {change : filterLabWorkersGrid }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -184,7 +188,6 @@ $(document).ready(function() {
                                 <div class="col-md-11">
                                     <label for="school_unit_type">Τύπος Σχολικής Μονάδας</label>                                    
                                 </div>
-                                
                                 <div class="col-md-11">
                                     <select id="slw_school_unit_type" 
                                             name="school_unit_type"
@@ -192,7 +195,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="school_unit_type_id"
-                                            data-bind="source: school_unit_types_ds, value: school_unit_type, events: {change : filterGrids }"
+                                            data-bind="source: school_unit_types_ds, value: school_unit_type, events: {change : filterLabWorkersGrid }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">  
@@ -202,7 +205,6 @@ $(document).ready(function() {
                                 <div class="col-md-11">
                                     <label for="school_unit_state">Λειτουργική Κατάσταση Σχολικής Μονάδας</label>
                                 </div>
-                                
                                 <div class="col-md-11">
                                     <select id="slw_school_unit_state" 
                                             name="school_unit_state"
@@ -211,7 +213,7 @@ $(document).ready(function() {
                                             data-text-field="name"
                                             data-value-field="state_id"
                                             data-filter="contains"
-                                            data-bind="source: school_unit_states_ds, value: school_unit_state, events: {change : filterGrids }"
+                                            data-bind="source: school_unit_states_ds, value: school_unit_state, events: {change : filterLabWorkersGrid }"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
@@ -231,7 +233,7 @@ $(document).ready(function() {
                                             data-value-primitive="true"
                                             data-text-field="name"
                                             data-value-field="region_edu_admin_id"
-                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterGrids }"
+                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterLabWorkersGrid }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">                    
@@ -248,7 +250,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="edu_admin_id"
-                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterGrids }"
+                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterLabWorkersGrid }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -265,7 +267,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="transfer_area_id"
-                                            data-bind="source: transfer_areas_ds, value: transfer_area, events: {change : filterGrids }"
+                                            data-bind="source: transfer_areas_ds, value: transfer_area, events: {change : filterLabWorkersGrid }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -282,7 +284,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="prefecture_id"
-                                            data-bind="source: prefectures_ds, value: prefecture, events: {change : filterGrids }"
+                                            data-bind="source: prefectures_ds, value: prefecture, events: {change : filterLabWorkersGrid }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -299,7 +301,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="municipality_id"
-                                            data-bind="source: municipalities_ds, value: municipality, events: {change : filterGrids }"
+                                            data-bind="source: municipalities_ds, value: municipality, events: {change : filterLabWorkersGrid }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -307,6 +309,11 @@ $(document).ready(function() {
                                 </div>
                                     
                             </div> 
+                        </div>
+                        <div class="row" style="padding:20px;">
+                            <div class="col-md-12" style="padding:0px; text-align:center;">
+                                <button class="k-button" data-bind="click: resetForm"> <i class="fa fa-eraser"></i> Καθαρισμός φίλτρων</button>
+                            </div>
                         </div>
                     </li>
                 </ul>

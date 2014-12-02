@@ -1,8 +1,9 @@
 var SearchLabWorkersVM = kendo.observable({
 
-    isVisible: true,
+    isVisible: false,
 
     mylab_workers_ds : newMyLabWorkersDS(),
+    lab_worker_status_ds: new kendo.data.DataSource({ data: [ {id: 1, name: "ενεργός" }, { id: 3, name: "ανενεργός" }] }),
     
     lab_states_ds: newStatesDS(),
     lab_types_ds: newLabTypesDS(),
@@ -18,6 +19,7 @@ var SearchLabWorkersVM = kendo.observable({
    
     worker_uid:"",
     worker_registry_no:"",
+    lab_worker_status:"",
     
     lab_id: "",                 //μονό
     lab_name: "",               //μονό
@@ -41,6 +43,7 @@ var SearchLabWorkersVM = kendo.observable({
         
         this.set("worker_registry_no", "");
         this.set("worker_uid", "");
+        this.set("lab_worker_status", "");
         
         this.set("lab_id", "");
         this.set("lab_name", "");
@@ -58,16 +61,13 @@ var SearchLabWorkersVM = kendo.observable({
         this.set("prefecture", "");
         this.set("municipality", "");
 
-
-        var filters = normalizeParams( $("#search-lab-workers-form").serializeArray() );
-        LabWorkersViewVM.lab_workers.filter(filters);
-        searchWorkersParameters = filters;
+        SearchLabWorkersVM.filterLabWorkersGrid();
         
         //fix kendo bug: button remains blurred after being pressed
         e.currentTarget.blur();
         
     },
-    filterGrids: function(e){
+    filterLabWorkersGrid: function(e){
         var filters = normalizeParams( $("#search-lab-workers-form").serializeArray() );
         LabWorkersViewVM.lab_workers.filter(filters);
         searchWorkersParameters = filters;
@@ -87,7 +87,7 @@ var SearchLabWorkersVM = kendo.observable({
 
         $.ajax({
                 type: 'GET',
-                url: baseURL + 'find_lab_workers?export=xlsx&',
+                url: baseURL + 'find_lab_workers?export=XLSX&',
                 dataType: "json",
                 data: normalizedFilter,
                 success: function(data){
@@ -108,7 +108,6 @@ var SearchLabWorkersVM = kendo.observable({
                 }
         });
     },
-    
     infoTooltip: function(e){
         
         var tooltip = $(e.target).kendoTooltip({
@@ -116,17 +115,17 @@ var SearchLabWorkersVM = kendo.observable({
             content: function(e) {
                 var content;
                 if(e.target.attr("id") === "slw_worker_uid"){
-                    content = "για την εισαγωγή περισσότερων uid, διαχωρίστε με κόμμα";
+                    content = "για την εισαγωγή περισσότερων UID, διαχωρίστε με κόμμα";
                 }else if(e.target.attr("id") === "slw_lab_id"){
-                    content = "για την εισαγωγή περισσότερων κωδικών Διατάξεων Η/Υ, διαχωρίστε με κόμμα";
+                    content = "για την εισαγωγή περισσότερων Κωδικών Διατάξεων Η/Υ, διαχωρίστε με κόμμα";
                 }else if(e.target.attr("id") === "slw_school_unit_id"){
-                    content = "για την εισαγωγή περισσότερων κωδικών Σχολικών Μονάδων, διαχωρίστε με κόμμα";
+                    content = "για την εισαγωγή περισσότερων Κωδικών Σχολικών Μονάδων, διαχωρίστε με κόμμα";
                 }
                 return content;
             },
             width:185,
             //height:50,
-            position: "right",
+            position: "left",
             animation: {
                 close: {effects: "fade:out",  duration: 1000},
                 open: {effects: "fade:in",  duration: 1000}
@@ -151,7 +150,6 @@ var SearchLabWorkersVM = kendo.observable({
         
         tooltip.show($(e.target));
     },
-    
     panelBarUnselect:function(e){
         $(e.item).find("span").removeClass('k-state-selected');
     }
