@@ -41,16 +41,16 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
 //$orderby======================================================================
        $columns = array(
                             "mlw.workerId"     => "worker_id",
-                            "mlw.registryNo"   => "worker_registry_no",
-                            "mlw.uid"          => "worker_uid",
-                            "mlw.firstname"    => "worker_firstname",
-                            "mlw.lastname"     => "worker_lastname", 
-                            "mlw.fathername"   => "worker_fathername",
-                            "mlw.email"        => "worker_email",  
-                            "mlwws.workerSpecializationId"  => "worker_specialization_id",
-                            "mlwws.name"                    => "worker_specialization_name",
-                            "mlwls.labSourceId"             => "lab_source_id",
-                            "mlwls.name"                    => "lab_source_name",
+                            "mlw.registryNo"   => "registry_no",
+                            "mlw.uid"          => "UID",
+                            "mlw.firstname"    => "firstname",
+                            "mlw.lastname"     => "lastname", 
+                            "mlw.fathername"   => "fathername",
+                            "mlw.email"        => "email",  
+                            "mlwws.workerSpecializationId"  => "workerSpecializationId",
+                            "mlwws.name"                    => "workerSpecializationName",
+                            "mlwls.labSourceId"             => "workerLabSourceId",
+                            "mlwls.name"                    => "workerLabSourceName",
                         );
        
        if ( Validator::Missing('orderby', $params) )
