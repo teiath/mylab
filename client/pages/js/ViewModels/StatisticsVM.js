@@ -1,11 +1,10 @@
 var StatisticsVM = kendo.observable({
 
     isVisible: false,
-    statisticExportEnabled: false,
-    xlsExportEnabled: false,
-    cascadeValidationVisible: false,
     filtersPaneVisible: false,
     statisticTableVisible: false,
+    sameValueValidationVisible: false,
+    bothFieldsValidationVisible:false,
 
     axis_x_ds: newAxisXDS(),
     axis_y_ds: newAxisYDS(),
@@ -46,7 +45,7 @@ var StatisticsVM = kendo.observable({
     municipality: "",           //πολλαπλό
     prefecture:"",
     
-    resetFiltersPane: function(e) {
+    resetAxisAndFilters: function(e) {
 
         e.preventDefault();
 
@@ -69,202 +68,173 @@ var StatisticsVM = kendo.observable({
         this.set("municipality", "");
         this.set("prefecture", "");
         
-        //on reset, disable export statistics btn
-        StatisticsVM.set("statisticExportEnabled", false);
-        if ( !$('#statistic_export_btn').hasClass('k-state-disabled') ){
-            $('#statistic_export_btn').addClass('k-state-disabled');
-        }
+        StatisticsVM.set("bothFieldsValidationVisible", false);
+        StatisticsVM.set("sameValueValidationVisible", false);
+        
     },
-    getStatistic: function(e){
-        
-        var filters = normalizeParams( $("#search-lab-workers-form").serializeArray() );
-        
+    exportStatisticTable: function(e){
+
         e.preventDefault();
-
-        var export_statistic_dialog = $("#export_statistic_dialog").kendoWindow({
-            title: "Έκδοση Στατιστικού",
-            modal: true,
-            visible: false,
-            resizable: false,
-            width: 400,
-            pinned: true,
-            actions: []
-        }).data("kendoWindow");
         
-        export_statistic_dialog.content();
-        export_statistic_dialog.center().open();          
-        
-        jQuery("#statistics-table tbody").empty();
-        jQuery("#statistics-table thead tr").empty();
-        jQuery("#statistics-table thead tr").append("<th></th>");
-        
-        var filters = normalizeParams( $("#statistics-form").serializeArray() );
-        statisticParameters = filters;
-        
-        var normalizedFilter = {};
-        $.each(filters, function(index, value){
-            var filter = filters[index];
-            var value = normalizedFilter[filter.field];
-            value = (value ? value+"," : "")+ filter.value;
-            normalizedFilter[filter.field] = value;                                   
-        });        
-        
+        if (StatisticsVM.x_axis === "" || StatisticsVM.y_axis === ""){
+            StatisticsVM.set("bothFieldsValidationVisible", true);
+            StatisticsVM.set("sameValueValidationVisible", false);
+        }else if(StatisticsVM.x_axis === StatisticsVM.y_axis){
+            StatisticsVM.set("bothFieldsValidationVisible", false);
+            StatisticsVM.set("sameValueValidationVisible", true); 
+        }else{
+            
+            StatisticsVM.set("bothFieldsValidationVisible", false);
+            StatisticsVM.set("sameValueValidationVisible", false); 
+            StatisticsVM.set("statisticTableVisible", false);
+            
+            var export_statistic_dialog = $("#export_statistic_dialog").kendoWindow({
+                title: "Έκδοση Στατιστικού",
+                modal: true,
+                visible: false,
+                resizable: false,
+                width: 400,
+                pinned: true,
+                actions: []
+            }).data("kendoWindow");
 
-        $.ajax({
-            type: "GET",
-            url: config.serverUrl + "stat_labs",
-            dataType: "json",
-            data: normalizedFilter,
-            success: function(data){
+            export_statistic_dialog.content();
+            export_statistic_dialog.center().open();          
 
-                    var message;
-                    if (typeof data.message !== 'undefined'){
-                        message= data.message;
-                    }else if (typeof data.message_internal !== 'undefined'){
-                        message= data.message_internal;
-                    }else if (typeof data.message_external !== 'undefined'){
-                        message= data.message_external;
-                    }
+            jQuery("#statistics-table tbody").empty();
+            jQuery("#statistics-table thead tr").empty();
+            jQuery("#statistics-table thead tr").append("<th></th>");
 
-                    if(data.status == 500){
+            var filters = normalizeParams( $("#statistics-form").serializeArray() );
+            statisticParameters = filters;
 
-                        export_statistic_dialog.close();
-                        
-                        notification.show({
-                            title: "Η εξαγωγή του στατιστικού απέτυχε",
-                            message: message
-                        }, "error");
+            var normalizedFilter = {};
+            $.each(filters, function(index, value){
+                var filter = filters[index];
+                var value = normalizedFilter[filter.field];
+                value = (value ? value+"," : "")+ filter.value;
+                normalizedFilter[filter.field] = value;                                   
+            });        
 
-                    }else if(data.results.length === 0){
-                        
-                        export_statistic_dialog.close();
-                        
-                        notification.show({
-                            title: "Δεν υπάρχουν διαθέσιμα στατιστικά για τις τιμές που εισήχθησαν",
-                            message: ""
-                        }, "error");                     
-                    
-                    }else{
 
-                        export_statistic_dialog.close(); 
+            $.ajax({
+                type: "GET",
+                url: config.serverUrl + "stat_labs",
+                dataType: "json",
+                data: normalizedFilter,
+                success: function(data){
 
-                        var results = data.results;
-                        var axis_x=[], axis_y=[];
-                        var keys = _.keys(results[0]);
-
-                        //populate arrays with axis x&y values
-                        for (var i = 0; i < results.length; i++) {
-                            if(jQuery.inArray( results[i][keys[0]], axis_x ) === -1){
-                                axis_x.push(results[i][keys[0]]);
-                            }
-                            if(jQuery.inArray( results[i][keys[1]], axis_y ) === -1){
-                                axis_y.push(results[i][keys[1]]);
-                            }
+                        var message;
+                        if (typeof data.message !== 'undefined'){
+                            message= data.message;
                         }
 
-                        for (var j = 0; j < axis_x.length; j++) {
-                            jQuery("#statistics-table thead tr").append("<th style='white-space:nowrap'>" + axis_x[j] + "</th>");
-                        }
+                        if(data.status == 500){
 
-                        for (var i = 0; i < axis_y.length; i++) {
-                            jQuery("#statistics-table tbody").append("<tr id=" + i + "><th class='text-nowrap'>" + axis_y[i] + "</th></tr>");
+                            export_statistic_dialog.close();
 
-                            for(var j = 0; j < axis_x.length; j++){
-                                jQuery("#"+i).append("<td style='text-align: center;'> </td>");
-                            }
-                        }
+                            notification.show({
+                                title: "Η εξαγωγή του στατιστικού απέτυχε",
+                                message: message
+                            }, "error");
 
-                        for (var i = 0; i < results.length; i++) {
+                        }else if(data.results.length === 0){
 
-                            var axisX = results[i][keys[0]];
-                            var axisY = results[i][keys[1]];
-                            var value = results[i][keys[2]];
+                            export_statistic_dialog.close();
 
-                            var column = jQuery.inArray( axisX, axis_x );
+                            notification.show({
+                                title: "Δεν υπάρχουν διαθέσιμα στατιστικά για τις τιμές που εισήχθησαν",
+                                message: ""
+                            }, "error");                     
 
-                            var row;
-                            for (var k = 0; k < axis_y.length; k++) {
-                                if(axis_y[k] === axisY){
-                                    row = k;
-                                    jQuery("#statistics-table tbody").find("tr:eq(" + row + ")>td:eq(" + column + ")").text(value);
-                                    //console.log("column: " + column + ", row: " + row + ", value: " + value);
+                        }else{
+
+                            export_statistic_dialog.close(); 
+
+                            var results = data.results;
+                            var axis_x=[], axis_y=[];
+                            var keys = _.keys(results[0]);
+
+                            //populate arrays with axis x&y values
+                            for (var i = 0; i < results.length; i++) {
+                                if(jQuery.inArray( results[i][keys[0]], axis_x ) === -1){
+                                    axis_x.push(results[i][keys[0]]);
+                                }
+                                if(jQuery.inArray( results[i][keys[1]], axis_y ) === -1){
+                                    axis_y.push(results[i][keys[1]]);
                                 }
                             }
-                            
+
+                            for (var j = 0; j < axis_x.length; j++) {
+                                jQuery("#statistics-table thead tr").append("<th style='white-space:nowrap'>" + axis_x[j] + "</th>");
+                            }
+
+                            for (var i = 0; i < axis_y.length; i++) {
+                                jQuery("#statistics-table tbody").append("<tr id=" + i + "><th class='text-nowrap'>" + axis_y[i] + "</th></tr>");
+
+                                for(var j = 0; j < axis_x.length; j++){
+                                    jQuery("#"+i).append("<td style='text-align: center;'> </td>");
+                                }
+                            }
+
+                            for (var i = 0; i < results.length; i++) {
+
+                                var axisX = results[i][keys[0]];
+                                var axisY = results[i][keys[1]];
+                                var value = results[i][keys[2]];
+
+                                var column = jQuery.inArray( axisX, axis_x );
+
+                                var row;
+                                for (var k = 0; k < axis_y.length; k++) {
+                                    if(axis_y[k] === axisY){
+                                        row = k;
+                                        jQuery("#statistics-table tbody").find("tr:eq(" + row + ")>td:eq(" + column + ")").text(value);
+                                        //console.log("column: " + column + ", row: " + row + ", value: " + value);
+                                    }
+                                }
+
+                            }
+
+                            StatisticsVM.set("statisticTableVisible", true);
+                            //scroll to the beginning of the statistic table
+                            $('html, body').animate({
+                                scrollTop: $("#statistics-results").offset().top
+                            }, 1000);
                         }
-                                               
-                        //console.log("axis_x: ", axis_x);
-                        //console.log("axis_y: ", axis_y);
-                        
-                        //scroll to the beginning of the statistic table
-                        $('html, body').animate({
-                            scrollTop: $("#statistics-results").offset().top
-                        }, 1000);
-                        
-                    }
-            },
-            error: function (data){
-                console.log("GET statistic_units error data: ", data); 
-            }
-        });
-        
-        StatisticsVM.set("statisticTableVisible", true);
-        StatisticsVM.set("xlsExportEnabled", true);
-        $('#statistic_xls_export_btn').removeClass('k-state-disabled');
-        
-    },
-    cascadeAxis: function(e){
-        
-        //if x_axis and y_axis have both values, and are different from each other
-        if ( StatisticsVM.x_axis !== "" && StatisticsVM.y_axis !== "" && (StatisticsVM.x_axis !== StatisticsVM.y_axis) ){
-            StatisticsVM.set("statisticExportEnabled", true);
-            $('#statistic_export_btn').removeClass('k-state-disabled');
-            //console.log(StatisticsVM.statisticExportEnabled);
-
-            StatisticsVM.set("cascadeValidationVisible", false);
-
-        }else{ //else
-            
-            if(StatisticsVM.x_axis === StatisticsVM.y_axis){
-                StatisticsVM.set("cascadeValidationVisible", true);
-            }else{
-                StatisticsVM.set("cascadeValidationVisible", false);
-            }
-            
-            StatisticsVM.set("statisticExportEnabled", false);
-            if ( !$('#statistic_export_btn').hasClass('k-state-disabled') ){
-                $('#statistic_export_btn').addClass('k-state-disabled');
-            }
-            //console.log(StatisticsVM.statisticExportEnabled);
+                },
+                error: function (data){
+                    console.log("GET statistic_units error data: ", data); 
+                }
+            });
         }
-    },
-    toggleFiltersPane: function(e){
-
-        if($('#show_statistic_filters_btn').find('span').hasClass("k-i-arrow-e")){
-            $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-e");
-            $('#show_statistic_filters_btn').find('span').addClass("k-i-arrow-s");
-        }else{
-            $('#show_statistic_filters_btn').find('span').addClass("k-i-arrow-e");
-            $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-s");
-        }
-        
-        StatisticsVM.filtersPaneVisible ? StatisticsVM.set("filtersPaneVisible", false) : StatisticsVM.set("filtersPaneVisible", true);
-    },
-            
-    exportToXLSX: function(e){
+    },     
+    exportStatisticExcel: function(e){
         e.preventDefault();
         
-        var filters = statisticParameters;
+        if (StatisticsVM.x_axis === "" || StatisticsVM.y_axis === ""){
+            StatisticsVM.set("bothFieldsValidationVisible", true);
+            StatisticsVM.set("sameValueValidationVisible", false);
+        }else if(StatisticsVM.x_axis === StatisticsVM.y_axis){
+            StatisticsVM.set("bothFieldsValidationVisible", false);
+            StatisticsVM.set("sameValueValidationVisible", true); 
+        }else{
+            
+            StatisticsVM.set("bothFieldsValidationVisible", false);
+            StatisticsVM.set("sameValueValidationVisible", false);
+            
+            var filters = normalizeParams( $("#statistics-form").serializeArray() );
+            statisticParameters = filters;
 
-        var normalizedFilter = {};
-        $.each(filters, function(index, value){
-            var filter = filters[index];
-            var value = normalizedFilter[filter.field];
-            value = (value ? value+"," : "")+ filter.value;
-            normalizedFilter[filter.field] = value;                                   
-        });
+            var normalizedFilter = {};
+            $.each(filters, function(index, value){
+                var filter = filters[index];
+                var value = normalizedFilter[filter.field];
+                value = (value ? value+"," : "")+ filter.value;
+                normalizedFilter[filter.field] = value;                                   
+            });
 
-        $.ajax({
+            $.ajax({
                 type: 'GET',
                 url: config.serverUrl + "stat_labs?export=XLSX&",
                 dataType: "json",
@@ -286,5 +256,18 @@ var StatisticsVM = kendo.observable({
                     xls_download_error_dialog.center().open();
                 }
         });
+        }
+    },
+    toggleFiltersPane: function(e){
+
+        if($('#show_statistic_filters_btn').find('span').hasClass("k-i-arrow-e")){
+            $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-e");
+            $('#show_statistic_filters_btn').find('span').addClass("k-i-arrow-s");
+        }else{
+            $('#show_statistic_filters_btn').find('span').addClass("k-i-arrow-e");
+            $('#show_statistic_filters_btn').find('span').removeClass("k-i-arrow-s");
+        }
+        
+        StatisticsVM.filtersPaneVisible ? StatisticsVM.set("filtersPaneVisible", false) : StatisticsVM.set("filtersPaneVisible", true);
     }
 });

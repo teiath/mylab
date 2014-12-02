@@ -7,12 +7,14 @@
             <div class="col-md-12" style="background:white;border-radius:10px;padding-bottom:20px;">
                 <form id="statistics-form">
 
-                    <div class="col-md-12" style="margin:20px 0px 25px 0px; border-bottom: 1px dotted #DADADA; padding:3px;">
-                        <button id="clear" class="k-button" data-bind="click: resetFiltersPane"><i class="fa fa-eraser"></i> Καθαρισμός</button>
-                        <button id="statistic_export_btn" class="k-button k-state-disabled" data-bind="click: getStatistic, enabled: statisticExportEnabled" > <i class="fa fa-bar-chart-o"></i> Προβολή Στατιστικού</button>
-                        <button id="statistic_xls_export_btn" class="k-button k-state-disabled k-state-border-down" data-bind="click: exportToXLSX, enabled: xlsExportEnabled" > <i class="fa fa-file-excel-o"></i> Εξαγωγή σε excel</button>
-                        <div class="col-md-12" style="padding:0px; margin-top:5px;"> <span data-bind="visible: cascadeValidationVisible" style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
+                    <div class="col-md-12" style="margin:20px 0px; border-bottom: 1px dotted #DADADA; padding:3px;">
+                        <button id="clear" class="k-button" data-bind="click: resetAxisAndFilters"><i class="fa fa-eraser"></i> Καθαρισμός</button>
+                        <button id="statistic_export_btn" class="k-button" data-bind="click: exportStatisticTable" > <i class="fa fa-bar-chart-o"></i> Προβολή Στατιστικού</button>
+                        <button id="statistic_xls_export_btn" class="k-button" data-bind="click: exportStatisticExcel" > <i class="fa fa-file-excel-o"></i> Εξαγωγή Στατιστικού σε Εxcel</button>
                     </div>
+                    
+                    <div class="col-md-12" data-bind="visible: sameValueValidationVisible" style="margin-bottom:10px;"> <span style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
+                    <div class="col-md-12" data-bind="visible: bothFieldsValidationVisible" style="margin-bottom:10px;"> <span style="color: red;">Πρέπει και οι δύο άξονες να ειναι συμπληρωμένοι</span> </div>
                     
                     <div class="col-md-12">
                         <label for="x_axis" style="font-size:13px;"> <span style="color: red;">*</span> Άξονας x: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις στήλες του στατιστικού πίνακα</label>
@@ -24,7 +26,7 @@
                                 data-auto-bind="true"
                                 data-text-field="name"
                                 data-value-field="axis_name"
-                                data-bind="source: axis_x_ds, value: x_axis , events: {change : cascadeAxis }"
+                                data-bind="source: axis_x_ds, value: x_axis"
                                 data-filter="contains"/>
                     </div>
                     
@@ -38,7 +40,7 @@
                                 data-ignore-case= "false"
                                 data-text-field="name"
                                 data-value-field="axis_name"
-                                data-bind="source: axis_y_ds, value: y_axis, events: {change : cascadeAxis }"
+                                data-bind="source: axis_y_ds, value: y_axis"
                                 data-filter="contains"/>
                     </div>
                     
@@ -307,15 +309,15 @@
 
 </div>
 
-    <!--file_download_dialog-->
-    <div id="export_statistic_dialog" style="display:none; color: #5E5E5E">
-        
-        <div style="padding:13px;">Η έκδοση του στατιστικού βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+<!--file_download_dialog-->
+<div id="export_statistic_dialog" style="display:none; color: #5E5E5E">
 
-        <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
-            <span class="k-progress-status-wrap">
-                <span class="k-progress-status">0</span>
-            </span>
-        </div>       
-        
-    </div>
+    <div style="padding:13px;">Η έκδοση του στατιστικού βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+
+    <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+        <span class="k-progress-status-wrap">
+            <span class="k-progress-status">0</span>
+        </span>
+    </div>       
+
+</div>
