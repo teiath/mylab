@@ -42,15 +42,15 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
        $columns = array(
                             "mlw.workerId"     => "worker_id",
                             "mlw.registryNo"   => "registry_no",
-                            "mlw.uid"          => "UID",
+                            "mlw.uid"          => "worker_uid",
                             "mlw.firstname"    => "firstname",
                             "mlw.lastname"     => "lastname", 
                             "mlw.fathername"   => "fathername",
                             "mlw.email"        => "email",  
-                            "mlwws.workerSpecializationId"  => "workerSpecializationId",
-                            "mlwws.name"                    => "workerSpecializationName",
-                            "mlwls.labSourceId"             => "workerLabSourceId",
-                            "mlwls.name"                    => "workerLabSourceName",
+                            "mlwws.workerSpecializationId"  => "worker_specialization_id",
+                            "mlwws.name"                    => "worker_specialization_name",
+                            "mlwls.labSourceId"             => "worker_lab_source_id",
+                            "mlwls.name"                    => "worker_lab_source_name",
                         );
        
        if ( Validator::Missing('orderby', $params) )
@@ -228,15 +228,15 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
         foreach ($iworkerResults as $iworkerResult) { 
            $wResult[] = array ( 'worker_id' => $iworkerResult['workerId'],
                                 'registry_no' => $iworkerResult['registryNo'],
-                                'UID' => $iworkerResult['uid'],
+                                'worker_uid' => $iworkerResult['uid'],
                                 'firstname' => $iworkerResult['firstname'],
                                 'lastname' => $iworkerResult['lastname'],
                                 'fathername' => $iworkerResult['fathername'],
                                 'email' => $iworkerResult['email'],
-                                'workerSpecializationId' => $iworkerResult['workerSpecializationId'],
-                                'workerSpecializationName' => $iworkerResult['workerSpecializationName'],
-                                'workerLabSourceId' => $iworkerResult['workerLabSourceId'],
-                                'workerLabSourceName' => $iworkerResult['workerLabSourceName']              
+                                'worker_specialization_id' => $iworkerResult['workerSpecializationId'],
+                                'worker_specialization_name' => $iworkerResult['workerSpecializationName'],
+                                'worker_lab_source_id' => $iworkerResult['workerLabSourceId'],
+                                'worker_lab_source_name' => $iworkerResult['workerLabSourceName']              
                                 );
           
             $count++;
