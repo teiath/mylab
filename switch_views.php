@@ -22,43 +22,43 @@
         
 //        console.log("authorized_user [switch views]: ", authorized_user);
 
-        var view_1 = { id: 1, name: "Προβολή Διατάξεων Η/Υ", logo: "fa fa-search fa-lg"};
-        var view_2 = { id: 2, name: "Προβολή Σχολικών Μονάδων", logo: "fa fa-search fa-lg"};
-        var view_3 = { id: 3, name: "Στατιστικά", logo: "fa fa-bar-chart-o fa-lg"};
-        var view_4 = { id: 4, name: "Σχετικά", logo: "fa fa-user fa-lg"};
-//        var view_5 = { id: 5, name: "Υπεύθυνοι Διατάξεων Η/Υ", logo: "fa fa-user fa-lg"};
+        var view_1 = { id: 1, name: "Διατάξεις Η/Υ", logo: "fa fa-search fa-lg"};
+        var view_2 = { id: 2, name: "Σχολικές Μονάδες", logo: "fa fa-search fa-lg"};
+        var view_3 = { id: 3, name: "Υπεύθυνοι Διατάξεων Η/Υ", logo: "fa fa-users fa-lg"};
+        var view_4 = { id: 4, name: "Στατιστικά", logo: "fa fa-bar-chart-o fa-lg"};
+        var view_5 = { id: 5, name: "Στοιχεία Λογαριασμού Χρήστη", logo: "fa fa-user fa-lg"};
         
         var views;
         var bootstrap_class;
         
         switch(authorized_user) {
             case 'ΚΕΠΛΗΝΕΤ':
-                views = [view_1, view_2, view_3, view_4/*, view_5*/];
-                bootstrap_class = "col-md-3";
+                views = [view_1, view_2, view_3, view_4, view_5];
+                bootstrap_class = "col-md-2";
                 break;
             case  'ΣΕΠΕΗΥ' :
-                views = [view_1, view_2, view_4];
+                views = [view_1, view_2, view_5];
                 bootstrap_class = "col-md-4";
                 break;
             case  'ΕΤΠ' :
-                views = [view_1, view_2, view_4];
+                views = [view_1, view_2, view_5];
                 bootstrap_class = "col-md-4";
                 break;
             case  'ΠΣΔ' :
-                views = [view_1, view_2, view_3, view_4/*, view_5*/];
-                bootstrap_class = "col-md-3";
+                views = [view_1, view_2, view_3, view_4, view_5];
+                bootstrap_class = "col-md-2";
                 break;
             case  'ΔΙΕΥΘΥΝΤΗΣ' :
-                views = [view_1, view_4];
+                views = [view_1, view_5];
                 bootstrap_class = "col-md-6";
                 break;
             case  'ΤΟΜΕΑΡΧΗΣ' :
-                views = [view_1, view_4];
+                views = [view_1, view_5];
                 bootstrap_class = "col-md-6";
                 break;
             case  'ΥΠΕΠΘ' :
-                views = [view_1, view_2, view_3, view_4/*, view_5*/];
-                bootstrap_class = "col-md-3";
+                views = [view_1, view_2, view_3, view_4, view_5];
+                bootstrap_class = "col-md-2";
                 break;
         }
         
@@ -93,43 +93,48 @@
                 case 1: //καρτέλα 1
                     LabsViewVM.set("isVisible", true);
                     SchoolUnitsViewVM.set("isVisible", false);
+                    LabWorkersViewVM.set("isVisible", false);
                     StatisticsVM.set("isVisible", false);
                     InfoVM.set("isVisible", false);
                     ( jQuery.inArray( authorized_user , search_xls ) !== -1 ) ? SearchVM.set("isVisible", true) : SearchVM.set("isVisible", false);
-//                    LabWorkersViewVM.set("isVisible", false);
+                    SearchLabWorkersVM.set("isVisible", false);
                     break;
                 case 2: //καρτέλα 2
                     LabsViewVM.set("isVisible", false);
                     SchoolUnitsViewVM.set("isVisible", true);
+                    LabWorkersViewVM.set("isVisible", false);
                     StatisticsVM.set("isVisible", false);
                     InfoVM.set("isVisible", false);
                     ( jQuery.inArray( authorized_user , search_xls ) !== -1 ) ? SearchVM.set("isVisible", true) : SearchVM.set("isVisible", false);
-//                    LabWorkersViewVM.set("isVisible", false);
+                    SearchLabWorkersVM.set("isVisible", false);
                     break;
                 case 3: //καρτέλα 3
                     LabsViewVM.set("isVisible", false);
                     SchoolUnitsViewVM.set("isVisible", false);
-                    StatisticsVM.set("isVisible", true);
+                    LabWorkersViewVM.set("isVisible", true);
+                    StatisticsVM.set("isVisible", false);
                     InfoVM.set("isVisible", false);
                     SearchVM.set("isVisible", false);
-//                    LabWorkersViewVM.set("isVisible", false);
+                    SearchLabWorkersVM.set("isVisible", true);
                     break;
                 case 4: //καρτέλα 4
                     LabsViewVM.set("isVisible", false);
                     SchoolUnitsViewVM.set("isVisible", false);
+                    LabWorkersViewVM.set("isVisible", false);
+                    StatisticsVM.set("isVisible", true);
+                    InfoVM.set("isVisible", false);
+                    SearchVM.set("isVisible", false);
+                    SearchLabWorkersVM.set("isVisible", false);
+                    break;
+                case 5: //καρτέλα 5
+                    LabsViewVM.set("isVisible", false);
+                    SchoolUnitsViewVM.set("isVisible", false);
+                    LabWorkersViewVM.set("isVisible", false);
                     StatisticsVM.set("isVisible", false);
                     InfoVM.set("isVisible", true);
                     SearchVM.set("isVisible", false);
-//                    LabWorkersViewVM.set("isVisible", false);
+                    SearchLabWorkersVM.set("isVisible", false);
                     break;
-//                case 5: //καρτέλα 5
-//                    LabsViewVM.set("isVisible", false);
-//                    SchoolUnitsViewVM.set("isVisible", false);
-//                    StatisticsVM.set("isVisible", false);
-//                    InfoVM.set("isVisible", false);
-//                    SearchVM.set("isVisible", false);
-//                    LabWorkersViewVM.set("isVisible", true);
-//                    break;
             }
         }
         
@@ -155,6 +160,10 @@
     #listView > div{
         padding-left: 0px;
         padding-right: 0px;
+    }
+    
+    .col-md-2 {
+        width: 20%;
     }
     
 </style>
