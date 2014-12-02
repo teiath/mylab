@@ -1,9 +1,11 @@
 <?php
 /**
  *
- * @version 2.0
+ * @version 1.0.1
  * @author  ΤΕΙ Αθήνας
  * @package GET
+ * 
+ * 
  */
  
 header("Content-Type: text/html; charset=utf-8");
@@ -574,9 +576,10 @@ function StatLabs(
        return array("result"=>$result,"tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
        // exit;
     } else if ($export == 'PDF'){
-       $pdf_filename = StatLabsExt::PdfCreate($result, $x_axis, $y_axis);
-       unset($result['results']);
-       return array("result"=>$result,"tmp_pdf_filepath" => $Options["WebTmpFolder"].$pdf_filename);
+//       $pdf_filename = StatLabsExt::PdfCreate($result, $x_axis, $y_axis);
+//       unset($result['results']);
+//       return array("result"=>$result,"tmp_pdf_filepath" => $Options["WebTmpFolder"].$pdf_filename);
+        return $result;
     } else {     
        return $result;
     }
