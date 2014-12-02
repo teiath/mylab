@@ -1,93 +1,71 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
  * @global type $app
+ * @global type $entityManager
  * @param type $name
- * @param type $number
  * @param type $equipment_category
  * @return string
  * @throws Exception
  */
 
+function PostEquipmentTypes($name, $equipment_category) {
 
-function PostEquipmentTypes($name,$number,$equipment_category) {
-    global $db;
-    global $Options;
-    global $app;
-    
-    $result = array();  
-    $result["data"] = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    global $app,$entityManager;
+
+    $EquipmentType = new EquipmentTypes();
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["name"] = $name;
-    $result["number"] = $number;
-    $result["equipment_category"] = $equipment_category;
-    
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
+
     try {
-         
-        //$name============================================================================
-        if (! trim($name) )
-            throw new Exception(ExceptionMessages::MissingNameValue." : ".$name, ExceptionCodes::MissingNameValue);
-        else
-            $filter[] = new DFC(EquipmentTypesExt::FIELD_NAME, $name, DFC::EXACT);
+
+    //$name=====================================================================
+     CRUDUtils::EntitySetParam($EquipmentType, $name, 'EquipmentTypeName', 'name', $params, true, false);
+     
+    //$equipment_type===============================================================       
+    CRUDUtils::entitySetAssociation($EquipmentType, $equipment_category, 'EquipmentCategories', 'equipmentCategory', 'EquipmentCategory', $params, 'equipment_category');
         
-        //$number===========================================================================
-        $fnumber = $number ? $number : NULL;
-            
-        //$equipment_category_id============================================================          
-        if (! $equipment_category)
-            throw new Exception(ExceptionMessages::CreateEquipmentCategoryIdValue." : ".$equipment_category, ExceptionCodes::CreateEquipmentCategoryIdValue);
-        else {
-              $oEquipmentCategories = new EquipmentCategoriesExt($db);
-
-              if (is_numeric($equipment_category)) {
-                  $filter[] = new DFC(EquipmentCategoriesExt::FIELD_EQUIPMENT_CATEGORY_ID, $equipment_category, DFC::EXACT) ;
-              } else { 
-                  $filter[] = new DFC(EquipmentCategoriesExt::FIELD_NAME, $equipment_category, DFC::EXACT);                
-              }         
-         }
-
-        $arrayEquipmentCategories = $oEquipmentCategories->findByFilter($db, $filter, true);
+    //user permisions===============================================================
+    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
+    //
         
-        if ( count( $arrayEquipmentCategories ) == 1 ) { 
-            $fEquipmentCategory = $arrayEquipmentCategories[0]->getEquipmentCategoryId();
-        } else if ( count( $arrayEquipmentCategories ) > 1 ) { 
-            throw new Exception(ExceptionMessages::DuplicateEquipmentCategoryIdValue." : ".$equipment_category, ExceptionCodes::DuplicateEquipmentCategoryIdValue);
-        } else {
-            throw new Exception(ExceptionMessages::InvalidEquipmentCategoryValue." : ".$equipment_category, ExceptionCodes::InvalidEquipmentCategoryValue);
-        }  
-        //==================================================================================       
+//controls======================================================================   
 
-        $oEquipmentTypes = new EquipmentTypesExt($db);
-        $arrayEquipmentTypes = $oEquipmentTypes->findByFilter($db, $filter, true);
+        //check for duplicate =================================================   
+        $checkDuplicate = $entityManager->getRepository('EquipmentTypes')->findOneBy(array( 'name'  => $EquipmentType->getName() ));
 
-            if ( count( $arrayEquipmentTypes ) > 0 ) { 
-                throw new Exception(ExceptionMessages::DuplicateEquipmentTypeValue." : ".$name, ExceptionCodes::DuplicateEquipmentTypeValue);
-            }
-
-        $oEquipmentTypes->setName($name);
-        $oEquipmentTypes->setNumber($fnumber);
-        $oEquipmentTypes->setEquipmentCategoryId($fEquipmentCategory);
-        $oEquipmentTypes->insertIntoDatabase($db);
-
-        $result["equipment_type_id"] = $oEquipmentTypes->getEquipmentTypeId();
+        if (count($checkDuplicate) != 0)
+            throw new Exception(ExceptionMessages::DuplicatedEquipmentTypeValue,ExceptionCodes::DuplicatedEquipmentTypeValue);  
         
-        $result["status"] = 200;
-        $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success";
-    } catch (Exception $e){ 
+//insert to db================================================================== 
+        $entityManager->persist($EquipmentType);
+        $entityManager->flush($EquipmentType);
+
+        $result["equipment_type_id"] = $EquipmentType->getEquipmentTypeId();
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    } 
+    }                
+        
     return $result;
 }
-
 ?>

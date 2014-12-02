@@ -14,16 +14,16 @@ header("Content-Type: text/html; charset=utf-8");
  * @global type $app
  * @global type $entityManager
  * @param type $name
- * @param type $full_name
+ * @param type $infos
  * @return string
  * @throws Exception
  */
 
-function PostLabTypes($name, $full_name) {
+function PostLabSources($name, $infos) {
 
     global $app,$entityManager;
 
-    $LabType = new LabTypes();
+    $LabSource = new LabSources();
     $result = array();
 
     $result["controller"] = __FUNCTION__;
@@ -35,10 +35,10 @@ function PostLabTypes($name, $full_name) {
     try {
 
     //$name=====================================================================
-     CRUDUtils::EntitySetParam($LabType, $name, 'LabTypeName', 'name', $params, true, false);
+     CRUDUtils::EntitySetParam($LabSource, $name, 'LabSourceName', 'name', $params, true, false);
      
     //$full_name================================================================
-     CRUDUtils::EntitySetParam($LabType, $full_name, 'LabTypeFullName', 'full_name', $params, true, false);
+     CRUDUtils::EntitySetParam($LabSource, $infos, 'LabSourceInfos', 'infos', $params, true, false);
         
     //user permisions===============================================================
     //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
@@ -47,17 +47,16 @@ function PostLabTypes($name, $full_name) {
 //controls======================================================================   
 
         //check for duplicate =================================================   
-        $checkDuplicate = $entityManager->getRepository('LabTypes')->findOneBy(array( 'name'  => $LabType->getName() ));
-        $checkDuplicateFullName = $entityManager->getRepository('LabTypes')->findOneBy(array( 'fullName'  => $LabType->getFullName() ));
+        $checkDuplicate = $entityManager->getRepository('LabSources')->findOneBy(array( 'name' => $LabSource->getName() ));
         
-        if ((count($checkDuplicate) != 0) || (count($checkDuplicateFullName) != 0))
-            throw new Exception(ExceptionMessages::DuplicatedLabTypeValue,ExceptionCodes::DuplicatedLabTypeValue);  
+        if (count($checkDuplicate) != 0)
+            throw new Exception(ExceptionMessages::DuplicatedLabSourceValue,ExceptionCodes::DuplicatedLabSourceValue);  
         
 //insert to db================================================================== 
-        $entityManager->persist($LabType);
-        $entityManager->flush($LabType);
+        $entityManager->persist($LabSource);
+        $entityManager->flush($LabSource);
 
-        $result["lab_type_id"] = $LabType->getLabTypeId();
+        $result["lab_source_id"] = $LabSource->getLabSourceId();
            
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;

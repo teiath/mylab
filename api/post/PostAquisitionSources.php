@@ -13,7 +13,6 @@ header("Content-Type: text/html; charset=utf-8");
  * 
  * @global type $db
  * @global type $Options
- * @param type $aquisition_source_id
  * @param type $name
  * @return string
  * @throws Exception

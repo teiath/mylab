@@ -14,16 +14,15 @@ header("Content-Type: text/html; charset=utf-8");
  * @global type $app
  * @global type $entityManager
  * @param type $name
- * @param type $full_name
  * @return string
  * @throws Exception
  */
 
-function PostLabTypes($name, $full_name) {
+function PostRelationTypes($name) {
 
     global $app,$entityManager;
 
-    $LabType = new LabTypes();
+    $RelationType = new RelationTypes();
     $result = array();
 
     $result["controller"] = __FUNCTION__;
@@ -35,10 +34,7 @@ function PostLabTypes($name, $full_name) {
     try {
 
     //$name=====================================================================
-     CRUDUtils::EntitySetParam($LabType, $name, 'LabTypeName', 'name', $params, true, false);
-     
-    //$full_name================================================================
-     CRUDUtils::EntitySetParam($LabType, $full_name, 'LabTypeFullName', 'full_name', $params, true, false);
+     CRUDUtils::EntitySetParam($RelationType, $name, 'RelationTypeName', 'name', $params, true, false);
         
     //user permisions===============================================================
     //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
@@ -47,17 +43,16 @@ function PostLabTypes($name, $full_name) {
 //controls======================================================================   
 
         //check for duplicate =================================================   
-        $checkDuplicate = $entityManager->getRepository('LabTypes')->findOneBy(array( 'name'  => $LabType->getName() ));
-        $checkDuplicateFullName = $entityManager->getRepository('LabTypes')->findOneBy(array( 'fullName'  => $LabType->getFullName() ));
+        $checkDuplicate = $entityManager->getRepository('RelationTypes')->findOneBy(array( 'name' => $RelationType->getName() ));
         
-        if ((count($checkDuplicate) != 0) || (count($checkDuplicateFullName) != 0))
-            throw new Exception(ExceptionMessages::DuplicatedLabTypeValue,ExceptionCodes::DuplicatedLabTypeValue);  
+        if (count($checkDuplicate) != 0)
+            throw new Exception(ExceptionMessages::DuplicatedRelationTypeValue,ExceptionCodes::DuplicatedRelationTypeValue);  
         
 //insert to db================================================================== 
-        $entityManager->persist($LabType);
-        $entityManager->flush($LabType);
+        $entityManager->persist($RelationType);
+        $entityManager->flush($RelationType);
 
-        $result["lab_type_id"] = $LabType->getLabTypeId();
+        $result["relation_type_id"] = $RelationType->getRelationTypeId();
            
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;

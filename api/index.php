@@ -839,7 +839,6 @@ function EquipmentTypesController()
         case MethodTypes::POST :
             $result = PostEquipmentTypes(
                 $params["name"],
-                $params["number"],
                 $params["equipment_category"]
             );      
             break;
@@ -847,7 +846,6 @@ function EquipmentTypesController()
             $result = PutEquipmentTypes(
                 $params["equipment_type_id"],
                 $params["name"],
-                $params["number"],
                 $params["equipment_category"]
             );      
             break;
@@ -1098,16 +1096,19 @@ function LabSourcesController()
                 $params["orderby"]
             );      
             break;
-//        case MethodTypes::POST :
-//            $result = PostLabSources(
-//         
-//            );      
-//            break;
-//      case MethodTypes::PUT :
-//            $result = PutLabSources(
-//       
-//            );      
-//            break;
+        case MethodTypes::POST :
+            $result = PostLabSources(
+                $params["name"],
+                $params["infos"]
+            );      
+            break;
+      case MethodTypes::PUT :
+            $result = PutLabSources(
+                $params["lab_source_id"],    
+                $params["name"],
+                $params["infos"]
+            );      
+            break;
        case MethodTypes::DELETE :
             $result = DelLabSources(
                 $params["lab_source_id"]
@@ -1192,14 +1193,14 @@ function LabTypesController()
         case MethodTypes::POST :
             $result = PostLabTypes(
                 $params["name"],
-                $params["info_name"]
+                $params["full_name"]
             );      
             break;
       case MethodTypes::PUT :
             $result = PutLabTypes(
                 $params["lab_type_id"],
                 $params["name"],
-                $params["info_name"]
+                $params["full_name"]
             );      
             break;
        case MethodTypes::DELETE :
@@ -1344,17 +1345,18 @@ function RelationTypesController()
                 $params["orderby"]
             );      
             break;
-//        case MethodTypes::POST :
-//            $result = PostRelationTypes(
-// 
-//            );      
-//            break;
-//      case MethodTypes::PUT :
-//            $result = PutRelationTypes(
-//       
-//            );      
-//            break;
-       case MethodTypes::DELETE :
+        case MethodTypes::POST :
+            $result = PostRelationTypes(
+                $params["name"]
+            );      
+            break;
+        case MethodTypes::PUT :
+            $result = PutRelationTypes(
+                $params["relation_type_id"],
+                $params["name"]
+            );      
+            break;
+        case MethodTypes::DELETE :
             $result = DelRelationTypes(
                 $params["relation_type_id"]
             );      

@@ -112,14 +112,19 @@ require_once('../api/get/GetLabWorkers.php');
 require_once('../api/get/GetMylabWorkers.php');
 
 ////---post from mylab
-require_once('../api/post/PostLabs.php');
-require_once('../api/post/PostLabTransitions.php');
-require_once('../api/post/PostLabWorkers.php');
+require_once('../api/post/PostAquisitionSources.php');
+require_once('../api/post/PostEquipmentCategories.php');
+require_once('../api/post/PostEquipmentTypes.php');
 require_once('../api/post/PostLabAquisitionSources.php');
 require_once('../api/post/PostLabEquipmentTypes.php');
 require_once('../api/post/PostLabRelations.php');
-require_once('../api/post/PostAquisitionSources.php');
+require_once('../api/post/PostLabSources.php');
+require_once('../api/post/PostLabTransitions.php');
+require_once('../api/post/PostLabTypes.php');
+require_once('../api/post/PostLabWorkers.php');
+require_once('../api/post/PostLabs.php');
 require_once('../api/post/PostMylabWorkers.php');
+require_once('../api/post/PostRelationTypes.php');
 
 ////---put from mylab
 require_once('../api/put/PutLabs.php');
