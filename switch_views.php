@@ -26,7 +26,7 @@
         var view_2 = { id: 2, name: "Σχολικές Μονάδες", logo: "fa fa-search fa-lg"};
         var view_3 = { id: 3, name: "Υπεύθυνοι Διατάξεων Η/Υ", logo: "fa fa-users fa-lg"};
         var view_4 = { id: 4, name: "Στατιστικά", logo: "fa fa-bar-chart-o fa-lg"};
-        var view_5 = { id: 5, name: "Στοιχεία Λογαριασμού Χρήστη", logo: "fa fa-user fa-lg"};
+        var view_5 = { id: 5, name: "Στοιχεία Λογαριασμού", logo: "fa fa-user fa-lg"};
         
         var views;
         var bootstrap_class;
@@ -34,7 +34,7 @@
         switch(authorized_user) {
             case 'ΚΕΠΛΗΝΕΤ':
                 views = [view_1, view_2, view_3, view_4, view_5];
-                bootstrap_class = "col-md-2";
+                bootstrap_class = "col-md-2 changeColMd2Width";
                 break;
             case  'ΣΕΠΕΗΥ' :
                 views = [view_1, view_2, view_5];
@@ -46,7 +46,7 @@
                 break;
             case  'ΠΣΔ' :
                 views = [view_1, view_2, view_3, view_4, view_5];
-                bootstrap_class = "col-md-2";
+                bootstrap_class = "col-md-2 changeColMd2Width";
                 break;
             case  'ΔΙΕΥΘΥΝΤΗΣ' :
                 views = [view_1, view_5];
@@ -58,7 +58,7 @@
                 break;
             case  'ΥΠΕΠΘ' :
                 views = [view_1, view_2, view_3, view_4, view_5];
-                bootstrap_class = "col-md-2";
+                bootstrap_class = "col-md-2 changeColMd2Width";
                 break;
         }
         
@@ -78,6 +78,17 @@
 
         var listView = $("#listView").data("kendoListView");
         listView.select(listView.element.children().first()); // initially select first list view item
+        
+        
+        if($('#listView').children().length === 5){
+            changeColMd2WidthOnResize($(window).width());
+        }        
+        
+        $(window).resize(function() {
+            if($('#listView').children().length === 5){
+                changeColMd2WidthOnResize($(window).width());
+            }
+        });
 
         function switchView(e){
             
@@ -137,6 +148,17 @@
                     break;
             }
         }
+        function changeColMd2WidthOnResize(viewport_width){
+            if(viewport_width < 992){
+                if($('#listView').find("div.view_tab").hasClass("changeColMd2Width")){
+                    $('#listView').find("div.view_tab").removeClass("changeColMd2Width");
+                }
+            }else{
+                if(!$('#listView').find("div.view_tab").hasClass("changeColMd2Width")){
+                    $('#listView').find("div.view_tab").addClass("changeColMd2Width");
+                }
+            }
+        }
         
         
     });
@@ -162,7 +184,7 @@
         padding-right: 0px;
     }
     
-    .col-md-2 {
+    .changeColMd2Width {
         width: 20%;
     }
     
