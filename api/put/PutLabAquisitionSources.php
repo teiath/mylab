@@ -82,7 +82,7 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($LabAquisitionSources->getLab()->getLabId(), $permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          }; 
          
 //controls======================================================================  

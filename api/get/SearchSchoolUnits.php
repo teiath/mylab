@@ -430,9 +430,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             $export = ExportDataEnumTypes::JSON;
         else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
             $export = ExportDataEnumTypes::getValue($export);
-            //$pagesize = Parameters::AllPageSize;
         } else
-            throw new Exception(ExceptionMessages::InvalidExport." : ".$export, ExceptionCodes::InvalidExport);
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
         
 //======================================================================================================================
 //= $orderby
@@ -476,7 +475,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                     $filter[] = $filter_labs[] = 'labs.submitted = 1';
                 }
             }
-            
+           
        //set user permissions
        $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
        
@@ -492,7 +491,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
            throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError); 
        } else if ($permissions['permit_school_units'] === 'ALLRESULTS') { 
            $permit_school_units = null;
-           $sqlPermissions = null;
+           //$sqlPermissions = null;
+           $sqlPermissions = (count($filter) > 0 ? " AND labs.submitted = 1 " : " WHERE  labs.submitted = 1 "); 
        } else {
            $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
             $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
@@ -857,9 +857,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         $sqlWhereLabs = ' WHERE labs.school_unit_id IN ('. $school_unit_ids .') ';
         $array_count_labs = Filters::LabsCounter($sqlFromLabs,$sqlWhereLabs,$sqlPermissions);
         $sql_array = Filters::AllLabTypes();
-        
-        //echo count($array_school_units);die();
-        
+                
         foreach ($array_school_units as $school_unit)
         {
             $data = array(
@@ -1070,6 +1068,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
        //exit;
     } else if ($export == 'PDF'){
        return $result;
+    } else if ($export == 'PHP_ARRAY'){
+       return print_r($result);
     } else {     
        return $result;
     }

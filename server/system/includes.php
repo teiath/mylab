@@ -44,12 +44,12 @@ require_once('sync/syncWorkerPositions.php');
 require_once('sync/syncWorkerSpecializations.php');
 
 //classes ext
+require_once('classes/ExportDataEnumTypes.php');
 require_once('classes/OrderEnumTypes.php');
 require_once('classes/SearchEnumTypes.php');
+require_once('classes/ExportDataTypes.php');
 require_once('classes/OrderTypes.php');
 require_once('classes/SearchTypes.php');
-require_once('classes/ExportDataTypes.php');
-require_once('classes/ExportDataEnumTypes.php');
 require_once('classes/FormatCreator.php');
 require_once('classes/Filters.php');
 require_once('classes/FindLabWorkersExt.php');
@@ -112,39 +112,50 @@ require_once('../api/get/GetLabWorkers.php');
 require_once('../api/get/GetMylabWorkers.php');
 
 ////---post from mylab
-require_once('../api/post/PostLabs.php');
-require_once('../api/post/PostLabTransitions.php');
-require_once('../api/post/PostLabWorkers.php');
+require_once('../api/post/PostAquisitionSources.php');
+require_once('../api/post/PostEquipmentCategories.php');
+require_once('../api/post/PostEquipmentTypes.php');
 require_once('../api/post/PostLabAquisitionSources.php');
 require_once('../api/post/PostLabEquipmentTypes.php');
 require_once('../api/post/PostLabRelations.php');
-require_once('../api/post/PostAquisitionSources.php');
+require_once('../api/post/PostLabSources.php');
+require_once('../api/post/PostLabTransitions.php');
+require_once('../api/post/PostLabTypes.php');
+require_once('../api/post/PostLabWorkers.php');
+require_once('../api/post/PostLabs.php');
 require_once('../api/post/PostMylabWorkers.php');
+require_once('../api/post/PostRelationTypes.php');
 
 ////---put from mylab
-require_once('../api/put/PutLabs.php');
-require_once('../api/put/PutLabWorkers.php');
+require_once('../api/put/PutAquisitionSources.php');
+require_once('../api/put/PutEquipmentCategories.php');
+require_once('../api/put/PutEquipmentTypes.php');
+require_once('../api/put/PutInitialLabs.php');
 require_once('../api/put/PutLabAquisitionSources.php');
 require_once('../api/put/PutLabEquipmentTypes.php');
-require_once('../api/put/PutLabTransitions.php');
 require_once('../api/put/PutLabRelations.php');
-require_once('../api/put/PutInitialLabs.php');
+require_once('../api/put/PutLabSources.php');
+require_once('../api/put/PutLabTransitions.php');
+require_once('../api/put/PutLabTypes.php');
+require_once('../api/put/PutLabWorkers.php');
+require_once('../api/put/PutLabs.php');
 require_once('../api/put/PutMylabWorkers.php');
+require_once('../api/put/PutRelationTypes.php');
 
 //---del from mylab
- require_once('../api/del/DelLabs.php');
- require_once('../api/del/DelLabEquipmentTypes.php');
- require_once('../api/del/DelLabAquisitionSources.php');
- require_once('../api/del/DelLabWorkers.php');
- require_once('../api/del/DelLabRelations.php');
- require_once('../api/del/DelLabTransitions.php');
- require_once('../api/del/DelInitialLabs.php');
- 
- require_once('../api/del/DelAquisitionSources.php');
- require_once('../api/del/DelEquipmentCategories.php');
- require_once('../api/del/DelEquipmentTypes.php');
- require_once('../api/del/DelLabSources.php'); 
- require_once('../api/del/DelLabTypes.php');
- require_once('../api/del/DelMylabWorkers.php'); 
- require_once('../api/del/DelRelationTypes.php'); 
+require_once('../api/del/DelAquisitionSources.php');
+require_once('../api/del/DelEquipmentCategories.php');
+require_once('../api/del/DelEquipmentTypes.php');
+require_once('../api/del/DelLabAquisitionSources.php');
+require_once('../api/del/DelLabEquipmentTypes.php');
+require_once('../api/del/DelInitialLabs.php');
+require_once('../api/del/DelLabRelations.php');
+require_once('../api/del/DelLabSources.php'); 
+require_once('../api/del/DelLabTransitions.php');
+require_once('../api/del/DelLabTypes.php');
+require_once('../api/del/DelLabWorkers.php'); 
+require_once('../api/del/DelLabs.php');
+require_once('../api/del/DelMylabWorkers.php'); 
+require_once('../api/del/DelRelationTypes.php'); 
+
 ?>

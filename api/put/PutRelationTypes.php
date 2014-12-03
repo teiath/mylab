@@ -13,13 +13,13 @@ header("Content-Type: text/html; charset=utf-8");
  * 
  * @global type $app
  * @global type $entityManager
- * @param type $equipment_category_id
+ * @param type $relation_type_id
  * @param type $name
  * @return string
  * @throws Exception
  */
 
-function PutEquipmentCategories($equipment_category_id, $name) {
+function PutRelationTypes($relation_type_id, $name) {
 
     global $app,$entityManager;
 
@@ -33,44 +33,43 @@ function PutEquipmentCategories($equipment_category_id, $name) {
 
     try {
  
-//$equipment_category_id========================================================   
-        $fEquipmentCategoryId = CRUDUtils::checkIDParam('equipment_category_id', $params, $equipment_category_id, 'EquipmentCategoryID');
+//$relation_type_id=============================================================    
+        $fRelationTypeId = CRUDUtils::checkIDParam('relation_type_id', $params, $relation_type_id, 'RelationTypeID');
        
 //init entity for update row====================================================
-        $EquipmentCategory = CRUDUtils::findIDParam($fEquipmentCategoryId, 'EquipmentCategories', 'EquipmentCategory');
+        $RelationType = CRUDUtils::findIDParam($fRelationTypeId, 'RelationTypes', 'RelationType');
         
 //$name=========================================================================
         if ( Validator::IsExists('name') ){
-            CRUDUtils::EntitySetParam($EquipmentCategory, $name, 'EquipmentCategoryName', 'name', $params );
-        } else if ( Validator::IsNull($EquipmentCategory->getName()) ){
-            throw new Exception(ExceptionMessages::MissingEquipmentCategoryNameValue." : ".$name, ExceptionCodes::MissingEquipmentCategoryNameValue);
+            CRUDUtils::EntitySetParam($RelationType, $name, 'RelationTypeName', 'name', $params );
+        } else if ( Validator::IsNull($RelationType->getName()) ){
+            throw new Exception(ExceptionMessages::MissingRelationTypeNameValue." : ".$name, ExceptionCodes::MissingRelationTypeNameValue);
         } 
-                
+        
     //user permisions===========================================================
     //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
         
 //controls======================================================================   
 
-        //check name duplicate==================================================        
+        //check duplicate=======================================================        
         $qb = $entityManager->createQueryBuilder()
-                            ->select('COUNT(eqc.equipmentCategoryId) AS fresult')
-                            ->from('EquipmentCategories', 'eqc')
-                            ->where("eqc.name = :name AND eqc.equipmentCategoryId != :equipmentCategoryId")
-                            ->setParameter('name', $EquipmentCategory->getName())
-                            ->setParameter('equipmentCategoryId', $EquipmentCategory->getEquipmentCategoryId())    
+                            ->select('COUNT(rt.relationTypeId) AS fresult')
+                            ->from('RelationTypes', 'rt')
+                            ->where("rt.name = :name AND rt.relationTypeId != :relationTypeId")
+                            ->setParameter('name', $RelationType->getName())
+                            ->setParameter('relationTypeId', $RelationType->getRelationTypeId())    
                             ->getQuery()
                             ->getSingleResult();
       
         if ( $qb["fresult"] != 0 ) {
-             throw new Exception(ExceptionMessages::DuplicatedEquipmentCategoryValue ,ExceptionCodes::DuplicatedEquipmentCategoryValue);
+             throw new Exception(ExceptionMessages::DuplicatedRelationTypeValue ,ExceptionCodes::DuplicatedRelationTypeValue);
         }
        
 //update to db================================================================== 
-        $entityManager->persist($EquipmentCategory);
-        $entityManager->flush($EquipmentCategory);
+        $entityManager->persist($RelationType);
+        $entityManager->flush($RelationType);
 
-        $result["equipment_category_id"] = $EquipmentCategory->getEquipmentCategoryId();  
+        $result["relation_type_id"] = $RelationType->getRelationTypeId();  
            
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: khitas
- * Date: 1/3/14
- * Time: 6:54 PM
- */
 
 class OrderTypes {
     private static $constCache = NULL;

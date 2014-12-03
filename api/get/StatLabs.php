@@ -530,6 +530,17 @@ function StatLabs(
         }
         
 //======================================================================================================================
+//= $export
+//======================================================================================================================
+        
+        if ( Validator::Missing('export', $params) )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+        } else
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
+        
+//======================================================================================================================
 //= E X E C U T E
 //======================================================================================================================
 
@@ -580,6 +591,8 @@ function StatLabs(
 //       unset($result['results']);
 //       return array("result"=>$result,"tmp_pdf_filepath" => $Options["WebTmpFolder"].$pdf_filename);
         return $result;
+    } else if ($export == 'PHP_ARRAY'){
+       return print_r($result);
     } else {     
        return $result;
     }

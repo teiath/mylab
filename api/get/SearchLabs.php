@@ -430,10 +430,9 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
         if ( Validator::Missing('export', $params) )
             $export = ExportDataEnumTypes::JSON;
         else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
-           $export = ExportDataEnumTypes::getValue($export);
-        //    $pagesize = Parameters::AllPageSize;
+            $export = ExportDataEnumTypes::getValue($export);
         } else
-            throw new Exception(ExceptionMessages::InvalidExport." : ".$export, ExceptionCodes::InvalidExport);
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
 
 //======================================================================================================================
 //= $orderby
@@ -1066,6 +1065,8 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
        // exit;
     } else if ($export == 'PDF'){
        return $result;
+    } else if ($export == 'PHP_ARRAY'){
+       return print_r($result);
     } else {     
        return $result;
     }

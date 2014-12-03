@@ -135,7 +135,7 @@ function PutMylabWorkers($worker_id, $registry_no, $uid, $firstname, $lastname, 
              throw new Exception(ExceptionMessages::DuplicatedMylabWorkerUidValue ,ExceptionCodes::DuplicatedMylabWorkerUidValue);
         }
         
-        //check email duplicate==================================================    
+        //check email duplicate=================================================  
         $qb = $entityManager->createQueryBuilder()
                     ->select('COUNT(mlw.workerId) AS fresult')
                     ->from('MylabWorkers', 'mlw')

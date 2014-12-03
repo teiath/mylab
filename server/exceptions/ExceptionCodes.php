@@ -1737,8 +1737,9 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidPageSizeArray} */ 
     const InvalidOrderBy = 500;
     
-    
-    
+    /** {@see ExceptionMessages::InvalidExportType} */ 
+    const InvalidExportType = 500;
+        
      //authentication roles 
     /** {@see ExceptionMessages::NoPermissionsError} */  
     const NoPermissionsError = 606;

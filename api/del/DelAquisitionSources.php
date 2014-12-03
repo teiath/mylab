@@ -32,7 +32,7 @@ function DelAquisitionSources($aquisition_source_id) {
 
  try {
         
-//$aquisition_source_id================================================================
+//$aquisition_source_id=========================================================
         $fAquisitionSourceID = CRUDUtils::checkIDParam('aquisition_source_id', $params, $aquisition_source_id, 'AquisitionSourceID');
         
 //user permisions===============================================================

@@ -107,5 +107,4 @@ function PostMylabWorkers($registry_no, $uid, $firstname, $lastname, $fathername
     
     return $result;
 }
-
 ?>

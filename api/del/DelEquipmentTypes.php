@@ -32,7 +32,7 @@ function DelEquipmentTypes($equipment_type_id) {
     
     try {
         
-//$equipment_type_id========================================================
+//$equipment_type_id============================================================
         $fEquipmentTypeID = CRUDUtils::checkIDParam('equipment_type_id', $params, $equipment_type_id, 'EquipmentTypeID');
         
 //user permisions===============================================================

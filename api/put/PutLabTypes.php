@@ -1,102 +1,94 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
  * @global type $app
+ * @global type $entityManager
  * @param type $lab_type_id
  * @param type $name
+ * @param type $full_name
  * @return string
  * @throws Exception
  */
 
-function PutLabTypes($lab_type_id,$name,$info_name) {
-    global $db;
-    global $Options;
-    global $app;
-    
+function PutLabTypes($lab_type_id, $name, $full_name) {
+
+    global $app,$entityManager;
+
     $result = array();
-    $values = array();
-    $update_values = array();
-    $result["data"] = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
+
     try {
+ 
+//$lab_type_id==================================================================    
+        $fLabTypeId = CRUDUtils::checkIDParam('lab_type_id', $params, $lab_type_id, 'LabTypeID');
+       
+//init entity for update row====================================================
+        $LabType= CRUDUtils::findIDParam($fLabTypeId, 'LabTypes', 'LabType');
         
-        $oLabTypes = new LabTypesExt($db);
-        //$name==========================================================================================
-        if (! trim($name) )
-            throw new Exception(ExceptionMessages::MissingNameValue." : ".$name, ExceptionCodes::MissingNameValue);
-        else
-            $filter = new DFC(LabTypesExt::FIELD_NAME, $name, DFC::EXACT); 
+//$name=========================================================================
+        if ( Validator::IsExists('name') ){
+            CRUDUtils::EntitySetParam($LabType, $name, 'LabTypeName', 'name', $params );
+        } else if ( Validator::IsNull($LabType->getName()) ){
+            throw new Exception(ExceptionMessages::MissingLabTypeNameValue." : ".$name, ExceptionCodes::MissingLabTypeNameValue);
+        } 
 
-           $nameLabTypes = $oLabTypes->findByFilter($db, $filter, true);
-
-           if ( count( $nameLabTypes ) > 0 ) { 
-                throw new Exception(ExceptionMessages::DuplicateLabTypeValue." : ".$name, ExceptionCodes::DuplicateLabTypeValue);
-           }
-           
-        //$info_name==========================================================================================
-        if (! trim($info_name) )
-            throw new Exception(ExceptionMessages::MissingInfoNameValue." : ".$info_name, ExceptionCodes::MissingInfoNameValue);
-        else
-            $filter = new DFC(LabTypesExt::FIELD_INFO_NAME, $info_name, DFC::EXACT); 
-
-           $infoNameLabTypes = $oLabTypes->findByFilter($db, $filter, true);
-
-           if ( count( $infoNameLabTypes ) > 0 ) { 
-                throw new Exception(ExceptionMessages::DuplicateInfoLabTypeValue." : ".$info_name, ExceptionCodes::DuplicateInfoLabTypeValue);
-           }
+//$full_name====================================================================       
+        if ( Validator::IsExists('full_name') ){
+            CRUDUtils::EntitySetParam($LabType, $full_name, 'LabTypeFullName', 'full_name', $params, true, false);
+        } else if ( Validator::IsNull($LabType->getFullName() ) ){
+            throw new Exception(ExceptionMessages::MissingLabTypeFullNameValue." : ".$full_name, ExceptionCodes::MissingLabTypeFullNameValue);
+        } 
         
-        //$lab_type_id===========================================================================
-        if (! trim($lab_type_id) )
-            throw new Exception(ExceptionMessages::MissingLabTypeIdValue." : ".$lab_type_id, ExceptionCodes::MissingLabTypeIdValue);
-        else if (!is_numeric($lab_type_id) || ( $lab_type_id < 0)  )
-            throw new Exception(ExceptionMessages::InvalidLabTypeIdValue." : ".$lab_type_id, ExceptionCodes::InvalidLabTypeIdValue);
-        else 
-            $uLabTypes = LabTypesExt::findById($db, $lab_type_id);
-
-        //=================================================================================================
-        $result["total_found"]=count($uLabTypes);
+    //user permisions===========================================================
+    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
+    //
         
-        if ($result["total_found"]==1){
-              
-                $values["lab_type_id"] = $uLabTypes->getLabTypeId();
-                $values["name"] = $uLabTypes->getName();
-                $values["info_name"] = $uLabTypes->getInfoName();
-                $result["values"] = $values;
-                
-                $update_values["lab_type_id"]=$lab_type_id;
-                $update_values["name"] = $name;
-                $update_values["info_name"] = $info_name;
-                $result["updated_values"] = $update_values;
-                
-                $uLabTypes->setName($name);
-                $uLabTypes->setInfoName($info_name);
-                $uLabTypes->updateToDatabase($db);
-               
-                $result["status"] = 200;
-                $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success"; 
+//controls======================================================================   
 
-        } else if ($result["total_found"]==0){
-            throw new Exception(ExceptionMessages::UpdateLabTypeIdValue." : ".$lab_type_id, ExceptionCodes::UpdateLabTypeIdValue);
-        } else {
-           throw new Exception(ExceptionMessages::DuplicateLabTypeIdValue." : ".$lab_type_id, ExceptionCodes::DuplicateLabTypeIdValue);
+        //check duplicate=======================================================        
+        $qb = $entityManager->createQueryBuilder()
+                            ->select('COUNT(lt.labTypeId) AS fresult')
+                            ->from('LabTypes', 'lt')
+                            ->where("(lt.name = :name OR lt.fullName = :fullName) AND lt.labTypeId != :labTypeId")
+                            ->setParameter('name', $LabType->getName())
+                            ->setParameter('fullName', $LabType->getFullName())
+                            ->setParameter('labTypeId', $LabType->getLabTypeId())    
+                            ->getQuery()
+                            ->getSingleResult();
+      
+        if ( $qb["fresult"] != 0 ) {
+             throw new Exception(ExceptionMessages::DuplicatedLabTypeValue ,ExceptionCodes::DuplicatedLabTypeValue);
         }
-        
-    } catch (Exception $e){      
+       
+//update to db================================================================== 
+        $entityManager->persist($LabType);
+        $entityManager->flush($LabType);
+
+        $result["lab_type_id"] = $LabType->getLabTypeId();  
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    }  
+    }                
+        
     return $result;
 }
-
 ?>

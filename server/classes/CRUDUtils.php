@@ -4,6 +4,8 @@ class CRUDUtils {
     
     /**
      * Set doctrine entity association parameter
+     * Remember if user set Value and not Id
+     * then table field must be `name`
      * 
      * @param DoctrineEntity $entity The doctrine entity.
      * @param mixed[string|integer] $param Value of input parameter by user.

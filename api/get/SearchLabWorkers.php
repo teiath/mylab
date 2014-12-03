@@ -385,9 +385,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             $export = ExportDataEnumTypes::JSON;
         else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
             $export = ExportDataEnumTypes::getValue($export);
-            //$pagesize = Parameters::AllPageSize;
         } else
-            throw new Exception(ExceptionMessages::InvalidExport." : ".$export, ExceptionCodes::InvalidExport);
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
         
 //======================================================================================================================
 //= $orderby
@@ -669,6 +668,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         //exit;
     } else if ($export == 'PDF'){
        return $result;
+    } else if ($export == 'PHP_ARRAY'){
+       return print_r($result);
     } else {     
        return $result;
     }

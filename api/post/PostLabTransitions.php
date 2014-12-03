@@ -180,5 +180,4 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
     
     return $result;
 }
-
 ?>

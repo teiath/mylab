@@ -1,60 +1,67 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
- * @param string $equipment_category_id
+ * @global type $app
+ * @global type $entityManager
  * @param type $name
  * @return string
  * @throws Exception
  */
 
 function PostEquipmentCategories($name) {
-    global $db;
-    global $Options;
-    global $app;
-    
-    $result = array();  
-    $result["data"] = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+
+    global $app,$entityManager;
+
+    $EquipmentCategory = new EquipmentCategories();
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["name"] = $name;
-    
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
+
     try {
+ 
+    //$name=====================================================================
+     CRUDUtils::EntitySetParam($EquipmentCategory, $name, 'EquipmentCategoryName', 'name', $params, true, false);
         
-        //$name===========================================================================
-        if (! trim($name) )
-        throw new Exception(ExceptionMessages::MissingNameValue." : ".$name, ExceptionCodes::MissingNameValue);
-        else
-        $filter[] = new DFC(EquipmentCategoriesExt::FIELD_NAME, $name, DFC::EXACT);
-        //===============================================================================       
+    //user permisions===========================================================
+    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
+    //
+        
+//controls======================================================================   
 
-        $oEquipmentCategories = new EquipmentCategoriesExt($db);
-        $arrayEquipmentCategories = $oEquipmentCategories->findByFilter($db, $filter, true);
+        //check for duplicate ==================================================   
+        $checkDuplicate = $entityManager->getRepository('EquipmentCategories')->findOneBy(array( 'name'  => $EquipmentCategory->getName() ));
 
-            if ( count( $arrayEquipmentCategories ) > 0 ) { 
-                throw new Exception(ExceptionMessages::DuplicateEquipmentCategoryValue." : ".$name, ExceptionCodes::DuplicateEquipmentCategoryValue);
-            }
+        if (count($checkDuplicate) != 0)
+            throw new Exception(ExceptionMessages::DuplicatedEquipmentCategoryValue,ExceptionCodes::DuplicatedEquipmentCategoryValue);  
+        
+//insert to db================================================================== 
+        $entityManager->persist($EquipmentCategory);
+        $entityManager->flush($EquipmentCategory);
 
-        $oEquipmentCategories->setName($name);
-        $oEquipmentCategories->insertIntoDatabase($db);
-
-        $result["equipment_category_id"] = $oEquipmentCategories->getEquipmentCategoryId();
-             
-        $result["status"] = 200;
-        $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success";
-    } catch (Exception $e){ 
+        $result["equipment_category_id"] = $EquipmentCategory->getEquipmentCategoryId();  
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    } 
+    }                
+        
     return $result;
 }
-
 ?>

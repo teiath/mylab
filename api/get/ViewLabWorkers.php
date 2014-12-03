@@ -75,7 +75,18 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
         if (Validator::Exists('lab_name', $params)){
             CRUDUtils::setSearchFilter($qb, $lab_name, "l", "name", $searchtype, ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType);    
         } 
-      
+
+//======================================================================================================================
+//= $export
+//======================================================================================================================
+        
+        if ( Validator::Missing('export', $params) )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+        } else
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
+        
  //execution====================================================================
         
         //get count of mylabWorkers with DICTINCT value

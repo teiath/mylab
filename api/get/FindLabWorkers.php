@@ -176,6 +176,14 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
         if (Validator::Exists('school_unit_state', $params)){
             CRUDUtils::setFilter($qb, $school_unit_state, "sus", "stateId", "name", "null,id,value", ExceptionMessages::InvalidStateType, ExceptionCodes::InvalidStateType);
         } 
+   
+//$export=======================================================================       
+        if ( Validator::Missing('export', $params) )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+        } else
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
         
  //execution====================================================================
         
@@ -278,6 +286,8 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
        // exit;
     } else if ($export == 'PDF'){
        return $result;
+    } else if ($export == 'PHP_ARRAY'){
+       return print_r($result);
     } else {     
        return $result;
     }
