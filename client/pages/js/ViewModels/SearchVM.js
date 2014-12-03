@@ -1,6 +1,6 @@
 var SearchVM = kendo.observable({
 
-    isVisible: true,
+    isVisible: false,
 
     school_unit_types_ds: newSchoolUnitTypesDS(),
     education_levels_ds: newEducationLevelsDS(),
