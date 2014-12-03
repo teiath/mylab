@@ -58,6 +58,7 @@ function PostLabRelations($lab_id, $school_unit_id, $relation_type, $circuit_id)
                 }   
                 
                 //find circuit_id and school_unit_id=============================
+                if (!Validator::IsID($circuit_id)){throw new Exception(ExceptionMessages::InvalidCircuitIDType ,ExceptionCodes::InvalidCircuitIDType);}
                 CRUDUtils::entitySetAssociation($LabRelations, $circuit_id, 'Circuits', 'circuit', 'Circuit', $params, 'circuit_id');
              
             } else {            
