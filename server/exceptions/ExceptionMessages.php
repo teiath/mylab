@@ -1076,6 +1076,8 @@ class ExceptionMessages
     const InvalidOrderType = 'Ο Τύπος Ταξινόμησης πρέπει να είναι ASC ή DESC';
     const InvalidOrderBy = 'Το Πεδίο Ταξινόμησης πρέπει να είναι κάποιο από τα πεδία που επιστρέφει η συνάρτηση';
     
+    const InvalidExportType = 'Ο Τύπος Επιστροφής Δεδομένων σε συγκεκριμένο format είναι λάθος';
+    
     //authentication roles
     const NoPermissionsError = 'Δεν βρέθηκαν σχολική μονάδα που να αντιστοιχεί στον ρόλο του χρήστη';
     

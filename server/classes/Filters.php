@@ -249,13 +249,13 @@ class Filters {
         $sqlType = "SELECT lab_type_id,name FROM lab_types ORDER BY lab_type_id ASC";
         $stmtType = $db->query( $sqlType );
         $lab_types = $stmtType->fetchAll(PDO::FETCH_ASSOC);
-        
+
             foreach ($lab_types as $lab_type) {
                 $lab_type_id=$lab_type['lab_type_id'];
                 $sql_count_if[] =' COUNT(if(tb1.lab_type_id = '.$lab_type_id.', 1, null)) AS count_lab_type_'.$lab_type_id;
             }
                 $sql_count_if = implode(",", $sql_count_if);   
-            
+                    
         $sql='SELECT '
        . $sql_count_if . ' ,tb1.school_unit_id '
        .' FROM ( SELECT DISTINCT labs.lab_id, labs.lab_type_id, labs.school_unit_id  '
