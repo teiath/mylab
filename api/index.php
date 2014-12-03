@@ -1060,9 +1060,6 @@ function LabRelationsController()
       case MethodTypes::PUT :
             $result = PutLabRelations(
                 $params["lab_relation_id"],
-                $params["lab_id"], 
-                $params["school_unit_id"],
-                $params["relation_type"], 
                 $params["circuit_id"]
             );      
             break;

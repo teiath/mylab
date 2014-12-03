@@ -36,7 +36,7 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
        
     try {
         
-//$lab_id=====================================================    
+//$lab_id=======================================================================    
         $fLabID = CRUDUtils::checkIDParam('lab_id', $params, $lab_id, 'LabID');
        
 //init entity for update row====================================================
@@ -51,7 +51,7 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
         $username =  $app->request->user['uid'];
         $Lab->setLastUpdated(new \DateTime (date('Y-m-d H:i:s')));  
         $Lab->setUpdatedBy($username[0]);      
-        //$state========================================================================
+        //$state================================================================
         //because of user cant set up 'state' parameter we use the required parameter 'lab_id' as paspartu to continue 
         CRUDUtils::entitySetAssociation($Lab, 1, 'States', 'state', 'State', $params, 'lab_id');
         
@@ -107,7 +107,7 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
         
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($Lab->getLabId(),$permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          }; 
     
 //controls======================================================================  

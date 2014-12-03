@@ -127,29 +127,35 @@ require_once('../api/post/PostMylabWorkers.php');
 require_once('../api/post/PostRelationTypes.php');
 
 ////---put from mylab
-require_once('../api/put/PutLabs.php');
-require_once('../api/put/PutLabWorkers.php');
+require_once('../api/put/PutAquisitionSources.php');
+require_once('../api/put/PutEquipmentCategories.php');
+require_once('../api/put/PutEquipmentTypes.php');
+require_once('../api/put/PutInitialLabs.php');
 require_once('../api/put/PutLabAquisitionSources.php');
 require_once('../api/put/PutLabEquipmentTypes.php');
-require_once('../api/put/PutLabTransitions.php');
 require_once('../api/put/PutLabRelations.php');
-require_once('../api/put/PutInitialLabs.php');
+require_once('../api/put/PutLabSources.php');
+require_once('../api/put/PutLabTransitions.php');
+require_once('../api/put/PutLabTypes.php');
+require_once('../api/put/PutLabWorkers.php');
+require_once('../api/put/PutLabs.php');
 require_once('../api/put/PutMylabWorkers.php');
+require_once('../api/put/PutRelationTypes.php');
 
 //---del from mylab
- require_once('../api/del/DelLabs.php');
- require_once('../api/del/DelLabEquipmentTypes.php');
- require_once('../api/del/DelLabAquisitionSources.php');
- require_once('../api/del/DelLabWorkers.php');
- require_once('../api/del/DelLabRelations.php');
- require_once('../api/del/DelLabTransitions.php');
- require_once('../api/del/DelInitialLabs.php');
- 
- require_once('../api/del/DelAquisitionSources.php');
- require_once('../api/del/DelEquipmentCategories.php');
- require_once('../api/del/DelEquipmentTypes.php');
- require_once('../api/del/DelLabSources.php'); 
- require_once('../api/del/DelLabTypes.php');
- require_once('../api/del/DelMylabWorkers.php'); 
- require_once('../api/del/DelRelationTypes.php'); 
+require_once('../api/del/DelAquisitionSources.php');
+require_once('../api/del/DelEquipmentCategories.php');
+require_once('../api/del/DelEquipmentTypes.php');
+require_once('../api/del/DelLabAquisitionSources.php');
+require_once('../api/del/DelLabEquipmentTypes.php');
+require_once('../api/del/DelInitialLabs.php');
+require_once('../api/del/DelLabRelations.php');
+require_once('../api/del/DelLabSources.php'); 
+require_once('../api/del/DelLabTransitions.php');
+require_once('../api/del/DelLabTypes.php');
+require_once('../api/del/DelLabWorkers.php'); 
+require_once('../api/del/DelLabs.php');
+require_once('../api/del/DelMylabWorkers.php'); 
+require_once('../api/del/DelRelationTypes.php'); 
+
 ?>

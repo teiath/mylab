@@ -66,7 +66,7 @@ function PutLabEquipmentTypes($lab_id, $equipment_type_id, $items) {
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($LabEquipmentTypes->getLab()->getLabId(), $permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          };  
 
 //controls======================================================================  
@@ -81,7 +81,7 @@ function PutLabEquipmentTypes($lab_id, $equipment_type_id, $items) {
             throw new Exception(ExceptionMessages::DuplicatedLabEquipmentTypeValue ,ExceptionCodes::DuplicatedLabEquipmentTypeValue);
         } 
         
- //insert to db==================================================================
+ //insert to db=================================================================
         $entityManager->persist($LabEquipmentTypes);
         $entityManager->flush($LabEquipmentTypes);
 

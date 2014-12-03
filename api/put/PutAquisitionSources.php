@@ -1,88 +1,85 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
  * @global type $app
+ * @global type $entityManager
  * @param type $aquisition_source_id
  * @param type $name
  * @return string
  * @throws Exception
  */
 
-function PutAquisitionSources($aquisition_source_id,$name) {
-    global $db;
-    global $Options;
-    global $app;
-    
-    $result = array();  
-    $values = array();
-    $update_values = array();
-    $result["data"] = array();
-    
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+function PutAquisitionSources($aquisition_source_id, $name) {
+
+    global $app,$entityManager;
+
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
+
     try {
+ 
+//$aquisition_source_id==========================================================    
+        $fAquisitionSourceId = CRUDUtils::checkIDParam('aquisition_source_id', $params, $aquisition_source_id, 'AquisitionSourceID');
+       
+//init entity for update row====================================================
+        $AquisitionSource = CRUDUtils::findIDParam($fAquisitionSourceId, 'AquisitionSources', 'AquisitionSource');
         
-        //$name==========================================================================================
-        if (! trim($name) )
-            throw new Exception(ExceptionMessages::MissingNameValue." : ".$name, ExceptionCodes::MissingNameValue);
-        else
-            $filter[] = new DFC(AquisitionSourcesExt::FIELD_NAME, $name, DFC::EXACT); 
-
-           $oAquisitionSources = new AquisitionSourcesExt($db);
-           $arrayAquisitionSources = $oAquisitionSources->findByFilter($db, $filter, true);
-
-           if ( count( $arrayAquisitionSources ) > 0 ) { 
-                throw new Exception(ExceptionMessages::DuplicateAquisitionSourceValue." : ".$name, ExceptionCodes::DuplicateAquisitionSourceValue);
-           }     
-        
-        //$aquisition_source_id===========================================================================
-        if (! trim($aquisition_source_id) )
-            throw new Exception(ExceptionMessages::MissingAquisitionSourceIdValue." : ".$aquisition_source_id, ExceptionCodes::MissingAquisitionSourceIdValue);
-        else if (!is_numeric($aquisition_source_id) || ( $aquisition_source_id < 0)  )
-            throw new Exception(ExceptionMessages::InvalidAquisitionSourceIdValue." : ".$aquisition_source_id, ExceptionCodes::InvalidAquisitionSourceIdValue);
-        else 
-            $uAquisitionSources = AquisitionSourcesExt::findById($db, $aquisition_source_id);
-
-        //=================================================================================================
-        $result["total_found"]=count($uAquisitionSources);
-        
-        if ($result["total_found"]==1){
-              
-                $values["aquisition_source_id"] = $uAquisitionSources->getAquisitionSourceId();
-                $values["name"] = $uAquisitionSources->getName();
-                $result["values"] = $values;
-               
-                $update_values["aquisition_source_id"] = $aquisition_source_id;
-                $update_values["name"] = $name;
-                $result["updated_values"] = $update_values;
+//$name=========================================================================
+        if ( Validator::IsExists('name') ){
+            CRUDUtils::EntitySetParam($AquisitionSource, $name, 'AquisitionSourceName', 'name', $params );
+        } else if ( Validator::IsNull($AquisitionSource->getName()) ){
+            throw new Exception(ExceptionMessages::MissingAquisitionSourceNameValue." : ".$name, ExceptionCodes::MissingAquisitionSourceNameValue);
+        } 
                 
-                $uAquisitionSources->setName($name);
-                $uAquisitionSources->updateToDatabase($db);
-
-                $result["status"] = 200;
-                $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success"; 
-
-        } else if ($result["total_found"]==0){
-            throw new Exception(ExceptionMessages::UpdateAquisitionSourceIdValue." : ".$aquisition_source_id, ExceptionCodes::UpdateAquisitionSourceIdValue);
-        } else {
-           throw new Exception(ExceptionMessages::DuplicateAquisitionSourceIdValue." : ".$aquisition_source_id, ExceptionCodes::DuplicateAquisitionSourceIdValue);
-        }
+    //user permisions===========================================================
+    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
+    //
         
-    } catch (Exception $e){      
+//controls======================================================================   
+
+        //check name duplicate==================================================        
+        $qb = $entityManager->createQueryBuilder()
+                            ->select('COUNT(aqs.aquisitionSourceId) AS fresult')
+                            ->from('AquisitionSources', 'aqs')
+                            ->where("aqs.name = :name AND aqs.aquisitionSourceId != :aquisitionSourceId")
+                            ->setParameter('name', $AquisitionSource->getName())
+                            ->setParameter('aquisitionSourceId', $AquisitionSource->getAquisitionSourceId())    
+                            ->getQuery()
+                            ->getSingleResult();
+      
+        if ( $qb["fresult"] != 0 ) {
+             throw new Exception(ExceptionMessages::DuplicatedAquisitionSourceValue ,ExceptionCodes::DuplicatedAquisitionSourceValue);
+        }
+       
+//update to db================================================================== 
+        $entityManager->persist($AquisitionSource);
+        $entityManager->flush($AquisitionSource);
+
+        $result["aquisition_source_id"] = $AquisitionSource->getAquisitionSourceId();  
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    }  
+    }                
+        
     return $result;
 }
-
 ?>
