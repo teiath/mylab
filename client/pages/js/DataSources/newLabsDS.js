@@ -1,4 +1,4 @@
-function newLabsDS(school_unit_id, detailInitEvent){
+function newLabsDS(school_unit_id, worker_registry_no, detailInitEvent){
         
     var labs_ds =  new kendo.data.DataSource({
         transport: {
@@ -15,9 +15,9 @@ function newLabsDS(school_unit_id, detailInitEvent){
             parameterMap: function(data, type) {
                 if (type === 'read') {
 
-                    if(school_unit_id !== undefined){
-                        data["school_unit_id"] = school_unit_id;
-                    }
+//                    if(school_unit_id !== undefined){
+                    if(school_unit_id !== null){ data["school_unit_id"] = school_unit_id; }
+                    if(worker_registry_no !== null){ data["lab_worker"] = worker_registry_no; }
 
                     //normalize data filters
                     if (typeof data.filter !== 'undefined' && typeof data.filter.filters !== 'undefined') {                    
@@ -159,13 +159,6 @@ function newLabsDS(school_unit_id, detailInitEvent){
         },
         change: function(e) {
     
-            /*  Fired when the data source is populated from a JavaScript array or a remote service, a data item is inserted, updated or removed, the data items are paged, sorted, filtered or grouped.
-             * 
-             *  e.sender kendo.data.DataSource    The data source instance which fired the event.
-             *  e.action string(optional)         String describing the action type (available for all actions other than "read"). Possible values are "itemchange", "add", "remove" and "sync".
-             *  e.items Array                     The array of data items that were affected (or read).
-             */
-    
             //console.log("newLabsDS - labs datasource change e:", e);
             //console.log("einai to 1o lab new?:", e.items[0].isNew());
             //console.log("einai to 1o lab dirty?:", e.items[0].dirty);
@@ -175,55 +168,3 @@ function newLabsDS(school_unit_id, detailInitEvent){
     return labs_ds;
     
 }
-
-
-
-                    
-                    
-//get the table row for records with model.id = 2
-//var dataItem = $("#school_units_view").data("kendoGrid").dataSource.get(detailInitEvent.data.school_unit_id); //get the grid row's dataItem based on the school_unit_id
-//console.log("dataItem", dataItem);
-//var row = $("#school_units_view").data("kendoGrid").tbody.find("tr[data-uid='" + dataItem.uid + "']"); //an then get its row
-//console.log("row: ", row);
-//index = row.index();
-//console.log("INDEX: ", index);
-//
-//if(e.response.lab_type == 1){
-//    detailInitEvent.data.total_labs_by_type["ΣΕΠΕΗΥ"] = (+ detailInitEvent.data.total_labs_by_type["ΣΕΠΕΗΥ"] + 1).toString;
-//    console.log(e.response.lab_type);
-//    console.log(detailInitEvent.data.total_labs_by_type);
-//}else if(e.response.lab_type == 2){
-//    detailInitEvent.data.total_labs_by_type["ΤΡΟΧΗΛΑΤΟ"] = (+ detailInitEvent.data.total_labs_by_type["ΤΡΟΧΗΛΑΤΟ"] + 1).toString;
-//    console.log(e.response.lab_type);
-//    console.log(detailInitEvent.data.total_labs_by_type);
-//}else if(e.response.lab_type == 3){
-//    detailInitEvent.data.total_labs_by_type["ΕΤΠ"] = (+ detailInitEvent.data.total_labs_by_type["ΕΤΠ"] + 1).toString;
-//    console.log(e.response.lab_type);
-//    console.log(detailInitEvent.data.total_labs_by_type);
-//}else if(e.response.lab_type == 4){
-//    detailInitEvent.data.total_labs_by_type["ΓΩΝΙΑ"] = (+ detailInitEvent.data.total_labs_by_type["ΓΩΝΙΑ"] + 1).toString;
-//    console.log(e.response.lab_type);
-//    console.log(detailInitEvent.data.total_labs_by_type);
-//}else if(e.response.lab_type == 5){
-//    detailInitEvent.data.total_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"] = (+ detailInitEvent.data.total_labs_by_type["ΔΙΑΔΡΑΣΤΙΚΟ ΣΥΣΤΗΜΑ"] + 1).toString;
-//    console.log(e.response.lab_type);
-//    console.log(detailInitEvent.data.total_labs_by_type);
-//}
-                    //console.log("e.response.all_labs_by_type: ", e.response.all_labs_by_type);
-                    //dataItem.total_labs_by_type = e.response.all_labs_by_type;
-//dataItem.set("total_labs_by_type", detailInitEvent.data.total_labs_by_type);
-                    //$("#school_units_view").data("kendoGrid").expandRow(row);
-
-                    //console.log("row-after: ", row);
-                    
-                    //                    var grid = $("#school_units_view").data("kendoGrid");                   // Get a reference to the school units grid                    
-                    //                    var select = grid.select(); //"tr:detailInitEvent.masterRow"            // Access the row that is selected                    
-                    //                    var data = grid.dataItem(select);                                       // and now the data                    
-                    //                    data.set("total_labs_by_type", e.response.all_labs_by_type);            // update the toolbar's info
-                    //                    grid.expandRow(select); //"detailInitEvent.masterRow"                   // expand selected row
-                    //                  
-                    
-                    
-                    
-                   
- 
