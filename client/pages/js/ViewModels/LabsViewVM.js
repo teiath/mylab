@@ -1720,6 +1720,10 @@ var LabsViewVM = kendo.observable({
             show.push(10);
         }
         
+        if( jQuery.inArray( authorized_user , search_xls ) !== -1 && jQuery.inArray(10 , show) === -1 && LabWorkersViewVM.isVisible){
+            show.push(10);
+        }
+        
         $.each(grid.columns, function(index, value){
             if(jQuery.inArray( index, show ) !== -1 ){
                 grid.showColumn(+index);
