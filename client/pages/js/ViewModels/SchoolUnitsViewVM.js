@@ -144,13 +144,14 @@ var SchoolUnitsViewVM = kendo.observable({
                                 var itemReturned = '<span>' + tRating +  ' <i class="fa fa-thumbs-up"></i> ' + oRating + ' <i class="fa fa-star"></i> ' + '</span>';
                                 return itemReturned;
                             },
-                            width:'95px'
+                            width:'95px',
+                            sortable:false
                       },
-                      { field: 'positioning', title:'Τοποθεσία', width:'180px', hidden : true},
-                      { field: 'lab_special_name', title:'Ειδική Ονομασία', width:'180px', hidden : true},
+                      { field: 'positioning', title:'Τοποθεσία', width:'180px', hidden : true, sortable:false},
+                      { field: 'lab_special_name', title:'Ειδική Ονομασία', width:'180px', hidden : true, sortable:false},
                       { field: 'creation_date', title:'Ημερομηνία Δημιουργίας', width:'160px', hidden : true},
-                      { field: 'last_updated', title:'Τελευταία Ενημέρωση', width:'145px'},
-                      { field: 'created_by', title:'Δημιουργία από', width:'150px', hidden : true},
+                      { field: 'last_updated', title:'Τελευταία Ενημέρωση', width:'145px', sortable:false},
+                      { field: 'created_by', title:'Δημιουργία από', width:'150px', hidden : true, sortable:false},
                       { command: [{text:'Ενεργοποίηση', click:LabsViewVM.transitLab, name:'activate', 'imageClass': 'fa fa-check'}, 
                                   {text:'Αναστολή', click:LabsViewVM.transitLab, name:'suspend', 'imageClass': 'fa fa-clock-o'},
                                   {text:'Κατάργηση', click:LabsViewVM.transitLab, name:'abolish', 'imageClass': 'fa fa-ban'},
