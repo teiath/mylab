@@ -37,16 +37,16 @@ function PostEquipmentTypes($name, $equipment_category) {
     //$name=====================================================================
      CRUDUtils::EntitySetParam($EquipmentType, $name, 'EquipmentTypeName', 'name', $params, true, false);
      
-    //$equipment_type===============================================================       
+    //$equipment_type===========================================================      
     CRUDUtils::entitySetAssociation($EquipmentType, $equipment_category, 'EquipmentCategories', 'equipmentCategory', 'EquipmentCategory', $params, 'equipment_category');
         
-    //user permisions===============================================================
+    //user permisions===========================================================
     //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
     //
         
 //controls======================================================================   
 
-        //check for duplicate =================================================   
+        //check for duplicate ==================================================   
         $checkDuplicate = $entityManager->getRepository('EquipmentTypes')->findOneBy(array( 'name'  => $EquipmentType->getName() ));
 
         if (count($checkDuplicate) != 0)

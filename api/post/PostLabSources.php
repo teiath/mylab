@@ -37,16 +37,15 @@ function PostLabSources($name, $infos) {
     //$name=====================================================================
      CRUDUtils::EntitySetParam($LabSource, $name, 'LabSourceName', 'name', $params, true, false);
      
-    //$full_name================================================================
+    //$infos====================================================================
      CRUDUtils::EntitySetParam($LabSource, $infos, 'LabSourceInfos', 'infos', $params, true, false);
         
-    //user permisions===============================================================
+    //user permisions===========================================================
     //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
         
 //controls======================================================================   
 
-        //check for duplicate =================================================   
+        //check for duplicate ==================================================   
         $checkDuplicate = $entityManager->getRepository('LabSources')->findOneBy(array( 'name' => $LabSource->getName() ));
         
         if (count($checkDuplicate) != 0)

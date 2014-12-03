@@ -36,13 +36,13 @@ function PostAquisitionSources($name) {
     //$name=====================================================================
      CRUDUtils::EntitySetParam($AquisitionSource, $name, 'AquisitionSourceName', 'name', $params, true, false);
         
-    //user permisions===============================================================
+    //user permisions===========================================================
     //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
     //
         
 //controls======================================================================   
 
-        //check for duplicate =================================================   
+        //check for duplicate ==================================================   
         $checkDuplicate = $entityManager->getRepository('AquisitionSources')->findOneBy(array( 'name'  => $AquisitionSource->getName() ));
 
         if (count($checkDuplicate) != 0)

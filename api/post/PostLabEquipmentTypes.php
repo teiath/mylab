@@ -89,5 +89,4 @@ function PostLabEquipmentTypes($lab_id, $equipment_type, $items) {
     
     return $result;
 }       
-
 ?>

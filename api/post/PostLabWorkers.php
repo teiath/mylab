@@ -37,7 +37,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $
     try
     { 
         
-//$creation infos================================================================
+//$creation infos===============================================================
         $username =  $app->request->user['uid'];
         $LabWorker->setInsertLabWorkerBy(new \DateTime (date('Y-m-d')));  
         $LabWorker->setInsertBy($username[0]);  
@@ -157,12 +157,6 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
     }                
-    //debug=========================================================================       
-        if ( Validator::IsTrue( $params["debug"]  ) )
-        {
-             $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
-             $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
-        }
         
     return $result;
 }

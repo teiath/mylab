@@ -36,13 +36,13 @@ function PostRelationTypes($name) {
     //$name=====================================================================
      CRUDUtils::EntitySetParam($RelationType, $name, 'RelationTypeName', 'name', $params, true, false);
         
-    //user permisions===============================================================
+    //user permisions===========================================================
     //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
     //
         
 //controls======================================================================   
 
-        //check for duplicate =================================================   
+        //check for duplicate ==================================================   
         $checkDuplicate = $entityManager->getRepository('RelationTypes')->findOneBy(array( 'name' => $RelationType->getName() ));
         
         if (count($checkDuplicate) != 0)

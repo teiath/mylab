@@ -41,7 +41,7 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
       
     try {
     
-//$creation infos================================================================
+//$creation infos===============================================================
         $username =  $app->request->user['uid'];
         $Lab->setCreationDate(new \DateTime (date('Y-m-d H:i:s')));  
         $Lab->setCreatedBy($username[0]);  
@@ -50,7 +50,7 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
         $Lab->setSubmitted(0);
         $Lab->setState(null);
         
-//$special_name==================================================================
+//$special_name=================================================================
         CRUDUtils::entitySetParam($Lab, $special_name, 'LabSpecialName', 'special_name', $params, false, true );
         
 //$positioning==================================================================
@@ -205,5 +205,4 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
     
     return $result;
 }
-
 ?>

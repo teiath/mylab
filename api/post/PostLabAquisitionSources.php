@@ -95,5 +95,4 @@ function PostLabAquisitionSources($lab_id, $aquisition_source, $aquisition_year,
     
     return $result;
 }
-
 ?>
