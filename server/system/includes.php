@@ -44,12 +44,12 @@ require_once('sync/syncWorkerPositions.php');
 require_once('sync/syncWorkerSpecializations.php');
 
 //classes ext
+require_once('classes/ExportDataEnumTypes.php');
 require_once('classes/OrderEnumTypes.php');
 require_once('classes/SearchEnumTypes.php');
+require_once('classes/ExportDataTypes.php');
 require_once('classes/OrderTypes.php');
 require_once('classes/SearchTypes.php');
-require_once('classes/ExportDataTypes.php');
-require_once('classes/ExportDataEnumTypes.php');
 require_once('classes/FormatCreator.php');
 require_once('classes/Filters.php');
 require_once('classes/FindLabWorkersExt.php');
