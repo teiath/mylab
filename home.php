@@ -109,6 +109,7 @@
                 
                 
                 kendo.bind($("#search-container"), SearchVM);
+                kendo.bind($("#search-lab-workers-container"), SearchLabWorkersVM);
                 kendo.bind($("#switch_views"), LabsViewVM);
                 kendo.bind($("#school_unit_info_pane").find("#details-container"), SchoolUnitsViewVM);
                 
@@ -118,7 +119,10 @@
                 
                 kendo.bind($("#mylab_navigation_bar"), NavBarVM);
                 
-//                kendo.bind($("#lab_workers_container"), LabWorkersViewVM);
+                kendo.bind($("#lab_workers_container"), LabWorkersViewVM);
+                kendo.bind($("#lab_workers_view").find(".k-grid-toolbar>.export_to_xlsx"), SearchLabWorkersVM);
+                kendo.bind($("#lab_workers_view").find(".k-grid-toolbar>.lab_worker_grid_columns_btn"), LabWorkersViewVM);
+                kendo.bind($("#lab_workers_view").find(".k-grid-toolbar>.lab_worker_refresh_btn"), LabWorkersViewVM);
                 
                 //NOTIFICATIONS
                 notification = $("#notification").kendoNotification({
@@ -183,6 +187,8 @@
                 index= null;
                 //searchParameters holds search form filters in order to be used inside SearchVM's exportToXLSX
                 searchParameters = [];
+                searchWorkersParameters = [];
+                statisticParameters = [];
                                                
             });
             
@@ -198,9 +204,10 @@
         <div style='height:50px'> </div>      
         <?php
                 require_once('search.html');  //search
+                require_once('search_lab_workers.html');  //search lab workers
                 require_once('labs_view_try.php'); //labs view
                 require_once('school_units_view_try.php'); //school units view
-//                require_once('lab_workers_view.php'); //lab workers view
+                require_once('lab_workers_view.php'); //lab workers view
                 require_once('statistics.php'); //statistics
                 require_once('info.php'); //info
         ?>
