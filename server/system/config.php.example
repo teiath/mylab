@@ -1,6 +1,5 @@
 <?php
 
-
 //php configuration
 set_time_limit(0);
 error_reporting(E_ALL ^ E_DEPRECATED ^ E_NOTICE ^ E_WARNING); //^ E_DEPRECATED ^ E_NOTICE ^ E_WARNING
@@ -9,27 +8,71 @@ ini_set('display_errors','On');
 ini_set('memory_limit','1024M');
 ini_set('output_buffering','on');
 ini_set('zlib.output_compression', 0);
+date_default_timezone_set('Europe/Athens');
+session_name('MYLAB');
 
 //pdo connection settings
 $conOptions = array(
-    "Host"=>"",
-    "Port"=>4040,
+    "Host"=>"localhost",
+    "Port"=>3306,
     "Database"=>"", 
     "Username"=>"", 
     "Password"=>""
 );
 
+  $casOptions = array(
+      "Url" => "sso-test.sch.gr",
+      "Port" => 443,
+      "NoAuth" => false,
+      "LogoutURL"=>"http://mmsch.teiath.gr/mylab"
+  );
+  
+$ldapOptions = array(
+    "host" => "ds.sch.gr",
+    "port" => 389,
+    "baseDn" => ""  
+);
+    
+  $frontendOptions = array(
+      "frontendUsername" => "",
+      "frontendPassword" => "",
+  );
+  
+   $backendOptions = array(
+      "backendUsername" => "",
+      "backendPassword" => "",
+  );
+
+$ldapSearchOptions = array(
+    'username' => '',
+    'password' => ''
+);
+  
 //credecial and general web options
 $Options = array(
     "PageSize" => 50,
     "MaxPageSize"=>500,
     "AllPageSize"=>0,
-    "SortMode"=>0, //set 0 for ASC or set 1 for DESC
-    "SortField"=>'LabsExt::FIELD_LAB_ID', 
-    "ServerURL" => "http://172.16.16.123/mylab_ver4/api/",
+    "ServerURL" => "http://localhost/mylab/api/",
     "ServerUserName" => "",
     "ServerPassWord" => "",
-    "SyncFolder"=>"http://172.16.16.123/mylab_ver4/sync_logs/"
+    "ServerSyncUsername" => "",
+    "ServerSyncPassword" => "",
+    "WebSyncFolder"=>"http://mmsch.teiath.gr/mylab/server/logs/",
+    "SyncLogFolder"=>'C:\/xampp\/htdocs\/mylab\/server\/logs\/',
+    "Server_MyLab" => "http://mmsch.teiath.gr/mylab/api/",
+    "Server_MyLab_username" => "",
+    "Server_MyLab_password" => "",
+    "Server_Mmsch" => "http://mmsch.teiath.gr/teiath_git/mmsch/api/",
+    "Server_Mmsch_username" => "",
+    "Server_Mmsch_password" => "",
+    "Server_Mm" => "https://mm.sch.gr/api/",
+    "Server_Mm_username" => "",
+    "Server_Mm_password" => "",
+    "TmpFolder" => 'C:\/xampp\/htdocs\/mylab\/server\/tmp\/',
+    "WebTmpFolder" => "http://mmsch.teiath.gr/mylab/server/tmp/",
+    "DeleteTmpFilesXlsx" => " find var/www/mylab/server/tmp/*.xlsx -type f -mmin +60 -exec rm -f {} \;",
+    "DeleteTmpFilesPdf" => " find var/www/mylab/server/tmp/*.pdf -type f -mmin +60 -exec rm -f {} \;"
 );
 
 
