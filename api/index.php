@@ -219,7 +219,7 @@ function UserRolesPermission(){
         $check = UserRoles::checkUserRolePermissions($controller,$method,$app->request->user);
   
         if ($check!=true){
-                    throw new Exception(ExceptionMessages::Unauthorized, ExceptionCodes::Unauthorized);
+                    throw new Exception(ExceptionMessages::UnauthorizedController, ExceptionCodes::UnauthorizedController);
         }
         
     }
@@ -1456,6 +1456,7 @@ function SearchSchoolUnitsController()
                 $params["aquisition_source"],
                 $params["equipment_type"],
                 $params["lab_worker"],
+                    $params["has_labs"],
                 $params["pagesize"], 
                 $params["page"],
                 $params["orderby"],

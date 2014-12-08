@@ -118,7 +118,7 @@ function Authentication()
     try
     { 
         if (! (($_SERVER['PHP_AUTH_USER'] == $Options["ServerSyncUsername"] ) && ($_SERVER['PHP_AUTH_PW'] == $Options["ServerSyncPassword"] )))
-            throw new Exception(ExceptionMessages::Unauthorized, ExceptionCodes::Unauthorized);
+            throw new Exception(ExceptionMessages::UnauthorizedUser, ExceptionCodes::UnauthorizedUser);
     }
     catch (Exception $e)
     {

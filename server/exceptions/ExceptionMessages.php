@@ -29,7 +29,8 @@ class ExceptionMessages
         const MethodNotFound = 'H μέθοδος δεν βρέθηκε (GET/POST/PUT/DELETE)';
         const FunctionNotFound = 'H function δεν βρέθηκε (Api Function Name)';
         
-        const Unauthorized = 'Unauthorized';
+        const UnauthorizedUser = 'Μη εξουσιοδοτημένος χρήστης';
+        const UnauthorizedController = 'Ο controller(api route) δεν έχει αυθεντικοποιηθεί';
         
         const MissingXAxisParam = 'Ο Άξονας x είναι υποχρεωτικό πεδίο';
         const MissingXAxisValue = 'Ο Άξονας x πρέπει να έχει τιμή';
