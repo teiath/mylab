@@ -1087,6 +1087,7 @@ class ExceptionMessages
     const DuplicateFullSchoolUnitDnsName = 'Βρέθηκαν παραπάνω από μία σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const MissingLdapLAttribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
     const MissingLdapEmployeeNumberAttribute = 'Δεν βρέθηκε to "employeeNumber" attribute στον ldap λογαριασμό του χρήστη.';
+    const MissingGsnRegistryCodeAttribute = 'Δεν βρέθηκε to "edupersonorgunitdn:gsnregistrycode" attribute στον ldap λογαριασμό του χρήστη.';
     
     const NoPermissionToPostLab = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής στο συγκεκριμένο εργαστήριο';
     const NoPermissionToPutLab = 'Ο χρήστης δεν έχει δικαίωμα ενημερωσης στο συγκεκριμένο εργαστήριο';

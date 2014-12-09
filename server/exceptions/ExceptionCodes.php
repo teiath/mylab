@@ -1755,6 +1755,8 @@ class ExceptionCodes
     const MissingLdapLAttribute = 610;
     /** {@see ExceptionMessages::MissingLdapEmployeeNumberAttribute} */   
     const MissingLdapEmployeeNumberAttribute = 611;
+    /** {@see ExceptionMessages::MissingGsnRegistryCodeAttribute} */ 
+    const MissingGsnRegistryCodeAttribute = 617;
     
     /** {@see ExceptionMessages::NoPermissionToPost} */   
     const NoPermissionToPostLab = 612;
