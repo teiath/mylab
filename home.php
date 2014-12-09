@@ -196,7 +196,7 @@
      
     </head>
    
-    <body style="background-color: #e6ece1;">
+    <body style="background-color: #fcfcfc;"> <!--#e6ece1-->
         
         <?php require_once('navigation_bar.php'); //navigation bar ?>
         <div style='height:90px'> </div>
