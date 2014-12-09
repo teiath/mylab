@@ -848,22 +848,11 @@ var LabsViewVM = kendo.observable({
                         //console.log("options: ", options);
                         
                         var new_lab_worker_tr = lab_workers_details.tbody.find("tr.k-grid-edit-row");
-                        var go_to_ldap_search_tooltip = $(container).kendoTooltip({
-                            autoHide: true,
-                            content:"Εάν ο Καθηγητής ΠΕ19-ΠΕ20 δεν υπάρχει στη λίστα, επιλέξτε <a href='#' id='ldap_search_anchor' style='cursor:pointer' onclick='LabsViewVM.ldapSearch(); return false;'>Αναζήτηση στον LDAP του ΠΣΔ</a>",
-                            width:180,
-                            height:50,
-                            position: "left",
-                            animation: {
-                                close: {effects: "fade:out",  duration: 300},
-                                open: {effects: "fade:in",  duration: 300}
-                            }
-                        }).data("kendoTooltip"); 
                         
                         //mylab workers input field
                         var mylab_input = $('<input id="mylab_input" name="mylab_input" data-bind="value:worker_id" data-text-field="fullname" data-value-field="worker_id" required data-required-msg="Ξέχασες τον υπεύθυνο!"/>')
                         .appendTo(container)
-                        .width("100%").
+                        .width("90%").
                         kendoComboBox({
                             dataSource: newMyLabWorkersDS(),
                             autoBind: false,
@@ -872,28 +861,22 @@ var LabsViewVM = kendo.observable({
                             dataBound: function(e){           
                                 //console.log("mylab_input dataBound e:", e);
                                 if(e.sender.dataSource.data().length > 0){
-                                    //go_to_ldap_search_tooltip.hide($(container));
                                     var bound_lab_worker_data = e.sender.dataSource.data();
                                     new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text(bound_lab_worker_data[0].registry_no);
                                     new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text(bound_lab_worker_data[0].worker_specialization_name);
                                 }else{
-                                    //go_to_ldap_search_tooltip.show($(container));
                                     new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text("");
                                     new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text("");                                    
                                 }
                             },
                             change: function(e){
                                 //console.log("mylab_input change e:", e);
-                                go_to_ldap_search_tooltip.hide($(container));
-                                
                                 var worker_id = this.value();
                                 if(e.sender.dataSource.data().length > 0){
                                     $.each(e.sender.dataSource.data(), function(index, value){
                                         if(value.worker_id == worker_id){
                                             new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text(value.registry_no);
                                             new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text(value.worker_specialization_name);
-                                        }else{
-                                            go_to_ldap_search_tooltip.show($(container));
                                         }
                                     });
                                 }
@@ -902,6 +885,36 @@ var LabsViewVM = kendo.observable({
                         
                         //mylab_input validation tooltip
                         $('<span class="k-invalid-msg" data-for="mylab_input"></span>').appendTo(container);
+                        
+                        $('<i id="ldap_search_info" class="fa fa-lightbulb-o fa-lg" data-role="tooltip" style="position:fixed; padding:6px 8px; margin-left:9px; margin-top:1px; cursor:pointer;"></i>')
+                        .appendTo(container)
+                        .hover(
+                            function(e){
+                                $(e.target).css({
+                                    "border": "1px solid",
+                                    "border-radius": "13px"
+                                });
+                            },
+                            function(e){
+                                $(e.target).css({
+                                    "border": "",
+                                    "border-radius": ""
+                                });
+                            }
+                        );
+                
+                        $(container).find("#ldap_search_info").kendoTooltip({
+                            autoHide: true,
+                            content:"Εάν ο Καθηγητής ΠΕ19-ΠΕ20 δεν υπάρχει στη λίστα, <a href='#' id='ldap_search_anchor' style='cursor:pointer' onclick='LabsViewVM.ldapSearch(); return false;'> αναζητήστε τον στον LDAP του ΠΣΔ</a>",
+                            width:180,
+                            height:50,
+                            position: "right",
+                            animation: {
+                                close: {effects: "fade:out",  duration: 300},
+                                open: {effects: "fade:in",  duration: 300}
+                            }
+                        });
+                        
                   }, 
                   width: '36%'
                 },
