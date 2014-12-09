@@ -356,6 +356,7 @@ public static function getRole($user) {
      switch ($user_role){
         case 'ΔΙΕΥΘΥΝΤΗΣ' :
             return self::getSchoolUnitWorkerPermissions($user, $getSchoolUnits, $implodeData);
+            //return self::getSchoolUnitWorkerPermissionsV2($user, $implodeData);
             break;
         case 'ΤΟΜΕΑΡΧΗΣ' :
             return self::getSchoolUnitWorkerPermissions($user, $getSchoolUnits, $implodeData);
@@ -468,6 +469,31 @@ public static function getRole($user) {
         throw new Exception(ExceptionMessages::DuplicateFullSchoolUnitDnsName, ExceptionCodes::DuplicateFullSchoolUnitDnsName);
     }
   }
+  
+    public static function getSchoolUnitWorkerPermissionsV2($user, $implodeData = false ) {
+ 
+        if (count($user['edupersonorgunitdn:gsnregistrycode']) > 1)
+            throw new Exception(ExceptionMessages::DuplicateFullSchoolUnitDnsName, ExceptionCodes::DuplicateFullSchoolUnitDnsName);
+        else if (count($user['edupersonorgunitdn:gsnregistrycode']) == 1) {
+
+           $mm_id = $user['edupersonorgunitdn:gsnregistrycode'][0];
+           if (Validator::IsNull($mm_id)) throw new Exception(ExceptionMessages::MissingGsnRegistryCodeAttribute, ExceptionCodes::MissingGsnRegistryCodeAttribute); 
+
+               $lab_ids = Filters::getLabsfromSchoolUnit($mm_id);
+
+               if ($implodeData == true) {
+                  $lab_ids = implode(",", $lab_ids);
+               }
+
+               $results = array ('permit_labs' => $lab_ids,             
+                                 'permit_school_units' => $mm_id);    
+
+               return $results;
+
+        } else
+           throw new Exception(ExceptionMessages::NotFoundFullSchoolUnitDnsName, ExceptionCodes::NotFoundFullSchoolUnitDnsName);
+
+    }
   
   public static function getAllPermissions() {
       
