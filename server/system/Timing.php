@@ -106,18 +106,27 @@
 			echo $this->break . $this->break;
 		}
  
-		// Format time to date and time
+                /**
+                 *  Format time to date and time
+                 * 
+                 * @return datetime 
+                 */
 		private function getDateTime($time) {
 			return date("Y-m-d H:i:s", $time);
 		}
  
-		// Get execution time by timestamp
+                /**
+                 *  Get execution time by timestamp
+                 *
+                 */
 		private function getExecutionTime($time) {
 			return $time - $this->start_time;
 		}
                 
+                /**
+                 *  Get filename with timestamp
+                 */                
                 public function getTimeFileName($sync_table_name) {
-                    global $Options; 
                     if (!$sync_table_name) {
 				return null;
 			}

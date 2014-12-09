@@ -46,7 +46,30 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $
     CRUDUtils::entitySetAssociation($LabWorker, $lab_id, 'Labs', 'lab', 'Lab', $params, 'lab_id');
     
 //$worker_id====================================================================
-    CRUDUtils::entitySetAssociation($LabWorker, $worker_id, 'MylabWorkers', 'worker', 'MylabWorker', $params, 'worker_id');
+    //CRUDUtils::entitySetAssociation($LabWorker, $worker_id, 'MylabWorkers', 'worker', 'MylabWorker', $params, 'worker_id');
+    //FUTURE TODO add to entitySetAssociation association param e.g. associationParam='firstname' 
+    if (Validator::Missing('worker_id', $params))
+           throw new Exception(ExceptionMessages::MissingMylabWorkerParam." : ".$worker_id, ExceptionCodes::MissingMylabWorkerParam);           
+    else if (Validator::IsNull($worker_id))
+        throw new Exception(ExceptionMessages::MissingMylabWorkerValue." : ".$worker_id, ExceptionCodes::MissingMylabWorkerValue);           
+    else if (Validator::IsArray($worker_id))
+        throw new Exception(ExceptionMessages::InvalidMylabWorkerArray." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerArray);           
+    else if ( Validator::IsID($worker_id) )
+            $retrievedObject = $entityManager->getRepository('MylabWorkers')->find(Validator::ToID($worker_id));
+    else if ( Validator::IsValue($worker_id) )
+            $retrievedObject = $entityManager->getRepository('MylabWorkers')->findOneBy(array('lastname' => Validator::ToValue($worker_id)));
+    else
+         throw new Exception(ExceptionMessages::InvalidMylabWorkerType." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerType);
+        
+        if ( !isset($retrievedObject) )
+            throw new Exception(ExceptionMessages::InvalidMylabWorkerValue." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerValue);
+        else if (count($retrievedObject)>1)
+            throw new Exception(ExceptionMessages::InvalidMylabWorkerType." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerType);
+        else
+        {
+            $method = 'setWorker';
+            $LabWorker->$method($retrievedObject);
+        }
     
 //$worker_position==============================================================
     CRUDUtils::entitySetAssociation($LabWorker, $worker_position, 'WorkerPositions', 'workerPosition', 'WorkerPosition', $params, 'worker_position');

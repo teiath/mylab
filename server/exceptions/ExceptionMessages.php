@@ -21,15 +21,16 @@ class ExceptionMessages
     //general messages=========================================================================================================================== 
     
         const NoErrors = 'success';
-        const UserNoRoleAccess = 'Ο χρήστης δεν έχει κανένα ρόλο, και δεν επιτρεπεται η πρόσβαση.';
-        const UserAccesDenied = 'Πολλαπλα ονόματα χρήστη. Ο χρήστης δεν έχει πρόσβαση';
-        const UserAccesFrontDenied = 'Δεν σταλθηκα δεδομένα του χρήστη.Ο χρήστης δεν έχει πρόσβαση';
-        const UserAccesEmptyDenied = 'Ονομα χρήστη κενό. Ο χρήστης δεν έχει πρόσβαση';
-        const UserNoRolePermissions = 'Ο χρήστης δεν έχει συγκεριμενα δικαιώματα πρόσβασης';
+        const UserNoRoleAccess = 'Ο χρήστης δεν έχει κανένα ρόλο, και δεν επιτρέπεται η πρόσβαση.';
+        const UserAccesDenied = 'Πολλαπλά ονόματα χρήστη. Ο χρήστης δεν έχει πρόσβαση';
+        const UserAccesFrontDenied = 'Δεν στάλθηκαν δεδομένα του χρήστη.Ο χρήστης δεν έχει πρόσβαση';
+        const UserAccesEmptyDenied = 'Όνομα χρήστη κενό. Ο χρήστης δεν έχει πρόσβαση';
+        const UserNoRolePermissions = 'Ο χρήστης δεν έχει δικαιώματα πρόσβασης διότι το ldap atrribute [title] δεν έχει τιμή';
         const MethodNotFound = 'H μέθοδος δεν βρέθηκε (GET/POST/PUT/DELETE)';
         const FunctionNotFound = 'H function δεν βρέθηκε (Api Function Name)';
         
-        const Unauthorized = 'Unauthorized';
+        const UnauthorizedUser = 'Μη εξουσιοδοτημένος χρήστης';
+        const UnauthorizedController = 'Ο controller(api route) δεν έχει αυθεντικοποιηθεί';
         
         const MissingXAxisParam = 'Ο Άξονας x είναι υποχρεωτικό πεδίο';
         const MissingXAxisValue = 'Ο Άξονας x πρέπει να έχει τιμή';
@@ -1079,18 +1080,18 @@ class ExceptionMessages
     const InvalidExportType = 'Ο Τύπος Επιστροφής Δεδομένων σε συγκεκριμένο format είναι λάθος';
     
     //authentication roles
-    const NoPermissionsError = 'Δεν βρέθηκαν σχολική μονάδα που να αντιστοιχεί στον ρόλο του χρήστη';
+    const NoPermissionsError = 'Ο χρήστης δεν έχει δικαίωμα πρόσβασης στα στοιχεία του εργαστηρίου, στο εργαστήριο και στην σχολική μονάδα';
     
-    const NotFoundUserPermissions = 'Δεν βρεθηκαν δικαιωματα για τον ρόλο του χρήστη.';
+    const NotFoundUserPermissions = 'Δεν έχει οριστεί από το mylab o κατάλληλος ρόλος συστήματος για τον χρήστη.';
     const NotFoundFullSchoolUnitDnsName = 'Δεν βρέθηκε σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const DuplicateFullSchoolUnitDnsName = 'Βρέθηκαν παραπάνω από μία σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const MissingLdapLAttribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
     const MissingLdapEmployeeNumberAttribute = 'Δεν βρέθηκε to "employeeNumber" attribute στον ldap λογαριασμό του χρήστη.';
     
-    const NoPermissionToPostLab = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής στο συγκεκριμενο εργαστηριο';
-    const NoPermissionToPutLab = 'Ο χρήστης δεν έχει δικαίωμα ενημερωσης στο συγκεκριμενο εργαστηριο';
-    const NoPermissionToDeleteLab = 'Ο χρήστης δεν έχει δικαίωμα διαγραφης στο συγκεκριμενο εργαστηριο';    
-    const NoPermissionToGetLab = 'Ο χρήστης δεν έχει δικαίωμα αναζητησης στο συγκεκριμενο εργαστηριο';
+    const NoPermissionToPostLab = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής στο συγκεκριμένο εργαστήριο';
+    const NoPermissionToPutLab = 'Ο χρήστης δεν έχει δικαίωμα ενημερωσης στο συγκεκριμένο εργαστήριο';
+    const NoPermissionToDeleteLab = 'Ο χρήστης δεν έχει δικαίωμα διαγραφής στο συγκεκριμένο εργαστήριο';    
+    const NoPermissionToGetLab = 'Ο χρήστης δεν έχει δικαίωμα αναζήτησης στο συγκεκριμένο εργαστήριο';
    
     //reports
     const ErrorEduAdminReportKeplhnet = 'Κάθε ΚΕΠΛΗΝΕΤ αντιστοιχίζεται υποχρεωτικά με μια Διεύθυνση Δ.Ε. και μια Διεύθυνση Δ.Ε. ίδιας πόλης.'; 

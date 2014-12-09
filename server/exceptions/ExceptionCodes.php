@@ -29,8 +29,9 @@ class ExceptionCodes
         const MethodNotFound = 500;
         const FunctionNotFound = 500;
 
-        const Unauthorized = 600;
-        
+        const UnauthorizedUser = 616;
+        const UnauthorizedController = 600;
+                
         /** {@see ExceptionMessages::MissingXAxisParam} */
         const MissingXAxisParam = 500;
         /** {@see ExceptionMessages::MissingXAxisValue} */
