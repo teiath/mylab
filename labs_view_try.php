@@ -30,6 +30,9 @@
         require_once('client/pages/js/Templates/notification_template/errorNotificationTemplate.html');
         require_once('client/pages/js/Templates/notification_template/successNotificationTemplate.html');
         
+        
+        require_once('client/pages/js/Templates/ldapSearchTemplate.html');
+        
     ?>
    
     <!--transition dialog-->
@@ -53,6 +56,9 @@
     <!--delete lab equipment dialog-->
     <div id="delete_lab_details_dialog"></div>
 
+    <!--ldap search dialog-->
+    <div id="ldap_search_dialog"></div>
+    
     <!--transition notification-->
     <span id="notification" style="display:none;"></span>
 

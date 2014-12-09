@@ -471,115 +471,6 @@ var LabsViewVM = kendo.observable({
         remove_dialog.center().open();
  
     },
-    ldapSearch: function(){
-
-        //e.preventDefault();
-        var parameters;
-
-        var ldap_search_dialog = $("#ldap_search_dialog").kendoWindow({
-            modal: true,
-            visible: false,
-            resizable: false,
-            width: 430,
-            pinned:true,
-            title: "Αναζήτηση στον LDAP του ΠΣΔ",
-            open: function(e){
-                e.sender.element.addClass("k-popup-edit-form"); //add kendo class to apply some css
-
-                var ldapSearchUpdateButton = ldap_search_dialog.element.find("div.k-edit-buttons>button.k-grid-search");
-                var ldapSearchCancelButton = ldap_search_dialog.element.find("div.k-edit-buttons>button.k-grid-cancel-search");
-                var ldapSearchInput = ldap_search_dialog.element.find("#uid_ldap_search>div.form-group>div>input#ldap_input");
-                var ldapSearchButton = ldap_search_dialog.element.find("#uid_ldap_search>div.form-group>div>button#ldap_search_btn");
-                var ldapDetailsDiv = ldap_search_dialog.element.find("#uid_ldap_search>div.form-group>div>div#ldap_details");
-                var ldapNoMatchDiv = ldap_search_dialog.element.find("#uid_ldap_search>div.form-group>div>div#ldap_no_match");
-                                
-                ldapSearchButton.on("click", function(e){
-                    
-                    ldapSearchButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner fa-spin"></i> Αναζήτηση');
-                    ldapSearchUpdateButton.addClass('k-state-disabled').attr("disabled", true);
-                    
-                    $.ajax({
-                        type: "GET",
-                        url: baseURL + "ldap_workers" + "?user=" + user_url + "&uid=" + ldapSearchInput.val(),
-                        dataType: "json",
-                        success: function(data){
-                            if(data.status == "200"){
-                                ldapNoMatchDiv.closest(".form-group").hide();
-                                var ldap_details = data.data["0"];
-                                ldapDetailsDiv.find("#ldap_fullname").text(ldap_details.surname + " " + ldap_details.name);
-                                ldapDetailsDiv.find("#ldap_fathername").text(ldap_details.fathername);
-                                ldapDetailsDiv.find("#ldap_uid").text(ldap_details.UID);
-                                ldapDetailsDiv.find("#ldap_registry_no").text(ldap_details.registry_no);
-                                ldapDetailsDiv.find("#ldap_mail").text(ldap_details.mail);
-                                ldapDetailsDiv.find("#ldap_specialization").text(ldap_details.worker_specialization);
-                                ldapDetailsDiv.closest(".form-group").show();
-                                ldapSearchUpdateButton.removeClass('k-state-disabled').attr("disabled", false);
-                                
-                                parameters = {
-                                    uid: ldap_details.UID,
-                                    firstname:  ldap_details.name,
-                                    lastname:  ldap_details.surname,
-                                    fathername: ldap_details.fathername,
-                                    email: ldap_details.mail,
-                                    registry_no: ldap_details.registry_no,
-                                    worker_specialization: ldap_details.worker_specialization,
-                                    lab_source: 5
-                                };
-                                
-                            }else{
-                                ldapDetailsDiv.closest(".form-group").hide();
-                                ldapNoMatchDiv.closest(".form-group").show();
-                            }
-                            ldapSearchButton.removeClass('k-state-disabled').attr("disabled", false).html('<i class="fa fa-search"></i> Αναζήτηση');
-                        }
-                    });                    
-                });
-
-                ldapSearchCancelButton.on("click", function(e){
-                    e.preventDefault(); //?
-                    ldap_search_dialog.close();
-                });
-
-                ldapSearchUpdateButton.on("click", function(e){
-                    e.preventDefault(); //?
-
-                    ldapSearchUpdateButton.addClass('k-state-disabled').attr("disabled", true).html('<i class="fa fa-spinner fa-spin"></i> Παρακαλώ περιμένετε...');
-
-                    $.ajax({
-                        type: "POST",
-                        url: baseURL + "mylab_workers" + "?user=" + user_url,
-                        dataType: "json",
-                        data: JSON.stringify(parameters),
-                        success: function(data){
-
-                            if(data.status == "200"){
-                                notification.show({
-                                    title: "Επιτυχής ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ",
-                                    message: data.message
-                                }, "success");    
-                                
-                                ldap_search_dialog.close();
-                                
-                            }else{
-                                notification.show({
-                                    title: "Η ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ απέτυχε",
-                                    message: data.message
-                                }, "error");
-                                
-                                ldapSearchUpdateButton.removeClass('k-state-disabled').attr("disabled", false.html('<span class="k-icon k-update"></span> Προσθήκη'));
-                            }
-                        }
-                    });
-
-                });
-            }
-        }).data("kendoWindow");
-
-        var ldapSearchTemplate = kendo.template($("#ldap_search_template").html());
-        ldap_search_dialog.content(ldapSearchTemplate);
-        ldap_search_dialog.center().open();
-
-    },
     detailInit: function(e){
         //console.log("labsview detailInit", e);
         //console.log("e.detailRow: ", e.detailRow);
@@ -844,56 +735,80 @@ var LabsViewVM = kendo.observable({
                   title: "Ονοματεπώνυμο",
                   template: "#= lastname + ' ' + firstname #",
                   editor: function (container, options){
-                        //console.log("container: ", container);
-                        //console.log("options: ", options);
-                        
+/*                      
+                        console.log("container: ", container);
+                        console.log("options: ", options);
+                        data-bind="value:' + options.field + ', visible:' + LabsViewVM.get("mylabSearchVisible") + '"
+*/                      
+                        var parameters;
+                        var ldap_user_matched = false;
+                        var mylab_screen= false;
                         var new_lab_worker_tr = lab_workers_details.tbody.find("tr.k-grid-edit-row");
-                        var go_to_ldap_search_tooltip = $(container).kendoTooltip({
-                            autoHide: true,
-                            content:"Εάν ο Καθηγητής ΠΕ19-ΠΕ20 δεν υπάρχει στη λίστα, επιλέξτε <a href='#' id='ldap_search_anchor' style='cursor:pointer' onclick='LabsViewVM.ldapSearch(); return false;'>Αναζήτηση στον LDAP του ΠΣΔ</a>",
-                            width:180,
-                            height:50,
-                            position: "left",
-                            animation: {
-                                close: {effects: "fade:out",  duration: 300},
-                                open: {effects: "fade:in",  duration: 300}
+                        function toggle_screen(){
+                            if(mylab_screen){
+                                //toggle to ldap screen
+                                mylab_input.wrapper.hide();
+                                btn_switch_to_ldap_screen.hide();
+                                ldap_input.wrapper.show();
+                                ldap_input.focus();
+                                btn_switch_to_mylab_screen.show();
+                                if(ldap_user_matched){
+                                    btn_submit_ldap_worker.show();
+                                }
+                                if(mylab_input.wrapper.next().hasClass("k-tooltip-validation")){
+                                    mylab_input.wrapper.next(".k-tooltip-validation").hide();
+                                }
+                                mylab_screen = false;
+                            }else{
+                                //toggle to mylab screen
+                                ldap_input.wrapper.hide();
+                                btn_switch_to_mylab_screen.hide();
+                                btn_submit_ldap_worker.hide();
+                                mylab_input.wrapper.show();
+                                btn_switch_to_ldap_screen.show();
+                                mylab_input.focus();
+                                mylab_screen = true;
                             }
-                        }).data("kendoTooltip"); 
+                        }
+                        //EVENT: on update click, if user is on ldap screen, just switch them to mylab screen. DO NOT UPDATE the entry (stop propagation)
+                        container.siblings(":last").on("click", "a.k-grid-update", function(e){
+                            if(!mylab_screen){
+                                e.stopPropagation();
+                                toggle_screen();
+                            }
+                        });
+                        //var new_lab_worker_item = lab_workers_details.dataSource.get(""); //πάρε το item που έχει άδειο το πεδίο id (δηλ. το καινουριο item)
+                        
+                        /* SCREEN 1 - mylab screen */
                         
                         //mylab workers input field
                         var mylab_input = $('<input id="mylab_input" name="mylab_input" data-bind="value:worker_id" data-text-field="fullname" data-value-field="worker_id" required data-required-msg="Ξέχασες τον υπεύθυνο!"/>')
                         .appendTo(container)
-                        .width("100%").
+                        .width("80%").
                         kendoComboBox({
                             dataSource: newMyLabWorkersDS(),
                             autoBind: false,
                             filter: "contains",
                             placeholder: "αναζήτηση στη λίστα με Επώνυμο ή ΑΜ",
-                            dataBound: function(e){           
+                            dataBound: function(e){                                
                                 //console.log("mylab_input dataBound e:", e);
                                 if(e.sender.dataSource.data().length > 0){
-                                    //go_to_ldap_search_tooltip.hide($(container));
                                     var bound_lab_worker_data = e.sender.dataSource.data();
                                     new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text(bound_lab_worker_data[0].registry_no);
                                     new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text(bound_lab_worker_data[0].worker_specialization_name);
                                 }else{
-                                    //go_to_ldap_search_tooltip.show($(container));
                                     new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text("");
                                     new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text("");                                    
                                 }
                             },
                             change: function(e){
                                 //console.log("mylab_input change e:", e);
-                                go_to_ldap_search_tooltip.hide($(container));
-                                
                                 var worker_id = this.value();
                                 if(e.sender.dataSource.data().length > 0){
                                     $.each(e.sender.dataSource.data(), function(index, value){
                                         if(value.worker_id == worker_id){
                                             new_lab_worker_tr.find("td[data-container-for='worker_registry_no']").text(value.registry_no);
                                             new_lab_worker_tr.find("td[data-container-for='specialization_code_name']").text(value.worker_specialization_name);
-                                        }else{
-                                            go_to_ldap_search_tooltip.show($(container));
                                         }
                                     });
                                 }
@@ -901,7 +816,113 @@ var LabsViewVM = kendo.observable({
                         }).data("kendoComboBox");
                         
                         //mylab_input validation tooltip
-                        $('<span class="k-invalid-msg" data-for="mylab_input"></span>').appendTo(container);
+                        var mylab_input_validation_tooltip = $('<span class="k-invalid-msg" data-for="mylab_input"></span>').appendTo(container);  
+
+                        //switch to ldap screen
+                        var btn_switch_to_ldap_screen = $('<em><i class="fa fa-search"></i> LDAP</em>').appendTo(container).width("18%").kendoButton({
+                            click: function(){
+                                toggle_screen();
+                            }
+                        });
+
+
+                        /* SCREEN 2 - ldap screen */
+                        
+                        //switch to mylab screen
+                        var btn_switch_to_mylab_screen = $('<em><i class="fa fa-arrow-circle-o-left"></i> πίσω</em>').appendTo(container).width("16%").kendoButton({
+                            click: function(){
+                                toggle_screen();
+                            }
+                        });
+
+                        //ldap workers input field
+                        var ldap_input = $('<input id="ldap_input" data-text-field="UID" data-value-field="UID" />')
+                        .appendTo(container)
+                        .width("74%")
+                        .kendoAutoComplete({
+                            dataSource: newLdapWorkersDS(),
+                            autoBind: false,
+                            //filter: "contains",
+                            placeholder: "αναζήτηση με το LDAP UID",
+                            dataBound: function(e){
+                                //Fired when the widget is bound to data from its data source.
+                                //console.log("ldap_input dataBound e:", e);
+                                if(e.sender.dataSource.data().length < 1){ //if no worker uid matched
+                                    ldap_user_matched = false;
+                                    container.find("#submitLdapWorkerBtn").hide(); //hide submit ldap worker button
+                                    e.sender.element.next(".fa-check-square-o").hide(); //hide 'found check' icon
+                                    if(!e.sender.element.next().hasClass("fa-times")){ //show 'still searching' icon
+                                        e.sender.element.after('<span class="fa fa-times" style="display: block; color:red; position:absolute; bottom:5px; right:3px;"></span>');
+                                    }else{
+                                        e.sender.element.next(".fa-times").show();
+                                    }
+                                }else{ //if worker uid matched
+                                    ldap_user_matched = true;
+                                    var ldap_worker = e.sender.dataSource.at(0); //get ldap worker's data & populate post mylab_workers ajax request's parameters
+                                    parameters = {
+                                          uid: ldap_worker.UID,
+                                          firstname:  ldap_worker.name,
+                                          lastname:  ldap_worker.surname,
+                                          fathername: ldap_worker.fathername,
+                                          email: ldap_worker.mail,
+                                          registry_no: ldap_worker.registry_no,
+                                          worker_specialization: ldap_worker.worker_specialization,
+                                          lab_source: 5
+                                        };
+                                    container.find("#submitLdapWorkerBtn").show(); //show submit ldap worker button to permit saving to mylab_workers db table
+                                    e.sender.element.next(".fa-times").hide(); //hide 'still searching' icon             
+                                    if(!e.sender.element.next().hasClass("fa-check-square-o")){ //show 'found check' icon
+                                        e.sender.element.after('<span class="fa fa-check-square-o fa-lg" style="display: block; color:green; position:absolute; bottom:5px; right:3px;"></span>');
+                                    }else{
+                                        e.sender.element.next(".fa-check-square-o").show();
+                                    }
+                                }
+                            }
+                        }).data("kendoAutoComplete");
+
+                        //submit ldap worker functionality
+                        var btn_submit_ldap_worker = $('<em id="submitLdapWorkerBtn"><i class="fa fa-floppy-o"></i></em>').appendTo(container).width("7%").kendoButton({
+                            click: function(){
+                                                                
+                                container.find("#submitLdapWorkerBtn").hide(); //hide submit ldap worker button
+                                $('<span id="submitLdapWorkerSpinner" style="padding:3px 5px; margin:0px 7px;"><i class="fa fa-spinner fa-spin fa-lg"></i></span>').appendTo(container); //add spinner
+                                ldap_input.readonly(true); //make input field read-only
+                                
+                                $.ajax({
+                                    type: "POST",
+                                    url: baseURL + "mylab_workers" + "?user=" + user_url,
+                                    dataType: "json",
+                                    data: JSON.stringify(parameters),
+                                    success: function(data){
+                                        
+                                        container.find("#submitLdapWorkerSpinner").remove(); //remove spinner
+                                        ldap_input.element.next().hide(); //hide green check
+                                        ldap_input.readonly(false);
+                                        
+                                        if(data.status == "200"){
+                                            // !!! save 'worker_id', returned from the mylab_workers api function, to the dataitem's 'worker_id' attribute
+                                            //new_lab_worker_item.worker_id = data.worker_id;
+                                            ldap_input.value("");
+                                            notification.show({
+                                                title: "Επιτυχής ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ",
+                                                message: data.message
+                                            }, "success");               
+                                        }else{
+                                            notification.show({
+                                                title: "Η ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ απέτυχε",
+                                                message: data.message
+                                            }, "error");
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                             
+                        
+                        //initialization stuff
+                        toggle_screen(); //switch to initial mylab screen
+                        ldap_input.element.next("span.k-loading").remove(); //remove kendo ui autocomplete, default on search loading icon
+                        
                   }, 
                   width: '36%'
                 },
