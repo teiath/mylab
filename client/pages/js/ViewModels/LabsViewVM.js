@@ -886,7 +886,7 @@ var LabsViewVM = kendo.observable({
                         //mylab_input validation tooltip
                         $('<span class="k-invalid-msg" data-for="mylab_input"></span>').appendTo(container);
                         
-                        $('<i id="ldap_search_info" class="fa fa-lightbulb-o fa-lg" data-role="tooltip" style="position:fixed; padding:6px 8px; margin-left:9px; margin-top:1px; cursor:pointer;"></i>')
+                        $('<i id="ldap_search_info" class="fa fa-lightbulb-o fa-lg" data-role="tooltip" style="position:absolute; padding:6px 8px; margin-left:9px; margin-top:1px; cursor:pointer;"></i>')
                         .appendTo(container)
                         .hover(
                             function(e){
