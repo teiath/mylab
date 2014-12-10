@@ -17,7 +17,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
                             $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $submitted, $lab_type, $lab_state, $lab_source, 
-                            $aquisition_source, $equipment_type, $lab_worker, 
+                            $aquisition_source, $equipment_type, $lab_worker,
                             $pagesize, $page, $orderby, $ordertype, $searchtype , $export ) {
 
     global $db,$Options;
@@ -421,7 +421,25 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                                                       ExceptionMessages::InvalidLabWorkerType, ExceptionCodes::InvalidLabWorkerType);           
 
         }    
-               
+ 
+//======================================================================================================================
+//= $has_labs
+//======================================================================================================================
+
+//        if ( Validator::Exists('has_labs', $params) )
+//        {
+//            $table_name = "labs";
+//            $table_column_id = "lab_id";
+//            $table_column_name = "lab_id";
+//            $filter_validators = 'null,id';           
+//            
+//            $filterHasLabs = Filters::BasicFilter( $has_labs, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+//                                                                      ExceptionMessages::InvalidLabWorkerType, ExceptionCodes::InvalidLabWorkerType);           
+//
+//            
+//            var_dump($filterHasLabs);
+//        } 
+        
 //======================================================================================================================
 //= $export
 //======================================================================================================================
@@ -493,6 +511,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
            $permit_school_units = null;
            //$sqlPermissions = null;
            $sqlPermissions = (count($filter) > 0 ? " AND labs.submitted = 1 " : " WHERE  labs.submitted = 1 "); 
+           
        } else {
            $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
             $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 

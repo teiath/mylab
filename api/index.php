@@ -1456,7 +1456,7 @@ function SearchSchoolUnitsController()
                 $params["aquisition_source"],
                 $params["equipment_type"],
                 $params["lab_worker"],
-                    $params["has_labs"],
+//                    $params["has_labs"],
                 $params["pagesize"], 
                 $params["page"],
                 $params["orderby"],
