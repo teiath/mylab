@@ -566,8 +566,9 @@ var LabsViewVM = kendo.observable({
                                     message: data.message
                                 }, "error");
                                 
-                                ldapSearchUpdateButton.removeClass('k-state-disabled').attr("disabled", false.html('<span class="k-icon k-update"></span> Προσθήκη'));
                             }
+
+                            ldapSearchUpdateButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Προσθήκη');
                         }
                     });
 
@@ -908,14 +909,14 @@ var LabsViewVM = kendo.observable({
                             autoHide: false,
                             content:"Εάν ο Καθηγητής ΠΕ19-ΠΕ20 δεν υπάρχει στη λίστα, <a href='#' id='ldap_search_anchor' style='cursor:pointer' onclick='LabsViewVM.ldapSearch(); return false;'> αναζητήστε τον στον LDAP του ΠΣΔ</a>",
                             width:180,
-                            height:50,
+                            height:65,
                             position: "right",
                             animation: {
                                 close: {effects: "fade:out",  duration: 300},
                                 open: {effects: "fade:in",  duration: 300}
                             },
                             hide: function(e) {
-                                console.log("e: ", e);
+//                                console.log("e: ", e);
                                 $(e.sender.element).css({
 //                                    "border": "",
                                     "background-color" : "yellow"//,
