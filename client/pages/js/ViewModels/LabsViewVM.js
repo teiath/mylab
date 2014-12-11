@@ -886,25 +886,26 @@ var LabsViewVM = kendo.observable({
                         //mylab_input validation tooltip
                         $('<span class="k-invalid-msg" data-for="mylab_input"></span>').appendTo(container);
                         
-                        $('<i id="ldap_search_info" class="fa fa-lightbulb-o fa-lg" data-role="tooltip" style="position:absolute; padding:6px 8px; margin-left:9px; margin-top:1px; cursor:pointer;"></i>')
+                        $('<i id="ldap_search_info" class="fa fa-lightbulb-o fa-lg" data-role="tooltip" style="border-radius:13px; background-color:yellow; position:absolute; padding:6px 8px; margin-left:9px; margin-top:1px; cursor:pointer;"></i>')
                         .appendTo(container)
                         .hover(
                             function(e){
                                 $(e.target).css({
-                                    "border": "1px solid",
-                                    "border-radius": "13px"
+//                                    "border": "1px solid",
+                                    "background-color" : ""//,
+//                                    "border-radius": "13px"
                                 });
-                            },
-                            function(e){
-                                $(e.target).css({
-                                    "border": "",
-                                    "border-radius": ""
-                                });
-                            }
+                            }//,
+//                            function(e){
+//                                $(e.target).css({
+//                                    "border": "",
+//                                    "border-radius": ""
+//                                });
+//                            }
                         );
                 
                         $(container).find("#ldap_search_info").kendoTooltip({
-                            autoHide: true,
+                            autoHide: false,
                             content:"Εάν ο Καθηγητής ΠΕ19-ΠΕ20 δεν υπάρχει στη λίστα, <a href='#' id='ldap_search_anchor' style='cursor:pointer' onclick='LabsViewVM.ldapSearch(); return false;'> αναζητήστε τον στον LDAP του ΠΣΔ</a>",
                             width:180,
                             height:50,
@@ -912,6 +913,14 @@ var LabsViewVM = kendo.observable({
                             animation: {
                                 close: {effects: "fade:out",  duration: 300},
                                 open: {effects: "fade:in",  duration: 300}
+                            },
+                            hide: function(e) {
+                                console.log("e: ", e);
+                                $(e.sender.element).css({
+//                                    "border": "",
+                                    "background-color" : "yellow"//,
+//                                    "border-radius": ""
+                                });
                             }
                         });
                         

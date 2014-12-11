@@ -2,17 +2,25 @@
 <!--navigation bar-->
 <nav id="mylab_navigation_bar" class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color:#5E5E5E;">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header" style="width:500px;">
+    <div class="navbar-header"> <!--style="width:300px;"-->
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <img class="psd_icon" alt="ΠΣΔ" src="client/pages/icons/sch_grey_2.jpg">
+        
+        <a href="home.php">
+            <img class="" height="43" style="padding:8px 10px 0px 10px; float:left;" alt="ΠΣΔ" src="client/pages/icons/logo@2x.png">
+            <div>
+                <span style="margin-left:10px; font-size:18px; color: #F5F5F5; font-family:Helvetica; float:left;"> Υπηρεσία MyLab </span>
+                <span style="margin-left:10px; font-size:14px; color: #F5F5F5; font-family:Helvetica; float:left;"> Πανελλήνιο Σχολικό Δίκτυο</span>
+            </div>
+        </a>
+        <!--<img class="psd_icon" alt="ΠΣΔ" src="client/pages/icons/sch_grey_2.jpg">-->
         <!--<img src="client/img/logo-teia.jpg" alt="ΤΕΙ Αθήνας" style="float:left; padding-left:15px;">-->
         <!--<a class="navbar-brand" href="home.php" style="font-size:30px;font-weight:bold;font-family: 'Crafty Girls', cursive;">Υπηρεσία MyLab</a>-->
-        <a href="home.php" style="line-height: 1.60; margin-left:20px; font-size:30px; font-family: 'Crafty Girls', cursive; color: #8EBC00;"> MyLab</a>
+        <!--<a href="home.php" style="line-height: 1.60; margin-left:20px; font-size:30px; color: #F5F5F5;"> Υπηρεσία MyLab</a>-->
             <!--<span style="font-family: 'Calibri'; font-size:32px; font-weight:400;">Υπηρεσία</span> MyLab</a>-->
         <!--<span class="label label-danger" style="position:absolute; margin-top:5px;">BETA</span>-->
     </div>
