@@ -38,7 +38,6 @@
     <head>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
         
         <script>
             
@@ -75,44 +74,27 @@
                                 $("#myformId>input#authorized_user").val(authorized_user); //initialize form's hidden field, which holds authorized_user value                             
                                 
                                 if((data.data[0].user_role === "ΣΕΠΕΗΥ" || data.data[0].user_role === "ΕΤΠ") && data.data[0].user_permissions.permit_labs.length === 0 ){
-                                    $("#mylab_authentication_message_pane").html("<div style='float:left; padding:0px 15px; margin-right:15px;'>\
-                                                                                    <i class='fa fa-lock fa-5x'></i>\
-                                                                                  </div>\
-                                                                                  <div>\
-                                                                                    <p style='font-size:17px;'>\
-                                                                                        Δεν υπάρχουν Διατάξεις Η/Υ μέσα στην Υπηρεσία myLab στις οποίες να \
-                                                                                        έχετε οριστεί ως Υπεύθυνος. Ως εκ τούτου, η πρόσβαση στην Υπηρεσία \
-                                                                                        δεν ειναι προς το παρόν εφικτή. Παρακαλώ επικοινωνείστε με τον αρμόδιο \
-                                                                                        Διευθυντή Σχολικής Μονάδας ή Υπεύθυνο Τομέα ΕΚ, για την πραγματοποίηση \
-                                                                                        του σχετικού ορισμού και ξαναπροσπαθήστε να συνδεθείτε.\
-                                                                                    </p>\
-                                                                                  </div>").css("padding", "20px");
+                                    $("#mylab_authentication_message_pane").text("Δεν υπάρχουν Διατάξεις Η/Υ μέσα στην Υπηρεσία myLab στις οποίες να \
+                                                                                έχετε οριστεί ως Υπεύθυνος. Ως εκ τούτου, η πρόσβαση στην Υπηρεσία \
+                                                                                δεν ειναι προς το παρόν εφικτή. Παρακαλώ επικοινωνείστε με τον αρμόδιο \
+                                                                                Διευθυντή Σχολικής Μονάδας ή Υπεύθυνο Τομέα ΕΚ, για την πραγματοποίηση \
+                                                                                του σχετικού ορισμού και ξαναπροσπαθήστε να συνδεθείτε.");
                                 }else{
-                                    $("#mylab_authentication_message_pane").html("<div style='float:left; padding:0px 15px; margin-right:15px;'>\
-                                                                                    <i class='fa fa-unlock fa-5x'></i>\
-                                                                                  </div>\
-                                                                                  <div>\
-                                                                                    <p style='font-size:17px;'>\
-                                                                                        Εχετε συνδεθεί επιτυχώς στην Υπηρεσία myLab. Ανακατεύθυνση σε\
-                                                                                        <span id='countdown'> </span> ... <i class='fa fa-spinner fa-spin'></i>\
-                                                                                    </p>\
-                                                                                 </div>").css("padding", "20px");
+                                    $('#logoutbtn').closest("div.col-md-12").css("display", "none");
+                                    $("#mylab_authentication_message_pane").html("Εχετε συνδεθεί επιτυχώς στην Υπηρεσία MyLab. Παρακαλώ περιμένετε\
+                                                                                    <i class='fa fa-spinner fa-spin' style='margin-left:3px;'></i>");
                                     countDown(3); //in sec
                                 }
                                 
                             }else if(data.status === 601){
-                                $("#mylab_authentication_message_pane").html("<div style='float:left; padding:0px 15px; margin-right:15px;'>\
-                                                                                <i class='fa fa-lock fa-5x'></i>\
-                                                                              </div>\
-                                                                              <div>\
-                                                                                <p style='font-size:17px;'>\
-                                                                                    Η Υπηρεσιακή σας Ιδιότητα δεν ικανοποιεί τα κριτήρια εισόδου \
-                                                                                    στην Υπηρεσία myLab. Αν θεωρείτε ότι αυτό ειναι λάθος, παρακαλώ \
-                                                                                    ελέγξτε αν η Υπηρεσιακή Ιδιότητα στο προφίλ σας στο www.sch.gr ειναι \
-                                                                                    ενημερωμένη.\
-                                                                                </p>\
-                                                                              </div>").css("padding", "20px");                                                              
+                                $("#mylab_authentication_message_pane").text("Η Υπηρεσιακή σας Ιδιότητα δεν ικανοποιεί τα κριτήρια εισόδου \
+                                                                            στην Υπηρεσία myLab. Αν θεωρείτε ότι αυτό ειναι λάθος, παρακαλώ \
+                                                                            ελέγξτε αν η Υπηρεσιακή Ιδιότητα στο προφίλ σας στο www.sch.gr ειναι \
+                                                                            ενημερωμένη.");                                                              
                             }
+                            
+                            $('#connection_info').slideDown("slow");
+                            
                         },
                         error: function(data){ console.log("user_permits in toHome.php failed : ", data);}
                 });
@@ -133,14 +115,23 @@
             }
                        
         </script>
-     
+        
+        <style>
+            .btn-sso{
+                color:#5E5E5E;
+                padding:10px;
+                font-size:14px;
+                border-radius:3px;
+            }
+        </style>
+        
     </head>
    
     <body>
 
         <div class="container">
 
-            <div style="clear: both;" >&nbsp;</div>
+<!--            <div style="clear: both;" >&nbsp;</div>
 
             <div class="header">
                 <div class="container-fluid">
@@ -153,25 +144,34 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
-            <div class="jumbotron" style="background-color: #D7E4BD;"> <!--7EA700-->
+            <div class="jumbotron" style="background-color:#fcfcfc; color:#5E5E5E;">
 
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
                             
                             <div class="row">
-                                <div class="col-md-12">
-                                    <h2 style="color:#699360; font-weight:bold;">Υπηρεσία MyLab <br/>Πανελλήνιου Σχολικού Δικτύου</h2>
-                                </div>
+                                <div class="col-md-12"><p style="text-align:center; margin:0px;"><img src="client/pages/icons/logo-light@2x.png"/></p></div>
+                                <div class="col-md-12"><h3 style="text-align:center; color:#5E5E5E;">Υπηρεσία MyLab</h3></div>
                             </div>
 
-                            <div class="row">
+                            <div id="connection_info" class="row" style="display:none;">
                                 <div class="col-md-12">
-                                    <div id="mylab_authentication_message_pane"></div>
+                                    <p id="mylab_authentication_message_pane" style="font-size:16px;line-height:150%; margin:20px 0px; text-align: center;"> </p>
                                 </div>				
-                            </div>
+
+                                <div class="col-md-12">
+                                    <div style="text-align:center; padding:20px; margin-bottom:20px;">
+                                        <a id="logoutbtn" type="button" class="btn btn-lg btn-default btn-sso"> 
+                                            <span> 
+                                                Αποσύνδεση <i class="fa fa-sign-out" style="margin: 0px 10px 0px 30px;"></i> 
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>                       
                             
                             <form id="myformId" name="myform" method="POST" action="home.php">
                                 <input id='authorized_user' type="hidden" name='authorized_user' />
@@ -179,22 +179,11 @@
                             
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div style="text-align: center;padding-bottom:20px;">
-                                        <a id="logoutbtn" type="button" class="btn btn-default">Αποσύνδεση</a>
+                                    <div style="text-align:center; margin-top:20px;">
+                                        Υποστηρίξη: <strong>ΤΕΙ Αθήνας</strong> | Επικοινωνία: <strong>mm@sch.gr</strong>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div style="text-align: center;">
-                                        <strong>Υποστηρίζεται από το ΤΕΙ Αθήνας<br/>
-                                                Επικοινωνία: mm@sch.gr
-                                        </strong>
-                                    </div>
-                                </div>
-                            </div>
-                                    
 
                         </div>
                     </div>
@@ -205,13 +194,20 @@
             <div class="footer">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/mainlogo_p8.png" /></p></div>
-                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/logo_stirizo.png" /></p></div>
-                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/logo.png" /></p></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-2">
+                            <img class="img-responsive" src="client/pages/icons/mainlogo_p8.png" style="display:block;margin-left:auto;margin-right:auto;"/>
+                        </div>
+                        <div class="col-md-2">
+                            <img class="img-responsive" src="client/pages/icons/Logo ΕΠΕΕΔΒΜ-2013-BW.png" style="display:block;margin-left:auto;margin-right:auto;"/>
+                        </div>
+                        <div class="col-md-2">
+                            <img class="img-responsive" src="client/pages/icons/stirizo.png"  style="display:block;margin-left:auto;margin-right:auto;"/>
+                        </div>
+                        <div class="col-md-3"></div>
                     </div>
                 </div>
             </div>
-
         </div>
 
     </body>
@@ -220,3 +216,14 @@
 <script>
     $("#logoutbtn").attr("href", config.url + "home.php?logout=true");
 </script>
+
+
+<!--            <div class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/mainlogo_p8.png" /></p></div>
+                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/logo_stirizo.png" /></p></div>
+                        <div class="col-md-4"><p><img class="img-responsive" src="client/pages/icons/logo.png" /></p></div>
+                    </div>
+                </div>
+            </div>-->
