@@ -4,6 +4,9 @@ api/.htaccess
 .buildpath
 .settings
 .project
+api/.htaccess
+server/sync/.htaccess
+
 
 #netbeans default :
 nbproject/private/
@@ -24,3 +27,5 @@ nb-configuration.xml
 /client/config.js
 /mylab-ver4.sql
 /old files/
+/server/logs/
+/server/tmp/

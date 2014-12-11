@@ -1,149 +1,117 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
-
 /**
  * 
  * @global type $db
  * @global type $app
+ * @param type $lab_id
  * @param type $lab_relation_id
  * @return string
  * @throws Exception
  */
 
 
-function DelLabTransitions($lab_transition_id) {
-    global $db;
-    global $app;
-    
-    $result = array();  
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+function DelLabTransitions($lab_id, $lab_transition_id) {
+
+    global $app,$entityManager;
+
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
     
-    $input = array(
-    "lab_transition_id" => $lab_transition_id
-    );
-    
-    $result["input"]=$input;
-    
-    try {
+    try
+    {
+      
+//$lab_id=======================================================================
+        $fLabID = CRUDUtils::checkIDParam('lab_id', $params, $lab_id, 'LabID');
+
+//$lab_transition_id============================================================
+        $fLabTransitionID = CRUDUtils::checkIDParam('lab_transition_id', $params, $lab_transition_id, 'LabTransitionID');
              
-        //$lab_transition_id==============================================================      
-        if (Validator::isMissing('lab_transition_id'))
-            throw new Exception(ExceptionMessages::MissingLabTransitionIdParam." : ".$lab_transition_id, ExceptionCodes::MissingLabRelationIdParam);
-        else if (Validator::IsNull($lab_transition_id) )
-            throw new Exception(ExceptionMessages::MissingLabTransitionIdParam." : ".$lab_transition_id, ExceptionCodes::MissingLabTransitionIdParam);
-        else if (!Validator::IsNumeric($lab_transition_id) || Validator::IsNegative($lab_transition_id))
-	    throw new Exception(ExceptionMessages::InvalidLabTransitionIdValue." : ".$lab_transition_id, ExceptionCodes::InvalidLabTransitionIdValue);    
-        else if (Validator::IsID($lab_transition_id)) {
-            $filter[] = new DFC(LabTransitionsExt::FIELD_LAB_TRANSITION_ID, Validator::ToID($lab_transition_id), DFC::EXACT);     
-            
-            $oLabTransitions = new LabTransitionsExt($db);
-            $arrayLabTransitions = $oLabTransitions->findByFilter($db, $filter, true);
-            
-            if ( count($arrayLabTransitions) === 1 ) { 
-                $fLabTransitionId = $arrayLabTransitions[0]->getLabTransitionId();
-                $fLabId = $arrayLabTransitions[0]->getLabId();
-            } else if ( count( $arrayLabTransitions ) > 1 ) { 
-                throw new Exception(ExceptionMessages::DuplicateLabTransitionIdValue." : ".$lab_transition_id, ExceptionCodes::DuplicateLabRelationIdValue);
-            } else {
-                throw new Exception(ExceptionMessages::NotFoundLabTransitionIDValue." : ".$lab_transition_id, ExceptionCodes::NotFoundLabTransitionIDValue);
-            }
+//user permisions===============================================================
+         $permissions = UserRoles::getUserPermissions($app->request->user);
+         if (!in_array($fLabID, $permissions['permit_labs'])) {
+             throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
+         };  
+
+//controls======================================================================  
+
+        //check duplicates and unique row=======================================        
+        $check = $entityManager->getRepository('LabTransitions')->findBy(array( 'lab'            => $fLabID,
+                                                                                'labTransitionId'  => $fLabTransitionID,
+                                                                               ));
+
+        $countLabTransitions = count($check);
+        
+        if ($countLabTransitions == 1)
+            //set entity for delete row
+            $LabTransitions = $entityManager->find('LabTransitions', $fLabTransitionID);
+        else if ($countLabTransitions == 0)
+            throw new Exception(ExceptionMessages::NotFoundDelLabTransitionValue." : ".$fLabID." - ".$fLabTransitionID,ExceptionCodes::NotFoundDelLabTransitionValue);
+        else 
+            throw new Exception(ExceptionMessages::DuplicateDelLabTransitionValue." : ".$fLabID." - ".$fLabTransitionID,ExceptionCodes::DuplicateDelLabTransitionValue);
+      
+        //check if lab has submitted value = 1 and restrict deletion
+       $Labs = $entityManager->find('Labs', $fLabID);
+        if ($Labs->getSubmitted() == true){
+            throw new Exception(ExceptionMessages::NoDemoDelLabValue." : ".$fLabID ,ExceptionCodes::NoDemoDelLabValue);
+        }
+        
+//delete from db================================================================
+        
+        $entityManager->remove($LabTransitions);
+        $entityManager->flush($LabTransitions);
+           
+//find max date of remained labs lab_transition=================================
+        $findAllDates = $entityManager->getRepository('LabTransitions')->findBy(array('lab'=> $fLabID));
+        $countRemainedLabTransitions = count($findAllDates);
        
-        }
-        else
-            throw new Exception(ExceptionMessages::UnknownLabTransitionIdValue." : ".$lab_transition_id, ExceptionCodes::UnknownLabTransitionIdValue);               
-        
-        try{      
-        
-            $db->beginTransaction();  
-                                      
-                //find all date transitions of lab 
-                $sort = new DSC(LabTransitionsExt::FIELD_LAB_ID,DSC::ASC);
-                $oLabTransitions = new LabTransitionsExt($db);
-                $oLabTransition = $oLabTransitions->findByFilter($db, new DFC(LabTransitionsExt::FIELD_LAB_ID, $fLabId, DFC::EXACT), true, $sort );
-
-                foreach($oLabTransition as $LabTransition) {
-                    $date_array[]=$LabTransition->getTransitionDate();
-                }
-                
-                //find max date of lab_transition 
-                $max_date = max($date_array);   
-                $result['max_date'] = $max_date;
-
-                //find state of lab and lab_transition_id by max date
-               $fFilter = array();
-               $fFilter = array(  new DFC(LabTransitionsExt::FIELD_LAB_ID, $fLabId, DFC::EXACT),
-                                      new DFC(LabTransitionsExt::FIELD_TRANSITION_DATE, $max_date, DFC::EXACT)
-                                    ); 
-
-               $checkLabTransitions = new LabTransitionsExt($db);
-               $checkLabTransition = $checkLabTransitions->findByFilter($db, $fFilter, true);
-
-               foreach ($checkLabTransition as $chLabTransition)
-                   {
-                   $state_lab_transition = $chLabTransition->getToState();
-                   $lab_transition_id = $chLabTransition->getLabTransitionId();
-                   }
-
-                //check current state of lab 
-                $oLab = LabsExt::findById($db, $fLabId);
-                $lab_state = $oLab->getStateId();
-                
-
-             //check if user try to delete max transition state of lab and throw exception else delete            
-            if ($fLabTransitionId == $lab_transition_id){
-                 $result["current_lab_status"] = $lab_state;
-                 $result["max_lab_trasition_state"] = $state_lab_transition;
-                 $result["max_lab_transition_id"] = $lab_transition_id;
-                 $result["for_delete_lab_transition_id"] = $fLabTransitionId;
-                 throw new Exception(ExceptionMessages::ReferencesLabTransitionsValue." : ".$lab_transition_id, ExceptionCodes::ReferencesLabTransitionsValue); 
-            } else{ 
-
-                 $result["current_lab_status"] = $lab_state;
-                 $result["max_lab_trasition_state"] = $state_lab_transition;
-                 $result["max_lab_transition_id"] = $lab_transition_id;
-                 $result["for_delete_lab_transition_id"] = $fLabTransitionId;
-
-
-            //2nd version of delete from db (check primary keys for existed or not in database)     
-            $dLabTransition = new LabTransitionsExt($db);
-            $dLabTransition->setLabTransitionId($fLabTransitionId);
-
-                 if (!$dLabTransition->existsInDatabase($db))
-                     throw new Exception(ExceptionMessages::DeleteNotFoundLabTransitions ." lab_transition_id: " . $fLabTransitionId, ExceptionCodes::DeleteNotFoundLabTransitions);
-                 else{         
-                    $dLabTransition->deleteFromDatabase($db);
-                    $db->commit();  
-                    $result["status"] = 200;
-                    $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success";
+          $max_date = $maxLabTransitionId = $maxLabTransitionState = $state = null; 
+                 
+            if ($countRemainedLabTransitions > 0){
+                $date = $labTransitionId = array(); 
+                 foreach($findAllDates as $findAllDate) {
+                    $date[] = $findAllDate->getTransitionDate()->format('Y-m-d');
+                    
+                    //check last state of lab at lab transitions table==========
+                    $labTransitionId[] = $findAllDate->getLabTransitionId();
+                    $laststate[$findAllDate->getLabTransitionId()] = $findAllDate->getToState()->getStateId();
                  }
-            }                  
-        }
-        
-            catch (PDOException $e)
-        {
-            $db->rollBack();
-            $result["status_pdo_internal"] = $e->getCode();
-            $result["message_pdo_internal"] = "[".$result["method"]."]: ".$e->getMessage().", SQL:".$e->getTraceAsString();
+                 
+                 $max_date = max($date);
+                 $result['maxDate'] = $max_date;
+                 $maxLabTransitionId = max($labTransitionId);          
+                 $result['lastTransitionLabState'] = $maxLabTransitionState = $laststate[$maxLabTransitionId];
+                 $state = $entityManager->getRepository('States')->find(Validator::ToID($maxLabTransitionState));
+            }
 
-        }
-            catch (Exception $e) 
-        {
-            $db->rollBack();
-            $result["status_internal"] = $e->getCode();
-            $result["message_internal"] = "[".$result["method"]."]: ".$e->getMessage();
-        }
-        
-    } catch (Exception $ex){ 
-        $result["status"] = $ex->getCode();
-        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$ex->getMessage();
-    } 
+//update lab status to labs table===============================================
+        $updateLabState = $entityManager->find('Labs',$fLabID);
+        $updateLabState->setState($state);
+        $entityManager->persist($updateLabState);
+        $entityManager->flush($updateLabState);
+         
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
+        $result["status"] = $e->getCode();
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
+    }                
+    
     return $result;
-}
+} 
 
 ?>

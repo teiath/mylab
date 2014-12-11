@@ -32,13 +32,18 @@ function PutLabWorkers($lab_worker_id,$worker_status) {
     
     try {
         
-//$lab_worker_id=====================================================    
+//$lab_worker_id================================================================    
         $fLabWorkerId = CRUDUtils::checkIDParam('lab_worker_id', $params, $lab_worker_id, 'LabWorkerID');
        
 //init entity for update row====================================================
         $LabWorker = CRUDUtils::findIDParam($fLabWorkerId, 'LabWorkers', 'LabWorker');
+      
+//$updated infos================================================================
+        $username =  $app->request->user['uid'];
+        $LabWorker->setDeleteLabWorkerBy(new \DateTime (date('Y-m-d')));  
+        $LabWorker->setDeleteBy($username[0]);   
         
-//$worker_status=============================================================   
+//$worker_status================================================================   
         if (Validator::IsExists('worker_status')){
                
             if (Validator::Missing('worker_status', $params))
@@ -60,7 +65,7 @@ function PutLabWorkers($lab_worker_id,$worker_status) {
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($LabWorker->getLab()->getLabId(), $permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          }; 
  
 //controls======================================================================  

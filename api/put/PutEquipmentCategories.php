@@ -1,86 +1,85 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
  * @global type $app
+ * @global type $entityManager
  * @param type $equipment_category_id
  * @param type $name
  * @return string
  * @throws Exception
  */
 
-function PutEquipmentCategories($equipment_category_id,$name) {
-    global $db;
-    global $Options;
-    global $app;
-    
-    $result = array();  
+function PutEquipmentCategories($equipment_category_id, $name) {
 
-    $result["data"] = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+    global $app,$entityManager;
+
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
+
     try {
+ 
+//$equipment_category_id========================================================   
+        $fEquipmentCategoryId = CRUDUtils::checkIDParam('equipment_category_id', $params, $equipment_category_id, 'EquipmentCategoryID');
+       
+//init entity for update row====================================================
+        $EquipmentCategory = CRUDUtils::findIDParam($fEquipmentCategoryId, 'EquipmentCategories', 'EquipmentCategory');
         
-        //$name==========================================================================================
-        if (! trim($name) )
-            throw new Exception(ExceptionMessages::MissingNameValue." : ".$name, ExceptionCodes::MissingNameValue);
-        else
-            $filter[] = new DFC(EquipmentCategoriesExt::FIELD_NAME, $name, DFC::EXACT); 
-
-           $oEquipmentCategories = new EquipmentCategoriesExt($db);
-           $arrayEquipmentCategories = $oEquipmentCategories->findByFilter($db, $filter, true);
-
-           if ( count( $arrayEquipmentCategories ) > 0 ) { 
-                throw new Exception(ExceptionMessages::DuplicateEquipmentCategoryValue." : ".$name, ExceptionCodes::DuplicateEquipmentCategoryValue);
-           }     
+//$name=========================================================================
+        if ( Validator::IsExists('name') ){
+            CRUDUtils::EntitySetParam($EquipmentCategory, $name, 'EquipmentCategoryName', 'name', $params );
+        } else if ( Validator::IsNull($EquipmentCategory->getName()) ){
+            throw new Exception(ExceptionMessages::MissingEquipmentCategoryNameValue." : ".$name, ExceptionCodes::MissingEquipmentCategoryNameValue);
+        } 
+                
+    //user permisions===========================================================
+    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
+    //
         
-        //$equipment_category_id===========================================================================
-        if (! trim($equipment_category_id) )
-            throw new Exception(ExceptionMessages::MissingEquipmentCategoryIdValue." : ".$equipment_category_id, ExceptionCodes::MissingEquipmentCategoryIdValue);
-        else if (!is_numeric($equipment_category_id) || ( $equipment_category_id < 0)  )
-            throw new Exception(ExceptionMessages::InvalidEquipmentCategoryIdValue." : ".$equipment_category_id, ExceptionCodes::InvalidEquipmentCategoryIdValue);
-        else 
-            $uEquipmentCategories = EquipmentCategoriesExt::findById($db, $equipment_category_id);
+//controls======================================================================   
 
-        //=================================================================================================
-        $result["total_found"]=count($uEquipmentCategories);
-        
-        if ($result["total_found"]==1){
-              
-                $values["equipment_category_id"] = $uEquipmentCategories->getEquipmentCategoryId();
-                $values["name"] = $uEquipmentCategories->getName();
-                $result["values"] = $values;
-               
-                $update_values["equipment_category_id"] = $equipment_category_id;
-                $update_values["name"] = $name;
-                $result["updated_values"] = $update_values;
-                              
-                $uEquipmentCategories->setName($name);
-                $uEquipmentCategories->updateToDatabase($db);
-               
-                $result["status"] = 200;
-                $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success"; 
-
-        } else if ($result["total_found"]==0){
-            throw new Exception(ExceptionMessages::UpdateEquipmentCategoryIdValue." : ".$equipment_category_id, ExceptionCodes::UpdateEquipmentCategoryIdValue);
-        } else {
-           throw new Exception(ExceptionMessages::DuplicateEquipmentCategoryIdValue." : ".$equipment_category_id, ExceptionCodes::DuplicateEquipmentCategoryIdValue);
+        //check name duplicate==================================================        
+        $qb = $entityManager->createQueryBuilder()
+                            ->select('COUNT(eqc.equipmentCategoryId) AS fresult')
+                            ->from('EquipmentCategories', 'eqc')
+                            ->where("eqc.name = :name AND eqc.equipmentCategoryId != :equipmentCategoryId")
+                            ->setParameter('name', $EquipmentCategory->getName())
+                            ->setParameter('equipmentCategoryId', $EquipmentCategory->getEquipmentCategoryId())    
+                            ->getQuery()
+                            ->getSingleResult();
+      
+        if ( $qb["fresult"] != 0 ) {
+             throw new Exception(ExceptionMessages::DuplicatedEquipmentCategoryValue ,ExceptionCodes::DuplicatedEquipmentCategoryValue);
         }
-        
-    } catch (Exception $e){      
+       
+//update to db================================================================== 
+        $entityManager->persist($EquipmentCategory);
+        $entityManager->flush($EquipmentCategory);
+
+        $result["equipment_category_id"] = $EquipmentCategory->getEquipmentCategoryId();  
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    }  
+    }                
+        
     return $result;
 }
-
 ?>

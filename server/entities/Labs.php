@@ -99,6 +99,13 @@ class Labs
     private $ellak=false;
     
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="submitted", type="boolean", nullable=false)
+     */
+    private $submitted=false;
+    
+    /**
      * @var \LabSources
      *
      * @ORM\ManyToOne(targetEntity="LabSources")
@@ -259,6 +266,14 @@ class Labs
         $this->ellak = $ellak;
     }
     
+    public function getSubmitted() {
+        return $this->submitted;
+    }
+
+    public function setSubmitted($submitted) {
+        $this->submitted = $submitted;
+    }
+
     public function getLabSource() {
         return $this->labSource;
     }
@@ -287,7 +302,7 @@ class Labs
         return $this->state;
     }
 
-    public function setState(\States $state) {
+    public function setState(\States $state=null) {
         $this->state = $state;
     }
 

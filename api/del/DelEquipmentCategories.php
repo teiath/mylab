@@ -1,85 +1,76 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
- * @global type $Options
  * @global type $app
- * @param type $name
+ * @global type $entityManager
+ * @param type $equipment_category_id
  * @return string
  * @throws Exception
  */
 
-function DelEquipmentCategories($name) {
-    global $db;
-    global $Options;
-    global $app;
-    
-    $result = array();  
-    $result["data"] = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+function DelEquipmentCategories($equipment_category_id) {
+   
+    global $app,$entityManager;
+
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["del_name"] = $name;
-
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
+    
     try {
-             
-        //$name===========================================================================   
-        if (! trim($name) ) {
-            throw new Exception(ExceptionMessages::DeleteEquipmentCategoryNameValue." : ".$name, ExceptionCodes::DeleteEquipmentCategoryNameValue);
-        } else {
-            $filter = array( new DFC(EquipmentCategoriesExt::FIELD_NAME,$name, DFC::EXACT) );   
-            $oEquipmentCategories = new EquipmentCategoriesExt($db);
-            $arrayEquipmentCategories = $oEquipmentCategories->findByFilter($db, $filter, true);
-        }
-
-        if ( count($arrayEquipmentCategories) < 1) {
-            throw new Exception(ExceptionMessages::DeleteNotFoundEquipmentCategoryNameValue." : ".$name, ExceptionCodes::DeleteNotFoundEquipmentCategoryNameValue);
-        } else if ( count($arrayEquipmentCategories) == 1) {
-            $EquipmentCategoryId= $arrayEquipmentCategories[0]->getEquipmentCategoryId();
-            $EquipmentCategoryName = $arrayEquipmentCategories[0]->getName();
-            $result["result_found"]="Equipment_category_id = ".$EquipmentCategoryId." // Name = ".$EquipmentCategoryName;     
-        } else {
-            throw new Exception(ExceptionMessages::DuplicateDelEquipmentCategoryNameValue." : ".$name, ExceptionCodes::DuplicateDelEquipmentCategoryNameValue);
-        }
-
-        //check for references============================================================================== 
         
-        $oEquipmentTypes = new EquipmentTypesExt($db);
-        $filter[] = new DFC(EquipmentTypesExt::FIELD_EQUIPMENT_CATEGORY_ID, $EquipmentCategoryId, DFC::EXACT); 
-        $countRows = $oEquipmentTypes->findByFilter($db, $filter, true);
-        $result["references_count"]=count( $countRows );
+//$equipment_category_id========================================================
+        $fEquipmentCategoryID = CRUDUtils::checkIDParam('equipment_category_id', $params, $equipment_category_id, 'EquipmentCategoryID');
         
-        if ($result["references_count"]!=0){
-            $oEquipmentCategories = new EquipmentCategoriesExt($db);
-            $oEquipmentCategories->getAll($db);
-            $oEquipmentTypes->getAll($db);
-            
-            foreach ($countRows as $row) {
-                    $result["data_references"][] = array("equipment_type" => $row->getEquipmentTypeId(),
-                                                        "name" => $row->getName(),
-                                                        "number" => $row->getNumber(),
-                                                        "equipment_category"=> $oEquipmentCategories->searchArrayForID( $row->getEquipmentCategoryId() )->getName()                                                
-                    );
-            }
-            throw new Exception(ExceptionMessages::ReferencesEquipmentTypes, ExceptionCodes::ReferencesEquipmentTypes);       
-        } else {
-            $arrayEquipmentCategories[0]->deleteByFilter($db, $filter);  
-            $result["status"] = 200;
-            $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success";           
-        }
-    }
-    catch (Exception $e) 
-    {
+//user permisions===============================================================
+//TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
+//
+
+//controls======================================================================          
+        
+        //check duplicates and unique row=======================================        
+        $check = $entityManager->getRepository('EquipmentCategories')->findBy(array( 'equipmentCategoryId' => $fEquipmentCategoryID ));
+        $count= count($check);
+
+        if ($count == 1)
+            $EquipmentCategories = $entityManager->find('EquipmentCategories', $fEquipmentCategoryID);
+        else if ($count == 0)
+            throw new Exception(ExceptionMessages::NotFoundDelEquipmentCategoryValue." : ".$fEquipmentCategoryID ,ExceptionCodes::NotFoundDelEquipmentCategoryValue);
+        else 
+            throw new Exception(ExceptionMessages::DuplicateDelEquipmentCategoryValue." : ".$fEquipmentCategoryID ,ExceptionCodes::DuplicateDelEquipmentCategoryValue);
+        
+        //check for references =================================================   
+        $checkReference = $entityManager->getRepository('EquipmentTypes')->findOneBy(array( 'equipmentCategory'  => $fEquipmentCategoryID ));
+
+        if (count($checkReference) != 0)
+            throw new Exception(ExceptionMessages::ReferencesEquipmentCategoryEquipmentTypes. $fEquipmentCategoryID,ExceptionCodes::ReferencesEquipmentCategoryEquipmentTypes);  
+        
+//delete from db================================================================
+        $entityManager->remove($EquipmentCategories);
+        $entityManager->flush($EquipmentCategories);
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
-    } 
+    }                
+    
     return $result;
-}
+} 
 
 ?>

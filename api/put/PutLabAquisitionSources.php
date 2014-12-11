@@ -43,14 +43,14 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
         
 //$lab_id=======================================================================
         if ( Validator::IsExists('lab_id') ){
-            CRUDUtils::entitySetAssociation($LabAquisitionSources, $lab_id, 'Labs', 'lab', 'Lab');
+            CRUDUtils::entitySetAssociation($LabAquisitionSources, $lab_id, 'Labs', 'lab', 'Lab', $params, 'lab_id');
         } else if ( Validator::IsNull($LabAquisitionSources->getLab()) ){
             throw new Exception(ExceptionMessages::MissingLabValue." : ".$lab_id, ExceptionCodes::MissingLabValue);
         } 
       
 //$aquisition_source============================================================       
         if ( Validator::IsExists('aquisition_source') ){
-            CRUDUtils::entitySetAssociation($LabAquisitionSources, $aquisition_source, 'AquisitionSources', 'aquisitionSource', 'AquisitionSource');
+            CRUDUtils::entitySetAssociation($LabAquisitionSources, $aquisition_source, 'AquisitionSources', 'aquisitionSource', 'AquisitionSource', $params, 'aquisition_source');
         } else if ( Validator::IsNull($LabAquisitionSources->getAquisitionSource()) ){
             throw new Exception(ExceptionMessages::MissingAquisitionSourceValue." : ".$aquisition_source, ExceptionCodes::MissingAquisitionSourceValue);
         } 
@@ -77,16 +77,12 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
         } 
 
 //$aquisition_comments==========================================================
-        if (Validator::IsExists('aquisition_comments')){
-            CRUDUtils::entitySetParam($LabAquisitionSources, $aquisition_comments, ExceptionMessages::InvalidLabAquisitionSourceCommentsType, 'aquisitionComments');  
-        } else {
-            $result["db_aquisition_comments"]= $aquisition_comments = $LabAquisitionSources->getAquisitionComments();
-        }
- 
+        CRUDUtils::entitySetParam($LabAquisitionSources, $aquisition_comments, 'LabAquisitionSourceComments', 'aquisition_comments', $params, false, true );
+
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($LabAquisitionSources->getLab()->getLabId(), $permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          }; 
          
 //controls======================================================================  

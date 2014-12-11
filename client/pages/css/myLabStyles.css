@@ -35,7 +35,7 @@ label{
 }
 
 .k-alt, .k-separator {
-    background-color: #eff8ff;
+    background-color: #f5f5f5; /*#eff8ff;*/
 }
 
 .k-state-selected, .k-state-selected:link, .k-state-selected:visited, .k-list > .k-state-selected, .k-list > .k-state-highlight, .k-panel > .k-state-selected, .k-ghost-splitbar-vertical, .k-ghost-splitbar-horizontal, .k-draghandle.k-state-selected:hover, .k-scheduler .k-scheduler-toolbar .k-state-selected, .k-scheduler .k-today.k-state-selected, .k-marquee-color {
@@ -83,4 +83,17 @@ tr .k-detail-cell {
 /*scrolling fix for firefox*/
 .k-ff {
     overflow: inherit !important;
+}
+
+/*disable firefix input validation red border style*/
+:invalid {
+  box-shadow: none;
+}
+
+:-moz-submit-invalid {
+  box-shadow: none;
+}
+
+:-moz-ui-invalid {
+  box-shadow:none;
 }

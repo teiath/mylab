@@ -1,0 +1,64 @@
+<!-- submit lab template -->
+
+<script id="lab_submit_template" type="text/x-kendo-template">
+    <div class="k-edit-form-container">
+        <div id="sl" class="form-horizontal col-md-11">
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <span>
+                        Επιλέξατε Οριστική Υποβολή της Διάταξης Η/Υ                     
+                        <b> #=lab_name# </b>.
+                    </span>
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <span>
+                        Με την Οριστική Υποβολή, επιλέγετε να δημιουργήσετε
+                        επίσημα τη Διάταξη Η/Υ στην Υπηρεσία MyLab, ώστε τα στοιχεία της να
+                        είναι διαθέσιμα προς χρήση σε άλλους χρήστες της Υπηρεσίας όπως
+                        Χρήστες του ΥΠΑΙΘ, Κεπληνετ, Υπεύθυνος Διάταξης Η/Υ κλπ.
+                    </span>
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <span><u><b>ΠΡΟΣΟΧΗ</b>: Σας ενημερώνουμε ότι μετά την Υποβολή, <b>ΔΕΝ</b> θα έχετε τη δυνατότητα να 
+                    διαγράψετε τη Διάταξη Η/Υ. Σε περίπτωση που δεν είστε βέβαιοι μην προβείτε σε Οριστική Υποβολή. </u></span>
+                </div>
+            </div>    
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                        Παρακαλώ συμπληρώστε την Ημερομηνία Ενεργοποίησης, δηλ. την ημερομηνία κατά την οποία η Διάταξη Η/Υ τέθηκε σε 
+                        λειτουργία (κατάσταση Ενεργή) για πρώτη φορά.
+                </div>
+            </div>
+            
+            
+            <div class='form-group'>
+                <div class="col-md-6 col-md-offset-2">
+                    <label for="transition_date">Ημερομηνία Ενεργοποίησης<span style="color:red">*</span></label>
+                    <input  id="sl_transition_date"
+                            name="transition_date"
+                            style="width: 100%"
+                    />
+                </div>
+            </div>           
+            
+        </div>
+
+        <div class="k-edit-buttons k-state-default">
+            <button class="k-button k-button-icontext k-grid-submit-lab">
+                <span class="k-icon k-update"></span>Οριστική Υποβολή
+            </button>
+            <button class="k-button k-button-icontext k-grid-cancel-submit-lab">
+                <span class="k-icon k-cancel"></span>Ακύρωση
+            </button>
+        </div>
+
+    </div>
+</script>  

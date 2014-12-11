@@ -17,7 +17,7 @@ class Circuits
      *
      * @ORM\Column(name="circuit_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $circuitId;
 
@@ -38,7 +38,7 @@ class Circuits
     /**
      * @var boolean
      *
-     * @ORM\Column(name="status", type="boolean", nullable=true)
+     * @ORM\Column(name="status", type="boolean", nullable=false)
      */
     private $status;
 

@@ -15,8 +15,10 @@
         <link rel="shortcut icon" href="" />
 
         <title>MyLab</title>
-
-        <?php require_once('includes.html');?>
+        
+        <?php
+            require_once('includes.html');
+        ?>
 
         <style>
             .sch_logo_text {
@@ -80,55 +82,49 @@
 
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
+                            
                             <div class="row">
                                 <div class="col-md-12"><h2 style="color:#699360; font-weight:bold;">Υπηρεσία MyLab <br/>Πανελλήνιου Σχολικού Δικτύου</h2></div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p>
-                                        <strong style="font-size:18px;">
-                                            Το Πληροφοριακό Σύστημα MyLab έχει ως κύριο σκοπό την ψηφιακή αποτύπωση των Εργαστηρίων Πληροφορικής (ΣΕΠΕΗΥ) ή άλλου τύπου (πχ Εργαστηρίων Τομέα) καθώς και άλλων ομαδοποιημένων διατάξεων Η/Υ (εφεξής Δομές Η/Υ), όλων των Δημόσιων Σχολικών Μονάδων Α’θμιας και Β’θμιας Εκπαίδευσης της Ελληνικής Επικράτειας. 
-                                            Επιπρόσθετα, επιδιώκεται η διαστασιοποίηση των παραπάνω Δομών Η/Υ, μέσω της δυνατότητας προσάρτησης, αποκλειστικά σε ποσοτικό επίπεδο, κατηγοριών εξοπλισμού ΤΠΕ σε κάθε Δομή Η/Υ.
-                                        </strong>
+                                    <p style="font-size:18px;line-height:150%;margin:20px 0px;">
+                                        Η Υπηρεσία MyLab έχει ως στόχο την ψηφιακή αποτύπωση των τυπικών Εργαστηρίων Πληροφορικής ΣΕΠΕΗΥ, 
+                                        των Εργαστηρίων Τομέα Πληροφορικής των ΕΚ καθώς και άλλων ομαδοποιημένων Διατάξεων Η/Υ όπως Τροχήλατων 
+                                        Εργαστηρίων, Γωνιών Η/Υ, Διαδραστικών Συστημάτων, εφεξής Διατάξεις Η/Υ, που ανήκουν στις Δημόσιες Σχολικές 
+                                        Μονάδες  Πρωτοβάθμιας και Δευτεροβάθμιας Εκπαίδευσης.
+                                        Συγκεκριμένα για κάθε Διάταξη Η/Υ  αποτυπώνονται:  ο τύπος και το πλήθος του εξοπλισμού ΤΠΕ, οι πηγές 
+                                        χρηματοδότησης, οι υπεύθυνοι, η σχέση της με άλλες σχολικές μονάδες, η κατάσταση  λειτουργίας της καθώς και 
+                                        άλλες γενικές πληροφορίες.
+                                    </p>
+                                    <p style="font-size:13px;margin:30px 0px;"><i class="fa fa-exclamation-triangle"></i> 
+                                        Σημειώνεται ότι ΔΕΝ αποτελεί στόχο του ΠΣ myLab η λεπτομερής αποτύπωση του εξοπλισμού της Διάταξης Η/Υ, 
+                                        η οποία αποτελεί στόχο του ΠΣ Κτηματολογίου του ΠΣΔ. Η πληροφορία που αφορά τον εξοπλισμό στο ΠΣ myLab είναι 
+                                        συνοπτική και στοχεύει αποκλειστικά στην αντίληψη του μεγέθους (διαστασιοποίηση) της Διάταξης Η/Υ.
                                     </p>
                                 </div>				
                             </div>
-
-                        </div>
-
-                        <div class="col-md-4">
-
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">
-                                <div class="col-md-12">						
-                                    <a role="button" class="btn btn-default btn-lg btn-block access_button" href="home.php" >Διαπιστευμένη Πρόσβαση</a>
-                                </div>
-                            </div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
-                            <div class="row">&nbsp;</div>
+                            
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="pull-right">
+                                    <div style="text-align: center;padding-bottom:20px;">
+                                        <a type="button" class="btn btn-default btn-lg" href="toHome.php" >Διαπιστευμένη Πρόσβαση</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div style="text-align: center;">
                                         <strong>Υποστηρίζεται από το ΤΕΙ Αθήνας<br/>
                                                 Επικοινωνία: mm@sch.gr
                                         </strong>
                                     </div>
                                 </div>
                             </div>
-
+                            
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 var SearchVM = kendo.observable({
 
-    isVisible: true,
+    isVisible: false,
 
     school_unit_types_ds: newSchoolUnitTypesDS(),
     education_levels_ds: newEducationLevelsDS(),
@@ -13,7 +13,7 @@ var SearchVM = kendo.observable({
     
     lab_types_ds: newLabTypesDS(),
     aquisition_sources_ds : newAquisitionSourcesDS(),
-    lab_workers_ds : newWorkersDS(), // περιμένω του κώστα το newWorkersDS(position)
+    lab_workers_ds : newMyLabWorkersDS(), // περιμένω του κώστα το newMyLabWorkersDS(position)
     lab_states_ds: newStatesDS(),
     school_unit_states_ds: newStatesDS(),
     lab_rating_ds: newRatingDS(),
@@ -43,9 +43,8 @@ var SearchVM = kendo.observable({
     municipality: "",           //πολλαπλό
     
     resetForm: function(e) {
-
+        //console.log("SearchVM resetform e:", e);
         e.preventDefault();
-        //console.log("resetform e:", e);
         
         this.set("lab_id", "");
         this.set("lab_name", "");
@@ -72,9 +71,10 @@ var SearchVM = kendo.observable({
         this.set("municipality", "");
 
 
-        var formData = $("#search-form").serializeArray();
-        SchoolUnitsViewVM.school_units.filter(normalizeParams(formData));
-        LabsViewVM.labs.filter(normalizeParams(formData));
+        var filters = normalizeParams( $("#search-form").serializeArray() );
+        SchoolUnitsViewVM.school_units.filter(filters);
+        LabsViewVM.labs.filter(filters);
+        searchParameters = filters;
         
         //fix kendo bug: button remains blurred after being pressed
         e.currentTarget.blur();
@@ -88,36 +88,26 @@ var SearchVM = kendo.observable({
 //        $("#schoolUnitTypes").data("kendoMultiSelect").setDataSource(schoolUnitTypesDS);   
         
     },
-    filterChanged: function(e){
-        //console.log("filterChanged e :", e);
-        var formData = $("#search-form").serializeArray();
-        SchoolUnitsViewVM.school_units.filter(normalizeParams(formData));
-        LabsViewVM.labs.filter(normalizeParams(formData));
-        
-        searchParameters = formData;
+    filterGrids: function(e){
+        var filters = normalizeParams( $("#search-form").serializeArray() );
+        SchoolUnitsViewVM.school_units.filter(filters);
+        LabsViewVM.labs.filter(filters);
+        searchParameters = filters;
     },
     exportToXLSX: function(e){
         e.preventDefault();
         
-        var parameters = normalizeParams(searchParameters);
-        //console.log("parameters:", parameters);
+        var filters = searchParameters;
 
         var normalizedFilter = {};
-        $.each(parameters, function(index, value){
-            var filter = parameters[index];
+        $.each(filters, function(index, value){
+            var filter = filters[index];
             var value = normalizedFilter[filter.field];
             value = (value ? value+"," : "")+ filter.value;
             normalizedFilter[filter.field] = value;                                   
         });
-        //console.log("normalizedFilter: ", normalizedFilter);
 
-        var url;
-        if(LabsViewVM.isVisible){
-        //if($('#switch_to_labs_view_btn').is(':checked')){
-            url = baseURL + 'search_labs?export=xlsx&';
-        }else{
-            url = baseURL + 'search_school_units?export=xlsx&';
-        }        
+        var url = (LabsViewVM.isVisible) ? baseURL + 'search_labs?export=xlsx&' : baseURL + 'search_school_units?export=xlsx&';
 
         $.ajax({
                 type: 'GET',
@@ -127,8 +117,7 @@ var SearchVM = kendo.observable({
                 success: function(data){
                     window.location.href = data.tmp_xlsx_filepath;
                 },
-                error: function (data){ 
-                    console.log("export to xls data failed: ", data);
+                error: function (data){
                     var xls_download_error_dialog = $("#xls_download_error_dialog").kendoWindow({
                         title: "Αποτυχία Έκδοσης .xls Αρχείου",
                         modal: true,
@@ -143,8 +132,10 @@ var SearchVM = kendo.observable({
                 }
         });
     },
+    
     labIDInfoTooltip: function(e){
-        var tooltip = $("#sl_lab_id").kendoTooltip({
+        
+        var tooltip = $(e.target).kendoTooltip({
             autoHide: true,
             content:"για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα",
             width:185,
@@ -156,10 +147,11 @@ var SearchVM = kendo.observable({
             }
         }).data("kendoTooltip");
 
-        tooltip.show($("#sl_lab_id"));
+        tooltip.show($(e.target));
     },
     schoolUnitIDInfoTooltip: function(e){
-        var tooltip = $("#sl_school_unit_id").kendoTooltip({
+
+        var tooltip = $(e.target).kendoTooltip({
             autoHide: true,
             content:"για εισαγωγή περισσότερων κωδικών διαχωρίστε με κόμμα",
             width:185,
@@ -170,11 +162,12 @@ var SearchVM = kendo.observable({
                 open: {effects: "fade:in",  duration: 1000}
             }
         }).data("kendoTooltip");
-        tooltip.show($("#sl_school_unit_id"));
+        
+        tooltip.show($(e.target));
     },
     xlsTooltip: function(e){
-
-        var tooltip = $(".export_to_xlsx").kendoTooltip({
+        
+        var tooltip = $(e.target).kendoTooltip({
             autoHide: true,
             content:"εξαγωγή σε .xlsx",
             width:95,
@@ -185,11 +178,11 @@ var SearchVM = kendo.observable({
                 open: {effects: "fade:in",  duration: 500}
             }
         }).data("kendoTooltip");
-        tooltip.show($(".export_to_xlsx"));
+        
+        tooltip.show($(e.target));
     },
     
-    panelBarCollapse:function(e){
-        //console.log("panelBarCollapse!!", e.item);
+    panelBarUnselect:function(e){
         $(e.item).find("span").removeClass('k-state-selected');
     }
     

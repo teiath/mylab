@@ -3,9 +3,12 @@
 
 function newSchoolUnitsDS(school_units_state){
     
-    /* used to populate school units combobox, inside create lab popup --> search_school_units 
-     * and to populate school units combobox, inside lab relations inline edit --> school_units
-     * 'school_units_state' is passed to newSchoolUnitsDS, in order to distinguish those two cases
+    /* 
+     * 1. 'search_school_units' api function : used to populate school units combobox, inside create lab popup
+     * 2. 'school_units' api function : used to populate school units combobox, inside lab relations inline edit
+     * 'school_units_state' parameter is passed to newSchoolUnitsDS, in order to distinguish those two cases
+     * 
+     * Ο λόγος που στην περίπτωση 2 χρησιμοποιείται η school_units ειναι επειδή αυτή ΔΕΝ απαιτεί δικαιώματα.
     */
     
     var school_units_ds =  new kendo.data.DataSource({
@@ -18,9 +21,8 @@ function newSchoolUnitsDS(school_units_state){
                                         },
                                         parameterMap: function(data, type) {
 
-                                            //console.log("newSchoolUnitsDS parametermap data", data);
                                             if (type === 'read') {
-                                                if (typeof data.filter !== 'undefined' && typeof data.filter.filters !== 'undefined') {
+                                                if (typeof data.filter !== 'undefined' && typeof data.filter.filters !== 'undefined' && typeof data.filter.filters[0] !== 'undefined') {
                                                     
                                                     if(typeof school_units_state !== "undefined"){
                                                         data["school_unit_name"] = data.filter.filters[0].value;

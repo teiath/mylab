@@ -48,5 +48,11 @@ class ExportDataEnumTypes extends ExportDataTypes
      */
     const CSV = "CSV";
     
+    /**
+     * Ο Τύπος Εξαγωγής Δεδομένων επιστρέφει τα αποτελέσματα σε συγκεκριμένο format  σύμφωνα με το Εξαγωγής Δεδομένων που έχει οριστεί.
+     * <b>rΗ Εξαγωγή των δεδομένων γίνεται σε php_array format
+     */
+    const PHP_ARRAY = "PHP_ARRAY";
+    
 }
 ?>

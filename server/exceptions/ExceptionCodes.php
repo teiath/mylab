@@ -21,38 +21,17 @@ class ExceptionCodes
     //general messages 
     
         const NoErrors = 200;
-        const UserNoRoleAccess = 500;
-        const UserAccesDenied = 500;
-        const UserAccesFrontDenied = 500;
-        const UserAccesEmptyDenied = 500;
-        const UserNoRolePermissions = 500;
-        //const InvalidPageNumber = 500;
-        //const InvalidPageType = 500;
-        //const InvalidPageSizeNumber = 500;
-//        //const InvalidPageSizeType = 500;
-//        const InvalidSortModeType = 500;
-//        const InvalidSortFieldType = 500;
-//        const InvalidExport =500;
+        const UserNoRoleAccess = 601;
+        const UserAccesDenied = 602;
+        const UserAccesFrontDenied = 603;
+        const UserAccesEmptyDenied = 604;
+        const UserNoRolePermissions = 605;
         const MethodNotFound = 500;
-//        const DeleteError = 500;
-//        const DeleteNotFoundAquisitionSources = 500;
-//        const DeleteNotFoundEquipmentTypes = 500;
-//        const DeleteNotFoundLabWorkers = 500;
-//        const DeleteNotFoundLabRelations = 500;
-//        const DeleteNotFoundLabTransitions = 500;
-//        
-//        const InsertMoreVariablesAquisitionSources = 500;
-//        const InsertMoreVariablesSchoolUnits = 500;
-//        const InsertMoreVariablesEquipmentTypes = 500;
-//        const InsertErrorFormatEquipmentTypes = 500;
-//        const InsertErrorFormatAquisitionSources = 500;
-//        const InsertErrorFormatRelationServedOnline =500;
-//        const InsertDuplicateAquisitionSources = 500;
-//        const InsertDuplicateEquipmentTypes = 500;
-//        const InsertDuplicateSchoolUnits =500;
-// 
-        const Unauthorized = 500;
-        
+        const FunctionNotFound = 500;
+
+        const UnauthorizedUser = 616;
+        const UnauthorizedController = 600;
+                
         /** {@see ExceptionMessages::MissingXAxisParam} */
         const MissingXAxisParam = 500;
         /** {@see ExceptionMessages::MissingXAxisValue} */
@@ -77,365 +56,9 @@ class ExceptionCodes
  
         /** {@see ExceptionMessages::DuplicateXYAxisParam} */
         const DuplicateXYAxisParam = 500;
-//    // dictionary messages (not found)=====================================================================================================================
-//    
-//
-//        const UnknownLabIdValue =500;
-//        const UnknownLabTypeValue =500;
-//        const UnknownLabSourceValue =500;
-//        const UnknownLabStateValue =500;
-//        const UnknownWorkerPositionValue =500;
-//        const UnknownLabWorkerIdValue = 500;
-//        const UnknownSchoolUnitValue = 500;
-//        const UnknownRelationTypeValue = 500;
-//        const UnknownCircuitIdValue = 500;
-//        const UnknownLabRelationIdValue = 500;
-//        const UnknownLabAquisitionSourceIdValue = 500;
-//        const UnknownLabTransitionIdValue = 500;
-//        const UnknownOperationalRatingValue = 500;
-//        const UnknownTechnologicalRatingValue = 500;
-//        const UnknowneEduAdminCodeValue = 500;
-//      
-//        const InvalidLabIdValue = 500;
-//        const InvalidMmIdValue = 500;
-//        const InvalidNameValue= 500;
-//        const InvalidCreationDateValue = 500;
-//        const InvalidCircuitPhoneNumberValue = 500;
-//        const InvalidSpecializationCodeValue = 500;
-//        const InvalidEmploymentRelationshipValue = 500;
-//        const InvalidNewAquisitionSourceValue = 500;
-//        const InvalidNewEquipmentTypeValue = 500;
-//        
-//        const NotFoundLabWorkerIDValue=500;
-//        const NotFoundLabRelationIDValue = 500;
-//        const NotFoundLabAquisitionSourceIdValue = 500;
-//        const NotFoundLabTransitionIDValue = 500;
-//
-//    //missing values (POST/PUT)==================================================================================================================================
-//    
-//        const MissingNameValue = 500;
-//        const MissingInfoNameValue = 500;
-//        const InvalidSpecialNameValue = 500;
-//        const MissingCodeValue = 500;
-//        const InvalidCodeType = 500;
-//        const InvalidNumberType = 500;
-//        const MissingRegistryNumberValue = 500;
-//        const InvalidRegistryNumberValue = 500;
-//        const InvalidPhoneNumberValue = 500;
-//        const InvalidLastNameValue = 500;
-//        const MissingFirstNameValue = 500;
-//        const MissingLastNameValue = 500;
-//        const MissingFathernameValue  = 500;
-//        const MissingSexValue = 500;
-//        const InvalidSexValue = 500;
-//        const MissingStreetAddressValue = 500;
-//        const InvalidPostalCodeValue = 500;
-//        const MissingPostalCodeValue = 500;
-//        const MissingItemValue = 500;
-//        const InvalidItemValue = 500;
-//        const InvalidAquisitionYearValue = 500;
-//        const InvalidAquisitionYearValidValue = 500;
-//        const InvalidWorkerStartServiceValue  = 500;
-//        const InvalidWorkerStartServiceValidValue  = 500;
-//        const InvalidTransitionSourceValue = 500;
-//        const MissingTransitionDateValue =500;
-//        const MissingTransitionSourceValue = 500;
-//        const MissingTransitionJustificationValue = 500;
-//        const InvalidTransitionDateValue = 500;
-//        const InvalidTransitionDateValidValue = 500;
-//        const InvalidPositioningValue = 500;
-//        const InvalidCommentsValue = 500;
-//        const InvalidTransitionJustificationValue =500;
-//        const InvalidRelationServedServiceValue = 500;
-//        const InvalidRelationServedOnlineValue = 500;
-//        const InvalidAquisitionSourceInputValue = 500; 
-//        const InvalidEquipmentTypeInputValue = 500;
-//        const InvalidWorkerInputValue = 500;
-//        const MissingLabWorkerIdValue = 500;
-//        const InvalidLabWorkerIdValue = 500;
-//        const InvalidWorkerStatusValue = 500;
-//        const MissingAquisitionYearValue = 500;
-//        const InvalidUpdateWorkerStatusValue = 500;
-//        const MissingLabRelationIdValue  = 500;
-//        const InvalidLabRelationIdValue  = 500;
-//        const MissingLabAquisitionSourceIdValue = 500;
-//        const InvalidLabAquisitionSourceIdValue  = 500;
-//        const MissingLabStateValue = 500;
-//        const MissingLabTransitionIdValue  = 500;
-//        const InvalidLabTransitionIdValue  = 500; 
-//        const MissingOperationalRatingValue  =500;
-//        const InvalidOperationalRatingValue  =500;
-//        const MissingTechnologicalRatingValue  = 500;
-//        const InvalidTechnologicalRatingValue  = 500;
-//         
-//        const MissingWorkerStartServiceParam  = 500;
-//        const MissingWorkerStatusParam  = 500;
-//        const MissingEquipmentTypesParam = 500;
-//        const MissingItemsParam =500;
-//        const MissingAquisitionYearParam = 500;
-//        const MissingLabStateParam = 500;
-//        const MissingTransitionDateParam  = 500;
-//        const MissingTransitionSourceParam  =500;
-//        const MissingTransitionJustificationParam  =500;
-//        const MissingOperationalRatingParam  = 500;
-//        const MissingTechnologicalRatingParam  = 500;
-//
-//        const InvalidLabTypeIdValue = 500;
-//        const MissingSpecializationCodeIdValue = 500;
-//        const InvalidSpecializationCodeIdValue = 500;
-//        const MissingEmploymentRelationshipIdValue = 500;
-//        const InvalidEmploymentRelationshipIdValue = 500;
-//        const InvalidAquisitionSourceIdValue = 500;
-//        const MissingNewAquisitionSourceIdValue = 500;
-//        const InvalidEquipmentTypeIdValue = 500;
-//        const MissingNewEquipmentTypeIdValue =500;
-//        const InvalidEquipmentCategoryIdValue = 500;
-//        const MissingLabResponsibleIdValue = 500;
-//        const InvalidLabResponsibleIdValue = 500;
-//        const MissingWorkerStartServiceValue = 500; 
-//
-//        const InvalidSchoolUnitIdValue  = 500;
-//        const InvalidEducationLevelIdValue  = 500;
-//        const InvalidSchoolUnitTypeIdValue  =500;
-//        const InvalidRegionEduAdminIdValue  = 500;
-//        const InvalidEduAdminIdValue  = 500;
-//        const InvalidTransferAreaIdValue  = 500;
-//        const InvalidMunicipalityIdValue  = 500;
-//        const InvalidPrefectureIdValue  = 500;
-//        const InvalidFromDiscontinuedToStateIdValue = 500;
-//        const InvalidSameFromToStateValue = 500;
-//        const InvalidRelationTypeIdValue = 500;
-//        const InvalidCircuitIdValue = 500;
-//        const InvalidCircuitIdPhoneNumberValue =500;
-//        
-//    //not found values for create/update rows(PUT)================================================================================================================= 
-//   
-//        const UpdateLabIdValue = 500;
-//        const UpdateLabTypeIdValue = 500;
-//        const UpdateLabResponsibleIdValue =500;
-//        const UpdateSpecializationCodeIdValue = 500;
-//        const UpdateEmploymentRelationshipIdValue  = 500;
-//        const UpdateAquisitionSourceIdValue = 500;
-//        const UpdateEquipmentTypeIdValue = 500;
-//        const UpdateEquipmentCategoryIdValue = 500;
-//        const UpdateLabHasAquisitionSourceIdValue = 500;
-//        const UpdateLabHasEquipmentTypeIdValue = 500;
-//        const UpdateLabsIdValue = 500;
-//        const UpdateLabAquisitionSourcesValue = 500;
-//        const UpdateLabEquipmentTypesValue = 500;
-//        
-//        const UpdateSchoolUnitIdValue = 500;
-//        const UpdateSchoolUnitTypeIdValue = 500;
-//        const UpdateEducationLevelIdValue = 500;
-//        const UpdateRegionEduAdminIdValue = 500;
-//        const UpdatePrefectureIdValue = 500;
-//        const UpdateEduAdminIdValue = 500;
-//        const UpdateTransferAreaIdValue = 500;
-//        const UpdateMunicipalityIdValue = 500;
-//        
-//    //required fields(foreign keys) for create a new field (POST)==============================================================================================================
-//        
-//        const CreateLabTypeIdValue = 500;
-//        const CreateLabResponsibleIdValue = 500;
-//        const CreateSpecializationCodeIdValue = 500;
-//        const CreateEmploymentRelationshipIdValue = 500;
-//        const CreateAquisitionSourceIdValue = 500;   
-//        const CreateEquipmentTypeIdValue = 500;
-//        const CreateEquipmentCategoryIdValue = 500;
-//        const CreateStateIDValue = 500;
-//        const CreateToStateValue = 500;
-//        const CreateLabSourceIdValue = 500;
-//        
-//        const CreateSchoolUnitIdValue = 500;
-//        const CreateSchoolUnitTypeIdValue= 500;
-//        const CreateEducationLevelIdValue = 500;
-//        const CreateRegionEduAdminIdValue = 500;
-//        const CreateEduAdminIdValue = 500;
-//        const CreateTransferAreaIdValue = 500;
-//        const CreatePrefectureIdValue = 500;
-//        const CreateMunicipalityIdValue = 500;
-//       
-//    //warning about duplicate vocabulary values when create or update a field values(POST/PUT)=============================================================================================================================
-//        
-//        const DuplicateRegistryNumberValue = 500;
-//        const DuplicateLabWorkerValue = 500;
-//        const DuplicateLabTypeValue = 500;
-//        const DuplicateInfoLabTypeValue = 500;
-//        const DuplicateSpecializationCodeValue = 500;
-//        const DuplicateEmploymentRelationshipValue = 500;
-//        const DuplicateAquisitionSourceValue = 500;
-//        const DuplicateEquipmentTypeValue = 500;
-//        const DuplicateEquipmentCategoryValue = 500;
-//        const DuplicateLabHasAquisitionSourceValue = 500;
-//        const DuplicateLabHasEquipmentTypeValue = 500;
-//        const DuplicateRelationServedServiceValue =500;
-//        const DuplicateLabValue = 500;
-//        const DuplicateRelationServedOnlineValue =500;
-//        const DuplicateLabTransitionsValue =500;
-//        const DuplicateLabsValue = 500;
-//        const DuplicateUpdateLabWorkerValue = 500;
-//        const DuplicateLabAquisitionSourceValue = 500;
-//        const DuplicateLabEquipmentTypeValue = 500;
-//        const DuplicateLabRelationValue = 500;
-//        const DuplicateLabRelationServerOnlineValue = 500;
-//        const DuplicateLabTransitionValue = 500;
-//        
-//        const DuplicateSchoolUnitValue = 500;
-//        const DuplicateSchoolUnitTypeValue = 500;
-//        const DuplicateEducationLevelValue = 500;
-//        const DuplicateRegionEduAdminValue = 500;
-//        const DuplicateEduAdminValue = 500;
-//        const DuplicateTransferAreaValue = 500;
-//        const DuplicateMunicipalityValue = 500;
-//        const DuplicatePrefectureValue = 500;
-//    
-//    //found duplicated values into a vocabulary table. This is a very critical error.( POST/PUT)==========================================================================================================================
-//    
-//        const DuplicateLabsIdValue = 500;
-//        const DuplicateLabTypeIdValue = 500;
-//        const DuplicateWorkerIdValue = 500;
-//        const DuplicateSpecializationCodeIdValue= 500;
-//        const DuplicateEmploymentRelationshipIdValue = 500;
-//        const DuplicateAquisitionSourceIdValue = 500;
-//        const DuplicateEquipmentTypeIdValue = 500;
-//        const DuplicateEquipmentCategoryIdValue = 500;
-//        const DuplicateLabHasAquisitionSourceIdValue = 500;
-//        const DuplicateLabHasEquipmentTypeIdValue = 500;
-//        const DuplicateStateIdValue = 500;  
-//        const DuplicateLabSourceIdValue = 500;  
-//        const DuplicateWorkerPositionIdValue = 500;
-//        const DuplicateLabWorkerIdValue = 500;
-//        const DuplicateLabRelationIdValue = 500;
-//        const DuplicateLabAquisitionSourceIdValue = 500;
-//        const DuplicateLabTransitionIdValue = 500;
-//
-//        const DuplicateSchoolUnitIdValue = 500;
-//        const DuplicateSchoolUnitTypeIdValue = 500;
-//        const DuplicateEducationLevelIdValue = 500;
-//        const DuplicateRegionEduAdminIdValue = 500;
-//        const DuplicateEduAdminIdValue = 500;
-//        const DuplicateTransferAreaIdValue = 500;
-//        const DuplicateMunicipalityIdValue = 500;
-//        const DuplicatePrefectureIdValue = 500;
-//        const DuplicateCircuitPhoneNumberValue = 500;
-//        const DuplicateRelationTypeIdValue = 500;
-//        const DuplicateCircuitValue = 500;
-//        
-//    //not found vocabulary value for delete rows(PUT)================================================================================================================= 
-//        
-//        const DeleteNotFoundLabNameValue = 500;
-//        const DeleteNotFoundLabTypeNameValue = 500;
-//        const DeleteNotFoundLabResponsibleRegistryNumberValue = 500;
-//        const DeleteNotFoundSpecializationCodeNameValue = 500;
-//        const DeleteNotFoundEmploymentRelationshipNameValue = 500;
-//        const DeleteNotFoundAquisitionSourceNameValue = 500;
-//        const DeleteNotFoundNewAquisitionSourceNameValue = 500;
-//        const DeleteNotFoundEquipmentTypeNameValue = 500;
-//        const DeleteNotFoundNewEquipmentTypeNameValue = 500;
-//        const DeleteNotFoundEquipmentCategoryNameValue = 500;
-//        const DeleteNotFoundLabHasAquisitionSourceLabIdValue = 500;
-//        const DeleteNotFoundLabHasEquipmentTypeLabIdValue = 500;
-//        const DeleteNotFoundLabHasAquisitionSourceValue = 500;
-//        const DeleteNotFoundLabHasEquipmentTypeValue = 500;
-//        
-//        
-//        const DeleteNotFoundSchoolUnitNameValue = 500;
-//        const DeleteNotFoundSchoolUnitTypeNameValue = 500;
-//        const DeleteNotFoundEducationLevelNameValue = 500;
-//        const DeleteNotFoundRegionEduAdminNameValue = 500;
-//        const DeleteNotFoundEduAdminNameValue = 500;
-//        const DeleteNotFoundTransferAreaNameValue = 500;
-//        const DeleteNotFoundPrefectureNameValue = 500;
-//        const DeleteNotFoundMunicipalityNameValue = 500;
-//        
-//    //required fields for delete fields==========================================================================================================================================
-//        const DeleteLabNameValue = 500;
-//        const DeleteLabResponsibleRegistryNumberValue = 500;
-//        const DeleteAquisitionNameValue = 500;
-//        const DeleteEmploymentRelationshipNameValue = 500;
-//        const DeleteSpecializationCodeValue = 500;
-//        const DeleteLabTypeNameValue = 500;
-//        const DeleteEquipmentTypeNameValue = 500;
-//        const DeleteEquipmentCategoryNameValue = 500;
-//        const DeleteLabHasAquisitionSourceLabIdValue = 500;
-//        const DeleteLabHasEquipmentTypeLabIdValue = 500;
-//        const DeleteLabWorkerIdValue = 500;
-//        
-//        const DeleteSchoolUnitNameValue = 500;
-//        const DeleteSchoolUnitTypeNameValue = 500;
-//        const DeleteEducationLevelNameValue =500;
-//        const DeleteRegionEduAdminNameValue = 500;
-//        const DeleteEduAdminNameValue = 500;
-//        const DeleteTransferAreaNameValue = 500;
-//        const DeletePrefectureNameValue = 500;
-//        const DeleteMunicipalityNameValue = 500;
-//
-//    //restricted deletion of duplicate values=========================================================================================================================================
-//
-//        const DuplicateDelLabNameValue = 500;
-//        const DuplicateDelLabResponsibleRegistryNumberValue = 500;
-//        const DuplicateDelAquisitionNameValue = 500;
-//        const DuplicateDelEmploymentRelationshipNameValue = 500;
-//        const DuplicateDelSpecializationCodeValue = 500;
-//        const DuplicateDelLabTypeNameValue = 500;
-//        const DuplicateDelEquipmentTypeNameValue = 500;
-//        const DuplicateDelEquipmentCategoryNameValue = 500;
-//        
-//        const DuplicateDelSchoolUnitNameValue = 500;
-//        const DuplicateDelSchoolUnitTypeNameValue = 500;
-//        const DuplicateDelEducationLevelNameValue = 500;
-//        const DuplicateDelRegionEduAdminNameValue = 500;
-//        const DuplicateDelEduAdminNameValue = 500;
-//        const DuplicateDelTransferAreaNameValue = 500;
-//        const DuplicateDelPrefectureNameValue = 500;
-//        const DuplicateDelMunicipalityNameValue = 500;
-//    
-//    //restricted deletion of references values on other tables==========================================================================================================================
-//
-//        const ReferencesAquisitionSources = 500;
-//        const ReferencesEmploymentRelationships = 500;
-//        const ReferencesSpecializationCodes = 500;
-//        const ReferencesLabTypes = 500;
-//        const ReferencesEquipmentTypes = 500;
-//        const ReferencesEquipmentCategories = 500;
-//        const ReferencesLabAquisitionSources = 500;
-//        const ReferencesLabEquipmentTypes = 500;
-//        const ReferencesLabs = 500; 
-//        const ReferencesLabResponsibles =500;
-//        const ReferencesLabWorkers = 500;
-//        const ReferencesLabRelations = 500;
-//        const ReferencesLabTransitions = 500;
-//        
-//        const ReferencesSchoolUnitTypes = 500;
-//        const ReferencesEducationLevels = 500;
-//        const ReferencesRegionEduAdmins = 500;
-//        const ReferencesEduAdmins = 500;
-//        const ReferencesTransferAreas = 500;
-//        const ReferencesPrefectures = 500;
-//        const ReferencesMunicipalities= 500;
-//        const ReferencesSchoolUnits = 500;
-//
-//        //postEquipmentTypes
-//        const NotAllowedLabEquipmentTypes = 500;
-//        const NotAllowedLabAquisitionSources = 500;
-//        const NotAllowedLabWorkerStartService = 500;
-//        const NotAllowedLabTransitionService = 500;
-//        const ConflictLabTransitionWithLabsValue = 500;
-//        
-//        //update
-//        const ErrorUpdateLabWorkerStatus = 500;
-//        const ErrorUpdateLabTransitionStatus = 500;
-//        const ErrorUpdateLabRelationStatus = 500;
-//        
-//        //lab_relations
-//        const ErrorInputCircuitIdParam  = 500;
-//        const ErrorInputLabTransitionsValues = 500;
-//        
-//         //delete lab_transitions
-//        const ReferencesLabTransitionsValue = 500;
-//        
-//        //post labs
-//        const NotAllowedLabNameValue = 500;
+
+        /** {@see ExceptionMessages::SyncExceptionCodePreMessage} */
+        const SyncExceptionCodePreMessage = 555;
         
     //########################################
     //Search Functions
@@ -490,16 +113,23 @@ class ExceptionCodes
     const InvalidSchoolUnitStreetAddressType = 500;
     /** {@see ExceptionMessages::InvalidSchoolUnitPostalCodeType} */
     const InvalidSchoolUnitPostalCodeType = 500;
-    /** {@see ExceptionMessages::InvalidSchoolUnitUnitDns} */  
-    const InvalidSchoolUnitUnitDns = 500;
+    /** {@see ExceptionMessages::InvalidSchoolUnitUnitDnsType} */  
+    const InvalidSchoolUnitUnitDnsType = 500;
     
     /** {@see ExceptionMessages::DuplicatedSchoolUnitValue} */
     const DuplicatedSchoolUnitValue = 500;
     /** {@see ExceptionMessages::DuplicatedSchoolUnitNameValue} */
     const DuplicatedSchoolUnitNameValue = 500;
-    /** {@see ExceptionMessages::DuplicateSchoolUnitUniqueValue} */
-    const DuplicateSchoolUnitUniqueValue = 500;
  
+        //sync
+        const DuplicateSchoolUnitUniqueValue = 500;
+        const GarbageRowSchoolUnitNameValue = 500;
+        const SuccessSyncSchoolUnitsRecord = 500;
+        const SuccessSyncUpdateSchoolUnitsRecord = 500;
+        const FailureSyncSchoolUnitsRecord = 500;
+        const IgnoreSyncSchoolUnitsRecord = 500;
+        const GarbageSyncSchoolUnitsRecord = 500;
+    
 //= Circuits
     
     /** {@see ExceptionMessages::MissingCircuitIDParam} */
@@ -557,6 +187,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidCircuitUpdatedDateArray} */
     const InvalidCircuitUpdatedDateArray = 500;
   
+        //sync
+        const DuplicateCircuitUniqueValue = 500;
+        const InvalidSyncCircuitPhoneNumberValue  = 500;
+        const UnknownSyncCircuitPhoneNumberType  = 500;
+        const DuplicateSyncCircuitsPhoneValue = 500;
+        const SuccessSyncCircuitsRecord = 500;
+        const SuccessSyncUpdateCircuitsRecord = 500;
+        const FailureSyncCircuitsRecord = 500;
+    
 //= SchoolUnitWorkers
     
     /** {@see ExceptionMessages::MissingSchoolUnitWorkerIDParam} */
@@ -583,6 +222,14 @@ class ExceptionCodes
     const DuplicatedSchoolUnitWorkerValue = 500;
     /** {@see ExceptionMessages::UsedSchoolUnitWorkerBySchoolUnits} */
     const UsedSchoolUnitWorkerBySchoolUnits = 500;
+
+        //sync
+        const DuplicateSchoolWorkerUniqueValue = 500;
+        const DuplicateSyncSchoolUnitWorkerValue = 500;
+        const SuccessSyncSchoolUnitWorkersRecord = 500;
+        const SuccessSyncUpdateSchoolUnitWorkersRecord = 500;
+        const FailureSyncSchoolUnitWorkersRecord = 500;
+    
     
 //= Workers
 
@@ -624,6 +271,15 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidWorkerRegistryNoArray} */
     const InvalidWorkerRegistryNoArray = 500;
     
+    /** {@see ExceptionMessages::MissingWorkerTaxNumberParam} */
+    const MissingWorkerTaxNumberParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerTaxNumberValue} */
+    const MissingWorkerTaxNumberValue = 500;
+    /** {@see ExceptionMessages::InvalidWorkerTaxNumberType} */
+    const InvalidWorkerTaxNumberType = 500;
+    /** {@see ExceptionMessages::InvalidWorkerTaxNumberArray} */
+    const InvalidWorkerTaxNumberArray = 500;
+        
     /** {@see ExceptionMessages::MissingWorkerLastnameParam} */
     const MissingWorkerLastnameParam = 500;
     /** {@see ExceptionMessages::MissingWorkerLastnameValue} */
@@ -642,13 +298,31 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidWorkerFirstnameArray} */
     const InvalidWorkerFirstnameArray = 500;
     
-    /** {@see ExceptionMessages::InvalidWorkerTaxNumberType} */
-    const InvalidWorkerTaxNumberType = 500;
+    /** {@see ExceptionMessages::MissingWorkerFatherNameParam} */
+    const MissingWorkerFatherNameParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerFatherNameValue} */
+    const MissingWorkerFatherNameValue = 500;
     /** {@see ExceptionMessages::InvalidWorkerFatherNameType} */
     const InvalidWorkerFatherNameType = 500;
-    /** {@see ExceptionMessages::InvalidWorkerSexType} */
-    const InvalidWorkerSexType = 500;
+    /** {@see ExceptionMessages::InvalidWorkerFatherNameArray} */
+    const InvalidWorkerFatherNameArray = 500;
+    
+    /** {@see ExceptionMessages::MissingWorkerSexTypeParam} */
+    const MissingWorkerSexTypeParam = 500;
+    /** {@see ExceptionMessages::MissingWorkerSexTypeValue} */    
+    const MissingWorkerSexTypeValue = 500;
+    /** {@see ExceptionMessages::InvalidWorkerSexTypeType} */    
+    const InvalidWorkerSexTypeType = 500;
+        /** {@see ExceptionMessages::InvalidWorkerSexTypeArray} */
+    const InvalidWorkerSexTypeArray = 500;
 
+        //sync
+        const DuplicateWorkerUniqueValue = 500;
+        const DuplicateSyncWorkerValue = 500;
+        const SuccessSyncWorkersRecord = 500;
+        const SuccessSyncUpdateWorkersRecord = 500;
+        const FailureSyncWorkersRecord = 500;
+    
 //= LabWorkers
     
     /** {@see ExceptionMessages::MissingLabWorkerIDParam} */
@@ -693,17 +367,29 @@ class ExceptionCodes
     const DuplicatedLabWorkerValue = 500;
     /** {@see ExceptionMessages::UsedLabWorkerByLabs} */
     const UsedLabWorkerByLabs = 500;
-    /** {@see ExceptionMessages::DuplicateWorkerUniqueValue} */
-    const DuplicateWorkerUniqueValue = 500;
+    /** {@see ExceptionMessages::DuplicateLabWorkerUniqueValue} */
+    const DuplicateLabWorkerUniqueValue = 500;
     /** {@see ExceptionMessages::NotAllowedLabWorkerStartService} */
     const NotAllowedLabWorkerStartService = 500;
     
     //extra
-    /** {@see ExceptionMessages::InvalidLabWorkerEmailType} */
-    const InvalidLabWorkerEmailType = 500;
     /** {@see ExceptionMessages::InvalidLabWorkerStartServiceValidType} */    
     const InvalidLabWorkerStartServiceValidType = 500;
-
+    /** {@see ExceptionMessages::InvalidLabWorkerActiveStatus} */    
+    const InvalidLabWorkerActiveStatus = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerNewWorkerStatus} */  
+    const InvalidLabWorkerNewWorkerStatus = 500;
+    /** {@see ExceptionMessages::InvalidLabWorkerSetStatus} */  
+    const InvalidLabWorkerSetStatus = 500;  
+    
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabWorkerValue} */
+    const DuplicateDelLabWorkerValue = 500;
+    /** {@see ExceptionMessages::NotFoundDelLabWorkerValue} */    
+    const NotFoundDelLabWorkerValue = 500;
+     /** {@see ExceptionMessages::NoPermissionDelLabWorkerValue} */    
+    const NoPermissionDelLabWorkerValue = 500;
+    
     //= MylabWorkers
 
     /** {@see ExceptionMessages::MissingMylabWorkerIDParam} */
@@ -730,10 +416,14 @@ class ExceptionCodes
     const DuplicatedMylabWorkerValue = 500;
     /** {@see ExceptionMessages::DuplicatedMylabWorkerRegistryNoValue} */
     const DuplicatedMylabWorkerRegistryNoValue = 500;
-    /** {@see ExceptionMessages::DuplicatedMylabWorkerTaxNumberValue} */
-    const DuplicatedMylabWorkerTaxNumberValue = 500;
+    /** {@see ExceptionMessages::DuplicatedMylabWorkerUidValue} */
+    const DuplicatedMylabWorkerUidValue = 500;
+    /** {@see ExceptionMessages::DuplicatedMylabWorkerEmailValue} */ 
+    const DuplicatedMylabWorkerEmailValue = 500;
     /** {@see ExceptionMessages::UsedMylabWorkerBySchoolUnitLabs} */
     const UsedMylabWorkerBySchoolUnitLabs = 500;
+    /** {@see ExceptionMessages::DuplicateMylabWorkeUniqueValue} */   
+    const DuplicateMylabWorkeUniqueValue = 500;
    
     /** {@see ExceptionMessages::MissingMylabWorkerRegistryNoParam} */
     const MissingMylabWorkerRegistryNoParam = 500;
@@ -743,6 +433,15 @@ class ExceptionCodes
     const InvalidMylabWorkerRegistryNoType = 500;
     /** {@see ExceptionMessages::InvalidMylabWorkerRegistryNoArray} */
     const InvalidMylabWorkerRegistryNoArray = 500;
+    
+    /** {@see ExceptionMessages::MissingMylabWorkerUidParam} */
+    const MissingMylabWorkerUidParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerUidValue} */
+    const MissingMylabWorkerUidValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerUidType} */
+    const InvalidMylabWorkerUidType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerUidArray} */
+    const InvalidMylabWorkerUidArray = 500;
     
     /** {@see ExceptionMessages::MissingMylabWorkerLastnameParam} */
     const MissingMylabWorkerLastnameParam = 500;
@@ -762,12 +461,41 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidMylabWorkerFirstnameArray} */
     const InvalidMylabWorkerFirstnameArray = 500;
     
-    /** {@see ExceptionMessages::InvalidMylabWorkerTaxNumberType} */
-    const InvalidMylabWorkerTaxNumberType = 500;
-    /** {@see ExceptionMessages::InvalidMylabWorkerFatherNameType} */
-    const InvalidMylabWorkerFatherNameType = 500;
-    /** {@see ExceptionMessages::InvalidMylabWorkerSexType} */
-    const InvalidMylabWorkerSexType = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerFathernameParam} */
+    const MissingMylabWorkerFathernameParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerFathernameValue} */
+    const MissingMylabWorkerFathernameValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerFathernameType} */
+    const InvalidMylabWorkerFathernameType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerFathernameArray} */
+    const InvalidMylabWorkerFathernameArray = 500;
+
+    /** {@see ExceptionMessages::MissingMylabWorkerEmailParam} */
+    const MissingMylabWorkerEmailParam = 500;
+    /** {@see ExceptionMessages::MissingMylabWorkerEmailValue} */
+    const MissingMylabWorkerEmailValue = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerEmailType} */
+    const InvalidMylabWorkerEmailType = 500;
+    /** {@see ExceptionMessages::InvalidMylabWorkerEmailArray} */
+    const InvalidMylabWorkerEmailArray = 500;
+    
+       //delete
+        const DuplicateDelMyLabWorkerValue = 500;
+        const NotFoundDelMyLabWorkerValue = 500;
+
+        //references
+        const ReferencesMyLabWorkerLabWorkers = 500;
+ 
+//= LdapWorkers
+
+    const MissingLdapWorkerUidParam = 500;
+    const MissingLdapWorkerUidValue = 500;
+    const InvalidLdapWorkerUidValue = 500;
+    const InvalidLdapWorkerUidType = 500;
+    const InvalidLdapWorkerUidArray = 500;
+    
+    const MultipleLdapWorkerUidValue = 500;
+    const NotAcceptedLdapWorkerPosition = 500;
     
 //Labs
         
@@ -826,7 +554,43 @@ class ExceptionCodes
     const InvalidLabEllakType = 500;
     /** {@see ExceptionMessages::InvalidLabEllakArray} */
     const InvalidLabEllakArray = 500;
+  
+    /** {@see ExceptionMessages::MissingLabSubmittedParam} */
+    const MissingLabSubmittedParam = 500;
+    /** {@see ExceptionMessages::MissingLabSubmittedValue} */
+    const MissingLabSubmittedValue = 500;
+    /** {@see ExceptionMessages::InvalidLabSubmittedType} */
+    const InvalidLabSubmittedType = 500;
+    /** {@see ExceptionMessages::InvalidLabSubmittedArray} */
+    const InvalidLabSubmittedArray = 500;
+   
+    /** {@see ExceptionMessages::MissingLabSpecialNameParam} */  
+    const MissingLabSpecialNameParam = 500;
+    /** {@see ExceptionMessages::MissingLabSpecialNameValue} */  
+    const MissingLabSpecialNameValue = 500;
+    /** {@see ExceptionMessages::InvalidLabSpecialNameType} */  
+    const InvalidLabSpecialNameType = 500;
+    /** {@see ExceptionMessages::InvalidLabSpecialNameArray} */  
+    const InvalidLabSpecialNameArray = 500;
     
+    /** {@see ExceptionMessages::MissingLabPositioningParam} */  
+    const MissingLabPositioningParam = 500;
+    /** {@see ExceptionMessages::MissingLabPositioningValue} */  
+    const MissingLabPositioningValue = 500;
+    /** {@see ExceptionMessages::InvalidLabPositioningType} */  
+    const InvalidLabPositioningType = 500;
+    /** {@see ExceptionMessages::InvalidLabPositioningArray} */  
+    const InvalidLabPositioningArray = 500;
+    
+    /** {@see ExceptionMessages::MissingLabCommentsParam} */  
+    const MissingLabCommentsParam = 500;
+    /** {@see ExceptionMessages::MissingLabCommentsValue} */  
+    const MissingLabCommentsValue = 500;
+    /** {@see ExceptionMessages::InvalidLabCommentsType} */  
+    const InvalidLabCommentsType = 500;
+    /** {@see ExceptionMessages::InvalidLabCommentsArray} */  
+    const InvalidLabCommentsArray = 500;    
+
     /** {@see ExceptionMessages::DuplicatedLabValue} */
     const DuplicatedLabValue = 500;
     /** {@see ExceptionMessages::DuplicatedLabNameValue} */
@@ -837,10 +601,8 @@ class ExceptionCodes
     const NotAllowedLabNameValue = 500;
     /** {@see ExceptionMessages::NotAllowedEllakValue} */   
     const NotAllowedEllakValue = 500;
-    
+      
     //extra
-    /** {@see ExceptionMessages::InvalidLabSpecialNameType} */
-    const InvalidLabSpecialNameType = 500;
     /** {@see ExceptionMessages::InvalidLabCreationDateType} */
     const InvalidLabCreationDateType = 500;
     /** {@see ExceptionMessages::InvalidLabCreatedByType} */
@@ -849,11 +611,31 @@ class ExceptionCodes
     const InvalidLabLastUpdatedType = 500;
     /** {@see ExceptionMessages::InvalidLabUpdatedByType} */
     const InvalidLabUpdatedByType = 500;
-    /** {@see ExceptionMessages::InvalidLabPositioningType} */
-    const InvalidLabPositioningType = 500;
-    /** {@see ExceptionMessages::InvalidLabCommentsType} */
-    const InvalidLabCommentsType = 500;
-   
+    /** {@see ExceptionMessages::AlreadyLabSubmittedActiveValue} */  
+    const AlreadyLabSubmittedActiveValue = 500;
+    /** {@see ExceptionMessages::AlreadyLabSubmittedInitialValue} */  
+    const AlreadyLabSubmittedInitialValue = 500;
+     
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabValue} */  
+    const DuplicateDelLabValue = 500;
+    /** {@see ExceptionMessages::NotFoundDelLabValue} */  
+    const NotFoundDelLabValue = 500;
+    /** {@see ExceptionMessages::NoDemoDelLabValue} */ 
+    const NoDemoDelLabValue = 500;
+      
+    //references
+    /** {@see ExceptionMessages::ReferencesLabAquisitionSources} */ 
+    const ReferencesLabAquisitionSources = 500;
+    /** {@see ExceptionMessages::ReferencesLabEquipmentTypes} */ 
+    const ReferencesLabEquipmentTypes = 500;
+    /** {@see ExceptionMessages::ReferencesLabWorkers} */ 
+    const ReferencesLabWorkers = 500;
+    /** {@see ExceptionMessages::ReferencesLabRelations} */ 
+    const ReferencesLabRelations = 500;
+    /** {@see ExceptionMessages::ReferencesLabTransitions} */ 
+    const ReferencesLabTransitions = 500;
+    
 //LabEquipmentTypes
         
     /** {@see ExceptionMessages::MissingLabEquipmentTypeIDParam} */
@@ -1025,7 +807,15 @@ class ExceptionCodes
     //extra
     /** {@see ExceptionMessages::InvalidLabTransitionValidType} */
     const InvalidLabTransitionValidType = 500;
+    /** {@see ExceptionMessages::InvalidLabTransitionDemoValue} */
+    const InvalidLabTransitionDemoValue = 500;
      
+    //delete
+    /** {@see ExceptionMessages::DuplicateDelLabTransitionValue} */
+    const DuplicateDelLabTransitionValue = 500; 
+    /** {@see ExceptionMessages::NotFoundDelLabTransitionValue} */
+    const NotFoundDelLabTransitionValue = 500;
+    
 //LabRelations
     
     /** {@see ExceptionMessages::MissingLabRelationIDParam} */    
@@ -1052,8 +842,6 @@ class ExceptionCodes
     const DuplicatedLabRelationValue = 500;
     /** {@see ExceptionMessages::UsedLabRelationByLabs} */
     const UsedLabRelationByLabs = 500;
-    /** {@see ExceptionMessages::DuplicateRelationTypeUniqueValue} */
-    const DuplicateRelationTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedLabRelationServerOnline} */   
     const UsedLabRelationServerOnline = 500;
     
@@ -1109,6 +897,13 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedRegionEduAdminByEduAdmins} */   
     const UsedRegionEduAdminByEduAdmins = 500;
     
+        //sync
+        const DuplicateRegionEduAdminUniqueValue = 500;
+        const DuplicateSyncRegionEduAdminNameValue = 500;
+        const SuccessSyncRegionEduAdminsRecord = 500;
+        const SuccessSyncUpdateRegionEduAdminsRecord = 500;
+        const FailureSyncRegionEduAdminsRecord = 500;
+    
 //= EduAdmins
     
     /** {@see ExceptionMessages::MissingEduAdminIDParam} */   
@@ -1156,6 +951,14 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
     const UsedEduAdminByTransferAreas = 500;
   
+        //sync
+        const DuplicateEduAdminUniqueValue = 500;
+        const DuplicateSyncEduAdminNameValue = 500;
+        const DuplicateSyncEduAdminCodeValue = 500;
+        const SuccessSyncEduAdminsRecord = 500;
+        const SuccessSyncUpdateEduAdminsRecord = 500;
+        const FailureSyncEduAdminsRecord = 500;
+    
 //= TransferAreas
 
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
@@ -1194,6 +997,13 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedEduAdminByTransferAreas} */   
     const UsedTransferAreaByMunicipalities = 500;
 
+        //sync
+        const DuplicateTransferAreaUniqueValue = 500;
+        const DuplicateSyncTransferAreaNameValue = 500;
+        const SuccessSyncTransferAreasRecord = 500;
+        const SuccessSyncUpdateTransferAreasRecord = 500;
+        const FailureSyncTransferAreasRecord = 500;
+        
 //= Municipalities
 
     /** {@see ExceptionMessages::MissingMunicipalityIDParam} */   
@@ -1232,6 +1042,13 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedMunicipalityByPrefectures} */   
     const UsedMunicipalityByPrefectures = 500;
     
+        //sync
+        const DuplicateMunicipalityUniqueValue = 500;
+        const DuplicateSyncMunicipalitiesNameValue = 500;
+        const SuccessSyncMunicipalitiesRecord = 500;
+        const SuccessSyncUpdateMunicipalitiesRecord = 500;
+        const FailureSyncMunicipalitiesRecord = 500;
+    
 //= Prefectures
     
     /** {@see ExceptionMessages::MissingPrefectureIDParam} */   
@@ -1268,6 +1085,13 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedPrefectureBySchoolUnits} */   
     const UsedPrefectureBySchoolUnits = 500;
 
+        //sync
+        const DuplicatePrefectureUniqueValue = 500;
+        const DuplicateSyncPrefecturesNameValue = 500;
+        const SuccessSyncPrefecturesRecord = 500;
+        const SuccessSyncUpdatePrefecturesRecord = 500;
+        const FailureSyncPrefecturesRecord = 500;
+    
 //= EducationLevels
     
     /** {@see ExceptionMessages::MissingEducationLevelIDParam} */   
@@ -1305,6 +1129,13 @@ class ExceptionCodes
     const UsedEducationLevelBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedEducationLevelBySchoolUnitTYpes} */   
     const UsedEducationLevelBySchoolUnitTYpes = 500;
+    
+        //sync
+        const DuplicateEducationLevelUniqueValue = 500;
+        const DuplicateSyncEducationLevelsNameValue = 500;
+        const SuccessSyncEducationLevelsRecord = 500;
+        const SuccessSyncUpdateEducationLevelsRecord = 500;
+        const FailureSyncEducationLevelsRecord = 500;
     
 //= SchoolUnitTypes
     
@@ -1355,6 +1186,14 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedSchoolUnitTypeBySchoolUnits} */   
     const UsedSchoolUnitTypeBySchoolUnits = 500;
 
+        //sync
+        const DuplicateSchoolUnitTypeUniqueValue = 500;
+        const DuplicateSyncSchoolUnitTypesNameValue = 500;
+        const DuplicateSyncSchoolUnitTypesInitialsValue = 500;
+        const SuccessSyncSchoolUnitTypesRecord = 500;
+        const SuccessSyncUpdateSchoolUnitTypesRecord = 500;
+        const FailureSyncSchoolUnitTypesRecord = 500;
+    
 //= States
     
     /** {@see ExceptionMessages::MissingStateIDParam} */   
@@ -1392,8 +1231,13 @@ class ExceptionCodes
     const UsedStateBySchoolUnits = 500;
     /** {@see ExceptionMessages::UsedStateBySchoolUnitTYpes} */   
     const UsedStateBySchoolUnitTYpes = 500;
-    /** {@see ExceptionMessages::DuplicateStateUniqueValue} */      
-    const DuplicateStateUniqueValue = 500;
+    
+        //sync
+        const DuplicateStateUniqueValue = 500;   
+        const DuplicateSyncStatesNameValue = 500;
+        const SuccessSyncStatesRecord = 500;
+        const SuccessSyncUpdateStatesRecord = 500;
+        const FailureSyncStatesRecord = 500;
     
 //= CircuitTypes
     
@@ -1424,13 +1268,20 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidCircuitTypeNameType} */  
     const InvalidCircuitTypeNameType = 500; 
     /** {@see ExceptionMessages::InvalidCircuitTypeNameArray} */  
-    const InvalidCircuitTypeNameArray = 500; 
+    const InvalidCircuitTypeNameArray = 500;
     
     /** {@see ExceptionMessages::DuplicatedCircuitTypeValue} */  
     const DuplicatedCircuitTypeValue = 500;
     /** {@see ExceptionMessages::UsedCircuitTypeByCircuits} */  
     const UsedCircuitTypeByCircuits = 500;
-
+    
+        //sync
+        const DuplicateCircuitTypeUniqueValue = 500;
+        const DuplicateSyncCircuitTypesNameValue = 500;
+        const SuccessSyncCircuitTypesRecord = 500;
+        const SuccessSyncUpdateCircuitTypesRecord = 500;
+        const FailureSyncCircuitTypesRecord = 500;
+    
 //= RelationTypes
     
     /** {@see ExceptionMessages::MissingRelationTypeIDParam} */  
@@ -1464,9 +1315,18 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedRelationTypeValue} */  
     const DuplicatedRelationTypeValue = 500;
+    /** {@see ExceptionMessages::DuplicateRelationTypeUniqueValue} */     
+    const DuplicateRelationTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedRelationTypeByLabRelations} */  
     const UsedRelationTypeByLabRelations = 500;
-  
+    
+       //delete
+        const DuplicateDelRelationTypeValue = 500;
+        const NotFoundDelRelationTypeValue = 500;
+
+        //references
+        const ReferencesRelationTypeLabRelationTypes = 500;
+     
 //= WorkerPositions
     
     /** {@see ExceptionMessages::MissingWorkerPositionIDParam} */  
@@ -1504,8 +1364,13 @@ class ExceptionCodes
     const UsedWorkerPositionBySchoolUnitWorkers = 500;
     /** {@see ExceptionMessages::UsedWorkerPositionByLabWorkers} */  
     const UsedWorkerPositionByLabWorkers = 500;
-    /** {@see ExceptionMessages::DuplicateWorkerUniqueValue} */
-    const DuplicateWorkerPositionUniqueValue = 500;
+    
+        //sync
+        const DuplicateWorkerPositionUniqueValue = 500;
+        const DuplicateSyncWorkerPositionsNameValue = 500;
+        const SuccessSyncWorkerPositionsRecord = 500;
+        const SuccessSyncUpdateWorkerPositionsRecord = 500;
+        const FailureSyncWorkerPositionsRecord = 500;
     
 //= WorkerSpecializations
     
@@ -1545,6 +1410,13 @@ class ExceptionCodes
     /** {@see ExceptionMessages::UsedWorkerSpecializationByLabWorkers} */  
     const UsedWorkerSpecializationByLabWorkers = 500;
     
+        //sync
+        const DuplicateWorkerSpecializationUniqueValue = 500;
+        const DuplicateSyncWorkerSpecializationsNameValue = 500;
+        const SuccessSyncWorkerSpecializationsRecord = 500;
+        const SuccessSyncUpdateWorkerSpecializationsRecord = 500;
+        const FailureSyncWorkerSpecializationsRecord = 500;
+    
     //Sources
 
     /** {@see ExceptionMessages::MissingSourceIDParam} */  
@@ -1580,8 +1452,13 @@ class ExceptionCodes
     const DuplicatedSourceValue = 500;
     /** {@see ExceptionMessages::UsedSourceByWorkers} */  
     const UsedSourceByWorkers = 500;
-    /** {@see ExceptionMessages::DuplicateSourceUniqueValue} */  
-    const DuplicateSourceUniqueValue = 500;
+    
+        //sync
+        const DuplicateSourceUniqueValue = 500;
+        const DuplicateSyncSourcesNameValue = 500;
+        const SuccessSyncSourcesRecord = 500;
+        const SuccessSyncUpdateSourcesRecord = 500;
+        const FailureSyncSourcesRecord = 500;   
     
 //= LabTypes
 
@@ -1625,11 +1502,19 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedLabTypeValue} */  
     const DuplicatedLabTypeValue = 500;
-    /** {@see ExceptionMessages::UsedLabTypeByLabs} */  
-    const UsedLabTypeByLabs = 500;
     /** {@see ExceptionMessages::DuplicateLabTypeUniqueValue} */  
     const DuplicateLabTypeUniqueValue = 500;
+    /** {@see ExceptionMessages::UsedLabTypeByLabs} */  
+    const UsedLabTypeByLabs = 500;
 
+        //delete
+        const DuplicateDelLabTypeValue = 500;
+        const NotFoundDelLabTypeValue = 500;
+
+        //references
+        const ReferencesLabTypeLabs = 500;
+ 
+    
 //= LabSources
 
     /** {@see ExceptionMessages::MissingLabSourceIDParam} */  
@@ -1672,11 +1557,19 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedLabSourceValue} */  
     const DuplicatedLabSourceValue = 500;
-    /** {@see ExceptionMessages::UsedLabSourceByLabs} */  
-    const UsedLabSourceByLabs = 500;
     /** {@see ExceptionMessages::DuplicateLabSourceUniqueValue} */  
     const DuplicateLabSourceUniqueValue = 500;
+    /** {@see ExceptionMessages::UsedLabSourceByLabs} */  
+    const UsedLabSourceByLabs = 500;
  
+        //delete
+        const DuplicateDelLabSourceValue = 500; 
+        const NotFoundDelLabSourceValue = 500;
+
+        //references
+        const ReferencesLabSourceLabs = 500;
+        const ReferencesLabSourceMyLabWorkers = 500;
+        
 //= EquipmentCategories
     
     /** {@see ExceptionMessages::MissingEquipmentCategoryIDParam} */  
@@ -1710,8 +1603,18 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedEquipmentCategoryValue} */  
     const DuplicatedEquipmentCategoryValue = 500;
+    /** {@see ExceptionMessages::DuplicateEquipmentCategoryUniqueValue} */  
+    const DuplicateEquipmentCategoryUniqueValue = 500;
     /** {@see ExceptionMessages::UsedEquipmentCategoryByEquipmentTypes} */  
     const UsedEquipmentCategoryByEquipmentTypes = 500;
+    
+        //delete
+        const DuplicateDelEquipmentCategoryValue = 500;
+        const NotFoundDelEquipmentCategoryValue = 500;
+
+        //references
+        const ReferencesEquipmentCategoryEquipmentTypes = 500;
+    
     
 //= EquipmentTypes
     
@@ -1746,8 +1649,17 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedEquipmentTypeValue} */  
     const DuplicatedEquipmentTypeValue = 500;
+    /** {@see ExceptionMessages::DuplicateEquipmentTypeUniqueValue} */  
+    const DuplicateEquipmentTypeUniqueValue = 500;
     /** {@see ExceptionMessages::UsedEquipmentTypeByLabEquipmentTypes} */  
     const UsedEquipmentTypeByLabEquipmentTypes = 500;
+    
+        //delete
+        const DuplicateDelEquipmentTypeValue = 500;
+        const NotFoundDelEquipmentTypeValue = 500;
+
+        //references
+        const ReferencesEquipmentTypeLabEquipmentTypes = 500;
     
 //= AquisitionSources
     
@@ -1782,10 +1694,17 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::DuplicatedAquisitionSourceValue} */  
     const DuplicatedAquisitionSourceValue = 500;
-    /** {@see ExceptionMessages::UsedAquisitionSourceSourceByLabAquisitionSources} */  
-    const UsedAquisitionSourceByLabAquisitionSources = 500;
     /** {@see ExceptionMessages::DuplicateAquisitionSourceUniqueValue} */  
     const DuplicateAquisitionSourceUniqueValue = 500;
+    /** {@see ExceptionMessages::UsedAquisitionSourceSourceByLabAquisitionSources} */  
+    const UsedAquisitionSourceByLabAquisitionSources = 500;
+    
+        //delete
+        const DuplicateDelAquisitionSourceValue = 500; 
+        const NotFoundDelAquisitionSourceValue = 500;
+
+        //references
+        const ReferencesAquisitionSourceLabAquisitionSources = 500;
     
     //page,pagesize,orderby,ordertype,searchtype
     
@@ -1819,31 +1738,34 @@ class ExceptionCodes
     /** {@see ExceptionMessages::InvalidPageSizeArray} */ 
     const InvalidOrderBy = 500;
     
-    
-    
+    /** {@see ExceptionMessages::InvalidExportType} */ 
+    const InvalidExportType = 500;
+        
      //authentication roles 
     /** {@see ExceptionMessages::NoPermissionsError} */  
-    const NoPermissionsError = 500;
+    const NoPermissionsError = 606;
     
     /** {@see ExceptionMessages::NotFoundUserPermissions} */      
-    const NotFoundUserPermissions = 500;
+    const NotFoundUserPermissions = 607;
     /** {@see ExceptionMessages::NotFoundFullSchoolUnitDnsName} */  
-    const NotFoundFullSchoolUnitDnsName = 500;
-    /** {@see ExceptionMessages::DuplicateFullSchoolUnitDnsName} */  
-    const DuplicateFullSchoolUnitDnsName = 500;
+    const NotFoundFullSchoolUnitDnsName = 608;
+    /** {@see ExceptionMessages::DuplicateFullSchoolUnitDnsName} */ 
+    const DuplicateFullSchoolUnitDnsName = 609;
     /** {@see ExceptionMessages::MissingLdapLattribute} */  
-    const MissingLdapLAttribute = 500;
+    const MissingLdapLAttribute = 610;
     /** {@see ExceptionMessages::MissingLdapEmployeeNumberAttribute} */   
-    const MissingLdapEmployeeNumberAttribute = 500;
+    const MissingLdapEmployeeNumberAttribute = 611;
+    /** {@see ExceptionMessages::MissingGsnRegistryCodeAttribute} */ 
+    const MissingGsnRegistryCodeAttribute = 617;
     
     /** {@see ExceptionMessages::NoPermissionToPost} */   
-    const NoPermissionToPostLab = 500;
+    const NoPermissionToPostLab = 612;
     /** {@see ExceptionMessages::NoPermissionToPut} */   
-    const NoPermissionToPutLab = 500;
+    const NoPermissionToPutLab = 613;
     /** {@see ExceptionMessages::NoPermissionToDelete} */   
-    const NoPermissionToDeleteLab = 500;
+    const NoPermissionToDeleteLab = 614;
     /** {@see ExceptionMessages::NoPermissionToGet} */   
-    const NoPermissionToGetLab = 500;
+    const NoPermissionToGetLab = 615;
    
      //reports  
     /** {@see ExceptionMessages::ErrorEduAdminReportKeplhnet} */ 

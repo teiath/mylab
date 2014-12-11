@@ -17,7 +17,7 @@ class EduAdmins
      *
      * @ORM\Column(name="edu_admin_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $eduAdminId;
 

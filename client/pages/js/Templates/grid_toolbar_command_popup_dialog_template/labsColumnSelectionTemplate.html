@@ -1,0 +1,14 @@
+<script type="text/x-kendo-template" id="labs_column_selection_template">
+    <div class="column_selection" style="margin-right:5px">
+        #if(typeof item.command === 'undefined') {#
+            <label for='field-#= item.field #'>
+                #if(typeof item.hidden === 'undefined' || item.hidden === false) {#
+                    <input type='checkbox' id='field-#= item.field #' checked onclick='LabsViewVM.toggleColumn("#=idx#")'>
+                #}else{#
+                    <input type='checkbox' id='field-#= item.field #' onclick='LabsViewVM.toggleColumn("#=idx#")'>
+                #}#
+                #= item.title ? item.title : item.field #
+            </label>
+        #}#
+    </div>
+</script>

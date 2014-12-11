@@ -4,14 +4,17 @@
 
     <div id="statistics-parameters" class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" style="background:white;border-radius:10px;padding-bottom:20px;">
                 <form id="statistics-form">
 
-                    <div class="col-md-12" style="margin:20px 0px 25px 0px;">
-                        <button id="clear" class="k-button" data-bind="click: resetForm">καθαρισμός</button>
-                        <button id="statistic_export_btn" class="k-button k-state-disabled" data-bind="click: getStatistic, enabled: statisticExportEnabled" >Προβολή Στατιστικού</button>
-                        <div class="col-md-12" style="padding:0px; margin-top:5px;"> <span data-bind="visible: cascadeValidationVisible" style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
+                    <div class="col-md-12" style="margin:20px 0px; border-bottom: 1px dotted #DADADA; padding:3px;">
+                        <button id="clear" class="k-button" data-bind="click: resetAxisAndFilters"><i class="fa fa-eraser"></i> Καθαρισμός</button>
+                        <button id="statistic_export_btn" class="k-button" data-bind="click: exportStatisticTable" > <i class="fa fa-bar-chart-o"></i> Προβολή Στατιστικού</button>
+                        <button id="statistic_xls_export_btn" class="k-button" data-bind="click: exportStatisticExcel" > <i class="fa fa-file-excel-o"></i> Εξαγωγή Στατιστικού σε Εxcel</button>
                     </div>
+                    
+                    <div class="col-md-12" data-bind="visible: sameValueValidationVisible" style="margin-bottom:10px;"> <span style="color: red;">Δεν είναι εφικτή η επιλογή ίδιας τιμής στους άξονες</span> </div>
+                    <div class="col-md-12" data-bind="visible: bothFieldsValidationVisible" style="margin-bottom:10px;"> <span style="color: red;">Πρέπει και οι δύο άξονες να ειναι συμπληρωμένοι</span> </div>
                     
                     <div class="col-md-12">
                         <label for="x_axis" style="font-size:13px;"> <span style="color: red;">*</span> Άξονας x: Επιλέξτε με ποια παράμετρο επιθυμείτε να πληθυσμώσετε τις στήλες του στατιστικού πίνακα</label>
@@ -23,7 +26,7 @@
                                 data-auto-bind="true"
                                 data-text-field="name"
                                 data-value-field="axis_name"
-                                data-bind="source: axis_x_ds, value: x_axis , events: {change : cascade }"
+                                data-bind="source: axis_x_ds, value: x_axis"
                                 data-filter="contains"/>
                     </div>
                     
@@ -37,17 +40,17 @@
                                 data-ignore-case= "false"
                                 data-text-field="name"
                                 data-value-field="axis_name"
-                                data-bind="source: axis_y_ds, value: y_axis, events: {change : cascade }"
+                                data-bind="source: axis_y_ds, value: y_axis"
                                 data-filter="contains"/>
                     </div>
                     
                     <div class="col-md-12" style="margin:10px 0px 20px 0px;">
                         <label style="font-size:13px;"> Φίλτρα : Επιλέξτε ένα ή περισσότερα φίλτρα για την αποτελεσματικότερη εξαγωγή στατιστικών </label>
-                        <a id="show_statistic_filters_btn" class="k-button" data-bind="click: toggleFilters"><span class="k-icon k-i-arrow-e"></span></a>
+                        <a id="show_statistic_filters_btn" class="k-button" data-bind="click: toggleFiltersPane"><span class="k-icon k-i-arrow-e"></span></a>
                     </div>
                     
                     <!--<div class="row" style="padding:20px;">-->
-                    <div id="statistic_filters" class="col-md-12" data-bind="visible: filtersVisible">
+                    <div id="statistic_filters" class="col-md-12" data-bind="visible: filtersPaneVisible">
                         <div class="col-md-4">
 
                             <div class="col-md-11">
@@ -117,6 +120,21 @@
                                         multiple="multiple">
                                 </select>
                              </div>
+                            
+                            <div class="col-md-11">
+                                <label for="has_lab_worker">η Διάταξη έχει Υπεύθυνο</label>
+                            </div>
+                            <div class="col-md-11">
+                                <input id="sl_has_lab_worker" 
+                                        name="has_lab_worker"
+                                        data-role="combobox"
+                                        data-auto-bind="false"
+                                        data-text-field="name"
+                                        data-value-field="id"
+                                        data-filter="contains"
+                                        data-bind="source: has_lab_worker_ds, value: has_lab_worker"
+                                        data-placeholder="επιλέξτε από τη λίστα"/>
+                            </div>                            
 
                         </div>
 
@@ -172,7 +190,7 @@
                                         multiple="multiple">
                                 </select>
                             </div>
-
+                            
                         </div>
 
                         <div class="col-md-4">
@@ -272,11 +290,11 @@
         </div>
     </div>
 
-    <div id="statistics-results" class="container" style="margin-top: 50px;">
+    <div id="statistics-results" class="container" data-bind="visible: statisticTableVisible" style="margin-top: 50px;">
         <div class="row" style="position:relative;">
-            <div class="col-md-12"  style="overflow:auto;"  >
-
-                <table id="statistics-table" class="table table-bordered table-striped" style="width:100%; ">
+            <div class="col-md-12"  style="overflow:auto; background: white; border-radius:10px;"  >
+                <h5 style="text-align: center;"><b>Στατιστικός Πίνακας</b></h5>
+                <table id="statistics-table" class="table table-bordered table-striped" style="width:100%; margin-top:10px; ">
                     <thead>
                         <tr>
                             <th></th>
@@ -291,15 +309,15 @@
 
 </div>
 
-    <!--file_download_dialog-->
-    <div id="export_statistic_dialog" style="display:none; color: #5E5E5E">
-        
-        <div style="padding:13px;">Η έκδοση του στατιστικού βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+<!--file_download_dialog-->
+<div id="export_statistic_dialog" style="display:none; color: #5E5E5E">
 
-        <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
-            <span class="k-progress-status-wrap">
-                <span class="k-progress-status">0</span>
-            </span>
-        </div>       
-        
-    </div>
+    <div style="padding:13px;">Η έκδοση του στατιστικού βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+
+    <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+        <span class="k-progress-status-wrap">
+            <span class="k-progress-status">0</span>
+        </span>
+    </div>       
+
+</div>

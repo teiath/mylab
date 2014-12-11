@@ -17,9 +17,7 @@
     
     //mmsch parameters
     $params = array(
-    //"mm_id" => "1000044",
     //"mm_id" => "1020428,1007591",
-    //"mm_id" => "1000002,1002233,1000002,1000003,1000019,1016506,1007591,1016502,1016503,1001982,1001023,1000006,1003605,1016505,1017701",
     "legal_character" => 1, //"ΔΗΜΟΣΙΟ",
     "category" => 1, //"ΣΧΟΛΙΚΕΣ ΜΟΝΑΔΕΣ",
     "orderby" => "mm_id",
@@ -37,7 +35,7 @@
     $timer->start();
     
 try{ 
-    echo "Starting Sync School_Units table \n\n";   
+    echo 'Starting Sync School_Units table.';   
  
     do{ 
         
@@ -45,13 +43,7 @@ try{
         $result = array();
         
         //make the http request to mmsch with cURL 
-        $curl = curl_init($Options['Server_Mmsch']."units");
-        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($curl, CURLOPT_USERPWD, $Options['Server_Mmsch_username'] . ":" . $Options['Server_Mmsch_password']);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode( $params ));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $data = json_decode( curl_exec($curl), true );
+        //$data = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'units', 'GET', $params);
 
         //log general infos from received data of the mmsch
         $results["sync_table"] = "School_Units";
@@ -72,7 +64,9 @@ try{
             $result["block_error_sync"] = false;
         }
    
-
+        if (Validator::IsEmptyArray($data["data"]) || Validator::IsNull($data["data"])){echo ' No data to sync at school_units table';die();}     
+ 	echo '---Count of returned Data ' . $data["count"] . ' :--------';
+        
         //get each school_unit data record 
         foreach($data["data"] as $school_unit)
         {    
@@ -94,6 +88,7 @@ try{
             $education_level = $school_unit["education_level_id"];
             $school_unit_type = $school_unit["unit_type_id"];
             $state = $school_unit["state_id"];
+            $unit_dns = $school_unit["unit_dns"][0]["unit_dns"];
             
             $check_total_download++;
             
@@ -113,7 +108,8 @@ try{
                                                "prefecture_id"=> $prefecture,                                            
                                                "education_level_id"=> $education_level,
                                                "school_unit_type_id"=> $school_unit_type,
-                                               "state_id"=> $state             
+                                               "state_id"=> $state,
+                                               "unit_dns"=> $unit_dns
                                                 );
             
 
@@ -141,7 +137,7 @@ try{
 
                         } else {
                             $status = 'DUPLICATE';  
-                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_id . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
+                            $error_messages["errors"][] = constant('ExceptionMessages::'.$duplicateValue). ' : ' . $school_unit_id . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::'.$duplicateValue);    
 
                         }
 
@@ -153,15 +149,15 @@ try{
           
             
        if (Validator::IsNull($last_update))
-            $error_messages["errors"][] = constant('ExceptionMessages::MissingLabTransitionDateValue') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::MissingLabTransitionDateValue');
+            $error_messages["errors"][] = constant('ExceptionMessages::MissingLabTransitionDateValue') . ':' . $last_update . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::MissingLabTransitionDateValue');
        else if (Validator::IsArray($last_update))
-            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionDateArray') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionDateArray');
+            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionDateArray') . ':' . $last_update . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionDateArray');
        else if (! Validator::IsValidDate($last_update) )
-            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionValidType') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionValidType'); 
+            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionValidType') . ':' . $last_update . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionValidType'); 
        else if (Validator::IsDate($last_update))
            $dateTime = new \DateTime($last_update);
        else
-            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionDateType') . ':' . $last_update . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionDateType');
+            $error_messages["errors"][] = constant('ExceptionMessages::InvalidLabTransitionDateType') . ':' . $last_update . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::InvalidLabTransitionDateType');
  
 // var_dump($lastUpdateTableRow->format('Y-m-d H:m:s'));     
 // var_dump($dateTime->format('Y-m-d H:m:s'));
@@ -179,7 +175,10 @@ try{
 
         //SET last_update to CREATE
         $unit->setLastUpdate($dateTime);
-        
+
+        //for below variables if syncEntitySetAssociation or syncEntitySetParam
+        //return null then all is ok
+        //else return error
 //$region_edu_admin_id===========================================================================                  
     $fRegionEduAdmin = CRUDUtils::syncEntitySetAssociation($unit, $region_edu_admin, 'RegionEduAdmins', 'regionEduAdmin', 'RegionEduAdmin', false); 
     if (!validator::IsNull($fRegionEduAdmin)) {$error_messages["errors"][] = $fRegionEduAdmin; }
@@ -207,6 +206,10 @@ try{
 //$school_unit_type_id===========================================================================
     $fSchoolUnitType = CRUDUtils::syncEntitySetAssociation($unit, $school_unit_type, 'SchoolUnitTypes', 'schoolUnitType', 'SchoolUnitType');
     if (!validator::IsNull($fSchoolUnitType)) {$error_messages["errors"][] = $fSchoolUnitType; }
+    
+//$unit_dns===========================================================================
+   $fUnitDns = CRUDUtils::syncEntitySetParam($unit, $unit_dns, 'SchoolUnitUnitDns', 'unit_dns');
+    if (!validator::IsNull($fUnitDns)) {$error_messages["errors"][] = $fUnitDns; }  
     
 //$state_id===========================================================================
     $fState = CRUDUtils::syncEntitySetAssociation($unit, $state, 'States', 'state', 'State');
@@ -247,9 +250,9 @@ try{
                        "ΔΗΜΟΤΙΚΟ ΣΧΟΛΕΙΟ Ο");
     
     if (! trim($name) )
-        $error_messages["errors"][] =  SyncExceptionMessages::MissingSyncSchoolUnitNameValue.$name.SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::MissingSyncSchoolUnitNameValue;
+        $error_messages["errors"][] =  ExceptionMessages::MissingSchoolUnitNameValue.$name.ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::MissingSchoolUnitNameValue;
     else if (in_array(trim($name), $checkVars)){
-        $error_messages["garbages"][] = SyncExceptionMessages::GarbageRowSchoolUnitNameValue .' name = ' . $name . ' id = '.$fSchoolUnit['id'].SyncExceptionMessages::SyncExceptionCodePreMessage.SyncExceptionCodes::GarbageRowSchoolUnitNameValue;
+        $error_messages["garbages"][] = ExceptionMessages::GarbageRowSchoolUnitNameValue .' name = ' . $name . ' id = '.$fSchoolUnit['id'].ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::GarbageRowSchoolUnitNameValue;
         $action='exit_garbage';
     } else {
         $unit->setName(Validator::ToValue($name));
@@ -263,7 +266,7 @@ try{
                                                                                    ));
     
         if (count($checkDuplicate) !== 0)
-            $error_messages["errors"][] = constant('ExceptionMessages::DuplicatedSchoolUnitValue') . ':' . $unit->getSchoolUnitId() . constant('SyncExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::DuplicatedSchoolUnitValue');                 
+            $error_messages["errors"][] = constant('ExceptionMessages::DuplicatedSchoolUnitValue') . ':' . $unit->getSchoolUnitId() . constant('ExceptionMessages::SyncExceptionCodePreMessage'). constant('ExceptionCodes::DuplicatedSchoolUnitValue');                 
       }
       
 //print_r($error_messages);
@@ -280,8 +283,8 @@ try{
         if ($status === 'UPDATE' ){            
           
             $updates++;
-            $final_results["status"] = SyncExceptionCodes::SuccessSyncUpdateSchoolUnitsRecord;
-            $final_results["message"] = SyncExceptionMessages::SuccessSyncUpdateSchoolUnitsRecord;
+            $final_results["status"] = ExceptionCodes::SuccessSyncUpdateSchoolUnitsRecord;
+            $final_results["message"] = ExceptionMessages::SuccessSyncUpdateSchoolUnitsRecord;
             $final_results["action"] = 'update';
             $final_results["school_unit_id"] = $unit->getSchoolUnitId();
             $results["all_updates"][]=$final_results;
@@ -307,13 +310,7 @@ try{
                                                                 );
 
                                      //make the http request to mmsch with cURL 
-                                     $curl_transitions = curl_init($Options['ServerURL']."/lab_transitions");
-                                     curl_setopt($curl_transitions, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-                                     curl_setopt($curl_transitions, CURLOPT_USERPWD, $Options['Server_MyLab_username'] . ":" . $Options['Server_MyLab_password']);
-                                     curl_setopt($curl_transitions, CURLOPT_CUSTOMREQUEST, "POST");
-                                     curl_setopt($curl_transitions, CURLOPT_POSTFIELDS, json_encode( $params_transitions ));
-                                     curl_setopt($curl_transitions, CURLOPT_RETURNTRANSFER, true);
-                                     $data_transitions = json_decode( curl_exec($curl_transitions), true );
+                                     $data_transitions = SYNCUtils::apiRequest($Options['Server_MyLab'], $Options['Server_MyLab_username'], $Options['Server_MyLab_password'], 'lab_transitions', 'POST', $params_transitions);
 
                                      if ($data_transitions["status"] != 200){
                                          $error_messages["errors"][] = $data_transitions["message"] . " Κωδικός Σχολικής Μονάδας : " . $fLabSchoolUnitId . " Κωδικός Εργαστηρίου : " . $fLabId; 
@@ -330,8 +327,8 @@ try{
         } else if ($status === 'CREATE'){
 
             $inserts++;
-            $final_results["status"] = SyncExceptionCodes::SuccessSyncInsertSchoolUnitsRecord;
-            $final_results["message"] = SyncExceptionMessages::SuccessSyncInsertSchoolUnitsRecord;
+            $final_results["status"] = ExceptionCodes::SuccessSyncSchoolUnitsRecord;
+            $final_results["message"] = ExceptionMessages::SuccessSyncSchoolUnitsRecord;
             $final_results["action"] = 'insert';
             $final_results["school_unit_id"] = $unit->getSchoolUnitId();
             $results["all_inserts"][]=$final_results;
@@ -342,18 +339,18 @@ try{
             $final_results["school_unit_id"] = $school_unit_id;
 
             if ($action === 'exit'){
-                $final_results["status"] = SyncExceptionCodes::IgnoreSyncSchoolUnitsRecord;
-                $final_results["message"] = SyncExceptionMessages::IgnoreSyncSchoolUnitsRecord;
+                $final_results["status"] = ExceptionCodes::IgnoreSyncSchoolUnitsRecord;
+                $final_results["message"] = ExceptionMessages::IgnoreSyncSchoolUnitsRecord;
                 $final_results["action"] = 'ignore';
                 $ignore_updates++;
             }else if ($action === 'exit_garbage'){
-                $final_results["status"] = SyncExceptionCodes::GarbageRowSchoolUnitNameValue;
-                $final_results["message"] = SyncExceptionMessages::GarbageRowSchoolUnitNameValue;
+                $final_results["status"] = ExceptionCodes::GarbageSyncSchoolUnitsRecord;
+                $final_results["message"] = ExceptionMessages::GarbageSyncSchoolUnitsRecord;
                 $final_results["action"] = 'garbage_ignore';
                 $garbages++;
             }else {
-                $final_results["status"] = SyncExceptionCodes::FailureSyncSchoolUnitsRecord;
-                $final_results["message"] = SyncExceptionMessages::FailureSyncSchoolUnitsRecord;
+                $final_results["status"] = ExceptionCodes::FailureSyncSchoolUnitsRecord;
+                $final_results["message"] = ExceptionMessages::FailureSyncSchoolUnitsRecord;
                 $final_results["action"] = 'error';
                 $errors++;
             }
@@ -442,13 +439,13 @@ try{
       */ 
 //    if ( ($results["all_logs"]["all_errors"] == 0) && ($false_block == 0) && ($check_total_download == $results["total"]) && ($sum_all == $results["total"]) && ($results["logs"]["all_unexpected_errors"] == 0))  {
 //        echo "</br>Επιτυχία ενημέρωσης/εισαγωγής εγγραφών</br>" ;
-//        $results["transaction_code"] = SyncExceptionCodes::CommitSyncSchoolUnits;
-//        $results["transaction"] = SyncExceptionMessages::CommitSyncSchoolUnits;
+//        $results["transaction_code"] = '500';
+//        $results["transaction"] = 'Ο συγχρονισμός του λεξικού SchoolUnits και η ενημέρωση της βάσης είναι επιτυχής. '
 ////        $entityManager->getConnection()->commit(); 
 //    } else {
 //        echo "</br>Αποτυχία ενημέρωσης/εισαγωγής εγγραφών</br>" ;
-//        $results["transaction_code"] = SyncExceptionCodes::RollBackSyncSchoolUnits;
-//        $results["transaction"] = SyncExceptionMessages::RollBackSyncSchoolUnits;
+//        $results["transaction_code"] = '500';
+//        $results["transaction"] = 'Ο συγχρονισμός του λεξικού SchoolUnits και η ενημέρωση της βάσης απέτυχαν. ';
 //    } 
  
     
@@ -460,12 +457,12 @@ try{
     //echo JsonFunctions::toGreek(json_encode($print_results),TRUE);
     
     //$filepath = $timer->getTimeFilePath();
-    $filepath = realpath(basename(getenv("SCRIPT_NAME")));
+    $filepath = $Options["SyncLogFolder"];
     $filename = $timer->getTimeFileName('school_units');
 
     $cachePath = $filepath.$filename; 
     file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
-    $href = $Options["SyncFolder"].$filename;
+    $href = $Options["WebSyncFolder"].$filename;
   
     echo $timer->printFullStats();
     echo "Επεστράφησαν συνολικά " . $results["total"] . " στοιχεία από το mmsch \n" ;

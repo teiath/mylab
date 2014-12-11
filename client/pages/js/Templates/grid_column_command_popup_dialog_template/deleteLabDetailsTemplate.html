@@ -1,0 +1,38 @@
+<!-- delete lab equipment template -->
+
+<script id="delete_lab_details_template" type="text/x-kendo-template">
+        
+    <div class="k-edit-form-container">
+    
+        <div id="dld" class="form-horizontal col-md-11">
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <span>
+                        #if(idField === "equipment_type_id"){#
+                            Είστε βέβαιοι ότι επιθυμείτε να διαγράψετε τον εξοπλισμό <b>#:equipment_type_name#</b>
+                            από τη Διάταξη Η/Υ <b>#:lab_name#</b>;
+                        #}if(idField === "aquisition_source_id"){#
+                            Είστε βέβαιοι ότι επιθυμείτε να διαγράψετε την πηγή χρηματοδότησης <b>#:aquisition_source#
+                            (#:aquisition_year#)</b> από τη Διάταξη Η/Υ <b>#:lab_name#</b>;
+                        #}if(idField === "lab_relation_id"){#
+                            Είστε βέβαιοι ότι επιθυμείτε να διαγράψετε την συσχέτιση <b>#:relation_type_name#</b>
+                            με τη Σχολική Μονάδα <b>#:school_unit_name#</b> από τη Διάταξη Η/Υ <b>#:lab_name#</b>;
+                        #}#
+                    </span>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="k-edit-buttons k-state-default">
+            <button class="k-button k-button-icontext k-grid-delete">
+                <span class="k-icon k-update"></span> Διαγραφή
+            </button>
+            <button class="k-button k-button-icontext k-grid-cancel">
+                <span class="k-icon k-cancel"></span> Ακύρωση
+            </button>
+        </div>         
+        
+    </div>
+</script>

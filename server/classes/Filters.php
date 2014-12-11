@@ -83,8 +83,10 @@ class Filters {
       
         $sql = "SELECT lab_workers.lab_id
                 FROM lab_workers
-                LEFT JOIN mylab_workers ON mylab_workers.worker_id = lab_workers.worker_id 
-                WHERE  lab_workers.worker_position_id = 2
+                LEFT JOIN mylab_workers ON mylab_workers.worker_id = lab_workers.worker_id
+                LEFT JOIN labs ON labs.lab_id = lab_workers.lab_id
+                WHERE labs.submitted = 1  
+                AND lab_workers.worker_position_id = 2
                 AND lab_workers.worker_status = 1
                 AND mylab_workers.registry_no='".$registry_no."'";
         $stmt = $db->query( $sql );
@@ -115,7 +117,8 @@ class Filters {
                 LEFT JOIN labs ON school_units.school_unit_id = labs.school_unit_id
                 LEFT JOIN lab_workers ON labs.lab_id = lab_workers.lab_id 
                 LEFT JOIN mylab_workers ON lab_workers.worker_id = mylab_workers.worker_id 
-                WHERE  lab_workers.worker_position_id = 2
+                WHERE labs.submitted = 1 
+                AND lab_workers.worker_position_id = 2
                 AND lab_workers.worker_status = 1
                 AND mylab_workers.registry_no='".$registry_no."'";
         $stmt = $db->query( $sql );
@@ -146,7 +149,8 @@ class Filters {
                 FROM labs
                 LEFT JOIN school_units ON school_units.school_unit_id = labs.school_unit_id
                 LEFT JOIN edu_admins ON edu_admins.edu_admin_id = school_units.edu_admin_id
-                WHERE edu_admins.edu_admin_code='".$edu_admin_code."'";
+                WHERE labs.submitted = 1 
+                AND edu_admins.edu_admin_code='".$edu_admin_code."'";
         $stmt = $db->query( $sql );
         $lab_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
@@ -171,8 +175,10 @@ class Filters {
       
         $sql = "SELECT school_units.school_unit_id
                 FROM school_units
+                LEFT JOIN labs ON labs.school_unit_id = school_units.school_unit_id
                 LEFT JOIN edu_admins ON edu_admins.edu_admin_id = school_units.edu_admin_id
-                WHERE edu_admins.edu_admin_code='".$edu_admin_code."'";
+                WHERE labs.submitted = 1 
+                AND edu_admins.edu_admin_code='".$edu_admin_code."'";
         $stmt = $db->query( $sql );
         $school_unit_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
@@ -185,9 +191,9 @@ class Filters {
     public static function AllLabTypes(){
          global $db;
         
-        $sql = "SELECT lab_type_id,name FROM lab_types";
-        $stmt = $db->query( $sql );
-        $lab_types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sqlType = "SELECT lab_type_id,name FROM lab_types ORDER BY lab_type_id ASC";
+        $stmtType = $db->query( $sqlType );
+        $lab_types = $stmtType->fetchAll(PDO::FETCH_ASSOC);
         
         foreach ($lab_types as $lab_type) {
             $lab_type_id=$lab_type['lab_type_id'];
@@ -202,9 +208,9 @@ class Filters {
      public static function AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions){
         global $db;
         
-        $sql = "SELECT lab_type_id,name FROM lab_types";
-        $stmt = $db->query( $sql );
-        $lab_types = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sqlType = "SELECT lab_type_id,name FROM lab_types ORDER BY lab_type_id ASC";
+        $stmtType = $db->query( $sqlType );
+        $lab_types = $stmtType->fetchAll(PDO::FETCH_ASSOC);
         
         foreach ($lab_types as $lab_type) {
             $lab_type_id=$lab_type['lab_type_id'];
@@ -225,7 +231,7 @@ class Filters {
 
         $stmt = $db->query( $sql );
         $lab_types_per_schools = $stmt->fetch(PDO::FETCH_ASSOC);
-  
+ 
         $all_labs_counts=array();                            
 
         $i=1;
@@ -237,24 +243,25 @@ class Filters {
         return $all_labs_counts;
     }
    
-    public static function LabsCounter($sqlFrom,$sqlWhere){
+    public static function LabsCounter($sqlFrom,$sqlWhere,$sqlPermissions){
         global $db;
         
-        $sql = "SELECT lab_type_id,name FROM lab_types";
-        $stmt = $db->query( $sql );
-        $lab_types = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+        $sqlType = "SELECT lab_type_id,name FROM lab_types ORDER BY lab_type_id ASC";
+        $stmtType = $db->query( $sqlType );
+        $lab_types = $stmtType->fetchAll(PDO::FETCH_ASSOC);
+
             foreach ($lab_types as $lab_type) {
                 $lab_type_id=$lab_type['lab_type_id'];
                 $sql_count_if[] =' COUNT(if(tb1.lab_type_id = '.$lab_type_id.', 1, null)) AS count_lab_type_'.$lab_type_id;
             }
                 $sql_count_if = implode(",", $sql_count_if);   
-            
+                    
         $sql='SELECT '
        . $sql_count_if . ' ,tb1.school_unit_id '
        .' FROM ( SELECT DISTINCT labs.lab_id, labs.lab_type_id, labs.school_unit_id  '
        . $sqlFrom
        . $sqlWhere
+       . $sqlPermissions
        .' ) AS tb1 GROUP BY tb1.school_unit_id';
 
             $stmt = $db->query( $sql );
@@ -387,6 +394,8 @@ class Filters {
                         $paramFilters[] = "$table_name.$table_column_name = ". $db->quote( Validator::toValue($values) );
                 } elseif (in_array('numeric', $validators, true) && Validator::IsNumeric($values)) { 
                         $paramFilters[] = "$table_name.$table_column_name = ". $db->quote( Validator::ToNumeric($values) );
+                } elseif (in_array('boolean', $validators, true) && Validator::IsBoolean($values)) { 
+                        $paramFilters[] = "$table_name.$table_column_name = ". $db->quote( Validator::ToBoolean($values) );
                 } else {
                     throw new Exception($ex_message . " : " . $values, $ex_code);
                 }

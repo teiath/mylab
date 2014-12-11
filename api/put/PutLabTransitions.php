@@ -1,11 +1,18 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package POST
+ * 
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
 /**
  * 
- * @global type $db
  * @global type $app
+ * @global type $entityManager
  * @param type $lab_transition_id
  * @param type $transition_justification
  * @param type $transition_source
@@ -14,158 +21,88 @@ header("Content-Type: text/html; charset=utf-8");
  */
 
 function PutLabTransitions($lab_transition_id, $transition_justification, $transition_source) {
-    global $db;
-    global $app;
-    
-    $result = array();  
-    $result["data"] = array();
-    
-    $controller = $app->environment();
-    $controller = substr($controller["PATH_INFO"], 1);
-    
-    $result["function"] = $controller;
+
+    global $app,$entityManager;
+
+    $result = array();
+
+    $result["controller"] = __FUNCTION__;
+    $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $input = array(
-    "lab_transition_id" => $lab_transition_id,
-    "transition_justification" => $transition_justification,
-    "transition_source" => $transition_source
-    );
-    
-    $result["input"]=$input;
-    
+    $result["parameters"] = json_decode($app->request()->getBody());
+    $params = loadParameters();
+
     try {
-
-        //$lab_transition_id==============================================================      
-        if (Validator::isMissing('lab_transition_id'))
-            throw new Exception(ExceptionMessages::MissingLabTransitionIdParam." : ".$lab_transition_id, ExceptionCodes::MissingLabRelationIdParam);
-        else if (Validator::IsNull($lab_transition_id) )
-            throw new Exception(ExceptionMessages::MissingLabTransitionIdParam." : ".$lab_transition_id, ExceptionCodes::MissingLabTransitionIdParam);
-        else if (!Validator::IsNumeric($lab_transition_id) || Validator::IsNegative($lab_transition_id))
-	    throw new Exception(ExceptionMessages::InvalidLabTransitionIdValue." : ".$lab_transition_id, ExceptionCodes::InvalidLabTransitionIdValue);    
-        else if (Validator::IsID($lab_transition_id)) {
-            $filter[] = new DFC(LabTransitionsExt::FIELD_LAB_TRANSITION_ID, Validator::ToID($lab_transition_id), DFC::EXACT);     
-            
-            $oLabTransitions = new LabTransitionsExt($db);
-            $arrayLabTransitions = $oLabTransitions->findByFilter($db, $filter, true);
-            
-            if ( count($arrayLabTransitions) === 1 ) { 
-                $fLabTransitionId = $arrayLabTransitions[0]->getLabTransitionId();
-            } else if ( count( $arrayLabTransitions ) > 1 ) { 
-                throw new Exception(ExceptionMessages::DuplicateLabTransitionIdValue." : ".$lab_transition_id, ExceptionCodes::DuplicateLabRelationIdValue);
-            } else {
-                throw new Exception(ExceptionMessages::NotFoundLabTransitionIDValue." : ".$lab_transition_id, ExceptionCodes::NotFoundLabTransitionIDValue);
-            }
+ 
+//$lab_transition_id============================================================    
+        $fLabTransitionId = CRUDUtils::checkIDParam('lab_transition_id', $params, $lab_transition_id, 'LabTransitionID');
        
-        }
-        else
-            throw new Exception(ExceptionMessages::UnknownLabTransitionIdValue." : ".$lab_transition_id, ExceptionCodes::UnknownLabTransitionIdValue);             
-      
-       //$transition_justification=============================================================           
-        if (Validator::IsExists('transition_justification')) {
-           
-            if (Validator::isMissing('transition_justification'))           
-                throw new Exception(ExceptionMessages::MissingTransitionJustificationParam." : ".$transition_justification, ExceptionCodes::MissingTransitionJustificationParam);
-            else if (Validator::IsNull($transition_justification) ) 
-                throw new Exception(ExceptionMessages::MissingTransitionJustificationValue." : ".$transition_justification, ExceptionCodes::MissingTransitionJustificationValue);
-            else if (Validator::IsValue($transition_justification)) 
-                $fTransitionJustification = Validator::ToValue($transition_justification) ;
-            else 
-                throw new Exception(ExceptionMessages::InvalidTransitionJustificationValue." : ".$transition_justification, ExceptionCodes::InvalidTransitionJustificationValue);        
-  
-        } else if (Validator::IsNull($arrayLabTransitions[0]->getTransitionJustification())){
-            throw new Exception(ExceptionMessages::MissingTransitionJustificationValue." : ".$transition_justification, ExceptionCodes::MissingTransitionJustificationValue);    
-        } else {
-            $result["db_Transition_Justification"]= $fTransitionJustification= $arrayLabTransitions[0]->getTransitionJustification();
-        } 
-        
-        
-        //$transition_source=============================================================   
-        if (Validator::IsExists('transition_source')) {
-            
-         if (Validator::isMissing('transition_source'))
-            throw new Exception(ExceptionMessages::MissingTransitionSourceParam." : ".$transition_source, ExceptionCodes::MissingTransitionSourceParam);      
-         else if ( Validator::IsTransitionSource($transition_source) )
-                $fTransitionSource = Validator::ToTransitionSource($transition_source);          
-         else
-             throw new Exception(ExceptionMessages::InvalidTransitionSourceValue." : ".$transition_source, ExceptionCodes::InvalidTransitionSourceValue);
-      
-        } else if (Validator::IsNull($arrayLabTransitions[0]->getTransitionSource())) {
-            throw new Exception(ExceptionMessages::MissingTransitionSourceParam." : ".$transition_source, ExceptionCodes::MissingTransitionSourceParam);           
-        } else {
-            $result["db_Transition_Source"]= $fTransitionSource = $arrayLabTransitions[0]->getTransitionSource();
-        } 
-        
-              
-        try{
-            
-        $db->beginTransaction();    
-        
-        //insert to lab_workers table =========================================================
-        if ($fLabTransitionId || $fTransitionSource){
-
-                
-//                $oLabTransitions->setLabTransitionId( $fLabTransitionId );
-//                $oLabTransitions->setTransitionJustification( $fTransitionJustification );
-//                $oLabTransitions->setTransitionSource( $fTransitionSource );
-
-                $filter = array();
-                $filter  = array(   new DFC(LabTransitionsExt::FIELD_LAB_TRANSITION_ID, $fLabTransitionId, DFC::EXACT),
-                                    new DFC(LabTransitionsExt::FIELD_TRANSITION_JUSTIFICATION, $fTransitionJustification, DFC::EXACT),
-                                    new DFC(LabTransitionsExt::FIELD_TRANSITION_SOURCE, $fTransitionSource, DFC::EXACT)
-                        );   
-                
-                $oLabTransitions = new LabTransitionsExt($db);
-                $checkLabTransitions = $oLabTransitions->findByFilter($db, $filter, true);
-                $exist=count($checkLabTransitions);
-                $result["transitions_exists"]=$exist;
-                    
-                if (!Validator::IsEmptyArray($checkLabTransitions) && !Validator::IsArray($checkLabTransitions)) { 
-                    throw new Exception(ExceptionMessages::DuplicateLabTransitionValue." found  = ". $exist." lab_transition_id : ".$fLabTransitionId." transition_justification : ".$fTransitionJustification." transition_source : ".$fTransitionSource, ExceptionCodes::DuplicateLabTransitionValue);
-                } else {
-
-                    foreach($arrayLabTransitions as $updateLabTransition)
-                    {
-
-                        if ((!$updateLabTransition->existsInDatabase($db)) || (count($arrayLabTransitions) != 1 ) ){
-                            throw new Exception(ExceptionMessages::ErrorUpdateLabTransitionStatus, ExceptionCodes::ErrorUpdateLabTransitionStatus);
-                        } else { 
-                            $updateLabTransition->setLabTransitionId( $fLabTransitionId );
-                            $updateLabTransition->setTransitionJustification( $fTransitionJustification );
-                            $updateLabTransition->setTransitionSource( $fTransitionSource );
-                            $updateLabTransition->updateToDatabase($db);
-                        }
-
-
-                    }
-                }      
-        }
-       
-        $db->commit();  
-        $result["status"] = 200;
-        $result["message"] = "[".$result["method"]."][".$result["function"]."]:"."success";
-        
-        
-         }
-            catch (PDOException $e)
-        {
-            $db->rollBack();
-            $result["status_pdo_internal"] = $e->getCode();
-            $result["message_pdo_internal"] = "[".$result["method"]."]: ".$e->getMessage().", SQL:".$e->getTraceAsString();
-
-        }
-            catch (Exception $e) 
-        {
-            $db->rollBack();
-            $result["status_internal"] = $e->getCode();
-            $result["message_internal"] = "[".$result["method"]."]: ".$e->getMessage();
-        } 
+//init entity for update row====================================================
+        $LabTransition = CRUDUtils::findIDParam($fLabTransitionId, 'LabTransitions', 'LabTransition');
     
+//$transition_justification=====================================================   
+        if (Validator::IsExists('transition_justification')){
+   
+            if (Validator::Missing('transition_justification', $params))
+                throw new Exception(ExceptionMessages::MissingLabTransitionJustificationParam." : ".$transition_justification, ExceptionCodes::MissingLabTransitionJustificationParam);          
+            else if (Validator::IsNull($transition_justification))
+                throw new Exception(ExceptionMessages::MissingLabTransitionDateValue." : ".$transition_justification, ExceptionCodes::MissingLabTransitionDateValue);                        
+            else if (Validator::IsValue($transition_justification))
+                $LabTransition->setTransitionJustification(Validator::ToValue($transition_justification));
+            else
+                throw new Exception(ExceptionMessages::InvalidLabTransitionJustificationType." : ".$transition_justification, ExceptionCodes::InvalidLabTransitionJustificationType);
+             
+        } else if ( Validator::IsNull($LabTransition->getTransitionJustification()) ){
+            throw new Exception(ExceptionMessages::MissingLabTransitionJustificationValue." : ".$transition_justification, ExceptionCodes::MissingLabTransitionJustificationValue);
+        } 
         
-    } catch (Exception $ex){ 
-        $result["status_external"] = $ex->getCode();
-        $result["message_external"] = "[".$result["method"]."][".$result["function"]."]:".$ex->getMessage();
-    } 
+//$transition_source============================================================   
+        if (Validator::IsExists('transition_source')){
+   
+            if (Validator::Missing('transition_source', $params))
+                throw new Exception(ExceptionMessages::MissingLabTransitionSourceParam." : ".$transition_source, ExceptionCodes::MissingLabTransitionSourceParam);          
+            else if (Validator::IsNull($transition_source))
+                throw new Exception(ExceptionMessages::MissingLabTransitionSourceValue." : ".$transition_source, ExceptionCodes::MissingLabTransitionSourceValue);                        
+            else if (Validator::IsArray($transition_source))
+                throw new Exception(ExceptionMessages::InvalidLabTransitionSourceArray." : ".$transition_source, ExceptionCodes::InvalidLabTransitionSourceArray);                        
+            else if (Validator::IsTransitionSource($transition_source))
+                $LabTransition->setTransitionSource(Validator::ToTransitionSource($transition_source));
+            else
+                throw new Exception(ExceptionMessages::InvalidLabTransitionSourceType." : ".$transition_source, ExceptionCodes::InvalidLabTransitionSourceType);
+            
+        } else if ( Validator::IsNull($LabTransition->getTransitionSource()) ){
+            throw new Exception(ExceptionMessages::MissingLabTransitionSourceValue." : ".$transition_source, ExceptionCodes::MissingLabTransitionSourceValue);
+        } 
+        
+    //user permisions===========================================================
+        $permissions = UserRoles::getUserPermissions($app->request->user);
+                
+        if (!in_array($LabTransition->getLab()->getLabId(), $permissions['permit_labs'])) {
+            throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
+        }; 
+        
+        //check if lab has submitted value = 0 and restrict update
+        $Labs = $entityManager->find('Labs', Validator::ToID($LabTransition->getLab()->getLabId()));
+        if ($Labs->getSubmitted() == false){
+            throw new Exception(ExceptionMessages::InvalidLabTransitionDemoValue." : ".$LabTransition->getLab()->getLabId() ,ExceptionCodes::InvalidLabTransitionDemoValue);
+        }
+        
+//controls======================================================================   
+       
+//update to db================================================================== 
+        $entityManager->persist($LabTransition);
+        $entityManager->flush($LabTransition);
+
+        $result["lab_transition_id"] = $LabTransition->getLabTransitionId();  
+           
+//result_messages===============================================================      
+        $result["status"] = ExceptionCodes::NoErrors;
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
+    } catch (Exception $e) {
+        $result["status"] = $e->getCode();
+        $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
+    }                
+        
     return $result;
 }
-
 ?>

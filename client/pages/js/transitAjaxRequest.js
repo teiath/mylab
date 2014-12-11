@@ -30,6 +30,17 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
 
                 }else if(data.status == 500){
                     
+                        //console.log("transition_dialog: ", transition_dialog);
+                        var thatButton = transition_dialog.element.find("div.k-edit-buttons>button.k-grid-transit");
+                        
+                        if(transition_dialog.options.title === "Αναστολή Διάταξης Η/Υ" ){
+                            thatButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Αναστολή');
+                        }else if(transition_dialog.options.title === "Ενεργοποίηση Διάταξης Η/Υ" ){
+                            thatButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Ενεργοποίηση');
+                        }else if (transition_dialog.options.title === "Κατάργηση Διάταξης Η/Υ" ){
+                            thatButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Κατάργηση');
+                        }
+                        
                         notification.show({
                             title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
                             message: message

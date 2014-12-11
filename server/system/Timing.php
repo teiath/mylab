@@ -106,37 +106,34 @@
 			echo $this->break . $this->break;
 		}
  
-		// Format time to date and time
+                /**
+                 *  Format time to date and time
+                 * 
+                 * @return datetime 
+                 */
 		private function getDateTime($time) {
 			return date("Y-m-d H:i:s", $time);
 		}
  
-		// Get execution time by timestamp
+                /**
+                 *  Get execution time by timestamp
+                 *
+                 */
 		private function getExecutionTime($time) {
 			return $time - $this->start_time;
 		}
                 
+                /**
+                 *  Get filename with timestamp
+                 */                
                 public function getTimeFileName($sync_table_name) {
-                    global $Options; 
                     if (!$sync_table_name) {
 				return null;
 			}
-                    //$path = $_SERVER['DOCUMENT_ROOT'].'/mylab_ver4/sync_logs/';
+                        
                     $filename = date('mdY_hias').'_sync_'.$sync_table_name.'.json';
-                    //$filename = $filename;
                     
-                    return $Options["LogFolder"].$filename;
-                }
-                
-                public function getTimeFilePath() {
-                    global $Options; 
-                    if ($_SERVER['DOCUMENT_ROOT'] == "")
-                        $path = $_SERVER['DOCUMENT_ROOT'] = dirname(__FILE__).$Options["SyncLogPath"];
-                       // echo $docroot = dirname(getcwd() . '/../').'\mylab_ver4\sync_logs/';
-                    else
-                        $path = $_SERVER['DOCUMENT_ROOT'].$Options["SyncLogPath"];
-                   
-                    return $path;
+                    return $filename;
                 }
                            
 	}

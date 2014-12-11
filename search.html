@@ -1,6 +1,7 @@
 <script>
 $(document).ready(function() {
 
+    // this tooltip could not be binded through kendo 'data-bind' attr, so it was implemented here
     $('body').find("#sl_lab_worker").prev().focusin(function() {
 
         var tooltip = $('body').find("#sl_lab_worker").prev().kendoTooltip({
@@ -20,9 +21,8 @@ $(document).ready(function() {
     });
 
 
-    $("form input").on("keypress", function(e){
+    $("form#search-form input").on("keypress", function(e){
         //if current key is Enter
-        console.log(e);
         if (e.keyCode == 13) {
             //prevent default behavior
             e.preventDefault();
@@ -37,13 +37,13 @@ $(document).ready(function() {
     <div class="row">
         <div class="col-md-12">
             <form id="search-form">
-                <ul id="panelbar" data-role="panelbar" data-bind="events: {collapse : panelBarCollapse}, visible: isVisible">
+                <ul id="panelbar" data-role="panelbar" data-bind="events: {collapse : panelBarUnselect}, visible: isVisible">
                     <li>
-                        <center><b>Αναζήτηση</b></center>
+                        <center><b>Φίλτρα</b></center>
                         <div class="row" style="padding:20px;">
                             <div class="col-md-2">
                                 <div  class="col-md-11">
-                                    <button class="k-button" data-bind="click: resetForm">καθαρισμός</button>
+                                    <button class="k-button" data-bind="click: resetForm"> <i class="fa fa-eraser"></i> Καθαρισμός</button>
                                 </div>
                                 <div  class="col-md-11" style="margin:15px 0px;">
                                     <i>...με βάση τις διατάξεις Η/Υ</i>
@@ -55,21 +55,21 @@ $(document).ready(function() {
                                     <label for="lab_id">Κωδικός Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterChanged, focus: labIDInfoTooltip }" />
+                                    <input id="sl_lab_id" name="lab_id" class="k-textbox" data-bind="value: lab_id, events: {input : filterGrids, focus: labIDInfoTooltip }" />
                                 </div>
                                 
                                 <div class="col-md-11">
                                     <label for="lab_name">Ονομασία Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_lab_name" name="lab_name" class="k-textbox" data-bind="value: lab_name, events: {input : filterChanged}"/> 
+                                    <input id="sl_lab_name" name="lab_name" class="k-textbox" data-bind="value: lab_name, events: {input : filterGrids}"/> 
                                 </div>
                                 
                                 <div class="col-md-11">
                                     <label for="lab_special_name">Ειδική Ονομασία Διάταξης Η/Υ</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_lab_special_name" name="lab_special_name" class="k-textbox" data-bind="value: lab_special_name, events: {input : filterChanged }"/> 
+                                    <input id="sl_lab_special_name" name="lab_special_name" class="k-textbox" data-bind="value: lab_special_name, events: {input : filterGrids }"/> 
                                 </div>
                                 
                                 <div class="col-md-11">
@@ -80,7 +80,7 @@ $(document).ready(function() {
                                            name="creation_date"
                                            data-role="datepicker"
                                            data-format="yyyy-MM-dd"
-                                           data-bind="value: creation_date, events: {change : filterChanged }"/>
+                                           data-bind="value: creation_date, events: {change : filterGrids }"/>
                                 </div>                                
                                 
                                 <div class="col-md-11">
@@ -93,7 +93,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="name"
-                                            data-bind="source: lab_types_ds, value: lab_type, events: {change : filterChanged }"
+                                            data-bind="source: lab_types_ds, value: lab_type, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -113,7 +113,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="aquisition_source_id"
-                                            data-bind="source: aquisition_sources_ds, value: aquisition_source, events: {change : filterChanged }"
+                                            data-bind="source: aquisition_sources_ds, value: aquisition_source, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -131,7 +131,7 @@ $(document).ready(function() {
                                             data-text-field="fullname"
                                             data-value-field="registry_no"
                                             data-min-length="3"
-                                            data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterChanged}"
+                                            data-bind="source: lab_workers_ds, value: lab_worker, events: {change : filterGrids}"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -148,7 +148,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="rating_id"
-                                            data-bind="source: lab_rating_ds, value: operational_rating, events: {change : filterChanged }"
+                                            data-bind="source: lab_rating_ds, value: operational_rating, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -165,7 +165,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="rating_id"
-                                            data-bind="source: lab_rating_ds, value: technological_rating, events: {change : filterChanged }"
+                                            data-bind="source: lab_rating_ds, value: technological_rating, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -183,7 +183,7 @@ $(document).ready(function() {
                                            data-text-field="name"
                                            data-value-field="state_id"
                                            data-filter="contains"
-                                           data-bind="source: lab_states_ds, value: lab_state, events: {change : filterChanged }"
+                                           data-bind="source: lab_states_ds, value: lab_state, events: {change : filterGrids }"
                                            data-placeholder="επιλέξτε από τη λίστα"
                                            multiple="multiple">
                                     </select>
@@ -203,14 +203,14 @@ $(document).ready(function() {
                                     <label for="school_unit_id">Κωδικός Σχολικής Μονάδας</label>
                                 </div>
                                 <div class="col-md-11">
-                                    <input id="sl_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterChanged, focus: schoolUnitIDInfoTooltip }"/>
+                                    <input id="sl_school_unit_id" name="school_unit_id" class="k-textbox" data-bind="value: school_unit_id, events: {input : filterGrids, focus: schoolUnitIDInfoTooltip }"/>
                                  </div>
                                 
                                 <div class="col-md-11">
                                     <label for="name">Ονομασία Σχολικής Μονάδας</label>
                                 </div>                                
                                 <div class="col-md-11">
-                                    <input id="sl_school_unit_name" name="school_unit_name" class="k-textbox" data-bind="value: school_unit_name, events: {input : filterChanged }"/>
+                                    <input id="sl_school_unit_name" name="school_unit_name" class="k-textbox" data-bind="value: school_unit_name, events: {input : filterGrids }"/>
                                 </div>
                                 
                                 <div class="col-md-11">
@@ -224,7 +224,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="education_level_id"
-                                            data-bind="source: education_levels_ds, value: education_level, events: {change : filterChanged }"
+                                            data-bind="source: education_levels_ds, value: education_level, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -242,7 +242,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="school_unit_type_id"
-                                            data-bind="source: school_unit_types_ds, value: school_unit_type, events: {change : filterChanged }"
+                                            data-bind="source: school_unit_types_ds, value: school_unit_type, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">  
@@ -261,7 +261,7 @@ $(document).ready(function() {
                                             data-text-field="name"
                                             data-value-field="state_id"
                                             data-filter="contains"
-                                            data-bind="source: school_unit_states_ds, value: school_unit_state, events: {change : filterChanged }"
+                                            data-bind="source: school_unit_states_ds, value: school_unit_state, events: {change : filterGrids }"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
                                     </select>
@@ -281,7 +281,7 @@ $(document).ready(function() {
                                             data-value-primitive="true"
                                             data-text-field="name"
                                             data-value-field="region_edu_admin_id"
-                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterChanged }"
+                                            data-bind="source: region_edu_admins_ds, value: region_edu_admin, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">                    
@@ -298,7 +298,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="edu_admin_id"
-                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterChanged }"
+                                            data-bind="source: edu_admins_ds, value: edu_admin, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -315,7 +315,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="transfer_area_id"
-                                            data-bind="source: transfer_areas_ds, value: transfer_area, events: {change : filterChanged }"
+                                            data-bind="source: transfer_areas_ds, value: transfer_area, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -332,7 +332,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="prefecture_id"
-                                            data-bind="source: prefectures_ds, value: prefecture, events: {change : filterChanged }"
+                                            data-bind="source: prefectures_ds, value: prefecture, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -349,7 +349,7 @@ $(document).ready(function() {
                                             data-auto-bind="false"
                                             data-text-field="name"
                                             data-value-field="municipality_id"
-                                            data-bind="source: municipalities_ds, value: municipality, events: {change : filterChanged }"
+                                            data-bind="source: municipalities_ds, value: municipality, events: {change : filterGrids }"
                                             data-filter="contains"
                                             data-placeholder="επιλέξτε από τη λίστα"
                                             multiple="multiple">
@@ -368,5 +368,13 @@ $(document).ready(function() {
 
 <!--xls_download_error_dialog-->
 <div id="xls_download_error_dialog" style="display:none; color: #5E5E5E">
-    <div style="padding:13px;">Υπήρξε κάποιο σφάλμα κατα τη διάρκεια της έκδοσης του .xls αρχείου, παρακαλώ ξαναπροσπαθείστε.</div>                                                
+    <div class="col-md-12" style="padding:0px;">
+        <div class="col-md-1" style="margin-top: 14px;">
+            <i class="fa fa-exclamation-triangle fa-2x"></i>
+        </div>
+        <div class="col-md-9" style="padding-top:8px; padding-bottom:8px;"> 
+            Υπήρξε κάποιο σφάλμα κατα τη διάρκεια της έκδοσης του .xls αρχείου. Παρακαλώ ξαναπροσπαθείστε. 
+        </div>
+    </div>
+    <!--<div style="padding:13px;">Υπήρξε κάποιο σφάλμα κατα τη διάρκεια της έκδοσης του .xls αρχείου. Παρακαλώ ξαναπροσπαθείστε.</div>  -->                                              
 </div>

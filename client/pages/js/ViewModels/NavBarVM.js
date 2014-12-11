@@ -47,52 +47,53 @@ var NavBarVM = kendo.observable({
         });
     },
     
-    exportUserGuide: function(e){
-        e.preventDefault();
-        var url;
-    
-        if(authorized_user === "ΚΕΠΛΗΝΕΤ" ){
-            url = "http://myfiles.sch.gr/server/get/d6231bc417d1641948eb66244a0f6c691"; //config.url + "client/user_guides/keplinet.pdf";
-        }else if(authorized_user === "ΣΕΠΕΗΥ" || authorized_user === "ΕΤΠ"){
-            url = "http://myfiles.sch.gr/server/get/dcaae3ba61d5845fcac9aedeb983caedb"; //config.url + "client/user_guides/sepehy.pdf";
-        }else if(authorized_user === "ΠΣΔ" ){
-            //url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/psd.pdf";
-        }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ" || authorized_user === "ΤΟΜΕΑΡΧΗΣ" ){
-            url = "http://myfiles.sch.gr/server/get/d2db1b8b798fc4413b6f3b40e79d036eb"; //config.url + "client/user_guides/dieuthintis.pdf";
-        }else if(authorized_user === "ΥΠΕΠΘ" ){
-            //url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/upepth.pdf";
-        }
-        
-        window.open(url);
-    },
+/*    exportUserGuide: function(e){
+//        e.preventDefault();
+//        var url;
+//    
+//        if(authorized_user === "ΚΕΠΛΗΝΕΤ" ){
+//            url = "http://myfiles.sch.gr/server/get/d6231bc417d1641948eb66244a0f6c691"; //config.url + "client/user_guides/keplinet.pdf";
+//        }else if(authorized_user === "ΣΕΠΕΗΥ" || authorized_user === "ΕΤΠ"){
+//            url = "http://myfiles.sch.gr/server/get/dcaae3ba61d5845fcac9aedeb983caedb"; //config.url + "client/user_guides/sepehy.pdf";
+//        }else if(authorized_user === "ΠΣΔ" ){
+//            //url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/psd.pdf";
+//        }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ" || authorized_user === "ΤΟΜΕΑΡΧΗΣ" ){
+//            url = "http://myfiles.sch.gr/server/get/d2db1b8b798fc4413b6f3b40e79d036eb"; //config.url + "client/user_guides/dieuthintis.pdf";
+//        }else if(authorized_user === "ΥΠΕΠΘ" ){
+//            //url = "http://myfiles.sch.gr/server/get/d7701f86e3fcc44238c18f2b6b08cad4b"; //config.url + "client/user_guides/upepth.pdf";
+//        }
+//        
+//        window.open(url);
+//    },
+*/
 
     exportUserGuideSepehy: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/dcaae3ba61d5845fcac9aedeb983caedb";
+        var url = "http://myfiles.sch.gr/server/get/d8ea789d6de6441e087dd021b49dda1f3";
         window.open(url);
     },
 
     exportUserGuideEtp: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/dcaae3ba61d5845fcac9aedeb983caedb"; //ίδιο link με ΣΕΠΕΗΥ
+        var url = "http://myfiles.sch.gr/server/get/d8ea789d6de6441e087dd021b49dda1f3"; //ίδιο link με ΣΕΠΕΗΥ
         window.open(url);
     },
 
     exportUserGuideKeplinet: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d6231bc417d1641948eb66244a0f6c691";
+        var url = "http://myfiles.sch.gr/server/get/d801584d36aa54dd198f156d0e5ace82a";
         window.open(url);
     },
 
     exportUserGuideDieuthyntis: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d2db1b8b798fc4413b6f3b40e79d036eb";
+        var url = "http://myfiles.sch.gr/server/get/d4b51e85c0ffc4115bdcf16ee7853a782";
         window.open(url);
     },
 
     exportUserGuideTomearxis: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d2db1b8b798fc4413b6f3b40e79d036eb"; //ίδιο link με ΔΙΕΥΘΥΝΤΗ
+        var url = "http://myfiles.sch.gr/server/get/d4b51e85c0ffc4115bdcf16ee7853a782"; //ίδιο link με ΔΙΕΥΘΥΝΤΗ
         window.open(url);
     },
 

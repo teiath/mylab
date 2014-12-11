@@ -17,7 +17,7 @@ class Sources
      *
      * @ORM\Column(name="source_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $sourceId;
 

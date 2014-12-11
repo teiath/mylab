@@ -1,20 +1,23 @@
 <?php
 /**
  *
- * @version 2.0
+ * @version 1.0.1
  * @author  ΤΕΙ Αθήνας
  * @package GET
+ * 
+ * 
  */
  
 header("Content-Type: text/html; charset=utf-8");
 
 function StatLabs(
     $x_axis, $y_axis, $operational_rating, $technological_rating, 
-    $lab_type, $lab_state,
-    $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture, $education_level, $school_unit_type, $school_unit_state
+    $lab_type, $lab_state, $has_lab_worker,
+    $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture, $education_level, $school_unit_type, $school_unit_state,
+    $export
     )
 {
-    global $db;
+    global $db, $Options;
     
     $filter = array();
     $result = array();
@@ -25,7 +28,7 @@ function StatLabs(
     $params = loadParameters();
     
     $lab_axis = array ( "lab_type" => "lab_types",
-                        "lab_state" => "states"
+                        "lab_state" => "lab_states"
                     );
     
     $school_unit_axis = array(  "region_edu_admin"  => "region_edu_admins",
@@ -35,20 +38,28 @@ function StatLabs(
                                 "municipality"      => "municipalities",
                                 "education_level"   => "education_levels",      
                                 "school_unit_type"  => "school_unit_types",           
-                                "school_unit_state" => "states"
+                                "school_unit_state" => "school_unit_states"
                             );
         
     try
     {
 
+//statLabs function must used only for submitted labs 
+       $filter[] = 'labs.submitted=1';
+        
 //default_joins=================================================================
        $join_filter[] = ' JOIN school_units ON school_units.school_unit_id = labs.school_unit_id ';
+
        
-       
+//= check if user set same x,y axes=============================================    
+        if (Validator::ToValue($x_axis) == Validator::ToValue($y_axis)) {
+             throw new Exception(ExceptionMessages::DuplicateXYAxisParam, ExceptionCodes::DuplicateXYAxisParam);
+        }
+        
 //==============================================================================
 //= $x_axis
 //==============================================================================
-
+  
         if ( !Validator::Missing('x_axis', $params) ) {
                 
             if (Validator::isArray($x_axis))
@@ -59,11 +70,23 @@ function StatLabs(
                 if (array_key_exists(Validator::toValue($x_axis), $lab_axis)) {
                     $name_x_axis = $x_axis.'_name';
                     $field_x_axis = $lab_axis[Validator::toValue($x_axis)].'.name';
-                    $join_filter[] = ' JOIN ' . $lab_axis[Validator::toValue($x_axis)] . ' ON labs.' . $x_axis = ($x_axis != 'lab_state' ? $x_axis : 'state').'_id = ' . $lab_axis[Validator::toValue($x_axis)] . '.' . $x_axis = ($x_axis != 'lab_state' ? $x_axis : 'state') .'_id';
+                    
+                        if ($x_axis != 'lab_state'){
+                            $join_filter[] = ' JOIN '. $lab_axis[Validator::toValue($x_axis)] . ' ON labs.' . $x_axis . '_id = ' . $lab_axis[Validator::toValue($x_axis)] . '.' . $x_axis .'_id';                     
+                        }else{
+                            $join_filter[] = ' JOIN states '. $lab_axis[Validator::toValue($x_axis)] . ' ON labs.state_id = ' . $lab_axis[Validator::toValue($x_axis)] . '.state_id';
+                        }
+                    
                 } else if (array_key_exists(Validator::toValue($x_axis), $school_unit_axis)) {
                     $name_x_axis = $x_axis.'_name';
                     $field_x_axis = $school_unit_axis[Validator::toValue($x_axis)].'.name';
-                    $join_filter[] = ' JOIN ' . $school_unit_axis[Validator::toValue($x_axis)] . ' ON school_units.' . $x_axis = ($x_axis != 'school_unit_state' ? $x_axis : 'state').'_id = ' . $school_unit_axis[Validator::toValue($x_axis)] . '.' . $x_axis = ($x_axis != 'school_unit_state' ? $x_axis : 'state')  .'_id';
+                      
+                        if ($x_axis != 'school_unit_state'){
+                            $join_filter[] = ' JOIN '. $school_unit_axis[Validator::toValue($x_axis)] . ' ON school_units.' . $x_axis . '_id = ' . $school_unit_axis[Validator::toValue($x_axis)] . '.' . $x_axis .'_id';                     
+                        }else{
+                            $join_filter[] = ' JOIN states '. $school_unit_axis[Validator::toValue($x_axis)] . ' ON school_units.state_id = ' . $school_unit_axis[Validator::toValue($x_axis)] . '.state_id';
+                        }                  
+                    
                 } else {
                      throw new Exception(ExceptionMessages::InvalidXAxis." : ".$x_axis, ExceptionCodes::InvalidXAxis);                   
                 }
@@ -78,7 +101,7 @@ function StatLabs(
 //==============================================================================
 //= $y_axis
 //==============================================================================
-
+ 
         if ( !Validator::Missing('y_axis', $params) ) {
                 
             if (Validator::isArray($y_axis))
@@ -89,11 +112,23 @@ function StatLabs(
                 if (array_key_exists(Validator::toValue($y_axis), $lab_axis)) {
                     $name_y_axis = $y_axis.'_name';
                     $field_y_axis = $lab_axis[Validator::toValue($y_axis)].'.name';
-                    $join_filter[] = ' JOIN ' . $lab_axis[Validator::toValue($y_axis)] . ' ON labs.' . $y_axis = ($y_axis != 'lab_state' ? $y_axis : 'state').'_id = ' . $lab_axis[Validator::toValue($y_axis)] . '.' . $y_axis = ($y_axis != 'lab_state' ? $y_axis : 'state') .'_id';
+                    
+                    if ($y_axis != 'lab_state'){
+                        $join_filter[] = ' JOIN '. $lab_axis[Validator::toValue($y_axis)] . ' ON labs.' . $y_axis .'_id = ' . $lab_axis[Validator::toValue($y_axis)] . '.' . $y_axis .'_id';                 
+                    }else{
+                        $join_filter[] = ' JOIN states '. $lab_axis[Validator::toValue($y_axis)] . ' ON labs.state_id = ' . $lab_axis[Validator::toValue($y_axis)] . '.state_id';
+                    }
+                                     
                 } else if (array_key_exists(Validator::toValue($y_axis), $school_unit_axis)) {
                     $name_y_axis = $y_axis.'_name';
                     $field_y_axis = $school_unit_axis[Validator::toValue($y_axis)].'.name';
-                    $join_filter[] = ' JOIN ' . $school_unit_axis[Validator::toValue($y_axis)] . ' ON school_units.' . $y_axis = ($y_axis != 'school_unit_state' ? $y_axis : 'state').'_id = ' . $school_unit_axis[Validator::toValue($y_axis)] . '.' . $y_axis = ($y_axis != 'school_unit_state' ? $y_axis : 'state') .'_id';
+     
+                    if ($y_axis != 'school_unit_state'){
+                        $join_filter[] = ' JOIN '. $school_unit_axis[Validator::toValue($y_axis)] . ' ON school_units.' . $y_axis .'_id = ' . $school_unit_axis[Validator::toValue($y_axis)] . '.' . $y_axis .'_id';                   
+                    } else {
+                        $join_filter[] = ' JOIN states ' . $school_unit_axis[Validator::toValue($y_axis)] . ' ON school_units.state_id = ' . $school_unit_axis[Validator::toValue($y_axis)] . '.state_id';                 
+                    }
+                    
                 } else {
                      throw new Exception(ExceptionMessages::InvalidYAxis." : ".$y_axis, ExceptionCodes::InvalidYAxis);                   
                 }
@@ -104,13 +139,7 @@ function StatLabs(
         } else { 
            throw new Exception(ExceptionMessages::MissingYAxisParam." : ".$y_axis, ExceptionCodes::MissingYAxisParam);  
         }
-
-//= check if user set same x,y axes=============================================    
-        if (Validator::ToValue($x_axis) == Validator::ToValue($y_axis)) {
-             throw new Exception(ExceptionMessages::DuplicateXYAxisParam, ExceptionCodes::DuplicateXYAxisParam);
-        }
-        
-        
+          
 //======================================================================================================================
 //= $operational_rating
 //======================================================================================================================
@@ -205,7 +234,7 @@ function StatLabs(
 
         if ( Validator::Exists('lab_state', $params) )
         {
-            $table_name = "states";
+            $table_name = "lab_states";
             $table_column_id = "state_id";
             $table_column_name = "name";
 
@@ -226,8 +255,30 @@ function StatLabs(
             }
 
             $filter[] = "(" . implode(" OR ", $paramFilters) . ")";
-            $join_filter[]  = " JOIN $table_name ON labs.$table_column_id = $table_name.$table_column_id";
+            $join_filter[]  = " JOIN states $table_name ON labs.$table_column_id = $table_name.$table_column_id";
             
+        }
+//======================================================================================================================
+//= $has_lab_worker
+//======================================================================================================================
+        if ( Validator::Exists('has_lab_worker', $params) )
+        {
+            $table_name = "lab_workers";
+            $table_column_id = "worker_id";
+            $table_join_column_id = "lab_id";
+            $table_join_column_name = "worker_status";
+            
+            $paramFilters = array();
+//var_dump($has_lab_worker);die();
+                if (Validator::IsWorkerState($has_lab_worker) && $has_lab_worker == 1 )
+                    $paramFilters[] = "$table_name.$table_column_id is NOT NULL ";
+                else if (Validator::IsWorkerState($has_lab_worker) && $has_lab_worker == 3 )
+                    $paramFilters[] = "$table_name.$table_column_id is NULL ";
+                else
+                    throw new Exception(ExceptionMessages::InvalidLabWorkerStatusType." : ".$has_lab_worker, ExceptionCodes::InvalidLabWorkerStatusType);
+
+            $filter[] = "(" . implode(" OR ", $paramFilters) . ")";
+            $join_filter[]  = " LEFT JOIN (SELECT * FROM $table_name WHERE $table_join_column_name = 1) $table_name ON labs.$table_join_column_id = $table_name.$table_join_column_id";       
         }
 
 //======================================================================================================================
@@ -453,7 +504,7 @@ function StatLabs(
 
         if ( Validator::Exists('school_unit_state', $params) )
         {
-            $table_name = "states";
+            $table_name = "school_unit_states";
             $table_column_id = "state_id";
             $table_column_name = "name";
 
@@ -474,9 +525,20 @@ function StatLabs(
             }
 
             $filter[] = "(" . implode(" OR ", $paramFilters) . ")";
-            $join_filter[]  = " JOIN $table_name ON school_units.$table_column_id = $table_name.$table_column_id";
+            $join_filter[]  = " JOIN states $table_name ON school_units.$table_column_id = $table_name.$table_column_id";
             
         }
+        
+//======================================================================================================================
+//= $export
+//======================================================================================================================
+        
+        if ( Validator::Missing('export', $params) )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+        } else
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
         
 //======================================================================================================================
 //= E X E C U T E
@@ -486,7 +548,7 @@ function StatLabs(
         $join_filter = array_unique($join_filter);
         //var_dump($join_filter);die();
         
-        $sqlSelect = "SELECT  $field_x_axis as $name_x_axis, $field_y_axis as $name_y_axis, count(lab_id) as total_labs ";
+        $sqlSelect = "SELECT  $field_x_axis as $name_x_axis, $field_y_axis as $name_y_axis, count(labs.lab_id) as total_labs ";
            
         $sqlFrom = "FROM labs";
         $sqlFilter = (count($join_filter) > 0 ? implode("", $join_filter) : "" );
@@ -517,7 +579,24 @@ function StatLabs(
         $result["sql"] =  trim(preg_replace('/\s\s+/', ' ', $sql));
     }
     
-    return $result;
+    if ($export == 'JSON'){
+        return $result;
+    } else if ($export == 'XLSX') {
+       $xlsx_filename = StatLabsExt::ExcelCreate($result, $x_axis, $y_axis);
+       unset($result['results']);
+       return array("result"=>$result,"tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+       // exit;
+    } else if ($export == 'PDF'){
+//       $pdf_filename = StatLabsExt::PdfCreate($result, $x_axis, $y_axis);
+//       unset($result['results']);
+//       return array("result"=>$result,"tmp_pdf_filepath" => $Options["WebTmpFolder"].$pdf_filename);
+        return $result;
+    } else if ($export == 'PHP_ARRAY'){
+       return print_r($result);
+    } else {     
+       return $result;
+    }
+    
 }
 
 ?>

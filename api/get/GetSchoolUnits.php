@@ -120,7 +120,7 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
         
 //$special_name=================================================================
         if (Validator::Exists('special_name', $params)){
-            CRUDUtils::setSearchFilter($qb, $special_name, "su", "special_name", $searchtype, ExceptionMessages::InvalidSchoolUnitSpecialNameType, ExceptionCodes::InvalidSchoolUnitSpecialNameType);    
+            CRUDUtils::setSearchFilter($qb, $special_name, "su", "specialName", $searchtype, ExceptionMessages::InvalidSchoolUnitSpecialNameType, ExceptionCodes::InvalidSchoolUnitSpecialNameType);    
         } 
         
 //$last_update==================================================================
@@ -130,12 +130,12 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
         
 //$fax_number===================================================================
         if (Validator::Exists('fax_number', $params)){
-            CRUDUtils::setSearchFilter($qb, $fax_number, "su", "fax_number", $searchtype, ExceptionMessages::InvalidSchoolUnitFaxNumberType, ExceptionCodes::InvalidSchoolUnitFaxNumberType);    
+            CRUDUtils::setSearchFilter($qb, $fax_number, "su", "faxNumber", $searchtype, ExceptionMessages::InvalidSchoolUnitFaxNumberType, ExceptionCodes::InvalidSchoolUnitFaxNumberType);    
         } 
         
 //$phone_number=================================================================
         if (Validator::Exists('phone_number', $params)){
-            CRUDUtils::setSearchFilter($qb, $phone_number, "su", "phone_number", $searchtype, ExceptionMessages::InvalidSchoolUnitPhoneNumberType, ExceptionCodes::InvalidSchoolUnitPhoneNumberType);    
+            CRUDUtils::setSearchFilter($qb, $phone_number, "su", "phoneNumber", $searchtype, ExceptionMessages::InvalidSchoolUnitPhoneNumberType, ExceptionCodes::InvalidSchoolUnitPhoneNumberType);    
         } 
         
 //$email========================================================================
@@ -145,17 +145,17 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
         
 //$street_address===============================================================
         if (Validator::Exists('street_address', $params)){
-            CRUDUtils::setSearchFilter($qb, $street_address, "su", "street_address", $searchtype, ExceptionMessages::InvalidSchoolUnitStreetAddressType, ExceptionCodes::InvalidSchoolUnitStreetAddressType);    
+            CRUDUtils::setSearchFilter($qb, $street_address, "su", "streetAddress", $searchtype, ExceptionMessages::InvalidSchoolUnitStreetAddressType, ExceptionCodes::InvalidSchoolUnitStreetAddressType);    
         } 
         
 //$postal_code==================================================================
         if (Validator::Exists('postal_code', $params)){
-            CRUDUtils::setSearchFilter($qb, $postal_code, "su", "postal_code", $searchtype, ExceptionMessages::InvalidSchoolUnitPostalCodeType, ExceptionCodes::InvalidSchoolUnitPostalCodeType);    
+            CRUDUtils::setSearchFilter($qb, $postal_code, "su", "postalCode", $searchtype, ExceptionMessages::InvalidSchoolUnitPostalCodeType, ExceptionCodes::InvalidSchoolUnitPostalCodeType);    
         }
         
 //$unit_dns=====================================================================
         if (Validator::Exists('unit_dns', $params)){
-            CRUDUtils::setFilter($qb, $unit_dns, "su", "unitDns", "unitDns", "null,value", ExceptionMessages::InvalidSchoolUnitUnitDns, ExceptionCodes::InvalidSchoolUnitUnitDns);
+            CRUDUtils::setFilter($qb, $unit_dns, "su", "unitDns", "unitDns", "null,value", ExceptionMessages::InvalidSchoolUnitUnitDnsType, ExceptionCodes::InvalidSchoolUnitUnitDnsType);
         } 
                
 //$region_edu_admin=============================================================

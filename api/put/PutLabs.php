@@ -37,7 +37,7 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
        
     try {
         
-//$lab_id=====================================================    
+//$lab_id=======================================================================    
         $fLabId = CRUDUtils::checkIDParam('lab_id', $params, $lab_id, 'LabID');
        
 //init entity for update row====================================================
@@ -48,15 +48,15 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
         $Lab->setLastUpdated(new \DateTime (date('Y-m-d H:i:s')));  
         $Lab->setUpdatedBy($username[0]);  
         
-//$special_name==================================================================
-        CRUDUtils::entitySetParam($Lab, $special_name, ExceptionMessages::InvalidLabSpecialNameType, 'specialName');
-        
+//$special_name=================================================================
+        CRUDUtils::entitySetParam($Lab, $special_name, 'LabSpecialName', 'special_name', $params, false, true );
+
 //$positioning==================================================================
-        CRUDUtils::entitySetParam($Lab, $positioning, ExceptionMessages::InvalidLabSpecialNameType, 'positioning');
-        
+        CRUDUtils::entitySetParam($Lab, $positioning, 'LabPositioning', 'positioning', $params, false, true );
+
 //$comments=====================================================================
-        CRUDUtils::entitySetParam($Lab, $comments, ExceptionMessages::InvalidLabCommentsType, 'comments');
-         
+        CRUDUtils::entitySetParam($Lab, $comments, 'LabComments', 'comments', $params, false, true );
+
 //$operational_rating===========================================================    
         if (Validator::Exists('operational_rating', $params)) { 
             if (Validator::Missing('operational_rating', $params))
@@ -105,7 +105,7 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
         
          $permissions = UserRoles::getUserPermissions($app->request->user);
          if (!in_array($Lab->getLabId(),$permissions['permit_labs'])) {
-             throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
+             throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          }; 
     
 //controls======================================================================  

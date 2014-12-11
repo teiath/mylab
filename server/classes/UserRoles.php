@@ -126,8 +126,8 @@ private static $Permissions = array(
                                         ) ,
     'mylab_workers'         => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
                                         'DELETE' => array('none'),
                                         ) ,
     'lab_types'             => array(
@@ -199,8 +199,21 @@ private static $Permissions = array(
     'statistic_lab_workers' => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
+    'view_lab_workers'      => array(
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+                                        ) ,
+    'find_lab_workers'      => array(
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+                                        ) ,
+    'initial_labs'          => array(
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
+                                        'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ')
+                                        ) ,
     'report_keplhnet'       => array(
                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+                                        ) ,
+    'ldap_workers'          => array(
+                                       'GET' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ')
                                         ) ,
     'user_permits'          => array(
                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ')
@@ -261,7 +274,7 @@ private static $Permissions = array(
                 case 'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΠΡΩΤΟΒΑΘΜΙΑΣ' :
                     $value_ranks[] = array (  "ldap_title"=>"ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΠΡΩΤΟΒΑΘΜΙΑΣ",
                                              "ranking"=>20,
-                                             "role"=> "ΣΕΠΕΗΥ"  
+                                             "role"=> "ΣΕΠΕΗΥ"
                                           );
                     break;
                 case 'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ' :
@@ -288,12 +301,12 @@ private static $Permissions = array(
                                              "role"=> "ΤΟΜΕΑΡΧΗΣ"  
                                           );
                     break;
-                case 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
-                    $value_ranks[] = array (  "ldap_title"=>"ΕΚΠΑΙΔΕΥΤΙΚΟΣ",
-                                             "ranking"=>35,
-                                             "role"=> "ΕΚΠΑΙΔΕΥΤΙΚΟΣ"  
-                                          );
-                    break;
+//                case 'ΕΚΠΑΙΔΕΥΤΙΚΟΣ' :
+//                    $value_ranks[] = array (  "ldap_title"=>"ΕΚΠΑΙΔΕΥΤΙΚΟΣ",
+//                                             "ranking"=>35,
+//                                             "role"=> "ΕΚΠΑΙΔΕΥΤΙΚΟΣ"  
+//                                          );
+//                    break;
                 case 'ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ' :
                     $value_ranks[] = array (  "ldap_title"=>"ΠΡΟΣΩΠΙΚΟ ΥΠΟΥΡΓΕΙΟΥ ΠΑΙΔΕΙΑΣ",
                                              "ranking"=>30,
@@ -343,6 +356,7 @@ public static function getRole($user) {
      switch ($user_role){
         case 'ΔΙΕΥΘΥΝΤΗΣ' :
             return self::getSchoolUnitWorkerPermissions($user, $getSchoolUnits, $implodeData);
+            //return self::getSchoolUnitWorkerPermissionsV2($user, $implodeData);
             break;
         case 'ΤΟΜΕΑΡΧΗΣ' :
             return self::getSchoolUnitWorkerPermissions($user, $getSchoolUnits, $implodeData);
@@ -401,7 +415,7 @@ public static function getRole($user) {
     $dns = explode(',', $user['l'][0]);
 
     if (Validator::IsNull($dns[1])){
-        throw new Exception(ExceptionMessages::MissingLdapLAttribute, ExceptionCodes::MissingLdApLattribute); 
+        throw new Exception(ExceptionMessages::MissingLdapLAttribute, ExceptionCodes::MissingLdapLAttribute); 
     }
 
     $edu_admin_code = explode('=', $dns[1]);  
@@ -455,6 +469,31 @@ public static function getRole($user) {
         throw new Exception(ExceptionMessages::DuplicateFullSchoolUnitDnsName, ExceptionCodes::DuplicateFullSchoolUnitDnsName);
     }
   }
+  
+    public static function getSchoolUnitWorkerPermissionsV2($user, $implodeData = false ) {
+ 
+        if (count($user['edupersonorgunitdn:gsnregistrycode']) > 1)
+            throw new Exception(ExceptionMessages::DuplicateFullSchoolUnitDnsName, ExceptionCodes::DuplicateFullSchoolUnitDnsName);
+        else if (count($user['edupersonorgunitdn:gsnregistrycode']) == 1) {
+
+           $mm_id = $user['edupersonorgunitdn:gsnregistrycode'][0];
+           if (Validator::IsNull($mm_id)) throw new Exception(ExceptionMessages::MissingGsnRegistryCodeAttribute, ExceptionCodes::MissingGsnRegistryCodeAttribute); 
+
+               $lab_ids = Filters::getLabsfromSchoolUnit($mm_id);
+
+               if ($implodeData == true) {
+                  $lab_ids = implode(",", $lab_ids);
+               }
+
+               $results = array ('permit_labs' => $lab_ids,             
+                                 'permit_school_units' => $mm_id);    
+
+               return $results;
+
+        } else
+           throw new Exception(ExceptionMessages::NotFoundFullSchoolUnitDnsName, ExceptionCodes::NotFoundFullSchoolUnitDnsName);
+
+    }
   
   public static function getAllPermissions() {
       

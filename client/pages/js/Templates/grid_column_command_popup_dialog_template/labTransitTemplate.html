@@ -1,0 +1,53 @@
+<!-- transit lab template -->
+
+<script id="lab_transit_template" type="text/x-kendo-template">
+    <div class="k-edit-form-container">
+
+        <div id="tl" class="form-horizontal col-md-11">
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <div style="width:100%;">
+                        Αν είστε βέβαιος ότι θέλετε να 
+                        # if(toState === "activate"){ # 
+                            <b>ενεργοποιήσετε</b> 
+                        # }else if(toState === "suspend"){ # 
+                            <b>αναστείλετε</b>
+                        # }else if(toState === "abolish"){ #
+                            <b>καταργήσετε</b> 
+                        # }# τη Διάταξη Η/Υ <b>#= lab_name #</b>, συμπληρώστε τα παρακάτω υποχρεωτικά πεδία.
+                    </div>
+                </div>    
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <label id="tl_transition_date_label" for="transition_date"></label>
+                    <input  id="tl_transition_date"
+                            name="transition_date"
+                            style="width: 100%"
+                    />
+                </div>
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <label id="tl_transition_justification_label" for="transition_justification"></label>
+                    <textarea id="tl_transition_justification"
+                            name="transition_justification"
+                            class="k-textbox"
+                            style="width: 100%;"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="k-edit-buttons k-state-default">
+            <button class="k-button k-button-icontext k-grid-transit">
+                <span class="k-icon k-update"></span>
+            </button>
+            <button class="k-button k-button-icontext k-grid-cancel-transition">
+                <span class="k-icon k-cancel"></span> Ακύρωση
+            </button>
+        </div>
+
+    </div>
+</script>

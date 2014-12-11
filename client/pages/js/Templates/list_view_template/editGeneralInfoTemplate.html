@@ -1,0 +1,23 @@
+<script type="text/x-kendo-tmpl" id="edit_general_info_template">
+    <div>
+      <div style="margin:10px">
+          <a class="k-button k-update-button" href="\\#"><span class="k-icon k-update"></span> Ενημέρωση</a>
+          <a class="k-button k-cancel-button" href="\\#"><span class="k-icon k-cancel"></span> Ακύρωση</a>
+      </div>
+      <dl style="margin:10px">
+        <dt><i class="fa fa-tag" style="padding-right:5px"></i>Ειδική Ονομασία</dt>
+        <dd><input type="text" data-bind="value: lab_special_name" name="lab_special_name" class="k-textbox" style="width:40%" /></dd>
+        <dt><i class="fa fa-map-marker" style="padding-right:5px"></i>Τοποθεσία</dt>
+        #if(positioning === null){positioning="";}#
+        <dd><input data-bind="value: positioning" name="positioning" data-role="maskedtextbox" data-prompt-char=" " data-mask="Κτήριο: CCCCCCCCCCCC , Όροφος: CCCCCCCCCCCC , Αίθουσα: CCCCCCCCCCCC " style="width:40%"/></dd>
+        #if( (lab_type === "ΣΕΠΕΗΥ" || lab_type === "ΕΤΠ") && (ellak == 0 || ellak == null)){#
+            <dd><label><input id="isEllak" type="checkbox" name="ellak" /> ΕΛΛΑΚ </label></dd>
+        #}else if( (lab_type === "ΣΕΠΕΗΥ" || lab_type === "ΕΤΠ") && ellak == 1 ){ #
+            <dd><label><input id="isEllak" type="checkbox" name="ellak"  /> ΕΛΛΑΚ </label></dd>            
+        # } #
+        <dt><i class="fa fa-calendar" style="padding-right:5px"></i>Ημερομηνία Δημιουργίας</dt> <dd>#:creation_date#</dd>
+      </dl>
+    </div>
+</script>
+
+<!--<textarea type="text" data-bind="value: positioning" name="positioning" placeholder="πχ Κτήριο Α, Όροφος ισόγειο, Αίθουσα Β5" class="k-textbox" style="width: 334px; height: 54px;"></textarea>-->

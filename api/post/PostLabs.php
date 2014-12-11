@@ -20,23 +20,17 @@ header("Content-Type: text/html; charset=utf-8");
  * @param type $ellak
  * @param type $lab_type
  * @param type $school_unit_id
- * @param type $state
  * @param type $lab_source
- * @param type $transition_date
- * @param type $transition_justification
- * @param type $transition_source
  * @return string
  * @throws Exception
  */
 
 function PostLabs(  $special_name, $positioning, $comments, $operational_rating, $technological_rating, $ellak,  
-                    $lab_type, $school_unit_id, $state, $lab_source, 
-                    $transition_date, $transition_justification, $transition_source ){
+                    $lab_type, $school_unit_id, $lab_source ){
     
     global $app,$entityManager;
 
     $Lab = new Labs();
-    $LabTransition = new LabTransitions();
     $result = array();
 
     $result["controller"] = __FUNCTION__;
@@ -47,19 +41,23 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
       
     try {
     
-//$creation infos================================================================
+//$creation infos===============================================================
         $username =  $app->request->user['uid'];
         $Lab->setCreationDate(new \DateTime (date('Y-m-d H:i:s')));  
         $Lab->setCreatedBy($username[0]);  
+        $Lab->setLastUpdated(new \DateTime (date('Y-m-d H:i:s')));  
+        $Lab->setUpdatedBy($username[0]); 
+        $Lab->setSubmitted(0);
+        $Lab->setState(null);
         
-//$special_name==================================================================
-        CRUDUtils::entitySetParam($Lab, $special_name, ExceptionMessages::InvalidLabSpecialNameType, 'specialName');
+//$special_name=================================================================
+        CRUDUtils::entitySetParam($Lab, $special_name, 'LabSpecialName', 'special_name', $params, false, true );
         
 //$positioning==================================================================
-        CRUDUtils::entitySetParam($Lab, $positioning, ExceptionMessages::InvalidLabSpecialNameType, 'positioning');
+        CRUDUtils::entitySetParam($Lab, $positioning, 'LabPositioning', 'positioning', $params, false, true );
         
 //$comments=====================================================================
-        CRUDUtils::entitySetParam($Lab, $comments, ExceptionMessages::InvalidLabCommentsType, 'comments');
+        CRUDUtils::entitySetParam($Lab, $comments, 'LabComments', 'comments', $params, false, true );
          
 //$operational_rating===========================================================    
         if (Validator::Exists('operational_rating', $params)) { 
@@ -108,58 +106,19 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
         
         
 //$lab_type=====================================================================       
-        CRUDUtils::entitySetAssociation($Lab, $lab_type, 'LabTypes', 'labType', 'LabType');
+        CRUDUtils::entitySetAssociation($Lab, $lab_type, 'LabTypes', 'labType', 'LabType', $params, 'lab_type');
         $fLabTypeId = $Lab->getLabType()->getLabTypeId();
         $fLabTypeName = $Lab->getLabType()->getName();
 
 //$school_unit_id=====================================================================       
-        CRUDUtils::entitySetAssociation($Lab, $school_unit_id, 'SchoolUnits', 'schoolUnit', 'SchoolUnit');
+        CRUDUtils::entitySetAssociation($Lab, $school_unit_id, 'SchoolUnits', 'schoolUnit', 'SchoolUnit', $params, 'school_unit_id');
         $findSchoolUnit = $entityManager->getRepository('SchoolUnits')->findOneBy(array ('schoolUnitId'=>$school_unit_id));
         $fSchoolUnitId = $findSchoolUnit->getSchoolUnitId();
         $fSchoolUnitName = $findSchoolUnit->getName();
         $fSchoolUnitStateId = $findSchoolUnit->getState()->getStateId();
-  
-//$state========================================================================       
-        CRUDUtils::entitySetAssociation($Lab, $state, 'States', 'state', 'State');
 
 //$lab_source===================================================================      
-        CRUDUtils::entitySetAssociation($Lab, $lab_source, 'LabSources', 'labSource', 'LabSource');
-    
-//$transition_date==============================================================      
-        if (Validator::Missing('transition_date', $params))
-           throw new Exception(ExceptionMessages::MissingLabTransitionDateParam." : ".$transition_date, ExceptionCodes::MissingLabTransitionDateParam);
-       else if (Validator::IsNull($transition_date))
-            throw new Exception(ExceptionMessages::MissingLabTransitionDateValue." : ".$transition_date, ExceptionCodes::MissingLabTransitionDateValue);
-       else if (Validator::IsArray($transition_date))
-            throw new Exception(ExceptionMessages::InvalidLabTransitionDateArray." : ".$transition_date, ExceptionCodes::InvalidLabTransitionDateArray);    
-       else if (! Validator::IsValidDate($transition_date) )
-            throw new Exception(ExceptionMessages::InvalidLabTransitionValidType." : ".$transition_date, ExceptionCodes::InvalidLabTransitionValidType); 
-       else if (Validator::IsDate($transition_date,'Y-m-d'))
-            $LabTransition->setTransitionDate (new \DateTime($transition_date));
-       else
-            throw new Exception(ExceptionMessages::InvalidLabTransitionDateType." : ".$transition_date, ExceptionCodes::InvalidLabTransitionDateType);    
- 
-//$transition_justification===================================================== 
-        if (Validator::Missing('transition_justification', $params))
-            throw new Exception(ExceptionMessages::MissingLabTransitionJustificationParam." : ".$transition_justification, ExceptionCodes::MissingLabTransitionJustificationParam);          
-        else if (Validator::IsNull($transition_justification))
-            throw new Exception(ExceptionMessages::MissingLabTransitionDateValue." : ".$transition_justification, ExceptionCodes::MissingLabTransitionDateValue);                        
-        else if (Validator::IsValue($transition_justification))
-            $LabTransition->setTransitionJustification(Validator::ToValue($transition_justification));
-        else
-            throw new Exception(ExceptionMessages::InvalidLabTransitionJustificationType." : ".$transition_justification, ExceptionCodes::InvalidLabTransitionJustificationType);
-
-//$transition_source============================================================ 
-        if (Validator::Missing('transition_source', $params))
-            throw new Exception(ExceptionMessages::MissingLabTransitionSourceParam." : ".$transition_source, ExceptionCodes::MissingLabTransitionSourceParam);          
-        else if (Validator::IsNull($transition_source))
-            throw new Exception(ExceptionMessages::MissingLabTransitionSourceValue." : ".$transition_source, ExceptionCodes::MissingLabTransitionSourceValue);                        
-        else if (Validator::IsArray($transition_source))
-            throw new Exception(ExceptionMessages::InvalidLabTransitionSourceArray." : ".$transition_source, ExceptionCodes::InvalidLabTransitionSourceArray);                        
-        else if (Validator::IsTransitionSource($transition_source))
-            $LabTransition->setTransitionSource(Validator::ToTransitionSource($transition_source));
-        else
-            throw new Exception(ExceptionMessages::InvalidLabTransitionSourceType." : ".$transition_source, ExceptionCodes::InvalidLabTransitionSourceType);
+        CRUDUtils::entitySetAssociation($Lab, $lab_source, 'LabSources', 'labSource', 'LabSource', $params, 'lab_source');
 
 //user permisions===============================================================
          $permissions = UserRoles::getUserPermissions($app->request->user, TRUE);
@@ -191,12 +150,20 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
                 $checkCountLabs = $entityManager->getRepository('Labs')->findBy(array( 'schoolUnit'    => $Lab->getSchoolUnit(),
                                                                                        'labType'       => $Lab->getLabType()   
                                                                                      )); 
-
-               
-                //create lab name 
-                $num_of_lab = count($checkCountLabs); 
-                $lab_name = $fLabTypeName. '.' . ++$num_of_lab . ' - ' . $fSchoolUnitName;
-
+                //get the last num of lab
+                $all_nums = array();
+                foreach ($checkCountLabs as $checkCountLab){
+                    $lab_num = explode(".",$checkCountLab->getName());
+                    $matches = explode(" -",$lab_num[1]);
+                    $all_nums[] = $matches[0];
+                    
+                }  
+                            
+                //create lab name                
+                if (validator::IsEmptyArray($all_nums)){$all_nums[]=0;}
+                $max_lab= max($all_nums);
+                $lab_name = 'ΑΡΧΙΚΟ - ' . $fLabTypeName. '.' . ++$max_lab . ' - ' . $fSchoolUnitName;
+   
                 if (Validator::isNull($lab_name))
                     throw new Exception(ExceptionMessages::MissingLabNameValue." : ".$lab_name, ExceptionCodes::MissingLabNameValue); 
                 else if (Validator::IsArray($lab_name))
@@ -227,18 +194,7 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
          $entityManager->persist($Lab);
          $entityManager->flush($Lab);
          $result["lab_id"] = $fLabId = $Lab->getLabId();
-            
-            //create lab_transition=============================================
-            //TODO check if table transition has the initial transition
-            //$LabTransition = $entityManager->find('Labs',$fLabId);
-            CRUDUtils::entitySetAssociation($LabTransition, $fLabId, 'Labs', 'lab', 'Lab');      
-            CRUDUtils::entitySetAssociation($LabTransition, 1, 'States', 'toState', 'State');
-                $entityManager->persist($LabTransition);
-                $entityManager->flush($LabTransition);
-                $result["lab_transition_id"] = $LabTransition->getLabTransitionId();
-            
-         
-         
+        
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".ExceptionMessages::NoErrors;
@@ -249,5 +205,4 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
     
     return $result;
 }
-
 ?>

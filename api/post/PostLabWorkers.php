@@ -15,14 +15,13 @@ header("Content-Type: text/html; charset=utf-8");
  * @param type $lab_id
  * @param type $worker_id
  * @param type $worker_position
- * @param type $worker_email
  * @param type $worker_status
  * @param type $worker_start_service
  * @return string
  * @throws Exception
  */
 
-function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $worker_status, $worker_start_service) { 
+function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $worker_start_service) { 
     
     global $app,$entityManager;
     
@@ -38,14 +37,42 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
     try
     { 
         
+//$creation infos===============================================================
+        $username =  $app->request->user['uid'];
+        $LabWorker->setInsertLabWorkerBy(new \DateTime (date('Y-m-d')));  
+        $LabWorker->setInsertBy($username[0]);  
+        
 //$lab_id=======================================================================
-    CRUDUtils::entitySetAssociation($LabWorker, $lab_id, 'Labs', 'lab', 'Lab');
+    CRUDUtils::entitySetAssociation($LabWorker, $lab_id, 'Labs', 'lab', 'Lab', $params, 'lab_id');
     
 //$worker_id====================================================================
-    CRUDUtils::entitySetAssociation($LabWorker, $worker_id, 'MylabWorkers', 'worker', 'MylabWorker');
+    //CRUDUtils::entitySetAssociation($LabWorker, $worker_id, 'MylabWorkers', 'worker', 'MylabWorker', $params, 'worker_id');
+    //FUTURE TODO add to entitySetAssociation association param e.g. associationParam='firstname' 
+    if (Validator::Missing('worker_id', $params))
+           throw new Exception(ExceptionMessages::MissingMylabWorkerParam." : ".$worker_id, ExceptionCodes::MissingMylabWorkerParam);           
+    else if (Validator::IsNull($worker_id))
+        throw new Exception(ExceptionMessages::MissingMylabWorkerValue." : ".$worker_id, ExceptionCodes::MissingMylabWorkerValue);           
+    else if (Validator::IsArray($worker_id))
+        throw new Exception(ExceptionMessages::InvalidMylabWorkerArray." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerArray);           
+    else if ( Validator::IsID($worker_id) )
+            $retrievedObject = $entityManager->getRepository('MylabWorkers')->find(Validator::ToID($worker_id));
+    else if ( Validator::IsValue($worker_id) )
+            $retrievedObject = $entityManager->getRepository('MylabWorkers')->findOneBy(array('lastname' => Validator::ToValue($worker_id)));
+    else
+         throw new Exception(ExceptionMessages::InvalidMylabWorkerType." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerType);
+        
+        if ( !isset($retrievedObject) )
+            throw new Exception(ExceptionMessages::InvalidMylabWorkerValue." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerValue);
+        else if (count($retrievedObject)>1)
+            throw new Exception(ExceptionMessages::InvalidMylabWorkerType." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerType);
+        else
+        {
+            $method = 'setWorker';
+            $LabWorker->$method($retrievedObject);
+        }
     
 //$worker_position==============================================================
-    CRUDUtils::entitySetAssociation($LabWorker, $worker_position, 'WorkerPositions', 'workerPosition', 'WorkerPosition');
+    CRUDUtils::entitySetAssociation($LabWorker, $worker_position, 'WorkerPositions', 'workerPosition', 'WorkerPosition', $params, 'worker_position');
         
 //$worker_status================================================================ 
     
@@ -74,9 +101,6 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
          $LabWorker->setWorkerStartService(new \DateTime($worker_start_service));
     else
          throw new Exception(ExceptionMessages::InvalidLabWorkerStartServiceType." : ".$worker_start_service, ExceptionCodes::InvalidLabWorkerStartServiceType);    
- 
-//$worker_email=================================================================
-    CRUDUtils::entitySetParam($LabWorker, $worker_email, ExceptionCodes::InvalidLabWorkerEmailType, 'workerEmail');
     
 //user permisions=============================================================== 
      $permissions = UserRoles::getUserPermissions($app->request->user);
@@ -116,7 +140,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
         $new_date = strtotime(Validator::ToDate($worker_start_service, 'Y-m-d'));
         
         if (Validator::isLowerThan($new_date, $previous_date, true)) {   
-            throw new Exception(ExceptionMessages::NotAllowedLabTransitionDate, ExceptionCodes::NotAllowedLabTransitionDate);  
+            throw new Exception(ExceptionMessages::NotAllowedLabWorkerStartService, ExceptionCodes::NotAllowedLabWorkerStartService);  
         }
             
         //check for previous active lab worker  and set status->3===============
@@ -124,16 +148,25 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
                                                                                         'workerPosition'    => $LabWorker->getWorkerPosition(),
                                                                                         'workerStatus'      => Validator::ToWorkerState(1)
                                                                                        ));
-        
-            if (!Validator::isNull($findActiveWorkers)){
-               $toFlush = array();
-                  foreach($findActiveWorkers as $findActiveWorker) {
-                      $findActiveWorker->setWorkerStatus(3);
-                      $toFlush[] = $findActiveWorker;
-                  }
-                  $entityManager->flush($toFlush);
+        $countFindActiveWorkers = count($findActiveWorkers);
+       
+            if ($countFindActiveWorkers >= 1){
+            //AUTO change labworker state
+            //               $toFlush = array();
+            //                  foreach($findActiveWorkers as $findActiveWorker) {
+            //                      $findActiveWorker->setWorkerStatus(3);
+            //                      $toFlush[] = $findActiveWorker;
+            //                  }
+            //                  $entityManager->flush($toFlush);             
+                throw new Exception(ExceptionMessages::InvalidLabWorkerNewWorkerStatus,ExceptionCodes::InvalidLabWorkerNewWorkerStatus);              
             }
-  
+
+        //check if lab has submitted value = 0 and restrict insert
+        $Labs = $entityManager->find('Labs', Validator::ToID($lab_id));
+        if ($Labs->getSubmitted() == false){
+            throw new Exception(ExceptionMessages::InvalidLabWorkerSetStatus." : ".$lab_id ,ExceptionCodes::InvalidLabWorkerSetStatus);
+        }
+
 //insert to db================================================================== 
         $entityManager->persist($LabWorker);
         $entityManager->flush($LabWorker);
@@ -147,12 +180,6 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_email, $w
         $result["status"] = $e->getCode();
         $result["message"] = "[".$result["method"]."][".$result["function"]."]:".$e->getMessage();
     }                
-    //debug=========================================================================       
-        if ( Validator::IsTrue( $params["debug"]  ) )
-        {
-             $result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
-             $result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
-        }
         
     return $result;
 }

@@ -17,7 +17,7 @@ class SchoolUnitTypes
      *
      * @ORM\Column(name="school_unit_type_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $schoolUnitTypeId;
 

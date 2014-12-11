@@ -20,68 +20,48 @@ spl_autoload_register(function($class) {
     include 'entities/' . $class . '.php';
 });
 
-//libs
-require_once('libs/db2php/Db2PhpEntity.class.php');
-require_once('libs/db2php/Db2PhpEntityBase.class.php');
-require_once('libs/db2php/Db2PhpEntityModificationTracking.class.php');
-require_once('libs/db2php/DFCInterface.class.php');
-require_once('libs/db2php/DFC.class.php');
-require_once('libs/db2php/DFCAggregate.class.php');
-require_once('libs/db2php/DSC.class.php');
-
 ////exceptions
 require_once('exceptions/ExceptionCodes.php');
 require_once('exceptions/ExceptionMessages.php');
 require_once('exceptions/ExceptionManager.php');
-require_once('exceptions/SyncExceptionMessages.php');
-require_once('exceptions/SyncExceptionCodes.php');
 
-////----classes ext from mm
-//require_once('classes/extends/RegionEduAdminsExt.class.php');
-//require_once('classes/extends/EduAdminsExt.class.php');
-//require_once('classes/extends/TransferAreasExt.class.php');
-//require_once('classes/extends/PrefecturesExt.class.php');
-//require_once('classes/extends/MunicipalitiesExt.class.php');
-//require_once('classes/extends/SchoolUnitsExt.class.php');
-//require_once('classes/extends/EducationLevelsExt.class.php');
-//require_once('classes/extends/SchoolUnitTypesExt.class.php');
-//require_once('classes/extends/StatesExt.class.php');
-//require_once('classes/extends/SchoolUnitWorkers.class.php');
-//require_once('classes/extends/Circuits.class.php');
-//require_once('classes/extends/CircuitTypes.class.php');
-//
-////--classes ext from mylab
-////require_once('classes/extends/LabTypesExt.class.php');
-//require_once('classes/extends/EquipmentCategoriesExt.class.php');
-////require_once('classes/extends/WorkerSpecializationsExt.class.php');
-//require_once('classes/extends/WorkerPositionsExt.class.php');
-////require_once('classes/extends/AquisitionSourcesExt.class.php');
-////require_once('classes/extends/WorkersExt.class.php');
-////require_once('classes/extends/LabAquisitionSourcesExt.class.php');
-////require_once('classes/extends/LabsExt.class.php');
-//require_once('classes/extends/EquipmentTypesExt.class.php');
-//require_once('classes/extends/LabEquipmentTypesExt.class.php');
-//require_once('classes/extends/LabRelationsExt.class.php');
-//require_once('classes/extends/RelationTypesExt.class.php');
-//require_once('classes/extends/LabSourcesExt.class.php');
-//require_once('classes/extends/LabTransitions.class.php');
-//require_once('classes/extends/LabWorkersExt.class.php');
-//
+//sync
+require_once('sync/addCircuit.php');
+require_once('sync/addWorker.php');
+require_once('sync/addSchoolUnitWorker.php');
+
+require_once('sync/syncCircuitTypes.php');
+require_once('sync/syncEduAdmins.php');
+require_once('sync/syncEducationLevels.php');
+require_once('sync/syncMunicipalities.php');
+require_once('sync/syncPrefectures.php');
+require_once('sync/syncRegionEduAdmins.php');
+require_once('sync/syncSchoolUnitTypes.php');
+require_once('sync/syncSources.php');
+require_once('sync/syncStates.php');
+require_once('sync/syncTransferAreas.php');
+require_once('sync/syncWorkerPositions.php');
+require_once('sync/syncWorkerSpecializations.php');
+
+//classes ext
+require_once('classes/ExportDataEnumTypes.php');
 require_once('classes/OrderEnumTypes.php');
 require_once('classes/SearchEnumTypes.php');
+require_once('classes/ExportDataTypes.php');
 require_once('classes/OrderTypes.php');
 require_once('classes/SearchTypes.php');
-require_once('classes/ExportDataTypes.php');
-require_once('classes/ExportDataEnumTypes.php');
 require_once('classes/FormatCreator.php');
 require_once('classes/Filters.php');
+require_once('classes/FindLabWorkersExt.php');
 require_once('classes/FormatCreator.php');
 require_once('classes/SearchLabWorkersExt.php');
 require_once('classes/SearchLabsExt.php');
 require_once('classes/SearchSchoolUnitsExt.php');
+require_once('classes/StatLabsExt.php');
 require_once('classes/Reports.php');
 require_once('classes/UserRoles.php');
 require_once('classes/CRUDUtils.php');
+require_once('classes/SYNCUtils.php');
 
 //-----search functions
 require_once('../api/get/SearchSchoolUnits.php');
@@ -94,6 +74,9 @@ require_once('../api/get/StatLabs.php');
 require_once('../api/get/ReportKeplhnet.php');
 require_once('../api/get/GetUserPermits.php');
 require_once('../api/get/StatLabs.php');
+require_once('../api/get/GetLdapWorkers.php');
+require_once('../api/get/ViewLabWorkers.php');
+require_once('../api/get/FindLabWorkers.php');
 
 ////----get from mm
 require_once('../api/get/GetRegionEduAdmins.php');
@@ -128,33 +111,51 @@ require_once('../api/get/GetLabTransitions.php');
 require_once('../api/get/GetLabWorkers.php');
 require_once('../api/get/GetMylabWorkers.php');
 
-////----post from mm
-
 ////---post from mylab
-require_once('../api/post/PostLabs.php');
-require_once('../api/post/PostLabTransitions.php');
-require_once('../api/post/PostLabWorkers.php');
+require_once('../api/post/PostAquisitionSources.php');
+require_once('../api/post/PostEquipmentCategories.php');
+require_once('../api/post/PostEquipmentTypes.php');
 require_once('../api/post/PostLabAquisitionSources.php');
 require_once('../api/post/PostLabEquipmentTypes.php');
 require_once('../api/post/PostLabRelations.php');
-////---put from mm
+require_once('../api/post/PostLabSources.php');
+require_once('../api/post/PostLabTransitions.php');
+require_once('../api/post/PostLabTypes.php');
+require_once('../api/post/PostLabWorkers.php');
+require_once('../api/post/PostLabs.php');
+require_once('../api/post/PostMylabWorkers.php');
+require_once('../api/post/PostRelationTypes.php');
 
 ////---put from mylab
-require_once('../api/put/PutLabs.php');
-require_once('../api/put/PutLabWorkers.php');
+require_once('../api/put/PutAquisitionSources.php');
+require_once('../api/put/PutEquipmentCategories.php');
+require_once('../api/put/PutEquipmentTypes.php');
+require_once('../api/put/PutInitialLabs.php');
 require_once('../api/put/PutLabAquisitionSources.php');
 require_once('../api/put/PutLabEquipmentTypes.php');
-require_once('../api/put/PutLabTransitions.php');
 require_once('../api/put/PutLabRelations.php');
-
-//---del from mm
+require_once('../api/put/PutLabSources.php');
+require_once('../api/put/PutLabTransitions.php');
+require_once('../api/put/PutLabTypes.php');
+require_once('../api/put/PutLabWorkers.php');
+require_once('../api/put/PutLabs.php');
+require_once('../api/put/PutMylabWorkers.php');
+require_once('../api/put/PutRelationTypes.php');
 
 //---del from mylab
- require_once('../api/del/DelLabs.php');
- require_once('../api/del/DelLabEquipmentTypes.php');
- require_once('../api/del/DelLabAquisitionSources.php');
- require_once('../api/del/DelLabWorkers.php');
- require_once('../api/del/DelLabRelations.php');
- require_once('../api/del/DelLabTransitions.php');
-  
+require_once('../api/del/DelAquisitionSources.php');
+require_once('../api/del/DelEquipmentCategories.php');
+require_once('../api/del/DelEquipmentTypes.php');
+require_once('../api/del/DelLabAquisitionSources.php');
+require_once('../api/del/DelLabEquipmentTypes.php');
+require_once('../api/del/DelInitialLabs.php');
+require_once('../api/del/DelLabRelations.php');
+require_once('../api/del/DelLabSources.php'); 
+require_once('../api/del/DelLabTransitions.php');
+require_once('../api/del/DelLabTypes.php');
+require_once('../api/del/DelLabWorkers.php'); 
+require_once('../api/del/DelLabs.php');
+require_once('../api/del/DelMylabWorkers.php'); 
+require_once('../api/del/DelRelationTypes.php'); 
+
 ?>

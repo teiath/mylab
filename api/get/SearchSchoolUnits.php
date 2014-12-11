@@ -16,8 +16,8 @@ header("Content-Type: text/html; charset=utf-8");
 function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_special_name,
                             $region_edu_admin, $edu_admin, $transfer_area, $municipality, $prefecture,
                             $education_level, $school_unit_type, $school_unit_state, 
-                            $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $lab_type, $lab_state, $lab_source, 
-                            $aquisition_source, $equipment_type, $lab_worker, 
+                            $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $submitted, $lab_type, $lab_state, $lab_source, 
+                            $aquisition_source, $equipment_type, $lab_worker,
                             $pagesize, $page, $orderby, $ordertype, $searchtype , $export ) {
 
     global $db,$Options;
@@ -309,6 +309,23 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                                                ExceptionMessages::InvalidLabTechnologicalRatingType, ExceptionCodes::InvalidLabTechnologicalRatingType);
 
         }
+        
+//======================================================================================================================
+//= $submitted
+//======================================================================================================================
+
+        if ( Validator::Exists('submitted', $params) )
+        {
+            $table_name = "labs";
+            $table_column_id = "submitted";
+            $table_column_name = "submitted";
+            $filter_validators = 'boolean';
+
+            $filter[] = $filter_labs[] = Filters::BasicFilter( $submitted, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+                                                               ExceptionMessages::InvalidLabSubmittedType, ExceptionCodes::InvalidLabSubmittedType);
+
+        }
+        
 //======================================================================================================================
 //= $lab_type
 //======================================================================================================================
@@ -404,7 +421,25 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                                                       ExceptionMessages::InvalidLabWorkerType, ExceptionCodes::InvalidLabWorkerType);           
 
         }    
-               
+ 
+//======================================================================================================================
+//= $has_labs
+//======================================================================================================================
+
+//        if ( Validator::Exists('has_labs', $params) )
+//        {
+//            $table_name = "labs";
+//            $table_column_id = "lab_id";
+//            $table_column_name = "lab_id";
+//            $filter_validators = 'null,id';           
+//            
+//            $filterHasLabs = Filters::BasicFilter( $has_labs, $table_name, $table_column_id, $table_column_name, $filter_validators, 
+//                                                                      ExceptionMessages::InvalidLabWorkerType, ExceptionCodes::InvalidLabWorkerType);           
+//
+//            
+//            var_dump($filterHasLabs);
+//        } 
+        
 //======================================================================================================================
 //= $export
 //======================================================================================================================
@@ -413,9 +448,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             $export = ExportDataEnumTypes::JSON;
         else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
             $export = ExportDataEnumTypes::getValue($export);
-            //$pagesize = Parameters::AllPageSize;
         } else
-            throw new Exception(ExceptionMessages::InvalidExport." : ".$export, ExceptionCodes::InvalidExport);
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
         
 //======================================================================================================================
 //= $orderby
@@ -448,6 +482,18 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 //= E X E C U T E
 //======================================================================================================================
 
+//Registered Labs and User permissions==========================================
+        
+        //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
+            if ( Validator::Missing('submitted', $params) ){            
+                $user_role= UserRoles::getRole($app->request->user);
+                if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
+                    $filter[] = $filter_labs[] = '(labs.submitted = 1 OR labs.submitted = 0)';
+                } else {
+                    $filter[] = $filter_labs[] = 'labs.submitted = 1';
+                }
+            }
+           
        //set user permissions
        $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
        
@@ -463,7 +509,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
            throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError); 
        } else if ($permissions['permit_school_units'] === 'ALLRESULTS') { 
            $permit_school_units = null;
-           $sqlPermissions = null;
+           //$sqlPermissions = null;
+           $sqlPermissions = (count($filter) > 0 ? " AND labs.submitted = 1 " : " WHERE  labs.submitted = 1 "); 
+           
        } else {
            $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
             $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
@@ -653,6 +701,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                         labs.operational_rating,
                         labs.technological_rating,
                         labs.ellak,
+                        labs.submitted,
                         labs.school_unit_id,
                         lab_types.lab_type_id,
                         lab_types.name as lab_type,
@@ -683,7 +732,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         
         $sqlOrder = " ORDER BY labs.school_unit_id ASC";
 
-        $sql = $sqlSelect . $sqlFrom . $sqlWhere .$sqlWhereFilterLabs . $sqlWhereFilterLabWorkers . $sqlWhereFilterLabAquisitions . $sqlWhereFilterLabEquipments . $sqlOrder;
+        $sql = $sqlSelect . $sqlFrom . $sqlWhere . $sqlWhereFilterLabs . $sqlWhereFilterLabWorkers . $sqlWhereFilterLabAquisitions . $sqlWhereFilterLabEquipments . $permit_labs. $sqlOrder;
         //echo "<br><br>".$sql."<br><br>";
 
         $stmt = $db->query( $sql );
@@ -781,16 +830,15 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         $sqlSelect = "SELECT
                         lab_workers.lab_worker_id,
                         lab_workers.lab_id,
-                        lab_workers.worker_email,
                         lab_workers.worker_status,
                         lab_workers.worker_start_service,
                         mylab_workers.worker_id,
                         mylab_workers.registry_no,
-                        mylab_workers.tax_number,
+                        mylab_workers.uid,
                         mylab_workers.firstname,
                         mylab_workers.lastname,
                         mylab_workers.fathername,
-                        mylab_workers.sex,
+                        mylab_workers.email,
                         worker_specializations.worker_specialization_id,
                         worker_specializations.name as worker_specialization,
                         worker_positions.worker_position_id,
@@ -824,13 +872,11 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
        //$array_school_units=  Validator::ToUniqueObject($array_school_units);
         
         //find count of lab_types per school_units
-        $sqlFromLabs = ' FROM `labs`';
+        $sqlFromLabs = ' FROM `labs` LEFT JOIN school_units using (school_unit_id) ';
         $sqlWhereLabs = ' WHERE labs.school_unit_id IN ('. $school_unit_ids .') ';
-        $array_count_labs = Filters::LabsCounter($sqlFromLabs,$sqlWhereLabs);
+        $array_count_labs = Filters::LabsCounter($sqlFromLabs,$sqlWhereLabs,$sqlPermissions);
         $sql_array = Filters::AllLabTypes();
-        
-        //echo count($array_school_units);die();
-        
+                
         foreach ($array_school_units as $school_unit)
         {
             $data = array(
@@ -940,6 +986,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                 "operational_rating"        => $lab["operational_rating"],
                                 "technological_rating"      => $lab["technological_rating"],
                                 "ellak"                     => $lab["ellak"] ,
+                                "submitted"                 => $lab["submitted"] ,
                                 "school_unit_id"            => $lab["school_unit_id"] ,
                                 "lab_type_id"               => $lab["lab_type_id"],
                                 "lab_type"                  => $lab["lab_type"] ,
@@ -956,16 +1003,15 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                         $summary_labs["lab_workers"][] = array(
                             "lab_worker_id"             => $lab_worker["lab_worker_id"] ? (int)$lab_worker["lab_worker_id"] : null,
                             "lab_id"                    => $lab_worker["lab_id"],
-                            "email"                     => $lab_worker["worker_email"] ,
                             "worker_status"             => $lab_worker["worker_status"] ? (int)$lab_worker["worker_status"] : null,
                             "worker_start_service"      => $lab_worker["worker_start_service"],
                             "worker_id"                 => $lab_worker["worker_id"] ? (int)$lab_worker["worker_id"] : null,
                             "registry_no"               => $lab_worker["registry_no"],
-                            "tax_number"                => $lab_worker["tax_number"],
+                            "uid"                       => $lab_worker["uid"],
                             "firstname"                 => $lab_worker["firstname"] ,
                             "lastname"                  => $lab_worker["lastname"] ,
                             "fathername"                => $lab_worker["fathername"] ,
-                            "sex"                       => $lab_worker["sex"],
+                            "email"                     => $lab_worker["email"],
                             "worker_specialization_id"  => $lab_worker["worker_specialization_id"],
                             "worker_specialization"     => $lab_worker["worker_specialization"] ,
                             "worker_position_id"        => $lab_worker["worker_position_id"] ,
@@ -1036,10 +1082,13 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         return $result;
     } else if ($export == 'XLSX') {
        $xlsx_filename = SearchSchoolUnitsExt::ExcelCreate($result);
-       return array("tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
+       unset($result['data']);
+       return array("result"=>$result,"tmp_xlsx_filepath" => $Options["WebTmpFolder"].$xlsx_filename);
        //exit;
     } else if ($export == 'PDF'){
        return $result;
+    } else if ($export == 'PHP_ARRAY'){
+       return print_r($result);
     } else {     
        return $result;
     }

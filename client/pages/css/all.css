@@ -78,13 +78,19 @@ table, td, k-toolbar, k-pager-wrap
 }
 
 .state_green{
-    color:#55B262;
+    color: #ADEA2A;/*#90C226;*/
 }
 
 .state_orange{
-    color: #F9AB52;
+    color: #FC8E4E; /*#E76618;*/
 }
 
 .state_red{
-    color:#DD3346;
+    color: #E5432D; /*#C42F1A;*/
+}
+
+
+.k-grid-header .k-header {
+    text-align: center;
+    font-weight: bold;
 }

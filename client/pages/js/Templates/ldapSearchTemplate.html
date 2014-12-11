@@ -1,0 +1,68 @@
+<!-- transit lab template -->
+
+<script id="ldap_search_template" type="text/x-kendo-template">
+    <div class="k-edit-form-container">
+
+        <div id="uid_ldap_search" class="form-horizontal col-md-11">
+        
+            <div class='form-group' style="display:none">
+                <div class="col-md-11">
+                    <div id="ldap_details" class="alert alert-success" role="alert" style="margin:0px;">
+                    <i class="fa fa-check-square-o fa-2x" style="padding:4px;"></i>
+                        <ul style="list-style-type: none; padding: 0px;">
+                            <li>Ονοματεπώνυμο: <b><span id="ldap_fullname"> </span></b> </li>
+                            <li>Όνομα Πατρός: <b><span id="ldap_fathername"> </span></b> </li>
+                            <li>UID: <b><span id="ldap_uid"> </span></b> </li>
+                            <li>Αριθμός Μητρώου: <b><span id="ldap_registry_no"> </span></b> </li>
+                            <li>E-mail: <b><span id="ldap_mail"> </span></b> </li>
+                            <li>Κλάδος: <b><span id="ldap_specialization"> </span></b> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <div class='form-group' style="display:none">
+                <div class="col-md-11">
+                    <div id="ldap_no_match" class="alert alert-danger" role="alert" style="margin:0px;">
+                        Το UID που εισάγατε δεν αντιστοιχεί σε Καθηγητή Πληροφορικής ΠΕ19-ΠΕ20. Παρακαλώ ξαναπροσπαθήστε.
+                    </div>
+                </div>
+            </div>        
+        
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <div style="width:100%;">
+                        Εισάγετε το uid του LDAP λογαριασμού του Καθηγητή ΠΕ19-ΠΕ20, για να τον προσθέσετε στη λίστα
+                        Όταν ολοκληρωθεί η προσθήκη, αναζητήστε τον εκ νέου στο πεδίο Ονοματεπώνυμο.
+                    </div>
+                </div>    
+            </div>
+
+            <div class='form-group'>
+                <div class="col-md-11">
+                    <input  id="ldap_input"
+                            class="k-textbox" 
+                            type="text"
+                            data-text-field="UID"
+                            data-value-field="UID"
+                            placeholder="αναζήτηση με το LDAP UID"
+                            style="width:75%"
+                    />        
+                    <button id="ldap_search_btn" class="k-button">
+                        <i class="fa fa-search"></i> Αναζήτηση
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="k-edit-buttons k-state-default">
+            <button class="k-button k-button-icontext k-grid-search k-state-disabled" style="disabled:true">
+                <span class="k-icon k-update"></span> Προσθήκη
+            </button>
+            <button class="k-button k-button-icontext k-grid-cancel-search">
+                <span class="k-icon k-cancel"></span> Ακύρωση
+            </button>
+        </div>
+
+    </div>
+</script>

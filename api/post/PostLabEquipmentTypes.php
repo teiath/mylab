@@ -36,10 +36,10 @@ function PostLabEquipmentTypes($lab_id, $equipment_type, $items) {
     {
       
 //$lab_id=======================================================================       
-        CRUDUtils::entitySetAssociation($LabEquipmentTypes, $lab_id, 'Labs', 'lab', 'Lab');
+        CRUDUtils::entitySetAssociation($LabEquipmentTypes, $lab_id, 'Labs', 'lab', 'Lab', $params, 'lab_id');
         
 //$equipment_type===============================================================       
-        CRUDUtils::entitySetAssociation($LabEquipmentTypes, $equipment_type, 'EquipmentTypes', 'equipmentType', 'EquipmentType');
+        CRUDUtils::entitySetAssociation($LabEquipmentTypes, $equipment_type, 'EquipmentTypes', 'equipmentType', 'EquipmentType', $params, 'equipment_type');
     
 //$items========================================================================      
         if (Validator::Missing('items', $params))
@@ -89,5 +89,4 @@ function PostLabEquipmentTypes($lab_id, $equipment_type, $items) {
     
     return $result;
 }       
-
 ?>
