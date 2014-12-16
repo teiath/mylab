@@ -39,9 +39,14 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
                 
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
-       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       //$pagesize = Pagination::getPagesize($pagesize, $params);     
        $searchtype = Filters::getSearchType($searchtype, $params);
        $ordertype =  Filters::getOrderType($ordertype, $params);
+       
+       if (($export == 'XLSX') || ($export == 'CSV') )
+        $pagesize = Parameters::ExportPageSize;
+       else
+        $pagesize = Pagination::getPagesize($pagesize, $params);
        
 //======================================================================================================================
 //= $lab_id
