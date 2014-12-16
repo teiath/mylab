@@ -36,7 +36,18 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 
     try
     {
-                
+       
+//==============================================================================
+//= $export
+//==============================================================================
+        
+        if ( Validator::Missing('export', $params) )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+        } else
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
+        
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        //$pagesize = Pagination::getPagesize($pagesize, $params);     
@@ -44,9 +55,9 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
        $ordertype =  Filters::getOrderType($ordertype, $params);
        
        if (($export == 'XLSX') || ($export == 'CSV') )
-        $pagesize = Parameters::ExportPageSize;
+            $pagesize = Parameters::ExportPageSize;
        else
-        $pagesize = Pagination::getPagesize($pagesize, $params);
+            $pagesize = Pagination::getPagesize($pagesize, $params);
        
 //======================================================================================================================
 //= $lab_id
@@ -428,17 +439,6 @@ function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $op
 
         }
       
-//======================================================================================================================
-//= $export
-//======================================================================================================================
-        
-        if ( Validator::Missing('export', $params) )
-            $export = ExportDataEnumTypes::JSON;
-        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
-            $export = ExportDataEnumTypes::getValue($export);
-        } else
-            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
-
 //======================================================================================================================
 //= $orderby
 //======================================================================================================================
