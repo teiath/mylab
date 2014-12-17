@@ -4,7 +4,7 @@ class FindLabWorkersExt {
     
  public static function ExcelCreate($data){
      
-     global $Options;
+    global $Options;
  
     $stringDate = date('dmYHis');
     $filename = "LabWorkers".$stringDate.".xlsx";
@@ -41,7 +41,7 @@ foreach($data["data"] as $worker_data)
     // Set values from get api function to excell cells
     $objPHPExcel->getActiveSheet()->setCellValue("A$i", $worker_data["worker_id"]);
     $objPHPExcel->getActiveSheet()->setCellValueExplicit("B$i", $worker_data["registry_no"], PHPExcel_Cell_DataType::TYPE_STRING);
-    $objPHPExcel->getActiveSheet()->setCellValue("C$i", $worker_data["uid"]);
+    $objPHPExcel->getActiveSheet()->setCellValue("C$i", $worker_data["worker_uid"]);
     $objPHPExcel->getActiveSheet()->setCellValue("D$i",  $worker_data["firstname"]);
     $objPHPExcel->getActiveSheet()->setCellValue("E$i", $worker_data["lastname"]);
     $objPHPExcel->getActiveSheet()->setCellValue("F$i", $worker_data["fathername"]);
@@ -52,27 +52,9 @@ foreach($data["data"] as $worker_data)
     $i++;
 }
 
-//    // Set auto size column width
-//    foreach(range('A','I') as $columnID) {
-//        $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)
-//            ->setAutoSize(true);
-//    }
-     
-//// Redirect output to a client’s web browser (Excel2007)
-//    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-//    header("Content-Disposition: attachment;filename=\"".$filename."\"");
-//    header('Cache-Control: max-age=0');
-//    // If you're serving to IE 9, then the following may be needed
-//    header('Cache-Control: max-age=1');
-//
-//    // Save Excel 2007 file
-//    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-//    $objWriter->save('php://output');   
-
     // Save Excel 2007 file
     $file = $Options["TmpFolder"].$filename;
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-//  $objWriter->save(str_replace('.php', '.xlsx', $file));
     $objWriter->save($file);
     
     return $filename;
