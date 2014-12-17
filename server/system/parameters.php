@@ -37,7 +37,7 @@ class Parameters
     /**
     * Ο μέγιστος αριθμός εγγραφών που μπορούν να επιστραφούν ανά κλήση για export format excell/csv
     */
-    const ExportPageSize = 1000;
+    const ExportPageSize = 0;
     
     /**
     *Ο προκαθορισμένος αριθμός σελιδοποίησης ανά κλήση 

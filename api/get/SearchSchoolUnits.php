@@ -38,17 +38,26 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
     try
     {
+
+//$export=======================================================================
+        if ( Validator::Missing('export', $params) )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+        } else
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
         
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
-       $pagesize = Pagination::getPagesize($pagesize, $params);     
        $searchtype = Filters::getSearchType($searchtype, $params);
        $ordertype =  Filters::getOrderType($ordertype, $params);
                                         
-//======================================================================================================================
-//= $school_unit_id
-//======================================================================================================================
-
+       if ($export == 'XLSX')
+            $pagesize = Parameters::ExportPageSize;
+       else
+            $pagesize = Pagination::getPagesize($pagesize, $params);
+       
+//$school_unit_id===============================================================
         if ( Validator::Exists('school_unit_id', $params) )
         {
             $table_name = "school_units";
@@ -61,10 +70,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
-//======================================================================================================================
-//= $school_unit_name
-//======================================================================================================================
-
+//$school_unit_name=============================================================
         if ( Validator::Exists('school_unit_name', $params) )
         {
             $table_name = "school_units";
@@ -75,10 +81,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             
         }
 
-//======================================================================================================================
-//= $school_unit_special_name
-//======================================================================================================================
-
+//$school_unit_special_name=====================================================
         if ( Validator::Exists('school_unit_special_name', $params) )
         {
             $table_name = "school_units";
@@ -89,10 +92,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             
         }
         
-//======================================================================================================================
-//= $region_edu_admin
-//======================================================================================================================
-
+//$region_edu_admin=============================================================
         if ( Validator::Exists('region_edu_admin', $params) )
         {
 
@@ -106,10 +106,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             
         }
 
-//======================================================================================================================
-//= $edu_admin
-//======================================================================================================================
-
+//$edu_admin====================================================================
         if ( Validator::Exists('edu_admin', $params) )
         {
 
@@ -123,10 +120,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
 
-//======================================================================================================================
-//= $transfer_area
-//======================================================================================================================
-
+//$transfer_area================================================================
         if ( Validator::Exists('transfer_area', $params) )
         {
             $table_name = "transfer_areas";
@@ -139,10 +133,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
 
-//======================================================================================================================
-//= $municipality
-//======================================================================================================================
-
+//$municipality=================================================================
         if ( Validator::Exists('municipality', $params) )
         {
             
@@ -156,10 +147,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
-//======================================================================================================================
-//= $prefecture
-//======================================================================================================================
-
+//$prefecture===================================================================
         if ( Validator::Exists('prefecture', $params) )
         {
             $table_name = "prefectures";
@@ -172,10 +160,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
 
-//======================================================================================================================
-//= $education_level
-//======================================================================================================================
-
+//$education_level==============================================================
         if ( Validator::Exists('education_level', $params) )
         {
             $table_name = "education_levels";
@@ -188,10 +173,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
- //======================================================================================================================
-//= $school_unit_type
-//======================================================================================================================
-
+//$school_unit_type=============================================================
         if ( Validator::Exists('school_unit_type', $params) )
         {
             $table_name = "school_unit_types";
@@ -204,10 +186,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             
         }     
         
-//======================================================================================================================
-//= $school_unit_state
-//======================================================================================================================
-
+//$school_unit_state============================================================
         if ( Validator::Exists('school_unit_state', $params) )
         {
             $table_name = "school_unit_states";
@@ -220,10 +199,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
-//======================================================================================================================
-//= $lab_id
-//======================================================================================================================
-
+//$lab_id=======================================================================
         if ( Validator::Exists('lab_id', $params) )
         {
             $table_name = "labs";
@@ -236,10 +212,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
-//======================================================================================================================
-//= $lab_name
-//======================================================================================================================
-
+//$lab_name=====================================================================
         if ( Validator::Exists('lab_name', $params) )
         {
             $table_name = "labs";
@@ -250,10 +223,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             
         }
         
- //======================================================================================================================
-//= $lab_special_name
-//======================================================================================================================
-
+//$lab_special_name=============================================================
         if ( Validator::Exists('lab_special_name', $params) )
         {
             $table_name = "labs";
@@ -264,10 +234,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             
         }   
  
-//======================================================================================================================
-//= $creation_date
-//======================================================================================================================
-
+//$creation_date================================================================
         if ( Validator::Exists('creation_date', $params) )
         {
             $table_name = "labs";
@@ -279,10 +246,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             
         }
         
-//======================================================================================================================
-//= $operational_rating
-//======================================================================================================================
-
+//$operational_rating===========================================================
         if ( Validator::Exists('operational_rating', $params) )
         {
             $table_name = "labs";
@@ -294,10 +258,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                                                ExceptionMessages::InvalidLabOperationalRatingType, ExceptionCodes::InvalidLabOperationalRatingType);
 
         }
-//======================================================================================================================
-//= $technological_rating
-//======================================================================================================================
-
+        
+//$technological_rating=========================================================
         if ( Validator::Exists('technological_rating', $params) )
         {
             $table_name = "labs";
@@ -310,10 +272,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
-//======================================================================================================================
-//= $submitted
-//======================================================================================================================
-
+//$submitted====================================================================
         if ( Validator::Exists('submitted', $params) )
         {
             $table_name = "labs";
@@ -326,10 +285,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
-//======================================================================================================================
-//= $lab_type
-//======================================================================================================================
-
+//$lab_type=====================================================================
         if ( Validator::Exists('lab_type', $params) )
         {
             $table_name = "lab_types";
@@ -342,10 +298,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
-//======================================================================================================================
-//= $lab_state
-//======================================================================================================================
-
+//$lab_state====================================================================
         if ( Validator::Exists('lab_state', $params) )
         {
             $table_name = "lab_states";
@@ -358,10 +311,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
         
-//======================================================================================================================
-//= $lab_source
-//======================================================================================================================
-
+//$lab_source===================================================================
         if ( Validator::Exists('lab_source', $params) )
         {
 
@@ -374,10 +324,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
                                               ExceptionMessages::InvalidLabSourceType, ExceptionCodes::InvalidLabSourceType);
             
         }
-//======================================================================================================================
-//= $aquisition_source
-//======================================================================================================================
-
+        
+//$aquisition_source============================================================
         if ( Validator::Exists('aquisition_source', $params) )
         {
             $table_name = "aquisition_sources";
@@ -390,10 +338,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
  
-//======================================================================================================================
-//= $equipment_type
-//======================================================================================================================
-
+//$equipment_type===============================================================
         if ( Validator::Exists('equipment_type', $params) )
         {
             $table_name = "equipment_types";
@@ -406,10 +351,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }
  
-//======================================================================================================================
-//= $lab_worker
-//======================================================================================================================
-
+//$lab_worker===================================================================
         if ( Validator::Exists('lab_worker', $params) )
         {
             $table_name = "mylab_workers";
@@ -422,10 +364,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
         }    
  
-//======================================================================================================================
-//= $has_labs
-//======================================================================================================================
-
+//$has_labs=====================================================================
 //        if ( Validator::Exists('has_labs', $params) )
 //        {
 //            $table_name = "labs";
@@ -439,21 +378,10 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 //            
 //            var_dump($filterHasLabs);
 //        } 
-        
-//======================================================================================================================
-//= $export
-//======================================================================================================================
-        
-        if ( Validator::Missing('export', $params) )
-            $export = ExportDataEnumTypes::JSON;
-        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
-            $export = ExportDataEnumTypes::getValue($export);
-        } else
-            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
-        
-//======================================================================================================================
+                
+//==============================================================================
 //= $orderby
-//======================================================================================================================
+//==============================================================================
 
         if ( Validator::Exists('orderby', $params) )
         {
@@ -478,9 +406,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
 
  
         
-//======================================================================================================================
+//==============================================================================
 //= E X E C U T E
-//======================================================================================================================
+//==============================================================================
 
 //Registered Labs and User permissions==========================================
         
@@ -612,9 +540,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         $result["all_labs_by_type"] = Filters::AllLabsCounter($sqlFrom,$sqlWhere,$sqlPermissions);
     
 
-//======================================================/**================================================================
+//==============================================================================
 //= $array_circuits
-//======================================================================================================================
+//==============================================================================
 
         $sqlSelect = "SELECT
                         circuits.circuit_id,
@@ -644,9 +572,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             $circuits[ $circuit["school_unit_id"] ][ $circuit["circuit_id"] ] = $circuit;
         }
  
-//======================================================================================================================
+//==============================================================================
 //= $array_school_unit_workers
-//======================================================================================================================
+//==============================================================================
 
         $sqlSelect = "SELECT
                         school_unit_workers.school_unit_worker_id,
@@ -684,9 +612,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             $school_unit_workers[ $school_unit_worker["school_unit_id"] ][ $school_unit_worker["school_unit_worker_id"] ] = $school_unit_worker;
         }
 
-//======================================================================================================================
+//==============================================================================
 //= $array_labs
-//======================================================================================================================
+//==============================================================================
 
         $sqlSelect = "SELECT
                         labs.lab_id,
@@ -758,9 +686,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             $lab_ids = "0";
         }
          
-//======================================================================================================================
+//==============================================================================
 //= $array_lab_aquisition_sources
-//======================================================================================================================
+//==============================================================================
 
         $sqlSelect = "SELECT
                         lab_aquisition_sources.lab_aquisition_source_id,
@@ -790,9 +718,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             $lab_aquisition_sources[ $lab_aquisition_source["lab_id"] ][ $lab_aquisition_source["lab_aquisition_source_id"] ] = $lab_aquisition_source;
         }
     
-//======================================================================================================================
+//==============================================================================
 //= $array_lab_equipment_types
-//======================================================================================================================
+//==============================================================================
 
         $sqlSelect = "SELECT
                         lab_equipment_types.equipment_type_id,
@@ -823,9 +751,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         {
             $lab_equipment_types[ $lab_equipment_type["lab_id"] ][ $lab_equipment_type["equipment_type_id"] ] = $lab_equipment_type;
         }
- //======================================================================================================================
+ //=============================================================================
 //= $array_lab_workers
-//======================================================================================================================
+//==============================================================================
 
         $sqlSelect = "SELECT
                         lab_workers.lab_worker_id,
@@ -866,9 +794,9 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             $lab_workers[ $lab_worker["lab_id"] ][ $lab_worker["lab_worker_id"] ] = $lab_worker;
         }
        
-//======================================================================================================================
+//==============================================================================
 //= R E S U L T S
-//======================================================================================================================
+//==============================================================================
        //$array_school_units=  Validator::ToUniqueObject($array_school_units);
         
         //find count of lab_types per school_units
