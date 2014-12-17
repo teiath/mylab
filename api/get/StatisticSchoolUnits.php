@@ -446,6 +446,8 @@ function StatisticSchoolUnits ( $school_unit_id, $school_unit_name, $school_unit
                 $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
            }
 
+//Start SQL Queries=============================================================
+           
         $sqlSelect = "SELECT count(DISTINCT school_units.school_unit_id) as total_school_units, count(DISTINCT labs.lab_id) as all_labs ";
 
         $sqlFrom = "FROM school_units

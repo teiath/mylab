@@ -233,7 +233,10 @@ function GetLabTypes( $lab_type_id, $name, $full_name,
     $params = loadParameters();
     
     try {
-        
+
+//user permissions==============================================================
+//not required 
+            
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params, true);     

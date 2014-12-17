@@ -41,7 +41,10 @@ function GetMunicipalities( $municipality_id, $name, $transfer_area, $prefecture
     $params = loadParameters();
     
     try {
-        
+  
+//user permissions==============================================================
+//not required 
+           
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params, true);     

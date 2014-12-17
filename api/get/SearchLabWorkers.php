@@ -381,6 +381,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
        }
        
+//Start SQL Queries=============================================================
+       
        $sqlSelect = "SELECT 
                         lab_workers.lab_worker_id,
                         lab_workers.worker_status,

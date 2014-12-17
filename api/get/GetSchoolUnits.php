@@ -57,15 +57,9 @@ function GetSchoolUnits( $school_unit_id, $name, $special_name, $last_update, $f
     $params = loadParameters();
     
     try {
-
-//set user permissions==========================================================
-//    $permissions = UserRoles::getUserPermissions($app->request->user);
-//
-//    if (Validator::IsNull($permissions['permit_labs'])){
-//        throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     
-//    }else { 
-//        $permit_labs = $permissions['permit_labs'];
-//    }
+  
+//user permissions==============================================================
+//not required 
     
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);

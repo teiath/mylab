@@ -28,14 +28,8 @@ function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
 
     try {
         
-//set user permissions==========================================================
-//    $permissions = UserRoles::getUserPermissions($app->request->user);
-//
-//    if (Validator::IsNull($permissions['permit_labs'])){
-//        throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     
-//    }else { 
-//        $permit_labs = $permissions['permit_labs'];
-//    }      
+//user permissions==============================================================
+//not required (all users with title 'ΚΕΠΛΗΝΕΤ' or 'ΠΣΔ' or 'ΥΠΕΠΘ' have permissions to GetFindLabWorkers)     
  
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);

@@ -445,6 +445,8 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
        }
 
+//Start SQL Queries=============================================================
+       
         $sqlSelect = "SELECT 
                       DISTINCT  school_units.school_unit_id,
                                 school_units.name as school_unit_name,

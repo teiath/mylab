@@ -29,8 +29,8 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
 
     try {
         
-//set user permissions==========================================================
-//NO lab,school_units,lab_workers filtered by user role
+//user permissions==============================================================
+//not required (all users with title 'ΚΕΠΛΗΝΕΤ' or 'ΠΣΔ' or 'ΥΠΕΠΘ' have permissions to GetFindLabWorkers)
     
 //$export=======================================================================       
         if ( Validator::Missing('export', $params) )

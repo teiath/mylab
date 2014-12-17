@@ -40,7 +40,10 @@ function GetEduAdmins( $edu_admin_id, $name, $edu_admin_code, $region_edu_admin,
     $params = loadParameters();
     
     try {
-        
+
+//user permissions==============================================================
+//not required 
+            
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params, true);     

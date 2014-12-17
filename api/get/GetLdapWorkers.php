@@ -20,6 +20,9 @@ function GetLdapWorkers( $uid ) {
     $params = loadParameters();
     
     try {
+ 
+//user permissions==============================================================
+//not required (all users with title 'ΔΙΕΥΘΥΝΤΗΣ' or 'ΤΟΜΕΑΡΧΗΣ' have permissions to GetLdapWorkers)
         
 //$uid==========================================================================
       $fUid = CRUDUtils::checkNameParam('uid', $params, $uid, 'LdapWorkerUid');
@@ -41,9 +44,7 @@ function GetLdapWorkers( $uid ) {
             throw new Exception(ExceptionMessages::InvalidLdapWorkerUidValue, ExceptionCodes::InvalidLdapWorkerUidValue); 
         else 
             throw new Exception(ExceptionMessages::MultipleLdapWorkerUidValue, ExceptionCodes::MultipleLdapWorkerUidValue);
-        
-//user permissions===============================================================
-        
+                
 //controls======================================================================
        
        $rows = iterator_to_array($lresult);
