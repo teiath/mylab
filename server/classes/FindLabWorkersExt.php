@@ -14,16 +14,18 @@ class FindLabWorkersExt {
 
     // Set document properties
     $objPHPExcel->getProperties()->setCreator("MyLab Administrator")
-                                 ->setTitle("MyLab Report")
-                                 ->setSubject("Labs Report")
-                                 ->setDescription("First level xls data. on-the-fly (NOT Saved at server folder). Works only with web browser.");
+                                 ->setTitle("MyLab myLabWorkers xlsx")
+                                 ->setSubject("Export myLabWorkers xlsx format")
+                                 ->setDescription("First level xls data. Saved at server folder.");
     // Set format codes 
     $objPHPExcel->getDefaultStyle()->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_TEXT);
 
-    // Create a first sheet
+    // Set active sheet index to the first sheet, so Excel opens this as the first sheet
     $objPHPExcel->setActiveSheetIndex(0);
+    
+    // Create a first sheet
     $objPHPExcel->getActiveSheet()->setCellValue('A1', "Κωδικός Β.Δ. Εργαζομενου");
-    $objPHPExcel->getActiveSheet()->setCellValue('B1', "Registry_Number Εργαζομενου");
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', "Αριθμός Μητρωου Εργαζομενου", PHPExcel_Cell_DataType::TYPE_STRING);
     $objPHPExcel->getActiveSheet()->setCellValue('C1', "UID Εργαζομενου");
     $objPHPExcel->getActiveSheet()->setCellValue('D1', "Όνομα");
     $objPHPExcel->getActiveSheet()->setCellValue('E1', "Επίθετο");
@@ -36,42 +38,26 @@ class FindLabWorkersExt {
 $i=2;
 foreach($data["data"] as $worker_data)
 {    
-
-    $worker_id = $worker_data["worker_id"];
-    $registry_no = $worker_data["registry_no"];
-    $uid = $worker_data["uid"];
-    $firstname = $worker_data["firstname"] ;
-    $lastname = $worker_data["lastname"];
-    $fathername = $worker_data["fathername"];
-    $email = $worker_data["email"];
-    $worker_specialization = $worker_data["workerSpecializationName"];
-    $worker_lab_source = $worker_data["workerLabSourceName"];
- 
     // Set values from get api function to excell cells
-    $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, "$worker_id")
-                                    ->setCellValue('B' . $i, "$registry_no")
-                                    ->setCellValue('C' . $i, "$uid")
-                                    ->setCellValue('D' . $i, "$firstname")
-                                    ->setCellValue('E' . $i, "$lastname")
-                                    ->setCellValue('F' . $i, "$fathername")
-                                    ->setCellValue('G' . $i, "$email")
-                                    ->setCellValue('H' . $i, "$worker_specialization")
-                                    ->setCellValue('I' . $i, "$worker_lab_source")
-            ;
-
+    $objPHPExcel->getActiveSheet()->setCellValue("A$i", $worker_data["worker_id"]);
+    $objPHPExcel->getActiveSheet()->setCellValueExplicit("B$i", $worker_data["registry_no"], PHPExcel_Cell_DataType::TYPE_STRING);
+    $objPHPExcel->getActiveSheet()->setCellValue("C$i", $worker_data["uid"]);
+    $objPHPExcel->getActiveSheet()->setCellValue("D$i",  $worker_data["firstname"]);
+    $objPHPExcel->getActiveSheet()->setCellValue("E$i", $worker_data["lastname"]);
+    $objPHPExcel->getActiveSheet()->setCellValue("F$i", $worker_data["fathername"]);
+    $objPHPExcel->getActiveSheet()->setCellValue("G$i", $worker_data["email"]);
+    $objPHPExcel->getActiveSheet()->setCellValue("H$i", $worker_data["worker_specialization_name"]);
+    $objPHPExcel->getActiveSheet()->setCellValue("I$i", $worker_data["worker_lab_source_name"]);
+           
     $i++;
 }
 
-    // Set auto size column width
-    foreach(range('A','I') as $columnID) {
-        $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)
-            ->setAutoSize(true);
-    }
-    
-    // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-    $objPHPExcel->setActiveSheetIndex(0);
-    
-
+//    // Set auto size column width
+//    foreach(range('A','I') as $columnID) {
+//        $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)
+//            ->setAutoSize(true);
+//    }
+     
 //// Redirect output to a client’s web browser (Excel2007)
 //    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 //    header("Content-Disposition: attachment;filename=\"".$filename."\"");
@@ -86,8 +72,9 @@ foreach($data["data"] as $worker_data)
     // Save Excel 2007 file
     $file = $Options["TmpFolder"].$filename;
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    $objWriter->save(str_replace('.php', '.xlsx', $file));
-
+//  $objWriter->save(str_replace('.php', '.xlsx', $file));
+    $objWriter->save($file);
+    
     return $filename;
 }
 
