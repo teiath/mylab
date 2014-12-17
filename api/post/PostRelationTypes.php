@@ -20,7 +20,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PostRelationTypes($name) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $RelationType = new RelationTypes();
     $result = array();
@@ -33,13 +33,13 @@ function PostRelationTypes($name) {
 
     try {
 
+    //user permisions===========================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab);
+    
     //$name=====================================================================
      CRUDUtils::EntitySetParam($RelationType, $name, 'RelationTypeName', 'name', $params, true, false);
-        
-    //user permisions===========================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
-        
+ 
 //controls======================================================================   
 
         //check for duplicate ==================================================   

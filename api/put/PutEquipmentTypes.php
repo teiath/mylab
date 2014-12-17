@@ -22,7 +22,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PutEquipmentTypes($equipment_type_id, $name, $equipment_category) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $result = array();
 
@@ -34,6 +34,10 @@ function PutEquipmentTypes($equipment_type_id, $name, $equipment_category) {
 
     try {
  
+//user permisions===============================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
+
 //$equipment_type_id============================================================  
         $fEquipmentTypeId = CRUDUtils::checkIDParam('equipment_type_id', $params, $equipment_type_id, 'EquipmentTypeID');
        
@@ -53,10 +57,6 @@ function PutEquipmentTypes($equipment_type_id, $name, $equipment_category) {
         } else if ( Validator::IsNull($EquipmentType->getEquipmentCategory() ) ){
             throw new Exception(ExceptionMessages::MissingEquipmentCategoryValue." : ".$equipment_category, ExceptionCodes::MissingEquipmentCategoryValue);
         } 
-        
-    //user permisions===========================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
         
 //controls======================================================================   
 

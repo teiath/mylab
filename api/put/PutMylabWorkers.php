@@ -39,6 +39,9 @@ function PutMylabWorkers($worker_id, $registry_no, $uid, $firstname, $lastname, 
    
     try {
         
+ //user permisions===============================================================
+    //not required (all users with title 'ΔΙΕΥΘΥΝΤΗΣ' or 'ΤΟΜΕΑΡΧΗΣ' have permissions to PutMyLabWorkers)
+         
 //$worker_id====================================================================    
         $fWorkerId = CRUDUtils::checkIDParam('worker_id', $params, $worker_id, 'MylabWorkerID');
        
@@ -100,10 +103,6 @@ function PutMylabWorkers($worker_id, $registry_no, $uid, $firstname, $lastname, 
         } else if ( Validator::IsNull($MylabWorkers->getLabSource()) ){
             throw new Exception(ExceptionMessages::MissingLabSourceInfosValue." : ".$lab_source, ExceptionCodes::MissingLabSourceInfosValue);
         } 
-        
-//user permisions===============================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
          
 //controls======================================================================  
 

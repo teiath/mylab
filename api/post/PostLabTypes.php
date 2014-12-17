@@ -21,7 +21,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PostLabTypes($name, $full_name) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $LabType = new LabTypes();
     $result = array();
@@ -34,16 +34,16 @@ function PostLabTypes($name, $full_name) {
 
     try {
 
+    //user permisions===========================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab);
+    
     //$name=====================================================================
      CRUDUtils::EntitySetParam($LabType, $name, 'LabTypeName', 'name', $params, true, false);
      
     //$full_name================================================================
      CRUDUtils::EntitySetParam($LabType, $full_name, 'LabTypeFullName', 'full_name', $params, true, false);
-        
-    //user permisions===========================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
-        
+ 
 //controls======================================================================   
 
         //check for duplicate ==================================================   

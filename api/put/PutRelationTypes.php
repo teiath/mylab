@@ -21,7 +21,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PutRelationTypes($relation_type_id, $name) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $result = array();
 
@@ -32,6 +32,10 @@ function PutRelationTypes($relation_type_id, $name) {
     $params = loadParameters();
 
     try {
+
+//user permisions===============================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
  
 //$relation_type_id=============================================================    
         $fRelationTypeId = CRUDUtils::checkIDParam('relation_type_id', $params, $relation_type_id, 'RelationTypeID');
@@ -45,10 +49,7 @@ function PutRelationTypes($relation_type_id, $name) {
         } else if ( Validator::IsNull($RelationType->getName()) ){
             throw new Exception(ExceptionMessages::MissingRelationTypeNameValue." : ".$name, ExceptionCodes::MissingRelationTypeNameValue);
         } 
-        
-    //user permisions===========================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-        
+
 //controls======================================================================   
 
         //check duplicate=======================================================        

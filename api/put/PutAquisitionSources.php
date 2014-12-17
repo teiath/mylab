@@ -21,7 +21,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PutAquisitionSources($aquisition_source_id, $name) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $result = array();
 
@@ -32,8 +32,12 @@ function PutAquisitionSources($aquisition_source_id, $name) {
     $params = loadParameters();
 
     try {
- 
-//$aquisition_source_id==========================================================    
+
+//user permisions===============================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
+
+//$aquisition_source_id=========================================================    
         $fAquisitionSourceId = CRUDUtils::checkIDParam('aquisition_source_id', $params, $aquisition_source_id, 'AquisitionSourceID');
        
 //init entity for update row====================================================
@@ -45,10 +49,6 @@ function PutAquisitionSources($aquisition_source_id, $name) {
         } else if ( Validator::IsNull($AquisitionSource->getName()) ){
             throw new Exception(ExceptionMessages::MissingAquisitionSourceNameValue." : ".$name, ExceptionCodes::MissingAquisitionSourceNameValue);
         } 
-                
-    //user permisions===========================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
         
 //controls======================================================================   
 

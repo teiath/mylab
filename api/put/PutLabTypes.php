@@ -22,7 +22,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PutLabTypes($lab_type_id, $name, $full_name) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $result = array();
 
@@ -33,7 +33,11 @@ function PutLabTypes($lab_type_id, $name, $full_name) {
     $params = loadParameters();
 
     try {
- 
+   
+//user permisions===============================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
+
 //$lab_type_id==================================================================    
         $fLabTypeId = CRUDUtils::checkIDParam('lab_type_id', $params, $lab_type_id, 'LabTypeID');
        
@@ -53,10 +57,6 @@ function PutLabTypes($lab_type_id, $name, $full_name) {
         } else if ( Validator::IsNull($LabType->getFullName() ) ){
             throw new Exception(ExceptionMessages::MissingLabTypeFullNameValue." : ".$full_name, ExceptionCodes::MissingLabTypeFullNameValue);
         } 
-        
-    //user permisions===========================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
         
 //controls======================================================================   
 
