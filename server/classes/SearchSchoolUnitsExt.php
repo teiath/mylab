@@ -24,34 +24,34 @@ class SearchSchoolUnitsExt {
     $objPHPExcel->setActiveSheetIndex(0);
     
     // Create a first sheet
-    $objPHPExcel->getActiveSheet()->setCellValue('A1', "Κωδικός ΜΜ (Μητρώο Μονάδων)");
-    $objPHPExcel->getActiveSheet()->setCellValue('B1', "'Όνομα");
-    $objPHPExcel->getActiveSheet()->setCellValue('C1', "Ειδικό Όνομα");
-    $objPHPExcel->getActiveSheet()->setCellValue('D1', "Περιφέρεια");
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', "Κωδικός Σχολικής Μονάδας");
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', "Όνομασία Σχολικής Μονάδας");
+    $objPHPExcel->getActiveSheet()->setCellValue('C1', "Ειδική Όνομασία");
+    $objPHPExcel->getActiveSheet()->setCellValue('D1', "Περιφερειακή Διεύθυνση Εκπαίδευσης");
     $objPHPExcel->getActiveSheet()->setCellValue('E1', "Διευθύνση Εκπαίδευσης");
     $objPHPExcel->getActiveSheet()->setCellValue('F1', "Περιοχή Μετάθεσης");
-    $objPHPExcel->getActiveSheet()->setCellValue('G1', "Δήμος ΟΤΑ");
-    $objPHPExcel->getActiveSheet()->setCellValue('H1', "Νομός");
-    $objPHPExcel->getActiveSheet()->setCellValue('I1', "Επίπεδο Εκπαίδευσης");
-    $objPHPExcel->getActiveSheet()->setCellValue('J1', "Τύπος");
-    $objPHPExcel->getActiveSheet()->setCellValue('K1', "Λειτουργική Κατάσταση");
+    $objPHPExcel->getActiveSheet()->setCellValue('G1', "Δήμος");
+    $objPHPExcel->getActiveSheet()->setCellValue('H1', "Περιφερειακή Ενότητα");
+    $objPHPExcel->getActiveSheet()->setCellValue('I1', "Βαθμίδα Εκπαίδευσης");
+    $objPHPExcel->getActiveSheet()->setCellValue('J1', "Τύπος Σχολικής Μονάδας");
+    $objPHPExcel->getActiveSheet()->setCellValue('K1', "Λειτουργική Κατάσταση Σχολικής Μονάδας");
 
     //Loop throught data result of get api function
     $i=2;
     foreach($data["data"] as $school_unit_data)
     {    
         // Set values from get api function to excell cells
-        $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, $school_unit_data["school_unit_id"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('B' . $i, $school_unit_data["school_unit_name"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('C' . $i, $school_unit_data["school_unit_special_name"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('D' . $i, $school_unit_data["region_edu_admin"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('E' . $i, $school_unit_data["edu_admin"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('F' . $i, $school_unit_data["transfer_area"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('G' . $i, $school_unit_data["prefecture"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('H' . $i, $school_unit_data["municipality"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('I' . $i, $school_unit_data["education_level"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('J' . $i, $school_unit_data["school_unit_type"]);
-        $objPHPExcel->getActiveSheet()->setCellValue('K' . $i, $school_unit_data["school_unit_state"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("A$i", $school_unit_data["school_unit_id"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("B$i", $school_unit_data["school_unit_name"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("C$i", $school_unit_data["school_unit_special_name"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("D$i", $school_unit_data["region_edu_admin"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("E$i", $school_unit_data["edu_admin"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("F$i", $school_unit_data["transfer_area"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("G$i", $school_unit_data["prefecture"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("H$i", $school_unit_data["municipality"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("I$i", $school_unit_data["education_level"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("J$i", $school_unit_data["school_unit_type"]);
+        $objPHPExcel->getActiveSheet()->setCellValue("K$i", $school_unit_data["school_unit_state"]);
 
         $i++;
     }
