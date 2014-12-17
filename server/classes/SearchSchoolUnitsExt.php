@@ -24,17 +24,17 @@ class SearchSchoolUnitsExt {
     $objPHPExcel->setActiveSheetIndex(0);
     
     // Create a first sheet
-    $objPHPExcel->getActiveSheet()->setCellValue('A1', "school_unit_id");
-    $objPHPExcel->getActiveSheet()->setCellValue('B1', "school_unit_name");
-    $objPHPExcel->getActiveSheet()->setCellValue('C1', "school_unit_special_name");
-    $objPHPExcel->getActiveSheet()->setCellValue('D1', "region_edu_admin");
-    $objPHPExcel->getActiveSheet()->setCellValue('E1', "edu_admin");
-    $objPHPExcel->getActiveSheet()->setCellValue('F1', "transfer_area");
-    $objPHPExcel->getActiveSheet()->setCellValue('G1', "municipality");
-    $objPHPExcel->getActiveSheet()->setCellValue('H1', "prefecture");
-    $objPHPExcel->getActiveSheet()->setCellValue('I1', "education_level");
-    $objPHPExcel->getActiveSheet()->setCellValue('J1', "school_unit_type");
-    $objPHPExcel->getActiveSheet()->setCellValue('K1', "school_unit_state");
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', "Κωδικός ΜΜ (Μητρώο Μονάδων)");
+    $objPHPExcel->getActiveSheet()->setCellValue('B1', "'Όνομα");
+    $objPHPExcel->getActiveSheet()->setCellValue('C1', "Ειδικό Όνομα");
+    $objPHPExcel->getActiveSheet()->setCellValue('D1', "Περιφέρεια");
+    $objPHPExcel->getActiveSheet()->setCellValue('E1', "Διευθύνση Εκπαίδευσης");
+    $objPHPExcel->getActiveSheet()->setCellValue('F1', "Περιοχή Μετάθεσης");
+    $objPHPExcel->getActiveSheet()->setCellValue('G1', "Δήμος ΟΤΑ");
+    $objPHPExcel->getActiveSheet()->setCellValue('H1', "Νομός");
+    $objPHPExcel->getActiveSheet()->setCellValue('I1', "Επίπεδο Εκπαίδευσης");
+    $objPHPExcel->getActiveSheet()->setCellValue('J1', "Τύπος");
+    $objPHPExcel->getActiveSheet()->setCellValue('K1', "Λειτουργική Κατάσταση");
 
     //Loop throught data result of get api function
     $i=2;
