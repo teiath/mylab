@@ -77,7 +77,7 @@ $app->map('/relation_types', Authentication, UserRolesPermission, RelationTypesC
     ->via(MethodTypes::GET, MethodTypes::POST, MethodTypes::PUT, MethodTypes::DELETE);
 
 //extra GET functions
-$app->map('/user_permits', Authentication, UserRolesPermission, UserPermitsController)->via(MethodTypes::GET);
+$app->map('/find_lab_workers', Authentication, UserRolesPermission, FindLabWorkersController)->via(MethodTypes::GET);
 $app->map('/ldap_workers', Authentication, UserRolesPermission, LdapWorkerController)->via(MethodTypes::GET);
 $app->map('/report_keplhnet', Authentication, UserRolesPermission, ReportKeplhnetController)->via(MethodTypes::GET);
 $app->map('/search_school_units', Authentication, UserRolesPermission, SearchSchoolUnitsController)->via(MethodTypes::GET);
@@ -87,8 +87,9 @@ $app->map('/statistic_school_units', Authentication, UserRolesPermission, Statis
 $app->map('/statistic_labs', Authentication, UserRolesPermission, StatisticLabsController)->via(MethodTypes::GET);
 $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, StatisticLabWorkersController)->via(MethodTypes::GET);
 $app->map('/stat_labs', Authentication, UserRolesPermission, StatLabsController)->via(MethodTypes::GET);
+$app->map('/user_permits', Authentication, UserRolesPermission, UserPermitsController)->via(MethodTypes::GET);
 $app->map('/view_lab_workers', Authentication, UserRolesPermission, ViewLabWorkersController)->via(MethodTypes::GET);
-$app->map('/find_lab_workers', Authentication, UserRolesPermission, FindLabWorkersController)->via(MethodTypes::GET);
+
 
 $app->map('/initial_labs', Authentication, UserRolesPermission, InitialLabsController)->via(MethodTypes::PUT,MethodTypes::DELETE);
 
@@ -1367,7 +1368,7 @@ function RelationTypesController()
 #======= extra function controllers ============================================
 #===============================================================================
 
-function UserPermitsController()
+function FindLabWorkersController()
 {
     global $app;
     $params = loadParameters();
@@ -1375,14 +1376,44 @@ function UserPermitsController()
     switch ( strtoupper( $app->request()->getMethod() ) )
     {
         case MethodTypes::GET : 
-            $result = GetUserPermits(
+            $result = FindLabWorkers(
+                $params["lab_worker_id"],
+                $params["lab_worker_status"],
+                $params["lab_worker_start_service"],
+                $params["lab_worker_position"],
+                $params["worker_registry_no"],
+                $params["worker_uid"],
+                $params["worker_firstname"],
+                $params["worker_lastname"],
+                $params["lab_id"],
+                $params["lab_name"],
+                $params["submitted"],
+                $params["lab_type"],
+                $params["lab_state"],
+                $params["school_unit_id"],
+                $params["school_unit_name"],
+                $params["region_edu_admin"],
+                $params["edu_admin"],
+                $params["transfer_area"],
+                $params["municipality"],
+                $params["prefecture"],
+                $params["education_level"], 
+                $params["school_unit_type"],
+                $params["school_unit_state"],
+                $params["pagesize"], 
+                $params["page"],
+                $params["orderby"],
+                $params["ordertype"],
+                $params["searchtype"],
+                $params["export"],
+                $params["debug"]
             );      
             break;
     }
     
     PrepareResponse();
     $app->response()->setBody( toGreek( json_encode( $result ) ) );
-
+    
 }
 
 function LdapWorkerController()
@@ -1732,6 +1763,24 @@ function StatLabsController()
 
 }
 
+function UserPermitsController()
+{
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET : 
+            $result = GetUserPermits(
+            );      
+            break;
+    }
+    
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
+
+}
+
 function ViewLabWorkersController()
 {
     global $app;
@@ -1754,54 +1803,6 @@ function ViewLabWorkersController()
                 $params["school_unit_id"],
                 $params["school_unit_name"],
                 $params["lab_state"],
-                $params["region_edu_admin"],
-                $params["edu_admin"],
-                $params["transfer_area"],
-                $params["municipality"],
-                $params["prefecture"],
-                $params["education_level"], 
-                $params["school_unit_type"],
-                $params["school_unit_state"],
-                $params["pagesize"], 
-                $params["page"],
-                $params["orderby"],
-                $params["ordertype"],
-                $params["searchtype"],
-                $params["export"],
-                $params["debug"]
-            );      
-            break;
-    }
-    
-    PrepareResponse();
-    $app->response()->setBody( toGreek( json_encode( $result ) ) );
-    
-}
-
-function FindLabWorkersController()
-{
-    global $app;
-    $params = loadParameters();
-    
-    switch ( strtoupper( $app->request()->getMethod() ) )
-    {
-        case MethodTypes::GET : 
-            $result = FindLabWorkers(
-                $params["lab_worker_id"],
-                $params["lab_worker_status"],
-                $params["lab_worker_start_service"],
-                $params["lab_worker_position"],
-                $params["worker_registry_no"],
-                $params["worker_uid"],
-                $params["worker_firstname"],
-                $params["worker_lastname"],
-                $params["lab_id"],
-                $params["lab_name"],
-                $params["submitted"],
-                $params["lab_type"],
-                $params["lab_state"],
-                $params["school_unit_id"],
-                $params["school_unit_name"],
                 $params["region_edu_admin"],
                 $params["edu_admin"],
                 $params["transfer_area"],
