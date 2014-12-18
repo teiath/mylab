@@ -3,7 +3,8 @@
         "doctrine/orm": "2.4.*",
         "symfony/yaml": "2.*",
         "gedmo/doctrine-extensions": "dev-master",
-        "zendframework/zend-ldap": "@stable"
+        "zendframework/zend-ldap": "@stable",
+        "zircote/swagger-php": "0.9.*"
     },
     "autoload": {
         "psr-0": {"": "src/"}
