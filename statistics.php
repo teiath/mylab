@@ -309,7 +309,7 @@
 
 </div>
 
-<!--file_download_dialog-->
+<!--
 <div id="export_statistic_dialog" style="display:none; color: #5E5E5E">
 
     <div style="padding:13px;">Η έκδοση του στατιστικού βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
@@ -318,6 +318,54 @@
         <span class="k-progress-status-wrap">
             <span class="k-progress-status">0</span>
         </span>
+    </div>
+</div>
+
+
+
+
+<div id="statistics_xls_download_dialog" style="display:none; color: #5E5E5E">
+
+    <div style="padding:13px;">Η έκδοση του excel βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+
+    <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+        <span class="k-progress-status-wrap">
+            <span class="k-progress-status">0</span>
+        </span>
     </div>       
 
+</div>
+
+
+<div id="statistics_xls_download_error_dialog" style="display:none; color: #5E5E5E">
+    <div style="padding:13px;">Υπήρξε κάποιο σφάλμα κατα τη διάρκεια της έκδοσης του excel, παρακαλώ ξαναπροσπαθείστε.</div>                                                
+</div>
+-->
+
+<!--statistics_xls_publication_failure_notification-->
+<span id="statistics_xls_publication_failure_notification" style="display:none;"></span>
+
+<!--statistics_xls_publication_in_progress_dialog-->
+<div id="statistics_xls_publication_in_progress_dialog" style="display:none; color: #5E5E5E">
+    <div style="padding:13px;">Η έκδοση του excel βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+
+    <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+        <span class="k-progress-status-wrap">
+            <span class="k-progress-status">0</span>
+        </span>
+    </div>
+</div>
+
+<!--statistics_xls_publication_failure_notification-->
+<span id="statistics_table_publication_failure_notification" style="display:none;"></span>
+
+<!--statistics_table_publication_in_progress_dialog-->
+<div id="statistics_table_publication_in_progress_dialog" style="display:none; color: #5E5E5E">
+    <div style="padding:13px;">Η έκδοση του στατιστικου βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+
+    <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+        <span class="k-progress-status-wrap">
+            <span class="k-progress-status">0</span>
+        </span>
+    </div>
 </div>

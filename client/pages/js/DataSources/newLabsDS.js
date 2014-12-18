@@ -137,20 +137,14 @@ function newLabsDS(school_unit_id, worker_registry_no, detailInitEvent){
                 
                 if (e.response.status == "200"){
                     
-                    notification.show({
-                        title: "Το εργαστήριο δημιουργήθηκε επιτυχώς",
-                        message: message
-                    }, "success");
+                    notification.show("Το εργαστήριο δημιουργήθηκε επιτυχώς. ", "success");
                     
                     grid.dataSource.read(); // refresh school units view
                     LabsViewVM.labs.read(); //refresh labs view
                     
                 }else{
                     
-                    notification.show({
-                        title: "Η δημιουργία του εργαστηρίου απέτυχε",
-                        message: message
-                    }, "error");
+                    notification.show("Η δημιουργία του εργαστηρίου απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");
                     
                     grid.dataSource.read(); // refresh school units view
                     LabsViewVM.labs.read(); //refresh labs view

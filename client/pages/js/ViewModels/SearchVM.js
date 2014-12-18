@@ -97,6 +97,42 @@ var SearchVM = kendo.observable({
     exportToXLSX: function(e){
         e.preventDefault();
         
+        var search_xls_publication_in_progress_dialog = $("#search_xls_publication_in_progress_dialog").kendoWindow({
+            title: "Έκδοση Excel",
+            modal: true,
+            visible: false,
+            resizable: false,
+            width: 400,
+            pinned: true,
+            actions: []
+        }).data("kendoWindow");
+        var search_xls_publication_failure_notification = $("#search_xls_publication_failure_notification").kendoNotification({
+            animation: {
+                open: {
+                    effects: "slideIn:left",
+                    duration:700
+                },
+                close: {
+                    effects: "slideIn:left",
+                    duration:1000,
+                    reverse: true
+                }
+            },
+            position: {
+                pinned: true,
+                top: 70,
+                right: 30
+            },
+            allowHideAfter: 2000,
+            autoHideAfter: 5000, //0 for no auto hide
+            hideOnClick: true,
+            stacking: "down",
+            width:"25em"
+        }).data("kendoNotification");
+        
+        search_xls_publication_in_progress_dialog.content();
+        search_xls_publication_in_progress_dialog.center().open();        
+        
         var filters = searchParameters;
 
         var normalizedFilter = {};
@@ -115,20 +151,16 @@ var SearchVM = kendo.observable({
                 dataType: "json",
                 data: normalizedFilter,
                 success: function(data){
-                    window.location.href = data.tmp_xlsx_filepath;
+                    search_xls_publication_in_progress_dialog.close();
+                    if(typeof data.result !== "undefined"){
+                        window.location.href = data.tmp_xlsx_filepath;
+                    }else if(data.status === 500){
+                        search_xls_publication_failure_notification.show("Η έκδοση του excel απέτυχε. " + data.message.substr(data.message.indexOf(":") + 1), "error");
+                    }
                 },
                 error: function (data){
-                    var xls_download_error_dialog = $("#xls_download_error_dialog").kendoWindow({
-                        title: "Αποτυχία Έκδοσης .xls Αρχείου",
-                        modal: true,
-                        visible: false,
-                        resizable: false,
-                        width: 400,
-                        pinned: true
-                    }).data("kendoWindow");
-
-                    xls_download_error_dialog.content();
-                    xls_download_error_dialog.center().open();
+                    search_xls_publication_in_progress_dialog.close();
+                    search_xls_publication_failure_notification.show("Υπήρξε κάποιο σφάλμα κατα την έκδοση του excel, παρακαλώ ξαναπροσπαθείστε.", "error");
                 }
         });
     },

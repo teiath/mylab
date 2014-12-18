@@ -154,35 +154,24 @@ var LabsViewVM = kendo.observable({
                 var title_success, title_fail;
                 if(e.type=="create"){
                     
-                    title_success = "Η Διάταξη Η/Υ δημιουργήθηκε επιτυχώς";
-                    title_fail= "Η δημιουργία της Διάταξης Η/Υ απέτυχε";
+                    title_success = "Η Διάταξη Η/Υ δημιουργήθηκε επιτυχώς. ";
+                    title_fail= "Η δημιουργία της Διάταξης Η/Υ απέτυχε. ";
                     
                 }else if(e.type=="destroy"){
                     
                     var remove_dialog = $("#remove_dialog").data("kendoWindow");
                     remove_dialog.close();
                     
-                    title_success = "Η Διάταξη Η/Υ διαγράφηκε επιτυχώς";
-                    title_fail= "Η διαγραφή της Διάταξης Η/Υ απέτυχε";
+                    title_success = "Η Διάταξη Η/Υ διαγράφηκε επιτυχώς. ";
+                    title_fail= "Η διαγραφή της Διάταξης Η/Υ απέτυχε. ";
                     
                 }
                 
                 if (e.response.status == "200"){
-                    
-                    notification.show({
-                        title: title_success,
-                        message: message
-                    }, "success");
-                    
-                    LabsViewVM.labs.read();               
-                    
+                    notification.show(title_success, "success");
+                    LabsViewVM.labs.read();
                 }else{
-                    
-                    notification.show({
-                        title: title_fail,
-                        message: message
-                    }, "error");
-                    
+                    notification.show(title_fail + message.substr(message.indexOf(":") + 1), "error");
                     LabsViewVM.labs.read();
                 }
             }
@@ -395,10 +384,7 @@ var LabsViewVM = kendo.observable({
 
                                     submit_dialog.close();
 
-                                    notification.show({
-                                        title: "Επιτυχής Υποβολή Διάταξης Η/Υ",
-                                        message: message
-                                    }, "success");
+                                    notification.show("Επιτυχής Υποβολή Διάταξης Η/Υ. ", "success");
 
                                     lab_grid.dataSource.read(); //school units view or labs view depending on the current view
 
@@ -406,10 +392,7 @@ var LabsViewVM = kendo.observable({
 
                                     submitDialogUpdateButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Οριστική Υποβολή');
 
-                                    notification.show({
-                                        title: "Η Υποβολή της Διάταξης Η/Υ απέτυχε",
-                                        message: message
-                                    }, "error");
+                                    notification.show("Η Υποβολή της Διάταξης Η/Υ απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");
                                 }
 
                             }//,
@@ -553,18 +536,12 @@ var LabsViewVM = kendo.observable({
                         success: function(data){
 
                             if(data.status == "200"){
-                                notification.show({
-                                    title: "Επιτυχής ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ",
-                                    message: data.message
-                                }, "success");    
+                                notification.show("Επιτυχής ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ.", "success");    
                                 
                                 ldap_search_dialog.close();
                                 
                             }else{
-                                notification.show({
-                                    title: "Η ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ απέτυχε",
-                                    message: data.message
-                                }, "error");
+                                notification.show("Η ενημέρωση της Υπηρεσίας MyLab από τον LDAP ΠΣΔ με τον Υπεύθυνο Διάταξης Η/Υ απέτυχε. " + data.message.substr(data.message.indexOf(":") + 1), "error");
                                 
                             }
 
@@ -1014,10 +991,7 @@ var LabsViewVM = kendo.observable({
                                                                     }
 
                                                                     if(data.status == 200){
-                                                                        notification.show({
-                                                                            title: "Η απενεργοποίηση πραγματοποιήθηκε",
-                                                                            message: message
-                                                                        }, "success");                        
+                                                                        notification.show("Η απενεργοποίηση πραγματοποιήθηκε. ", "success");                        
 
                                                                         disable_lab_worker_dialog.close();
                                                                         lab_workers_details.dataSource.read();
@@ -1026,10 +1000,7 @@ var LabsViewVM = kendo.observable({
 
                                                                         disableLabWorkerDialogUpdateButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Απενεργοποίηση');
 
-                                                                        notification.show({
-                                                                            title: "Η απενεργοποίηση απέτυχε",
-                                                                            message: message
-                                                                        }, "error");                        
+                                                                        notification.show("Η απενεργοποίηση απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");                        
 
                                                                         disable_lab_worker_dialog.close();
                                                                     }
@@ -1099,10 +1070,7 @@ var LabsViewVM = kendo.observable({
                                                                     }
 
                                                                     if(data.status == 200){
-                                                                        notification.show({
-                                                                            title: "Η διαγραφή πραγματοποιήθηκε",
-                                                                            message: message
-                                                                        }, "success");                                            
+                                                                        notification.show("Η διαγραφή πραγματοποιήθηκε. ", "success");                                            
 
                                                                         remove_lab_worker_dialog.close();
                                                                         lab_workers_details.dataSource.read();
@@ -1111,10 +1079,7 @@ var LabsViewVM = kendo.observable({
 
                                                                         removeLabWorkerDialogUpdateButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Διαγραφή');
 
-                                                                        notification.show({
-                                                                            title: "Η διαγραφή απέτυχε",
-                                                                            message: message
-                                                                        }, "error");
+                                                                        notification.show("Η διαγραφή απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");
                                                                         
                                                                         remove_lab_worker_dialog.close();
                                                                     }
@@ -1460,17 +1425,11 @@ var LabsViewVM = kendo.observable({
                                 }
 
                                 if(data.status == 200){
-                                    notification.show({
-                                        title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
-                                        message: message
-                                    }, "success");
+                                    notification.show("Επιτυχής ενημέρωση Διάταξης Η/Υ. ", "success");
 
                                 }else if(data.status == 500 || data.status_external == 500){
 
-                                    notification.show({
-                                        title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
-                                        message: message
-                                    }, "error");
+                                    notification.show("Η ενημέρωση της Διάταξης Η/Υ απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");
 
                                 }
 
@@ -1526,17 +1485,11 @@ var LabsViewVM = kendo.observable({
                                 }
 
                                 if(data.status == 200){
-                                    notification.show({
-                                        title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
-                                        message: message
-                                    }, "success");                                            
+                                    notification.show("Επιτυχής ενημέρωση Διάταξης Η/Υ. ", "success");                                            
 
                                 }else if(data.status == 500 || data.status_external == 500){
 
-                                    notification.show({
-                                        title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
-                                        message: message
-                                    }, "error");
+                                    notification.show("Η ενημέρωση της Διάταξης Η/Υ απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");
 
                                 }
 

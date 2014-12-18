@@ -1,9 +1,9 @@
 var NavBarVM = kendo.observable({
-    
+      
     exportReport: function(e){
         e.preventDefault();
         
-        var file_download_dialog = $("#file_download_dialog").kendoWindow({
+        var report_publication_in_progress_dialog = $("#report_publication_in_progress_dialog").kendoWindow({
             title: "Έκδοση Αναφοράς",
             modal: true,
             visible: false,
@@ -12,38 +12,52 @@ var NavBarVM = kendo.observable({
             pinned: true,
             actions: []
         }).data("kendoWindow");
-        
-        file_download_dialog.content();
-        file_download_dialog.center().open();        
+        var report_publication_failure_notification = $("#report_publication_failure_notification").kendoNotification({
+            animation: {
+                open: {
+                    effects: "slideIn:left",
+                    duration:700
+                },
+                close: {
+                    effects: "slideIn:left",
+                    duration:1000,
+                    reverse: true
+                }
+            },
+            position: {
+                pinned: true,
+                top: 70,
+                right: 30
+            },
+            allowHideAfter: 2000,
+            autoHideAfter: 5000, //0 for no auto hide
+            hideOnClick: true,
+            stacking: "down",
+            width:"25em"
+        }).data("kendoNotification");
+
+        report_publication_in_progress_dialog.content();
+        report_publication_in_progress_dialog.center().open();        
         
         var edu_admin = user.l.split(",")['1'].split("=")['1']; 
-        var url= config.serverUrl + "report_keplhnet?edu_admin_code=" + edu_admin;
+        var url= config.serverUrl + "report_keplhnet?edu_admin_code=" + edu_admin;     
         
         $.ajax({
-                type: 'GET',
-                url: url,
-                dataType: "json",
-                success: function(data){
-                    file_download_dialog.close(); 
-                    //console.log(data.tmp_report_filepath);
+            type: 'GET',
+            url: url,
+            dataType: "json",
+            success: function(data){
+                report_publication_in_progress_dialog.close();
+                if(typeof data.tmp_report_filepath !== "undefined"){
                     window.open(data.tmp_report_filepath);
-                },
-                error: function (data){
-                    console.log("report export failed: ", data);
-                    file_download_dialog.close();
-                    
-                    var file_download_error_dialog = $("#file_download_error_dialog").kendoWindow({
-                        title: "Αποτυχία Έκδοσης Αναφοράς",
-                        modal: true,
-                        visible: false,
-                        resizable: false,
-                        width: 400,
-                        pinned: true
-                    }).data("kendoWindow");
-
-                    file_download_error_dialog.content();
-                    file_download_error_dialog.center().open();
+                }else if(data.status === 500){
+                    report_publication_failure_notification.show("Η έκδοση της αναφοράς απέτυχε. " + data.message.substr(data.message.indexOf(":") + 1), "error");
                 }
+            },
+            error: function(data){
+                report_publication_in_progress_dialog.close();
+                report_publication_failure_notification.show("Υπήρξε κάποιο σφάλμα κατα την έκδοση της αναφοράς, παρακαλώ ξαναπροσπαθείστε.", "error");
+            }
         });
     },
     

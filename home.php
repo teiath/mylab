@@ -123,29 +123,51 @@
                 kendo.bind($("#lab_workers_view").find(".k-grid-toolbar>.export_to_xlsx"), SearchLabWorkersVM);
                 kendo.bind($("#lab_workers_view").find(".k-grid-toolbar>.lab_worker_grid_columns_btn"), LabWorkersViewVM);
                 kendo.bind($("#lab_workers_view").find(".k-grid-toolbar>.lab_worker_refresh_btn"), LabWorkersViewVM);
-                
+                                
                 //NOTIFICATIONS
-                notification = $("#notification").kendoNotification({
+                notification = $("#statistics_xls_publication_failure_notification").kendoNotification({
+                    animation: {
+                        open: {
+                            effects: "slideIn:left",
+                            duration:700
+                        },
+                        close: {
+                            effects: "slideIn:left",
+                            duration:1000,
+                            reverse: true
+                        }
+                    },
                     position: {
                         pinned: true,
                         top: 70,
                         right: 30
                     },
                     allowHideAfter: 2000,
-                    autoHideAfter: 7000, //0
+                    autoHideAfter: 5000, //0 for no auto hide
                     hideOnClick: true,
                     stacking: "down",
-                    //button: true, //??? γιατι δεν παίζει?
-                    templates: [{
-                        type: "error",
-                        template: $("#errorTemplate").html()
-                    }, {
-                        //type: "upload-success",
-                        type: "success",
-                        template: $("#successTemplate").html()
-                    }]
-
-                }).data("kendoNotification");             
+                    width:"25em"
+                }).data("kendoNotification");
+//                notification = $("#notification").kendoNotification({
+//                    position: {
+//                        pinned: true,
+//                        top: 70,
+//                        right: 30
+//                    },
+//                    allowHideAfter: 2000,
+//                    autoHideAfter: 7000, //0
+//                    hideOnClick: true,
+//                    stacking: "down",
+//                    templates: [{
+//                        type: "error",
+//                        template: $("#errorTemplate").html()
+//                    }, {
+//                        //type: "upload-success",
+//                        type: "success",
+//                        template: $("#successTemplate").html()
+//                    }]
+//
+//                }).data("kendoNotification");             
                 
                 //SCROLL-TOP
                 //depending on the .scrollTop() value fade in or out the scroll-to-top img

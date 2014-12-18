@@ -74,17 +74,11 @@ function newLabEquipmentTypesDS(labID, detailRow){
                 
                 if (e.response.status == "200"){
                     
-                    notification.show({
-                        title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
-                        message: message
-                    }, "success");               
+                    notification.show("Επιτυχής ενημέρωση Διάταξης Η/Υ. ", "success");               
                     
                 }else{
                     
-                    notification.show({
-                        title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
-                        message: message
-                    }, "error");
+                    notification.show("Η ενημέρωση της Διάταξης Η/Υ απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");
                     
                 }
                 

@@ -366,15 +366,16 @@ $(document).ready(function() {
 </div>
 
 
-<!--xls_download_error_dialog-->
-<div id="xls_download_error_dialog" style="display:none; color: #5E5E5E">
-    <div class="col-md-12" style="padding:0px;">
-        <div class="col-md-1" style="margin-top: 14px;">
-            <i class="fa fa-exclamation-triangle fa-2x"></i>
-        </div>
-        <div class="col-md-9" style="padding-top:8px; padding-bottom:8px;"> 
-            Υπήρξε κάποιο σφάλμα κατα τη διάρκεια της έκδοσης του .xls αρχείου. Παρακαλώ ξαναπροσπαθείστε. 
-        </div>
+<!--search_xls_publication_failure_notification-->
+<span id="search_xls_publication_failure_notification" style="display:none;"></span>
+
+<!--search_xls_publication_in_progress_dialog-->
+<div id="search_xls_publication_in_progress_dialog" style="display:none; color: #5E5E5E">
+    <div style="padding:13px;">Η έκδοση του excel βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
+
+    <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+        <span class="k-progress-status-wrap">
+            <span class="k-progress-status">0</span>
+        </span>
     </div>
-    <!--<div style="padding:13px;">Υπήρξε κάποιο σφάλμα κατα τη διάρκεια της έκδοσης του .xls αρχείου. Παρακαλώ ξαναπροσπαθείστε.</div>  -->                                              
 </div>

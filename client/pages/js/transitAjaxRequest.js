@@ -20,10 +20,7 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
                         
                         transition_dialog.close();
                         
-                        notification.show({
-                            title: "Επιτυχής ενημέρωση Διάταξης Η/Υ",
-                            message: message
-                        }, "success");                                            
+                        notification.show("Επιτυχής ενημέρωση Διάταξης Η/Υ. ", "success");                                            
 
 
                     lab_grid.dataSource.read(); //school units view or labs view depending on the current view
@@ -41,10 +38,7 @@ function transitAjaxRequest(type, api_function, parameters, transition_dialog, l
                             thatButton.removeClass('k-state-disabled').attr("disabled", false).html('<span class="k-icon k-update"></span> Κατάργηση');
                         }
                         
-                        notification.show({
-                            title: "Η ενημέρωση της Διάταξης Η/Υ απέτυχε",
-                            message: message
-                        }, "error");
+                        notification.show("Η ενημέρωση της Διάταξης Η/Υ απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");
                 }
 
             }//,

@@ -88,7 +88,7 @@ var StatisticsVM = kendo.observable({
             StatisticsVM.set("sameValueValidationVisible", false); 
             StatisticsVM.set("statisticTableVisible", false);
             
-            var export_statistic_dialog = $("#export_statistic_dialog").kendoWindow({
+            var statistics_table_publication_in_progress_dialog = $("#statistics_table_publication_in_progress_dialog").kendoWindow({
                 title: "Έκδοση Στατιστικού",
                 modal: true,
                 visible: false,
@@ -97,9 +97,32 @@ var StatisticsVM = kendo.observable({
                 pinned: true,
                 actions: []
             }).data("kendoWindow");
-
-            export_statistic_dialog.content();
-            export_statistic_dialog.center().open();          
+            var statistics_table_publication_failure_notification = $("#statistics_xls_publication_failure_notification").kendoNotification({
+                animation: {
+                    open: {
+                        effects: "slideIn:left",
+                        duration:700
+                    },
+                    close: {
+                        effects: "slideIn:left",
+                        duration:1000,
+                        reverse: true
+                    }
+                },
+                position: {
+                    pinned: true,
+                    top: 70,
+                    right: 30
+                },
+                allowHideAfter: 2000,
+                autoHideAfter: 5000, //0 for no auto hide
+                hideOnClick: true,
+                stacking: "down",
+                width:"25em"
+            }).data("kendoNotification");
+            
+            statistics_table_publication_in_progress_dialog.content();
+            statistics_table_publication_in_progress_dialog.center().open();          
 
             jQuery("#statistics-table tbody").empty();
             jQuery("#statistics-table thead tr").empty();
@@ -128,28 +151,16 @@ var StatisticsVM = kendo.observable({
                         if (typeof data.message !== 'undefined'){
                             message= data.message;
                         }
-
+                        
                         if(data.status == 500){
-
-                            export_statistic_dialog.close();
-
-                            notification.show({
-                                title: "Η εξαγωγή του στατιστικού απέτυχε",
-                                message: message
-                            }, "error");
-
+                            statistics_table_publication_in_progress_dialog.close();
+                            statistics_table_publication_failure_notification.show("Η έκδοση του στατιστικού απέτυχε. " + message.substr(message.indexOf(":") + 1), "error");
                         }else if(data.results.length === 0){
-
-                            export_statistic_dialog.close();
-
-                            notification.show({
-                                title: "Δεν υπάρχουν διαθέσιμα στατιστικά για τις τιμές που εισήχθησαν",
-                                message: ""
-                            }, "error");                     
-
+                            statistics_table_publication_in_progress_dialog.close();
+                            statistics_table_publication_failure_notification.show("Δεν υπάρχουν διαθέσιμα στατιστικά για τις τιμές που εισήχθησαν.", "info");
                         }else{
 
-                            export_statistic_dialog.close(); 
+                            statistics_table_publication_in_progress_dialog.close(); 
 
                             var results = data.results;
                             var axis_x=[], axis_y=[];
@@ -204,14 +215,15 @@ var StatisticsVM = kendo.observable({
                         }
                 },
                 error: function (data){
-                    console.log("GET statistic_units error data: ", data); 
+                    statistics_table_publication_in_progress_dialog.close();
+                    statistics_table_publication_failure_notification.show("Υπήρξε κάποιο σφάλμα κατα την έκδοση του στατιστικού, παρακαλώ ξαναπροσπαθείστε.", "error");
                 }
             });
         }
     },     
     exportStatisticExcel: function(e){
         e.preventDefault();
-        
+               
         if (StatisticsVM.x_axis === "" || StatisticsVM.y_axis === ""){
             StatisticsVM.set("bothFieldsValidationVisible", true);
             StatisticsVM.set("sameValueValidationVisible", false);
@@ -219,9 +231,45 @@ var StatisticsVM = kendo.observable({
             StatisticsVM.set("bothFieldsValidationVisible", false);
             StatisticsVM.set("sameValueValidationVisible", true); 
         }else{
-            
+                            
             StatisticsVM.set("bothFieldsValidationVisible", false);
             StatisticsVM.set("sameValueValidationVisible", false);
+            
+            var statistics_xls_publication_in_progress_dialog = $("#statistics_xls_publication_in_progress_dialog").kendoWindow({
+                title: "Έκδοση Excel",
+                modal: true,
+                visible: false,
+                resizable: false,
+                width: 400,
+                pinned: true,
+                actions: []
+            }).data("kendoWindow");
+            var statistics_xls_publication_failure_notification = $("#statistics_xls_publication_failure_notification").kendoNotification({
+                animation: {
+                    open: {
+                        effects: "slideIn:left",
+                        duration:700
+                    },
+                    close: {
+                        effects: "slideIn:left",
+                        duration:1000,
+                        reverse: true
+                    }
+                },
+                position: {
+                    pinned: true,
+                    top: 70,
+                    right: 30
+                },
+                allowHideAfter: 2000,
+                autoHideAfter: 5000, //0 for no auto hide
+                hideOnClick: true,
+                stacking: "down",
+                width:"25em"
+            }).data("kendoNotification");            
+          
+            statistics_xls_publication_in_progress_dialog.content();
+            statistics_xls_publication_in_progress_dialog.center().open();            
             
             var filters = normalizeParams( $("#statistics-form").serializeArray() );
             statisticParameters = filters;
@@ -240,22 +288,18 @@ var StatisticsVM = kendo.observable({
                 dataType: "json",
                 data: normalizedFilter,
                 success: function(data){
-                    window.location.href = data.tmp_xlsx_filepath;
+                    statistics_xls_publication_in_progress_dialog.close();
+                    if(typeof data.result !== "undefined"){
+                        window.location.href = data.tmp_xlsx_filepath;
+                    }else if(data.status === 500){
+                        statistics_xls_publication_failure_notification.show("Η έκδοση του excel απέτυχε. " + data.message.substr(data.message.indexOf(":") + 1), "error");
+                    }
                 },
                 error: function (data){
-                    var xls_download_error_dialog = $("#xls_download_error_dialog").kendoWindow({
-                        title: "Αποτυχία Έκδοσης .xls Αρχείου",
-                        modal: true,
-                        visible: false,
-                        resizable: false,
-                        width: 400,
-                        pinned: true
-                    }).data("kendoWindow");
-
-                    xls_download_error_dialog.content();
-                    xls_download_error_dialog.center().open();
+                    statistics_xls_publication_in_progress_dialog.close();
+                    statistics_xls_publication_failure_notification.show("Υπήρξε κάποιο σφάλμα κατα την έκδοση του excel, παρακαλώ ξαναπροσπαθείστε.", "error");
                 }
-        });
+            });
         }
     },
     toggleFiltersPane: function(e){

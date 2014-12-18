@@ -40,27 +40,21 @@
     </div>    
 </nav>
 
+<!--report_publication_failure_notification-->
+<span id="report_publication_failure_notification" style="display:none;"></span>
 
+<!--report_publication_in_progress_dialog-->
+<div id="report_publication_in_progress_dialog" style="display:none; color: #5E5E5E">
+    <div style="padding:13px;">Η έκδοση της αναφοράς βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
 
-    <!--file_download_dialog-->
-    <div id="file_download_dialog" style="display:none; color: #5E5E5E">
-        
-        <div style="padding:13px;">Η έκδοση της αναφοράς βρίσκεται σε εξέλιξη, παρακαλώ περιμένετε...</div>                                        
-
-        <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
-            <span class="k-progress-status-wrap">
-                <span class="k-progress-status">0</span>
-            </span>
-        </div>       
-        
+    <div id="progressBar" class="k-widget k-progressbar k-progressbar-horizontal k-progressbar-indeterminate" data-role="progressbar" style="margin:13px;">
+        <span class="k-progress-status-wrap">
+            <span class="k-progress-status">0</span>
+        </span>
     </div>
+</div>
 
 
-    <!--file_download_error_dialog-->
-    <div id="file_download_error_dialog" style="display:none; color: #5E5E5E">
-        <div style="padding:13px;">Υπήρξε κάποιο σφάλμα κατα τη διάρκεια της έκδοσης της αναφοράς, παρακαλώ ξαναπροσπαθείστε.</div>                                                
-    </div>
-    
 <script>
     
     //console.log("authorized_user [navigation_bar]: ", authorized_user);
