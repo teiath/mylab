@@ -54,14 +54,8 @@ function GetLabs( $lab_id, $name, $special_name, $creation_date, $created_by, $l
 
     try {
 
-//set user permissions==========================================================
-//    $permissions = UserRoles::getUserPermissions($app->request->user);
-//
-//    if (Validator::IsNull($permissions['permit_labs'])){
-//        throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     
-//    }else { 
-//        $permit_labs = $permissions['permit_labs'];
-//    }
+//user permissions==============================================================
+//not required    
                 
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);

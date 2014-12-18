@@ -29,15 +29,27 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
 
     try {
         
-//set user permissions==========================================================
-//NO lab,school_units,lab_workers filtered by user role
+//user permissions==============================================================
+//not required (all users with title 'ΚΕΠΛΗΝΕΤ' or 'ΠΣΔ' or 'ΥΠΕΠΘ' have permissions to GetFindLabWorkers)
     
+//$export=======================================================================       
+        if ( Validator::Missing('export', $params) )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+        } else
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
+        
 //$page - $pagesize - $searchtype - $ordertype =================================
-       $page = Pagination::getPage($page, $params);
-       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $page = Pagination::getPage($page, $params);   
        $searchtype = Filters::getSearchType($searchtype, $params);
        $ordertype =  Filters::getOrderType($ordertype, $params);
-   
+  
+       if ($export == 'XLSX')
+            $pagesize = Parameters::ExportPageSize;
+       else
+            $pagesize = Pagination::getPagesize($pagesize, $params);
+       
 //$orderby======================================================================
        $columns = array(
                             "mlw.workerId"     => "worker_id",
@@ -176,14 +188,6 @@ function FindLabWorkers ( $lab_worker_id, $lab_worker_status, $lab_worker_start_
         if (Validator::Exists('school_unit_state', $params)){
             CRUDUtils::setFilter($qb, $school_unit_state, "sus", "stateId", "name", "null,id,value", ExceptionMessages::InvalidStateType, ExceptionCodes::InvalidStateType);
         } 
-   
-//$export=======================================================================       
-        if ( Validator::Missing('export', $params) )
-            $export = ExportDataEnumTypes::JSON;
-        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
-            $export = ExportDataEnumTypes::getValue($export);
-        } else
-            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
         
  //execution====================================================================
         

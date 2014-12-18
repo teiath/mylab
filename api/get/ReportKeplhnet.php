@@ -179,6 +179,9 @@ $result["method"] = $app->request()->getMethod();
     
     try{
 
+//user permissions==============================================================
+//not required (all users with title 'ΚΕΠΛΗΝΕΤ' or 'ΠΣΔ' or 'ΥΠΕΠΘ' have permissions to GetReportKeplhnet)
+        
         $stringDate = date('dmYHis');
         $filename = "KeplhnetReport".$stringDate.".pdf";
 

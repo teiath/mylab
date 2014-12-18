@@ -32,17 +32,26 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
     try
     {
+           
+//$export=======================================================================
+        if ( Validator::Missing('export', $params) )
+            $export = ExportDataEnumTypes::JSON;
+        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
+            $export = ExportDataEnumTypes::getValue($export);
+        } else
+            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
         
 //$page - $pagesize - $searchtype - $ordertype =================================
-       $page = Pagination::getPage($page, $params);
-       $pagesize = Pagination::getPagesize($pagesize, $params);     
+       $page = Pagination::getPage($page, $params);    
        $searchtype = Filters::getSearchType($searchtype, $params);
        $ordertype =  Filters::getOrderType($ordertype, $params);
         
-//======================================================================================================================
-//= $lab_worker_id
-//======================================================================================================================
-
+       if ($export == 'XLSX')
+            $pagesize = Parameters::ExportPageSize;
+       else
+            $pagesize = Pagination::getPagesize($pagesize, $params);
+       
+//$lab_worker_id================================================================
         if ( Validator::Exists('lab_worker_id', $params) )
         {
             $table_name = "lab_workers";
@@ -55,10 +64,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
         
-//======================================================================================================================
-//= $worker_status
-//======================================================================================================================
-
+//$worker_status================================================================
         if ( Validator::Exists('worker_status', $params) )
         {
             $table_name = "lab_workers";
@@ -70,11 +76,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                                                ExceptionMessages::InvalidLabWorkerStatusType, ExceptionCodes::InvalidLabWorkerStatusType);
 
         }
-        
-//======================================================================================================================
-//= $worker_start_service
-//======================================================================================================================
-
+       
+//$worker_start_service=========================================================
         if ( Validator::Exists('worker_start_service', $params) )
         {
             $table_name = "lab_workers";
@@ -86,10 +89,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
         
-//======================================================================================================================
-//= $lab_worker
-//======================================================================================================================
-
+//$lab_worker===================================================================
         if ( Validator::Exists('lab_worker', $params) )
         {
             $table_name = "mylab_workers";
@@ -102,10 +102,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }  
  
-//======================================================================================================================
-//= $lab_worker_uid
-//======================================================================================================================
-
+//$lab_worker_uid===============================================================
         if ( Validator::Exists('lab_worker_uid', $params) )
         {
 
@@ -119,10 +116,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
     } 
     
- //======================================================================================================================
-//= $worker_position
-//======================================================================================================================
-
+//$worker_position==============================================================
         if ( Validator::Exists('worker_position', $params) )
         {
 
@@ -135,10 +129,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                                               ExceptionMessages::InvalidWorkerPositionType, ExceptionCodes::InvalidWorkerPositionType);
             
     }   
-//======================================================================================================================
-//= $lab
-//======================================================================================================================
 
+//$lab==========================================================================
         if ( Validator::Exists('lab_id', $params) )
         {
             $table_name = "labs";
@@ -151,10 +143,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
         
-//======================================================================================================================
-//= $lab_name
-//======================================================================================================================
-
+//$lab_name=====================================================================
         if ( Validator::Exists('lab_name', $params) )
         {
             $table_name = "labs";
@@ -165,10 +154,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
         }
  
-//======================================================================================================================
-//= $submitted
-//======================================================================================================================
-
+//$submitted====================================================================
         if ( Validator::Exists('submitted', $params) )
         {
             $table_name = "labs";
@@ -181,10 +167,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
         
-//======================================================================================================================
-//= $lab_type
-//======================================================================================================================
-
+//$lab_type=====================================================================
         if ( Validator::Exists('lab_type', $params) )
         {
 
@@ -198,10 +181,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
         }
         
-//======================================================================================================================
-//= $school_unit_id
-//======================================================================================================================
-
+//$school_unit_id===============================================================
         if ( Validator::Exists('school_unit_id', $params) )
         {
 
@@ -215,10 +195,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
     }
         
-//======================================================================================================================
-//= $school_unit_name
-//======================================================================================================================
-
+//$school_unit_name=============================================================
         if ( Validator::Exists('school_unit_name', $params) )
         {
             $table_name = "school_units";
@@ -229,10 +206,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
         }
     
-//======================================================================================================================
-//= $lab_state
-//======================================================================================================================
-
+//$lab_state====================================================================
         if ( Validator::Exists('lab_state', $params) )
         {
 
@@ -246,10 +220,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
         }
 
-//======================================================================================================================
-//= $region_edu_admin
-//======================================================================================================================
-
+//$region_edu_admin=============================================================
         if ( Validator::Exists('region_edu_admin', $params) )
         {
 
@@ -263,10 +234,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
         }
 
-//======================================================================================================================
-//= $edu_admin
-//======================================================================================================================
-
+//$edu_admin====================================================================
         if ( Validator::Exists('edu_admin', $params) )
         {
 
@@ -280,10 +248,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
 
-//======================================================================================================================
-//= $transfer_area
-//======================================================================================================================
-
+//$transfer_area================================================================
         if ( Validator::Exists('transfer_area', $params) )
         {
             $table_name = "transfer_areas";
@@ -296,10 +261,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
 
-//======================================================================================================================
-//= $municipality
-//======================================================================================================================
-
+//$municipality=================================================================
         if ( Validator::Exists('municipality', $params) )
         {
             
@@ -313,10 +275,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
         
-//======================================================================================================================
-//= $prefecture
-//======================================================================================================================
-
+//$prefecture===================================================================
         if ( Validator::Exists('prefecture', $params) )
         {
             $table_name = "prefectures";
@@ -329,10 +288,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
 
-//======================================================================================================================
-//= $education_level
-//======================================================================================================================
-
+//$education_level==============================================================
         if ( Validator::Exists('education_level', $params) )
         {
             $table_name = "education_levels";
@@ -345,10 +301,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         }
         
- //======================================================================================================================
-//= $school_unit_type
-//======================================================================================================================
-
+//$school_unit_type=============================================================
         if ( Validator::Exists('school_unit_type', $params) )
         {
             $table_name = "school_unit_types";
@@ -361,10 +314,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             
         }     
         
-//======================================================================================================================
-//= $school_unit_state
-//======================================================================================================================
-
+//$school_unit_state============================================================
         if ( Validator::Exists('school_unit_state', $params) )
         {
             $table_name = "school_unit_states";
@@ -376,22 +326,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
                                               ExceptionMessages::InvalidStateType, ExceptionCodes::InvalidStateType);
 
         }
-               
-//======================================================================================================================
-//= $export
-//======================================================================================================================
         
-        if ( Validator::Missing('export', $params) )
-            $export = ExportDataEnumTypes::JSON;
-        else if ( ExportDataEnumTypes::isValidValue( $export ) || ExportDataEnumTypes::isValidName( $export ) ) {
-            $export = ExportDataEnumTypes::getValue($export);
-        } else
-            throw new Exception(ExceptionMessages::InvalidExportType." : ".$export, ExceptionCodes::InvalidExportType);
-        
-//======================================================================================================================
-//= $orderby
-//======================================================================================================================
-
+//$orderby======================================================================
         if ( Validator::Exists('orderby', $params) )
         {
             $columns = array(
@@ -408,9 +344,9 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
         else
             $orderby = "lab_worker_id";
 
-//======================================================================================================================
+//==============================================================================
 //= E X E C U T E
-//======================================================================================================================
+//==============================================================================
 
 //Registered Labs and User permissions==========================================
 //
@@ -444,6 +380,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
            $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
             $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
        }
+       
+//Start SQL Queries=============================================================
        
        $sqlSelect = "SELECT 
                         lab_workers.lab_worker_id,
@@ -565,9 +503,9 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 
         $school_unit_ids = Validator::ToUniqueString($school_unit_ids);
                   
-//======================================================================================================================
+//==============================================================================
 //= R E S U L T S
-//======================================================================================================================
+//==============================================================================
         
         foreach ($array_lab_workers as $lab_worker)
         {

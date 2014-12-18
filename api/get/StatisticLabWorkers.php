@@ -406,7 +406,9 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
                $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
                $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
            }
-        
+           
+//Start SQL Queries=============================================================
+           
         $sqlSelect = "SELECT count(lab_workers.lab_worker_id) as total_lab_workers ";
 
         $sqlFrom = "FROM lab_workers

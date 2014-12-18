@@ -39,7 +39,10 @@ function GetSchoolUnitTypes( $school_unit_type_id, $name, $education_level,
     $params = loadParameters();
     
     try {
-        
+  
+//user permissions==============================================================
+//not required 
+           
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params, true);     

@@ -44,6 +44,9 @@ function StatLabs(
     try
     {
 
+//user permissions==============================================================
+//not required (all users with title 'ΚΕΠΛΗΝΕΤ' or 'ΠΣΔ' or 'ΥΠΕΠΘ' have permissions to GetStatLabs)
+       
 //statLabs function must used only for submitted labs 
        $filter[] = 'labs.submitted=1';
         

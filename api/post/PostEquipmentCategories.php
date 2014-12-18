@@ -20,7 +20,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PostEquipmentCategories($name) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $EquipmentCategory = new EquipmentCategories();
     $result = array();
@@ -32,13 +32,13 @@ function PostEquipmentCategories($name) {
     $params = loadParameters();
 
     try {
- 
+
+    //user permisions===========================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab);
+        
     //$name=====================================================================
      CRUDUtils::EntitySetParam($EquipmentCategory, $name, 'EquipmentCategoryName', 'name', $params, true, false);
-        
-    //user permisions===========================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
         
 //controls======================================================================   
 

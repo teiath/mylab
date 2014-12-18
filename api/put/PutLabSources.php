@@ -22,7 +22,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function PutLabSources($lab_source_id, $name, $infos) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $result = array();
 
@@ -33,7 +33,11 @@ function PutLabSources($lab_source_id, $name, $infos) {
     $params = loadParameters();
 
     try {
- 
+  
+//user permisions===============================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
+
 //$lab_source_id================================================================    
         $fLabSourceId = CRUDUtils::checkIDParam('lab_source_id', $params, $lab_source_id, 'LabSourceID');
        
@@ -53,10 +57,7 @@ function PutLabSources($lab_source_id, $name, $infos) {
         } else if ( Validator::IsNull($LabSource->getInfos()) ){
             throw new Exception(ExceptionMessages::MissingLabSourceInfosValue." : ".$infos, ExceptionCodes::MissingLabSourceInfosValue);
         } 
-        
-    //user permisions===========================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-        
+
 //controls======================================================================   
 
         //check duplicate=======================================================        

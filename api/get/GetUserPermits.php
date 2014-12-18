@@ -27,7 +27,10 @@ function GetUserPermits() {
     $result["method"] = $app->request()->getMethod();
     
    try { 
- 
+       
+ //user permissions==============================================================
+//not required
+
         //set user role and permissions=========================================
        $user = $app->request->user;
        $role = UserRoles::getRole($user);
@@ -56,8 +59,7 @@ function GetUserPermits() {
                                 "street_address" => $info_keplhnet['data'][0]['street_address'],
                                 "fax_number" => $info_keplhnet['data'][0]['fax_number'],
                                 "phone_number" => $info_keplhnet['data'][0]['phone_number'],
-                                "email" => $info_keplhnet['data'][0]['email'],
-
+                                "email" => $info_keplhnet['data'][0]['email']
                             );
 
         $result["data"][] = array(  "user_role" => $role,

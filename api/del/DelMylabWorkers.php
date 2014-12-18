@@ -20,7 +20,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function DelMylabWorkers($worker_id) {
   
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $result = array();
 
@@ -31,13 +31,13 @@ function DelMylabWorkers($worker_id) {
     $params = loadParameters();
     
     try {
-        
+ 
+//user permisions===============================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab);
+                
 //$worker_id====================================================================
         $fMylabWorkerID = CRUDUtils::checkIDParam('worker_id', $params, $worker_id, 'MylabWorkerID');
-        
-//user permisions===============================================================
-//TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-//
 
 //controls======================================================================          
         

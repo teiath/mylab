@@ -38,7 +38,10 @@ function PostMylabWorkers($registry_no, $uid, $firstname, $lastname, $fathername
     $params = loadParameters();
 
     try {
-   
+      
+//user permisions===============================================================
+    //not required (all users with title 'ΔΙΕΥΘΥΝΤΗΣ' or 'ΤΟΜΕΑΡΧΗΣ' have permissions to PostMyLabWorkers)
+  
 //$registry_number==============================================================
         CRUDUtils::entitySetParam($MylabWorkers, $registry_no, 'MylabWorkerRegistryNo', 'registry_no', $params);
         
@@ -64,10 +67,6 @@ function PostMylabWorkers($registry_no, $uid, $firstname, $lastname, $fathername
        
 //$lab_source===================================================================         
         CRUDUtils::entitySetAssociation($MylabWorkers, $lab_source, 'LabSources', 'labSource', 'LabSource', $params, 'lab_source');
-     
-//user permisions===============================================================
-    //TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-    //
 
 //controls======================================================================  
 

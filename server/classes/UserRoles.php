@@ -3,13 +3,19 @@
 class UserRoles {
  
 private static $Permissions = array(
-    
-    'aquisition_sources'    => array(
+    //school units(SYNC from mmsch)
+    'circuits'              => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('none'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
-                                        ) ,
+                                        ) , 
+    'circuit_types'         => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('none'),
+                                        'PUT' => array('none'),
+                                        'DELETE' => array('none'),
+                                        ) , 
     'edu_admins'            => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('none'),
@@ -51,54 +57,67 @@ private static $Permissions = array(
                                         'POST' => array('none'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
-                                        ) , 
-    'transfer_areas'        => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
-                                        ) , 
-    'states'                => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
-                                        ) , 
+                                        ) ,
     'school_unit_workers'   => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('none'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
                                         ) , 
-    'circuits'              => array(
+    'sources'               => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('none'),
+                                        'PUT' => array('none'),
+                                        'DELETE' => array('none'),
+                                        ) ,
+    'states'                => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('none'),
+                                        'PUT' => array('none'),
+                                        'DELETE' => array('none'),
+                                        ) ,
+    'transfer_areas'        => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('none'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
                                         ) , 
-    'circuit_types'         => array(
+    'workers'               => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('none'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
-                                        ) , 
+                                        ) ,    
     'worker_positions'      => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('none'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
                                         ) ,
-    'equipment_categories'  => array(
+    'worker_specializations'=> array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('none'),
                                         'PUT' => array('none'),
                                         'DELETE' => array('none'),
                                         ) ,
+    //labs
+    'aquisition_sources'    => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('ΠΣΔ'),
+                                        'PUT' => array('ΠΣΔ'),
+                                        'DELETE' => array('ΠΣΔ'),
+                                        ) ,
+    'equipment_categories'  => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('ΠΣΔ'),
+                                        'PUT' => array('ΠΣΔ'),
+                                        'DELETE' => array('ΠΣΔ'),
+                                        ) ,
     'equipment_types'       => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
+                                        'POST' => array('ΠΣΔ'),
+                                        'PUT' => array('ΠΣΔ'),
+                                        'DELETE' => array('ΠΣΔ'),
                                         ) ,
     'labs'                  => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
@@ -118,65 +137,57 @@ private static $Permissions = array(
                                         'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         ) ,
-    'workers'               => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
-                                        ) ,
-    'mylab_workers'         => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
-                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
-                                        'DELETE' => array('none'),
-                                        ) ,
-    'lab_types'             => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
-                                        ) ,
-    'worker_specializations'=> array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
-                                        ) ,
-    'sources'               => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
-                                        ) , 
     'lab_relations'         => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         ) ,
-    'relation_types'        => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
-                                        ) ,
     'lab_sources'           => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('none'),
-                                        'PUT' => array('none'),
-                                        'DELETE' => array('none'),
+                                        'POST' => array('ΠΣΔ'),
+                                        'PUT' => array('ΠΣΔ'),
+                                        'DELETE' => array('ΠΣΔ'),
                                         ) ,
     'lab_transitions'       => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
-                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        ) ,
+    'lab_types'             => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('ΠΣΔ'),
+                                        'PUT' => array('ΠΣΔ'),
+                                        'DELETE' => array('ΠΣΔ'),
                                         ) ,
     'lab_workers'           => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
                                         'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
                                         'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
+                                        ) ,
+    'mylab_workers'         => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
+                                        'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
+                                        'DELETE' => array('ΠΣΔ'),
+                                        ) ,
+    'relation_types'        => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ'),
+                                        'POST' => array('ΠΣΔ'),
+                                        'PUT' => array('ΠΣΔ'),
+                                        'DELETE' => array('ΠΣΔ'),
+                                        ) ,
+    //extra GET functions
+    'find_lab_workers'      => array(
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+                                        ) ,
+    'ldap_workers'          => array(
+                                       'GET' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ')
+                                        ) ,
+    'report_keplhnet'       => array(
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
     'search_school_units'   => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ')                                       
@@ -185,7 +196,7 @@ private static $Permissions = array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ')
                                         ) ,
     'search_lab_workers'    => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ')
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
     'statistic_school_units'=> array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
@@ -193,34 +204,23 @@ private static $Permissions = array(
     'statistic_labs'        => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
-    'stat_labs'             => array(
-                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
-                                        ) ,
     'statistic_lab_workers' => array(
                                         'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
-    'view_lab_workers'      => array(
-                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
+    'stat_labs'             => array(
+                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
-    'find_lab_workers'      => array(
+    'user_permits'          => array(
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ')
+                                        ),
+    'view_lab_workers'      => array(
                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
     'initial_labs'          => array(
                                         'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ')
-                                        ) ,
-    'report_keplhnet'       => array(
-                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
-                                        ) ,
-    'ldap_workers'          => array(
-                                       'GET' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ')
-                                        ) ,
-    'user_permits'          => array(
-                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΣΕΠΕΗΥ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ','ΕΤΠ')
-                                        )    
-    
+                                        ) 
     );
-
 
  public static function checkUserRolePermissions($controller, $method, $user){
 

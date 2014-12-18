@@ -20,7 +20,7 @@ header("Content-Type: text/html; charset=utf-8");
 
 function DelLabTypes($lab_type_id) {
 
-    global $app,$entityManager;
+    global $app,$entityManager,$Options;
 
     $result = array();
 
@@ -31,13 +31,13 @@ function DelLabTypes($lab_type_id) {
     $params = loadParameters();
     
     try {
-        
+
+//user permisions===============================================================
+    if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
+        throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab);
+           
 //$lab_type_id================================================================
         $fLabTypeID = CRUDUtils::checkIDParam('lab_type_id', $params, $lab_type_id, 'LabTypeID');
-        
-//user permisions===============================================================
-//TODO ΒΑΛΕ ΝΑ ΜΠΟΡΕΙ ΝΑ ΤΟ ΚΑΝΕΙ ΕΝΑΣ ΧΡΗΣΤΗΣ ΠΟΥ ΝΑ ΑΝΗΚΕΙ ΣΕ ΜΙΑ ΚΑΤΗΓΟΡΙΑ 
-//
  
 //controls======================================================================          
         

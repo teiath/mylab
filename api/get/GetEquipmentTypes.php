@@ -39,7 +39,10 @@ function GetEquipmentTypes( $equipment_type_id,$name,$equipment_category,
     $params = loadParameters();
     
     try {
-        
+ 
+//user permissions==============================================================
+//not required 
+           
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params, true);     

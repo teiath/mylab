@@ -48,7 +48,10 @@ function GetMylabWorkers( $worker_id, $registry_no, $uid, $firstname, $lastname,
     $params = loadParameters();
     
     try {  
-    
+  
+//user permissions==============================================================
+//not required 
+       
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params);     

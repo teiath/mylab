@@ -446,7 +446,9 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
                $permit_school_units = " school_units.school_unit_id IN (" . $permissions['permit_school_units'] . ")";
                 $sqlPermissions = (count($filter) > 0 ? " AND " . $permit_school_units.$permit_labs : " WHERE " . $permit_school_units.$permit_labs ); 
            }
-        
+       
+//Start SQL Queries=============================================================
+           
         $sqlSelect = "SELECT count(DISTINCT labs.lab_id) as total_labs ";
 
         $sqlFrom = "FROM labs

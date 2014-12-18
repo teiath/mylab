@@ -43,7 +43,10 @@ function GetCircuits( $circuit_id, $phone_number, $updated_date, $status, $circu
     $params = loadParameters();
     
     try {
-        
+ 
+//user permissions==============================================================
+//not required 
+           
 //$page - $pagesize - $searchtype - $ordertype =================================
        $page = Pagination::getPage($page, $params);
        $pagesize = Pagination::getPagesize($pagesize, $params);     
