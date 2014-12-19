@@ -41,6 +41,9 @@ function newCircuitsDS(){
                         },
                         requestEnd: function(e){
                             //console.log("newCircuitsDS requestEnd event:", e);
+                            if(e.response.data.length === 0){
+                                e.response.data.push({ phone_number: "Δεν βρέθηκε κύκλωμα", circuit_type_name: "" });
+                            }
                         }
                     });
                     
