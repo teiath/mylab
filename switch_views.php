@@ -22,8 +22,8 @@
         
 //        console.log("authorized_user [switch views]: ", authorized_user);
 
-        var view_1 = { id: 1, name: "Διατάξεις Η/Υ", logo: "fa fa-search fa-lg"};
-        var view_2 = { id: 2, name: "Σχολικές Μονάδες", logo: "fa fa-search fa-lg"};
+        var view_1 = { id: 1, name: "Διατάξεις Η/Υ", logo: "fa fa-sitemap fa-lg"};
+        var view_2 = { id: 2, name: "Σχολικές Μονάδες", logo: "fa fa-university fa-lg"};
         var view_3 = { id: 3, name: "Υπεύθυνοι Διατάξεων Η/Υ", logo: "fa fa-users fa-lg"};
         var view_4 = { id: 4, name: "Στατιστικά", logo: "fa fa-bar-chart-o fa-lg"};
         var view_5 = { id: 5, name: "Στοιχεία Λογαριασμού", logo: "fa fa-user fa-lg"};
