@@ -170,7 +170,7 @@ var SearchLabWorkersVM = kendo.observable({
         
         var tooltip = $(e.target).kendoTooltip({
             autoHide: true,
-            content:"εξαγωγή σε .xlsx",
+            content:"εξαγωγή σε excel",
             width:95,
             height:20,
             position: "top",
