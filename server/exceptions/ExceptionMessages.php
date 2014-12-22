@@ -7,7 +7,7 @@
  * @package Exceptions
  */
 
-header("Content-Type: text/html; charset=utf-8");
+//header("Content-Type: text/html; charset=utf-8");
 
 /** 
  * Μηνύματα Σφαλμάτων
@@ -20,7 +20,7 @@ class ExceptionMessages
 {   
     //general messages=========================================================================================================================== 
     
-        const NoErrors = 'success';
+        const NoErrors = 'Το Αpi Request ολοκληρώθηκε με επιτυχία.';
         const UserNoRoleAccess = 'Ο χρήστης δεν έχει κανένα ρόλο, και δεν επιτρέπεται η πρόσβαση.';
         const UserAccesDenied = 'Πολλαπλά ονόματα χρήστη. Ο χρήστης δεν έχει πρόσβαση';
         const UserAccesFrontDenied = 'Δεν στάλθηκαν δεδομένα του χρήστη.Ο χρήστης δεν έχει πρόσβαση';

@@ -7,7 +7,7 @@
  * @package Exceptions
  */
 
-header("Content-Type: text/html; charset=utf-8");
+//header("Content-Type: text/html; charset=utf-8");
 
 /** 
  * Κωδικοί Σφαλμάτων
@@ -1710,7 +1710,6 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::MissingPageValue} */  
     const MissingPageValue = 500;
-    /** {@see ExceptionMessages::InvalidPageNumber} */  
     const InvalidPageNumber = 500;
     /** {@see ExceptionMess/**ages::InvalidPageType} */  
     const InvalidPageType = 500;
