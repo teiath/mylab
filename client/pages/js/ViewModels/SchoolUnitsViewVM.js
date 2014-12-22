@@ -149,6 +149,16 @@ var SchoolUnitsViewVM = kendo.observable({
                       },
                       { field: 'positioning', title:'Τοποθεσία', width:'180px', hidden : true, sortable:false},
                       { field: 'lab_special_name', title:'Ειδική Ονομασία', width:'180px', hidden : true, sortable:false},
+                      { field: 'ellak', 
+                        title:'ΕΛΛΑΚ', 
+                        sortable: false, 
+                        template :  function(dataItem) {
+                            var ellak = (dataItem.ellak === "0") ?  "ΟΧΙ" : "ΝΑΙ";
+                            return ellak;
+                        },
+                        'width':'55px', 
+                        'hidden' : true
+                      },
                       { field: 'creation_date', title:'Ημερομηνία Δημιουργίας', width:'160px', hidden : true},
                       { field: 'last_updated', title:'Τελευταία Ενημέρωση', width:'145px', sortable:false},
                       { field: 'created_by', title:'Δημιουργία από', width:'150px', hidden : true, sortable:false},

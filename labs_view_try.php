@@ -6,6 +6,7 @@
         /* grid column templates */
         require_once('client/pages/js/Templates/grid_column_template/labsViewRatingColumnTemplate.html');
         require_once('client/pages/js/Templates/grid_column_template/labsViewLabStateColumnTemplate.html');
+        require_once('client/pages/js/Templates/grid_column_template/labsViewEllakColumnTemplate.html');
         /* list view templates */
         require_once('client/pages/js/Templates/list_view_template/generalInfoTemplate.html');
         require_once('client/pages/js/Templates/list_view_template/editGeneralInfoTemplate.html');
@@ -92,6 +93,7 @@
                                        { 'field': 'rating', 'title':'Αξιολόγηση','sortable': false, 'template' : $('#labs_view_rating_column_template').html(), 'width':'95px'},
                                        { 'field': 'positioning', 'title':'Τοποθεσία', 'sortable': false, 'width':'180px', 'hidden' : true},
                                        { 'field': 'lab_special_name', 'title':'Ειδική Ονομασία', 'sortable': false,'width':'180px', 'hidden' : true},
+                                       { 'field': 'ellak', 'title':'ΕΛΛΑΚ', 'sortable': false, 'template' : $('#labs_view_ellak_column_template').html(),'width':'55px', 'hidden' : true},
                                        { 'field': 'creation_date', 'title':'Ημερομηνία Δημιουργίας', 'width':'160px', 'hidden' : true},
                                        { 'field': 'last_updated', 'title':'Τελευταία Ενημέρωση', 'sortable': false, 'width':'145px'},
                                        { 'field': 'created_by', 'title':'Δημιουργία από', 'sortable': false, 'width':'150px', 'hidden' : true},
