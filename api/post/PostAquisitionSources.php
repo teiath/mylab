@@ -8,6 +8,46 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
+/**
+*
+* 
+* @SWG\Resource(
+* apiVersion="2.0",
+* swaggerVersion="2.0",
+* basePath="http://mmsch.teiath.gr/mylab/api",
+* resourcePath="/aquisition_sources",
+* description="Τύποι Πηγών Χρηματοδότησης",
+* produces="['application/json']"
+* )
+*
+* 
+* @SWG\Api(
+* path="/aquisition_sources",
+* @SWG\Operation(
+* method="POST",
+* summary="Εισαγωγή Πηγής Χρηματοδότησης",
+* notes="Εισαγωγή Πηγής Χρηματοδότησης",
+* type="pathModel",
+* nickname="p",
+* @SWG\Parameter(
+* name="name",
+* description="Όνομα Πηγής Χρηματοδότησης",
+* required=false,
+* type="text",
+* paramType="query"
+* ),
+* @SWG\ResponseMessage(code=200, message="Επιτυχία", responseModel="Success"),
+* @SWG\ResponseMessage(code=500, message="Αποτυχία", responseModel="Failure")
+* )
+* )
+*
+* @SWG\Model(
+* id = "GAquisitionSources",
+* required="name",
+* @SWG\Property(name="name",type="sring",description="όΝΟΜΑ Πηγής Χρηματοδότησης")
+* )
+* 
+*/
 
 /**
  * 

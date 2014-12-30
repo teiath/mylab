@@ -9,6 +9,106 @@ chdir("../server");
 require_once('system/includes.php');
 require_once('libs/Slim/Slim.php');
 
+/**
+* 
+* @SWG\Info(
+* title="Mylab Api Documentation",
+* description ="
+Παρακάτω εμφανίζεται μια σειρά από παραδείγματα κλήσης της συνάρτησης με διάφορους τρόπους :
+<br>
+    <hr>
+        <b>1) cURL</b> Παράδειγμα κλήσης της συνάρτησης με <b>cURL</b> (console) :
+        <p> 
+            <pre>
+                    curl -X GET https://mylab.sch.gr/api/`route_api_name`
+                         -H &quot;Content-Type: application/json&quot;
+                         -H &quot;Accept: application/json&quot;
+                         -u &quot;username:password&quot;
+                         -d '{&quot;`param_name_1`&quot;: &quot;`param_value_1`&quot;,
+                              &quot;`param_name_2`&quot;: &quot;`param_value_2`&quot;,
+                              .
+                              .
+                              &quot;`param_name_n`&quot;: &quot;`param_value_n`&quot;
+                             }'
+            </pre>
+        </p>
+   </hr>
+</br>
+<br>
+    <hr>
+        <b>2) JavaScript</b> Παράδειγμα κλήσης της συνάρτησης με <b>JavaScript</b> :
+        <p> 
+            <pre>
+                    var http = new XMLHttpRequest();
+                    http.open(&quot;GET&quot;, &quot;https://mylab.sch.gr/api/&quot;route_api_name&quot&quot;);
+                    http.setRequestHeader(&quot;Accept&quot;, &quot;application/json&quot;);
+                    http.setRequestHeader(&quot;Content-type&quot;, &quot;application/json; charset=utf-8&quot;);
+                    http.setRequestHeader(&quot;Authorization&quot;, &quot;Basic &quot; + btoa('username' + ':' + 'password') );
+
+                    http.onreadystatechange = function() 
+                    {
+                        if(http.readyState == 4 && http.status == 200) 
+                        {
+                            var result = JSON.parse(http.responseText);
+                            document.write(result.status + &quot; : &quot; + result.message + &quot; : &quot; + result.data);
+                        }
+                    }
+
+                    http.send(params);
+            </pre>
+        </p>
+    </hr>
+</br>
+<br>
+    <hr>
+        <b>3) PHP</b> Παράδειγμα κλήσης της συνάρτησης με <b>PHP</b> :
+        <p> 
+            <pre>
+                     header(&quot;Content-Type: text/html; charset=utf-8&quot;);
+
+                     $curl = curl_init(&quot;https://mylab.sch.gr/api/&quot;route_api_name&quot&quot;);
+
+                     curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+                     curl_setopt($curl, CURLOPT_USERPWD, &quot;username:password&quot;);
+                     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, &quot;GET&quot;);
+                     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+                     $data = curl_exec($curl);
+                     $data = json_decode($data);
+                     var_dump( $data );
+            </pre>
+        </p>
+    </hr>
+</br>
+<br>
+    <hr>
+        <b>4) Ajax</b> Παράδειγμα κλήσης της συνάρτησης με <b>Ajax</b> :
+        <p> 
+            <pre>
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://mylab.sch.gr/api/&quot;route_api_name&quot;',
+                        dataType: &quot;json&quot;,
+                        beforeSend: function(req) {
+                            req.setRequestHeader('Authorization', btoa('username' + &quot;:&quot; + 'password'));
+                        },
+                        success: function(data){
+                            console.log(data);
+                        }
+                    });
+            </pre>
+        </p>
+    </hr>
+</br>
+",
+* contact = "ktsiolis@teiath.gr",
+* license = "Apache 2.0",
+* licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.html",
+* termsOfServiceUrl= "mm.sch.gr/licence"
+* )
+* 
+*/
+
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
