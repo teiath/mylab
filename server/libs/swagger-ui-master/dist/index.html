@@ -48,26 +48,27 @@
         sorter : "alpha"
       });
 
-        window.authorizations.add("Basic", new PasswordAuthorization("basic_auth", '', '') );
-//      function addApiKeyAuthorization() {
-//        var key = $('#input_apiKey')[0].value;
-//        log("key: " + key);
-//        if(key && key.trim() != "") {
-//            log("added key " + key);
-//            window.authorizations.add("api_key", new ApiKeyAuthorization("api_key", key, "query"));
-//        }
-//      }
-//
-//      $('#input_apiKey').change(function() {
-//        addApiKeyAuthorization();
-//      });
 
-      // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
-      /*
-        var apiKey = "myApiKeyXXXX123456789";
-        $('#input_apiKey').val(apiKey);
-        addApiKeyAuthorization();
-      */
+      function addBasicAuthorization() {
+        var username = $('#input_Username')[0].value;
+        var password = $('#input_Password')[0].value;
+        if ((username && username.trim() != "") && (password && password.trim() != "")) {
+            window.authorizations.add("Basic", new PasswordAuthorization("basic_auth", username, password) );
+        }
+      }
+
+      $('#input_Username').change(function() {
+        addBasicAuthorization();
+      });
+      
+      $('#input_Password').change(function() {
+        addBasicAuthorization();
+      });
+            
+        // if you have an username/password you would like to pre-populate on the page for demonstration purposes...
+        $('#input_Username').val("");
+        $('#input_Password').val("");
+        addBasicAuthorization();
 
       window.swaggerUi.load();
   });
@@ -79,13 +80,11 @@
   <div class="swagger-ui-wrap">
     <a id="logo" href="http://swagger.io">swagger</a>
     <form id='api_selector'>
-      <div class='input'><input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl" type="text"/></div>
-      <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
-      <div class='input'><a id="explore" href="#">Explore</a></div>
+        <div class='input'><input placeholder="Username" id="input_Username" name="userid" type="text" autocomplete="off"/></div>
+        <div class='input'><input placeholder="Password" id="input_Password" name="pswrd" type="password" autocomplete="off"/></div>
     </form>
   </div>
 </div>
-
 <div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
 <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
