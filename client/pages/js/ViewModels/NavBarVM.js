@@ -83,37 +83,37 @@ var NavBarVM = kendo.observable({
 
     exportUserGuideSepehy: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d8ea789d6de6441e087dd021b49dda1f3";
+        var url = "http://myfiles.sch.gr/server/get/d32f5630517cb4c9b914e42a9786b2f8b";
         window.open(url);
     },
 
     exportUserGuideEtp: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d8ea789d6de6441e087dd021b49dda1f3"; //ίδιο link με ΣΕΠΕΗΥ
+        var url = "http://myfiles.sch.gr/server/get/d32f5630517cb4c9b914e42a9786b2f8b"; //ίδιο link με ΣΕΠΕΗΥ
         window.open(url);
     },
 
     exportUserGuideKeplinet: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d801584d36aa54dd198f156d0e5ace82a";
+        var url = "http://myfiles.sch.gr/server/get/d463f247ff9cb40d5af9f0c618e6dce59";
         window.open(url);
     },
 
     exportUserGuideDieuthyntis: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d4b51e85c0ffc4115bdcf16ee7853a782";
+        var url = "http://myfiles.sch.gr/server/get/dbd0581d697b04bd38609c9a0e6b374ba";
         window.open(url);
     },
 
     exportUserGuideTomearxis: function(e){
         e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d4b51e85c0ffc4115bdcf16ee7853a782"; //ίδιο link με ΔΙΕΥΘΥΝΤΗ
+        var url = "http://myfiles.sch.gr/server/get/dbd0581d697b04bd38609c9a0e6b374ba"; //ίδιο link με ΔΙΕΥΘΥΝΤΗ
         window.open(url);
     },
 
     exportUserGuidePSD: function(e){
         e.preventDefault();
-        var url = "";
+        var url = "http://myfiles.sch.gr/server/get/da2dd966ada5b41599ef408e3b3527990";
         window.open(url);
     },
 
