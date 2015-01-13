@@ -10,13 +10,56 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $aquisition_source_id
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/aquisition_sources",
+* description="Τύποι Πηγών Χρηματοδότησης",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/aquisition_sources",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Τύπoυ Πηγής Χρηματοδότησης",
+*                   notes="Διαγραφή Τύπου Πηγής Χρηματοδότησης",
+*                   type="ReturnParameters",
+*                   nickname="delAquisitionSources",
+*   @SWG\Parameter(
+*                   name="aquisition_source_id",
+*                   description="ID Πηγής Χρηματοδότησης",
+*                   required=true,
+*                   type="integer",
+*                   paramType="query"
+*   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteLab, message=ExceptionMessages::NoPermissionToDeleteLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceIDParam, message=ExceptionMessages::MissingAquisitionSourceIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceIDValue, message=ExceptionMessages::MissingAquisitionSourceIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceIDType, message=ExceptionMessages::InvalidAquisitionSourceIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceIDArray, message=ExceptionMessages::InvalidAquisitionSourceIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelAquisitionSourceValue, message=ExceptionMessages::NotFoundDelAquisitionSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelAquisitionSourceValue, message=ExceptionMessages::DuplicateDelAquisitionSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesAquisitionSourceLabAquisitionSources, message=ExceptionMessages::ReferencesAquisitionSourceLabAquisitionSources),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="ReturnParameters",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelAquisitionSources($aquisition_source_id) {
 
@@ -27,8 +70,8 @@ function DelAquisitionSources($aquisition_source_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
 
  try {
 

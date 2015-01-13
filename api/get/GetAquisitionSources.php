@@ -25,7 +25,7 @@ header("Content-Type: text/html; charset=utf-8");
 *                   method="GET",
 *                   summary="Αναζήτηση σε Τύπoυς Πηγών Χρηματοδότησης",
 *                   notes="Επιστρέφει τους Τύπους Πηγών Χρηματοδότησης",
-*                   type="GetAquisitionSource",
+*                   type="ReturnParameters",
 *                   nickname="getAquisitionSources",
 *   @SWG\Parameter(
 *                   name="aquisition_source_id",
@@ -96,13 +96,14 @@ header("Content-Type: text/html; charset=utf-8");
 *   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMaxPageNumber, message=ExceptionMessages::InvalidMaxPageNumber),
 *   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
 *  )
- * )
- * )
- * 
+* )
+* )
+* 
 * @SWG\Model(
-* id="GetAquisitionSource",
+* id="ReturnParameters",
 * description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
-* @SWG\Property(name="function",type="string",description="Η συνάρτηση που εκτελείτε από το σύστημα"),
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
 * @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
 * @SWG\Property(name="total",type="integer",description="Το πλήθος των εγγραφών χωρίς τις παραμέτρους σελιδοποίησης"),
 * @SWG\Property(name="count",type="integer",description="Το πλήθος των εγγραφών της κλήσης σύμφωνα με τις παραμέτρους σελιδοποίησης"),
@@ -122,7 +123,7 @@ header("Content-Type: text/html; charset=utf-8");
 * 
 * @SWG\Model(
 * id="AquisitionSource",
-* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πεδία του πίνακα Aquisition_sources : ",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πεδία του πίνακα aquisition_sources : ",
 * @SWG\Property(name="aquisition_source_id",type="integer",description="Ο Κωδικός της Πηγής Χρηματοδότησης"),
 * @SWG\Property(name="name",type="string",description="Το Όνομα της Πηγής Χρηματοδότησης")
 * )

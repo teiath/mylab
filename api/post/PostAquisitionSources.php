@@ -8,55 +8,56 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
+
 /**
-*
+* 
+* 
 * 
 * @SWG\Resource(
-* apiVersion="2.0",
-* swaggerVersion="2.0",
-* basePath="http://mmsch.teiath.gr/mylab/api",
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
 * resourcePath="/aquisition_sources",
 * description="Τύποι Πηγών Χρηματοδότησης",
-* produces="['application/json']"
-* )
-*
-* 
+* produces="['application/json']",
 * @SWG\Api(
-* path="/aquisition_sources",
-* @SWG\Operation(
-* method="POST",
-* summary="Εισαγωγή Πηγής Χρηματοδότησης",
-* notes="Εισαγωγή Πηγής Χρηματοδότησης",
-* type="pathModel",
-* nickname="p",
-* @SWG\Parameter(
-* name="name",
-* description="Όνομα Πηγής Χρηματοδότησης",
-* required=false,
-* type="text",
-* paramType="query"
-* ),
-* @SWG\ResponseMessage(code=200, message="Επιτυχία", responseModel="Success"),
-* @SWG\ResponseMessage(code=500, message="Αποτυχία", responseModel="Failure")
+*   path="/aquisition_sources",
+*   @SWG\Operation(
+*                   method="POST",
+*                   summary="Εισαγωγή Τύπoυ Πηγής Χρηματοδότησης",
+*                   notes="Εισαγωγή Τύπου Πηγής Χρηματοδότησης",
+*                   type="ReturnParameters",
+*                   nickname="postAquisitionSources",
+*   @SWG\Parameter(
+*                   name="name",
+*                   description="Όνομα Πηγής Χρηματοδότησης",
+*                   required=true,
+*                   type="text",
+*                   paramType="query"
+*                   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceNameParam, message=ExceptionMessages::MissingAquisitionSourceNameParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceNameValue, message=ExceptionMessages::MissingAquisitionSourceNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceNameType, message=ExceptionMessages::InvalidAquisitionSourceNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedAquisitionSourceValue, message=ExceptionMessages::DuplicatedAquisitionSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
 * )
 * )
-*
+* 
 * @SWG\Model(
-* id = "GAquisitionSources",
-* required="name",
-* @SWG\Property(name="name",type="sring",description="όΝΟΜΑ Πηγής Χρηματοδότησης")
+* id="ReturnParameters",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="aquisition_source_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων."),
 * )
 * 
 */
-
-/**
- * 
- * @global type $db
- * @global type $Options
- * @param type $name
- * @return string
- * @throws Exception
- */
 
 function PostAquisitionSources($name) {
 
@@ -68,8 +69,8 @@ function PostAquisitionSources($name) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"]  = $params;
 
     try {
  
