@@ -1,6 +1,6 @@
 {
     "basePath": "http://mmsch.teiath.gr/mylab/api",
-    "swaggerVersion": "2.0",
+    "swaggerVersion": 2,
     "apiVersion": "2.0",
     "resourcePath": "/aquisition_sources",
     "apis": [
