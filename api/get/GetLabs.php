@@ -9,33 +9,131 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $db
- * @global type $Options
- * @global type $app
- * @param type $lab_id
- * @param type $name
- * @param type $special_name
- * @param type $creation_date
- * @param type $created_by
- * @param type $last_updated
- * @param type $updated_by
- * @param type $operational_rating
- * @param type $technological_rating
- * @param type $ellak
- * @param type $submitted
- * @param type $lab_type
- * @param type $school_unit
- * @param type $state
- * @param type $lab_source
- * @param type $pagesize
- * @param type $page
- * @param type $searchtype
- * @param type $ordertype
- * @param type $orderby
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/labs",
+* description="Διατάξεις Η/Υ",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/labs",
+*   @SWG\Operation(
+*                   method="GET",
+*                   summary="Αναζήτηση στις Διατάξεις Η/Υ",
+*                   notes="Επιστρέφει τις Διατάξεις Η/Υ",
+*                   type="getLabs",
+*                   nickname="GetLabs",
+* 
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=false, type="integer|array[integer]", paramType="query" ),
+*   @SWG\Parameter( name="name", description="Όνομα Διάταξης Η/Υ (Συνδυάζεται με την παράμετρο searchtype.)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="special_name", description="Προσωνύμιο Διάταξης Η/Υ (Συνδυάζεται με την παράμετρο searchtype.)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="creation_date", description="Ημερομηνία Δημιουργίας Διάταξης Η/Υ [notNull](μορφή ημερομηνίας dd/mm/yyyy)", required=false, type="string|array[string]", format="date", paramType="query" ),
+*   @SWG\Parameter( name="created_by", description="UID χρήστη που Δημιούργησε την Διάταξη Η/Υ (Συνδυάζεται με την παράμετρο searchtype.)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="last_updated", description="Ημερομηνία Ενημέρωσης Στοιχείων Διάταξης Η/Υ [notNull](μορφή ημερομηνίας dd/mm/yyyy)", required=false, type="string|array[string]", format="date", paramType="query"),
+*   @SWG\Parameter( name="updated_by", description="UID χρήστη που Ενημέρωσε την Διάταξη Η/Υ (Συνδυάζεται με την παράμετρο searchtype.)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="operational_rating", description="Βαθμολογία Λειτουργικής Κατάστασης Διάταξης Η/Υ [notNull](1=αρνητική - 5=θετική)", required=false, type="integer|array[integer]", paramType="query"),
+*   @SWG\Parameter( name="technological_rating", description="Βαθμολογία Τεχνολογικής Κατάστασης Διάταξης Η/Υ [notNull](1=αρνητική - 5=θετική)", required=false, type="integer|array[integer]", paramType="query"),
+*   @SWG\Parameter( name="ellak", description="Χρήση ΕΛΛΑΚ στην Διάταξη Η/Υ [notNull](true=ΕΛΛΑΚ, false=ΟΧΙ ΕΛΛΑΚ)", required=false, type="boolean|array[boolean]", paramType="query" ),
+*   @SWG\Parameter( name="submitted", description="Υποβεβλημένη Διάταξη Η/Υ [notNull](true=υποβεβλημένη, false=μη υποβεβλημένη)", required=false, type="boolean|array[boolean]", paramType="query" ),
+*   @SWG\Parameter( name="lab_type", description="Όνομα ή ID Τύπου Διάταξης Η/Υ", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="school_unit", description="Όνομα ή ID Σχολικής Μονάδας", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="state", description="Όνομα ή ID Λειτουργικής Κατάστασης Διάταξης Η/Υ", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="lab_source", description="Όνομα ή ID Πρωτογενής Πηγής Δεδομένων Διάταξης Η/Υ)", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+* 
+*   @SWG\Parameter( name="page", description="Αριθμός Σελίδας", required=false, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="pagesize", description="Αριθμός Εγγραφών/Σελίδα", required=false, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="searchtype", description="Τύπος αναζήτησης", required=false, type="string", paramType="query", enum = "['EXACT','CONTAIN','CONTAINALL','CONTAINANY','STARTWITH','ENDWITH']" ),
+*   @SWG\Parameter( name="ordertype", description="Τύπος Ταξινόμησης", required=false, type="string", paramType="query", enum = "['ASC','DESC']" ),
+*   @SWG\Parameter( name="orderby", description="Πεδίο Ταξινόμησης", required=false, type="string", paramType="query",
+*                   enum = "['name','special_name','creation_date','created_by','last_updated','updated_by','operational_rating','technological_rating','ellak','submitted','lab_type_id','lab_type_name','school_unit_id','school_unit_name','state_id','state_name','lab_source_id','lab_source_name']" ),
+*   @SWG\Parameter( name="debug", description="Επιστροφή SQL/DQL Queries", required=false, type="boolean", paramType="query", enum = "['true','false']" ),  
+*
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabNameType, message=ExceptionMessages::InvalidLabNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSpecialNameType, message=ExceptionMessages::InvalidLabSpecialNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabCreationDateType, message=ExceptionMessages::InvalidLabCreationDateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabCreatedByType, message=ExceptionMessages::InvalidLabCreatedByType), 
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabLastUpdatedType, message=ExceptionMessages::InvalidLabLastUpdatedType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabUpdatedByType, message=ExceptionMessages::InvalidLabUpdatedByType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTechnologicalRatingType, message=ExceptionMessages::InvalidLabTechnologicalRatingType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabOperationalRatingType, message=ExceptionMessages::InvalidLabOperationalRatingType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabEllakType, message=ExceptionMessages::InvalidLabEllakType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSubmittedType, message=ExceptionMessages::InvalidLabSubmittedType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTypeType, message=ExceptionMessages::InvalidLabTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitTypeType, message=ExceptionMessages::InvalidSchoolUnitTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateType, message=ExceptionMessages::InvalidStateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSourceType, message=ExceptionMessages::InvalidLabSourceType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageValue, message=ExceptionMessages::MissingPageValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageArray, message=ExceptionMessages::InvalidPageArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageType, message=ExceptionMessages::InvalidPageType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageNumber, message=ExceptionMessages::InvalidPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeValue, message=ExceptionMessages::MissingPageSizeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeArray, message=ExceptionMessages::InvalidPageSizeArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeType, message=ExceptionMessages::InvalidPageSizeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeNegativeValue, message=ExceptionMessages::MissingPageSizeNegativeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeNumber, message=ExceptionMessages::InvalidPageSizeNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSearchType, message=ExceptionMessages::InvalidSearchType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderType, message=ExceptionMessages::InvalidOrderType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderBy, message=ExceptionMessages::InvalidOrderBy),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMaxPageNumber, message=ExceptionMessages::InvalidMaxPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="getLabs",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="total",type="integer",description="Το πλήθος των εγγραφών χωρίς τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="count",type="integer",description="Το πλήθος των εγγραφών της κλήσης σύμφωνα με τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="pagination",type="array",description="Οι παράμετροι σελιδοποίησης των εγγραφών της κλήσης",items="$ref:Pagination"),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="data",type="array",description="Ο Πίνακας με τα αποτελέσματα",items="$ref:Lab"),
+* @SWG\Property(name="DQL",type="string",description="To DQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)"),
+* @SWG\Property(name="SQL",type="string",description="To SQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)")
+* )
+* 
+* @SWG\Model(
+* id="Pagination",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πληροφορίες σελιδοποίησης : ",
+* @SWG\Property(name="page",type="string",description="Ο αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="maxPage",type="string",description="Ο μέγιστος αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="pagesize",type="integer",description="Ο αριθμός των εγγραφών προς επιστροφή")
+* )
+* 
+* @SWG\Model(
+* id="Lab",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με στοιχεία του πίνακα labs: ",
+* @SWG\Property(name="lab_id",type="integer",description="Το ID της Διάταξης Η/Υ (mylab_id)"),
+* @SWG\Property(name="name",type="string",description="Το Όνομα της Διάταξης Η/Υ"),
+* @SWG\Property(name="special_name",type="string",description="Το Προσωνύμιο της Διάταξης Η/Υ"),
+* @SWG\Property(name="creation_date",type="string",format="date-time",description="Η Ημερομηνία Δημιουργίας της Διάταξης Η/Υ (μορφή ημερομηνίας dd/mm/yyyy hh:mm:ss)"),
+* @SWG\Property(name="created_by",type="string",description="Το UID του χρήστη που Δημιούργησε την Διάταξη Η/Υ"),
+* @SWG\Property(name="last_updated",type="string",format="date-time",description="Η Ημερομηνία Ενημέρωσης Στοιχείων της Διάταξης Η/Υ (μορφή ημερομηνίας dd/mm/yyyy hh:mm:ss)"),
+* @SWG\Property(name="updated_by",type="string",description="Το UID του χρήστη που Ενημέρωσε την Διάταξη Η/Υ"),
+* @SWG\Property(name="operational_rating",type="integer",description="Η Βαθμολογία Λειτουργικής Κατάστασης της Διάταξης Η/Υ (1=αρνητική - 5=θετική)"),
+* @SWG\Property(name="technological_rating",type="integer",description="Η Βαθμολογία Τεχνολογικής Κατάστασης της Διάταξης Η/Υ (1=αρνητική - 5=θετική)"),
+* @SWG\Property(name="ellak",type="boolean",description="Χρήση ΕΛΛΑΚ στην Διάταξη Η/Υ.Αρκεί να υπάρχουν UBUNTU LTSP στην Διάταξη Η/Υ για να χαρακτηριστει ως ΕΛΛΑΚ.(true=ΕΛΛΑΚ, false=ΟΧΙ ΕΛΛΑΚ) "),
+* @SWG\Property(name="submitted",type="boolean",description="Υποβεβλημένη Διάταξη Η/Υ. Γίνεται επιβεβαίωση από τους αρμοδιους χρήστες.(true=υποβεβλημένη, false=μη υποβεβλημένη)"),
+* @SWG\Property(name="lab_type_id",type="integer",description="Ο Κωδικός ID του Τύπου Διάταξης Η/Υ"),
+* @SWG\Property(name="lab_type_name",type="string",description="Το Όνομα του Τύπου Διάταξης Η/Υ"),
+* @SWG\Property(name="school_unit_id",type="integer",description="Ο Κωδικός ID της Σχολικής Μονάδας"),
+* @SWG\Property(name="school_unit_name",type="string",description="Το Όνομα της Σχολικής Μονάδας"),
+* @SWG\Property(name="state_id",type="integer",description="Ο Κωδικός ID της Λειτουργικής Κατάστασης Διάταξης Η/Υ"),
+* @SWG\Property(name="state_name",type="string",description="Το Όνομα της Λειτουργικής Κατάστασης Διάταξης Η/Υ"),
+* @SWG\Property(name="lab_source_id",type="integer",description="Ο Κωδικός ID της Πρωτογενής Πηγής Δεδομένων Διάταξης Η/Υ"),
+* @SWG\Property(name="lab_source_name",type="string",description="Το Όνομα της Πρωτογενής Πηγής Δεδομένων Διάταξης Η/Υ")
+* )
+* 
+*/
                     
 function GetLabs( $lab_id, $name, $special_name, $creation_date, $created_by, $last_updated, $updated_by, $operational_rating, $technological_rating, $ellak, $submitted, 
                   $lab_type, $school_unit, $state, $lab_source, 
@@ -122,7 +220,7 @@ function GetLabs( $lab_id, $name, $special_name, $creation_date, $created_by, $l
         
 //$last_updated=================================================================
         if (Validator::Exists('last_updated', $params)){
-            CRUDUtils::setFilter($qb, $last_updated, "l", "lastUpdated", "lastUpdated", "date", ExceptionMessages::InvalidlabLastUpdatedType, ExceptionCodes::InvalidlabLastUpdatedType);
+            CRUDUtils::setFilter($qb, $last_updated, "l", "lastUpdated", "lastUpdated", "date", ExceptionMessages::InvalidLabLastUpdatedType, ExceptionCodes::InvalidLabLastUpdatedType);
         }  
 
 //$updated_by===================================================================

@@ -9,23 +9,23 @@
             "operations": [
                 {
                     "method": "GET",
-                    "summary": "\u0391\u03bd\u03b1\u03b6\u03ae\u03c4\u03b7\u03c3\u03b7 \u03c3\u03b5 \u03a4\u03cd\u03c0o\u03c5\u03c2 \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03c9\u03bd",
-                    "nickname": "getCircuitTypes",
-                    "type": "ReturnParameters",
+                    "summary": "\u0391\u03bd\u03b1\u03b6\u03ae\u03c4\u03b7\u03c3\u03b7 \u03c3\u03b5 \u03a4\u03cd\u03c0o\u03c5\u03c2 \u03a4\u03b7\u03bb\u03b5\u03c0\u03b9\u03ba\u03bf\u03b9\u03bd\u03c9\u03bd\u03b9\u03b1\u03ba\u03ce\u03bd \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03c9\u03bd",
+                    "nickname": "GetCircuitTypes",
+                    "type": "getCircuitTypes",
                     "parameters": [
                         {
                             "paramType": "query",
                             "name": "circuit_type_id",
-                            "type": "integer",
+                            "type": "integer|array[integer]",
                             "required": false,
-                            "description": "ID \u03a4\u03cd\u03c0o\u03c5 \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03bf\u03c2"
+                            "description": "ID \u03a4\u03cd\u03c0o\u03c5 \u03a4\u03b7\u03bb\u03b5\u03c0\u03b9\u03ba\u03bf\u03b9\u03bd\u03c9\u03bd\u03b9\u03b1\u03ba\u03bf\u03cd \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03bf\u03c2 [notNull]"
                         },
                         {
                             "paramType": "query",
                             "name": "name",
-                            "type": "text",
+                            "type": "string|array[string]",
                             "required": false,
-                            "description": "\u038c\u03bd\u03bf\u03bc\u03b1 \u03a4\u03cd\u03c0o\u03c5 \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03bf\u03c2"
+                            "description": "\u038c\u03bd\u03bf\u03bc\u03b1 \u03a4\u03cd\u03c0o\u03c5 \u03a4\u03b7\u03bb\u03b5\u03c0\u03b9\u03ba\u03bf\u03b9\u03bd\u03c9\u03bd\u03b9\u03b1\u03ba\u03bf\u03cd \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03bf\u03c2 (\u03a3\u03c5\u03bd\u03b4\u03c5\u03ac\u03b6\u03b5\u03c4\u03b1\u03b9 \u03bc\u03b5 \u03c4\u03b7\u03bd \u03c0\u03b1\u03c1\u03ac\u03bc\u03b5\u03c4\u03c1\u03bf searchtype)"
                         },
                         {
                             "paramType": "query",
@@ -44,7 +44,7 @@
                         {
                             "paramType": "query",
                             "name": "searchtype",
-                            "type": "text",
+                            "type": "string",
                             "required": false,
                             "description": "\u03a4\u03cd\u03c0\u03bf\u03c2 \u03b1\u03bd\u03b1\u03b6\u03ae\u03c4\u03b7\u03c3\u03b7\u03c2",
                             "enum": [
@@ -59,7 +59,7 @@
                         {
                             "paramType": "query",
                             "name": "ordertype",
-                            "type": "text",
+                            "type": "string",
                             "required": false,
                             "description": "\u03a4\u03cd\u03c0\u03bf\u03c2 \u03a4\u03b1\u03be\u03b9\u03bd\u03cc\u03bc\u03b7\u03c3\u03b7\u03c2",
                             "enum": [
@@ -70,12 +70,23 @@
                         {
                             "paramType": "query",
                             "name": "orderby",
-                            "type": "text",
+                            "type": "string",
                             "required": false,
                             "description": "\u03a0\u03b5\u03b4\u03af\u03bf \u03a4\u03b1\u03be\u03b9\u03bd\u03cc\u03bc\u03b7\u03c3\u03b7\u03c2",
                             "enum": [
-                                "aquisition_source_id",
+                                "circuit_type_id",
                                 "name"
+                            ]
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "debug",
+                            "type": "boolean",
+                            "required": false,
+                            "description": "\u0395\u03c0\u03b9\u03c3\u03c4\u03c1\u03bf\u03c6\u03ae SQL/DQL Queries",
+                            "enum": [
+                                "true",
+                                "false"
                             ]
                         }
                     ],
@@ -145,14 +156,14 @@
                             "message": "\u03a4\u03bf \u0391pi Request \u03bf\u03bb\u03bf\u03ba\u03bb\u03b7\u03c1\u03ce\u03b8\u03b7\u03ba\u03b5 \u03bc\u03b5 \u03b5\u03c0\u03b9\u03c4\u03c5\u03c7\u03af\u03b1."
                         }
                     ],
-                    "notes": "\u0395\u03c0\u03b9\u03c3\u03c4\u03c1\u03ad\u03c6\u03b5\u03b9 \u03c4\u03bf\u03c5\u03c2 \u03a4\u03cd\u03c0\u03bf\u03c5\u03c2 \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03c9\u03bd"
+                    "notes": "\u0395\u03c0\u03b9\u03c3\u03c4\u03c1\u03ad\u03c6\u03b5\u03b9 \u03c4\u03bf\u03c5\u03c2 \u03a4\u03cd\u03c0\u03bf\u03c5\u03c2 \u03a4\u03b7\u03bb\u03b5\u03c0\u03b9\u03ba\u03bf\u03b9\u03bd\u03c9\u03bd\u03b9\u03b1\u03ba\u03ce\u03bd \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03c9\u03bd"
                 }
             ]
         }
     ],
     "models": {
-        "ReturnParameters": {
-            "id": "ReturnParameters",
+        "getCircuitTypes": {
+            "id": "getCircuitTypes",
             "description": "\u03a0\u03b1\u03c1\u03b1\u03ba\u03ac\u03c4\u03c9 \u03b5\u03bc\u03c6\u03b1\u03bd\u03af\u03b6\u03b5\u03c4\u03b1\u03b9 \u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc \u03c3\u03b5 \u03bc\u03bf\u03c1\u03c6\u03ae JSON \u03ba\u03b1\u03b9 \u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03b7\u03bd \u03ba\u03bb\u03ae\u03c3\u03b7 \u03c4\u03b7\u03c2 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7\u03c2 ",
             "properties": {
                 "controller": {
@@ -167,9 +178,20 @@
                     "description": "\u0397 \u03bc\u03ad\u03b8\u03bf\u03b4\u03bf\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2 \u03c4\u03b7\u03c2 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7\u03c2",
                     "type": "string"
                 },
-                "parameters": {
-                    "description": "\u039f\u03b9 \u03c0\u03b1\u03c1\u03ac\u03bc\u03b5\u03c4\u03c1\u03bf\u03b9 \u03c0\u03bf\u03c5 \u03b4\u03af\u03bd\u03b5\u03b9 \u03bf \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7\u03c2",
-                    "type": "array"
+                "total": {
+                    "description": "\u03a4\u03bf \u03c0\u03bb\u03ae\u03b8\u03bf\u03c2 \u03c4\u03c9\u03bd \u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ce\u03bd \u03c7\u03c9\u03c1\u03af\u03c2 \u03c4\u03b9\u03c2 \u03c0\u03b1\u03c1\u03b1\u03bc\u03ad\u03c4\u03c1\u03bf\u03c5\u03c2 \u03c3\u03b5\u03bb\u03b9\u03b4\u03bf\u03c0\u03bf\u03af\u03b7\u03c3\u03b7\u03c2",
+                    "type": "integer"
+                },
+                "count": {
+                    "description": "\u03a4\u03bf \u03c0\u03bb\u03ae\u03b8\u03bf\u03c2 \u03c4\u03c9\u03bd \u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ce\u03bd \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2 \u03c3\u03cd\u03bc\u03c6\u03c9\u03bd\u03b1 \u03bc\u03b5 \u03c4\u03b9\u03c2 \u03c0\u03b1\u03c1\u03b1\u03bc\u03ad\u03c4\u03c1\u03bf\u03c5\u03c2 \u03c3\u03b5\u03bb\u03b9\u03b4\u03bf\u03c0\u03bf\u03af\u03b7\u03c3\u03b7\u03c2",
+                    "type": "integer"
+                },
+                "pagination": {
+                    "description": "\u039f\u03b9 \u03c0\u03b1\u03c1\u03ac\u03bc\u03b5\u03c4\u03c1\u03bf\u03b9 \u03c3\u03b5\u03bb\u03b9\u03b4\u03bf\u03c0\u03bf\u03af\u03b7\u03c3\u03b7\u03c2 \u03c4\u03c9\u03bd \u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ce\u03bd \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
+                    "type": "array",
+                    "items": {
+                        "$ref": "Pagination"
+                    }
                 },
                 "status": {
                     "description": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
@@ -177,6 +199,21 @@
                 },
                 "message": {
                     "description": "\u03a4\u03bf \u039c\u03ae\u03bd\u03c5\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "data": {
+                    "description": "\u039f \u03a0\u03af\u03bd\u03b1\u03ba\u03b1\u03c2 \u03bc\u03b5 \u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc",
+                    "type": "array",
+                    "items": {
+                        "$ref": "CircuitType"
+                    }
+                },
+                "DQL": {
+                    "description": "To DQL query \u03c0\u03bf\u03c5 \u03b5\u03ba\u03c4\u03b5\u03bb\u03b5\u03af\u03c4\u03b1\u03b9 (\u03b5\u03c0\u03b9\u03c3\u03c4\u03c1\u03b5\u03c6\u03b5\u03c4\u03b1\u03b9 \u03c3\u03c4\u03b7\u03bd \u03c0\u03b5\u03c1\u03af\u03c0\u03c4\u03c9\u03c3\u03b7 debug=true)",
+                    "type": "string"
+                },
+                "SQL": {
+                    "description": "To SQL query \u03c0\u03bf\u03c5 \u03b5\u03ba\u03c4\u03b5\u03bb\u03b5\u03af\u03c4\u03b1\u03b9 (\u03b5\u03c0\u03b9\u03c3\u03c4\u03c1\u03b5\u03c6\u03b5\u03c4\u03b1\u03b9 \u03c3\u03c4\u03b7\u03bd \u03c0\u03b5\u03c1\u03af\u03c0\u03c4\u03c9\u03c3\u03b7 debug=true)",
                     "type": "string"
                 }
             }
@@ -204,11 +241,11 @@
             "description": "\u0395\u03c0\u03b9\u03c3\u03c4\u03c1\u03ad\u03c6\u03b5\u03b9 \u03ad\u03bd\u03b1 \u03c0\u03af\u03bd\u03b1\u03ba\u03b1 \u03c3\u03b5 JSON \u03bc\u03bf\u03c1\u03c6\u03ae \u03bc\u03b5 \u03c0\u03b5\u03b4\u03af\u03b1 \u03c4\u03bf\u03c5 \u03c0\u03af\u03bd\u03b1\u03ba\u03b1 circuit_types : ",
             "properties": {
                 "circuit_type_id": {
-                    "description": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0o\u03c5 \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03bf\u03c2",
+                    "description": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 ID \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0o\u03c5 \u03a4\u03b7\u03bb\u03b5\u03c0\u03b9\u03ba\u03bf\u03b9\u03bd\u03c9\u03bd\u03b9\u03b1\u03ba\u03bf\u03cd \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03bf\u03c2",
                     "type": "integer"
                 },
                 "name": {
-                    "description": "\u03a4\u03bf \u038c\u03bd\u03bf\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0o\u03c5 \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03bf\u03c2",
+                    "description": "\u03a4\u03bf \u038c\u03bd\u03bf\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0o\u03c5 \u03a4\u03b7\u03bb\u03b5\u03c0\u03b9\u03ba\u03bf\u03b9\u03bd\u03c9\u03bd\u03b9\u03b1\u03ba\u03bf\u03cd \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03bf\u03c2",
                     "type": "string"
                 }
             }

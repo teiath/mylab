@@ -17,28 +17,28 @@ header("Content-Type: text/html; charset=utf-8");
 * swaggerVersion=SWAGGER_VERSION,
 * basePath=BASE_PATH,
 * resourcePath="/aquisition_sources",
-* description="Τύποι Πηγών Χρηματοδότησης",
+* description="Λεξικό : Τύποι Πηγών Χρηματοδότησης",
 * produces="['application/json']",
 * @SWG\Api(
-*   path="/aquisition_sources",
+*   path="/aquisition_sources", 
 *   @SWG\Operation(
 *                   method="GET",
 *                   summary="Αναζήτηση σε Τύπoυς Πηγών Χρηματοδότησης",
 *                   notes="Επιστρέφει τους Τύπους Πηγών Χρηματοδότησης",
-*                   type="ReturnParameters",
-*                   nickname="getAquisitionSources",
+*                   type="getAquisitionSources",
+*                   nickname="GetAquisitionSources",
 *   @SWG\Parameter(
 *                   name="aquisition_source_id",
-*                   description="ID Πηγής Χρηματοδότησης",
+*                   description="ID Πηγής Χρηματοδότησης [notNull]",
 *                   required=false,
-*                   type="integer",
+*                   type="integer|array[integer]",
 *                   paramType="query"
 *   ),
 *   @SWG\Parameter(
 *                   name="name",
-*                   description="Όνομα Πηγής Χρηματοδότησης",
+*                   description="Όνομα Πηγής Χρηματοδότησης (Συνδυάζεται με την παράμετρο searchtype)",
 *                   required=false,
-*                   type="text",
+*                   type="string|array[string]",
 *                   paramType="query"
 *                   ),
 *   @SWG\Parameter(
@@ -59,7 +59,7 @@ header("Content-Type: text/html; charset=utf-8");
 *                   name="searchtype",
 *                   description="Τύπος αναζήτησης",
 *                   required=false,
-*                   type="text",
+*                   type="string",
 *                   paramType="query",
 *                   enum = "['EXACT','CONTAIN','CONTAINALL','CONTAINANY','STARTWITH','ENDWITH']"
 *                   ),
@@ -67,7 +67,7 @@ header("Content-Type: text/html; charset=utf-8");
 *                   name="ordertype",
 *                   description="Τύπος Ταξινόμησης",
 *                   required=false,
-*                   type="text",
+*                   type="string",
 *                   paramType="query",
 *                   enum = "['ASC','DESC']"
 *                   ),
@@ -75,10 +75,12 @@ header("Content-Type: text/html; charset=utf-8");
 *                   name="orderby",
 *                   description="Πεδίο Ταξινόμησης",
 *                   required=false,
-*                   type="text",
+*                   type="string",
 *                   paramType="query",
 *                   enum = "['aquisition_source_id','name']"
 *                   ),
+*   @SWG\Parameter( name="debug", description="Επιστροφή SQL/DQL Queries", required=false, type="boolean", paramType="query", enum = "['true','false']" ),
+* 
 *   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceIDType, message=ExceptionMessages::InvalidAquisitionSourceIDType),
 *   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceNameType, message=ExceptionMessages::InvalidAquisitionSourceNameType),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageValue, message=ExceptionMessages::MissingPageValue),
@@ -100,7 +102,7 @@ header("Content-Type: text/html; charset=utf-8");
 * )
 * 
 * @SWG\Model(
-* id="ReturnParameters",
+* id="getAquisitionSources",
 * description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
 * @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
 * @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
@@ -111,6 +113,8 @@ header("Content-Type: text/html; charset=utf-8");
 * @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
 * @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
 * @SWG\Property(name="data",type="array",description="Ο Πίνακας με το λεξικό",items="$ref:AquisitionSource"),
+* @SWG\Property(name="DQL",type="string",description="To DQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)"),
+* @SWG\Property(name="SQL",type="string",description="To SQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)")
 * )
 * 
 * @SWG\Model(
@@ -118,13 +122,13 @@ header("Content-Type: text/html; charset=utf-8");
 * description="Επιστρέφει ένα πίνακα σε JSON μορφή με πληροφορίες σελιδοποίησης : ",
 * @SWG\Property(name="page",type="string",description="Ο αριθμός της σελίδας των αποτελεσμάτων"),
 * @SWG\Property(name="maxPage",type="string",description="Ο μέγιστος αριθμός της σελίδας των αποτελεσμάτων"),
-* @SWG\Property(name="pagesize",type="integer",description="Ο αριθμός των εγγραφών προς επιστροφή"),
+* @SWG\Property(name="pagesize",type="integer",description="Ο αριθμός των εγγραφών προς επιστροφή")
 * )
 * 
 * @SWG\Model(
 * id="AquisitionSource",
 * description="Επιστρέφει ένα πίνακα σε JSON μορφή με πεδία του πίνακα aquisition_sources : ",
-* @SWG\Property(name="aquisition_source_id",type="integer",description="Ο Κωδικός της Πηγής Χρηματοδότησης"),
+* @SWG\Property(name="aquisition_source_id",type="integer",description="Ο Κωδικός ID της Πηγής Χρηματοδότησης"),
 * @SWG\Property(name="name",type="string",description="Το Όνομα της Πηγής Χρηματοδότησης")
 * )
 * 

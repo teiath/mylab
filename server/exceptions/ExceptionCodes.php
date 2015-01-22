@@ -609,7 +609,7 @@ class ExceptionCodes
     const InvalidLabCreatedByType = 500;
     /** {@see ExceptionMessages::InvalidLabLastUpdatedType} */
     const InvalidLabLastUpdatedType = 500;
-    /** {@see ExceptionMessages::InvalidLabUpdatedByType} */
+    /** {@see ExceptionMessages::InvalidLabLastUpdatedType} */
     const InvalidLabUpdatedByType = 500;
     /** {@see ExceptionMessages::AlreadyLabSubmittedActiveValue} */  
     const AlreadyLabSubmittedActiveValue = 500;
@@ -931,6 +931,8 @@ class ExceptionCodes
     /** {@see ExceptionMessages::MissingEduAdminCodeValue} */   
     const MissingEduAdminCodeValue = 500;
     /** {@see ExceptionMessages::InvalidEduAdminCodeType} */   
+    const InvalidEduAdminCodeValue = 500;
+    /** {@see ExceptionMessages::InvalidEduAdminCodeValue} */ 
     const InvalidEduAdminCodeType = 500;
     /** {@see ExceptionMessages::InvalidEduAdminCodeArray} */   
     const InvalidEduAdminCodeArray = 500;

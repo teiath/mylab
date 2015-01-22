@@ -9,23 +9,107 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $db
- * @global type $Options
- * @global type $app
- * @param type $school_unit_worker_id
- * @param type $school_unit_id
- * @param type $school_unit_name
- * @param type $worker_id
- * @param type $worker_position
- * @param type $pagesize
- * @param int $page
- * @param type $searchtype
- * @param type $ordertype
- * @param type $orderby
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/school_unit_workers",
+* description="Υπεύθυνοι Σχολικών Μονάδων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/school_unit_workers",
+*   @SWG\Operation(
+*                   method="GET",
+*                   summary="Αναζήτηση στους Υπεύθυνους Σχολικών Μονάδων",
+*                   notes="Επιστρέφει τους Υπεύθυνους Σχολικών Μονάδων.Τα στοιχεία τα λαμβάνουμε με συγχρονισμό από το ΜΜ.",
+*                   type="getSchoolUnitWorkers",
+*                   nickname="GetSchoolUnitWorkers",
+* 
+*   @SWG\Parameter( name="school_unit_worker_id", description="ID Υπεύθυνου Σχολικής Μονάδας [notNull]", required=false, type="integer|array[integer]", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_id", description="ID Σχολικής Μονάδας [notNull]", required=false, type="integer|array[integer]", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_name", description="Όνομα Σχολικής Μονάδας (Συνδυάζεται με την παράμετρο searchtype)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="worker_id", description="ID Εργαζόμενου από Mητρώο Mονάδων [notNull]", required=false, type="integer|array[integer]", paramType="query" ),
+*   @SWG\Parameter( name="worker_position", description="Όνομα ή ID Θέσης Εργασίας Υπεύθυνου Σχολικής Μονάδας [notNull]", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+* 
+*   @SWG\Parameter( name="page", description="Αριθμός Σελίδας", required=false, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="pagesize", description="Αριθμός Εγγραφών/Σελίδα", required=false, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="searchtype", description="Τύπος αναζήτησης", required=false, type="string", paramType="query", enum = "['EXACT','CONTAIN','CONTAINALL','CONTAINANY','STARTWITH','ENDWITH']" ),
+*   @SWG\Parameter( name="ordertype", description="Τύπος Ταξινόμησης", required=false, type="string", paramType="query", enum = "['ASC','DESC']" ),
+*   @SWG\Parameter( name="orderby", description="Πεδίο Ταξινόμησης", required=false, type="string", paramType="query",
+*                   enum = "['school_unit_worker_id','school_unit_id','school_unit_name','worker_id','worker_position_id','worker_position_name']" ),
+*   @SWG\Parameter( name="debug", description="Επιστροφή SQL/DQL Queries", required=false, type="boolean", paramType="query", enum = "['true','false']" ),  
+* 
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionsError, message=ExceptionMessages::NoPermissionsError),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitWorkerIDType, message=ExceptionMessages::InvalidSchoolUnitWorkerIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitIDType, message=ExceptionMessages::InvalidSchoolUnitIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitNameType, message=ExceptionMessages::InvalidSchoolUnitNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidWorkerIDType, message=ExceptionMessages::InvalidWorkerIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidWorkerPositionType, message=ExceptionMessages::InvalidWorkerPositionType), 
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageValue, message=ExceptionMessages::MissingPageValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageArray, message=ExceptionMessages::InvalidPageArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageType, message=ExceptionMessages::InvalidPageType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageNumber, message=ExceptionMessages::InvalidPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeValue, message=ExceptionMessages::MissingPageSizeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeArray, message=ExceptionMessages::InvalidPageSizeArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeType, message=ExceptionMessages::InvalidPageSizeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeNegativeValue, message=ExceptionMessages::MissingPageSizeNegativeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeNumber, message=ExceptionMessages::InvalidPageSizeNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSearchType, message=ExceptionMessages::InvalidSearchType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderType, message=ExceptionMessages::InvalidOrderType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderBy, message=ExceptionMessages::InvalidOrderBy),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMaxPageNumber, message=ExceptionMessages::InvalidMaxPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="getSchoolUnitWorkers",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="total",type="integer",description="Το πλήθος των εγγραφών χωρίς τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="count",type="integer",description="Το πλήθος των εγγραφών της κλήσης σύμφωνα με τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="pagination",type="array",description="Οι παράμετροι σελιδοποίησης των εγγραφών της κλήσης",items="$ref:Pagination"),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="data",type="array",description="Ο Πίνακας με τα αποτελέσματα",items="$ref:SchoolUnitWorker"),
+* @SWG\Property(name="DQL",type="string",description="To DQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)"),
+* @SWG\Property(name="SQL",type="string",description="To SQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)")
+* )
+* 
+* @SWG\Model(
+* id="Pagination",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πληροφορίες σελιδοποίησης : ",
+* @SWG\Property(name="page",type="string",description="Ο αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="maxPage",type="string",description="Ο μέγιστος αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="pagesize",type="integer",description="Ο αριθμός των εγγραφών προς επιστροφή")
+* )
+* 
+* @SWG\Model(
+* id="SchoolUnitWorker",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με στοιχεία του πίνακα school_unit_workers: ",
+* @SWG\Property(name="school_unit_worker_id",type="integer",description="Το ID του Υπεύθυνου Σχολικής Μονάδας"),
+* @SWG\Property(name="worker_id",type="integer",description="Ο Κωδικός ID του Εργαζόμενου από Μητρώο Μονάδων"),
+* @SWG\Property(name="worker_registry_no",type="integer",description="Ο Α.Μ. του Εργαζόμενου"),
+* @SWG\Property(name="tax_number",type="integer",description="Το Α.Φ.Μ. του Εργαζόμενου"),
+* @SWG\Property(name="firstname",type="string",description="Το Όνομα του Εργαζόμενου"),
+* @SWG\Property(name="lastname",type="string",description="Το Επώνυμο του Εργαζόμενου"),
+* @SWG\Property(name="fathername",type="string",description="Το Όνομα Πατρός του Εργαζόμενου"),
+* @SWG\Property(name="sex",type="string",description="Το Φύλο του Εργαζόμενου (Α=Άντρας,Γ=Γυναίκα)"),
+* @SWG\Property(name="specialization_code_id",type="integer",description="Ο Κωδικός ID της Ειδικότητας του Εργαζόμενου"),
+* @SWG\Property(name="specialization_code_name",type="string",description="Το Όνομα της Ειδικότητας του Εργαζόμενου"),
+* @SWG\Property(name="worker_position_id",type="integer",description="Ο Κωδικός ID της Θέσης Εργασίας του Εργαζόμενου"),
+* @SWG\Property(name="worker_position_name",type="string",description="Το Όνομα της Θέσης Εργασίας του Εργαζόμενου"),
+* @SWG\Property(name="school_unit_id",type="integer",description="Ο Κωδικός ID της Σχολικής Μονάδας"),
+* @SWG\Property(name="school_unit_name",type="string",description="Το Όνομα της Σχολικής Μονάδας")
+* )
+* 
+*/
  
 function GetSchoolUnitWorkers( $school_unit_worker_id, $school_unit_id, $school_unit_name, $worker_id, $worker_position, 
                                $pagesize, $page, $searchtype, $ordertype, $orderby ) {

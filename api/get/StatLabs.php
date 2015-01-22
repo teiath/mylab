@@ -4,11 +4,109 @@
  * @version 1.0.1
  * @author  ΤΕΙ Αθήνας
  * @package GET
- * 
- * 
  */
  
 header("Content-Type: text/html; charset=utf-8");
+
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/stat_labs",
+* description="Δημιουργία Στατιστικών Διατάξεων Η/Υ",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/stat_labs",
+*   @SWG\Operation(
+*                   method="GET",
+*                   summary="Δημιουργία Στατιστικών Διατάξεων Η/Υ",
+*                   notes="Eπιστρέφει στατιστικά για τις Διατάξεις Η/Υ σε δύο άξονες x,y και με φίλτρα επί των αξόνων αυτών.Αφορά μόνο υποβεβλημένες Διατάξεις Η/Υ.
+                           Στον Πίνακα Axis περιέχονται τα ονόματα των παραμέτρων, με βαση τα οποίο ο χρήστης μπορέι δημιουργήσει δισδιαστατο πίνακα αποτελεσματων με άξονες x,y για την προβολή στατιστικων αποτελεσμάτων.
+                           Πίνακας Axis με αποδεκτές τιμές
+                                lab_type = Τύπος Διάταξης Η/Υ 
+                                lab_state = Λειτουργική Κατάσταση Διάταξης Η/Υ
+                                region_edu_admin = Περιφέρεια
+                                edu_admin = Διεύθυνση Εκπαίδευσης
+                                transfer_area = Περιοχή Μετάθεσης
+                                prefecture = Νομός
+                                municipality = Δήμος
+                                education_level = Επίπεδο Εκπαίδευσης
+                                school_unit_type = Τύπος Σχολικής Μονάδας
+                                school_unit_state = Λειτουργική Κατάσταση Σχολικής Μονάδας                             
+                          ",   
+*                   type="getStatLabs",
+*                   nickname="GetStatLabs",
+* 
+*   @SWG\Parameter( name="x_axis", description="Παράμετρος άξονα x", required=true, type="string|array[string])", paramType="query", enum = "['lab_type','lab_state','region_edu_admin','edu_admin','transfer_area','prefecture','municipality','education_level','school_unit_type','school_unit_state']" ),
+*   @SWG\Parameter( name="y_axis", description="Παράμετρος άξονα y", required=true, type="string|array[string])", paramType="query", enum = "['lab_type','lab_state','region_edu_admin','edu_admin','transfer_area','prefecture','municipality','education_level','school_unit_type','school_unit_state']" ),
+*   @SWG\Parameter( name="operational_rating", description="Βαθμολογία Λειτουργικής Κατάστασης Διάταξης Η/Υ [notNull](1=αρνητική - 5=θετική)", required=false, type="integer|array[integer]", paramType="query"),
+*   @SWG\Parameter( name="technological_rating", description="Βαθμολογία Τεχνολογικής Κατάστασης Διάταξης Η/Υ [notNull](1=αρνητική - 5=θετική)", required=false, type="integer|array[integer]", paramType="query"),
+*   @SWG\Parameter( name="lab_type", description="Όνομα ή ID Τύπου Διάταξης Η/Υ", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="lab_state", description="Όνομα ή ID Λειτουργικής Κατάστασης Διάταξης Η/Υ", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="has_lab_worker", description="Επευθυνος Διαταξης Η/Υ  [notNULL](1=Ενεργός Υπεύθυνος,3=Ανενεργός Υπεύθυνος)", required=false, type="integer|array[integer]", paramType="query" ),
+*   @SWG\Parameter( name="region_edu_admin", description="Όνομα ή ID Περιφέρειας", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="edu_admin", description="Όνομα ή ID Διευθύνσης Εκπαίδευσης", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="transfer_area", description="Όνομα ή ID Περιοχής Μετάθεσης", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="municipality", description="Όνομα ή ID Δήμου", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="prefecture", description="Όνομα ή ID Νομού", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="education_level", description="Όνομα ή ID Επίπεδου Εκπαίδευσης", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_type", description="Όνομα ή ID Τύπου Σχολικής Μονάδας", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_state", description="Όνομα ή ID Λειτουργικής Κατάστασης Σχολικής Μονάδας", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="export", description="Μορφή Εξαγωγής Δεδομενων", required=false, type="string", paramType="query", enum = "['JSON','XLSX','PHP_ARRAY']" ),
+* 
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateXYAxisParam, message=ExceptionMessages::DuplicateXYAxisParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidXAxisArray, message=ExceptionMessages::InvalidXAxisArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingXAxisValue, message=ExceptionMessages::MissingXAxisValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidXAxis, message=ExceptionMessages::InvalidXAxis),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidXAxisType, message=ExceptionMessages::InvalidXAxisType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingXAxisParam, message=ExceptionMessages::MissingXAxisParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidYAxisArray, message=ExceptionMessages::InvalidYAxisArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingYAxisValue, message=ExceptionMessages::MissingYAxisValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidYAxis, message=ExceptionMessages::InvalidYAxis),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidYAxisType, message=ExceptionMessages::InvalidYAxisType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingYAxisParam, message=ExceptionMessages::MissingYAxisParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabOperationalRatingType, message=ExceptionMessages::InvalidLabOperationalRatingType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTechnologicalRatingType, message=ExceptionMessages::InvalidLabTechnologicalRatingType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTypeType, message=ExceptionMessages::InvalidLabTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateType, message=ExceptionMessages::InvalidStateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStatusType, message=ExceptionMessages::InvalidLabWorkerStatusType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRegionEduAdminType, message=ExceptionMessages::InvalidRegionEduAdminType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEduAdminType, message=ExceptionMessages::InvalidEduAdminType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidTransferAreaType, message=ExceptionMessages::InvalidTransferAreaType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMunicipalityType, message=ExceptionMessages::InvalidMunicipalityType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPrefectureType, message=ExceptionMessages::InvalidPrefectureType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEducationLevelType, message=ExceptionMessages::InvalidEducationLevelType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitTypeType, message=ExceptionMessages::InvalidSchoolUnitTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateType, message=ExceptionMessages::InvalidStateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidExportType, message=ExceptionMessages::InvalidExportType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="getStatLabs",
+* description="Παρακάτω εμφανίζεται τα δεδομένα σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="filters",type="array",description="Οι παράμετροι(φίλτρα) της αναζήτησης που έχουν υποβληθεί"),
+* @SWG\Property(name="results",type="array",description="Ο Πίνακας με τα αποτελέσματα",items="$ref:StatLab")
+* )
+*  
+* @SWG\Model(
+* id="StatLab",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με τα στατιστικά σε 2 αξονες και το αποτέλεσμα τους : ",
+* @SWG\Property(name="x_axis parameter",type="string",description="Η τιμή του άξονα x"),
+* @SWG\Property(name="y_axis parameter",type="string",description="Η τιμή του άξονα y"),
+* @SWG\Property(name="total_labs",type="integer",description="Το πλήθος των Διατάξεων Η/Υ του συνδιασμού x,y")
+* )
+* 
+**/
 
 function StatLabs(
     $x_axis, $y_axis, $operational_rating, $technological_rating, 

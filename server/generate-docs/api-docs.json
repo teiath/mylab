@@ -4,11 +4,163 @@
     "apis": [
         {
             "path": "/aquisition_sources.{format}",
-            "description": "\u03a4\u03cd\u03c0\u03bf\u03b9 \u03a0\u03b7\u03b3\u03ce\u03bd \u03a7\u03c1\u03b7\u03bc\u03b1\u03c4\u03bf\u03b4\u03cc\u03c4\u03b7\u03c3\u03b7\u03c2"
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a4\u03cd\u03c0\u03bf\u03b9 \u03a0\u03b7\u03b3\u03ce\u03bd \u03a7\u03c1\u03b7\u03bc\u03b1\u03c4\u03bf\u03b4\u03cc\u03c4\u03b7\u03c3\u03b7\u03c2"
         },
         {
             "path": "/circuit_types.{format}",
-            "description": "\u03a4\u03cd\u03c0\u03bf\u03b9 \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03c9\u03bd"
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a4\u03cd\u03c0\u03bf\u03b9 \u03a4\u03b7\u03bb\u03b5\u03c0\u03b9\u03ba\u03bf\u03b9\u03bd\u03c9\u03bd\u03b9\u03b1\u03ba\u03ce\u03bd \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03ac\u03c4\u03c9\u03bd"
+        },
+        {
+            "path": "/circuits.{format}",
+            "description": "\u03a3\u03c5\u03b3\u03c7\u03c1\u03bf\u03bd\u03b9\u03c3\u03bc\u03cc\u03c2 : \u03a4\u03b7\u03bb\u03b5\u03c0\u03b9\u03ba\u03bf\u03b9\u03bd\u03c9\u03bd\u03b9\u03b1\u03ba\u03ac \u039a\u03c5\u03ba\u03bb\u03c9\u03bc\u03b1\u03c4\u03b1"
+        },
+        {
+            "path": "/edu_admins.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u0394\u03b9\u03b5\u03c5\u03b8\u03cd\u03bd\u03c3\u03b5\u03b9\u03c2 \u0395\u03ba\u03c0\u03b1\u03af\u03b4\u03b5\u03c5\u03c3\u03b7\u03c2"
+        },
+        {
+            "path": "/education_levels.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u0395\u03c0\u03af\u03c0\u03b5\u03b4\u03b1 \u0395\u03ba\u03c0\u03b1\u03af\u03b4\u03b5\u03c5\u03c3\u03b7\u03c2"
+        },
+        {
+            "path": "/equipment_categories.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b5\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+        },
+        {
+            "path": "/equipment_types.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a4\u03cd\u03c0\u03bf\u03b9 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+        },
+        {
+            "path": "/find_lab_workers.{format}",
+            "description": "\u0395\u03cd\u03c1\u03b5\u03c3\u03b7 \u03a5\u03c0\u03b5\u03cd\u03b8\u03c5\u03bd\u03c9\u03bd \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd \u0397/\u03a5"
+        },
+        {
+            "path": "/lab_aquisition_sources.{format}",
+            "description": "\u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03b9\u03c2 \u0397/\u03a5 \u03bc\u03b5 \u03a0\u03b7\u03b3\u03ad\u03c2 \u03a7\u03c1\u03b7\u03bc\u03b1\u03c4\u03bf\u03b4\u03cc\u03c4\u03b7\u03c3\u03b7\u03c2"
+        },
+        {
+            "path": "/lab_equipment_types.{format}",
+            "description": "\u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03b9\u03c2 \u0397/\u03a5 \u03bc\u03b5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03cc"
+        },
+        {
+            "path": "/lab_relations.{format}",
+            "description": "\u03a3\u03c5\u03c3\u03c7\u03b5\u03c4\u03af\u03c3\u03b5\u03b9\u03c2 \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd - \u039c\u03bf\u03bd\u03ac\u03b4\u03c9\u03bd"
+        },
+        {
+            "path": "/lab_sources.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a0\u03c1\u03c9\u03c4\u03bf\u03b3\u03b5\u03bd\u03ae\u03c2 \u03a0\u03b7\u03b3\u03ad\u03c2 \u0394\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd"
+        },
+        {
+            "path": "/lab_transitions.{format}",
+            "description": "\u039b\u03b5\u03b9\u03c4\u03bf\u03c5\u03c1\u03b3\u03b9\u03ba\u03ad\u03c2 \u039a\u03b1\u03c4\u03b1\u03c3\u03c4\u03ac\u03c3\u03b5\u03b9\u03c2 \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd"
+        },
+        {
+            "path": "/lab_types.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a4\u03cd\u03c0\u03bf\u03b9 \u0394\u03b9\u03ac\u03c4\u03ac\u03be\u03b5\u03c9\u03bd \u0397/\u03a5"
+        },
+        {
+            "path": "/lab_workers.{format}",
+            "description": "\u03a5\u03c0\u03b5\u03cd\u03b8\u03c5\u03bd\u03bf\u03b9 \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd"
+        },
+        {
+            "path": "/labs.{format}",
+            "description": "\u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03b9\u03c2 \u0397/\u03a5"
+        },
+        {
+            "path": "/ldap_workers.{format}",
+            "description": "\u0395\u03c1\u03b3\u03b1\u03b6\u03bf\u03bc\u03b5\u03bd\u03bf\u03b9 \u03c3\u03c4\u03bf\u03bd \u03a0\u03a3\u0394 LDAP"
+        },
+        {
+            "path": "/municipalities.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u0394\u03ae\u03bc\u03bf\u03b9"
+        },
+        {
+            "path": "/mylab_workers.{format}",
+            "description": "\u0395\u03c1\u03b3\u03b1\u03b6\u03cc\u03bc\u03b5\u03bd\u03bf\u03b9"
+        },
+        {
+            "path": "/prefectures.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u039d\u03bf\u03bc\u03bf\u03af"
+        },
+        {
+            "path": "/region_edu_admins.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a0\u03b5\u03c1\u03b9\u03c6\u03ad\u03c1\u03b5\u03b9\u03b5\u03c2"
+        },
+        {
+            "path": "/relation_types.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a4\u03cd\u03c0\u03bf\u03b9 \u03a3\u03c5\u03c3\u03c7\u03ad\u03c4\u03b9\u03c3\u03b7\u03c2 \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd - \u039c\u03bf\u03bd\u03ac\u03b4\u03c9\u03bd"
+        },
+        {
+            "path": "/report_keplhnet.{format}",
+            "description": "\u0391\u03bd\u03b1\u03c6\u03bf\u03c1\u03ac : \u0395\u03c4\u03ae\u03c3\u03b9\u03b1 \u0391\u03bd\u03b1\u03c6\u03bf\u03c1\u03ac \u039a\u0395\u03a0\u039b\u0397\u039d\u0395\u03a4"
+        },
+        {
+            "path": "/school_unit_types.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a4\u03cd\u03c0\u03bf\u03b9 \u03a3\u03c7\u03bf\u03bb\u03b9\u03ba\u03ce\u03bd \u039c\u03bf\u03bd\u03ac\u03b4\u03c9\u03bd"
+        },
+        {
+            "path": "/school_unit_workers.{format}",
+            "description": "\u03a5\u03c0\u03b5\u03cd\u03b8\u03c5\u03bd\u03bf\u03b9 \u03a3\u03c7\u03bf\u03bb\u03b9\u03ba\u03ce\u03bd \u039c\u03bf\u03bd\u03ac\u03b4\u03c9\u03bd"
+        },
+        {
+            "path": "/school_units.{format}",
+            "description": "\u03a3\u03c7\u03bf\u03bb\u03b9\u03ba\u03ad\u03c2 \u039c\u03bf\u03bd\u03ac\u03b4\u03b5\u03c2"
+        },
+        {
+            "path": "/search_lab_workers.{format}",
+            "description": "\u03a5\u03c0\u03b5\u03cd\u03b8\u03c5\u03bd\u03bf\u03b9 \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd(all_tree)"
+        },
+        {
+            "path": "/search_labs.{format}",
+            "description": "\u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03b9\u03c2 \u0397/\u03a5(all_tree)"
+        },
+        {
+            "path": "/search_school_units.{format}",
+            "description": "\u03a3\u03c7\u03bf\u03bb\u03b9\u03ba\u03ad\u03c2 \u039c\u03bf\u03bd\u03ac\u03b4\u03b5\u03c2(all_tree)"
+        },
+        {
+            "path": "/sources.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a0\u03c1\u03c9\u03c4\u03bf\u03b3\u03b5\u03bd\u03b5\u03af\u03c2 \u03a0\u03b7\u03b3\u03ad\u03c2 \u0394\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd \u039c\u03bf\u03bd\u03ac\u03b4\u03c9\u03bd"
+        },
+        {
+            "path": "/stat_labs.{format}",
+            "description": "\u0394\u03b7\u03bc\u03b9\u03bf\u03c5\u03c1\u03b3\u03af\u03b1 \u03a3\u03c4\u03b1\u03c4\u03b9\u03c3\u03c4\u03b9\u03ba\u03ce\u03bd \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd \u0397/\u03a5"
+        },
+        {
+            "path": "/states.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u039b\u03b5\u03b9\u03c4\u03bf\u03c5\u03c1\u03b3\u03b9\u03ba\u03ad\u03c2 \u039a\u03b1\u03c4\u03b1\u03c3\u03c4\u03ac\u03c3\u03b5\u03b9\u03c2"
+        },
+        {
+            "path": "/statistic_lab_workers.{format}",
+            "description": "\u03a3\u03c4\u03b1\u03c4\u03b9\u03c3\u03c4\u03b9\u03ba\u03ac \u03a5\u03c0\u03b5\u03cd\u03b8\u03c5\u03bd\u03c9\u03bd \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd"
+        },
+        {
+            "path": "/statistic_labs.{format}",
+            "description": "\u03a3\u03c4\u03b1\u03c4\u03b9\u03c3\u03c4\u03b9\u03ba\u03ac \u0394\u03b9\u03b1\u03c4\u03ac\u03be\u03b5\u03c9\u03bd \u0397/\u03a5"
+        },
+        {
+            "path": "/statistic_school_units.{format}",
+            "description": "\u03a3\u03c4\u03b1\u03c4\u03b9\u03c3\u03c4\u03b9\u03ba\u03ac \u03a3\u03c7\u03bf\u03bb\u03b9\u03ba\u03ce\u03bd \u039c\u03bf\u03bd\u03ac\u03b4\u03c9\u03bd"
+        },
+        {
+            "path": "/transfer_areas.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u03a0\u03b5\u03c1\u03b9\u03bf\u03c7\u03ad\u03c2 \u039c\u03b5\u03c4\u03ac\u03b8\u03b5\u03c3\u03b7\u03c2"
+        },
+        {
+            "path": "/user_permits.{format}",
+            "description": "\u03a0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2/\u0394\u03b9\u03ba\u03b1\u03b9\u03c9\u03bc\u03b1\u03c4\u03b1 \u03a7\u03c1\u03ae\u03c3\u03c4\u03b7"
+        },
+        {
+            "path": "/worker_positions.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u0398\u03ad\u03c3\u03b5\u03b9\u03c2 \u0395\u03c1\u03b3\u03b1\u03c3\u03af\u03b1\u03c2 \u0395\u03c1\u03b3\u03b1\u03b6\u03cc\u03bc\u03b5\u03bd\u03c9\u03bd"
+        },
+        {
+            "path": "/worker_specializations.{format}",
+            "description": "\u039b\u03b5\u03be\u03b9\u03ba\u03cc : \u0395\u03b9\u03b4\u03b9\u03ba\u03cc\u03c4\u03b7\u03c4\u03b5\u03c2 \u0395\u03c1\u03b3\u03b1\u03b6\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd"
+        },
+        {
+            "path": "/workers.{format}",
+            "description": "\u0395\u03c1\u03b3\u03b1\u03b6\u03cc\u03bc\u03b5\u03bd\u03bf\u03b9 \u03a3\u03c7\u03bf\u03bb\u03b9\u03ba\u03ce\u03bd \u039c\u03bf\u03bd\u03ac\u03b4\u03c9\u03bd"
         }
     ]
 }

@@ -4,11 +4,286 @@
  * @version 1.0.1
  * @author  ΤΕΙ Αθήνας
  * @package GET
- * 
- * 
  */
  
 header("Content-Type: text/html; charset=utf-8");
+
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/search_labs",
+* description="Διατάξεις Η/Υ(all_tree)",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/search_labs",
+*   @SWG\Operation(
+*                   method="GET",
+*                   summary="Εκτεταμένη Αναζήτηση στις Διατάξεις Η/Υ",
+*                   notes="Επιστρέφει τις Διατάξεις Η/Υ και τα στοιχεία τους.Έχει περισσότερες παραμέτρους για εκτεταμένη αναζήτηση.",
+*                   type="getSearchLabs",
+*                   nickname="GetSearchLabs",
+* 
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ", required=false, type="integer|array[integer]", paramType="query" ),
+*   @SWG\Parameter( name="lab_name", description="Όνομα Διάταξης Η/Υ (Συνδυάζεται με την παράμετρο searchtype.)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="lab_special_name", description="Προσωνύμιο Διάταξης Η/Υ (Συνδυάζεται με την παράμετρο searchtype.)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="creation_date", description="Ημερομηνία Δημιουργίας Διάταξης Η/Υ (μορφή ημερομηνίας dd/mm/yyyy)", required=false, type="string|array[string]", format="date", paramType="query" ),
+*   @SWG\Parameter( name="operational_rating", description="Βαθμολογία Λειτουργικής Κατάστασης Διάταξης Η/Υ (1=αρνητική - 5=θετική)", required=false, type="integer|array[integer]", paramType="query"),
+*   @SWG\Parameter( name="technological_rating", description="Βαθμολογία Τεχνολογικής Κατάστασης Διάταξης Η/Υ (1=αρνητική - 5=θετική)", required=false, type="integer|array[integer]", paramType="query"),
+*   @SWG\Parameter( name="submitted", description="Υποβεβλημένη Διάταξη Η/Υ [notNull](true=υποβεβλημένη, false=μη υποβεβλημένη)", required=false, type="boolean|array[boolean]", paramType="query" ),
+*   @SWG\Parameter( name="lab_type", description="Όνομα ή ID Τύπου Διάταξης Η/Υ", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="lab_state", description="Όνομα ή ID Λειτουργικής Κατάστασης Διάταξης Η/Υ", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="lab_source", description="Όνομα ή ID Πρωτογενής Πηγής Δεδομένων Διάταξης Η/Υ)", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_id", description="ID Σχολικής Μονάδας", required=false, type="integer|array[integer]", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_name", description="Όνομα Σχολικής Μονάδας (Συνδυάζεται με την παράμετρο searchtype)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_special_name", description="Προσωνύμιο Σχολικής Μονάδας (Συνδυάζεται με την παράμετρο searchtype)", required=false, type="string|array[string]", paramType="query" ),
+*   @SWG\Parameter( name="aquisition_source", description="Όνομα ή ID Πηγής Χρηματοδότησης", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="equipment_type", description="Όνομα ή ID Τύπου Εξοπλισμού", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="lab_worker", description="Επίθετο ή Α.Μ. Υπεύθυνου Διατάξης Η/Υ", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="region_edu_admin", description="Όνομα ή ID Περιφέρειας", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="edu_admin", description="Όνομα ή ID Διευθύνσης Εκπαίδευσης", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="transfer_area", description="Όνομα ή ID Περιοχής Μετάθεσης", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="municipality", description="Όνομα ή ID Δήμου", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="prefecture", description="Όνομα ή ID Νομού", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="education_level", description="Όνομα ή ID Επίπεδου Εκπαίδευσης", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_type", description="Όνομα ή ID Τύπου Σχολικής Μονάδας", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_state", description="Όνομα ή ID Λειτουργικής Κατάστασης Σχολικής Μονάδας", required=false, type="mixed(string|integer|array[string|integer])", paramType="query" ),
+*   @SWG\Parameter( name="page", description="Αριθμός Σελίδας", required=false, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="pagesize", description="Αριθμός Εγγραφών/Σελίδα", required=false, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="searchtype", description="Τύπος αναζήτησης", required=false, type="string", paramType="query", enum = "['EXACT','CONTAIN','CONTAINALL','CONTAINANY','STARTWITH','ENDWITH']" ),
+*   @SWG\Parameter( name="ordertype", description="Τύπος Ταξινόμησης", required=false, type="string", paramType="query", enum = "['ASC','DESC']" ),
+*   @SWG\Parameter( name="orderby", description="Πεδίο Ταξινόμησης", required=false, type="string", paramType="query",
+*                   enum = "['lab_id','lab_name','lab_special_name','creation_date','operational_rating','technological_rating',
+                             'lab_type_id','lab_type','school_unit_id','school_unit_name','lab_state_id','lab_state','lab_source_id','lab_source']" ),
+*   @SWG\Parameter( name="export", description="Μορφή Εξαγωγής Δεδομενων", required=false, type="string", paramType="query",
+*                   enum = "['JSON','XLSX','PHP_ARRAY']" ),
+*   @SWG\Parameter( name="debug", description="Επιστροφή SQL/DQL Queries", required=false, type="boolean", paramType="query", enum = "['true','false']" ),  
+* 
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionsError, message=ExceptionMessages::NoPermissionsError),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabNameType, message=ExceptionMessages::InvalidLabNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSpecialNameType, message=ExceptionMessages::InvalidLabSpecialNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabCreationDateType, message=ExceptionMessages::InvalidLabCreationDateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTechnologicalRatingType, message=ExceptionMessages::InvalidLabTechnologicalRatingType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabOperationalRatingType, message=ExceptionMessages::InvalidLabOperationalRatingType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSubmittedType, message=ExceptionMessages::InvalidLabSubmittedType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTypeType, message=ExceptionMessages::InvalidLabTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateType, message=ExceptionMessages::InvalidStateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSourceType, message=ExceptionMessages::InvalidLabSourceType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceType, message=ExceptionMessages::InvalidAquisitionSourceType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentTypeType, message=ExceptionMessages::InvalidEquipmentTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerType, message=ExceptionMessages::InvalidLabWorkerType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitIDType, message=ExceptionMessages::InvalidSchoolUnitIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitNameType, message=ExceptionMessages::InvalidSchoolUnitNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitSpecialNameType, message=ExceptionMessages::InvalidSchoolUnitSpecialNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRegionEduAdminType, message=ExceptionMessages::InvalidRegionEduAdminType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEduAdminType, message=ExceptionMessages::InvalidEduAdminType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidTransferAreaType, message=ExceptionMessages::InvalidTransferAreaType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMunicipalityType, message=ExceptionMessages::InvalidMunicipalityType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPrefectureType, message=ExceptionMessages::InvalidPrefectureType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEducationLevelType, message=ExceptionMessages::InvalidEducationLevelType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitTypeType, message=ExceptionMessages::InvalidSchoolUnitTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateType, message=ExceptionMessages::InvalidStateType), 
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidExportType, message=ExceptionMessages::InvalidExportType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageValue, message=ExceptionMessages::MissingPageValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageArray, message=ExceptionMessages::InvalidPageArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageType, message=ExceptionMessages::InvalidPageType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageNumber, message=ExceptionMessages::InvalidPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeValue, message=ExceptionMessages::MissingPageSizeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeArray, message=ExceptionMessages::InvalidPageSizeArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeType, message=ExceptionMessages::InvalidPageSizeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeNegativeValue, message=ExceptionMessages::MissingPageSizeNegativeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeNumber, message=ExceptionMessages::InvalidPageSizeNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSearchType, message=ExceptionMessages::InvalidSearchType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderType, message=ExceptionMessages::InvalidOrderType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderBy, message=ExceptionMessages::InvalidOrderBy),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMaxPageNumber, message=ExceptionMessages::InvalidMaxPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="getSearchLabs",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="filters",type="array",description="Οι παράμετροι(φίλτρα) της αναζήτησης που έχουν υποβληθεί"),
+* @SWG\Property(name="total",type="integer",description="Το πλήθος των Διατάξεων Η/Υ χωρίς τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="count",type="integer",description="Το πλήθος των Διατάξεων Η/Υ της κλήσης σύμφωνα με τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="all_labs_by_type",type="array",description="Το συνολικό πλήθος ανά Διάταξη Η/Υ με βάση τυχόν φίλτρα αναζήτησης και χωρίς τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="pagination",type="array",description="Οι παράμετροι σελιδοποίησης των εγγραφών της κλήσης",items="$ref:Pagination"),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="data",type="array",description="Ο Πίνακας με τα αποτελέσματα",items="$ref:SearchLab"),
+* @SWG\Property(name="SQL",type="string",description="To SQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)"),
+* @SWG\Property(name="tmp_xlsx_filepath",type="string",description="To URL με το αρχείο xlsx (επιστρεφεται στην περίπτωση export=XLSX)")
+* )
+* 
+* @SWG\Model(
+* id="Pagination",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πληροφορίες σελιδοποίησης : ",
+* @SWG\Property(name="page",type="string",description="Ο αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="maxPage",type="string",description="Ο μέγιστος αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="pagesize",type="integer",description="Ο αριθμός των εγγραφών προς επιστροφή")
+* )
+* 
+* @SWG\Model(
+* id="SearchLab",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με δεδομένα Διατάξεων Η/Υ: ",
+* @SWG\Property(name="lab_id",type="integer",description="Το ID της Διάταξης Η/Υ (mylab_id)"),
+* @SWG\Property(name="lab_name",type="string",description="Το Όνομα της Διάταξης Η/Υ"),
+* @SWG\Property(name="lab_special_name",type="string",description="Το Προσωνύμιο της Διάταξης Η/Υ"),
+* @SWG\Property(name="creation_date",type="string",format="date-time",description="Η Ημερομηνία Δημιουργίας της Διάταξης Η/Υ (μορφή ημερομηνίας dd/mm/yyyy hh:mm:ss)"),
+* @SWG\Property(name="created_by",type="string",description="Το UID του χρήστη που Δημιούργησε την Διάταξη Η/Υ"),
+* @SWG\Property(name="last_updated",type="string",format="date-time",description="Η Ημερομηνία Ενημέρωσης Στοιχείων της Διάταξης Η/Υ (μορφή ημερομηνίας dd/mm/yyyy hh:mm:ss)"),
+* @SWG\Property(name="updated_by",type="string",description="Το UID του χρήστη που Ενημέρωσε την Διάταξη Η/Υ"),
+* @SWG\Property(name="positioning",type="string",description="Η χωροταξική θέση της Διάταξη Η/Υ (Είναι της μορφής Κτήριο: ... , Όροφος: ... , Αίθουσα: ... )"),
+* @SWG\Property(name="comments",type="string",description="Πληροφορίες σε σχόλια για την Διάταξη Η/Υ"),
+* @SWG\Property(name="operational_rating",type="integer",description="Η Βαθμολογία Λειτουργικής Κατάστασης της Διάταξης Η/Υ (1=αρνητική - 5=θετική)"),
+* @SWG\Property(name="technological_rating",type="integer",description="Η Βαθμολογία Τεχνολογικής Κατάστασης της Διάταξης Η/Υ (1=αρνητική - 5=θετική)"),
+* @SWG\Property(name="ellak",type="integer",description="Χρήση ΕΛΛΑΚ στην Διάταξη Η/Υ.Αρκεί να υπάρχουν UBUNTU LTSP στην Διάταξη Η/Υ για να χαρακτηριστει ως ΕΛΛΑΚ.(1=ΕΛΛΑΚ, 0=ΟΧΙ ΕΛΛΑΚ) "),
+* @SWG\Property(name="submitted",type="integer",description="Υποβεβλημένη Διάταξη Η/Υ. Γίνεται επιβεβαίωση από τους αρμοδιους χρήστες.(1=υποβεβλημένη, 0=μη υποβεβλημένη)"),
+* @SWG\Property(name="lab_type_id",type="integer",description="Ο Κωδικός ID του Τύπου Διάταξης Η/Υ"),
+* @SWG\Property(name="lab_type",type="string",description="Το Όνομα του Τύπου Διάταξης Η/Υ"),
+* @SWG\Property(name="school_unit_id",type="integer",description="Ο Κωδικός ID της Σχολικής Μονάδας"),
+* @SWG\Property(name="school_unit_name",type="string",description="Το Όνομα της Σχολικής Μονάδας"),
+* @SWG\Property(name="school_unit_special_name",type="string",description="Το Προσωνύμιο της Σχολικής Μονάδας"),
+* @SWG\Property(name="lab_source_id",type="integer",description="Ο Κωδικός ID της Πρωτογενής Πηγής Δεδομένων Διάταξης Η/Υ"),
+* @SWG\Property(name="lab_source",type="string",description="Το Όνομα της Πρωτογενής Πηγής Δεδομένων Διάταξης Η/Υ"), 
+* @SWG\Property(name="lab_state_id",type="integer",description="Ο Κωδικός ID της Λειτουργικής Κατάστασης Διάταξης Η/Υ"),
+* @SWG\Property(name="lab_state",type="string",description="Το Όνομα της Λειτουργικής Κατάστασης Διάταξης Η/Υ"),
+* @SWG\Property(name="school_unit_state_id",type="integer",description="Ο Κωδικός ID του Λειτουργικής Κατάστασης Σχολικής Μονάδας"),
+* @SWG\Property(name="school_unit_state",type="string",description="Το Όνομα της Πρωτογενούς Πηγής Δεδομένων Εργαζόμενου Σχολικής Μονάδας"),
+* @SWG\Property(name="region_edu_admin_id",type="integer",description="Ο Κωδικός ID της Περιφέρειας"),
+* @SWG\Property(name="region_edu_admin",type="string",description="Το Όνομα της Περιφέρειας"),
+* @SWG\Property(name="edu_admin_id",type="integer",description="Ο Κωδικός ID της Διευθύνσης Εκπαίδευσης"),
+* @SWG\Property(name="edu_admin",type="string",description="Το Όνομα της Διευθύνσης Εκπαίδευσης"),
+* @SWG\Property(name="transfer_area_id",type="integer",description="Ο Κωδικός ID της Περιοχής Μετάθεσης"),
+* @SWG\Property(name="transfer_area",type="string",description="Το Όνομα της Περιοχής Μετάθεσης"),
+* @SWG\Property(name="municipality_id",type="integer",description="Ο Κωδικός ID του Δήμου"),
+* @SWG\Property(name="municipality",type="string",description="Το Όνομα του Δήμου"),
+* @SWG\Property(name="prefecture_id",type="integer",description="Ο Κωδικός ID του Νομού"),
+* @SWG\Property(name="prefecture",type="string",description="Το Όνομα του Νομού"),
+* @SWG\Property(name="education_level_id",type="integer",description="Ο Κωδικός ID του Επίπεδου Εκπαίδευσης"),
+* @SWG\Property(name="education_level",type="string",description="Το Όνομα του Επίπεδου Εκπαίδευσης"),
+* @SWG\Property(name="school_unit_type_id",type="integer",description="Ο Κωδικός ID του Τύπου Σχολικής Μονάδας"),
+* @SWG\Property(name="school_unit_type",type="string",description="Το Όνομα του Τύπου Σχολικής Μονάδας"),
+* @SWG\Property(name="aquisition_sources",type="array",description="Ο Πίνακας με τα στοιχεία από τις Πηγές Χρηματοδότησης της Διάταξης Η/Υ",items="$ref:SearchLabLabAquisitionSource"),
+* @SWG\Property(name="equipment_types",type="array",description="Ο Πίνακας με τα στοιχεία από τον Εξοπλισμό της Διάταξης Η/Υ",items="$ref:SearchLabLabEquipmentType"),
+* @SWG\Property(name="lab_workers",type="array",description="Ο Πίνακας με τα στοιχεία από τους Εργαζόμενους της Διάταξης Η/Υ",items="$ref:SearchLabLabWorker"),
+* @SWG\Property(name="lab_relations",type="array",description="Ο Πίνακας με τα στοιχεία από τις Συσχετίσεις της Διάταξης Η/Υ με Σχολικές Μονάδες",items="$ref:SearchLabLabRelation"),
+* @SWG\Property(name="lab_transitions",type="array",description="Ο Πίνακας με τα στοιχεία από τις Καταστάσεις Μεταβάσεων της Διάταξης Η/Υ",items="$ref:SearchLabLabTransition"),
+* @SWG\Property(name="school_unit_worker",type="array",description="Ο Πίνακας με τα στοιχεία από τους Εργαζόμενους της Σχολικής Μονάδας",items="$ref:SearchLabSchoolUnitWorker"),
+* @SWG\Property(name="school_circuits",type="array",description="Ο Πίνακας με τα στοιχεία από τα Τηλεπικοινωνιακά Κυκλώματα της Σχολικής Μονάδας",items="$ref:SearchLabSchoolCircuit")
+* )
+*
+* @SWG\Model(
+* id="SearchLabLabAquisitionSource",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με δεδομένα των Πηγών Χρηματοδότησης : ",
+* @SWG\Property(name="lab_aquisition_source_id",type="integer",description="Ο Κωδικός ID της Διάταξης Η/Υ με Πηγή Χρηματοδότησης"),
+* @SWG\Property(name="lab_id",type="integer",description="Ο Κωδικός ID της Διάταξης Η/Υ"),
+* @SWG\Property(name="aquisition_source_id",type="integer",description="Ο Κωδικός ID της Πηγής Χρηματοδότησης"),
+* @SWG\Property(name="aquisition_year",type="string",description="To Έτος Απόκτησης της Πηγής Χρηματοδότησης για την Διάταξη Η/Υ (μορφή yyyy ή null)"),
+* @SWG\Property(name="aquisition_comments",type="string",description="Σχόλια και Πληροφορίες σχετικά με την Πηγή Χρηματοδότησης για την Διάταξη Η/Υ "),
+* @SWG\Property(name="aquisition_source",type="string",description="Το Όνομα της Πηγής Χρηματοδότησης")
+* ) 
+*
+* @SWG\Model(
+* id="SearchLabLabEquipmentType",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με στοιχεία του πίνακα lab_equipment_types : ",
+* @SWG\Property(name="lab_id",type="integer",description="Ο Κωδικός ID της Διάταξης Η/Υ"),
+* @SWG\Property(name="equipment_type_id",type="integer",description="Ο Κωδικός ID του Εξοπλισμού"),
+* @SWG\Property(name="items",type="integer",description="Το πλήθος του Εξοπλισμού"),
+* @SWG\Property(name="equipment_type",type="string",description="Το Όνομα του Εξοπλισμού"),
+* @SWG\Property(name="equipment_category_id",type="integer",description="Ο Κωδικός ID της Κατηγορίας Εξοπλισμού"),
+* @SWG\Property(name="equipment_category",type="string",description="Το Όνομα της Κατηγορίας Εξοπλισμού")
+* )
+*
+* @SWG\Model(
+* id="SearchLabLabWorker",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με δεδομένα των υπεύθυνων Διατάξεων Η/Υ : ",
+* @SWG\Property(name="lab_worker_id",type="integer",description="Το ID του Υπεύθυνου Διατάξης Η/Υ"),
+* @SWG\Property(name="lab_id",type="integer",description="Ο Κωδικός ID της Διάταξης Η/Υ"),
+* @SWG\Property(name="worker_status",type="string",description="Η Κατάσταση του Υπεύθυνου Διατάξης Η/Υ (1=Ενεργός,3=Μη Ενεργός)"),
+* @SWG\Property(name="worker_start_service",type="string",description="Ημερομηνία Αλλαγής Μετάβασης Λειτουργικής Καταστάσης Διατάξης (μορφή ημερομηνίας dd/mm/yyyy)"),
+* @SWG\Property(name="worker_id",type="integer",description="Ο Κωδικός ID του Εργαζόμενου από LDAP ΠΣΔ"),
+* @SWG\Property(name="registry_no",type="integer",description="Ο Α.Μ. ή το Α.Φ.Μ. Εργαζόμενου (Α.Φ.Μ = 9ψηφιο , Α.Μ. = 6ψηφιο)"),
+* @SWG\Property(name="uid",type="string",description="Το μοναδικό UID όνομα του Εργαζόμενου (uid name from ldap)"),
+* @SWG\Property(name="firstname",type="string",description="Το Όνομα του Εργαζόμενου"),
+* @SWG\Property(name="lastname",type="string",description="Το Επώνυμο του Εργαζόμενου"),
+* @SWG\Property(name="fathername",type="string",description="Το Όνομα Πατρός του Εργαζόμενου"),
+* @SWG\Property(name="email",type="string",description="Το email του Εργαζόμενου"),
+* @SWG\Property(name="worker_specialization_id",type="integer",description="Ο Κωδικός ID της Ειδικότητας του Εργαζόμενου"),
+* @SWG\Property(name="worker_specialization",type="string",description="Το Όνομα της Ειδικότητας του Εργαζόμενου"),
+* @SWG\Property(name="worker_position_id",type="integer",description="Ο Κωδικός ID της Θέσης Εργασίας του Εργαζόμενου"),
+* @SWG\Property(name="worker_position",type="string",description="Το Όνομα της Θέσης Εργασίας του Εργαζόμενου")
+* )
+*
+* @SWG\Model(
+* id="SearchLabLabRelation",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με δεδομένα από τις Συσχετίσεις: ",
+* @SWG\Property(name="lab_relation_id",type="integer",description="Ο Κωδικός ID της Συσχέτισης Διατάξεων Η/Υ - Μονάδων"),
+* @SWG\Property(name="lab_id",type="integer",description="Ο Κωδικός ID της Διάταξης Η/Υ"),
+* @SWG\Property(name="school_unit_id",type="integer",description=" Ο Κωδικός ID της Σχολικής Μονάδας"),
+* @SWG\Property(name="relation_type_id",type="integer",description="Ο Κωδικός ID του Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων"),
+* @SWG\Property(name="relation_type",type="string",description="Το Όνομα του Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων"),
+* @SWG\Property(name="circuit_id",type="integer",description="Ο Κωδικός ID του του Τηλεπικοινωνιακού Κυκλώματος"),
+* @SWG\Property(name="phone_number",type="integer",description="Ο Τηλεφωνικός Αριθμός του Τηλεπικοινωνιακού Κυκλώματος")
+* )
+* 
+* @SWG\Model(
+* id="SearchLabLabTransition",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με με δεδομένα από τις Καταστάσεις Μεταβάσεων: ",
+* @SWG\Property(name="lab_transition_id",type="integer",description="Ο Κωδικός ID της Λειτουργικής Καταστάσης Διατάξης"),
+* @SWG\Property(name="lab_id",type="integer",description="Ο Κωδικός ID της Διάταξης Η/Υ"),
+* @SWG\Property(name="from_state",type="integer",description="Ο Κωδικός ID της Προηγούμενης Λειτουργικής Καταστάσης"),
+* @SWG\Property(name="to_state",type="string",description="Ο Κωδικός ID της Τρέχουσας Λειτουργικής Καταστάσης"),
+* @SWG\Property(name="transition_date",type="string",description="Η Ημερομηνία Μετάβασης Λειτουργικής Καταστάσης Διατάξης (μορφή ημερομηνίας dd/mm/yyyy)"),
+* @SWG\Property(name="transition_source",type="string",description="Η Πηγή Αλλαγής Μετάβασης Λειτουργικής Καταστάσης Διατάξης (τιμές mylab ή mmsch)"),
+* @SWG\Property(name="transition_justification",type="string",description="Η αιτιολογία Αλλαγής Μετάβασης Λειτουργικής Καταστάσης Διατάξης"),
+* @SWG\Property(name="from_state_id",type="integer",description="Ο Κωδικός ID της Προηγούμενης Λειτουργικής Καταστάσης"),
+* @SWG\Property(name="from_state_name",type="string",description="To Όνομα Προηγούμενης Λειτουργικής Καταστάσης"),
+* @SWG\Property(name="to_state_id",type="string",description="Ο Κωδικός ID της Τρέχουσας Λειτουργικής Καταστάσης"),
+* @SWG\Property(name="to_state_name",type="string",description="To Όνομα Τρέχουσας Λειτουργικής Καταστάσης")
+* )
+* 
+* @SWG\Model(
+* id="SearchLabSchoolUnitWorker",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με δεδομένα Εργαζόμενων : ",
+* @SWG\Property(name="school_unit_worker_id",type="integer",description="Το ID του Υπεύθυνου Σχολικής Μονάδας"),
+* @SWG\Property(name="school_unit_id",type="integer",description="Ο Κωδικός ID της Σχολικής Μονάδας"),
+* @SWG\Property(name="worker_id",type="integer",description="Ο Κωδικός ID του Εργαζόμενου από Μητρώο Μονάδων"),
+* @SWG\Property(name="registry_no",type="integer",description="Ο Α.Μ. του Εργαζόμενου"),
+* @SWG\Property(name="tax_number",type="integer",description="Το Α.Φ.Μ. του Εργαζόμενου"),
+* @SWG\Property(name="firstname",type="string",description="Το Όνομα του Εργαζόμενου"),
+* @SWG\Property(name="lastname",type="string",description="Το Επώνυμο του Εργαζόμενου"),
+* @SWG\Property(name="fathername",type="string",description="Το Όνομα Πατρός του Εργαζόμενου"),
+* @SWG\Property(name="sex",type="string",description="Το Φύλο του Εργαζόμενου (Α=Άντρας,Γ=Γυναίκα)"),
+* @SWG\Property(name="worker_specialization_id",type="integer",description="Ο Κωδικός ID της Ειδικότητας του Εργαζόμενου"),
+* @SWG\Property(name="worker_specialization",type="string",description="Το Όνομα της Ειδικότητας του Εργαζόμενου"),
+* @SWG\Property(name="worker_position_id",type="integer",description="Ο Κωδικός ID της Θέσης Εργασίας του Εργαζόμενου"),
+* @SWG\Property(name="worker_position",type="string",description="Το Όνομα της Θέσης Εργασίας του Εργαζόμενου")
+* )
+*  
+* @SWG\Model(
+* id="SearchLabSchoolCircuit",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με δεδομένα Τηλεπικοινωνιακών Κυκλωμάτων : ",
+* @SWG\Property(name="circuit_id",type="integer",description="Ο Κωδικός ID του Τηλεπικοινωνιακού Κυκλώματος"),
+* @SWG\Property(name="phone_number",type="integer",description="Ο Τηλεφωνικός Αριθμός του Τηλεπικοινωνιακού Κυκλώματος"),
+* @SWG\Property(name="updated_date",type="string",description="Η Ημερομηνία Ενημέρωσης του Τηλεπικοινωνιακού Κυκλώματος (μορφή dd/mm/yyyy hh:mm:ss)"),
+* @SWG\Property(name="status",type="boolean",description="Λειτουργική κατάσταση Ενεργό ή Ανενεργό Τηλεπικοινωνιακού Κυκλώματος (true = ενεργό , false = ανενεργό)"),
+* @SWG\Property(name="school_unit_id",type="integer",description=" Ο Κωδικός ID της Σχολικής Μονάδας"),
+* @SWG\Property(name="circuit_type_id",type="integer",description=" Ο Κωδικός ID του Τύπου του Τηλεπικοινωνιακού Κυκλώματος"),
+* @SWG\Property(name="circuit_type",type="string",description="Το Όνομα του Τύπου του Τηλεπικοινωνιακού Κυκλώματος")
+* )
+* 
+*/
 
 function SearchLabs ( $lab_id, $lab_name, $lab_special_name, $creation_date, $operational_rating, $technological_rating, $submitted,
                       $lab_type, $school_unit_id, $school_unit_name, $school_unit_special_name, $lab_state, $lab_source,
