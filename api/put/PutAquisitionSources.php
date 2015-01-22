@@ -18,7 +18,7 @@ header("Content-Type: text/html; charset=utf-8");
 * swaggerVersion=SWAGGER_VERSION,
 * basePath=BASE_PATH,
 * resourcePath="/aquisition_sources",
-* description="Τύποι Πηγών Χρηματοδότησης",
+* description="Λεξικό : Τύποι Πηγών Χρηματοδότησης",
 * produces="['application/json']",
 * @SWG\Api(
 *   path="/aquisition_sources",
@@ -26,20 +26,20 @@ header("Content-Type: text/html; charset=utf-8");
 *                   method="PUT",
 *                   summary="Ενημέρωση Τύπoυ Πηγής Χρηματοδότησης",
 *                   notes="Ενημέρωση Τύπου Πηγής Χρηματοδότησης",
-*                   type="ReturnParameters",
+*                   type="putAquisitionSources",
 *                   nickname="putAquisitionSources",
 *   @SWG\Parameter(
 *                   name="aquisition_source_id",
 *                   description="ID Πηγής Χρηματοδότησης",
 *                   required=true,
-*                   type="integer",
+*                   type="string",
 *                   paramType="query"
 *   ),
 *   @SWG\Parameter(
 *                   name="name",
 *                   description="Όνομα Πηγής Χρηματοδότησης",
 *                   required=true,
-*                   type="text",
+*                   type="string",
 *                   paramType="query"
 *                   ),
 *   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutLab, message=ExceptionMessages::NoPermissionToPutLab),
@@ -59,7 +59,7 @@ header("Content-Type: text/html; charset=utf-8");
 * )
 * 
 * @SWG\Model(
-* id="ReturnParameters",
+* id="putAquisitionSources",
 * description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
 * @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
 * @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
@@ -88,7 +88,7 @@ function PutAquisitionSources($aquisition_source_id, $name) {
 
 //user permisions===============================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
+        throw new Exception(ExceptionMessages::NoPermissionToPutData, ExceptionCodes::NoPermissionToPutData);
 
 //$aquisition_source_id=========================================================    
         $fAquisitionSourceId = CRUDUtils::checkIDParam('aquisition_source_id', $params, $aquisition_source_id, 'AquisitionSourceID');

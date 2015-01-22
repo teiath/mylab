@@ -1767,6 +1767,11 @@ class ExceptionCodes
     const NoPermissionToDeleteLab = 614;
     /** {@see ExceptionMessages::NoPermissionToGet} */   
     const NoPermissionToGetLab = 615;
+    
+    const NoPermissionToPostData = 616;
+    const NoPermissionToPutData = 617;
+    const NoPermissionToDeleteData = 618;    
+    const NoPermissionToGetData = 619;
    
      //reports  
     /** {@see ExceptionMessages::ErrorEduAdminReportKeplhnet} */ 

@@ -18,7 +18,7 @@ header("Content-Type: text/html; charset=utf-8");
 * swaggerVersion=SWAGGER_VERSION,
 * basePath=BASE_PATH,
 * resourcePath="/aquisition_sources",
-* description="Τύποι Πηγών Χρηματοδότησης",
+* description="Λεξικό : Τύποι Πηγών Χρηματοδότησης",
 * produces="['application/json']",
 * @SWG\Api(
 *   path="/aquisition_sources",
@@ -26,8 +26,8 @@ header("Content-Type: text/html; charset=utf-8");
 *                   method="DELETE",
 *                   summary="Διαγραφή Τύπoυ Πηγής Χρηματοδότησης",
 *                   notes="Διαγραφή Τύπου Πηγής Χρηματοδότησης",
-*                   type="ReturnParameters",
-*                   nickname="delAquisitionSources",
+*                   type="delAquisitionSources",
+*                   nickname="DelAquisitionSources",
 *   @SWG\Parameter(
 *                   name="aquisition_source_id",
 *                   description="ID Πηγής Χρηματοδότησης",
@@ -49,7 +49,7 @@ header("Content-Type: text/html; charset=utf-8");
 * )
 * 
 * @SWG\Model(
-* id="ReturnParameters",
+* id="delAquisitionSources",
 * description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
 * @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
 * @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
@@ -77,7 +77,7 @@ function DelAquisitionSources($aquisition_source_id) {
 
 //user permisions===============================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab);
+        throw new Exception(ExceptionMessages::NoPermissionToDeleteData, ExceptionCodes::NoPermissionToDeleteData);
         
 //$aquisition_source_id=========================================================
         $fAquisitionSourceID = CRUDUtils::checkIDParam('aquisition_source_id', $params, $aquisition_source_id, 'AquisitionSourceID');

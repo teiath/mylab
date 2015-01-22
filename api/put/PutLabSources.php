@@ -29,14 +29,14 @@ function PutLabSources($lab_source_id, $name, $infos) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
 
     try {
   
 //user permisions===============================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
+        throw new Exception(ExceptionMessages::NoPermissionToPutData, ExceptionCodes::NoPermissionToPutData);
 
 //$lab_source_id================================================================    
         $fLabSourceId = CRUDUtils::checkIDParam('lab_source_id', $params, $lab_source_id, 'LabSourceID');

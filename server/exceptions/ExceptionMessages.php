@@ -1095,6 +1095,11 @@ class ExceptionMessages
     const NoPermissionToDeleteLab = 'Ο χρήστης δεν έχει δικαίωμα διαγραφής στο συγκεκριμένο εργαστήριο';    
     const NoPermissionToGetLab = 'Ο χρήστης δεν έχει δικαίωμα αναζήτησης στο συγκεκριμένο εργαστήριο';
    
+    const NoPermissionToPostData = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής δεδομένων στο λεξικό';
+    const NoPermissionToPutData = 'Ο χρήστης δεν έχει δικαίωμα ενημερωσης δεδομένων στο λεξικό';
+    const NoPermissionToDeleteData = 'Ο χρήστης δεν έχει δικαίωμα διαγραφής δεδομένων στο λεξικό';    
+    const NoPermissionToGetData = 'Ο χρήστης δεν έχει δικαίωμα αναζήτησης δεδομένων στο λεξικό';
+    
     //reports
     const ErrorEduAdminReportKeplhnet = 'Κάθε ΚΕΠΛΗΝΕΤ αντιστοιχίζεται υποχρεωτικά με μια Διεύθυνση Δ.Ε. και μια Διεύθυνση Δ.Ε. ίδιας πόλης.'; 
 }

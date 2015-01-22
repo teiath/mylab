@@ -18,7 +18,7 @@ header("Content-Type: text/html; charset=utf-8");
 * swaggerVersion=SWAGGER_VERSION,
 * basePath=BASE_PATH,
 * resourcePath="/aquisition_sources",
-* description="Τύποι Πηγών Χρηματοδότησης",
+* description="Λεξικό : Τύποι Πηγών Χρηματοδότησης",
 * produces="['application/json']",
 * @SWG\Api(
 *   path="/aquisition_sources",
@@ -26,13 +26,13 @@ header("Content-Type: text/html; charset=utf-8");
 *                   method="POST",
 *                   summary="Εισαγωγή Τύπoυ Πηγής Χρηματοδότησης",
 *                   notes="Εισαγωγή Τύπου Πηγής Χρηματοδότησης",
-*                   type="ReturnParameters",
-*                   nickname="postAquisitionSources",
+*                   type="postAquisitionSources",
+*                   nickname="PostAquisitionSources",
 *   @SWG\Parameter(
 *                   name="name",
 *                   description="Όνομα Πηγής Χρηματοδότησης",
 *                   required=true,
-*                   type="text",
+*                   type="string",
 *                   paramType="query"
 *                   ),
 *   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
@@ -46,7 +46,7 @@ header("Content-Type: text/html; charset=utf-8");
 * )
 * 
 * @SWG\Model(
-* id="ReturnParameters",
+* id="postAquisitionSources",
 * description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
 * @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
 * @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
@@ -54,7 +54,7 @@ header("Content-Type: text/html; charset=utf-8");
 * @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
 * @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
 * @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
-* @SWG\Property(name="aquisition_source_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων."),
+* @SWG\Property(name="aquisition_source_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων.")
 * )
 * 
 */
@@ -76,7 +76,7 @@ function PostAquisitionSources($name) {
  
     //user permisions===========================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab);
+        throw new Exception(ExceptionMessages::NoPermissionToPostData, ExceptionCodes::NoPermissionToPostData);
         
     //$name=====================================================================
      CRUDUtils::EntitySetParam($AquisitionSource, $name, 'AquisitionSourceName', 'name', $params, true, false);

@@ -28,14 +28,14 @@ function PostRelationTypes($name) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"]  = $params;
 
     try {
 
     //user permisions===========================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab);
+        throw new Exception(ExceptionMessages::NoPermissionToPostData, ExceptionCodes::NoPermissionToPostData);
     
     //$name=====================================================================
      CRUDUtils::EntitySetParam($RelationType, $name, 'RelationTypeName', 'name', $params, true, false);

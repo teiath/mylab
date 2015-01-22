@@ -32,8 +32,8 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
        
     try {
         
