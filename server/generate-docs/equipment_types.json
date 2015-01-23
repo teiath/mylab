@@ -170,6 +170,229 @@
                         }
                     ],
                     "notes": "\u0395\u03c0\u03b9\u03c3\u03c4\u03c1\u03ad\u03c6\u03b5\u03b9 \u03c4\u03bf\u03c5\u03c2 \u03a4\u03cd\u03c0\u03bf\u03c5\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                },
+                {
+                    "method": "POST",
+                    "summary": "\u0395\u03b9\u03c3\u03b1\u03b3\u03c9\u03b3\u03ae \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd",
+                    "nickname": "PostEquipmentTypes",
+                    "type": "postEquipmentTypes",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "name",
+                            "type": "string",
+                            "required": true,
+                            "description": "\u038c\u03bd\u03bf\u03bc\u03b1 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "equipment_category",
+                            "type": "string",
+                            "required": true,
+                            "description": "\u038c\u03bd\u03bf\u03bc\u03b1 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 616,
+                            "message": "\u039f \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7\u03c2 \u03b4\u03b5\u03bd \u03ad\u03c7\u03b5\u03b9 \u03b4\u03b9\u03ba\u03b1\u03af\u03c9\u03bc\u03b1 \u03b5\u03b9\u03c3\u03b1\u03b3\u03c9\u03b3\u03ae\u03c2 \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd \u03c3\u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u03a4\u03bf \u038c\u03bd\u03bf\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b5\u03af\u03bd\u03b1\u03b9 \u03c5\u03c0\u03bf\u03c7\u03c1\u03b5\u03c9\u03c4\u03b9\u03ba\u03cc \u03c0\u03b5\u03b4\u03af\u03bf"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u03a4\u03bf \u038c\u03bd\u03bf\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c4\u03b9\u03bc\u03ae"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u03a4\u03bf \u038c\u03bd\u03bf\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03b5\u03af\u03bd\u03b1\u03b9 \u03b1\u03bb\u03c6\u03b1\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0397 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b5\u03af\u03bd\u03b1\u03b9 \u03c5\u03c0\u03bf\u03c7\u03c1\u03b5\u03c9\u03c4\u03b9\u03ba\u03cc \u03c0\u03b5\u03b4\u03af\u03bf"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0397 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c4\u03b9\u03bc\u03ae"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0397 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b4\u03b5\u03bd \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03c3\u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0397 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03b5\u03af\u03bd\u03b1\u03b9 \u03b1\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03cc \u03ae \u03b1\u03bb\u03c6\u03b1\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0395\u03bd\u03b7\u03bc\u03b5\u03c1\u03ce\u03c3\u03c4\u03b5 \u03c4\u03bf\u03bd \u03b4\u03b9\u03b1\u03c7\u03b5\u03b9\u03c1\u03b9\u03c3\u03c4\u03ae! \u0392\u03c1\u03ad\u03b8\u03b7\u03ba\u03b5 \u03b4\u03b9\u03c0\u03bb\u03bf\u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae primary key EquipmentCategory"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u03a4\u03cd\u03c0\u03bf\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03ae\u03b4\u03b7"
+                        },
+                        {
+                            "code": 200,
+                            "message": "\u03a4\u03bf \u0391pi Request \u03bf\u03bb\u03bf\u03ba\u03bb\u03b7\u03c1\u03ce\u03b8\u03b7\u03ba\u03b5 \u03bc\u03b5 \u03b5\u03c0\u03b9\u03c4\u03c5\u03c7\u03af\u03b1."
+                        }
+                    ],
+                    "notes": "\u0395\u03b9\u03c3\u03b1\u03b3\u03c9\u03b3\u03ae \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                },
+                {
+                    "method": "PUT",
+                    "summary": "\u0395\u03bd\u03b7\u03bc\u03ad\u03c1\u03c9\u03c3\u03b7 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd",
+                    "nickname": "PutEquipmentTypes",
+                    "type": "putEquipmentTypes",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "equipment_type_id",
+                            "type": "string",
+                            "required": true,
+                            "description": "ID \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "name",
+                            "type": "string",
+                            "required": true,
+                            "description": "\u038c\u03bd\u03bf\u03bc\u03b1 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "equipment_category",
+                            "type": "string",
+                            "required": true,
+                            "description": "\u038c\u03bd\u03bf\u03bc\u03b1 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 617,
+                            "message": "\u039f \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7\u03c2 \u03b4\u03b5\u03bd \u03ad\u03c7\u03b5\u03b9 \u03b4\u03b9\u03ba\u03b1\u03af\u03c9\u03bc\u03b1 \u03b5\u03bd\u03b7\u03bc\u03b5\u03c1\u03c9\u03c3\u03b7\u03c2 \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd \u03c3\u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b5\u03af\u03bd\u03b1\u03b9 \u03c5\u03c0\u03bf\u03c7\u03c1\u03b5\u03c9\u03c4\u03b9\u03ba\u03cc \u03c0\u03b5\u03b4\u03af\u03bf"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c4\u03b9\u03bc\u03ae"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03b5\u03af\u03bd\u03b1\u03b9 \u03b1\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03cc\u03c2"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b4\u03b5\u03bd \u03bc\u03c0\u03bf\u03c1\u03b5\u03af \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c0\u03bf\u03bb\u03bb\u03b1\u03c0\u03bb\u03ad\u03c2 \u03c4\u03b9\u03bc\u03ad\u03c2"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u03a4\u03cd\u03c0\u03bf\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b4\u03b5\u03bd \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03c3\u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0395\u03bd\u03b7\u03bc\u03b5\u03c1\u03ce\u03c3\u03c4\u03b5 \u03c4\u03bf\u03bd \u03b4\u03b9\u03b1\u03c7\u03b5\u03b9\u03c1\u03b9\u03c3\u03c4\u03ae! \u0392\u03c1\u03ad\u03b8\u03b7\u03ba\u03b5 \u03b4\u03b9\u03c0\u03bb\u03bf\u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae primary key EquipmentType"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u03a4\u03bf \u038c\u03bd\u03bf\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b5\u03af\u03bd\u03b1\u03b9 \u03c5\u03c0\u03bf\u03c7\u03c1\u03b5\u03c9\u03c4\u03b9\u03ba\u03cc \u03c0\u03b5\u03b4\u03af\u03bf"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u03a4\u03bf \u038c\u03bd\u03bf\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c4\u03b9\u03bc\u03ae"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u03a4\u03bf \u038c\u03bd\u03bf\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03b5\u03af\u03bd\u03b1\u03b9 \u03b1\u03bb\u03c6\u03b1\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0397 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b5\u03af\u03bd\u03b1\u03b9 \u03c5\u03c0\u03bf\u03c7\u03c1\u03b5\u03c9\u03c4\u03b9\u03ba\u03cc \u03c0\u03b5\u03b4\u03af\u03bf"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0397 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c4\u03b9\u03bc\u03ae"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0397 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b4\u03b5\u03bd \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03c3\u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0397 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03b5\u03af\u03bd\u03b1\u03b9 \u03b1\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03cc \u03ae \u03b1\u03bb\u03c6\u03b1\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0395\u03bd\u03b7\u03bc\u03b5\u03c1\u03ce\u03c3\u03c4\u03b5 \u03c4\u03bf\u03bd \u03b4\u03b9\u03b1\u03c7\u03b5\u03b9\u03c1\u03b9\u03c3\u03c4\u03ae! \u0392\u03c1\u03ad\u03b8\u03b7\u03ba\u03b5 \u03b4\u03b9\u03c0\u03bb\u03bf\u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae primary key EquipmentCategory"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u03a4\u03cd\u03c0\u03bf\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03ae\u03b4\u03b7"
+                        },
+                        {
+                            "code": 200,
+                            "message": "\u03a4\u03bf \u0391pi Request \u03bf\u03bb\u03bf\u03ba\u03bb\u03b7\u03c1\u03ce\u03b8\u03b7\u03ba\u03b5 \u03bc\u03b5 \u03b5\u03c0\u03b9\u03c4\u03c5\u03c7\u03af\u03b1."
+                        }
+                    ],
+                    "notes": "\u0395\u03bd\u03b7\u03bc\u03ad\u03c1\u03c9\u03c3\u03b7 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "\u0394\u03b9\u03b1\u03b3\u03c1\u03b1\u03c6\u03ae \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd",
+                    "nickname": "DelEquipmentTypes",
+                    "type": "delEquipmentTypes",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "equipment_type_id",
+                            "type": "integer",
+                            "required": true,
+                            "description": "ID \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 618,
+                            "message": "\u039f \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7\u03c2 \u03b4\u03b5\u03bd \u03ad\u03c7\u03b5\u03b9 \u03b4\u03b9\u03ba\u03b1\u03af\u03c9\u03bc\u03b1 \u03b4\u03b9\u03b1\u03b3\u03c1\u03b1\u03c6\u03ae\u03c2 \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd \u03c3\u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b5\u03af\u03bd\u03b1\u03b9 \u03c5\u03c0\u03bf\u03c7\u03c1\u03b5\u03c9\u03c4\u03b9\u03ba\u03cc \u03c0\u03b5\u03b4\u03af\u03bf"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c4\u03b9\u03bc\u03ae"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03b5\u03af\u03bd\u03b1\u03b9 \u03b1\u03c1\u03b9\u03b8\u03bc\u03b7\u03c4\u03b9\u03ba\u03cc\u03c2"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd \u03b4\u03b5\u03bd \u03bc\u03c0\u03bf\u03c1\u03b5\u03af \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 \u03c0\u03bf\u03bb\u03bb\u03b1\u03c0\u03bb\u03ad\u03c2 \u03c4\u03b9\u03bc\u03ad\u03c2"
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0394\u03b5\u03bd \u03b2\u03c1\u03ad\u03b8\u03b7\u03ba\u03b5 \u03b7 \u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae \u03c0\u03c1\u03bf\u03c2 \u03b4\u03b9\u03b1\u03b3\u03c1\u03b1\u03c6\u03ae."
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0395\u03bd\u03b7\u03bc\u03b5\u03c1\u03ce\u03c3\u03c4\u03b5 \u03c4\u03bf\u03bd \u03b4\u03b9\u03b1\u03c7\u03b5\u03b9\u03c1\u03b9\u03c3\u03c4\u03ae! \u0392\u03c1\u03ad\u03b8\u03b7\u03ba\u03b5 \u03b4\u03b9\u03c0\u03bb\u03bf\u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae \u03bc\u03b5 \u03af\u03b4\u03b9\u03bf \u03ba\u03c9\u03b4\u03b9\u03ba\u03cc \u03c4\u03bf\u03c5 \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd."
+                        },
+                        {
+                            "code": 500,
+                            "message": "\u0394\u03b5\u03bd \u03b5\u03af\u03bd\u03b1\u03b9 \u03b4\u03c5\u03bd\u03b1\u03c4\u03ae \u03b7 \u03b4\u03b9\u03b1\u03b3\u03c1\u03b1\u03c6\u03ae \u03c4\u03b7\u03c2 \u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae\u03c2, \u03bb\u03cc\u03b3\u03c9 \u03c3\u03c5\u03c3\u03c7\u03b5\u03c4\u03b9\u03c3\u03bc\u03bf\u03cd \u03bc\u03b5 \u03c4\u03bf\u03bd \u03c0\u03af\u03bd\u03b1\u03ba\u03b1 LabEquipmentTypes.\u0394\u03b9\u03b1\u03b3\u03c1\u03b1\u03c8\u03c4\u03b5 \u03c4\u03b9\u03c2 \u03b1\u03bd\u03c4\u03af\u03c3\u03c4\u03bf\u03b9\u03c7\u03b5\u03c2 \u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ad\u03c2 \u03bc\u03b5 \u03c7\u03c1\u03ae\u03c3\u03b7 api request DelLabEquipmentTypes "
+                        },
+                        {
+                            "code": 200,
+                            "message": "\u03a4\u03bf \u0391pi Request \u03bf\u03bb\u03bf\u03ba\u03bb\u03b7\u03c1\u03ce\u03b8\u03b7\u03ba\u03b5 \u03bc\u03b5 \u03b5\u03c0\u03b9\u03c4\u03c5\u03c7\u03af\u03b1."
+                        }
+                    ],
+                    "notes": "\u0394\u03b9\u03b1\u03b3\u03c1\u03b1\u03c6\u03ae \u03a4\u03cd\u03c0\u03bf\u03c5 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd"
                 }
             ]
         }
@@ -264,6 +487,104 @@
                 "equipment_category_id": {
                     "description": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 ID \u03c4\u03b7\u03c2 \u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1\u03c2 \u0395\u03be\u03bf\u03c0\u03bb\u03b9\u03c3\u03bc\u03bf\u03cd",
                     "type": "integer"
+                }
+            }
+        },
+        "postEquipmentTypes": {
+            "id": "postEquipmentTypes",
+            "description": "\u03a0\u03b1\u03c1\u03b1\u03ba\u03ac\u03c4\u03c9 \u03b5\u03bc\u03c6\u03b1\u03bd\u03af\u03b6\u03b5\u03c4\u03b1\u03b9 \u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc \u03c3\u03b5 \u03bc\u03bf\u03c1\u03c6\u03ae JSON \u03ba\u03b1\u03b9 \u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03b7\u03bd \u03ba\u03bb\u03ae\u03c3\u03b7 \u03c4\u03b7\u03c2 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7\u03c2 ",
+            "properties": {
+                "controller": {
+                    "description": "\u039f controller \u03c0\u03bf\u03c5 \u03c7\u03c1\u03b7\u03c3\u03b9\u03bc\u03bf\u03c0\u03bf\u03b9\u03b5\u03af\u03c4\u03b1\u03b9",
+                    "type": "string"
+                },
+                "function": {
+                    "description": "\u0397 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7 \u03c0\u03bf\u03c5 \u03c5\u03bb\u03bf\u03c0\u03bf\u03b9\u03b5\u03af\u03c4\u03b1\u03b9 \u03b1\u03c0\u03cc \u03c4\u03bf \u03c3\u03cd\u03c3\u03c4\u03b7\u03bc\u03b1",
+                    "type": "string"
+                },
+                "method": {
+                    "description": "\u0397 \u03bc\u03ad\u03b8\u03bf\u03b4\u03bf\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2 \u03c4\u03b7\u03c2 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "parameters": {
+                    "description": "\u039f\u03b9 \u03c0\u03b1\u03c1\u03ac\u03bc\u03b5\u03c4\u03c1\u03bf\u03b9 \u03c0\u03bf\u03c5 \u03b4\u03af\u03bd\u03b5\u03b9 \u03bf \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7\u03c2",
+                    "type": "array"
+                },
+                "status": {
+                    "description": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "message": {
+                    "description": "\u03a4\u03bf \u039c\u03ae\u03bd\u03c5\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "equipment_type_id": {
+                    "description": "\u039f \u03ba\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 ID \u03c4\u03b7\u03c2 \u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae\u03c2 \u03c3\u03c4\u03b7\u03bd \u03bf\u03c0\u03bf\u03af\u03b1 \u03c0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03bf\u03c0\u03bf\u03b9\u03ae\u03b8\u03b7\u03ba\u03b5 \u03b5\u03b9\u03c3\u03b1\u03b3\u03c9\u03b3\u03ae \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd.",
+                    "type": "integer"
+                }
+            }
+        },
+        "putEquipmentTypes": {
+            "id": "putEquipmentTypes",
+            "description": "\u03a0\u03b1\u03c1\u03b1\u03ba\u03ac\u03c4\u03c9 \u03b5\u03bc\u03c6\u03b1\u03bd\u03af\u03b6\u03b5\u03c4\u03b1\u03b9 \u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc \u03c3\u03b5 \u03bc\u03bf\u03c1\u03c6\u03ae JSON \u03ba\u03b1\u03b9 \u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03b7\u03bd \u03ba\u03bb\u03ae\u03c3\u03b7 \u03c4\u03b7\u03c2 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7\u03c2 ",
+            "properties": {
+                "controller": {
+                    "description": "\u039f controller \u03c0\u03bf\u03c5 \u03c7\u03c1\u03b7\u03c3\u03b9\u03bc\u03bf\u03c0\u03bf\u03b9\u03b5\u03af\u03c4\u03b1\u03b9",
+                    "type": "string"
+                },
+                "function": {
+                    "description": "\u0397 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7 \u03c0\u03bf\u03c5 \u03c5\u03bb\u03bf\u03c0\u03bf\u03b9\u03b5\u03af\u03c4\u03b1\u03b9 \u03b1\u03c0\u03cc \u03c4\u03bf \u03c3\u03cd\u03c3\u03c4\u03b7\u03bc\u03b1",
+                    "type": "string"
+                },
+                "method": {
+                    "description": "\u0397 \u03bc\u03ad\u03b8\u03bf\u03b4\u03bf\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2 \u03c4\u03b7\u03c2 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "parameters": {
+                    "description": "\u039f\u03b9 \u03c0\u03b1\u03c1\u03ac\u03bc\u03b5\u03c4\u03c1\u03bf\u03b9 \u03c0\u03bf\u03c5 \u03b4\u03af\u03bd\u03b5\u03b9 \u03bf \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7\u03c2",
+                    "type": "array"
+                },
+                "status": {
+                    "description": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "message": {
+                    "description": "\u03a4\u03bf \u039c\u03ae\u03bd\u03c5\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "equipment_type_id": {
+                    "description": "\u039f \u03ba\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 ID \u03c4\u03b7\u03c2 \u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae\u03c2 \u03c3\u03c4\u03b7\u03bd \u03bf\u03c0\u03bf\u03af\u03b1 \u03c0\u03c1\u03b1\u03b3\u03bc\u03b1\u03c4\u03bf\u03c0\u03bf\u03b9\u03ae\u03b8\u03b7\u03ba\u03b5 \u03b5\u03bd\u03b7\u03bc\u03ad\u03c1\u03c9\u03c3\u03b7 \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd.",
+                    "type": "integer"
+                }
+            }
+        },
+        "delEquipmentTypes": {
+            "id": "delEquipmentTypes",
+            "description": "\u03a0\u03b1\u03c1\u03b1\u03ba\u03ac\u03c4\u03c9 \u03b5\u03bc\u03c6\u03b1\u03bd\u03af\u03b6\u03b5\u03c4\u03b1\u03b9 \u03c4\u03bf \u03bb\u03b5\u03be\u03b9\u03ba\u03cc \u03c3\u03b5 \u03bc\u03bf\u03c1\u03c6\u03ae JSON \u03ba\u03b1\u03b9 \u03c0\u03bb\u03b7\u03c1\u03bf\u03c6\u03bf\u03c1\u03af\u03b5\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03b7\u03bd \u03ba\u03bb\u03ae\u03c3\u03b7 \u03c4\u03b7\u03c2 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7\u03c2 ",
+            "properties": {
+                "controller": {
+                    "description": "\u039f controller \u03c0\u03bf\u03c5 \u03c7\u03c1\u03b7\u03c3\u03b9\u03bc\u03bf\u03c0\u03bf\u03b9\u03b5\u03af\u03c4\u03b1\u03b9",
+                    "type": "string"
+                },
+                "function": {
+                    "description": "\u0397 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7 \u03c0\u03bf\u03c5 \u03c5\u03bb\u03bf\u03c0\u03bf\u03b9\u03b5\u03af\u03c4\u03b1\u03b9 \u03b1\u03c0\u03cc \u03c4\u03bf \u03c3\u03cd\u03c3\u03c4\u03b7\u03bc\u03b1",
+                    "type": "string"
+                },
+                "method": {
+                    "description": "\u0397 \u03bc\u03ad\u03b8\u03bf\u03b4\u03bf\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2 \u03c4\u03b7\u03c2 \u03c3\u03c5\u03bd\u03ac\u03c1\u03c4\u03b7\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "parameters": {
+                    "description": "\u039f\u03b9 \u03c0\u03b1\u03c1\u03ac\u03bc\u03b5\u03c4\u03c1\u03bf\u03b9 \u03c0\u03bf\u03c5 \u03b4\u03af\u03bd\u03b5\u03b9 \u03bf \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7\u03c2",
+                    "type": "array"
+                },
+                "status": {
+                    "description": "\u039f \u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c4\u03bf\u03c5 \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
+                    "type": "string"
+                },
+                "message": {
+                    "description": "\u03a4\u03bf \u039c\u03ae\u03bd\u03c5\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03ad\u03c3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03c4\u03b7\u03c2 \u03ba\u03bb\u03ae\u03c3\u03b7\u03c2",
+                    "type": "string"
                 }
             }
         }

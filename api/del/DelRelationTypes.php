@@ -10,13 +10,56 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $relation_type_id
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/relation_types",
+* description="Λεξικό : Τύποι Συσχέτισης Διατάξεων - Μονάδων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/relation_types",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων",
+*                   notes="Διαγραφή Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων",
+*                   type="delRelationTypes",
+*                   nickname="DelRelationTypes",
+*   @SWG\Parameter(
+*                   name="relation_type_id",
+*                   description="ID Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων",
+*                   required=true,
+*                   type="integer",
+*                   paramType="query"
+*   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteData, message=ExceptionMessages::NoPermissionToDeleteData),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingRelationTypeIDParam, message=ExceptionMessages::MissingRelationTypeIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingRelationTypeIDValue, message=ExceptionMessages::MissingRelationTypeIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRelationTypeIDType, message=ExceptionMessages::InvalidRelationTypeIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRelationTypeIDArray, message=ExceptionMessages::InvalidRelationTypeIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelRelationTypeValue, message=ExceptionMessages::NotFoundDelRelationTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelRelationTypeValue, message=ExceptionMessages::DuplicateDelRelationTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesRelationTypeLabRelationTypes, message=ExceptionMessages::ReferencesRelationTypeLabRelationTypes),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delRelationTypes",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelRelationTypes($relation_type_id) {
   

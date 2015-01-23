@@ -27,7 +27,7 @@ header("Content-Type: text/html; charset=utf-8");
 *                   summary="Ενημέρωση Τύπoυ Πηγής Χρηματοδότησης",
 *                   notes="Ενημέρωση Τύπου Πηγής Χρηματοδότησης",
 *                   type="putAquisitionSources",
-*                   nickname="putAquisitionSources",
+*                   nickname="PutAquisitionSources",
 *   @SWG\Parameter(
 *                   name="aquisition_source_id",
 *                   description="ID Πηγής Χρηματοδότησης",
@@ -42,7 +42,7 @@ header("Content-Type: text/html; charset=utf-8");
 *                   type="string",
 *                   paramType="query"
 *                   ),
-*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutLab, message=ExceptionMessages::NoPermissionToPutLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutData, message=ExceptionMessages::NoPermissionToPutData),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceIDParam, message=ExceptionMessages::MissingAquisitionSourceIDParam),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceIDValue, message=ExceptionMessages::MissingAquisitionSourceIDValue),
 *   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceIDType, message=ExceptionMessages::InvalidAquisitionSourceIDType),

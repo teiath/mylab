@@ -35,7 +35,7 @@ header("Content-Type: text/html; charset=utf-8");
 *                   type="string",
 *                   paramType="query"
 *                   ),
-*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostData, message=ExceptionMessages::NoPermissionToPostData),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceNameParam, message=ExceptionMessages::MissingAquisitionSourceNameParam),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceNameValue, message=ExceptionMessages::MissingAquisitionSourceNameValue),
 *   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceNameType, message=ExceptionMessages::InvalidAquisitionSourceNameType),

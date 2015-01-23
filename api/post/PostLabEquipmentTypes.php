@@ -8,16 +8,67 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
+
 /**
- * 
- * @global type $db
- * @global type $app
- * @param type $lab_id
- * @param type $equipment_type
- * @param type $items
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_equipment_types",
+* description="Διατάξεις Η/Υ με Εξοπλισμό",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_equipment_types",
+*   @SWG\Operation(
+*                   method="POST",
+*                   summary="Εισαγωγή Διάταξης Η/Υ με Εξοπλισμό",
+*                   notes="Εισαγωγή Διάταξης Η/Υ με Εξοπλισμό",
+*                   type="postLabEquipmentTypes",
+*                   nickname="PostLabEquipmentTypes",
+* 
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="equipment_type", description="Όνομα ή ID Εξοπλισμού [notNull]", required=true, type="mixed(string|integer)", paramType="query" ),
+*   @SWG\Parameter( name="items", description="Πλήθος Εξοπλισμού [notNull]", required=true, type="integer", paramType="query" ),
+*   
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabParam, message=ExceptionMessages::MissingLabParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabValue, message=ExceptionMessages::MissingLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabValue, message=ExceptionMessages::InvalidLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabType, message=ExceptionMessages::InvalidLabType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabUniqueValue, message=ExceptionMessages::DuplicateLabUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentTypeParam, message=ExceptionMessages::MissingEquipmentTypeParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentTypeValue, message=ExceptionMessages::MissingEquipmentTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentTypeValue, message=ExceptionMessages::InvalidEquipmentTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentTypeType, message=ExceptionMessages::InvalidEquipmentTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateEquipmentTypeUniqueValue, message=ExceptionMessages::DuplicateEquipmentTypeUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabEquipmentTypeItemsParam, message=ExceptionMessages::MissingLabEquipmentTypeItemsParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabEquipmentTypeItemsValue, message=ExceptionMessages::MissingLabEquipmentTypeItemsValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabEquipmentTypeItemsArray, message=ExceptionMessages::InvalidLabEquipmentTypeItemsArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabEquipmentTypeItemsValidType, message=ExceptionMessages::InvalidLabEquipmentTypeItemsValidType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabEquipmentTypeItemsType, message=ExceptionMessages::InvalidLabEquipmentTypeItemsType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedLabEquipmentTypeValue, message=ExceptionMessages::DuplicatedLabEquipmentTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="postLabEquipmentTypes",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="lab_id",type="integer",description="Ο κωδικός ID της Διάταξης Η/Υ στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων."),
+* @SWG\Property(name="equipment_type_id",type="integer",description="Ο κωδικός ID του Τύπου Εξοπλισμού στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων.")
+* )
+* 
+*/
 
 function PostLabEquipmentTypes($lab_id, $equipment_type, $items) {
     

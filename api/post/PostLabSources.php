@@ -10,14 +10,64 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $name
- * @param type $infos
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_sources",
+* description="Λεξικό : Πρωτογενής Πηγές Δεδομένων Διατάξεων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_sources",
+*   @SWG\Operation(
+*                   method="POST",
+*                   summary="Εισαγωγή Πρωτογενής Πηγής Δεδομένων Διάταξης H/Y",
+*                   notes="Εισαγωγή Πρωτογενής Πηγής Δεδομένων Διάταξης H/Y",
+*                   type="postLabSources",
+*                   nickname="PostLabSources",
+*   @SWG\Parameter(
+*                   name="name",
+*                   description="Όνομα Πρωτογενής Πηγής Δεδομένων Διάταξης H/Y",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="infos",
+*                   description="Πληροφορίες για την Πρωτογενής Πηγή Δεδομένων Διάταξης H/Y",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*                   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostData, message=ExceptionMessages::NoPermissionToPostData),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabSourceNameParam, message=ExceptionMessages::MissingLabSourceNameParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabSourceNameValue, message=ExceptionMessages::MissingLabSourceNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSourceNameType, message=ExceptionMessages::InvalidLabSourceNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabSourceInfosParam, message=ExceptionMessages::MissingLabSourceInfosParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabSourceInfosValue, message=ExceptionMessages::MissingLabSourceInfosValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSourceInfosType, message=ExceptionMessages::InvalidLabSourceInfosType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedLabSourceValue, message=ExceptionMessages::DuplicatedLabSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="postLabSources",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="lab_source_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων.")
+* )
+* 
+*/
 
 function PostLabSources($name, $infos) {
 

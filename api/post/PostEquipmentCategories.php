@@ -17,36 +17,36 @@ header("Content-Type: text/html; charset=utf-8");
 * apiVersion=API_VERSION,
 * swaggerVersion=SWAGGER_VERSION,
 * basePath=BASE_PATH,
-* resourcePath="/aquisition_sources",
-* description="Λεξικό : Τύποι Πηγών Χρηματοδότησης",
+* resourcePath="/equipment_categories",
+* description="Λεξικό : Κατηγορίες Εξοπλισμού",
 * produces="['application/json']",
 * @SWG\Api(
-*   path="/aquisition_sources",
+*   path="/equipment_categories",
 *   @SWG\Operation(
 *                   method="POST",
-*                   summary="Εισαγωγή Τύπoυ Πηγής Χρηματοδότησης",
-*                   notes="Εισαγωγή Τύπου Πηγής Χρηματοδότησης",
-*                   type="postAquisitionSources",
-*                   nickname="PostAquisitionSources",
+*                   summary="Εισαγωγή Κατηγορίας Εξοπλισμού",
+*                   notes="Εισαγωγή Κατηγορίας Εξοπλισμού",
+*                   type="postEquipmentCategories",
+*                   nickname="PostEquipmentCategories",
 *   @SWG\Parameter(
 *                   name="name",
-*                   description="Όνομα Πηγής Χρηματοδότησης",
+*                   description="Όνομα Κατηγορίας Εξοπλισμού",
 *                   required=true,
 *                   type="string",
 *                   paramType="query"
 *                   ),
-*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
-*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceNameParam, message=ExceptionMessages::MissingAquisitionSourceNameParam),
-*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceNameValue, message=ExceptionMessages::MissingAquisitionSourceNameValue),
-*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceNameType, message=ExceptionMessages::InvalidAquisitionSourceNameType),
-*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedAquisitionSourceValue, message=ExceptionMessages::DuplicatedAquisitionSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostData, message=ExceptionMessages::NoPermissionToPostData),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentCategoryNameParam, message=ExceptionMessages::MissingEquipmentCategoryNameParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentCategoryNameValue, message=ExceptionMessages::MissingEquipmentCategoryNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryNameType, message=ExceptionMessages::InvalidEquipmentCategoryNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedEquipmentCategoryValue, message=ExceptionMessages::DuplicatedEquipmentCategoryValue),
 *   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
 *  )
 * )
 * )
 * 
 * @SWG\Model(
-* id="postAquisitionSources",
+* id="postEquipmentCategories",
 * description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
 * @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
 * @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
@@ -54,7 +54,7 @@ header("Content-Type: text/html; charset=utf-8");
 * @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
 * @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
 * @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
-* @SWG\Property(name="aquisition_source_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων.")
+* @SWG\Property(name="equipment_category_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων.")
 * )
 * 
 */

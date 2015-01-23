@@ -35,7 +35,7 @@ header("Content-Type: text/html; charset=utf-8");
 *                   type="integer",
 *                   paramType="query"
 *   ),
-*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteLab, message=ExceptionMessages::NoPermissionToDeleteLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteData, message=ExceptionMessages::NoPermissionToDeleteData),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceIDParam, message=ExceptionMessages::MissingAquisitionSourceIDParam),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceIDValue, message=ExceptionMessages::MissingAquisitionSourceIDValue),
 *   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceIDType, message=ExceptionMessages::InvalidAquisitionSourceIDType),

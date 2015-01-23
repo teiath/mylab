@@ -10,14 +10,67 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $equipment_category_id
- * @param type $name
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/equipment_categories",
+* description="Λεξικό : Κατηγορίες Εξοπλισμού",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/equipment_categories",
+*   @SWG\Operation(
+*                   method="PUT",
+*                   summary="Ενημέρωση Κατηγορίας Εξοπλισμού",
+*                   notes="Ενημέρωση Κατηγορίας Εξοπλισμού",
+*                   type="putEquipmentCategories",
+*                   nickname="PutEquipmentCategories",
+*   @SWG\Parameter(
+*                   name="equipment_category_id",
+*                   description="ID Κατηγορίας Εξοπλισμού",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*   ),
+*   @SWG\Parameter(
+*                   name="name",
+*                   description="Όνομα Κατηγορίας Εξοπλισμού",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*                   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutData, message=ExceptionMessages::NoPermissionToPutData), 
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentCategoryIDParam, message=ExceptionMessages::MissingEquipmentCategoryIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentCategoryIDValue, message=ExceptionMessages::MissingEquipmentCategoryIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryIDType, message=ExceptionMessages::InvalidEquipmentCategoryIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryIDArray, message=ExceptionMessages::InvalidEquipmentCategoryIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryValue, message=ExceptionMessages::InvalidEquipmentCategoryValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateEquipmentCategoryUniqueValue, message=ExceptionMessages::DuplicateEquipmentCategoryUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentCategoryNameParam, message=ExceptionMessages::MissingEquipmentCategoryNameParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentCategoryNameValue, message=ExceptionMessages::MissingEquipmentCategoryNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryNameType, message=ExceptionMessages::InvalidEquipmentCategoryNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedEquipmentCategoryValue, message=ExceptionMessages::DuplicatedEquipmentCategoryValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="putEquipmentCategories",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="equipment_category_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε ενημέρωση δεδομένων."),
+* )
+* 
+*/
 
 function PutEquipmentCategories($equipment_category_id, $name) {
 
