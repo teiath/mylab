@@ -8,17 +8,62 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
+
 /**
- * 
- * @global type $db
- * @global type $app
- * @param type $lab_worker_id
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_workers",
+* description="Υπεύθυνοι Διατάξεων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_workers",
+*   @SWG\Operation(
+*                   method="PUT",
+*                   summary="Ενημέρωση Υπεύθυνου Διάταξης Η/Υ",
+*                   notes="Ενημέρωση Υπεύθυνου Διάταξης Η/Υ",
+*                   type="putLabWorkers",
+*                   nickname="PutLabbWorkers",
+* 
+*   @SWG\Parameter( name="lab_worker_id", description="ID Υπεύθυνου Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="worker_status", description="Κατάσταση Υπεύθυνου Διατάξης Η/Υ [notNull](1=Ενεργός,3=Μη Ενεργός)", required=true, type="integer", paramType="query", enum="['1','3']" ),
+* 
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutLab, message=ExceptionMessages::NoPermissionToPutLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerIDParam, message=ExceptionMessages::MissingLabWorkerIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerIDValue, message=ExceptionMessages::MissingLabWorkerIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerIDType, message=ExceptionMessages::InvalidLabWorkerIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerIDArray, message=ExceptionMessages::InvalidLabWorkerIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerValue, message=ExceptionMessages::InvalidLabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabWorkerUniqueValue, message=ExceptionMessages::DuplicateLabWorkerUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerStatusParam, message=ExceptionMessages::MissingLabWorkerStatusParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerStatusValue, message=ExceptionMessages::MissingLabWorkerStatusValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStatusArray, message=ExceptionMessages::InvalidLabWorkerStatusArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStatusType, message=ExceptionMessages::InvalidLabWorkerStatusType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedLabWorkerValue, message=ExceptionMessages::DuplicatedLabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="putLabWorkers",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="lab_worker_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε ενημέρωση δεδομένων.")
+* )
+* 
+*/
 
-
-function PutLabWorkers($lab_worker_id,$worker_status) {
+function PutLabWorkers($lab_worker_id, $worker_status) {
     
     global $app,$entityManager;
 

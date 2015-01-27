@@ -802,7 +802,8 @@ class ExceptionCodes
     const NotAllowedLabTransitionDate = 500;
     /** {@see ExceptionMessages::SeriousProblemLabTransitionState} */ 
     const SeriousProblemLabTransitionState = 500;
-
+    /** {@see ExceptionMessages::DuplicateLabTransitionUniqueValue} */ 
+   const DuplicateLabTransitionUniqueValue = 500;
 
     //extra
     /** {@see ExceptionMessages::InvalidLabTransitionValidType} */
@@ -844,6 +845,9 @@ class ExceptionCodes
     const UsedLabRelationByLabs = 500;
     /** {@see ExceptionMessages::UsedLabRelationServerOnline} */   
     const UsedLabRelationServerOnline = 500;
+     /** {@see ExceptionMessages::UsedLabRelationServerOnline} */      
+    const DuplicateLabRelationUniqueValue = 500;
+
     
     //extra
     /** {@see ExceptionMessages::ErrorInputCircuitIdParam} */       

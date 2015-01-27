@@ -8,16 +8,58 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
-/**
- * 
- * @global type $db
- * @global type $app
- * @param type $lab_id
- * @param type $lab_relation_id
- * @return string
- * @throws Exception
- */
 
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_relations",
+* description="Συσχετίσεις Διατάξεων - Μονάδων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_relations",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας",
+*                   notes="Διαγραφή Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας",
+*                   type="delLabRelations",
+*                   nickname="DelLabRelations",
+*
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ), 
+*   @SWG\Parameter( name="lab_relation_id", description="ID Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας [notNull]", required=true, type="integer", paramType="query" ),
+*
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteLab, message=ExceptionMessages::NoPermissionToDeleteLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDParam, message=ExceptionMessages::MissingLabIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDValue, message=ExceptionMessages::MissingLabIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDArray, message=ExceptionMessages::InvalidLabIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabRelationIDParam, message=ExceptionMessages::MissingLabRelationIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabRelationIDValue, message=ExceptionMessages::MissingLabRelationIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabRelationIDType, message=ExceptionMessages::InvalidLabRelationIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabRelationIDArray, message=ExceptionMessages::InvalidLabRelationIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelLabRelationValue, message=ExceptionMessages::NotFoundDelLabRelationValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelLabRelationValue, message=ExceptionMessages::DuplicateDelLabRelationValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delLabRelations",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelLabRelations($lab_id, $lab_relation_id) {
 

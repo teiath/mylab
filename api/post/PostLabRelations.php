@@ -8,17 +8,75 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
+
 /**
- * 
- * @global type $db
- * @global type $app
- * @param type $lab_id
- * @param type $school_unit_id
- * @param type $relation_type
- * @param type $circuit_id
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_relations",
+* description="Συσχετίσεις Διατάξεων - Μονάδων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_relations",
+*   @SWG\Operation(
+*                   method="POST",
+*                   summary="Εισαγωγή Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας",
+*                   notes="Εισαγωγή  Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας",
+*                   type="postLabRelations",
+*                   nickname="PostLabRelations",
+* 
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="school_unit_id", description="ID Σχολικής Μονάδας [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="relation_type", description="Όνομα ή ID Τύπου Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας [notNull]", required=true, type="mixed(string|integer)", paramType="query" ),
+*   @SWG\Parameter( name="circuit_id", description="ID Τηλεπικοινωνιακού Κυκλώματος", required=false, type="integer", paramType="query" ),
+*   
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabParam, message=ExceptionMessages::MissingLabParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabValue, message=ExceptionMessages::MissingLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabValue, message=ExceptionMessages::InvalidLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabType, message=ExceptionMessages::InvalidLabType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabUniqueValue, message=ExceptionMessages::DuplicateLabUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingSchoolUnitParam, message=ExceptionMessages::MissingSchoolUnitParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingSchoolUnitValue, message=ExceptionMessages::MissingSchoolUnitValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitValue, message=ExceptionMessages::InvalidSchoolUnitValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSchoolUnitType, message=ExceptionMessages::InvalidSchoolUnitType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateSchoolUnitUniqueValue, message=ExceptionMessages::DuplicateSchoolUnitUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingRelationTypeParam, message=ExceptionMessages::MissingRelationTypeParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingRelationTypeValue, message=ExceptionMessages::MissingRelationTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRelationTypeValue, message=ExceptionMessages::InvalidRelationTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRelationTypeType, message=ExceptionMessages::InvalidRelationTypeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateRelationTypeUniqueValue, message=ExceptionMessages::DuplicateRelationTypeUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingCircuitParam, message=ExceptionMessages::MissingCircuitParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingCircuitValue, message=ExceptionMessages::MissingCircuitValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidCircuitValue, message=ExceptionMessages::InvalidCircuitValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidCircuitType, message=ExceptionMessages::InvalidCircuitType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateCircuitUniqueValue, message=ExceptionMessages::DuplicateCircuitUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::UsedLabRelationServerOnline, message=ExceptionMessages::UsedLabRelationServerOnline),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidCircuitIDType, message=ExceptionMessages::InvalidCircuitIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ErrorInputCircuitIdParam, message=ExceptionMessages::ErrorInputCircuitIdParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedLabRelationValue, message=ExceptionMessages::DuplicatedLabRelationValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="postLabRelations",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="lab_relation_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων.")
+* )
+* 
+*/
 
 function PostLabRelations($lab_id, $school_unit_id, $relation_type, $circuit_id) {
     

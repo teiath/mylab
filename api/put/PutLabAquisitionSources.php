@@ -35,7 +35,7 @@ header("Content-Type: text/html; charset=utf-8");
 *   @SWG\Parameter( name="aquisition_year", description="Έτος Απόκτησης της Πηγής Χρηματοδότησης για την Διάταξη Η/Υ (μορφή ημερομηνίας yyyy ή null)", required=false, type="string", format="date", paramType="query" ),
 *   @SWG\Parameter( name="aquisition_comments", description="Σχόλια για την Πηγή Χρηματοδότησης", required=false, type="string", paramType="query" ),
 * 
-*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutLab, message=ExceptionMessages::NoPermissionToPutLab),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabAquisitionSourceIDParam, message=ExceptionMessages::MissingLabAquisitionSourceIDParam),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabAquisitionSourceIDValue, message=ExceptionMessages::MissingLabAquisitionSourceIDValue),
 *   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabAquisitionSourceIDType, message=ExceptionMessages::InvalidLabAquisitionSourceIDType),

@@ -33,7 +33,7 @@ header("Content-Type: text/html; charset=utf-8");
 *   @SWG\Parameter( name="equipment_type_id", description="ID Εξοπλισμού [notNull]", required=true, type="integer", paramType="query" ),
 *   @SWG\Parameter( name="items", description="Πλήθος Εξοπλισμού [notNull]", required=true, type="integer", paramType="query" ),
 * 
-*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutLab, message=ExceptionMessages::NoPermissionToPutLab),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDParam, message=ExceptionMessages::MissingLabIDParam),
 *   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDValue, message=ExceptionMessages::MissingLabIDValue),
 *   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),

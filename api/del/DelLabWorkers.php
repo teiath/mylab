@@ -8,16 +8,60 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
-/**
- * 
- * @global type $db
- * @global type $app
- * @param type $lab_id
- * @param type $lab_relation_id
- * @return string
- * @throws Exception
- */
 
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_workers",
+* description="Υπεύθυνοι Διατάξεων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_workers",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Υπεύθυνου Διάταξης Η/Υ",
+*                   notes="Διαγραφή Υπεύθυνου Διάταξης Η/Υ",
+*                   type="delLabWorkers",
+*                   nickname="DelLabWorkers",
+*
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ), 
+*   @SWG\Parameter( name="lab_worker_id", description="ID Υπεύθυνου Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ),
+*
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteLab, message=ExceptionMessages::NoPermissionToDeleteLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDParam, message=ExceptionMessages::MissingLabIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDValue, message=ExceptionMessages::MissingLabIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDArray, message=ExceptionMessages::InvalidLabIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerIDParam, message=ExceptionMessages::MissingLabWorkerIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerIDValue, message=ExceptionMessages::MissingLabWorkerIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerIDType, message=ExceptionMessages::InvalidLabWorkerIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerIDArray, message=ExceptionMessages::InvalidLabWorkerIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelLabWorkerValue, message=ExceptionMessages::NotFoundDelLabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelLabWorkerValue, message=ExceptionMessages::DuplicateDelLabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerActiveStatus, message=ExceptionMessages::InvalidLabWorkerActiveStatus),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionDelLabWorkerValue, message=ExceptionMessages::NoPermissionDelLabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delLabWorkers",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelLabWorkers($lab_id, $lab_worker_id) {
 

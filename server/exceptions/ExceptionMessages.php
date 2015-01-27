@@ -496,6 +496,7 @@ class ExceptionMessages
     const InvalidSameStateValue = 'Η τελευταία Κατάσταση Μεταβασης του Εργαστηρίου έχει την ίδια τιμή και δεν δυνατή η Μετάβαση του σε άλλα Κατάσταση.';
     const NotAllowedLabTransitionDate = 'Δεν είναι δυνατή η εισαγωγή ημερομηνίας προγενέστερη από την ημερομηνία εισαγωγής της προηγούμενης μεταβασης';
     const SeriousProblemLabTransitionState = 'Ενημερωστε τον διαχειριστή!! Η Κατάσταση Μεταβασης έιναι διαφορετικη στους πίνακες Εργαστηριων Καταστάσεων Μεταβασης';
+    const DuplicateLabTransitionUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabTransition';
 
     //extra
     const InvalidLabTransitionValidType = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
@@ -521,7 +522,8 @@ class ExceptionMessages
     const DuplicatedLabRelationValue = 'Η Συσχέτιση του Εργαστηρίου που εξυπηρετειται υπηρεσιακά από Σχολική Μονάδα υπάρχει ήδη';
     const UsedLabRelationByLabs = 'Η Συσχέτιση του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
     const UsedLabRelationServerOnline = 'Είναι αδύνατη η εισαγωγή, διότι το εργαστήριο εξυπηρετείται διαδικτυακά από σχολική μονάδα.';
-   
+    const DuplicateLabRelationUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabRelation';
+    
     //extra
     const ErrorInputCircuitIdParam  = 'H εισαγωγή κυκλώματος δεν επιτρέπεται στην περίπτωση που το εχει γίνει επιλογή Κωδικού Συσχετισης 2=(ΕΞΥΠΗΡΕΤΕΙ ΥΠΗΡΕΣΙΑΚΑ)';
 

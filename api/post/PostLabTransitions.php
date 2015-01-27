@@ -8,18 +8,81 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
+
 /**
- * 
- * @global type $db
- * @global type $app
- * @param type $lab_id
- * @param type $to_state
- * @param type $transition_date
- * @param type $transition_justification
- * @param type $transition_source
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_transitions",
+* description="Λειτουργικές Καταστάσεις Διατάξεων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_transitions",
+*   @SWG\Operation(
+*                   method="POST",
+*                   summary="Εισαγωγή Λειτουργικής Κατάστασης Διάταξης Η/Υ",
+*                   notes="Εισαγωγή Λειτουργικής Κατάστασης Διάταξης Η/Υ",
+*                   type="postLabTransitions",
+*                   nickname="PostLabTransitions",
+* 
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="state", description="Όνομα ή ID Τρέχουσας Λειτουργικής Καταστάσης [notNull]", required=true, type="mixed(string|integer)", paramType="query" ),
+*   @SWG\Parameter( name="transition_date", description="Ημερομηνία Μετάβασης Λειτουργικής Καταστάσης Διατάξης [notNull](μορφή ημερομηνίας dd/mm/yyyy)", required=true, type="string|array[string]", format="date", paramType="query" ),
+*   @SWG\Parameter( name="transition_justification", description="Αιτιολογία Αλλαγής Μετάβασης Λειτουργικής Καταστάσης Διατάξης [notNull]", required=true, type="mixed(string|integer)", paramType="query" ),
+*   @SWG\Parameter( name="transition_source", description="Πηγή Αλλαγής Μετάβασης Λειτουργικής Καταστάσης Διατάξης [notNull]", required=true, type="string", paramType="query", enum="['mylab','mmsch']" ),
+*
+*   
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabParam, message=ExceptionMessages::MissingLabParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabValue, message=ExceptionMessages::MissingLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabValue, message=ExceptionMessages::InvalidLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabType, message=ExceptionMessages::InvalidLabType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabUniqueValue, message=ExceptionMessages::DuplicateLabUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingStateParam, message=ExceptionMessages::MissingStateParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingStateValue, message=ExceptionMessages::MissingStateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateValue, message=ExceptionMessages::InvalidStateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateType, message=ExceptionMessages::InvalidStateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateStateUniqueValue, message=ExceptionMessages::DuplicateStateUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionDateParam, message=ExceptionMessages::MissingLabTransitionDateParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionDateValue, message=ExceptionMessages::MissingLabTransitionDateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionDateArray, message=ExceptionMessages::InvalidLabTransitionDateArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionValidType, message=ExceptionMessages::InvalidLabTransitionValidType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionDateType, message=ExceptionMessages::InvalidLabTransitionDateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionJustificationParam, message=ExceptionMessages::MissingLabTransitionJustificationParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionDateValue, message=ExceptionMessages::MissingLabTransitionDateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionJustificationType, message=ExceptionMessages::InvalidLabTransitionJustificationType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionSourceParam, message=ExceptionMessages::MissingLabTransitionSourceParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionSourceValue, message=ExceptionMessages::MissingLabTransitionSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionSourceArray, message=ExceptionMessages::InvalidLabTransitionSourceArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionSourceType, message=ExceptionMessages::InvalidLabTransitionSourceType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionDemoValue, message=ExceptionMessages::InvalidLabTransitionDemoValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidDiscontinuedStateValue, message=ExceptionMessages::InvalidDiscontinuedStateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSameStateValue, message=ExceptionMessages::InvalidSameStateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedLabTransitionValue, message=ExceptionMessages::DuplicatedLabTransitionValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotAllowedLabTransitionDate, message=ExceptionMessages::NotAllowedLabTransitionDate),
+*   @SWG\ResponseMessage(code=ExceptionCodes::SeriousProblemLabTransitionState, message=ExceptionMessages::SeriousProblemLabTransitionState),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="postLabTransitions",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="lab_transition_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων.")
+* )
+* 
+*/
 
 function PostLabTransitions($lab_id, $state, $transition_date, $transition_justification, $transition_source) {       
         

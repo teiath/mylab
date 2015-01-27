@@ -24,7 +24,7 @@ header("Content-Type: text/html; charset=utf-8");
 *   @SWG\Operation(
 *                   method="GET",
 *                   summary="Αναζήτηση στους Εργαζόμενους",
-*                   notes="Επιστρέφει τους Εργαζόμενους.Τα στοιχεία τα αποθηκεύουμε με χρήση της function ldap_workers από το ΠΣΔ LDAP.",
+*                   notes="Επιστρέφει τους Εργαζόμενους.Τα στοιχεία τα αποθηκεύουμε με συνδυασμό της function ldap_workers από το ΠΣΔ LDAP.",
 *                   type="getMylabWorkers",
 *                   nickname="GetMylabWorkers",
 * 

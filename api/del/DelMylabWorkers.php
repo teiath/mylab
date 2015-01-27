@@ -10,13 +10,52 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $worker_id
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/mylab_workers",
+* description="Εργαζόμενοι",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/mylab_workers",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Εργαζόμενου",
+*                   notes="Διαγραφή Εργαζόμενου",
+*                   type="delMylabWorkers",
+*                   nickname="DelMylabWorkers",
+*
+*   @SWG\Parameter( name="worker_id", description="ID Εργαζόμενου [notNull]", required=true, type="integer", paramType="query" ),
+*
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteLab, message=ExceptionMessages::NoPermissionToDeleteLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingMylabWorkerIDParam, message=ExceptionMessages::MissingMylabWorkerIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingMylabWorkerIDValue, message=ExceptionMessages::MissingMylabWorkerIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMylabWorkerIDType, message=ExceptionMessages::InvalidMylabWorkerIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMylabWorkerIDArray, message=ExceptionMessages::InvalidMylabWorkerIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelMyLabWorkerValue, message=ExceptionMessages::NotFoundDelMyLabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelMyLabWorkerValue, message=ExceptionMessages::DuplicateDelMyLabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesMyLabWorkerLabWorkers, message=ExceptionMessages::ReferencesMyLabWorkerLabWorkers),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delMylabWorkers",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelMylabWorkers($worker_id) {
   
