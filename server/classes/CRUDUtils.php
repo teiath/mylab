@@ -171,7 +171,7 @@ class CRUDUtils {
           $andx = $qb->expr()->andX();
 
             if ( Validator::isNull($values) )
-                 $andx->add($qb->expr()->isNull($table_name.".".$table_column_name));
+                 $orx->add($qb->expr()->isNull($table_name.".".$table_column_name));
             else if ( Validator::IsValue($values) )
             {
                 if ( $searchtype == SearchEnumTypes::Exact )
