@@ -154,27 +154,27 @@ function GetLabEquipmentTypes( $lab_id, $lab_name, $equipment_type_id, $equipmen
                       
 //$lab_id=======================================================================
         if (Validator::Exists('lab_id', $params)){
-            Filters::setFilter($qb, $lab_id, "l", "labId", "labId", "id", ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
+            CRUDUtils::setFilter($qb, $lab_id, "l", "labId", "labId", "id", ExceptionMessages::InvalidLabIDType, ExceptionCodes::InvalidLabIDType);
         } 
 
 //$lab_name=====================================================================
         if (Validator::Exists('lab_name', $params)){
-            Filters::setSearchFilter($qb, $lab_name, "l", "name", $searchtype, ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType);    
+            CRUDUtils::setSearchFilter($qb, $lab_name, "l", "name", $searchtype, ExceptionMessages::InvalidLabNameType, ExceptionCodes::InvalidLabNameType);    
         } 
         
 //$equipment_type_id============================================================
         if (Validator::Exists('equipment_type_id', $params)){
-            Filters::setFilter($qb, $equipment_type_id, "eqt", "equipmentTypeId", "equipmentTypeId", "id", ExceptionMessages::InvalidEquipmentTypeIDType, ExceptionCodes::InvalidEquipmentTypeIDType);    
+            CRUDUtils::setFilter($qb, $equipment_type_id, "eqt", "equipmentTypeId", "equipmentTypeId", "id", ExceptionMessages::InvalidEquipmentTypeIDType, ExceptionCodes::InvalidEquipmentTypeIDType);    
         }
 
 //$equipment_type_name==========================================================
         if (Validator::Exists('equipment_type_name', $params)){
-            Filters::setSearchFilter ($qb, $equipment_type_name, "eqt", "name", $searchtype, ExceptionMessages::InvalidEquipmentTypeNameType, ExceptionCodes::InvalidEquipmentTypeNameType);
+            CRUDUtils::setSearchFilter ($qb, $equipment_type_name, "eqt", "name", $searchtype, ExceptionMessages::InvalidEquipmentTypeNameType, ExceptionCodes::InvalidEquipmentTypeNameType);
         }  
 
 //$items========================================================================
         if (Validator::Exists('items', $params)){
-            Filters::setSearchFilter($qb, $items, "leqt", "items", $searchtype, ExceptionMessages::InvalidLabEquipmentTypeItemsType, ExceptionCodes::InvalidLabEquipmentTypeItemsType);    
+            CRUDUtils::setSearchFilter($qb, $items, "leqt", "items", $searchtype, ExceptionMessages::InvalidLabEquipmentTypeItemsType, ExceptionCodes::InvalidLabEquipmentTypeItemsType);    
         } 
     
 //execution=====================================================================
