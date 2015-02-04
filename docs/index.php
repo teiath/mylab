@@ -1,5 +1,4 @@
 <?php
-
 chdir("../server");
 require_once('system/includes.php');
 Header("Content-Type: text/html; charset=utf-8");
