@@ -1,5 +1,7 @@
 #server
 server/system/config.php
+server/system/SwaggerConstants.php
+server/libs/swagger-ui-master/dist/index.html
 api/.htaccess
 .buildpath
 .settings

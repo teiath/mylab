@@ -1,5 +1,5 @@
 {
-    "basePath": "http://mmsch.teiath.gr/mylab/api",
+    "basePath": "https://mylab.sch.gr/api",
     "swaggerVersion": 2,
     "apiVersion": "2.0",
     "resourcePath": "/education_levels",
