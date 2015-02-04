@@ -171,7 +171,7 @@ class CRUDUtils {
           $andx = $qb->expr()->andX();
 
             if ( Validator::isNull($values) )
-                 $andx->add($qb->expr()->isNull($table_name.".".$table_column_name));
+                 $orx->add($qb->expr()->isNull($table_name.".".$table_column_name));
             else if ( Validator::IsValue($values) )
             {
                 if ( $searchtype == SearchEnumTypes::Exact )
@@ -229,7 +229,7 @@ class CRUDUtils {
      * @throws ExceptionMessages::'Missing'.$exceptionType.'Param' , ExceptionCodes::'Missing'.$exceptionType.'Param'
      * @throws ExceptionMessages::'Missing'.$exceptionType.'Value' , ExceptionCodes::'Missing'.$exceptionType.'Value'
      * @throws ExceptionMessages::'Invalid'.$exceptionType.'Type' , ExceptionCodes::'Invalid'.$exceptionType.'Type'
-     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Value' , ExceptionCodes::'Invalid'.$exceptionType.'Value'
+     * @throws ExceptionMessages::'Invalid'.$exceptionType.'Array' , ExceptionCodes::'Invalid'.$exceptionType.'Array'
      * 
      * @return mixed ID integer format or throwException
      * 

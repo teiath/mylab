@@ -9,22 +9,149 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $db
- * @global type $Options
- * @global type $app
- * @param type $municipality_id
- * @param type $name
- * @param type $transfer_area
- * @param type $prefecture
- * @param type $pagesize
- * @param int $page
- * @param type $searchtype
- * @param type $ordertype
- * @param type $orderby
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/municipalities",
+* description="Λεξικό : Δήμοι",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/municipalities",
+*   @SWG\Operation(
+*                   method="GET",
+*                   summary="Αναζήτηση σε Δήμους",
+*                   notes="Επιστρέφει τους Δήμους",
+*                   type="getMunicipalities",
+*                   nickname="GetMunicipalities",
+*   @SWG\Parameter(
+*                   name="municipality_id",
+*                   description="ID Δήμου [notNull]",
+*                   required=false,
+*                   type="integer|array[integer]",
+*                   paramType="query"
+*   ),
+*   @SWG\Parameter(
+*                   name="name",
+*                   description="Όνομα Δήμου (Συνδυάζεται με την παράμετρο searchtype)",
+*                   required=false,
+*                   type="string|array[string]",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="transfer_area",
+*                   description="Όνομα ή ID Περιοχής Μετάθεσης [notNull]",
+*                   required=false,
+*                   type="mixed(string|integer|array[string|integer])",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="prefecture",
+*                   description="Όνομα ή ID Νομού [notNull]",
+*                   required=false,
+*                   type="mixed(string|integer|array[string|integer])",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="page",
+*                   description="Αριθμός Σελίδας",
+*                   required=false,
+*                   type="integer",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="pagesize",
+*                   description="Αριθμός Εγγραφών/Σελίδα",
+*                   required=false,
+*                   type="integer",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="searchtype",
+*                   description="Τύπος αναζήτησης",
+*                   required=false,
+*                   type="string",
+*                   paramType="query",
+*                   enum = "['EXACT','CONTAIN','CONTAINALL','CONTAINANY','STARTWITH','ENDWITH']"
+*                   ),
+*   @SWG\Parameter(
+*                   name="ordertype",
+*                   description="Τύπος Ταξινόμησης",
+*                   required=false,
+*                   type="string",
+*                   paramType="query",
+*                   enum = "['ASC','DESC']"
+*                   ),
+*   @SWG\Parameter(
+*                   name="orderby",
+*                   description="Πεδίο Ταξινόμησης",
+*                   required=false,
+*                   type="string",
+*                   paramType="query",
+*                   enum = "['municipality_id','name','transfer_area_id','transfer_area_name','prefecture_id','prefecture_name']"
+*                   ),
+*   @SWG\Parameter( name="debug", description="Επιστροφή SQL/DQL Queries", required=false, type="boolean", paramType="query", enum = "['true','false']" ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMunicipalityIDType, message=ExceptionMessages::InvalidMunicipalityIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMunicipalityNameType, message=ExceptionMessages::InvalidMunicipalityNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidTransferAreaType, message=ExceptionMessages::InvalidTransferAreaType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPrefectureType, message=ExceptionMessages::InvalidPrefectureType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageValue, message=ExceptionMessages::MissingPageValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageArray, message=ExceptionMessages::InvalidPageArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageType, message=ExceptionMessages::InvalidPageType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageNumber, message=ExceptionMessages::InvalidPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeValue, message=ExceptionMessages::MissingPageSizeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeArray, message=ExceptionMessages::InvalidPageSizeArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeType, message=ExceptionMessages::InvalidPageSizeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeNegativeValue, message=ExceptionMessages::MissingPageSizeNegativeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeNumber, message=ExceptionMessages::InvalidPageSizeNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSearchType, message=ExceptionMessages::InvalidSearchType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderType, message=ExceptionMessages::InvalidOrderType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderBy, message=ExceptionMessages::InvalidOrderBy),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMaxPageNumber, message=ExceptionMessages::InvalidMaxPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="getMunicipalities",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="total",type="integer",description="Το πλήθος των εγγραφών χωρίς τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="count",type="integer",description="Το πλήθος των εγγραφών της κλήσης σύμφωνα με τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="pagination",type="array",description="Οι παράμετροι σελιδοποίησης των εγγραφών της κλήσης",items="$ref:Pagination"),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="data",type="array",description="Ο Πίνακας με το λεξικό",items="$ref:Municipality"),
+* @SWG\Property(name="DQL",type="string",description="To DQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)"),
+* @SWG\Property(name="SQL",type="string",description="To SQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)")
+* )
+* 
+* @SWG\Model(
+* id="Pagination",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πληροφορίες σελιδοποίησης : ",
+* @SWG\Property(name="page",type="string",description="Ο αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="maxPage",type="string",description="Ο μέγιστος αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="pagesize",type="integer",description="Ο αριθμός των εγγραφών προς επιστροφή")
+* )
+* 
+* @SWG\Model(
+* id="Municipality",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πεδία του πίνακα municipalities : ",
+* @SWG\Property(name="municipality_id",type="integer",description="Ο Κωδικός ID του Δήμου"),
+* @SWG\Property(name="name",type="string",description="Το Όνομα του Δήμου"),
+* @SWG\Property(name="transfer_area_id",type="integer",description="Ο Κωδικός ID της Περιοχής Μετάθεσης"),
+* @SWG\Property(name="transfer_area_name",type="string",description="Το Όνομα της Περιοχής Μετάθεσης"),
+* @SWG\Property(name="prefecture_id",type="integer",description="Ο Κωδικός ID του Νομού"),
+* @SWG\Property(name="prefecture_name",type="string",description="Το Όνομα του Νομού")
+* )
+* 
+*/
 
 function GetMunicipalities( $municipality_id, $name, $transfer_area, $prefecture,
                             $pagesize, $page, $searchtype, $ordertype, $orderby ) {

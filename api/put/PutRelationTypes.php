@@ -10,14 +10,67 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $relation_type_id
- * @param type $name
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/relation_types",
+* description="Λεξικό : Τύποι Συσχέτισης Διατάξεων - Μονάδων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/relation_types",
+*   @SWG\Operation(
+*                   method="PUT",
+*                   summary="Ενημέρωση Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων",
+*                   notes="Ενημέρωση Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων",
+*                   type="putRelationTypes",
+*                   nickname="PutRelationTypes",
+*   @SWG\Parameter(
+*                   name="relation_type_id",
+*                   description="ID Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*   ),
+*   @SWG\Parameter(
+*                   name="name",
+*                   description="Όνομα Τύπου Συσχέτισης Διατάξεων Η/Υ - Μονάδων",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*                   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutData, message=ExceptionMessages::NoPermissionToPutData), 
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingRelationTypeIDParam, message=ExceptionMessages::MissingRelationTypeIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingRelationTypeIDValue, message=ExceptionMessages::MissingRelationTypeIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRelationTypeIDType, message=ExceptionMessages::InvalidRelationTypeIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRelationTypeIDArray, message=ExceptionMessages::InvalidRelationTypeIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRelationTypeValue, message=ExceptionMessages::InvalidRelationTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateRelationTypeUniqueValue, message=ExceptionMessages::DuplicateRelationTypeUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingRelationTypeNameParam, message=ExceptionMessages::MissingRelationTypeNameParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingRelationTypeNameValue, message=ExceptionMessages::MissingRelationTypeNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidRelationTypeNameType, message=ExceptionMessages::InvalidRelationTypeNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedRelationTypeValue, message=ExceptionMessages::DuplicatedRelationTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="putRelationTypes",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="relation_type_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε ενημέρωση δεδομένων."),
+* )
+* 
+*/
 
 function PutRelationTypes($relation_type_id, $name) {
 
@@ -28,14 +81,14 @@ function PutRelationTypes($relation_type_id, $name) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
 
     try {
 
 //user permisions===============================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
+        throw new Exception(ExceptionMessages::NoPermissionToPutData, ExceptionCodes::NoPermissionToPutData);
  
 //$relation_type_id=============================================================    
         $fRelationTypeId = CRUDUtils::checkIDParam('relation_type_id', $params, $relation_type_id, 'RelationTypeID');

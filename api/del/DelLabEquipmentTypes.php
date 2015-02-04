@@ -8,16 +8,58 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
-/**
- * 
- * @global type $db
- * @global type $app
- * @param type $lab_id
- * @param type $equipment_type_id
- * @return string
- * @throws Exception
- */
 
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_equipment_types",
+* description="Διατάξεις Η/Υ με Εξοπλισμό",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_equipment_types",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Διάταξης Η/Υ με Εξοπλισμό",
+*                   notes="Διαγραφή Διάταξης Η/Υ με Εξοπλισμό",
+*                   type="delLabEquipmentTypes",
+*                   nickname="DelLabEquipmentTypes",
+*
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ), 
+*   @SWG\Parameter( name="equipment_type_id", description="ID Εξοπλισμού [notNull]", required=true, type="integer", paramType="query" ),
+*
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteLab, message=ExceptionMessages::NoPermissionToDeleteLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDParam, message=ExceptionMessages::MissingLabIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDValue, message=ExceptionMessages::MissingLabIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDArray, message=ExceptionMessages::InvalidLabIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentTypeIDParam, message=ExceptionMessages::MissingEquipmentTypeIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentTypeIDValue, message=ExceptionMessages::MissingEquipmentTypeIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentTypeIDType, message=ExceptionMessages::InvalidEquipmentTypeIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentTypeIDArray, message=ExceptionMessages::InvalidEquipmentTypeIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelLabEquipmentTypeValue, message=ExceptionMessages::NotFoundDelLabEquipmentTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelLabEquipmentTypeValue, message=ExceptionMessages::DuplicateDelLabEquipmentTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delLabEquipmentTypes",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
 
@@ -28,8 +70,8 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
     
     try
     {

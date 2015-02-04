@@ -9,6 +9,7 @@ require_once('system/Pagination.php');
 require_once('system/JsonFunctions.php');
 require_once('system/Timing.php');
 require_once('system/methodtypes.php');
+require_once('system/SwaggerConstants.php');
 
 require_once ('libs/phpCAS/CAS.php');
 require_once ('libs/PHPExcel/Classes/PHPExcel.php');

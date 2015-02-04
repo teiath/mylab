@@ -1,166 +1,68 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package GET
+ */
 
 header("Content-Type: text/html; charset=utf-8");
 
-/** 
- * <b>Αναφορά : Ετήσια Αναφορά ΚΕΠΛΗΝΕΤ</b>
- * 
- * 
- *
- * Η συνάρτηση αυτή επιστρέφει μια αναφορά για τα ΚΕΠΛΗΝΕΤ σύμφωνα με τις παραμέτρους που έγινε η κλήση
- *
- *
- * Η κλήση μπορεί να γίνει μέσω της παρακάτω διεύθυνσης με τη μέθοδο GET :
- * <br> http://mmsch.teiath.gr/mylab/api/report_keplhnet
- *
- *
- * <br><b>Πίνακας Σφαλμάτων</b>
- * <br>Στον Πίνακα Σφαλμάτων <a href="#throws">Thrown exceptions summary</a> εμφανίζονται τα Μηνύματα Σφαλμάτων που
- * μπορεί να προκύψουν κατά την κλήση της συνάρτησης
- * <br>Οι περιγραφές των Σφαλμάτων καθώς και οι Κωδικοί τους είναι διαθέσιμες μέσω του πίνακα
- * Μηνύματα Σφαλμάτων ({@see ExceptionMessages}) και Κωδικοί Σφαλμάτων ({@see ExceptionCodes}) αντίστοιχα
- *
- *
- * <br><b>Παραδείγματα Κλήσης</b>
- * <br>Παρακάτω εμφανίζεται μια σειρά από παραδείγματα κλήσης της συνάρτησης με διάφορους τρόπους :
- * <br><a href="#cURL">cURL</a> | <a href="#JavaScript">JavaScript</a> | <a href="#PHP">PHP</a> | <a href="#Ajax">Ajax</a>
- *
- * <br>
- *
- * <a id="cURL"></a>Παράδειγμα κλήσης της συνάρτησης με <b>cURL</b> (console) :
- * <code>
- *    curl -X GET http://mmsch.teiath.gr/api/report_keplhnet \
- *       -H "Content-Type: application/json" \
- *       -H "Accept: application/json" \
- *       -u username:password \
- *       -d '{"edu_admin_code":"kar"}'
- *       > report.pdf
- * </code>
- * <br>
- * 
- * 
- * 
- * <a id="JavaScript"></a>Παράδειγμα κλήσης της συνάρτησης με <b>JavaScript</b> :
- * <code>
- * <script>
- *    var params = JSON.stringify({
- *        "edu_admin_code" : "kar"
- *    });
- *
- *    var http = new XMLHttpRequest();
- *    http.open("GET", "http://mmsch.teiath.gr/mylab/api/report_keplhnet");
- *    http.setRequestHeader("Accept", "application/json");
- *    http.setRequestHeader("Content-type", "application/json; charset=utf-8");
- *    http.setRequestHeader("Content-length", params.length);
- *    http.setRequestHeader("Authorization", "Basic " + btoa('username' + ':' + 'password') );
- *
- *    http.onreadystatechange = function()
- *    {
- *        if(http.readyState == 4 && http.status == 200)
- *        {
- *            var result = JSON.parse(http.responseText);
- *            document.write(result.status + " : " + result.message + " : " + result.data);
- *        }
- *    }
- *
- *    http.send(params);
- * </script>
- * </code>
- * <br>
- *
- *
- *
- * <a id="PHP"></a>Παράδειγμα κλήσης της συνάρτησης με <b>PHP</b> :
- * <code>
- * <?php
- *    header("Content-Type: text/html; charset=utf-8");
- *
- *    $params = array(
- *       "edu_admin_code" => "kar"
- *    );
- *
- *    $curl = curl_init("http://mmsch.teiath.gr/mylab/api/report_keplhnet");
- *
- *    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
- *    curl_setopt($curl, CURLOPT_USERPWD, "username:password");
- *    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
- *    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode( $params ));
- *    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
- *
- *    $data = curl_exec($curl);
- *    $data = json_decode($data);
- *    echo "<pre>"; var_dump( $data ); echo "</pre>";
- * ?>
- * </code>
- * <br>
- *
- *
- *
- * <a id="Ajax"></a>Παράδειγμα κλήσης της συνάρτησης με <b>Ajax</b> :
- * <code>
- * <script>
- *    $.ajax({
- *        type: 'GET',
- *        url: 'http://mmsch.teiath.gr/mylab/api/report_keplhnet',
- *        dataType: "json",
- *        data: {
- *          "edu_admin_code" : "kar"
- *        },
- *        beforeSend: function(req) {
- *            req.setRequestHeader('Authorization', btoa('username' + ":" + 'password'));
- *        },
- *        success: function(data){
- *            console.log(data);
- *        }
- *    });
- * </script>
- * </code>
- * <br>
- *
- * 
- * @param string $edu_admin_code Κωδικός DNS Διεύθυνσης Εκπαίδευσης
- * <br>Ο Κωδικός DNS Διεύθυνσης Εκπαίδευσης που αντιστοιχεί στο ΚΕΠΛΗΝΕΤ της ιδιας της Διεύθυνσης
- * <br>H αντιστοιχία είναι 2 Διευθύνσεις Εκπαίδευσης(Πρωτοβάθμια και Δευτεροβάθμια) προς ένα ΚΕΠΛΗΝΕΤ  
- * <br>με τα στοιχεία του Κεπληνετ να ανήκουν στην Διεύθυνση Δευτεροβάθμιας Εκπαίδευσης
- * <br>π.χ. edu_admin_code = kar αντιστοιχεί στην Διεύθυνση Π.Ε. Καρδίτσας και Διεύθυνση Δ.Ε. Καρδίτσας με αντίστοιχία το ΚΕΠΛΗΝΕΤ Καρδίτσας   
- * <br>Λεξικό : Διευθύνσεις Εκπαίδευσης {@see GetEduAdmins})
- * <br>Η τιμή της παραμέτρου μπορεί να είναι : string}
- *    <ul>
- *       <li>string : Αλφαριθμητική (Η αναζήτηση γίνεται με το όνομα)</li>
- *    </ul>
- *
- * @return <PDF> Επιστρέφει ένα προκαθορισμένο pdf αρχείο με αποτελέσματα από ένα συγκεκριμένο ΚΕΠΛΗΝΕΤ 
- * και αφορά γενικές πληροφορίες,σχολικές μονάδες,εργαστήρια της αρμοδιότητας του.
- * <br> Σημείωση 
- * Εργαστήρια με άριστη/πολύ ικανοποιητική λειτουργία χαρακτηρίζονται τα εργαστήρια που εχουνε operational_rating = 4,5
- * Εργαστήρια με καλή/ικανοποιητική λειτουργία χαρακτηρίζονται τα εργαστήρια που εχουνε operational_rating = 3
- * Εργαστήρια που χρήζουν ανανένωσης χαρακτηρίζονται τα εργαστήρια που εχουνε technological_rating = 1,2
- * 
- * 
- *
- * @throws MissingEduAdminCodeParam {@see ExceptionMessages::MissingEduAdminCodeParam}
- * <br>{@see ExceptionCodes::MissingEduAdminCodeParam}
- * <br>Ο Κωδικός της Διεύθυνσης Εκπαίδευσης είναι υποχρεωτικό πεδίο
- * 
- * @throws MissingEduAdminCodeValue {@see ExceptionMessages::MissingEduAdminCodeValue}
- * <br>{@see ExceptionCodes::MissingEduAdminCodeValue}
- * <br>Ο Κωδικός της Διεύθυνσης Εκπαίδευσης πρέπει να έχει τιμή
- * 
- * @throws InvalidEduAdminCodeArray {@see ExceptionMessages::InvalidEduAdminCodeArray}
- * <br>{@see ExceptionCodes::InvalidEduAdminCodeArray}
- * <br>Ο Κωδικός της Διεύθυνσης Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές
- * 
- * @throws UnknowneEduAdminCodeValue {@see ExceptionMessages::UnknowneEduAdminCodeValue}
- * <br>{@see ExceptionCodes::UnknowneEduAdminCodeValue}
- * <br>Αγνωστη τιμή edu_admin_code
- *
- * @throws ErrorEduAdminReportKeplhnet {@see ExceptionMessages::ErrorEduAdminReportKeplhnet}
- * <br>{@see ExceptionCodes::ErrorEduAdminReportKeplhnet}
- * <br>Κάθε ΚΕΠΛΗΝΕΤ αντιστοιχίζεται υποχρεωτικά με μια Διεύθυνση Δ.Ε. και μια Διεύθυνση Δ.Ε. ίδιας πόλης.
- *
- *
- */
-
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/report_keplhnet",
+* description="Αναφορά : Ετήσια Αναφορά ΚΕΠΛΗΝΕΤ",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/report_keplhnet",
+*   @SWG\Operation(
+*                   method="GET",
+*                   summary="Δημιουργία Αναφοράς για τα ΚΕΠΛΗΝΕΤ",
+*                   notes="Eπιστρέφει μια αναφορά για τα ΚΕΠΛΗΝΕΤ, η οποία αφορά πληροφορίες για τις Διατάξεις Η/Υ, σε συγκεκριμένο πρότυπο.
+                            Ο Κωδικός DNS Διεύθυνσης Εκπαίδευσης που πρέπει να δωθέι ως παράμετρος αντιστοιχεί στο ΚΕΠΛΗΝΕΤ της ιδιας της Διεύθυνσης
+                            H αντιστοιχία είναι 2 Διευθύνσεις Εκπαίδευσης(Πρωτοβάθμια και Δευτεροβάθμια) προς ένα ΚΕΠΛΗΝΕΤ με τα στοιχεία του Κεπληνετ να ανήκουν στην Διεύθυνση Δευτεροβάθμιας Εκπαίδευσης
+                            π.χ. edu_admin_code = kar αντιστοιχεί στην Διεύθυνση Π.Ε. Καρδίτσας και Διεύθυνση Δ.Ε. Καρδίτσας με αντίστοιχία το ΚΕΠΛΗΝΕΤ Καρδίτσας
+                            Επιστρέφει ένα προκαθορισμένο pdf αρχείο με αποτελέσματα από ένα συγκεκριμένο ΚΕΠΛΗΝΕΤ και αφορά γενικές πληροφορίες,σχολικές μονάδες,εργαστήρια της αρμοδιότητας του.
+                            <br> Σημείωση 
+                            Εργαστήρια με άριστη/πολύ ικανοποιητική λειτουργία χαρακτηρίζονται τα εργαστήρια που εχουνε operational_rating = 4,5
+                            Εργαστήρια με καλή/ικανοποιητική λειτουργία χαρακτηρίζονται τα εργαστήρια που εχουνε operational_rating = 3
+                            Εργαστήρια που χρήζουν ανανένωσης χαρακτηρίζονται τα εργαστήρια που εχουνε technological_rating = 1",   
+*                   type="getReportKeplhnet",
+*                   nickname="GetReportKeplhnet",
+*   @SWG\Parameter(
+*                   name="edu_admin_code",
+*                   description="Κωδικός DNS Διεύθυνσης Εκπαίδευσης [notNull](Τους κωδικούς dns τους έχει η function edu_admins)",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEduAdminCodeParam, message=ExceptionMessages::MissingEduAdminCodeParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEduAdminCodeValue, message=ExceptionMessages::MissingEduAdminCodeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEduAdminCodeArray, message=ExceptionMessages::InvalidEduAdminCodeArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ErrorEduAdminReportKeplhnet, message=ExceptionMessages::ErrorEduAdminReportKeplhnet),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEduAdminCodeValue, message=ExceptionMessages::InvalidEduAdminCodeValue),
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="getReportKeplhnet",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="tmp_report_filepath",type="string",description="Το url με το pdf αρχείο της αναφοράς")
+* )
+*  
+**/
 
 function ReportKeplhnet ($edu_admin_code ) {
 
@@ -283,7 +185,7 @@ $result["method"] = $app->request()->getMethod();
             }
         
         } else {
-            throw new Exception(ExceptionMessages::UnknowneEduAdminCodeValue." : ".$edu_admin_code, ExceptionCodes::UnknowneEduAdminCodeValue); 
+            throw new Exception(ExceptionMessages::InvalidEduAdminCodeValue." : ".$edu_admin_code, ExceptionCodes::InvalidEduAdminCodeValue); 
         }
 
         //get infos about keplhnet. Value of edu_admin must be secondary only

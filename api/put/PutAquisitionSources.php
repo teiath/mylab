@@ -10,14 +10,67 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $aquisition_source_id
- * @param type $name
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/aquisition_sources",
+* description="Λεξικό : Τύποι Πηγών Χρηματοδότησης",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/aquisition_sources",
+*   @SWG\Operation(
+*                   method="PUT",
+*                   summary="Ενημέρωση Τύπoυ Πηγής Χρηματοδότησης",
+*                   notes="Ενημέρωση Τύπου Πηγής Χρηματοδότησης",
+*                   type="putAquisitionSources",
+*                   nickname="PutAquisitionSources",
+*   @SWG\Parameter(
+*                   name="aquisition_source_id",
+*                   description="ID Πηγής Χρηματοδότησης",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*   ),
+*   @SWG\Parameter(
+*                   name="name",
+*                   description="Όνομα Πηγής Χρηματοδότησης",
+*                   required=true,
+*                   type="string",
+*                   paramType="query"
+*                   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutData, message=ExceptionMessages::NoPermissionToPutData),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceIDParam, message=ExceptionMessages::MissingAquisitionSourceIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceIDValue, message=ExceptionMessages::MissingAquisitionSourceIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceIDType, message=ExceptionMessages::InvalidAquisitionSourceIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceIDArray, message=ExceptionMessages::InvalidAquisitionSourceIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceValue, message=ExceptionMessages::InvalidAquisitionSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateAquisitionSourceUniqueValue, message=ExceptionMessages::DuplicateAquisitionSourceUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceNameParam, message=ExceptionMessages::MissingAquisitionSourceNameParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingAquisitionSourceNameValue, message=ExceptionMessages::MissingAquisitionSourceNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidAquisitionSourceNameType, message=ExceptionMessages::InvalidAquisitionSourceNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedAquisitionSourceValue, message=ExceptionMessages::DuplicatedAquisitionSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="putAquisitionSources",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="aquisition_source_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε ενημέρωση δεδομένων."),
+* )
+* 
+*/
 
 function PutAquisitionSources($aquisition_source_id, $name) {
 
@@ -28,14 +81,14 @@ function PutAquisitionSources($aquisition_source_id, $name) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
-
+    $result["parameters"] = $params;
+    
     try {
 
 //user permisions===============================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab);
+        throw new Exception(ExceptionMessages::NoPermissionToPutData, ExceptionCodes::NoPermissionToPutData);
 
 //$aquisition_source_id=========================================================    
         $fAquisitionSourceId = CRUDUtils::checkIDParam('aquisition_source_id', $params, $aquisition_source_id, 'AquisitionSourceID');

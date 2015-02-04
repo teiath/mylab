@@ -8,16 +8,59 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
-/**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $lab_id
- * @param type $submitted
- * @return string
- * @throws Exception
- */
 
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/labs",
+* description="Διατάξεις Η/Υ",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/labs",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Διάταξης Η/Υ",
+*                   notes="Διαγραφή Διάταξης Η/Υ",
+*                   type="delLabs",
+*                   nickname="DelLabs",
+*
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ), 
+*
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteLab, message=ExceptionMessages::NoPermissionToDeleteLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDParam, message=ExceptionMessages::MissingLabIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDValue, message=ExceptionMessages::MissingLabIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDArray, message=ExceptionMessages::InvalidLabIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelLabValue, message=ExceptionMessages::NotFoundDelLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelLabValue, message=ExceptionMessages::DuplicateDelLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoDemoDelLabValue, message=ExceptionMessages::NoDemoDelLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesLabAquisitionSources, message=ExceptionMessages::ReferencesLabAquisitionSources),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesLabEquipmentTypes, message=ExceptionMessages::ReferencesLabEquipmentTypes),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesLabWorkers, message=ExceptionMessages::ReferencesLabWorkers),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesLabRelations, message=ExceptionMessages::ReferencesLabRelations),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesLabTransitions, message=ExceptionMessages::ReferencesLabTransitions),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delLabs",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelLabs($lab_id) {
 
@@ -28,8 +71,8 @@ function DelLabs($lab_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
     
     try
     {

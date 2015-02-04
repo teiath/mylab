@@ -8,6 +8,10 @@
  
 header("Content-Type: text/html; charset=utf-8");
 
+/**
+ * DEPRECATED 
+ */
+
 function ViewLabWorkers ( $lab_worker_id, $worker_status, $worker_start_service,
                           $lab_id, $lab_name, $submitted, $worker_position, $lab_worker, $lab_worker_uid,
                           $lab_type, $school_unit_id, $school_unit_name, $lab_state,                      

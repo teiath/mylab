@@ -10,13 +10,56 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $equipment_type_id
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/equipment_types",
+* description="Λεξικό : Τύποι Εξοπλισμού",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/equipment_types",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Τύπου Εξοπλισμού",
+*                   notes="Διαγραφή Τύπου Εξοπλισμού",
+*                   type="delEquipmentTypes",
+*                   nickname="DelEquipmentTypes",
+*   @SWG\Parameter(
+*                   name="equipment_type_id",
+*                   description="ID Τύπου Εξοπλισμού",
+*                   required=true,
+*                   type="integer",
+*                   paramType="query"
+*   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteData, message=ExceptionMessages::NoPermissionToDeleteData),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentTypeIDParam, message=ExceptionMessages::MissingEquipmentTypeIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentTypeIDValue, message=ExceptionMessages::MissingEquipmentTypeIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentTypeIDType, message=ExceptionMessages::InvalidEquipmentTypeIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentTypeIDArray, message=ExceptionMessages::InvalidEquipmentTypeIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelEquipmentTypeValue, message=ExceptionMessages::NotFoundDelEquipmentTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelEquipmentTypeValue, message=ExceptionMessages::DuplicateDelEquipmentTypeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesEquipmentTypeLabEquipmentTypes, message=ExceptionMessages::ReferencesEquipmentTypeLabEquipmentTypes),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delEquipmentTypes",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelEquipmentTypes($equipment_type_id) {
   
@@ -27,14 +70,14 @@ function DelEquipmentTypes($equipment_type_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
     
     try {
 
 //user permisions===============================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab);
+        throw new Exception(ExceptionMessages::NoPermissionToDeleteData, ExceptionCodes::NoPermissionToDeleteData);
            
 //$equipment_type_id============================================================
         $fEquipmentTypeID = CRUDUtils::checkIDParam('equipment_type_id', $params, $equipment_type_id, 'EquipmentTypeID');

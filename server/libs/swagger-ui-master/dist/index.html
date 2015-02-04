@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Swagger UI Documentation for MyLab 2.0</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
+  <link href='css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
+  <link href='css/reset.css' media='print' rel='stylesheet' type='text/css'/>
+  <link href='css/screen.css' media='print' rel='stylesheet' type='text/css'/>
+  <script type="text/javascript" src="lib/shred.bundle.js"></script>
+  <script src='lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.slideto.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.wiggle.min.js' type='text/javascript'></script>
+  <script src='lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+  <script src='lib/handlebars-1.0.0.js' type='text/javascript'></script>
+  <script src='lib/underscore-min.js' type='text/javascript'></script>
+  <script src='lib/backbone-min.js' type='text/javascript'></script>
+  <script src='lib/swagger.js' type='text/javascript'></script>
+  <script src='lib/swagger-client.js' type='text/javascript'></script>
+  <script src='swagger-ui.js' type='text/javascript'></script>
+  <script src='lib/highlight.7.3.pack.js' type='text/javascript'></script>
+
+  <!-- enabling this will enable oauth2 implicit scope support -->
+  <script src='lib/swagger-oauth.js' type='text/javascript'></script>
+  <script type="text/javascript">
+    $(function () {
+      var url = window.location.search.match(/url=([^&]+)/);
+      if (url && url.length > 1) {
+        url = url[1];
+      } else {
+        url = "http://mmsch.teiath.gr/mylab/server/generate-docs/";
+      }
+           
+      window.swaggerUi = new SwaggerUi({
+        url: url,
+        dom_id: "swagger-ui-container",
+        supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+        onComplete: function(swaggerApi, swaggerUi){
+          log("Loaded SwaggerUI");
+          $('pre code').each(function(i, e) {
+            hljs.highlightBlock(e)
+          });
+        },
+        onFailure: function(data) {
+          log("Unable to Load SwaggerUI");
+        },
+        docExpansion: "none",
+        sorter : "alpha"
+      });
+
+
+      function addBasicAuthorization() {
+        var username = $('#input_Username')[0].value;
+        var password = $('#input_Password')[0].value;
+        if ((username && username.trim() != "") && (password && password.trim() != "")) {
+            window.authorizations.add("Basic", new PasswordAuthorization("basic_auth", username, password) );
+        }
+      }
+
+      $('#input_Username').change(function() {
+        addBasicAuthorization();
+      });
+      
+      $('#input_Password').change(function() {
+        addBasicAuthorization();
+      });
+            
+        // if you have an username/password you would like to pre-populate on the page for demonstration purposes...
+        $('#input_Username').val("");
+        $('#input_Password').val("");
+        addBasicAuthorization();
+
+      window.swaggerUi.load();
+  });
+  </script>
+</head>
+
+<body class="swagger-section">
+<div id='header'>
+    
+  <div>
+    <a href="http://mmsch.teiath.gr/mylab/docs/">
+        <img height="43" src="../../../../client/pages/icons/logo@2x.png" alt="ΠΣΔ" style="padding:8px 10px 0px 10px; float:left;" class="">
+        <br><span style="margin-left:10px; font-size:16px; color: #F5F5F5; font-family:Helvetica; float:left;"> Υπηρεσία MyLab - <font color="purple">API DEVELOPMENT DOCUMENTATION</font> </span></br>
+        <br><span style="margin-left:10px; font-size:14px; color: #F5F5F5; font-family:Helvetica; float:left;"> Πανελλήνιο Σχολικό Δίκτυο</span>
+    </a>
+  </div>
+        
+  <div class="swagger-ui-wrap">
+    <form id='api_selector'>
+        <div class='input'><input placeholder="Username" id="input_Username" name="userid" type="text" autocomplete="off"/></div>
+        <div class='input'><input placeholder="Password" id="input_Password" name="pswrd" type="password" autocomplete="off"/></div>
+    </form>
+  </div>
+    
+</div>
+<div id="message-bar" class="swagger-ui-wrap">&nbsp;</div>
+<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+</body>
+</html>

@@ -8,202 +8,130 @@
 
 header("Content-Type: text/html; charset=utf-8");
 
-/** 
- * Λεξικό : Τύποι Κατηγορίας Εξοπλισμού
- * 
- * 
- * 
- * Η συνάρτηση αυτή επιστρέφει όλους τους Τύπους Κατηγορίας Εξοπλισμού σύμφωνα με τις παραμέτρους που έγινε η κλήση
- * <br>Τα αποτελέσματα είναι ταξινομημένα ως προς το όνομα του Τύπου Κατηγορίας Εξοπλισμού κατά αύξουσα φορά.
- * 
- * Η κλήση μπορεί να γίνει μέσω της παρακάτω διεύθυνσης με τη μέθοδο GET :
- * <br> http://mmsch.teiath.gr/mylab/api/equipment_categories
- *
- * Στον πίνακα <a href="#parameters">Parameters summary</a> εμφανίζονται όλοι οι παράμετροι με τους οποίους μπορεί να γίνει η κλήση
- * <br>Όλοι οι παράμετροι είναι προαιρετικοί εκτός από αυτές που έχουν χαρακτηριστεί ως υποχρεωτικοί
- * <br>Οι παράμετροι μπορούν να χρησιμοποιηθούν με οποιαδήποτε σειρά
- * 
- * Στον πίνακα <a href="#returns">Return value summary</a> εμφανίζονται οι μεταβλητές που επιστρέφει η συνάρτηση
- * <br>Όλες οι μεταβλητές επιστρέφονται σε ένα πίνακα σε JSON μορφή
- * <br>Η μεταβλητή data είναι ο πίνακας με το λεξικό
- * 
- * Στον πίνακα <a href="#data">Results</a> εμφανίζονται τα αποτελεσματα της κλήσης της συνάρτησης.
- *
- * Στον πίνακα <a href="#throws">Thrown exceptions summary</a> εμφανίζονται τα Μηνύματα Σφαλμάτων που μπορεί να προκύψουν κατά την κλήση της συνάρτησης
- * <br>Η περιγραφή των σφαλμάτων αυτών είναι διαθέσιμη μέσω του πίνακα Μηνύματα Σφαλμάτων {@see ExceptionMessages} 
- * 
- * Παρακάτω εμφανίζεται μια σειρά από παραδείγματα κλήσης της συνάρτησης με διάφορους τρόπους :
- * <br><a href="#cURL">cURL</a> | <a href="#JavaScript">JavaScript</a> | <a href="#PHP">PHP</a> | <a href="#Ajax">Ajax</a>
- * 
- * 
- * <br>
- * 
- * <a id="cURL"></a>Παράδειγμα κλήσης της συνάρτησης με <b>cURL</b> (console) :
- * <code>
- *    curl -X GET http://mmsch.teiath.gr/mylab/api/equipment_categories \
- *       -H "Content-Type: application/json" \
- *       -H "Accept: application/json" \
- *       -u username:password
- * </code>
- * <br>
- * 
- * 
- * 
- * <a id="JavaScript"></a>Παράδειγμα κλήσης της συνάρτησης με <b>JavaScript</b> :
- * <code>
- * <script>
- *    var http = new XMLHttpRequest();
- *    http.open("GET", "http://mmsch.teiath.gr/mylab/api/equipment_categories");
- *    http.setRequestHeader("Accept", "application/json");
- *    http.setRequestHeader("Content-type", "application/json; charset=utf-8");
- *    http.setRequestHeader("Authorization", "Basic " + btoa('username' + ':' + 'password') );
- *     
- *    http.onreadystatechange = function() 
- *    {
- *        if(http.readyState == 4 && http.status == 200) 
- *        {
- *            var result = JSON.parse(http.responseText);
- *            document.write(result.status + " : " + result.message + " : " + result.data);
- *        }
- *    }
- *    
- *    http.send(params);
- * </script>
- * </code>
- * <br>
- * 
- * 
- * 
- * <a id="PHP"></a>Παράδειγμα κλήσης της συνάρτησης με <b>PHP</b> :
- * <code>
- * <?php
- * header("Content-Type: text/html; charset=utf-8");
- * 
- * $curl = curl_init("http://mmsch.teiath.gr/mylab/api/equipment_categories");
- * 
- * curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
- * curl_setopt($curl, CURLOPT_USERPWD, "username:password");
- * curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
- * curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
- * 
- * $data = curl_exec($curl);
- * $data = json_decode($data);
- * echo "<pre>"; var_dump( $data ); echo "</pre>";
- * ?>
- * </code>
- * <br>
- * 
- * 
- * 
- * <a id="Ajax"></a>Παράδειγμα κλήσης της συνάρτησης με <b>Ajax</b> :
- * <code>
- * <script>
- *    $.ajax({
- *        type: 'GET',
- *        url: 'http://mmsch.teiath.gr/mylab/api/aquisition_sources',
- *        dataType: "json",
- *        beforeSend: function(req) {
- *            req.setRequestHeader('Authorization', btoa('username' + ":" + 'password'));
- *        },
- *        success: function(data){
- *            console.log(data);
- *        }
- *    });
- * </script>
- * </code>
- * <br>
- * 
- * 
- * 
- * <a id="data"></a>Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης :
- * <code> 
- *
- *{
- *
- *   "data": [
- *       {
- *           "equipment_category_id": 2,
- *           "name": "ΔΙΚΤΥΑΚΟΣ ΕΞΟΠΛΙΣΜΟΣ"
- *       },
- *       {
- *           "equipment_category_id": 3,
- *           "name": "ΠΕΡΙΦΕΡΕΙΑΚΕΣ ΣΥΣΚΕΥΕΣ"
- *        },
- *       {
- *            "equipment_category_id": 1,
- *            "name": "ΥΠΟΛΟΓΙΣΤΙΚΟΣ ΕΞΟΠΛΙΣΜΟΣ"
- *        }
- *    ],
- *    "function": "equipment_categories",
- *    "method": "GET",
- *    "total": 3,
- *    "count": 3,
- *    "pagination": {
- *        "page": 1,
- *        "maxPage": 1,
- *        "pagesize": 200
- *    },
- *    "status": 200,
- *    "message": "[GET][equipment_categories]:success"
- *
- *}
- * </code>
- * <br>
- * 
- * @param integer $pagesize Αριθμός Εγγραφών/Σελίδα
- * <br>Ο αριθμός των εγγραφών που θα επιστρέψουν ανα σελίδα (κλήση)
- * <br>Αν η παράμετρος δεν έχει τιμή τότε θα επιστραφούν οι προκαθορισμένες εγγραφές
- * <br>Η τιμή της παραμέτρου μπορεί να είναι : integer
- *    <ul>
- *       <li>integer : Αριθμητική {@see Parameters}</li>
- *    </ul>
- * 
- * @param integer $page Αριθμός Σελίδας
- * <br>Ο αριθμός της σελίδας με τις $pagesize εγγραφές που βρέθηκαν σύμφωμα με τις παραμέτρους
- * <br>Αν η παράμετρος δεν έχει τιμή τότε θα επιστραφεί η πρώτη σελίδα
- * <br>Η τιμή της παραμέτρου μπορεί να είναι : integer
- *    <ul>
- *       <li>integer : Αριθμητική {@see Parameters}</li>
- *    </ul>
- * 
- * 
- * 
- * @return Array<JSON> Επιστρέφει ένα πίνακα σε JSON μορφή με πεδία : 
- * <br>
- * <ul>
- *  <li>string : <b>function</b> : Η συνάρτηση που εκτελείτε από το σύστημα</li>
- *  <li>string : <b>method</b> : Η μέθοδος κλήσης της συνάρτησης</li>
- *  <li>integer : <b>total</b> : Το πλήθος των εγγραφών χωρίς τις παραμέτρους σελιδοποίησης</li>
- *  <li>integer : <b>count</b> : Το πλήθος των εγγραφών της κλήσης σύμφωνα με τις παραμέτρους σελιδοποίησης</li>
- *  <li>array : <b>pagination</b> : Οι παράμετροι σελιδοποίησης των εγγραφών της κλήσης {@see Pagination}
- *    <ul>
- *      <li>integer : <b>page</b> : Ο αριθμός της σελίδας των αποτελεσμάτων</li>
- *      <li>integer : <b>maxPage</b> : Ο μέγιστος αριθμός της σελίδας των αποτελεσμάτων</li>
- *      <li>integer : <b>pagesize</b> : Ο αριθμός των εγγραφών προς επιστροφή</li>
- *    </ul>
- * </li>
- *  <li>integer : <b>status</b> : Ο Κωδικός {@see ExceptionCodes} του αποτελέσματος της κλήσης</li>
- *  <li>string : <b>message</b> : Το Μήνυμα {@see ExceptionMessages} του αποτελέσματος της κλήσης</li>
- *
- *  <li>array : <b>data</b> : Ο Πίνακας με το λεξικό
- *    <ul>
- *      <li>integer : <b>equipment_category_id</b> : Ο Κωδικός της Κατηγορίας Εξοπλισμού</li>
- *      <li>string : <b>name</b> : Το Όνομα της Κατηγορίας Εξοπλισμού</li>
- *    </ul>
- *   </li>
- * </ul>
- * 
- * 
- * 
- * @throws InvalidPageNumber {@see ExceptionMessages::InvalidPageNumber}
- * @throws InvalidPageType {@see ExceptionMessages::InvalidPageType}
- * @throws InvalidPageSizeNumber {@see ExceptionMessages::InvalidPageSizeNumber}
- * @throws InvalidPageSizeType {@see ExceptionMessages::InvalidPageSizeType}
- * @throws InvalidMaxPageNumber {@see ExceptionMessages::InvalidMaxPageNumber}
- * 
- * 
- * 
- */
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/equipment_categories",
+* description="Λεξικό : Κατηγορίες Εξοπλισμού",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/equipment_categories",
+*   @SWG\Operation(
+*                   method="GET",
+*                   summary="Αναζήτηση σε Κατηγορίες Εξοπλισμού",
+*                   notes="Επιστρέφει τις Κατηγορίες Εξοπλισμού",
+*                   type="getEquipmentCategories",
+*                   nickname="GetEquipmentCategories",
+*   @SWG\Parameter(
+*                   name="equipment_category_id [notNull]",
+*                   description="ID Κατηγορίας Εξοπλισμού",
+*                   required=false,
+*                   type="integer|array[integer]",
+*                   paramType="query"
+*   ),
+*   @SWG\Parameter(
+*                   name="name",
+*                   description="Όνομα Κατηγορίας Εξοπλισμού (Συνδυάζεται με την παράμετρο searchtype)",
+*                   required=false,
+*                   type="string|array[string]",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="page",
+*                   description="Αριθμός Σελίδας",
+*                   required=false,
+*                   type="integer",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="pagesize",
+*                   description="Αριθμός Εγγραφών/Σελίδα",
+*                   required=false,
+*                   type="integer",
+*                   paramType="query"
+*                   ),
+*   @SWG\Parameter(
+*                   name="searchtype",
+*                   description="Τύπος αναζήτησης",
+*                   required=false,
+*                   type="string",
+*                   paramType="query",
+*                   enum = "['EXACT','CONTAIN','CONTAINALL','CONTAINANY','STARTWITH','ENDWITH']"
+*                   ),
+*   @SWG\Parameter(
+*                   name="ordertype",
+*                   description="Τύπος Ταξινόμησης",
+*                   required=false,
+*                   type="string",
+*                   paramType="query",
+*                   enum = "['ASC','DESC']"
+*                   ),
+*   @SWG\Parameter(
+*                   name="orderby",
+*                   description="Πεδίο Ταξινόμησης",
+*                   required=false,
+*                   type="string",
+*                   paramType="query",
+*                   enum = "['equipment_category_id','name']"
+*                   ),
+*   @SWG\Parameter( name="debug", description="Επιστροφή SQL/DQL Queries", required=false, type="boolean", paramType="query", enum = "['true','false']" ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryIDType, message=ExceptionMessages::InvalidEquipmentCategoryIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryNameType, message=ExceptionMessages::InvalidEquipmentCategoryNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageValue, message=ExceptionMessages::MissingPageValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageArray, message=ExceptionMessages::InvalidPageArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageType, message=ExceptionMessages::InvalidPageType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageNumber, message=ExceptionMessages::InvalidPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeValue, message=ExceptionMessages::MissingPageSizeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeArray, message=ExceptionMessages::InvalidPageSizeArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeType, message=ExceptionMessages::InvalidPageSizeType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingPageSizeNegativeValue, message=ExceptionMessages::MissingPageSizeNegativeValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidPageSizeNumber, message=ExceptionMessages::InvalidPageSizeNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidSearchType, message=ExceptionMessages::InvalidSearchType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderType, message=ExceptionMessages::InvalidOrderType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidOrderBy, message=ExceptionMessages::InvalidOrderBy),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMaxPageNumber, message=ExceptionMessages::InvalidMaxPageNumber),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="getEquipmentCategories",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="total",type="integer",description="Το πλήθος των εγγραφών χωρίς τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="count",type="integer",description="Το πλήθος των εγγραφών της κλήσης σύμφωνα με τις παραμέτρους σελιδοποίησης"),
+* @SWG\Property(name="pagination",type="array",description="Οι παράμετροι σελιδοποίησης των εγγραφών της κλήσης",items="$ref:Pagination"),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="data",type="array",description="Ο Πίνακας με το λεξικό",items="$ref:EquipmentCategory"),
+* @SWG\Property(name="DQL",type="string",description="To DQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)"),
+* @SWG\Property(name="SQL",type="string",description="To SQL query που εκτελείται (επιστρεφεται στην περίπτωση debug=true)")
+* )
+* 
+* @SWG\Model(
+* id="Pagination",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πληροφορίες σελιδοποίησης : ",
+* @SWG\Property(name="page",type="string",description="Ο αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="maxPage",type="string",description="Ο μέγιστος αριθμός της σελίδας των αποτελεσμάτων"),
+* @SWG\Property(name="pagesize",type="integer",description="Ο αριθμός των εγγραφών προς επιστροφή")
+* )
+* 
+* @SWG\Model(
+* id="EquipmentCategory",
+* description="Επιστρέφει ένα πίνακα σε JSON μορφή με πεδία του πίνακα equipment_categories : ",
+* @SWG\Property(name="equipment_category_id",type="integer",description="Ο Κωδικός ID της Κατηγορίας Εξοπλισμού"),
+* @SWG\Property(name="name",type="string",description="Το Όνομα της Κατηγορίας Εξοπλισμού")
+* )
+* 
+*/
 
 function GetEquipmentCategories( $equipment_category_id, $name,
                                  $pagesize, $page, $searchtype, $ordertype, $orderby ) {
@@ -252,7 +180,7 @@ function GetEquipmentCategories( $equipment_category_id, $name,
 
 //$name=========================================================================
         if (Validator::Exists('name', $params)){
-            CRUDUtils::setSearchFilter($qb, $name, "eqc", "name", $searchtype, ExceptionMessages::InvalidAquisitionSourceNameType, ExceptionCodes::InvalidAquisitionSourceNameType);    
+            CRUDUtils::setSearchFilter($qb, $name, "eqc", "name", $searchtype, ExceptionMessages::InvalidEquipmentCategoryNameType, ExceptionCodes::InvalidEquipmentCategoryNameType);    
         }  
         
 //execution=====================================================================

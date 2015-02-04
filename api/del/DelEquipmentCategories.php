@@ -10,13 +10,56 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $equipment_category_id
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/equipment_categories",
+* description="Λεξικό : Κατηγορίες Εξοπλισμού",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/equipment_categories",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Κατηγορίας Εξοπλισμού",
+*                   notes="Διαγραφή Κατηγορίας Εξοπλισμού",
+*                   type="delEquipmentCategories",
+*                   nickname="DelEquipmentCategories",
+*   @SWG\Parameter(
+*                   name="equipment_category_id",
+*                   description="ID Κατηγορίας Εξοπλισμού",
+*                   required=true,
+*                   type="integer",
+*                   paramType="query"
+*   ),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteData, message=ExceptionMessages::NoPermissionToDeleteData),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentCategoryIDParam, message=ExceptionMessages::MissingEquipmentCategoryIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingEquipmentCategoryIDValue, message=ExceptionMessages::MissingEquipmentCategoryIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryIDType, message=ExceptionMessages::InvalidEquipmentCategoryIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidEquipmentCategoryIDArray, message=ExceptionMessages::InvalidEquipmentCategoryIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelEquipmentCategoryValue, message=ExceptionMessages::NotFoundDelEquipmentCategoryValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelEquipmentCategoryValue, message=ExceptionMessages::DuplicateDelEquipmentCategoryValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ReferencesEquipmentCategoryEquipmentTypes, message=ExceptionMessages::ReferencesEquipmentCategoryEquipmentTypes),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delEquipmentCategories",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelEquipmentCategories($equipment_category_id) {
    
@@ -27,14 +70,14 @@ function DelEquipmentCategories($equipment_category_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
     
     try {
  
 //user permisions===============================================================
     if (!($app->request->user['uid'][0] == $Options["UserAllCRUDPermissions"]))
-        throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab);
+        throw new Exception(ExceptionMessages::NoPermissionToDeleteData, ExceptionCodes::NoPermissionToDeleteData);
           
 //$equipment_category_id========================================================
         $fEquipmentCategoryID = CRUDUtils::checkIDParam('equipment_category_id', $params, $equipment_category_id, 'EquipmentCategoryID');

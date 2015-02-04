@@ -7,7 +7,7 @@
  * @package Exceptions
  */
 
-header("Content-Type: text/html; charset=utf-8");
+//header("Content-Type: text/html; charset=utf-8");
 
 /** 
  * Μηνύματα Σφαλμάτων
@@ -20,7 +20,7 @@ class ExceptionMessages
 {   
     //general messages=========================================================================================================================== 
     
-        const NoErrors = 'success';
+        const NoErrors = 'Το Αpi Request ολοκληρώθηκε με επιτυχία.';
         const UserNoRoleAccess = 'Ο χρήστης δεν έχει κανένα ρόλο, και δεν επιτρέπεται η πρόσβαση.';
         const UserAccesDenied = 'Πολλαπλά ονόματα χρήστη. Ο χρήστης δεν έχει πρόσβαση';
         const UserAccesFrontDenied = 'Δεν στάλθηκαν δεδομένα του χρήστη.Ο χρήστης δεν έχει πρόσβαση';
@@ -496,6 +496,7 @@ class ExceptionMessages
     const InvalidSameStateValue = 'Η τελευταία Κατάσταση Μεταβασης του Εργαστηρίου έχει την ίδια τιμή και δεν δυνατή η Μετάβαση του σε άλλα Κατάσταση.';
     const NotAllowedLabTransitionDate = 'Δεν είναι δυνατή η εισαγωγή ημερομηνίας προγενέστερη από την ημερομηνία εισαγωγής της προηγούμενης μεταβασης';
     const SeriousProblemLabTransitionState = 'Ενημερωστε τον διαχειριστή!! Η Κατάσταση Μεταβασης έιναι διαφορετικη στους πίνακες Εργαστηριων Καταστάσεων Μεταβασης';
+    const DuplicateLabTransitionUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabTransition';
 
     //extra
     const InvalidLabTransitionValidType = 'Η Ημερομηνία Αλλαγής της Κατάστασης του Εργαστηρίου πρέπει να έιναι μεταξύ των τιμών "1975 - current_date"';
@@ -521,7 +522,8 @@ class ExceptionMessages
     const DuplicatedLabRelationValue = 'Η Συσχέτιση του Εργαστηρίου που εξυπηρετειται υπηρεσιακά από Σχολική Μονάδα υπάρχει ήδη';
     const UsedLabRelationByLabs = 'Η Συσχέτιση του Εργαστηρίου χρησιμοποιείται από Σχολικά Εργαστήρια';
     const UsedLabRelationServerOnline = 'Είναι αδύνατη η εισαγωγή, διότι το εργαστήριο εξυπηρετείται διαδικτυακά από σχολική μονάδα.';
-   
+    const DuplicateLabRelationUniqueValue = 'Ενημερώστε τον διαχειριστή! Βρέθηκε διπλοεγγραφή primary key LabRelation';
+    
     //extra
     const ErrorInputCircuitIdParam  = 'H εισαγωγή κυκλώματος δεν επιτρέπεται στην περίπτωση που το εχει γίνει επιλογή Κωδικού Συσχετισης 2=(ΕΞΥΠΗΡΕΤΕΙ ΥΠΗΡΕΣΙΑΚΑ)';
 
@@ -576,6 +578,7 @@ class ExceptionMessages
     
     const MissingEduAdminCodeParam = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης είναι υποχρεωτικό πεδίο';
     const MissingEduAdminCodeValue = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης πρέπει να έχει τιμή';
+    const InvalidEduAdminCodeValue = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης δεν υπάρχει στο λεξικό';
     const InvalidEduAdminCodeType = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης πρέπει να είναι αλφαριθμητικό';
     const InvalidEduAdminCodeArray = 'Ο Κωδικός της Διεύθυνσης Εκπαίδευσης δεν μπορεί να έχει πολλαπλές τιμές';
      
@@ -1094,6 +1097,11 @@ class ExceptionMessages
     const NoPermissionToDeleteLab = 'Ο χρήστης δεν έχει δικαίωμα διαγραφής στο συγκεκριμένο εργαστήριο';    
     const NoPermissionToGetLab = 'Ο χρήστης δεν έχει δικαίωμα αναζήτησης στο συγκεκριμένο εργαστήριο';
    
+    const NoPermissionToPostData = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής δεδομένων στο λεξικό';
+    const NoPermissionToPutData = 'Ο χρήστης δεν έχει δικαίωμα ενημερωσης δεδομένων στο λεξικό';
+    const NoPermissionToDeleteData = 'Ο χρήστης δεν έχει δικαίωμα διαγραφής δεδομένων στο λεξικό';    
+    const NoPermissionToGetData = 'Ο χρήστης δεν έχει δικαίωμα αναζήτησης δεδομένων στο λεξικό';
+    
     //reports
     const ErrorEduAdminReportKeplhnet = 'Κάθε ΚΕΠΛΗΝΕΤ αντιστοιχίζεται υποχρεωτικά με μια Διεύθυνση Δ.Ε. και μια Διεύθυνση Δ.Ε. ίδιας πόλης.'; 
 }

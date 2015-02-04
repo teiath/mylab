@@ -7,7 +7,7 @@
  * @package Exceptions
  */
 
-header("Content-Type: text/html; charset=utf-8");
+//header("Content-Type: text/html; charset=utf-8");
 
 /** 
  * Κωδικοί Σφαλμάτων
@@ -609,7 +609,7 @@ class ExceptionCodes
     const InvalidLabCreatedByType = 500;
     /** {@see ExceptionMessages::InvalidLabLastUpdatedType} */
     const InvalidLabLastUpdatedType = 500;
-    /** {@see ExceptionMessages::InvalidLabUpdatedByType} */
+    /** {@see ExceptionMessages::InvalidLabLastUpdatedType} */
     const InvalidLabUpdatedByType = 500;
     /** {@see ExceptionMessages::AlreadyLabSubmittedActiveValue} */  
     const AlreadyLabSubmittedActiveValue = 500;
@@ -802,7 +802,8 @@ class ExceptionCodes
     const NotAllowedLabTransitionDate = 500;
     /** {@see ExceptionMessages::SeriousProblemLabTransitionState} */ 
     const SeriousProblemLabTransitionState = 500;
-
+    /** {@see ExceptionMessages::DuplicateLabTransitionUniqueValue} */ 
+   const DuplicateLabTransitionUniqueValue = 500;
 
     //extra
     /** {@see ExceptionMessages::InvalidLabTransitionValidType} */
@@ -844,6 +845,9 @@ class ExceptionCodes
     const UsedLabRelationByLabs = 500;
     /** {@see ExceptionMessages::UsedLabRelationServerOnline} */   
     const UsedLabRelationServerOnline = 500;
+     /** {@see ExceptionMessages::UsedLabRelationServerOnline} */      
+    const DuplicateLabRelationUniqueValue = 500;
+
     
     //extra
     /** {@see ExceptionMessages::ErrorInputCircuitIdParam} */       
@@ -931,6 +935,8 @@ class ExceptionCodes
     /** {@see ExceptionMessages::MissingEduAdminCodeValue} */   
     const MissingEduAdminCodeValue = 500;
     /** {@see ExceptionMessages::InvalidEduAdminCodeType} */   
+    const InvalidEduAdminCodeValue = 500;
+    /** {@see ExceptionMessages::InvalidEduAdminCodeValue} */ 
     const InvalidEduAdminCodeType = 500;
     /** {@see ExceptionMessages::InvalidEduAdminCodeArray} */   
     const InvalidEduAdminCodeArray = 500;
@@ -1710,7 +1716,6 @@ class ExceptionCodes
     
     /** {@see ExceptionMessages::MissingPageValue} */  
     const MissingPageValue = 500;
-    /** {@see ExceptionMessages::InvalidPageNumber} */  
     const InvalidPageNumber = 500;
     /** {@see ExceptionMess/**ages::InvalidPageType} */  
     const InvalidPageType = 500;
@@ -1766,6 +1771,11 @@ class ExceptionCodes
     const NoPermissionToDeleteLab = 614;
     /** {@see ExceptionMessages::NoPermissionToGet} */   
     const NoPermissionToGetLab = 615;
+    
+    const NoPermissionToPostData = 616;
+    const NoPermissionToPutData = 617;
+    const NoPermissionToDeleteData = 618;    
+    const NoPermissionToGetData = 619;
    
      //reports  
     /** {@see ExceptionMessages::ErrorEduAdminReportKeplhnet} */ 

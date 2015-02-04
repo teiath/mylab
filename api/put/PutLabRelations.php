@@ -10,14 +10,63 @@
 header("Content-Type: text/html; charset=utf-8");
 
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $lab_relation_id
- * @param type $circuit_id
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_relations",
+* description="Συσχετίσεις Διατάξεων - Μονάδων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_relations",
+*   @SWG\Operation(
+*                   method="PUT",
+*                   summary="Ενημέρωση Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας",
+*                   notes="Ενημέρωση Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας",
+*                   type="putLabRelations",
+*                   nickname="PutLabRelations",
+* 
+*   @SWG\Parameter( name="lab_relation_id", description="ID Συσχέτισης Διάταξης Η/Υ - Σχολικής Μονάδας [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="circuit_id", description="ID Τηλεπικοινωνιακού Κυκλώματος", required=false, type="integer", paramType="query" ),
+* 
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPutLab, message=ExceptionMessages::NoPermissionToPutLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabRelationIDParam, message=ExceptionMessages::MissingLabRelationIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabRelationIDValue, message=ExceptionMessages::MissingLabRelationIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabRelationIDType, message=ExceptionMessages::InvalidLabRelationIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabRelationIDArray, message=ExceptionMessages::InvalidLabRelationIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabRelationValue, message=ExceptionMessages::InvalidLabRelationValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabRelationUniqueValue, message=ExceptionMessages::DuplicateLabRelationUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingCircuitParam, message=ExceptionMessages::MissingCircuitParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingCircuitValue, message=ExceptionMessages::MissingCircuitValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidCircuitValue, message=ExceptionMessages::InvalidCircuitValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidCircuitType, message=ExceptionMessages::InvalidCircuitType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateCircuitUniqueValue, message=ExceptionMessages::DuplicateCircuitUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidCircuitIDType, message=ExceptionMessages::InvalidCircuitIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingCircuitIDValue, message=ExceptionMessages::MissingCircuitIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::UsedLabRelationServerOnline, message=ExceptionMessages::UsedLabRelationServerOnline),
+*   @SWG\ResponseMessage(code=ExceptionCodes::ErrorInputCircuitIdParam, message=ExceptionMessages::ErrorInputCircuitIdParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabUniqueValue, message=ExceptionMessages::DuplicateLabUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="putLabRelations",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="lab_relation_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε ενημέρωση δεδομένων.")
+* )
+* 
+*/
 
 function PutLabRelations($lab_relation_id, $circuit_id) {
 
@@ -28,8 +77,8 @@ function PutLabRelations($lab_relation_id, $circuit_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
 
     try {
  

@@ -8,18 +8,81 @@
  */
  
 header("Content-Type: text/html; charset=utf-8");
+
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $lab_id
- * @param type $worker_id
- * @param type $worker_position
- * @param type $worker_status
- * @param type $worker_start_service
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_workers",
+* description="Υπεύθυνοι Διατάξεων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_workers",
+*   @SWG\Operation(
+*                   method="POST",
+*                   summary="Εισαγωγή Υπεύθυνου Διάταξης Η/Υ",
+*                   notes="Εισαγωγή Υπεύθυνου Διάταξης Η/Υ",
+*                   type="postLabWorkers",
+*                   nickname="PostLabWorkers",
+* 
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="worker_id", description="ID Εργαζόμενου από LDAP ΠΣΔ [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="worker_position", description="Όνομα ή ID Θέσης Εργασίας Εργαζόμενου [notNull]", required=true, type="mixed(string|integer)", paramType="query" ),
+*   @SWG\Parameter( name="worker_status", description="Κατάσταση Υπεύθυνου Διατάξης Η/Υ [notNull](1=Ενεργός,3=Μη Ενεργός)", required=true, type="integer", paramType="query", enum="['1','3']" ),
+*   @SWG\Parameter( name="worker_start_service", description="Ημερομηνία Αλλαγής Μετάβασης Λειτουργικής Καταστάσης Διατάξης [notNull](μορφή ημερομηνίας dd/mm/yyyy)", required=true, type="string", format="date", paramType="query" ),
+*   
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabParam, message=ExceptionMessages::MissingLabParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabValue, message=ExceptionMessages::MissingLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabValue, message=ExceptionMessages::InvalidLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabType, message=ExceptionMessages::InvalidLabType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabUniqueValue, message=ExceptionMessages::DuplicateLabUniqueValue), 
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingMylabWorkerParam, message=ExceptionMessages::MissingMylabWorkerParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingMylabWorkerValue, message=ExceptionMessages::MissingMylabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMylabWorkerArray, message=ExceptionMessages::InvalidMylabWorkerArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMylabWorkerType, message=ExceptionMessages::InvalidMylabWorkerType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidMylabWorkerValue, message=ExceptionMessages::InvalidMylabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateMylabWorkeUniqueValue, message=ExceptionMessages::DuplicateMylabWorkeUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingWorkerPositionParam, message=ExceptionMessages::MissingWorkerPositionParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerStatusValue, message=ExceptionMessages::MissingLabWorkerStatusValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStatusArray, message=ExceptionMessages::InvalidLabWorkerStatusArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStatusType, message=ExceptionMessages::InvalidLabWorkerStatusType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateWorkerPositionUniqueValue, message=ExceptionMessages::DuplicateWorkerPositionUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerStatusParam, message=ExceptionMessages::MissingLabWorkerStatusParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerStatusValue, message=ExceptionMessages::MissingLabWorkerStatusValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStatusArray, message=ExceptionMessages::InvalidLabWorkerStatusArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStatusType, message=ExceptionMessages::InvalidLabWorkerStatusType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerStartServiceParam, message=ExceptionMessages::MissingLabWorkerStartServiceParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabWorkerStartServiceValue, message=ExceptionMessages::MissingLabWorkerStartServiceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStartServiceArray, message=ExceptionMessages::InvalidLabWorkerStartServiceArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStartServiceValidType, message=ExceptionMessages::InvalidLabWorkerStartServiceValidType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerStartServiceType, message=ExceptionMessages::InvalidLabWorkerStartServiceType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedLabWorkerValue, message=ExceptionMessages::DuplicatedLabWorkerValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotAllowedLabWorkerStartService, message=ExceptionMessages::NotAllowedLabWorkerStartService),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerNewWorkerStatus, message=ExceptionMessages::InvalidLabWorkerNewWorkerStatus),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabWorkerSetStatus, message=ExceptionMessages::InvalidLabWorkerSetStatus),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="postLabWorkers",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="lab_worker_id",type="integer",description="Ο κωδικός ID της εγγραφής στην οποία πραγματοποιήθηκε εισαγωγή δεδομένων.")
+* )
+* 
+*/
 
 function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $worker_start_service) { 
     
@@ -31,8 +94,8 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"]  = $params;
     
     try
     { 
@@ -64,7 +127,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $
         if ( !isset($retrievedObject) )
             throw new Exception(ExceptionMessages::InvalidMylabWorkerValue." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerValue);
         else if (count($retrievedObject)>1)
-            throw new Exception(ExceptionMessages::InvalidMylabWorkerType." : ".$worker_id, ExceptionCodes::InvalidMylabWorkerType);
+            throw new Exception(ExceptionMessages::DuplicateMylabWorkeUniqueValue." : ".$worker_id, ExceptionCodes::DuplicateMylabWorkeUniqueValue);
         else
         {
             $method = 'setWorker';
@@ -171,7 +234,7 @@ function PostLabWorkers($lab_id, $worker_id, $worker_position, $worker_status, $
         $entityManager->persist($LabWorker);
         $entityManager->flush($LabWorker);
 
-        $result["worker_id"] = $LabWorker->getLabWorkerId();  
+        $result["lab_worker_id"] = $LabWorker->getLabWorkerId();  
            
 //result_messages===============================================================      
         $result["status"] = ExceptionCodes::NoErrors;

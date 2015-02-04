@@ -8,16 +8,59 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
-/**
- * 
- * @global type $db
- * @global type $app
- * @param type $lab_id
- * @param type $lab_relation_id
- * @return string
- * @throws Exception
- */
 
+/**
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/lab_transitions",
+* description="Λειτουργικές Καταστάσεις Διατάξεων",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/lab_transitions",
+*   @SWG\Operation(
+*                   method="DELETE",
+*                   summary="Διαγραφή Λειτουργικής Κατάστασης Διάταξης Η/Υ",
+*                   notes="Διαγραφή Λειτουργικής Κατάστασης Διάταξης Η/Υ",
+*                   type="delLabTransitions",
+*                   nickname="DelLabTransitions",
+*
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ), 
+*   @SWG\Parameter( name="lab_transition_id", description="ID Λειτουργικής Κατάστασης Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ),
+*
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToDeleteLab, message=ExceptionMessages::NoPermissionToDeleteLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDParam, message=ExceptionMessages::MissingLabIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDValue, message=ExceptionMessages::MissingLabIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDArray, message=ExceptionMessages::InvalidLabIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionIDParam, message=ExceptionMessages::MissingLabTransitionIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionIDValue, message=ExceptionMessages::MissingLabTransitionIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionIDType, message=ExceptionMessages::InvalidLabTransitionIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionIDArray, message=ExceptionMessages::InvalidLabTransitionIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotFoundDelLabTransitionValue, message=ExceptionMessages::NotFoundDelLabTransitionValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateDelLabTransitionValue, message=ExceptionMessages::DuplicateDelLabTransitionValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoDemoDelLabValue, message=ExceptionMessages::NoDemoDelLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="delLabTransitions",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης")
+* )
+* 
+*/
 
 function DelLabTransitions($lab_id, $lab_transition_id) {
 
@@ -28,8 +71,8 @@ function DelLabTransitions($lab_id, $lab_transition_id) {
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
     
     try
     {

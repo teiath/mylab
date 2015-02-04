@@ -8,18 +8,95 @@
  */
 
 header("Content-Type: text/html; charset=utf-8");
+
 /**
- * 
- * @global type $app
- * @global type $entityManager
- * @param type $lab_id
- * @param type $submitted
- * @param type $transition_date
- * @param type $transition_justification
- * @param type $transition_source
- * @return string
- * @throws Exception
- */
+* 
+* 
+* 
+* @SWG\Resource(
+* apiVersion=API_VERSION,
+* swaggerVersion=SWAGGER_VERSION,
+* basePath=BASE_PATH,
+* resourcePath="/initial_labs",
+* description="Επικύρωση Διαταξης Η/Υ",
+* produces="['application/json']",
+* @SWG\Api(
+*   path="/initial_labs",
+*   @SWG\Operation(
+*                   method="PUT",
+*                   summary="Υποβολή Διάταξης Η/Υ",
+*                   notes="Υποβολή Διάταξης Η/Υ. Χρησιμοποιείται για να επικυρώσει ο αρμόδιος χρήστης ότι η Διάταξη Η/Υ που υποβάλλει δεν είναι δοκιμαστικό αλλά περιλαμβάνει αληθινά δεδομένα.",
+*                   type="putInitialLabs",
+*                   nickname="PutInitialLabs",
+* 
+*   @SWG\Parameter( name="lab_id", description="ID Διάταξης Η/Υ [notNull]", required=true, type="integer", paramType="query" ),
+*   @SWG\Parameter( name="submitted", description="Υποβεβλημένη Διάταξη Η/Υ [notNull](true=υποβεβλημένη, false=μη υποβεβλημένη)", required=true, type="boolean", paramType="query" ),
+*   @SWG\Parameter( name="transition_date", description="Ημερομηνία Μετάβασης Λειτουργικής Καταστάσης Διατάξης [notNull](μορφή ημερομηνίας dd/mm/yyyy)", required=true, type="string|array[string]", format="date", paramType="query" ),
+*   @SWG\Parameter( name="transition_justification", description="Αιτιολογία Αλλαγής Μετάβασης Λειτουργικής Καταστάσης Διατάξης [notNull]", required=true, type="mixed(string|integer)", paramType="query" ),
+*   @SWG\Parameter( name="transition_source", description="Πηγή Αλλαγής Μετάβασης Λειτουργικής Καταστάσης Διατάξης [notNull]", required=true, type="string", paramType="query", enum="['mylab','mmsch']" ),
+*
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoPermissionToPostLab, message=ExceptionMessages::NoPermissionToPostLab),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDParam, message=ExceptionMessages::MissingLabIDParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabIDValue, message=ExceptionMessages::MissingLabIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDType, message=ExceptionMessages::InvalidLabIDType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabIDArray, message=ExceptionMessages::InvalidLabIDArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabValue, message=ExceptionMessages::InvalidLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabUniqueValue, message=ExceptionMessages::DuplicateLabUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::AlreadyLabSubmittedActiveValue, message=ExceptionMessages::AlreadyLabSubmittedActiveValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingStateParam, message=ExceptionMessages::MissingStateParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingStateValue, message=ExceptionMessages::MissingStateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateValue, message=ExceptionMessages::InvalidStateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidStateType, message=ExceptionMessages::InvalidStateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateStateUniqueValue, message=ExceptionMessages::DuplicateStateUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabSubmittedParam, message=ExceptionMessages::MissingLabSubmittedParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabSubmittedValue, message=ExceptionMessages::MissingLabSubmittedValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSubmittedArray, message=ExceptionMessages::InvalidLabSubmittedArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabSubmittedType, message=ExceptionMessages::InvalidLabSubmittedType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionDateParam, message=ExceptionMessages::MissingLabTransitionDateParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionDateValue, message=ExceptionMessages::MissingLabTransitionDateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionDateArray, message=ExceptionMessages::InvalidLabTransitionDateArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionValidType, message=ExceptionMessages::InvalidLabTransitionValidType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionDateType, message=ExceptionMessages::InvalidLabTransitionDateType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionJustificationParam, message=ExceptionMessages::MissingLabTransitionJustificationParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionDateValue, message=ExceptionMessages::MissingLabTransitionDateValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionJustificationType, message=ExceptionMessages::InvalidLabTransitionJustificationType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionSourceParam, message=ExceptionMessages::MissingLabTransitionSourceParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTransitionSourceValue, message=ExceptionMessages::MissingLabTransitionSourceValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionSourceArray, message=ExceptionMessages::InvalidLabTransitionSourceArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabTransitionSourceType, message=ExceptionMessages::InvalidLabTransitionSourceType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::AlreadyLabSubmittedInitialValue, message=ExceptionMessages::AlreadyLabSubmittedInitialValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingSchoolUnitIDValue, message=ExceptionMessages::MissingSchoolUnitIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabTypeIDValue, message=ExceptionMessages::MissingLabTypeIDValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabNameValue, message=ExceptionMessages::MissingLabNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabNameArray, message=ExceptionMessages::InvalidLabNameArray),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabNameType, message=ExceptionMessages::InvalidLabNameType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicatedLabNameValue, message=ExceptionMessages::DuplicatedLabNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NotAllowedLabNameValue, message=ExceptionMessages::NotAllowedLabNameValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabParam, message=ExceptionMessages::MissingLabParam),
+*   @SWG\ResponseMessage(code=ExceptionCodes::MissingLabValue, message=ExceptionMessages::MissingLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabValue, message=ExceptionMessages::InvalidLabValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::InvalidLabType, message=ExceptionMessages::InvalidLabType),
+*   @SWG\ResponseMessage(code=ExceptionCodes::DuplicateLabUniqueValue, message=ExceptionMessages::DuplicateLabUniqueValue),
+*   @SWG\ResponseMessage(code=ExceptionCodes::NoErrors, message=ExceptionMessages::NoErrors)
+*  )
+* )
+* )
+* 
+* @SWG\Model(
+* id="putInitialLabs",
+* description="Παρακάτω εμφανίζεται το λεξικό σε μορφή JSON και πληροφορίες για την κλήση της συνάρτησης ",
+* @SWG\Property(name="controller",type="string",description="Ο controller που χρησιμοποιείται"),
+* @SWG\Property(name="function",type="string",description="Η συνάρτηση που υλοποιείται από το σύστημα"),
+* @SWG\Property(name="method",type="string",description="Η μέθοδος κλήσης της συνάρτησης"),
+* @SWG\Property(name="parameters",type="array",description="Οι παράμετροι που δίνει ο χρήστης" ),
+* @SWG\Property(name="status",type="string",description="Ο Κωδικός του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="message",type="string",description="Το Μήνυμα του αποτελέσματος της κλήσης"),
+* @SWG\Property(name="lab_id",type="integer",description="Ο κωδικός ID της Διάταξης Η/Υ προς υποβολή."),
+* @SWG\Property(name="lab_name",type="integer",description="Το Όνομα της Διάταξης Η/Υ προς υποβολή."),
+* @SWG\Property(name="lab_transition_id",type="integer",description="Το ID Λειτουργικής Κατάστασης Διάταξης Η/Υ που έχει δημιουργηθεί στον πίνακα lab_transitions.")
+* )
+* 
+*/
 
 function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justification, $transition_source ) {
     
@@ -31,8 +108,8 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
     $result["controller"] = __FUNCTION__;
     $result["function"] = substr($app->request()->getPathInfo(),1);
     $result["method"] = $app->request()->getMethod();
-    $result["parameters"] = json_decode($app->request()->getBody());
     $params = loadParameters();
+    $result["parameters"] = $params;
        
     try {
         
