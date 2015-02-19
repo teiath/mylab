@@ -1758,8 +1758,6 @@ class ExceptionCodes
     const DuplicateFullSchoolUnitDnsName = 609;
     /** {@see ExceptionMessages::MissingLdapLattribute} */  
     const MissingLdapLAttribute = 610;
-    /** {@see ExceptionMessages::MissingLdapEmployeeNumberAttribute} */   
-    const MissingLdapEmployeeNumberAttribute = 611;
     /** {@see ExceptionMessages::MissingGsnRegistryCodeAttribute} */ 
     const MissingGsnRegistryCodeAttribute = 617;
     
@@ -1776,7 +1774,24 @@ class ExceptionCodes
     const NoPermissionToPutData = 617;
     const NoPermissionToDeleteData = 618;    
     const NoPermissionToGetData = 619;
-   
+
+    //new authentication roles
+    const UserIsMemberOfDuplicate = 620;
+    const UserMultiplePrincipal = 621;
+    const UserMultipleItSectorResponsible = 625;
+    const DnNotFound = 622;
+    const GsnRegistryCodeNotFound = 623;
+    const GsnRegistryCodeMultiple = 624;
+    const UnitNameNotFound = 626;
+    const UnitNameMultiple = 627;
+    
+    const UserRoleHasNoPermissions = 628;
+    const MissingEduAdminLAttribute = 629;
+    const MissingLdapEmployeeNumberAttribute = 611;
+    const MissingMmIdAttribute = 630;
+    const MissingMmIdFromMylabDb = 631;
+    const InconsistencyLdapMylabMMIds = 632;
+    
      //reports  
     /** {@see ExceptionMessages::ErrorEduAdminReportKeplhnet} */ 
     const ErrorEduAdminReportKeplhnet = 500;

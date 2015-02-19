@@ -63,6 +63,8 @@ require_once('classes/Reports.php');
 require_once('classes/UserRoles.php');
 require_once('classes/CRUDUtils.php');
 require_once('classes/SYNCUtils.php');
+require_once('classes/CheckUserRole.php');
+require_once('classes/CheckUserPermissions.php');
 
 //-----search functions
 require_once('../api/get/SearchSchoolUnits.php');
