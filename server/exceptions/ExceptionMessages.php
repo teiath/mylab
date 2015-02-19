@@ -319,7 +319,9 @@ class ExceptionMessages
     
     const MultipleLdapWorkerUidValue = 'Ενημερώστε τον διαχειριστή! Το UID του Εργαζομένου βρέθηκε περισσότερες από μια φορές!!';
     const NotAcceptedLdapWorkerPosition = 'Ο χρήστης δεν έχει την ιδιότητα υπεύθυνος εργαστηρίου στο ldap title ';
-    
+    const WorkerNotLabResponsibleRole = 'Ο χρήστης δεν έχει τον ρόλο υπεύθυνος εργαστηρίου';
+    const WorkerNotUnitDeclaration = 'Ο χρήστης δεν έχει δηλώσει το σχολείο ως επιπλέον μονάδα υπηρεσίας και δεν έχει ρόλο Υπευθυνος Διάταξης στην ίδια μονάδα';
+        
 //Labs
         
     const MissingLabIDParam = 'Ο Κωδικός του Εργαστηρίου είναι υποχρεωτικό πεδίο';

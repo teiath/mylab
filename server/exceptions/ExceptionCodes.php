@@ -496,6 +496,8 @@ class ExceptionCodes
     
     const MultipleLdapWorkerUidValue = 500;
     const NotAcceptedLdapWorkerPosition = 500;
+    const WorkerNotLabResponsibleRole = 500;
+    const WorkerNotUnitDeclaration = 500;
     
 //Labs
         
