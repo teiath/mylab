@@ -83,7 +83,8 @@ function DelLabEquipmentTypes($lab_id,$equipment_type_id) {
         $fEquipmentTypeID = CRUDUtils::checkIDParam('equipment_type_id', $params, $equipment_type_id, 'LabEquipmentTypeID');
              
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($fLabID, $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
          };  

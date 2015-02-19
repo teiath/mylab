@@ -125,7 +125,8 @@ function PostLabRelations($lab_id, $school_unit_id, $relation_type, $circuit_id)
             }
      
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($LabRelations->getLab()->getLabId(), $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          }; 

@@ -162,9 +162,9 @@ function PutLabs($lab_id, $special_name, $positioning, $comments, $operational_r
                 throw new Exception(ExceptionMessages::InvalidLabEllakType." : ".$ellak, ExceptionCodes::InvalidLabEllakType); 
         }
 
-//user permisions===============================================================
-        
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+//user permisions===============================================================       
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($Lab->getLabId(),$permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          }; 

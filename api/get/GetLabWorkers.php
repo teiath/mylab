@@ -135,7 +135,7 @@ function GetLabWorkers( $lab_worker_id, $worker_status, $worker_start_service,
     try {
 
 //set user permissions==========================================================
-    $permissions = UserRoles::getUserPermissions($app->request->user);
+    $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
 
     if (Validator::IsNull($permissions['permit_labs'])){
         throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     

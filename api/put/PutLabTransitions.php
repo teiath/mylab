@@ -122,7 +122,7 @@ function PutLabTransitions($lab_transition_id, $transition_justification, $trans
         } 
         
     //user permisions===========================================================
-        $permissions = UserRoles::getUserPermissions($app->request->user);
+        $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
                 
         if (!in_array($LabTransition->getLab()->getLabId(), $permissions['permit_labs'])) {
             throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 

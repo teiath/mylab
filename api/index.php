@@ -357,8 +357,8 @@ function UserRolesPermission(){
 
     try {
 
-        $check = UserRoles::checkUserRolePermissions($controller,$method,$app->request->user);
-  
+        $check = CheckUserRole::checkUserRolePermissions($controller,$method,$app->request->user);
+        
         if ($check!=true){
                     throw new Exception(ExceptionMessages::UnauthorizedController, ExceptionCodes::UnauthorizedController);
         }
@@ -367,8 +367,8 @@ function UserRolesPermission(){
     catch (Exception $e)
     {
         $result["user"] =  $app->request->user['uid'];
-        //$result["user_all"] = $app->request->user;       
-        $result["user_role"] = UserRoles::getRole($app->request->user);
+        //$result["user_all"] = $app->request->user;     
+        //$result["user_role"] = CheckUserRole::getRole($app->request->user);
         $result["status"] = $e->getCode();
         $result["message"] = "[".$method."][".$controller."]:".$e->getMessage();
 

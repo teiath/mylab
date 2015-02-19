@@ -122,7 +122,7 @@ function GetLabAquisitionSources( $lab_aquisition_source_id, $aquisition_year,
     try {
 
 //set user permissions==========================================================
-    $permissions = UserRoles::getUserPermissions($app->request->user);
+    $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
 
     if (Validator::IsNull($permissions['permit_labs'])){
         throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     

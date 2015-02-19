@@ -473,7 +473,7 @@ function StatisticLabWorkers (  $lab_worker_id, $worker_status, $worker_start_se
             }
             
             //set user permissions
-           $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
+           $permissions = CheckUserPermissions::getUserPermissions($app->request->user, true, true);
 
            if (Validator::IsNull($permissions['permit_labs'])){
                $permit_labs = null;

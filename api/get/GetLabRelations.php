@@ -131,8 +131,8 @@ function GetLabRelations( $lab_relation_id,
     try {
 
 //set user permissions==========================================================
-    $permissions = UserRoles::getUserPermissions($app->request->user);
-
+    $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+    
     if (Validator::IsNull($permissions['permit_labs'])){
         throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     
     }else { 

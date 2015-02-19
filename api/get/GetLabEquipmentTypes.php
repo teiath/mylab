@@ -120,7 +120,7 @@ function GetLabEquipmentTypes( $lab_id, $lab_name, $equipment_type_id, $equipmen
     try {  
     
 //set user permissions==========================================================
-    $permissions = UserRoles::getUserPermissions($app->request->user);
+    $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
 
     if (Validator::IsNull($permissions['permit_labs'])){
         throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     

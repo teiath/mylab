@@ -518,7 +518,7 @@ function StatisticLabs ($lab_id, $lab_name, $lab_special_name, $creation_date, $
             }
             
             //set user permissions
-           $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
+           $permissions = CheckUserPermissions::getUserPermissions($app->request->user, true, true);
 
            if (Validator::IsNull($permissions['permit_labs'])){
                $permit_labs = null;

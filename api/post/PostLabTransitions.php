@@ -143,7 +143,7 @@ function PostLabTransitions($lab_id, $state, $transition_date, $transition_justi
             throw new Exception(ExceptionMessages::InvalidLabTransitionSourceType." : ".$transition_source, ExceptionCodes::InvalidLabTransitionSourceType);
 
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
    
          if ( ($app->request->user['ou'][0] == 'ΤΕΙ ΑΘΗΝΑΣ') && ($app->request->user['uid'][0] ==  $Options['Server_MyLab_username'])){
                 $whatisthat = 'used for syncing with mmsch.Only admin can sync lab_transitions';

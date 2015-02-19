@@ -120,7 +120,8 @@ function PutLabRelations($lab_relation_id, $circuit_id) {
             }
                 
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($LabRelation->getLab()->getLabId(), $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          }; 
