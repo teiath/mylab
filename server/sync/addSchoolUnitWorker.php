@@ -59,8 +59,15 @@ function addSchoolUnitWorker($school_unit_worker_id, $school_unit_id, $worker_id
                                                                                                       'workerPosition' => $schoolUnitWorkerEntity->getWorkerPosition()));
 
                 if ((count($checkDuplicate) > 1) || (count($checkDuplicate)==1 && ($schoolUnitWorkerEntity->getSchoolUnitWorkerId() != $checkDuplicate->getSchoolUnitWorkerId()))){
-                   $error_messages["errors"][] = ExceptionMessages::DuplicateSyncSchoolUnitWorkerValue. ':' . $schoolUnitWorkerEntity->getSchoolUnitWorkerId() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncSchoolUnitWorkerValue;                 
-
+                 
+                       #remove previous unit worker at the same school unit
+                       $checkPosition = $checkDuplicate->getWorkerPosition()->getWorkerPositionId();
+                       if ($checkPosition != 1) { 
+                            $error_messages["errors"][] = ExceptionMessages::DuplicateSyncSchoolUnitWorkerValue. ':' . $schoolUnitWorkerEntity->getSchoolUnitWorkerId() .ExceptionMessages::SyncExceptionCodePreMessage.ExceptionCodes::DuplicateSyncSchoolUnitWorkerValue;                 
+                       } else {
+                            $entityManager->remove($checkDuplicate);
+                            $entityManager->flush($checkDuplicate);
+                       }
                 }
  
                 //==================================================================================  
