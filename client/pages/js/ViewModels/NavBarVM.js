@@ -81,15 +81,9 @@ var NavBarVM = kendo.observable({
 //    },
 */
 
-    exportUserGuideSepehy: function(e){
+    exportUserGuideYpeuthinosDiataksis: function(e){
         e.preventDefault();
         var url = "http://myfiles.sch.gr/server/get/d32f5630517cb4c9b914e42a9786b2f8b";
-        window.open(url);
-    },
-
-    exportUserGuideEtp: function(e){
-        e.preventDefault();
-        var url = "http://myfiles.sch.gr/server/get/d32f5630517cb4c9b914e42a9786b2f8b"; //ίδιο link με ΣΕΠΕΗΥ
         window.open(url);
     },
 

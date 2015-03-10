@@ -60,8 +60,7 @@
     //console.log("authorized_user [navigation_bar]: ", authorized_user);
     
     var psd_user_guides_snippet = '<li role="presentation" class="dropdown-header">Εγχειρίδια Χρήσης</li>\
-                                   <li><a id="user_guide_sepehy" data-bind="events: {click : exportUserGuideSepehy}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Υπεύθυνος Διαταξης Η/Υ (ΣΕΠΕΗΥ)</a></li>\
-                                   <li><a id="user_guide_etp" data-bind="events: {click : exportUserGuideSepehy}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Υπεύθυνος Διαταξης Η/Υ (ΕΚ)</a></li>\
+                                   <li><a id="user_guide_ypeuthinos_diataksis" data-bind="events: {click : exportUserGuideYpeuthinosDiataksis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Υπεύθυνος Διαταξης Η/Υ </a></li>\
                                    <li><a id="user_guide_dieythuntis" data-bind="events: {click : exportUserGuideDieuthyntis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Διευθυντής Σχολικής Μονάδας</a></li>\
                                    <li><a id="user_guide_tomearxis" data-bind="events: {click : exportUserGuideTomearxis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Υπεύθυνος Τομέα (ΕΚ)</a></li>\
                                    <li><a id="user_guide_keplinet" data-bind="events: {click : exportUserGuideKeplinet}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης Κεπληνετ</a></li>\
@@ -69,10 +68,8 @@
                                    <li><a id="user_guide_ypaith" data-bind="events: {click : exportUserGuideYpaith}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης ΥΠΑΙΘ</a></li>\
                                    <li class="divider"></li>';
     
-    if(authorized_user === "ΣΕΠΕΗΥ"){
-        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideSepehy}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
-    }else if(authorized_user === "ΕΤΠ"){
-        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideEtp}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
+    if(authorized_user === "ΥΠΕΥΘΥΝΟΣ-ΔΙΑΤΑΞΗΣ"){
+        $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideYpeuthinosDiataksis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
     }else if(authorized_user === "ΔΙΕΥΘΥΝΤΗΣ"){
         $("#user_menu").find("ul li:last-child").before('<li><a id="user_guide" data-bind="events: {click : exportUserGuideDieuthyntis}"><i class="fa fa-book"></i> Εγχειρίδιο Χρήσης</a></li><li class="divider"></li>');
     }else if(authorized_user === "ΤΟΜΕΑΡΧΗΣ"){

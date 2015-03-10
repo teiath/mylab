@@ -61,7 +61,7 @@
                     }
                 });
                 
-                
+
                 /* make a user_permits request in order to get user_role */
                 $.ajax({
                         type: 'GET',
@@ -73,7 +73,7 @@
                                 authorized_user = data.data[0].user_role;
                                 $("#myformId>input#authorized_user").val(authorized_user); //initialize form's hidden field, which holds authorized_user value                             
                                 
-                                if((data.data[0].user_role === "ΣΕΠΕΗΥ" || data.data[0].user_role === "ΕΤΠ") && data.data[0].user_permissions.permit_labs.length === 0 ){
+                                if(authorized_user==="ΥΠΕΥΘΥΝΟΣ-ΔΙΑΤΑΞΗΣ" && data.data[0].user_permissions.permit_labs.length === 0 ){
                                     $("#mylab_authentication_message_pane").text("Δεν υπάρχουν Διατάξεις Η/Υ μέσα στην Υπηρεσία myLab στις οποίες να \
                                                                                 έχετε οριστεί ως Υπεύθυνος. Ως εκ τούτου, η πρόσβαση στην Υπηρεσία \
                                                                                 δεν ειναι προς το παρόν εφικτή. Παρακαλώ επικοινωνείστε με τον αρμόδιο \
