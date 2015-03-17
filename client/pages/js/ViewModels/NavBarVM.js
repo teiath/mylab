@@ -119,7 +119,7 @@ var NavBarVM = kendo.observable({
 
     exportUserGuideYpaith: function(e){
         e.preventDefault();
-        var url = "";
+        var url = "http://myfiles.sch.gr/server/get/d0a8edca5660549eca28fa5331a48ecc8";
         window.open(url);
     }
     
