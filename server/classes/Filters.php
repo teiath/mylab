@@ -185,6 +185,24 @@ class Filters {
         return $school_unit_id; 
      }
      
+    /**
+     * Check if school_unit mm_id from ldap attribute is contained to mylab db 
+     * 
+     * @param int $mm_id The mm ID
+     * @return boolean  Return true if found or false if not
+     */  
+     public static function checkSchoolUnits($mm_id){
+        global $db;
+        
+        $sql = "SELECT school_units.school_unit_id
+                FROM school_units
+                WHERE school_units.school_unit_id='".$mm_id."'";
+        $stmt = $db->query( $sql );
+        $school_unit_id = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+        return $school_unit_id; 
+     }
+     
  //==============================================================================
      
      

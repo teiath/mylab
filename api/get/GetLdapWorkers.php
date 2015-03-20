@@ -91,10 +91,10 @@ function GetLdapWorkers( $uid ) {
     try {
  
 //user permissions==============================================================
-//not required (all users with title 'ΔΙΕΥΘΥΝΤΗΣ' or 'ΤΟΜΕΑΡΧΗΣ' have permissions to GetLdapWorkers)
+       $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
         
 //$uid==========================================================================
-      $fUid = CRUDUtils::checkNameParam('uid', $params, $uid, 'LdapWorkerUid');
+       $fUid = CRUDUtils::checkNameParam('uid', $params, $uid, 'LdapWorkerUid');
         
 //ldap connection===============================================================
         $ldap = new \Zend\Ldap\Ldap($ldapOptions);
@@ -117,16 +117,21 @@ function GetLdapWorkers( $uid ) {
 //controls======================================================================
        
        $rows = iterator_to_array($lresult);
-
-       //check if user has the right position at ldap title attribute
-       $haystack = array ('ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΠΡΩΤΟΒΑΘΜΙΑΣ',
-                          'ΥΠΕΥΘΥΝΟΣ ΕΡΓΑΣΤΗΡΙΟΥ ΠΛΗΡΟΦΟΡΙΚΗΣ ΕΚ',
-                          'ΥΠΕΥΘΥΝΟΣ ΣΧΟΛΙΚΟΥ ΕΡΓΑΣΤΗΡΙΟΥ ΣΕΠΕΗΥ');
-       $target = $rows[0]['title'];
+         
+    //check if user has lab_responsible gsnuserroleon attribute
+    if (Validator::IsNull($rows[0]["gsnuserroleon;itlab-responsible"])) {
+       throw new Exception(ExceptionMessages::WorkerNotLabResponsibleRole, ExceptionCodes::WorkerNotLabResponsibleRole);
+    } else {
+       $data = CheckUserRole::checkItLabResponsibleRole($rows[0]["gsnuserroleon;itlab-responsible"]);
        
-        if(count(array_intersect($haystack, $target)) == 0){
-            throw new Exception(ExceptionMessages::NotAcceptedLdapWorkerPosition, ExceptionCodes::NotAcceptedLdapWorkerPosition);
-        }
+       //check if user contain in the unit user list
+       $haystack = $data['mm_id'];
+       $target = array($permissions['permit_school_units']);
+       
+       if(count(array_intersect($haystack, $target)) == 0){
+            throw new Exception(ExceptionMessages::WorkerNotUnitDeclaration, ExceptionCodes::WorkerNotUnitDeclaration);
+        }    
+    } 
  
  //data_results=================================================================     
         foreach ($rows as $item) {

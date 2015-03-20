@@ -107,7 +107,8 @@ function PostLabEquipmentTypes($lab_id, $equipment_type, $items) {
             throw new Exception(ExceptionMessages::InvalidLabEquipmentTypeItemsType." : ".$items, ExceptionCodes::InvalidLabEquipmentTypeItemsType);
 
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($LabEquipmentTypes->getLab()->getLabId(), $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPostLab, ExceptionCodes::NoPermissionToPostLab); 
          };  

@@ -128,7 +128,7 @@ function GetLabTransitions( $lab_transition_id, $transition_date, $transition_so
     try {
 
 //set user permissions==========================================================
-    $permissions = UserRoles::getUserPermissions($app->request->user);
+    $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
 
     if (Validator::IsNull($permissions['permit_labs'])){
         throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     

@@ -537,8 +537,8 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
 //Registered Labs and User permissions==========================================
 //
         //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
-            if ( Validator::Missing('submitted', $params) ){            
-                $user_role= UserRoles::getRole($app->request->user);
+            if ( Validator::Missing('submitted', $params) ){                        
+                $user_role= CheckUserRole::getRole($app->request->user)['max_role'];
                 if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
                     $filter[] = '(labs.submitted = 1 OR labs.submitted = 0)';
                 } else {
@@ -547,7 +547,7 @@ function SearchLabWorkers ( $lab_worker_id, $worker_status, $worker_start_servic
             }
             
         //set user permissions
-       $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
+       $permissions = CheckUserPermissions::getUserPermissions($app->request->user, true, true);
        
        if (Validator::IsNull($permissions['permit_labs'])){
            $permit_labs = null;

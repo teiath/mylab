@@ -84,7 +84,8 @@ function DelLabTransitions($lab_id, $lab_transition_id) {
         $fLabTransitionID = CRUDUtils::checkIDParam('lab_transition_id', $params, $lab_transition_id, 'LabTransitionID');
              
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($fLabID, $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
          };  

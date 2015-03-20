@@ -36,11 +36,7 @@
                 views = [view_1, view_2, view_3, view_4, view_5];
                 bootstrap_class = "col-md-2 changeColMd2Width";
                 break;
-            case  'ΣΕΠΕΗΥ' :
-                views = [view_1, view_2, view_5];
-                bootstrap_class = "col-md-4";
-                break;
-            case  'ΕΤΠ' :
+            case  'ΥΠΕΥΘΥΝΟΣ-ΔΙΑΤΑΞΗΣ' :
                 views = [view_1, view_2, view_5];
                 bootstrap_class = "col-md-4";
                 break;

@@ -82,7 +82,8 @@ function DelLabAquisitionSources($lab_id, $lab_aquisition_source_id) {
         $fLabAquisitionSourceID = CRUDUtils::checkIDParam('lab_aquisition_source_id', $params, $lab_aquisition_source_id, 'LabAquisitionSourceID');
 
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($fLabID, $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
          }; 

@@ -199,8 +199,8 @@ function PostLabs(  $special_name, $positioning, $comments, $operational_rating,
         CRUDUtils::entitySetAssociation($Lab, $lab_source, 'LabSources', 'labSource', 'LabSource', $params, 'lab_source');
 
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user, TRUE);
-               
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user, true);
+         
          if (!is_array($permissions["permit_school_units"])) {  
             $permissions["permit_school_units"] = array($permissions["permit_school_units"]);                     
          };
