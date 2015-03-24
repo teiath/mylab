@@ -510,6 +510,7 @@ var LabsViewVM = kendo.observable({
                                 };
                                 
                             }else{
+                                ldapNoMatchDiv.html(data.message.substring(data.message.indexOf(":") + 1));
                                 ldapDetailsDiv.closest(".form-group").hide();
                                 ldapNoMatchDiv.closest(".form-group").show();
                             }
