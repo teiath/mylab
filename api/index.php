@@ -141,9 +141,9 @@ require_once('libs/Slim/Slim.php');
 
 <hr>
 ",
-* contact = "ktsiolis@teiath.gr",
-* license = "Apache 2.0",
-* licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.html",
+* contact = "dbsch@teiath.gr",
+* license = "European Union Public License, version 1.1 (EUPL-1.1)",
+* licenseUrl = "https://joinup.ec.europa.eu/software/page/eupl",
 * termsOfServiceUrl= "https://www.mylab.sch.gr/licence"
 * )
 * 
