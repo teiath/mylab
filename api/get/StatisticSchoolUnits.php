@@ -515,7 +515,7 @@ function StatisticSchoolUnits ( $school_unit_id, $school_unit_name, $school_unit
             }
             
             //set user permissions
-           $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
+           $permissions = CheckUserPermissions::getUserPermissions($app->request->user, true, true);
 
            if (Validator::IsNull($permissions['permit_labs'])){
                $permit_labs = null;

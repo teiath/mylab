@@ -141,9 +141,9 @@ require_once('libs/Slim/Slim.php');
 
 <hr>
 ",
-* contact = "ktsiolis@teiath.gr",
-* license = "Apache 2.0",
-* licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0.html",
+* contact = "dbsch@teiath.gr",
+* license = "European Union Public License, version 1.1 (EUPL-1.1)",
+* licenseUrl = "https://joinup.ec.europa.eu/software/page/eupl",
 * termsOfServiceUrl= "https://www.mylab.sch.gr/licence"
 * )
 * 
@@ -357,8 +357,8 @@ function UserRolesPermission(){
 
     try {
 
-        $check = UserRoles::checkUserRolePermissions($controller,$method,$app->request->user);
-  
+        $check = CheckUserRole::checkUserRolePermissions($controller,$method,$app->request->user);
+        
         if ($check!=true){
                     throw new Exception(ExceptionMessages::UnauthorizedController, ExceptionCodes::UnauthorizedController);
         }
@@ -367,8 +367,8 @@ function UserRolesPermission(){
     catch (Exception $e)
     {
         $result["user"] =  $app->request->user['uid'];
-        //$result["user_all"] = $app->request->user;       
-        $result["user_role"] = UserRoles::getRole($app->request->user);
+        //$result["user_all"] = $app->request->user;     
+        //$result["user_role"] = CheckUserRole::getRole($app->request->user);
         $result["status"] = $e->getCode();
         $result["message"] = "[".$method."][".$controller."]:".$e->getMessage();
 

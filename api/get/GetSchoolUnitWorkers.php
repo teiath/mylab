@@ -128,7 +128,7 @@ function GetSchoolUnitWorkers( $school_unit_worker_id, $school_unit_id, $school_
     try {
 
 //set user permissions==========================================================
-    $permissions = UserRoles::getUserPermissions($app->request->user);
+    $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
 
     if (Validator::IsNull($permissions['permit_school_units'])){
         throw new Exception(ExceptionMessages::NoPermissionsError, ExceptionCodes::NoPermissionsError);     

@@ -76,7 +76,8 @@ function DelInitialLabs($lab_id) {
         $fLabID = CRUDUtils::checkIDParam('lab_id', $params, $lab_id, 'LabID');
             
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+
          if (!in_array($fLabID, $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
          };  

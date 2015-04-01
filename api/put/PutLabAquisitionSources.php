@@ -139,7 +139,8 @@ function PutLabAquisitionSources($lab_aquisition_source_id, $lab_id, $aquisition
         CRUDUtils::entitySetParam($LabAquisitionSources, $aquisition_comments, 'LabAquisitionSourceComments', 'aquisition_comments', $params, false, true );
 
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($LabAquisitionSources->getLab()->getLabId(), $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          }; 

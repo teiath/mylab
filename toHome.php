@@ -61,7 +61,7 @@
                     }
                 });
                 
-                
+
                 /* make a user_permits request in order to get user_role */
                 $.ajax({
                         type: 'GET',
@@ -73,7 +73,7 @@
                                 authorized_user = data.data[0].user_role;
                                 $("#myformId>input#authorized_user").val(authorized_user); //initialize form's hidden field, which holds authorized_user value                             
                                 
-                                if((data.data[0].user_role === "ΣΕΠΕΗΥ" || data.data[0].user_role === "ΕΤΠ") && data.data[0].user_permissions.permit_labs.length === 0 ){
+                                if(authorized_user==="ΥΠΕΥΘΥΝΟΣ-ΔΙΑΤΑΞΗΣ" && data.data[0].user_permissions.permit_labs.length === 0 ){
                                     $("#mylab_authentication_message_pane").text("Δεν υπάρχουν Διατάξεις Η/Υ μέσα στην Υπηρεσία myLab στις οποίες να \
                                                                                 έχετε οριστεί ως Υπεύθυνος. Ως εκ τούτου, η πρόσβαση στην Υπηρεσία \
                                                                                 δεν ειναι προς το παρόν εφικτή. Παρακαλώ επικοινωνείστε με τον αρμόδιο \
@@ -87,10 +87,35 @@
                                 }
                                 
                             }else if(data.status === 601){
-                                $("#mylab_authentication_message_pane").text("Η Υπηρεσιακή σας Ιδιότητα δεν ικανοποιεί τα κριτήρια εισόδου \
-                                                                            στην Υπηρεσία myLab. Αν θεωρείτε ότι αυτό ειναι λάθος, παρακαλώ \
-                                                                            ελέγξτε αν η Υπηρεσιακή Ιδιότητα στο προφίλ σας στο www.sch.gr ειναι \
-                                                                            ενημερωμένη.");                                                              
+                                $("#mylab_authentication_message_pane").text(error_601); //ok - όταν ο χρήστης δεν ανήκει σε κάποια από τις ομάδες χρηστών της Υπηρεσίας MyLab                                                   
+                            }else if(data.status === 611){
+                                $("#mylab_authentication_message_pane").text(error_611);                                                              
+                            }else if(data.status === 620){
+                                $("#mylab_authentication_message_pane").text(error_620);                                                              
+                            }else if(data.status === 621){
+                                $("#mylab_authentication_message_pane").text(error_621);                                                              
+                            }else if(data.status === 622){
+                                $("#mylab_authentication_message_pane").text(error_622);                                                              
+                            }else if(data.status === 623){ /*ok - όταν ο ρόλος χρήστη που ανήκει σε κάποια από τις ομάδες χρηστών έχει αντιστοιχιστεί με σχολική μονάδα του LDAP η οποία ΔΕΝ έχει κωδικό ΜΜ (GsnRegistryCode)*/
+                                $("#mylab_authentication_message_pane").text(error_623);                                                      
+                            }else if(data.status === 624){
+                                $("#mylab_authentication_message_pane").text(error_624);                                                              
+                            }else if(data.status === 625){
+                                $("#mylab_authentication_message_pane").text(error_625);
+                            }else if(data.status === 626){/*ok - ίδιο με 623 μόνο που αφορά σε τμήματα του ΥΠΕΠΘ -χρήστες ΥΠΕΠΘ- και όχι σε σχολικές μονάδες*/
+                                $("#mylab_authentication_message_pane").text(error_626);                                                              
+                            }else if(data.status === 627){
+                                $("#mylab_authentication_message_pane").text(error_627);                                                              
+                            }else if(data.status === 629){
+                                $("#mylab_authentication_message_pane").text(error_629);                                                              
+                            }else if(data.status === 630){
+                                $("#mylab_authentication_message_pane").text(error_630);                                                              
+                            }else if(data.status === 631){
+                                $("#mylab_authentication_message_pane").text(error_631);                                                              
+                            }else if(data.status === 632){
+                                $("#mylab_authentication_message_pane").text(error_632);                                                              
+                            }else{
+                                $("#mylab_authentication_message_pane").text(error_other);
                             }
                             
                             $('#connection_info').slideDown("slow");
@@ -119,7 +144,7 @@
         <style>
             .btn-sso{
                 color:#5E5E5E;
-                padding:10px;
+                padding:6px 6px 6px 16px;
                 font-size:14px;
                 border-radius:3px;
             }

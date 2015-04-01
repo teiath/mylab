@@ -181,8 +181,8 @@ function PutInitialLabs($lab_id, $submitted, $transition_date, $transition_justi
             throw new Exception(ExceptionMessages::InvalidLabTransitionSourceType." : ".$transition_source, ExceptionCodes::InvalidLabTransitionSourceType);
 
 //user permisions===============================================================
-        
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($Lab->getLabId(),$permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToPutLab, ExceptionCodes::NoPermissionToPutLab); 
          }; 

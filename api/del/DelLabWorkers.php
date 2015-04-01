@@ -85,7 +85,8 @@ function DelLabWorkers($lab_id, $lab_worker_id) {
         $fLabWorkerID = CRUDUtils::checkIDParam('lab_worker_id', $params, $lab_worker_id, 'LabWorkerID');
              
 //user permisions===============================================================
-         $permissions = UserRoles::getUserPermissions($app->request->user);
+         $permissions = CheckUserPermissions::getUserPermissions($app->request->user);
+         
          if (!in_array($fLabID, $permissions['permit_labs'])) {
              throw new Exception(ExceptionMessages::NoPermissionToDeleteLab, ExceptionCodes::NoPermissionToDeleteLab); 
          };  

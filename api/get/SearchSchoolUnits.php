@@ -674,7 +674,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
         
         //set registered labs only available for ΔΙΕΥΘΥΝΤΗΣ/ΔΙΕΥΘΥΝΤΗΣ
             if ( Validator::Missing('submitted', $params) ){            
-                $user_role= UserRoles::getRole($app->request->user);
+                $user_role= CheckUserRole::getRole($app->request->user)['max_role'];
                 if ( $user_role == 'ΔΙΕΥΘΥΝΤΗΣ' ||  $user_role == 'ΤΟΜΕΑΡΧΗΣ' ){
                     $filter[] = $filter_labs[] = '(labs.submitted = 1 OR labs.submitted = 0)';
                 } else {
@@ -683,7 +683,7 @@ function SearchSchoolUnits ($school_unit_id, $school_unit_name, $school_unit_spe
             }
            
        //set user permissions
-       $permissions = UserRoles::getUserPermissions($app->request->user, true, true);
+       $permissions = CheckUserPermissions::getUserPermissions($app->request->user, true, true);
        
        if (Validator::IsNull($permissions['permit_labs'])){
            $permit_labs = null;

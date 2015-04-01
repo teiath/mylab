@@ -319,7 +319,9 @@ class ExceptionMessages
     
     const MultipleLdapWorkerUidValue = 'Ενημερώστε τον διαχειριστή! Το UID του Εργαζομένου βρέθηκε περισσότερες από μια φορές!!';
     const NotAcceptedLdapWorkerPosition = 'Ο χρήστης δεν έχει την ιδιότητα υπεύθυνος εργαστηρίου στο ldap title ';
-    
+    const WorkerNotLabResponsibleRole = 'Ο χρήστης δεν έχει τον ρόλο υπεύθυνος εργαστηρίου';
+    const WorkerNotUnitDeclaration = 'Ο χρήστης δεν έχει δηλώσει το σχολείο ως επιπλέον μονάδα υπηρεσίας και δεν έχει ρόλο Υπευθυνος Διάταξης στην ίδια μονάδα';
+        
 //Labs
         
     const MissingLabIDParam = 'Ο Κωδικός του Εργαστηρίου είναι υποχρεωτικό πεδίο';
@@ -1089,7 +1091,6 @@ class ExceptionMessages
     const NotFoundFullSchoolUnitDnsName = 'Δεν βρέθηκε σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const DuplicateFullSchoolUnitDnsName = 'Βρέθηκαν παραπάνω από μία σχολική μονάδα που να συνδέεται με τον ldap λογαριασμό του χρήστη.';
     const MissingLdapLAttribute = 'Δεν βρέθηκε to "l" attribute στον ldap λογαριασμό του χρήστη.';
-    const MissingLdapEmployeeNumberAttribute = 'Δεν βρέθηκε to "employeeNumber" attribute στον ldap λογαριασμό του χρήστη.';
     const MissingGsnRegistryCodeAttribute = 'Δεν βρέθηκε to "edupersonorgunitdn:gsnregistrycode" attribute στον ldap λογαριασμό του χρήστη.';
     
     const NoPermissionToPostLab = 'Ο χρήστης δεν έχει δικαίωμα εισαγωγής στο συγκεκριμένο εργαστήριο';
@@ -1101,6 +1102,23 @@ class ExceptionMessages
     const NoPermissionToPutData = 'Ο χρήστης δεν έχει δικαίωμα ενημερωσης δεδομένων στο λεξικό';
     const NoPermissionToDeleteData = 'Ο χρήστης δεν έχει δικαίωμα διαγραφής δεδομένων στο λεξικό';    
     const NoPermissionToGetData = 'Ο χρήστης δεν έχει δικαίωμα αναζήτησης δεδομένων στο λεξικό';
+    
+    //new authentication roles
+    const UserIsMemberOfDuplicate = 'Ο εκπαιδευτικός δεν μπορεί να ανήκει ταυτόχρονα και στα 2 group(plinet,keplinet).';
+    const UserMultiplePrincipal = 'Ο εκπαιδευτικός δεν μπορεί να είναι Διευθυντής σε περισσότερες από μία μονάδες.';
+    const UserMultipleItSectorResponsible = 'Ο εκπαιδευτικός δεν μπορεί να είναι Υπέυθυνος Τομέα Πληροφορικής ΕΚ σε περισσότερες από μονάδες.';
+    const DnNotFound = 'Δεν βρέθηκε το dn της μονάδας στον LDAP';
+    const GsnRegistryCodeNotFound = 'Η Μονάδα στο LDAP,δεν έχει τιμή στο attribute gsnRegistryCode';
+    const GsnRegistryCodeMultiple = 'Η Μονάδα στο LDAP,δεν έχει πολλαπλές τιμές στο attribute gsnRegistryCode';
+    const UnitNameNotFound = 'Η Μονάδα στο LDAP,δεν έχει τιμή στο attribute description';
+    const UnitNameMultiple = 'Η Μονάδα στο LDAP,δεν έχει πολλαπλές τιμές στο attribute description';  
+    
+    const UserRoleHasNoPermissions = 'Ο χρήστης δεν έχει δικαιώματα πρόσβασης στο api function.';
+    const MissingEduAdminLAttribute = 'Δεν βρέθηκε to "edu_admin" attribute στον ldap λογαριασμό του χρήστη.';
+    const MissingLdapEmployeeNumberAttribute = 'Δεν βρέθηκε to "employeeNumber" attribute στον ldap λογαριασμό του χρήστη.';
+    const MissingMmIdAttribute = 'Δεν βρέθηκε to "mm_id" attribute στον ldap λογαριασμό του χρήστη.';
+    const MissingMmIdFromMylabDb = 'Δεν βρέθηκε η μονάδα(mm_id) στην βάση δεδομένων του mylab.';
+    const InconsistencyLdapMylabMMIds = 'Υπάρχουν Διατάξεις Η/Υ με Ενεργό Υπεύθυνο Εκπαιδευτικό στην Β.Δ. του mylab, αλλά όχι στο ldap attribute "gsnuserroleon"';
     
     //reports
     const ErrorEduAdminReportKeplhnet = 'Κάθε ΚΕΠΛΗΝΕΤ αντιστοιχίζεται υποχρεωτικά με μια Διεύθυνση Δ.Ε. και μια Διεύθυνση Δ.Ε. ίδιας πόλης.'; 

@@ -99,15 +99,14 @@ function GetUserPermits() {
 
         //set user role and permissions=========================================
        $user = $app->request->user;
-       $role = UserRoles::getRole($user);
-       $permissions = UserRoles::getUserPermissions($user, true);
-       $role_ldap = UserRoles::getLdapRoleRanking($user);
-
-        if ($role == 'ΚΕΠΛΗΝΕΤ'){
+       $role = CheckUserRole::getRole($user); 
+       $permissions = CheckUserPermissions::getUserPermissions($user, true);
+       $role_ldap = CheckUserRole::getLdapRoleRanking($user);
+       
+        if ($role['max_role'] == 'ΚΕΠΛΗΝΕΤ'){
                
-            $dns = explode(',', $user['l'][0]);
-            $edu_admin_code = explode('=', $dns[1]);
-            
+            $edu_admin_code = explode('=', $role['edu_admin']);
+             
             $edu_admins  = Reports::getKeplhnetfromEduAdminCode(Validator::ToValue($edu_admin_code[1]));
             if ( ($edu_admins->counter != 2) || (!Validator::IsNumeric($edu_admins->secondary)) || (!Validator::IsNumeric($edu_admins->primary)) ) {
                 throw new Exception(ExceptionMessages::ErrorEduAdminReportKeplhnet, ExceptionCodes::ErrorEduAdminReportKeplhnet);
@@ -128,7 +127,7 @@ function GetUserPermits() {
                                 "email" => $info_keplhnet['data'][0]['email']
                             );
 
-        $result["data"][] = array(  "user_role" => $role,
+        $result["data"][] = array(  "user_role" => $role['max_role'],
                                     "user_permissions" => $permissions,
                                     "user_infos" => $user_infos
                                  );
