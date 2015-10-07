@@ -353,7 +353,7 @@ if (Validator::Exists('school_unit', $params)){
                                         "postal_code"               => $schoolunit->getPostalCode(),
                                         "unit_dns"                  => $schoolunit->getUnitDns(),
                                         "region_edu_admin_id"       => Validator::IsNull($schoolunit->getRegionEduAdmin()) ? Validator::ToNull() : $schoolunit->getRegionEduAdmin()->getRegionEduAdminId(),
-                                        "region_edu_admin_name"     => Validator::IsNull($schoolunit->getRegionEduAdmin()) ? Validator::ToNull() : $schoolunit->getRegionEduAdmin()->getRegionEduAdminId(),
+                                        "region_edu_admin_name"     => Validator::IsNull($schoolunit->getRegionEduAdmin()) ? Validator::ToNull() : $schoolunit->getRegionEduAdmin()->getName(),
                                         "edu_admin_id"              => Validator::IsNull($schoolunit->getEduAdmin()) ? Validator::ToNull() : $schoolunit->getEduAdmin()->getEduAdminId(),
                                         "edu_admin_name"            => Validator::IsNull($schoolunit->getEduAdmin()) ? Validator::ToNull() : $schoolunit->getEduAdmin()->getName(),
                                         "transfer_area_id"          => Validator::IsNull($schoolunit->getTransferArea()) ? Validator::ToNull() : $schoolunit->getTransferArea()->getTransferAreaId(),

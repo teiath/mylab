@@ -161,6 +161,20 @@ class Labs
     private $equipmentType;
 
     /**
+     * @var integer
+     * 
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $mmSyncId;
+
+    /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $mmSyncLastUpdateDate;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -314,5 +328,20 @@ class Labs
         $this->equipmentType = $equipmentType;
     }
 
+    public function getMmSyncId() {
+        return $this->mmSyncId;
+    }
+
+    public function setMmSyncId($mmSyncId) {
+        $this->mmSyncId = $mmSyncId;
+    }
+
+    public function getMmSyncLastUpdateDate() {
+        return $this->mmSyncLastUpdateDate;
+    }
+
+    public function setMmSyncLastUpdateDate(\DateTime $mmSyncLastUpdateDate) {
+        $this->mmSyncLastUpdateDate = $mmSyncLastUpdateDate;
+    }
 
 }

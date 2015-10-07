@@ -3,7 +3,7 @@
 class SYNCUtils {
  
     public static function apiRequest($server, $username, $password, $function, $method, $params){
-        
+
         //make the http request to mmsch with cURL 
         $curl = curl_init($server.$function);
         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -16,6 +16,6 @@ class SYNCUtils {
 
         return $data;
     }
-    
+
 }
 ?>

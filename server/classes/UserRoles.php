@@ -216,6 +216,9 @@ public static $Permissions = array(
     'view_lab_workers'      => array(
                                        'GET' => array('ΚΕΠΛΗΝΕΤ','ΠΣΔ','ΥΠΕΠΘ')
                                         ) ,
+    'crm_data'              => array(
+                                       'GET' => array('ΚΕΠΛΗΝΕΤ','ΔΙΕΥΘΥΝΤΗΣ','ΥΠΕΥΘΥΝΟΣ-ΔΙΑΤΑΞΗΣ','ΠΣΔ','ΥΠΕΠΘ','ΤΟΜΕΑΡΧΗΣ')
+                                        ) ,
     'initial_labs'          => array(
                                         'PUT' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ'),
                                         'DELETE' => array('ΔΙΕΥΘΥΝΤΗΣ','ΤΟΜΕΑΡΧΗΣ')

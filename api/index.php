@@ -229,7 +229,7 @@ $app->map('/statistic_lab_workers', Authentication, UserRolesPermission, Statist
 $app->map('/stat_labs', Authentication, UserRolesPermission, StatLabsController)->via(MethodTypes::GET);
 $app->map('/user_permits', Authentication, UserRolesPermission, UserPermitsController)->via(MethodTypes::GET);
 $app->map('/view_lab_workers', Authentication, UserRolesPermission, ViewLabWorkersController)->via(MethodTypes::GET);
-
+$app->map('/crm_data', Authentication, UserRolesPermission, CrmDataController)->via(MethodTypes::GET);
 
 $app->map('/initial_labs', Authentication, UserRolesPermission, InitialLabsController)->via(MethodTypes::PUT,MethodTypes::DELETE);
 
@@ -1965,6 +1965,23 @@ function ViewLabWorkersController()
     PrepareResponse();
     $app->response()->setBody( toGreek( json_encode( $result ) ) );
     
+}
+
+function CrmDataController() {
+    global $app;
+    $params = loadParameters();
+    
+    switch ( strtoupper( $app->request()->getMethod() ) )
+    {
+        case MethodTypes::GET :
+            $result = GetCrmData(
+                $params["school_unit_id"]
+            );
+            break;
+    }
+
+    PrepareResponse();
+    $app->response()->setBody( toGreek( json_encode( $result ) ) );
 }
 
 function InitialLabsController()
