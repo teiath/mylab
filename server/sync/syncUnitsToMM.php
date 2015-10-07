@@ -1,4 +1,12 @@
 <?php
+/**
+ *
+ * @version 2.0
+ * @author  ΤΕΙ Αθήνας
+ * @package SYNC
+ * 
+ */
+
     header("Content-Type: text/html; charset=utf-8");
     
     chdir("../");
@@ -10,8 +18,14 @@
     //set allowed unit types to sync with mm
     //'1'=ΣΕΠΕΗΥ
     $allowedLabTypes = array ( '1' );
+
     
+    //init and start timer
+    $timer=new Timing;
+    $timer->start();
     
+    try{ 
+    echo $Messages["infos"][] = "Starting Sync Script MyLab-MM\r\n";
     
     //execution=================================================================
     $qb = $entityManager->createQueryBuilder();
@@ -29,35 +43,36 @@
         $result["total"] = count($results);
         
         if ($result["total"]==0) {
-            $Messages["infos"][] = 'Δεν βρέθηκαν μονάδες προς ενημέρωση';
+           echo $Messages["infos"][] = "Δεν βρέθηκαν μονάδες προς ενημέρωση\r\n";
         } else {
             
         foreach($results AS $row) {
-            $Messages["infos"][] = 'Συγχρονισμός Μονάδας με Κωδικό LabId : '. $row->getLabId(). ' και Όνομα : ' .$row->getName()."...\r\n";
-            $unitData = $unitTypeData = $Data = $syncData = $error = null;   
             
+            echo $Messages["infos"][] = 'Συγχρονισμός Μονάδας με Κωδικό LabId : '. $row->getLabId(). ' και Όνομα : ' .$row->getName()."...\r\n";
+            $unitData = $unitTypeData = $Data = $syncData = $error = null;   
+                        
                 //found school_unit properties======================================
-                $school_unit_id = array ("school_unit_id" => $row->getSchoolUnit()->getSchoolUnitId());
+                $school_unit_id = array ("mm_id" => $row->getSchoolUnit()->getSchoolUnitId());
                 if (Validator::IsNull($school_unit_id)) {
                     $Messages["infos"][] ='Δεν βρέθηκε η Μονάδα με Κωδικό ΜΜ '. $school_unit_id['school_unit_id'];
                     $error++;
                 }
 
-                $unitData = SYNCUtils::apiRequest($Options['Server_MyLab'], $Options['Server_MyLab_username'], $Options['Server_MyLab_password'], 'school_units', 'GET', $school_unit_id );
+                $unitData = SYNCUtils::apiRequest($Options['Server_Mm'], $Options['Server_Mm_username'], $Options['Server_Mm_password'], 'units', 'GET', $school_unit_id );
                 if ($unitData['status']=='200' && $unitData['total']=='1') {
                      $Messages["infos"][] = 'Βρέθηκε η Μονάδα με Κωδικό ΜΜ ' . $school_unit_id['school_unit_id'];
-                     $edu_admin = $unitData['data'][0]['edu_admin_name'];
-                     $region_edu_admin = $unitData['data'][0]['region_edu_admin_name'];
-                     $prefecture = $unitData['data'][0]['prefecture_name'];
-                     $transfer_area = $unitData['data'][0]['transfer_area_name'];
-                     $municipality = $unitData['data'][0]['municipality_name'];
-                     $municipality_community = $unitData['data'][0]['municipality_community_name'];
-                     $implementation_entity = $unitData['data'][0]['implementation_entity_name'];//den iparxei!!!
-                     $legal_character = $unitData['data'][0]['legal_character_name'];//den iparxei!!!         
+                     $edu_admin = $unitData['data'][0]['edu_admin'];
+                     $region_edu_admin = $unitData['data'][0]['region_edu_admin'];
+                     $prefecture = $unitData['data'][0]['prefecture'];
+                     $transfer_area = $unitData['data'][0]['transfer_area'];
+                     $municipality = $unitData['data'][0]['municipality'];
+                     $municipality_community = $unitData['data'][0]['municipality_community'];
+                     $implementation_entity = $unitData['data'][0]['implementation_entity'];
+                     $legal_character = $unitData['data'][0]['legal_character'];         
                      $postal_code = $unitData['data'][0]['postal_code'];
                      $street_address = $unitData['data'][0]['street_address'];
-                     $latitude = $unitData['data'][0]['latitude'];//den iparxei!!!
-                     $longitude = $unitData['data'][0]['longitude'];//den iparxei!!!
+                     $latitude = $unitData['data'][0]['latitude'];
+                     $longitude = $unitData['data'][0]['longitude'];
                 }else{
                     $Messages["infos"][] ='Error in units table'.$unitData['message'];
                     $error++;
@@ -126,30 +141,53 @@
                                                     "latitude"                  => $latitude,
                                                     "longitude"                 => $longitude
                                                     ));
-            var_dump($params);
+            //var_dump($params);
                 
                 //make the http request to MMS with cURL
                 if ($error==null) { 
                 $syncData = SYNCUtils::apiRequest($Options['Server_Mmsch'], $Options['Server_Mmsch_username'], $Options['Server_Mmsch_password'], 'units', $method, $params);
                     if($syncData['status'] == 200) {
-                       if($method == 'POST') {
-                           $row->setMmSyncId($syncData['data'][0]['mm_id']);
-                       }          
-                       $row->setMmSyncLastUpdateDate($modifyDateTime->add(new \DateInterval('PT2M')));
+                        //init entity for update row========================================
+
+                        $Lab = CRUDUtils::findIDParam($row->getLabId(), 'Labs', 'Lab'); 
+                            if($method == 'POST') {
+                                $Messages["infos"][] = 'Δημιουργία Νέας Μονάδας στο ΜΜ'; 
+                                $Lab->setMmSyncId($syncData['mm_id']);
+                            }          
+                       $Lab->setMmSyncLastUpdateDate(new \DateTime (date('Y-m-d H:i:s')));
+                       $entityManager->persist($Lab);
+                       $entityManager->flush($Lab);
+                       $entityManager->clear($Lab);
+                       $Messages["infos"][] = 'Η Μονάδα συγχρονίστηκε με Κωδικό ΜΜ '.$row->getMmSyncId(). ' και Όνομα Μονάδας '.$row->getName();
                     } else {
                         $Messages["infos"][] = 'Λάθος στην διαδικασία του συγχρονισμού '.$syncData['message'];
                         $Messages["infos"][] = 'Η Μονάδα δεν συγχρονίστηκε';
-                    }
-                    $Messages["infos"][] = 'Η Μονάδα συγχρονίστηκε με Κωδικό ΜΜ '.$row->getMmSyncId(). ' και Όνομα Μονάδας '.$row->getName();
+                    }               
                 } else {
                     $Messages["infos"][] = 'Λάθη στην προετοιμασία του συγχρονισμού'; 
                 }
+
         }
-                  
-//debug=========================================================================
-        //$result["DQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getDQL()));
-        //$result["SQL"] =  trim(preg_replace('/\s\s+/', ' ', $qb->getQuery()->getSQL()));
   
     }
-        var_dump($Messages);
+    
+    //var_dump($Messages);
+    $timer->stop();
+    $resultTime["time_stats"] = $timer->getFullStats();
+    $print_results = array_merge($Messages,$resultTime);
+
+    $filepath = $Options["SyncLogFolder"];
+    $filename = $timer->getTimeFileName('MylabMM');
+
+    $cachePath = $filepath.$filename;
+    $test = file_put_contents($cachePath,JsonFunctions::toGreek(json_encode($print_results),TRUE));
+
+    $href = $Options["WebSyncFolder"].$filename;
+    echo $timer->printFullStats();
+    echo '</br> Finished Sync MyLab with MM. </br> View results at <a href='.$href.'>MylabMM.json</a>  ' ; 
+    
+} catch (Exception $e) {
+    throw $e;
+}
+
 ?>
