@@ -93,6 +93,13 @@ class LabWorkers
      */
     private $deleteBy;
     
+    /**
+     * @var \DateTime
+     * 
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $mmWorkerSyncLastUpdateDate;
+    
     //getter and setter
 
     public function getLabWorkerId() {
@@ -178,6 +185,14 @@ class LabWorkers
 
     public function setDeleteBy($deleteBy) {
         $this->deleteBy = $deleteBy;
+    }
+
+    public function getMmWorkerSyncLastUpdateDate() {
+        return $this->mmWorkerSyncLastUpdateDate;
+    }
+
+    public function setMmWorkerSyncLastUpdateDate(\DateTime $mmWorkerSyncLastUpdateDate) {
+        $this->mmWorkerSyncLastUpdateDate = $mmWorkerSyncLastUpdateDate;
     }
 
 
