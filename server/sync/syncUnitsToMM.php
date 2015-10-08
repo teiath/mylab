@@ -51,9 +51,9 @@
             echo $Messages["infos"][] = 'Συγχρονισμός Μονάδας με Κωδικό LabId : '. $row->getLabId(). ' και Όνομα : ' .$row->getName()."...\r\n";
             $unitData = $unitTypeData = $Data = $syncData = $error = null;   
                         
-                //found school_unit properties======================================
+                //found school_unit properties==================================
                 $school_unit_id = array ("mm_id" => $row->getSchoolUnit()->getSchoolUnitId());
-                if (Validator::IsNull($school_unit_id)) {
+                if (Validator::IsNull($school_unit_id['school_unit_id'])) {
                     $Messages["infos"][] ='Δεν βρέθηκε η Μονάδα με Κωδικό ΜΜ '. $school_unit_id['school_unit_id'];
                     $error++;
                 }
@@ -78,9 +78,9 @@
                     $error++;
                 }
 
-                //unit_type properties==============================================
+                //unit_type properties==========================================
                 $unit_type_name = array ("unit_type" => $row->getLabType()->getName());
-                if (Validator::IsNull($unit_type_name)){
+                if (Validator::IsNull($unit_type_name['unit_type'])){
                     $Messages["infos"][] ='Δεν βρέθηκε ο Τύπος Μονάδας '. $unit_type_name['unit_type'];
                     $error++;
                 }
@@ -147,7 +147,7 @@
                 if ($error==null) { 
                 $syncData = SYNCUtils::apiRequest($Options['Server_Mmsch'], $Options['Server_Mmsch_username'], $Options['Server_Mmsch_password'], 'units', $method, $params);
                     if($syncData['status'] == 200) {
-                        //init entity for update row========================================
+                        //init entity for update row============================
 
                         $Lab = CRUDUtils::findIDParam($row->getLabId(), 'Labs', 'Lab'); 
                             if($method == 'POST') {
